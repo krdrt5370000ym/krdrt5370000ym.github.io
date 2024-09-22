@@ -1,1 +1,0 @@
-# krdrt5370000ym.github.io
