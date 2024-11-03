@@ -8,7 +8,36 @@
       <link href="https://krdrt5370000ym.github.io/fonts/css/fontconfig.css" rel="stylesheet">
       <title>Krdrt53700000ym | Strona Główna</title>
    </head>
-   <body>
+   <body id='liveh1'>
+      <select id="selecth1FontFamily" name="selectFontFamily" onchange="updateh1family();">
+         <option value="'SUSE', 'Kumbh Sans', 'Montserrat', Calibri, sans-serif"> Brak czcionki </option>
+         <option value="'SUSE', Calibri, sans-serif"> Czcionki normalne 1 </option>
+         <option value="'Kumbh Sans', Calibri, sans-serif"> Czcionki normalne 2 </option>
+         <option value="'Montserrat', Calibri, sans-serif"> Czcionki normalne 3 </option>
+         <option value="'Open Sans', Calibri, sans-serif"> Czcionki normalne 4 </option>
+         <option value="'Roboto', Calibri, sans-serif"> Czcionki normalne 5 </option>
+         <option value="'Poppins', Calibri, sans-serif"> Czcionki normalne 6 </option>
+         <option value="'Roboto Slab', Calibri, sans-serif"> Czcionki normalne 7 </option>
+         <option value="'Lato', Calibri, sans-serif"> Czcionki normalne 8 </option>
+         <option value="'Dosis', Calibri, sans-serif"> Czcionki normalne 9 </option>
+         <option value="'PT Sans', Calibri, sans-serif"> Czcionki normalne 10 </option>
+         <option value="'Fira Sans', Calibri, sans-serif"> Czcionki normalne 11 </option>
+         <option value="'Saira Condensed', Calibri, sans-serif"> Czcionki normalne 12 </option>
+         <option value="'Noto Serif', Calibri, sans-serif"> Czcionki klasyczne 1 </option>
+         <option value="'Press Start 2P', Calibri, sans-serif"> Czcionki retro 1 </option>
+         <option value="'VT323', Calibri, sans-serif"> Czcionki retro 2 </option>
+         <option value="'Playpen Sans', Calibri, sans-serif"> Czcionki dziecięce 1 </option>
+         <option value="'Playwrite GB S', Calibri, sans-serif"> Czcionki dziecięce 2 </option>
+         <option value="'LXGW WenKai Mono TC', Calibri, sans-serif"> Czcionki dziecięce 3 </option>
+      </select>
+      <script>
+         function updateh1family() {
+         var selector = document.getElementById('selecth1FontFamily');
+         var family = selector.options[selector.selectedIndex].value;
+         var h1 = document.getElementById('liveh1')
+         h1.style.fontFamily = family;        
+         }
+      </script><br>
       <h1>Witam! Krdrt53700000ym!</h1>
       <h3><a href="/radio/">Radio</a></h3>
    </body>
