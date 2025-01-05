@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="stylesheet" href="style.css">
+      <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+      <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      #myInput {
+        background-image: url('searchicon.png');
+        background-position: 10px 12px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+      
+      #myUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      #myUL li a {
+        border: 1px solid #ddd;
+        margin-top: -1px; /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block
+      }
+      
+      #myUL li a:hover:not(.header) {
+        background-color: #eee;
+      }
+      
+      .filterDiv {
+        /* float: left;
+        background-color: #2196F3;
+        color: #ffffff;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        margin: 2px; */
+        display: none;
+      }
+      
+      .show {
+        display: block;
+      }
+      </style>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><a href="/radio.html">Radio internetowe</a></button>
+      <hr>
+      <h2>Linki informacyjne</h2>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but1" onclick="myFunctionShow()">Pokaż/ukryj</button>
+      <div id="myBtnContainer">
+         <button class="btn active but but2" onclick="filterSelection('all')"> Wszystkie</button>
+         <button class="btn but but2" onclick="filterSelection('ulubione')"> Ulubione</button>
+         <button class="btn but but2" onclick="filterSelection('social-media')"> Media społecznościowe</button>
+         <button class="btn but but2" onclick="filterSelection('news')"> Wiadomości</button>
+         <button class="btn but but2" onclick="filterSelection('local-news')"> Wiadomości lokalne</button>
+         <button class="btn but but2" onclick="filterSelection('tv-and-radio1')"> Telewizja i radio</button>
+         <button class="btn but but2" onclick="filterSelection('tv-and-radio-forum')"> Forum telewizji i radia</button>
+         <button class="btn but but2" onclick="filterSelection('tv-logo')"> Logo telewizji</button>
+         <button class="btn but but2" onclick="filterSelection('ckis-information')"> Informacje CKiS</button>
+         <button class="btn but but2" onclick="filterSelection('place')"> Miejsce</button>
+         <button class="btn but but2" onclick="filterSelection('social-place')"> Miejsce społecznościowe</button>
+         <button class="btn but but2" onclick="filterSelection('games')"> Gry</button>
+         <button class="btn but but2" onclick="filterSelection('technology-and-games')"> Technologia i gry</button>
+         <button class="btn but but2" onclick="filterSelection('videos')"> Filmki</button>
+         <button class="btn but but2" onclick="filterSelection('gaming-videos')"> Filmki growe</button>
+         <button class="btn but but2" onclick="filterSelection('polish-and-english-language')"> Język polski i angielski</button>
+         <button class="btn but but2" onclick="filterSelection('fun')"> Zabawy</button>
+         <button class="btn but but2" onclick="filterSelection('trips')"> Wycieczki</button>
+         <button class="btn but but2" onclick="filterSelection('weather')"> Pogoda</button>
+         <button class="btn but but2" onclick="filterSelection('maps')"> Mapy</button>
+         <button class="btn but but2" onclick="filterSelection('shopping')"> Zakupy</button>
+         <button class="btn but but2" onclick="filterSelection('cinema')"> Kino</button>
+         <button class="btn but but2" onclick="filterSelection('radio')"> Radio</button>
+         <button class="btn but but2" onclick="filterSelection('playlists')"> Playlisty</button>
+         <button class="btn but but2" onclick="filterSelection('vod1')"> VOD</button>
+         <button class="btn but but2" onclick="filterSelection('vod-premium')"> VOD Premium</button>
+         <button class="btn but but2" onclick="filterSelection('wiki')"> Wiki</button>
+         <button class="btn but but2" onclick="filterSelection('other')"> Inne</button>
+         <button class="btn but but2" onclick="filterSelection('vivaldi')"> Vivaldi</button>
+         <button class="but but2" onclick="sortList()">Sortuj</button>
+      </div>
+      <ul id="myUL">
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://www.facebook.com/">Facebook</a></li>
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://www.instagram.com/">Instagram</a></li>
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://www.tiktok.com/pl-PL/">TikTok</a></li>
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://twitter.com/">X</a></li>
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://mewe.com/">MeWe</a></li>
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://www.snapchat.com/">Snapchat</a></li>
+         <li class="filterDiv social-media" display="krdrt5367/Media społecznościowe"><a href="https://chat.openai.com/">ChatGPT</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.wp.pl/">WP</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.onet.pl/">Onet</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.interia.pl/">Interia</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.gazeta.pl/">Gazeta</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.i.pl/">I PL</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.radiozet.pl/">Radio ZET</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.rmf24.pl/">RMF24</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://tvn24.pl/">TVN24</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.dziennik.pl/">Dziennik pl</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://1.5procent.org/">1.5 Podatku</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.polsatnews.pl/">Polsat News</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://tvrepublika.pl/">TV Republika</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="http://wpolsce.pl/">TV WPolsce24</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://wpolityce.pl/">wPolityce.pl</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.tvp.info/">TVP INFO</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://regiony.tvp.pl/">TVP Regiony</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.tvpworld.com/">TVP World</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://wiesci24.pl/">Wieści24</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.pap.pl/">PAP</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://tvmn.pl/">TVMN</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://tysol.pl/">Tygodnik Solidarność</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://news.google.com/">Wiadomości Google</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://crowdmedia.pl/">CrowdMedia</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://niezalezna.pl/">Niezależna</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://gp24.pl/">GP 24</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.rp.pl/">Rzeczpospolita</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.money.pl/">Money</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.dailymail.co.uk/">Dailymail (ang.)</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.yahoo.com/">Yahoo (ang.)</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.msn.com/pl-pl">MSN PL</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.msn.com/en-us">MSN USA</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.msn.com/en-gb">MSN UK</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.cnn.com/">CNN</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.bbc.com/news">BBC News</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.france24.com/en/">France 24</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.euronews.com/">Euronews</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.theguardian.com/">The Guardian</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.dw.com/pl">DW PL</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.dw.com/en">DW EN</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.dw.com/de">DW DE</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://abcnews.go.com/">ABC News</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.foxnews.com/">Fox News</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.cbsnews.com/">CBS News</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.nbcnews.com/">NBC News</a></li>
+         <li class="filterDiv news" display="krdrt5367/Wiadomości"><a href="https://www.polskieradio.pl/395">Radio Poland</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://www.skierniewice.eu/">I Love SKC</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://eglos.pl/">Głos</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://skierniewice.naszemiasto.pl/">Sk-ce NaszeMiasto</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://tygodnikits.pl/">ITS</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://infoskierniewice.pl/">InfoSkierniewicePL</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://www.lodzkie.pl/">Województwo Łódzkie</a></li>
+         <li class="filterDiv local-news" display="krdrt5367/Wiadomości lokalne"><a href="https://mazovia.pl/">Mazovia</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.press.pl/">Press</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.media2.pl/">Media2</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.wirtualnemedia.pl/">Wirtualne Media</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.radiopolska.pl/">Radio Polska</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.satkurier.pl/">SatKurier</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://portalmedialny.pl/">Portal Medialny</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.omediach.info/">O Mediach</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://medialight.pl/">Medialight</a></li>
+         <li class="filterDiv tv-and-radio1" display="krdrt5367/Telewizja i radio"><a href="https://www.tvpolsat.info/">TVPolsat.info</a></li>
+         <li class="filterDiv tv-and-radio-forum" display="krdrt5367/Forum telewizji i radia"><a href="https://forum.satkurier.pl/">SatKurier</a></li>
+         <li class="filterDiv tv-and-radio-forum" display="krdrt5367/Forum telewizji i radia"><a href="https://forum.radiopolska.pl/">Radiopolska</a></li>
+         <li class="filterDiv tv-and-radio-forum" display="krdrt5367/Forum telewizji i radia"><a href="https://forum.media2.pl/">Media2</a></li>
+         <li class="filterDiv tv-and-radio-forum" display="krdrt5367/Forum telewizji i radia"><a href="https://forum.tvpolsat.info/">Forum TVPolsat.info</a></li>
+         <li class="filterDiv tv-logo" display="krdrt5367/Logo telewizji"><a href="https://logos.fandom.com/">Logopedia</a></li>
+         <li class="filterDiv tv-logo" display="krdrt5367/Logo telewizji"><a href="https://www.avid.wiki/">AVID</a></li>
+         <li class="filterDiv ckis-information" display="krdrt5367/Informacje CKiS"><a href="https://cekis.pl/">CKiS Skierniewice</a></li>
+         <li class="filterDiv ckis-information" display="krdrt5367/Informacje CKiS"><a href="https://kino.cekis.pl/">Kino Polonez</a></li>
+         <li class="filterDiv ckis-information" display="krdrt5367/Informacje CKiS"><a href="https://akademia.cekis.pl/">Akademia Twórczości</a></li>
+         <li class="filterDiv ckis-information" display="krdrt5367/Informacje CKiS"><a href="https://cekis.pl/klub-konstancja/">Klub Konstancja</a></li>
+         <li class="filterDiv ckis-information" display="krdrt5367/Informacje CKiS"><a href="https://cekis.pl/punkt-informacji-turystycznej/">Stacja Centrum</a></li>
+         <li class="filterDiv place" display="krdrt5367/Miejsce"><a href="https://www.soswskierniewice.pl/">SOSW Skierniewice</a></li>
+         <li class="filterDiv place" display="krdrt5367/Miejsce"><a href="https://www.wspolnatroska.pl/">Wspólna Troska</a></li>
+         <li class="filterDiv place" display="krdrt5367/Miejsce"><a href="https://zsi9.pl/">SP9 w Skierniewicach</a></li>
+         <li class="filterDiv place" display="krdrt5367/Miejsce"><a href="https://www.pusb.pl/">ANSB</a></li>
+         <li class="filterDiv place" display="krdrt5367/Miejsce"><a href="http://www.klasykskierniewice.pl/">Zespół Szkół w Sk-cach</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/sosw.skce">SOSW Skierniewice (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.instagr.am/sosw_w_skierniewicach">SOSW Skierniewice (IG)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.youtube.com/@soswim.j.korczaka3935">SOSW Skierniewice (YT)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/wspolnatroska">Wspólna Troska (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/fundacjatroskagarnizonki">Fundacja Troska TPP „Garnizonki” (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.youtube.com/@Garnizonki">Fundacja Troska TPP „Garnizonki” (YT)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/SP9skc/">SP9 w Skierniewicach (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/AkademiaBatorego">ANSB (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.instagr.am/akademia.batorego/">ANSB (IG)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://tinyurl.com/3btb98cv">ANSB (LinkedIn)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.youtube.com/@Promotionpwsz">ANSB (YT)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/klasykskc/">Zespół Szkół w Sk-cach (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.fb.com/61564140570279">JesteśMy (FB)</a></li>
+         <li class="filterDiv social-place" display="krdrt5367/Miejsce społecznościowe"><a href="https://www.instagr.am/jestesmy__stowarzyszenie__skce/">JesteśMy (IG)</a></li>
+         <li class="filterDiv games" display="krdrt5367/Gry"><a href="https://www.msn.com/pl-pl/play">MSN Gry</a></li>
+         <li class="filterDiv games" display="krdrt5367/Gry"><a href="https://www.gierkionline.pl/">Najlepsze Darmowe Gry</a></li>
+         <li class="filterDiv games" display="krdrt5367/Gry"><a href="https://www.gry.pl/">Darmowe gry</a></li>
+         <li class="filterDiv games" display="krdrt5367/Gry"><a href="https://poki.com/pl">Poki Darmowe Gry Online</a></li>
+         <li class="filterDiv games" display="krdrt5367/Gry"><a href="https://www.grajteraz.pl/">Graj teraz</a></li>
+         <li class="filterDiv technology-and-games" display="krdrt5367/Technologia i gry"><a href="https://www.komputerswiat.pl/">Komputer Świat</a></li>
+         <li class="filterDiv technology-and-games" display="krdrt5367/Technologia i gry"><a href="https://www.gry-online.pl/">Gry-OnLine</a></li>
+         <li class="filterDiv technology-and-games" display="krdrt5367/Technologia i gry"><a href="https://cdaction.pl/">CD-Action</a></li>
+         <li class="filterDiv videos" display="krdrt5367/Filmki"><a href="https://www.youtube.com/">YouTube</a></li>
+         <li class="filterDiv videos" display="krdrt5367/Filmki"><a href="https://www.dailymotion.com/">Dailymotion</a></li>
+         <li class="filterDiv videos" display="krdrt5367/Filmki"><a href="https://tv.suwerenni.org/">TV Suwerenni</a></li>
+         <li class="filterDiv videos" display="krdrt5367/Filmki"><a href="https://rumble.com/">Rumble</a></li>
+         <li class="filterDiv gaming-videos" display="krdrt5367/Filmki growe"><a href="https://www.youtube.com/gaming">YouTube Gaming</a></li>
+         <li class="filterDiv gaming-videos" display="krdrt5367/Filmki growe"><a href="https://www.twitch.tv/">Twitch.tv</a></li>
+         <li class="filterDiv gaming-videos" display="krdrt5367/Filmki growe"><a href="https://www.kick.com/">Kick</a></li>
+         <li class="filterDiv gaming-videos" display="krdrt5367/Filmki growe"><a href="https://trovo.live/">Trovo</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://pl.wiktionary.org/">Wikisłownik PL</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://en.wiktionary.org/">Wikisłownik EN</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://www.sjp.pl/">Słownik JP</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://wsjp.pl/">Wielki Słownik JP</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://sjp.pwn.pl/">SJP PWN</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://dictionary.cambridge.org/">Słownik JA</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://pl.bab.la/">Słownik JA</a></li>
+         <li class="filterDiv polish-and-english-language" display="krdrt5367/Język polski i angielski"><a href="https://www.diki.pl/">Diki SJA</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://wordwall.net/pl">WordWall</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://learningapps.org/">LearningApps.org</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://www.digipuzzle.net/">DigiPuzzle</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://eduzabawy.com/">EduZabawy</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://wordlegame.org/pl">Wordle po Polsku</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://emocjedziecka.pl/">Emocje Dziecka</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://genial.ly/">Genially</a></li>
+         <li class="filterDiv fun" display="krdrt5367/Zabawy"><a href="https://puzzlefactory.pl/pl">PuzzleFactory</a></li>
+         <li class="filterDiv trips" display="krdrt5367/Wycieczki"><a href="https://tinyurl.com/4s4uv3kx">Driving Simulator on GM</a></li>
+         <li class="filterDiv weather" display="krdrt5367/Pogoda"><a href="https://burzowo.info/">Burzowo.info</a></li>
+         <li class="filterDiv weather" display="krdrt5367/Pogoda"><a href="https://windy.com/">Windy</a></li>
+         <li class="filterDiv weather" display="krdrt5367/Pogoda"><a href="https://www.meteoblue.com/pl">meteoblue</a></li>
+         <li class="filterDiv weather" display="krdrt5367/Pogoda"><a href="https://www.imgw.pl/">IMGW</a></li>
+         <li class="filterDiv maps" display="krdrt5367/Mapy"><a href="https://maps.google.com/">Mapy Google</a></li>
+         <li class="filterDiv maps" display="krdrt5367/Mapy"><a href="https://www.openstreetmap.org/">Open Street Map</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.allegro.pl/">Allegro</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.olx.pl/">OLX.pl</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://shopee.pl/">Shopee</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://zdrowezakupy.org/">Zdrowe Zakupy</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://blix.pl/">Blix</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.zalando.pl/">Zalando</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.light-perfect.pl/">Light Perfect</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.elampy.pl/">Elampy</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://neoled.com.pl/">Neo LED</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.tesco.pl/">Tesco</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.kaufland.pl/">Kaufland</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.biedronka.pl/">Biedronka</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="http://www.lidl.pl/">Lidl</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.castorama.pl/">Castorama</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.auchan.pl/">Auchan</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.intermarche.pl/">Intermarché</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.bricomarche.pl/">Bricomarché</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.netto.pl/">Netto</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.mediamarkt.pl/">MediaMarkt</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.mediaexpert.pl/">MediaExpert</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.euro.com.pl/">RTV Euro AGD</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://jysk.pl/">JYSK</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.c-and-a.com/">C&A</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://go-sport.pl/">GO Sport</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://warsawexpo.eu/">Ptak Warsaw Expo</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.manufaktura.com/">Manufaktura</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.chjanki.pl/">CH Janki</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="http://zakupywm1.pl/">M1</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.hm.com/">H&M</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.leroymerlin.pl/">Leroy Merlin</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.rossmann.pl/">Rossmann</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://ccc.eu/">CCC</a></li>
+         <li class="filterDiv shopping" display="krdrt5367/Zakupy"><a href="https://www.deichmann.com/">Deichmann</a></li>
+         <li class="filterDiv cinema" display="krdrt5367/Kino"><a href="https://kino.cekis.pl/">Kino Polonez</a></li>
+         <li class="filterDiv cinema" display="krdrt5367/Kino"><a href="https://www.cinema-city.pl/">Cinema City</a></li>
+         <li class="filterDiv cinema" display="krdrt5367/Kino"><a href="https://multikino.pl/">Multikino</a></li>
+         <li class="filterDiv cinema" display="krdrt5367/Kino"><a href="https://www.filmweb.pl/">Filmweb</a></li>
+         <li class="filterDiv cinema" display="krdrt5367/Kino"><a href="https://www.imdb.com/">IMDb</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://krdrt5370000ym.github.io/">Radio i muzyka</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://magnatune.com/">Magnatune</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://onlineradiobox.com/pl/">Radio Box</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.eska.pl/">Radio ESKA</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.voxfm.pl/">VOX FM</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://player.radiozet.pl/">Radio ZET</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.rmfon.pl/">RMFon.pl</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://open.fm/">Open FM</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://open.spotify.com/">Spotify</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://esound.app/app/library">eSound</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.di.fm/">DI.FM</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.beatport.com/">Beatport</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.spitfireaudio.com/">Spitfire Audio</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://player.polskieradio.pl/">Polskie Radio</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://tunein.com/">TurnIn Radio</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.interstacja.pl/">Interstacja</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.radiorsc.pl/">Radio RSC</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.radiovictoria.pl/">Radio Victoria</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.spreaker.com/podcast/radio-rsc-newsy-wywiady-audycje--5908866">Podcasty: Radio RSC</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.spreaker.com/user/grupa-zpr-media--13275755">Podcasty: Grupa ZPR Media</a></li>
+         <li class="filterDiv radio" display="krdrt5367/Radio"><a href="https://www.spreaker.com/user/radio-plus--15426203">Podcasty: Radio Plus</a></li>
+         <li class="filterDiv playlists" display="krdrt5367/Playlisty"><a href="https://www.odsluchane.eu/">Odsłuchane</a></li>
+         <li class="filterDiv playlists" display="krdrt5367/Playlisty"><a href="https://malopolskie-media.info/">Małopolskie Media</a></li>
+         <li class="filterDiv playlists" display="krdrt5367/Playlisty"><a href="https://myradioonline.pl/teraz-gramy">MyRadioOnline</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://vod.tvp.pl/">TVP VOD</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://sport.tvp.pl/">TVP SPORT</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://stream.tvp.pl/">TVP Stream</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://tv-trwam.pl/">TV Trwam</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://www.cda.pl/">CDA.pl</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://www.tvp.pl/prasa">TVP Prasa</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://megogo.net/pl">MEGOGO</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://www.rakuten.tv/pl">Rakuten TV</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://www.freeintertv.com/">FreeInterTV</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://www.telewizjaonline.pl/">Telewizja Online</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://www.plex.tv/">Plex</a></li>
+         <li class="filterDiv vod1" display="krdrt5367/VOD"><a href="https://sweet.tv/pl">SWEET.TV</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://polsatboxgo.pl/">Polsat Box GO</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://player.pl/">Player</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.netflix.com/pl/">Netflix</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.disneyplus.com/pl-pl">Disney+</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.hbomax.com/pl/pl">HBO Max</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.primevideo.com/">Amazon Prime</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.skyshowtime.com/pl">SkyShowtime</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.apple.com/pl/apple-tv-plus/">Apple TV+</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://www.canalplus.com/pl/">Canal+</a></li>
+         <li class="filterDiv vod-premium" display="krdrt5367/VOD Premium"><a href="https://pilot.wp.pl/">WP Pilot</a></li>
+         <li class="filterDiv wiki" display="krdrt5367/Wiki"><a href="https://pl.wikipedia.org/">Wikipedia PL</a></li>
+         <li class="filterDiv wiki" display="krdrt5367/Wiki"><a href="https://en.wikipedia.org/">Wikipedia EN</a></li>
+         <li class="filterDiv wiki" display="krdrt5367/Wiki"><a href="https://historia.agh.edu.pl/">Historia AGH</a></li>
+         <li class="filterDiv wiki" display="krdrt5367/Wiki"><a href="https://wikigornik.pl/">Wiki Górnik</a></li>
+         <li class="filterDiv other" display="krdrt5367/Inne"><a href="https://hix.ai/pl/ai-writer/prompt-generator">AI Chat</a></li>
+         <li class="filterDiv other" display="krdrt5367/Inne"><a href="https://www.kwiatowaprzesylka.pl/">Kwiatowa Przesyłka</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/sd-social">Vivaldi Social</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/sd-community-pl">Vivaldi Community</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/sd-startme-pl">Start.me</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/sd-mediaexpert-pl">Mediaexpert</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/sd-accuweather">AccuWeather</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/vivaldia-game">Vivaldia Games</a></li>
+         <li class="filterDiv vivaldi" display="Główne"><a href="https://vivaldi.com/bk/vivaldia-game">Vivaldia Games</a></li>
+         <li class="filterDiv vivaldi" display="Zakupy"><a href="https://vivaldi.com/bk/allegro-pl">Allegro</a></li>
+         <li class="filterDiv vivaldi" display="Zakupy"><a href="https://vivaldi.com/bk/aliexpresscom-pl">AliExpress</a></li>
+         <li class="filterDiv vivaldi" display="Zakupy"><a href="https://vivaldi.com/bk/eneba-pl-pl">Eneba</a></li>
+         <li class="filterDiv vivaldi" display="Zakupy"><a href="https://vivaldi.com/bk/sd-amazon-pl">Amazon</a></li>
+         <li class="filterDiv vivaldi" display="Zakupy"><a href="https://vivaldi.com/bk/sd-temu">Temu</a></li>
+         <li class="filterDiv vivaldi" display="Zakupy"><a href="https://vivaldi.com/bk/sd-shein">SHEIN</a></li>
+         <li class="filterDiv vivaldi" display="Podróże"><a href="https://vivaldi.com/bk/bookingcom-pl">Booking.com</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki/Vivaldi"><a href="https://vivaldi.com/bk/sd-browser-features-pl">Możliwości Vivaldi</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki/Vivaldi"><a href="https://vivaldi.com/bk/sd-webmail">Vivaldi Webmail</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/booking-pl-bk">Booking.com</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/expedia-eu">Expedia</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/kayak-pl">Kayak</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/ali-pl-bk">AliExpress</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/amazon-pl-bk">Amazon</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/ebay-pl-bk">eBay</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/allegro-pl-bk">Allegro</a></li>
+         <li class="filterDiv vivaldi" display="Zakładki"><a href="https://vivaldi.com/bk/sd-ceneo-pl">Ceneo</a></li>
+      </ul>
+      <script>
+      function myFunction() {
+          var input, filter, ul, li, a, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          ul = document.getElementById("myUL");
+          li = ul.getElementsByTagName("li");
+          for (i = 0; i < li.length; i++) {
+              a = li[i].getElementsByTagName("a")[0];
+              txtValue = a.textContent || a.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  li[i].style.display = "";
+              } else {
+                  li[i].style.display = "none";
+              }
+          }
+      }
+      
+      filterSelection("all")
+      function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+          w3RemoveClass(x[i], "show");
+          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+      }
+      
+      function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+        }
+      }
+      
+      function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);     
+          }
+        }
+        element.className = arr1.join(" ");
+      }
+      
+      // Add active class to the current button (highlight it)
+      var btnContainer = document.getElementById("myBtnContainer");
+      var btns = btnContainer.getElementsByClassName("btn");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function(){
+          var current = document.getElementsByClassName("active");
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+        });
+      }
+      function sortList() {
+        var list, d, switching, b, shouldSwitch;
+        list = document.getElementById("myUL");
+        switching = true;
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+          // start by saying: no switching is done:
+          switching = false;
+          b = list.getElementsByTagName("LI");
+          // Loop through all list-items:
+          for (d = 0; d < (b.length - 1); d++) {
+            // start by saying there should be no switching:
+            shouldSwitch = false;
+            /* check if the next item should
+            switch place with the current item: */
+            if (b[d].textContent.toLowerCase() > b[d + 1].textContent.toLowerCase()) {
+              /* if next item is alphabetically
+              lower than current item, mark as a switch
+              and break the loop: */
+              shouldSwitch = true;
+              break;
+            }
+          }
+          if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark the switch as done: */
+            b[d].parentNode.insertBefore(b[d + 1], b[d]);
+            switching = true;
+          }
+        }
+      }
+      function myFunctionShow() {
+        var x = document.getElementById("myBtnContainer");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+      }
+      </script>
+   </body>
+</html>
