@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="stylesheet" href="style.css">
+      <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+      <style>
+      @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+      * {
+        box-sizing: border-box;
+      }
+
+      audio {
+        display: none;
+      }
+      
+      #myInput {
+        font-family: "Montserrat";
+        background-image: url('searchicon.png');
+        background-position: 10px 12px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+      
+      #myUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      #myUL li {
+        font-family: "Montserrat";
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        width: auto;
+      }
+
+      #myUL li a {
+        font-family: "Montserrat";
+        border: 1px solid #ddd;
+        margin-top: -1px; /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: inline-block;
+        overflow: auto;
+      }
+      
+      #myUL li a:hover:not(.header) {
+        background-color: #eee;
+      }
+      
+      .filterDiv {
+        /* float: left;
+        background-color: #2196F3;
+        color: #ffffff;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        margin: 2px; */
+        display: none;
+      }
+         
+      .but3 {
+        font-family: "Montserrat";
+        background-color: white;
+        color: black;
+        padding: 2px 2px;
+        margin: 1px 1px;
+        border: 2px solid #800080;
+      }
+
+      .but3:hover {
+        background-color: #800080;
+        color:white;
+      }
+         
+      .but4 {
+        font-family: "Montserrat";
+        background-color: white;
+        color: black;
+        border: 2px solid #800080;
+      }
+      
+      .but4:hover {
+        background-color: #800080;
+        color:white;
+      }
+      
+      h2 {
+        font-family: "Montserrat";
+      }
+      
+      .show {
+        display: block;
+      }
+      </style>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="https://1drv.ms/x/c/6658cf7002158e93/UQOTjhUCcM9YIIBmawAAAAAAAHhcJb_4b9YIwhU?wdAllowInteractivity=False&AllowTyping=True&wdHideGridlines=True&wdHideHeaders=True&wdInConfigurator=True">Pełne radio</a></button><button class="but but1"><a href="/radio-info.html">Informacja radia</a></button>
+      <hr>
+      <h2>Radio internetowe - muzyka</h2>
+      <audio controls id="audioplayer">
+        <source preload="none" src="">
+      </audio>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but4" onclick="myFunctionShow()">Pokaż/ukryj</button>
+      <div id="myBtnContainer">
+         <button class="btn active but but3" onclick="filterSelection('all')"> Wszystkie</button>
+         <button class="btn but but3" onclick="filterSelection('[ulubione]')"> Ulubione</button>
+         <button class="btn but but3"><a href="/radio.html"> Radio</a></button>
+         <button class="btn but but3"><a href="/radio-abroad.html"> Zagranicy</a></button>
+         <button class="btn but but3"><a href="/radio-podcasts.html"> Podcasty</a></button>
+         <button class="btn but but3"><a href="/radio-sets.html"> Sety</a></button>
+         <button class="btn but but3"><a href="/link-info.html"> Witryna</a></button>
+         <button class="but but3" onclick="sortList()">Sortuj</button>
+      </div>
+      <ul id="myUL">
+         <li class="filterDiv"><a href="https://open.spotify.com/search/Impreza">Impreza</a></li>
+         <li class="filterDiv"><a href="https://open.spotify.com/search/100%25%20Hits">100% Hits</a></li>
+         <li class="filterDiv"><a href="https://open.spotify.com/search/Praca">Praca</a></li>
+         <li class="filterDiv"><a href="https://open.spotify.com/search/80s%20Hits">80s Hits</a></li>
+         <li class="filterDiv"><a href="https://open.spotify.com/search/Weekend%20Hits">Weekend Hits</a></li>
+         <li class="filterDiv"><a href="https://open.spotify.com/search/Disco%20Polo">Disco Polo</a></li>
+         <li class="filterDiv"><a href="https://open.spotify.com/search/Phonk">Phonk</a></li>
+      </ul>
+      <script>
+      function myFunction() {
+          var input, filter, ul, li, a, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          ul = document.getElementById("myUL");
+          li = ul.getElementsByTagName("li");
+          for (i = 0; i < li.length; i++) {
+              a = li[i].getElementsByTagName("a")[0];
+              txtValue = a.textContent || a.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  li[i].style.display = "";
+              } else {
+                  li[i].style.display = "none";
+              }
+          }
+      }
+      
+      filterSelection("all")
+      function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+          w3RemoveClass(x[i], "show");
+          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+      }
+      
+      function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+        }
+      }
+      
+      function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);     
+          }
+        }
+        element.className = arr1.join(" ");
+      }
+      
+      // Add active class to the current button (highlight it)
+      var btnContainer = document.getElementById("myBtnContainer");
+      var btns = btnContainer.getElementsByClassName("btn");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function(){
+          var current = document.getElementsByClassName("active");
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+        });
+      }
+      function sortList() {
+        var list, d, switching, b, shouldSwitch;
+        list = document.getElementById("myUL");
+        switching = true;
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+          // start by saying: no switching is done:
+          switching = false;
+          b = list.getElementsByTagName("LI");
+          // Loop through all list-items:
+          for (d = 0; d < (b.length - 1); d++) {
+            // start by saying there should be no switching:
+            shouldSwitch = false;
+            /* check if the next item should
+            switch place with the current item: */
+            if (b[d].textContent.toLowerCase() > b[d + 1].textContent.toLowerCase()) {
+              /* if next item is alphabetically
+              lower than current item, mark as a switch
+              and break the loop: */
+              shouldSwitch = true;
+              break;
+            }
+          }
+          if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark the switch as done: */
+            b[d].parentNode.insertBefore(b[d + 1], b[d]);
+            switching = true;
+          }
+        }
+      }
+      function myFunctionShow() {
+        var x = document.getElementById("myBtnContainer");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+      }
+      </script>
+   </body>
+</html>
