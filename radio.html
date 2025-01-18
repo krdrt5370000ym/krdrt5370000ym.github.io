@@ -1388,7 +1388,7 @@
       function filterSelection(c) {
         var x, i;
         x = document.getElementsByClassName("filterDiv");
-        myFunction()
+        document.getElementById('myInput').value = '';
         if (c == "all") c = "";
         for (i = 0; i < x.length; i++) {
           w3RemoveClass(x[i], "show");
