@@ -1,0 +1,441 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="stylesheet" href="style-new.css">
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <img class="boximgmain" src="https://i.ibb.co/Wp6yv7k/eskarock-logo2023a.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Radio Eska ROCK.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://waw.ic.smcdn.pl/5980-1.aac"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Radio Eska ROCK.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://waw.ic.smcdn.pl/5980-1.aac"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Radio Eska ROCK.rm" href="data:application/vnd.rn-realmedia,https://waw.ic.smcdn.pl/5980-1.aac"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/muzo-fm"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://waw.ic.smcdn.pl/5980-1.aac"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://waw.ic.smcdn.pl/5980-1.aac">Eska ROCK Online</option>
+         <option value="https://waw.ic.smcdn.pl/5380-1.aac">Eska ROCK Warszawa</option>
+         <option value="https://waw.ic.smcdn.pl/5990-1.aac">Eska ROCK</option>
+         <option value="https://waw.ic.smcdn.pl/6200-1.aac">Eska ROCK Rocktoberfest</option>
+         <option value="https://waw.ic.smcdn.pl/6060-1.aac">Eska ROCK Nowy Rock</option>
+         <option value="https://waw.ic.smcdn.pl/6010-1.aac">Eska ROCK Rock Ballads</option>
+         <option value="https://waw.ic.smcdn.pl/6070-1.aac">Eska ROCK Klasyka Rocka</option>
+         <option value="https://waw.ic.smcdn.pl/6090-1.aac">Eska ROCK Teraz Polski Rock</option>
+      </select>
+      <br>
+      <button class="but but1"><a href="https://myradioonline.pl/muzo-fm">♪ Sprawdź co graliśmy!</a></button>
+      <audio id="player" controls>
+         <source src="https://waw.ic.smcdn.pl/5980-1.aac">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://www.eskarock.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.eskarock.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://player.eskarock.pl">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/192641444532">🗨 Messenger</a></button><button class="but but1"><a href="tel:691613613">📞 691 613 613</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/fD46FcP/ER-aktywacja-500x500.jpg"></td>
+               <td>@KTYWACJA<br><small>Agnieszka Szkuta, Wiktor Brzozowski, Wojtek Góralski</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/M7Gr1f4/Kultowe-Kawaki-Kultowe-Historie.jpg"></td>
+               <td>Kultowe Kawałki, Kultowe Historie<br><small>Jaro Sobierajewicz, Michał Cieślik</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/jWfhFL0/Dobrze-Rockuje.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Aleksandra Jakubowska, Konrad Olszewski</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/x7sn3Fn/Kolumna-Zygmunta.jpg"></td>
+               <td>Kolumna Zygmunta<br><small>Dawid Zygmunt</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 21:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6tSJ79x/Radar.jpg"></td>
+               <td>Radar<br><small>Mikołaj Kujawiński, Michał Prokopowicz</small></td>
+            </tr>
+            <tr>
+               <td>21:00 - 22:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/QH7jYKh/ER-MC2-500x500.jpg"></td>
+               <td>Playlista Osobista<br><small>Michał Cieślik</small></td>
+            </tr>
+            <tr>
+               <td>22:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/fD46FcP/ER-aktywacja-500x500.jpg"></td>
+               <td>@KTYWACJA<br><small>Agnieszka Szkuta, Wiktor Brzozowski, Wojtek Góralski</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/M7Gr1f4/Kultowe-Kawaki-Kultowe-Historie.jpg"></td>
+               <td>Kultowe Kawałki, Kultowe Historie<br><small>Jaro Sobierajewicz, Michał Cieślik</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/jWfhFL0/Dobrze-Rockuje.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Aleksandra Jakubowska, Konrad Olszewski</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/x7sn3Fn/Kolumna-Zygmunta.jpg"></td>
+               <td>Kolumna Zygmunta<br><small>Dawid Zygmunt</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 21:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6tSJ79x/Radar.jpg"></td>
+               <td>Radar<br><small>Mikołaj Kujawiński, Michał Prokopowicz</small></td>
+            </tr>
+            <tr>
+               <td>21:00 - 22:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/ggZmkYd/ER-JS-500x500.jpg"></td>
+               <td>To był dobry rock<br><small>Jaro Sobierajewicz</small></td>
+            </tr>
+            <tr>
+               <td>22:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/fD46FcP/ER-aktywacja-500x500.jpg"></td>
+               <td>@KTYWACJA<br><small>Agnieszka Szkuta, Wiktor Brzozowski, Wojtek Góralski</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/M7Gr1f4/Kultowe-Kawaki-Kultowe-Historie.jpg"></td>
+               <td>Kultowe Kawałki, Kultowe Historie<br><small>Jaro Sobierajewicz, Michał Cieślik</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/jWfhFL0/Dobrze-Rockuje.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Aleksandra Jakubowska, Konrad Olszewski</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/x7sn3Fn/Kolumna-Zygmunta.jpg"></td>
+               <td>Kolumna Zygmunta<br><small>Dawid Zygmunt</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 21:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6tSJ79x/Radar.jpg"></td>
+               <td>Radar<br><small>Mikołaj Kujawiński, Michał Prokopowicz</small></td>
+            </tr>
+            <tr>
+               <td>21:00 - 22:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/2hZfnGH/Czowiek-z-Metalu.jpg"></td>
+               <td>Człowiek z metalu<br><small>Krzysiek Sokołowski</small></td>
+            </tr>
+            <tr>
+               <td>22:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/jr4V3bV/mellina.webp"></td>
+               <td>Mellina<br><small>Marcin Meller</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/fD46FcP/ER-aktywacja-500x500.jpg"></td>
+               <td>@KTYWACJA<br><small>Agnieszka Szkuta, Wiktor Brzozowski, Wojtek Góralski</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/M7Gr1f4/Kultowe-Kawaki-Kultowe-Historie.jpg"></td>
+               <td>Kultowe Kawałki, Kultowe Historie<br><small>Jaro Sobierajewicz, Michał Cieślik</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/jWfhFL0/Dobrze-Rockuje.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Aleksandra Jakubowska, Konrad Olszewski</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/x7sn3Fn/Kolumna-Zygmunta.jpg"></td>
+               <td>Kolumna Zygmunta<br><small>Dawid Zygmunt</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 21:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6tSJ79x/Radar.jpg"></td>
+               <td>Radar<br><small>Mikołaj Kujawiński, Michał Prokopowicz</small></td>
+            </tr>
+            <tr>
+               <td>21:00 - 22:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/2kRWkxm/Kawaki-Mojego-ycia.jpg"></td>
+               <td>Kawałki Mojego Życia<br><small>Wojtek Góralski i jego goście</small></td>
+            </tr>
+            <tr>
+               <td>22:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/fD46FcP/ER-aktywacja-500x500.jpg"></td>
+               <td>@KTYWACJA<br><small>Agnieszka Szkuta, Wiktor Brzozowski, Wojtek Góralski</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/M7Gr1f4/Kultowe-Kawaki-Kultowe-Historie.jpg"></td>
+               <td>Kultowe Kawałki, Kultowe Historie<br><small>Jaro Sobierajewicz, Michał Cieślik</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/jWfhFL0/Dobrze-Rockuje.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Aleksandra Jakubowska, Konrad Olszewski</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/x7sn3Fn/Kolumna-Zygmunta.jpg"></td>
+               <td>Kolumna Zygmunta<br><small>Dawid Zygmunt</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 21:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6tSJ79x/Radar.jpg"></td>
+               <td>Radar<br><small>Mikołaj Kujawiński, Michał Prokopowicz</small></td>
+            </tr>
+            <tr>
+               <td>21:00 - 22:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/PhTwPhB/Szkuta-Mwi.jpg"></td>
+               <td>Szkuta Mówi<br><small>Agnieszka Szkuta</small></td>
+            </tr>
+            <tr>
+               <td>22:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/51r4wn0/240515eska-rock0313.jpg"></td>
+               <td>Strefa Gastro<br><small>Paweł Loroch</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 14:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/GkWLPs2/gara.jpg"></td>
+               <td>Garaż<br><small>Adam Kornacki, Wiktor Brzozowski</small></td>
+            </tr>
+            <tr>
+               <td>14:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze Rockuje Weekend<br><small>róźne DJ-e</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 19:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Aleksandra Galant, Michał Poklękowski</small></td>
+            </tr>
+            <tr>
+               <td>19:00 - 20:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>20:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/6Y7Kr1v/ESKA-ROCK500.jpg"></td>
+               <td>ROCK NON STOP<br><small>Eska Rock</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/51r4wn0/240515eska-rock0313.jpg"></td>
+               <td>Strefa Gastro<br><small>Paweł Loroch</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze Rockuje Weekend<br><small>róźne DJ-e</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze Rockuje Weekend<br><small>róźne DJ-e</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 19:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9qZ1BH2/Drogowskazy.jpg"></td>
+               <td>Drogowskazy<br><small>Aleksandra Galant, Michał Poklękowski</small></td>
+            </tr>
+            <tr>
+               <td>19:00 - 20:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze Rockuje<br><small>Eska Rock</small></td>
+            </tr>
+            <tr>
+               <td>21:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/9TMMkFw/HW-500x500.jpg"></td>
+               <td>Dobre flow<br><small>Hirek Wrona</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/Z6h6hhv/ESKA_ROCK500_rp-ew5e-TH25-89A9.jpg"></td>
+               <td>Dobrze rockuje<br><small>Eska Rock</small></td>
+            </tr>
+         </table>
+      </div>
+      <script>
+         function openCity(evt, cityName) {
+           var i, tabcontent, tablinks;
+           tabcontent = document.getElementsByClassName("tabcontent");
+           for (i = 0; i < tabcontent.length; i++) {
+             tabcontent[i].style.display = "none";
+           }
+           tablinks = document.getElementsByClassName("tablinks");
+             for (i = 0; i < tablinks.length; i++) {
+               tablinks[i].className = tablinks[i].className.replace(" active", "");
+           }
+           document.getElementById(cityName).style.display = "block";
+           evt.currentTarget.className += " active";
+           }
+      </script>
+      <script>
+         var tablinks = Array.prototype.slice.call(document.getElementsByClassName("tablinks"));
+         var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tabcontent"));
+           
+         function openDAY(day) {
+           var i;
+           for (i = 0; i < tabcontent.length; i++) {
+             tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+           }
+           for (i = 0; i < tablinks.length; i++) {
+             tablinks[i].className = tablinks[i].className.replace(" active", "");
+           }
+           tabcontent[day].className += " active";
+           tablinks[day].className += " active";
+         }
+         
+         tablinks.forEach(function (tablink, day) {
+           tablink.addEventListener('click', function() {
+             openDAY(day)
+           })
+         })
+         
+         openDAY((new Date().getDay() || 7) - 1)
+         
+         var show_schedule = function(schedule){
+           var no_entry = 'Niestety nie ma transmisji';
+           var days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+           var days_buffer = {mon: [], tue: [], wed: [], thu: [], fri: [], sat: [], sun: []}; 
+           Array.prototype.slice.call(schedule).forEach(function(schedule_entry) {
+             var start_time = schedule_entry.hour;
+             if (start_time < 10) { start_time = '0' + start_time }
+             start_time = start_time + ':00';
+             days_buffer[schedule_entry.day].push('<span style="display: flex; padding-bottom:8px;">' + start_time + ' - ' + schedule_entry.name + '</tr>');
+           });
+           Array.prototype.slice.call(tabs).forEach(function(tab, index) {
+             if (days_buffer[days[index]].length >= 1) {
+               tab.innerHTML = days_buffer[days[index]].join('');
+             } else {
+               tab.innerHTML = no_entry;
+             }
+           }); 
+         };
+      </script>
+   </body>
+</html>
