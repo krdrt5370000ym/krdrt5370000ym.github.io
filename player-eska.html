@@ -1,0 +1,533 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+      <body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+    body {
+        font-family: "Mulish", serif;
+    }
+    audio {
+        display: none;
+    }
+    
+    a:link {
+        color: inherit;
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    input, button, select, audio, iframe {
+        font-family: inherit;
+    }
+
+    .but1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #ddd;
+    }
+
+    .but1:hover {
+        background-color: #ddd;
+        color:black;
+    }
+
+    .boximg {
+        border: 1px solid #130010;
+        border-radius: 36px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    } 
+    
+    tr {
+        height: 36px;
+    }
+    
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #DDD;
+    } 
+    
+    tr:hover {
+        background-color: #CCC;
+    }
+    
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        font-family: inherit;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+<select onchange="document.getElementById('radio-eska').src=this.options[this.selectedIndex].value;document.getElementById('radio-eska').style='display:initial';" style="margin: 7px auto; width: 250px;">
+   <option value="https://waw.ic.smcdn.pl/2980-1.aac">Hity na Czasie</option>
+   <option value="https://waw.ic.smcdn.pl/2010-1.aac">Bełchatów</option>
+   <option value="https://waw.ic.smcdn.pl/2300-1.aac">Beskidy</option>
+   <option value="https://waw.ic.smcdn.pl/2020-1.aac">Białystok</option>
+   <option value="https://waw.ic.smcdn.pl/2520-1.aac">Braniewo</option>
+   <option value="https://waw.ic.smcdn.pl/2030-1.aac">Bydgoszcz</option>
+   <option value="https://waw.ic.smcdn.pl/2220-1.aac">Chorzów</option>
+   <option value="https://waw.ic.smcdn.pl/2430-1.aac">Elbląg</option>
+   <option value="https://waw.ic.smcdn.pl/2040-1.aac">Gorzów Wielkopolski</option>
+   <option value="https://waw.ic.smcdn.pl/2450-1.aac">Grudziądz</option>
+   <option value="https://waw.ic.smcdn.pl/2440-1.aac">Iława</option>
+   <option value="https://waw.ic.smcdn.pl/2480-1.aac">Jelenia Góra</option>
+   <option value="https://waw.ic.smcdn.pl/2200-1.aac">Kalisz</option>
+   <option value="https://waw.ic.smcdn.pl/2220-1.aac">Katowice</option>
+   <option value="https://waw.ic.smcdn.pl/2050-1.aac">Kielce</option>
+   <option value="https://waw.ic.smcdn.pl/2270-1.aac">Koszalin</option>
+   <option value="https://waw.ic.smcdn.pl/2070-1.aac">Kraków</option>
+   <option value="https://waw.ic.smcdn.pl/2360-1.aac">Kraśnik</option>
+   <option value="https://waw.ic.smcdn.pl/2080-1.aac">Leszno</option>
+   <option value="https://waw.ic.smcdn.pl/2130-1.aac">Lublin</option>
+   <option value="https://waw.ic.smcdn.pl/2460-1.aac">Łomża</option>
+   <option value="https://waw.ic.smcdn.pl/2100-1.aac">Łódź</option>
+   <option value="https://waw.ic.smcdn.pl/2330-1.aac">Nowy Sącz</option>
+   <option value="https://waw.ic.smcdn.pl/2110-1.aac">Olsztyn</option>
+   <option value="https://waw.ic.smcdn.pl/2120-1.aac">Opole</option>
+   <option value="https://waw.ic.smcdn.pl/2200-1.aac">Ostrów</option>
+   <option value="https://waw.ic.smcdn.pl/2500-1.aac">Ostrzeszów</option>
+   <option value="https://waw.ic.smcdn.pl/2090-1.aac">Piła</option>
+   <option value="https://waw.ic.smcdn.pl/2250-1.aac">Płock</option>
+   <option value="https://waw.ic.smcdn.pl/2570-1.aac">Południe</option>
+   <option value="https://waw.ic.smcdn.pl/2140-1.aac">Poznań</option>
+   <option value="https://waw.ic.smcdn.pl/2320-1.aac">Przemyśl</option>
+   <option value="https://waw.ic.smcdn.pl/2210-1.aac">Radom</option>
+   <option value="https://waw.ic.smcdn.pl/2240-1.aac">Rzeszów</option>
+   <option value="https://waw.ic.smcdn.pl/2060-1.aac">Siedlce</option>
+   <option value="https://waw.ic.smcdn.pl/2220-1.aac">Sosnowiec</option>
+   <option value="https://waw.ic.smcdn.pl/2400-1.aac">Starachowice</option>
+   <option value="https://waw.ic.smcdn.pl/2260-1.aac">Szczecin</option>
+   <option value="https://waw.ic.smcdn.pl/2310-1.aac">Szczecinek</option>
+   <option value="https://waw.ic.smcdn.pl/2220-1.aac">Śląsk</option>
+   <option value="https://waw.ic.smcdn.pl/2160-1.aac">Tarnów</option>
+   <option value="https://waw.ic.smcdn.pl/2150-1.aac">Toruń</option>
+   <option value="https://waw.ic.smcdn.pl/2170-1.aac">Trójmiasto</option>
+   <option value="https://waw.ic.smcdn.pl/2380-1.aac">Warszawa</option>
+   <option value="https://waw.ic.smcdn.pl/2180-1.aac">Wrocław</option>
+   <option value="https://waw.ic.smcdn.pl/2230-1.aac">Zamość</option>
+   <option value="https://waw.ic.smcdn.pl/2190-1.aac">Zielona Góra</option>
+   <option value="https://waw.ic.smcdn.pl/2420-1.aac">Żary</option>
+</select>
+<button class="but but2" onclick="document.getElementById('radio-eska').src='https://waw.ic.smcdn.pl/2980-1.aac';document.getElementById('radio-eska').style='display:initial';">Włącz radio</button>
+<br>
+<audio id="radio-eska" controls>
+   <source src="">
+</audio>
+<br>
+<button class="but but1"><a href="https://www.odsluchane.eu/szukaj.php?r=3">♪ Sprawdź co graliśmy!</a></button><button class="but but1"><a href="https://www.eska.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.eska.pl/">🌐 Strona</a></button>
+<div class="tab">
+   <button class="tablinks" onclick="openCity(event, 'schedule_day0')">Poniedziałek</button>
+   <button class="tablinks" onclick="openCity(event, 'schedule_day1')">Wtorek</button>
+   <button class="tablinks" onclick="openCity(event, 'schedule_day2')">Środa</button>
+   <button class="tablinks" onclick="openCity(event, 'schedule_day3')">Czwartek</button>
+   <button class="tablinks" onclick="openCity(event, 'schedule_day4')">Piątek</button>
+   <button class="tablinks" onclick="openCity(event, 'schedule_day5')">Sobota</button>
+   <button class="tablinks" onclick="openCity(event, 'schedule_day6')">Niedziela</button>
+</div>
+<div id="schedule_day0" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/KXZ6N5k/Jankes-Kama.jpg"></td>
+         <td>Obudź Się Na Jankesa<br><small>Jankes i Kama</small></td>
+      </tr>
+      <tr>
+         <td>08:30</td>
+         <td><img class="boximg" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg"></td>
+         <td>Nosel Wkręca<br><small>Kamil Nosel</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 12:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/VW8NJtz/eska-prog-G20.jpg"></td>
+         <td>Hity Na Czasie<br><small>Michu Sobkowski</small></td>
+      </tr>
+      <tr>
+         <td>12:00 - 15:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/hZvKWYP/kasia-500x500.jpg"></td>
+         <td>Hity Na Czasie<br><small>Kasia Węsierska</small></td>
+      </tr>
+      <tr>
+         <td>15:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/6wNg7jy/eska-prog-jan-paw.jpg"></td>
+         <td>Wrzuć Na Luz<br><small>Pirowski & Pawełek</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 21:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/Gc2yk6W/eska-prog-impr.jpg"></td>
+         <td>ImprESKA<br><small>Michał Hanczak</small></td>
+      </tr>
+      <tr>
+         <td>21:00 - 23:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>23:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/fnjwt1z/Mati-500x500.jpg"></td>
+         <td>RAP 20<br><small>Mati Fuczyło</small></td>
+      </tr>
+   </table>
+</div>
+<div id="schedule_day1" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/KXZ6N5k/Jankes-Kama.jpg"></td>
+         <td>Obudź Się Na Jankesa<br><small>Jankes i Kama</small></td>
+      </tr>
+      <tr>
+         <td>08:30</td>
+         <td><img class="boximg" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg"></td>
+         <td>Nosel Wkręca<br><small>Kamil Nosel</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 12:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/VW8NJtz/eska-prog-G20.jpg"></td>
+         <td>Hity Na Czasie<br><small>Michu Sobkowski</small></td>
+      </tr>
+      <tr>
+         <td>12:00 - 15:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/hZvKWYP/kasia-500x500.jpg"></td>
+         <td>Hity Na Czasie<br><small>Kasia Węsierska</small></td>
+      </tr>
+      <tr>
+         <td>15:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/6wNg7jy/eska-prog-jan-paw.jpg"></td>
+         <td>Wrzuć Na Luz<br><small>Pirowski & Pawełek</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 21:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/Gc2yk6W/eska-prog-impr.jpg"></td>
+         <td>ImprESKA<br><small>Michał Hanczak</small></td>
+      </tr>
+      <tr>
+         <td>21:00 - 23:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>23:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+   </table>
+</div>
+<div id="schedule_day2" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/KXZ6N5k/Jankes-Kama.jpg"></td>
+         <td>Obudź Się Na Jankesa<br><small>Jankes i Kama</small></td>
+      </tr>
+      <tr>
+         <td>08:30</td>
+         <td><img class="boximg" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg"></td>
+         <td>Nosel Wkręca<br><small>Kamil Nosel</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 12:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/VW8NJtz/eska-prog-G20.jpg"></td>
+         <td>Hity Na Czasie<br><small>Michu Sobkowski</small></td>
+      </tr>
+      <tr>
+         <td>12:00 - 15:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/hZvKWYP/kasia-500x500.jpg"></td>
+         <td>Hity Na Czasie<br><small>Kasia Węsierska</small></td>
+      </tr>
+      <tr>
+         <td>15:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/6wNg7jy/eska-prog-jan-paw.jpg"></td>
+         <td>Wrzuć Na Luz<br><small>Pirowski & Pawełek</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 21:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/Gc2yk6W/eska-prog-impr.jpg"></td>
+         <td>ImprESKA<br><small>Michał Hanczak</small></td>
+      </tr>
+      <tr>
+         <td>21:00 - 23:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>23:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+   </table>
+</div>
+<div id="schedule_day3" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/KXZ6N5k/Jankes-Kama.jpg"></td>
+         <td>Obudź Się Na Jankesa<br><small>Jankes i Kama</small></td>
+      </tr>
+      <tr>
+         <td>08:30</td>
+         <td><img class="boximg" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg"></td>
+         <td>Nosel Wkręca<br><small>Kamil Nosel</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 12:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/VW8NJtz/eska-prog-G20.jpg"></td>
+         <td>Hity Na Czasie<br><small>Michu Sobkowski</small></td>
+      </tr>
+      <tr>
+         <td>12:00 - 15:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/hZvKWYP/kasia-500x500.jpg"></td>
+         <td>Hity Na Czasie<br><small>Kasia Węsierska</small></td>
+      </tr>
+      <tr>
+         <td>15:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/6wNg7jy/eska-prog-jan-paw.jpg"></td>
+         <td>Wrzuć Na Luz<br><small>Pirowski & Pawełek</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 21:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/Gc2yk6W/eska-prog-impr.jpg"></td>
+         <td>ImprESKA<br><small>Michał Hanczak</small></td>
+      </tr>
+      <tr>
+         <td>21:00 - 23:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>23:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+   </table>
+</div>
+<div id="schedule_day4" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/KXZ6N5k/Jankes-Kama.jpg"></td>
+         <td>Obudź Się Na Jankesa<br><small>Jankes i Kama</small></td>
+      </tr>
+      <tr>
+         <td>08:30</td>
+         <td><img class="boximg" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg"></td>
+         <td>Nosel Wkręca<br><small>Kamil Nosel</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 12:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/hZvKWYP/kasia-500x500.jpg"></td>
+         <td>Hity Na Czasie<br><small>Kasia Węsierska</small></td>
+      </tr>
+      <tr>
+         <td>12:00 - 15:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/Y8m09RX/eska-prog-impr.jpg"></td>
+         <td>Hity Na Czasie<br><small>Michał Hanczak</small></td>
+      </tr>
+      <tr>
+         <td>15:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/6wNg7jy/eska-prog-jan-paw.jpg"></td>
+         <td>Wrzuć Na Luz<br><small>Pirowski & Pawełek</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 20:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/VW8NJtz/eska-prog-G20.jpg"></td>
+         <td>Gorąca 20<br><small>Michu Sobkowski</small></td>
+      </tr>
+      <tr>
+         <td>20:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/hMbB7Z5/Projekt-bez-nazwy58.jpg"></td>
+         <td>ImprESKA In The Mix<br><small>Radio Eska</small></td>
+      </tr>
+   </table>
+</div>
+<div id="schedule_day5" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 14:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/MpjbFBd/eska-IZ-500x500.jpg"></td>
+         <td>Weekend z Hitami Na Czasie<br><small>Łukasz Zduńczyk</small></td>
+      </tr>
+      <tr>
+         <td>14:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/QJqvqvp/konrad-500x500.jpg"></td>
+         <td>Weekend z Hitami Na Czasie<br><small>Konrad Traczyk</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 22:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/r2KQqYv/bogaj-1.jpg"></td>
+         <td>Sobotnia ImprESKA<br><small>Paweł Bogaj</small></td>
+      </tr>
+      <tr>
+         <td>22:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/hMbB7Z5/Projekt-bez-nazwy58.jpg"></td>
+         <td>ImprESKA In The Mix<br><small>Radio Eska</small></td>
+      </tr>
+   </table>
+</div>
+<div id="schedule_day6" class="tabcontent">
+   <table style="width:100%">
+      <tr style="visibility: collapse">
+         <td style="width:20%"></td>
+         <td style="width:5%"></td>
+         <td style="width:auto"></td>
+      </tr>
+      <tr>
+         <td>00:00 - 06:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>06:00 - 09:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>09:00 - 14:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/MpjbFBd/eska-IZ-500x500.jpg"></td>
+         <td>Weekend z Hitami Na Czasie<br><small>Łukasz Zduńczyk</small></td>
+      </tr>
+      <tr>
+         <td>14:00 - 18:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/QJqvqvp/konrad-500x500.jpg"></td>
+         <td>Weekend z Hitami Na Czasie<br><small>Konrad Traczyk</small></td>
+      </tr>
+      <tr>
+         <td>18:00 - 20:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/PGgGC51/RA-500x500.jpg"></td>
+         <td>Hity Zawsze Na Czasie<br><small>Rafał Adamczak</small></td>
+      </tr>
+      <tr>
+         <td>20:00 - 23:00</td>
+         <td><img class="boximg" src="https://i.ibb.co/gTpv79X/Projekt-bez-nazwy23.jpg"></td>
+         <td>Magazyny<br><small>Radio Eska</small></td>
+      </tr>
+      <tr>
+         <td>23:00 - 23:59</td>
+         <td><img class="boximg" src="https://i.ibb.co/T4SQs43/Projekt-bez-nazwy27.jpg"></td>
+         <td>Noc z ESKĄ<br><small>Radio Eska</small></td>
+      </tr>
+   </table>
+</div>
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+  }
+</script>
+</body>
+</html>
