@@ -40,6 +40,11 @@
         width: 100px;
         height: 100px;
     }
+
+    #hp  {
+        float: left;    
+        margin: 0 15px 0 0;
+    }
     
     table {
         border-collapse: collapse;
