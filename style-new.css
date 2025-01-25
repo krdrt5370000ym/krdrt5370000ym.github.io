@@ -33,6 +33,13 @@
         width: 36px;
         height: 36px;
     }
+
+    .boximgmain {
+        border: 1px solid #130010;
+        border-radius: 100px;
+        width: 100px;
+        height: 100px;
+    }
     
     table {
         border-collapse: collapse;
