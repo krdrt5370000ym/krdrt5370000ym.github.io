@@ -8,7 +8,7 @@
       <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
    </head>
    <body>
-      <select onchange="document.getElementById('radio-eska').src=this.options[this.selectedIndex].value;document.getElementById('radio-eska').style='display:initial';" style="margin: 7px auto; width: 250px;">
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
          <option value="https://waw.ic.smcdn.pl/2980-1.aac">Hity na Czasie</option>
          <option value="https://waw.ic.smcdn.pl/2010-1.aac">Bełchatów</option>
          <option value="https://waw.ic.smcdn.pl/2300-1.aac">Beskidy</option>
@@ -58,13 +58,13 @@
          <option value="https://waw.ic.smcdn.pl/2190-1.aac">Zielona Góra</option>
          <option value="https://waw.ic.smcdn.pl/2420-1.aac">Żary</option>
       </select>
-      <button class="but but2" onclick="document.getElementById('radio-eska').src='https://waw.ic.smcdn.pl/2980-1.aac';document.getElementById('radio-eska').style='display:initial';">Włącz radio</button>
+      <button class="but but2" onclick="document.getElementById('player').src='https://waw.ic.smcdn.pl/2980-1.aac';document.getElementById('player').style='display:initial';">Włącz radio</button>
       <br>
-      <audio id="radio-eska" controls>
+      <audio id="player" controls>
          <source src="">
       </audio>
       <br>
-      <button class="but but1"><a href="https://www.odsluchane.eu/szukaj.php?r=3">♪ Sprawdź co graliśmy!</a></button><button class="but but1"><a href="https://www.eska.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.eska.pl/">🌐 Strona</a></button>
+      <button class="but but1"><a href="https://myradioonline.pl/radio-eska">♪ Sprawdź co graliśmy!</a></button><button class="but but1"><a href="https://www.eska.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.eska.pl/">🌐 Strona</a></button>
       <div class="tab">
          <button class="tablinks" onclick="openCity(event, 'schedule_day0')">Poniedziałek</button>
          <button class="tablinks" onclick="openCity(event, 'schedule_day1')">Wtorek</button>
