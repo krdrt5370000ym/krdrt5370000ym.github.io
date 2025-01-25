@@ -97,3 +97,7 @@
         border: 1px solid #ccc;
         border-top: none;
     }
+
+    .tabcontent.active {
+        display: block;
+    }
