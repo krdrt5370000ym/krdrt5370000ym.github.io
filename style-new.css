@@ -2,7 +2,7 @@
     body {
         font-family: "Mulish", serif;
     }
-    audio {
+    audio source[src=""]{
         display: none;
     }
     
