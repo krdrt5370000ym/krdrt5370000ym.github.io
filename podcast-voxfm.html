@@ -1,0 +1,77 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new3.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><hr>
+      <h2>Podcasty Eski2</h2>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but1" onclick="sortTable()">Sort</button>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/jrQ2xvZ/zlo.webp"</td>
+            <td><a href="https://player.voxfm.pl/podcast/zlo-zbrodnia-lowca-ofiara-ps-H6oj-JeEF-5ZbP.html">ZŁO - Zbrodnia Łowca Ofiara</a><br><small>Marta kiermasz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/r7sPRyH/gf-KCJa-djBa-KwfC_opowiesc-wigilijna-664x442-nocrop.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/opowiesc-wigilijna-czyli-operacja-zima-ps-8FSG-x3iP-vWxS.html">Opowieść wigilijna</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/0pLd4tm/gf-esEk-foo4-QcZS-pierwsza-zmiana-budzi-ludzi-994x828.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/pierwsza-zmiana-budzi-ludzi-ps-YpBU-45T5-ewDw.html">Pierwsza Zmiana Budzi Ludzi</a><br><small>Piwowarski, Pawelec, Chren</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/PG10ZW9/kochaj-albo-rzucaj-vox-fm.webp"</td>
+            <td><a href="https://player.voxfm.pl/podcast/kochaj-albo-rzucaj-podcasty-vox-fm-ps-n6cu-mxeG-QiuM.html">Kochaj albo Rzucaj</a><br><small>Pawelec</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/XSz6D8K/2076b0d5b4998976230e21bb0ed3f73d.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/co-ludzie-powiedza-ps-3ARA-okvb-Umuf.html">Co ludzie powiedzą?</a><br><small>Adam Feder</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/HKLcqHf/9ba5d5d7273adf09a46e561f5d4cbd25.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/nie-ma-glupich-pytan-ps-A9Qf-AFMm-79D9.html">Nie ma głupich pytań</a><br><small>Ewelina Kamińska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/ySVfyh5/punkt-krytyczny.webp"</td>
+            <td><a href="https://player.voxfm.pl/podcast/punkt-krytyczny-najwieksze-polskie-katastrofy-ps-oRzf-QCe4-5g2B.html">Punkt Krytyczny</a><br><small>Kamil Rutkowski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/N1kTKwX/f5d4aa1f966286fdd2390bbd996ad625.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/goscie-jest-weekend-ps-KCGs-994j-5hEn.html">Goście Jest Weekend</a><br><small>Paweł Doncbach</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/6BG6FFW/20ecb5024de482fbed827d9197ef897e.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/sex-w-moim-miescie-ps-wiPd-XZgA-bCCC.html">Sex w moim mieście</a><br><small>Iga Dudziuk</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/1JFF4F1/kapitan-karkowka-na-tropie.jpg"</td>
+            <td><a href="https://www.voxfm.pl/rozrywka/kapitan-karkowka-na-tropie-podcast-aa-3v6j-zZbK-AtRc.html">Kapitan Karkówka na tropie</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/wpf1Rbv/czerwony-kapturek-vox-fm.webp"</td>
+            <td><a href="https://player.voxfm.pl/czerwony-kapturek-nowe-porzadki/">Czerwony Kapturek – nowe porządki</a><br><small>Przemek Sasowski, Marta Kiermasz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/PxFDpct/suchary-pana-ryska.webp"</td>
+            <td><a href="https://player.voxfm.pl/podcast/suchary-pana-ryska-z-gwiazdami-podcasty-vox-fm-ps-22PD-3vuM-3BfJ.html">Suchary Pana Ryśka</a><br><small>Rysiek Piwek</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/r4Ck39C/wspomnienia-powstanki-warszawskiej.jpg"</td>
+            <td><a href="https://player.voxfm.pl/podcast/powstanie-warszawskie-ps-Lbh9-V6U4-MaXW.html">Powstanie Warszawskie - wspomnienia ps. Iskra.</a><br><small>jacek ponder</small></td>
+         </tr>
+      </table>
+      <script src="filters2.js"></script>
+   </body>
+</html>
