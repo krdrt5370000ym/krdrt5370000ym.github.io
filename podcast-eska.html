@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+<h2>My Customers</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<button class="but but1" onclick="sortTable()">Sort</button>
+
+<table id="myTable" style="width:100%">
+   <tr style="visibility: collapse">
+      <th style="width:5%"></td>
+      <th style="width:95%"></td>
+   </tr>
+<tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/hKcK5S4/gosc-radia-eska.webp"</td>
+      <td><a href="https://www.spreaker.com/show/5024465">Gość Radia ESKA<br><small>Kasia Węsierska Hany</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/vc7Zyw2/moj-pierwszy-raz.webp"</td>
+      <td><a href="https://www.spreaker.com/show/5024463">Mój Pierwszy Raz<br><small>Hany</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/GMZWpsK/psycha-wysiada.webp"</td>
+      <td><a href="https://www.spreaker.com/show/5817232">Psycha wysiada<br><small>Paweł Czyżewski & Agnieszka Zalewska</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/7yvJSLz/jak-baba-z-chlopem.webp"</td>
+      <td><a href="https://www.spreaker.com/show/5768191">Jak Baba z Chłopem<br><small>Gabrysia Gargaś</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/BqWW0z6/eska-daje-szkole.webp"</td>
+      <td><a href="https://www.spreaker.com/show/5913073">Eska Daje szkołę<br><small>Mati Fuczyło, Kasia Węsierska, Rudy</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/gjT6RXj/lektury-szkolne-streszczenia.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/5067802">Lektury szkolne - Streszczenia</a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/FKsLBz8/glos-portowcow.webp"</td>
+      <td><a href="https://www.spreaker.com/show/5699864">Głos Portowców<br><small>Mateusz Rzepecki Bartosz Ślusarski Adam Krokowski</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/6103708">Nosel wkręca<br><small>Kamil Nosel</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/TT4LsCg/gf-Sv1s-NL6D-wmqe-eska-bez-barier-994x828.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/6082883">ESKA bez barier</a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/Pcn4Y51/znani-ludzie-o-lodzi-zajawka.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/6029629">Znani ludzie o Łodzi</a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/y0XsSYz/3312a1e7be7008481657b5e1af932475.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/6154973">Niesamowite Lubuskie w Radio ESKA</a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/L1xWN75/491461c5115fff5c9c7193ac81bffe03.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/6263200">RAP20<br><small>Mati Fuczyło</small></a></td>
+   </tr>
+   <tr>
+      <td><img class="boximg" src="https://i.ibb.co/N2sY4w1/e981c5f32751011392a044003ec58368.jpg"</td>
+      <td><a href="https://www.spreaker.com/show/5975497">ESKA RAZEM przeciw DEPRESJI<br><small>Maja Pisarek</small></a></td>
+   </tr>
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[1];
+      y = rows[i + 1].getElementsByTagName("TD")[1];
+      //check if the two rows should switch place:
+      if (x.textContent.toLowerCase() > y.textContent.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+
+</body>
+</html>
