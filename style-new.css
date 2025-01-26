@@ -2,9 +2,6 @@
     body {
         font-family: "Mulish", serif;
     }
-    audio source[src=""]{
-        display: none;
-    }
     
     a:link {
         color: inherit;
