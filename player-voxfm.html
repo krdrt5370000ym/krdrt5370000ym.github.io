@@ -1,0 +1,405 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="stylesheet" href="style-new.css">
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <img class="boximgmain" src="https://i.ibb.co/3hTtzkV/voxfm-plug-icon2024.jpg" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Radio VOX FM.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://waw.ic.smcdn.pl/3980-1.aac"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Radio VOX FM.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://waw.ic.smcdn.pl/3980-1.aac"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Radio VOX FM.rm" href="data:application/vnd.rn-realmedia,https://waw.ic.smcdn.pl/3980-1.aac"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/vox-fm"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://waw.ic.smcdn.pl/3980-1.aac"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://waw.ic.smcdn.pl/3980-1.aac">VOX w Rytmie Hitów</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Biała Podlaska</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Białystok</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Bielsko-Biała</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Bydgoszcz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Częstochowa</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Elbląg</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Gdańsk</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Gdynia</option>
+         <option value="https://waw.ic.smcdn.pl/3040-1.aac">Gorzów Wielkopolski</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Grudziądz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Jelenia Góra</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Kalisz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Katowice</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Kielce</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Koszalin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Konin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Kraków</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Krosno</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Legnica</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Leszno</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Lublin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Łomża</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Łódź</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Nowy Sącz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Olsztyn</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Opole</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Ostrołęka</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Piotrków Trybunalski</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Płock</option>
+         <option value="https://waw.ic.smcdn.pl/3140-1.aac">Poznań</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Przemyśl</option>
+         <option value="https://waw.ic.smcdn.pl/3210-1.aac">Radom</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Rzeszów</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Siedlce</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Suwałki</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Szczecin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Tarnobrzeg</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Tarnów</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Toruń</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Tychy</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Wałbrzych</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Warszawa</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Włocławek</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Wrocław</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Zamość</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Zielona Góra</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">VOX Zielona Góra</option>
+         <option value="https://waw.ic.smcdn.pl/6080-1.aac">VOX FM Best lista 2024</option>
+         <option value="https://waw.ic.smcdn.pl/6100-1.aac">VOX Best Lista</option>
+         <option value="https://waw.ic.smcdn.pl/6020-1.aac">VOX DJ Mix</option>
+         <option value="https://waw.ic.smcdn.pl/6180-1.aac">VOX Dance</option>
+         <option value="https://waw.ic.smcdn.pl/6170-1.aac">Vox Disco 90</option>
+      </select>
+      <br>
+      <button class="but but1"><a href="https://myradioonline.pl/vox-fm">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://waw.ic.smcdn.pl/3980-1.aac">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://www.voxfm.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.voxfm.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://player.voxfm.pl">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/248345514887">🗨 Messenger</a></button><button class="but but1"><a href="tel:609869869">📞 609 869 869</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 06:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:30</td>
+               <td><img class="boximg" src="https://i.ibb.co/nQ589p8/Pierwsza-Zmiana-500x500.jpg"></td>
+               <td>Pierwsza Zmiana<br><small>Pawelec, Konrad Piwowarski, Julia Chren</small></td>
+            </tr>
+            <tr>
+               <td>09:30 - 14:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/wdrqr3m/AS-500x500.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Arek Sikora</small></td>
+            </tr>
+            <tr>
+               <td>14:00 - 17:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6FmJ578/Kamil-500x500.jpg"></td>
+               <td>To Jest Dzień<br><small>Kamil Rutkowski<br>Gorzów Wlkp.: Mariusz Wasilewski</small></td>
+            </tr>
+            <tr>
+               <td>17:00 - 20:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/3MQhBpm/Piotr-Micha.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Michał Trawka &amp; Piotr Ambroży</small></td>
+            </tr>
+            <tr>
+               <td>20:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1nKfZCW/Przemek-500x500.jpg"></td>
+               <td>Dobry Wieczór, Polsko!<br><small>Przemek Sasowski</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 06:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:30</td>
+               <td><img class="boximg" src="https://i.ibb.co/nQ589p8/Pierwsza-Zmiana-500x500.jpg"></td>
+               <td>Pierwsza Zmiana<br><small>Pawelec, Konrad Piwowarski, Julia Chren</small></td>
+            </tr>
+            <tr>
+               <td>09:30 - 14:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/wdrqr3m/AS-500x500.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Arek Sikora</small></td>
+            </tr>
+            <tr>
+               <td>14:00 - 17:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6FmJ578/Kamil-500x500.jpg"></td>
+               <td>To Jest Dzień<br><small>Kamil Rutkowski<br>Gorzów Wlkp.: Mariusz Wasilewski</small></td>
+            </tr>
+            <tr>
+               <td>17:00 - 20:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/3MQhBpm/Piotr-Micha.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Michał Trawka &amp; Piotr Ambroży</small></td>
+            </tr>
+            <tr>
+               <td>20:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1nKfZCW/Przemek-500x500.jpg"></td>
+               <td>Dobry Wieczór, Polsko!<br><small>Przemek Sasowski</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 06:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:30</td>
+               <td><img class="boximg" src="https://i.ibb.co/nQ589p8/Pierwsza-Zmiana-500x500.jpg"></td>
+               <td>Pierwsza Zmiana<br><small>Pawelec, Konrad Piwowarski, Julia Chren</small></td>
+            </tr>
+            <tr>
+               <td>09:30 - 14:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/wdrqr3m/AS-500x500.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Arek Sikora</small></td>
+            </tr>
+            <tr>
+               <td>14:00 - 17:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6FmJ578/Kamil-500x500.jpg"></td>
+               <td>To Jest Dzień<br><small>Kamil Rutkowski<br>Gorzów Wlkp.: Mariusz Wasilewski</small></td>
+            </tr>
+            <tr>
+               <td>17:00 - 20:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/3MQhBpm/Piotr-Micha.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Michał Trawka &amp; Piotr Ambroży</small></td>
+            </tr>
+            <tr>
+               <td>20:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1nKfZCW/Przemek-500x500.jpg"></td>
+               <td>Dobry Wieczór, Polsko!<br><small>Przemek Sasowski</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 06:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:30</td>
+               <td><img class="boximg" src="https://i.ibb.co/nQ589p8/Pierwsza-Zmiana-500x500.jpg"></td>
+               <td>Pierwsza Zmiana<br><small>Pawelec, Konrad Piwowarski, Julia Chren</small></td>
+            </tr>
+            <tr>
+               <td>09:30 - 14:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/wdrqr3m/AS-500x500.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Arek Sikora</small></td>
+            </tr>
+            <tr>
+               <td>14:00 - 17:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6FmJ578/Kamil-500x500.jpg"></td>
+               <td>To Jest Dzień<br><small>Kamil Rutkowski<br>Gorzów Wlkp.: Mariusz Wasilewski</small></td>
+            </tr>
+            <tr>
+               <td>17:00 - 20:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/3MQhBpm/Piotr-Micha.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Michał Trawka &amp; Piotr Ambroży</small></td>
+            </tr>
+            <tr>
+               <td>20:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1nKfZCW/Przemek-500x500.jpg"></td>
+               <td>Dobry Wieczór, Polsko!<br><small>Przemek Sasowski</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 06:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>06:00 - 09:30</td>
+               <td><img class="boximg" src="https://i.ibb.co/nQ589p8/Pierwsza-Zmiana-500x500.jpg"></td>
+               <td>Pierwsza Zmiana<br><small>Pawelec, Konrad Piwowarski, Julia Chren</small></td>
+            </tr>
+            <tr>
+               <td>09:30 - 14:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/wdrqr3m/AS-500x500.jpg"></td>
+               <td>W Rytmie Hitów<br><small>Arek Sikora</small></td>
+            </tr>
+            <tr>
+               <td>14:00 - 17:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/6FmJ578/Kamil-500x500.jpg"></td>
+               <td>To Jest Dzień<br><small>Kamil Rutkowski<br>Gorzów Wlkp.: Mariusz Wasilewski</small></td>
+            </tr>
+            <tr>
+               <td>17:00 - 19:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/t8cPxbH/Krzysiek-500x500.jpg"></td>
+               <td>Best Lista<br><small>Krzysiek Skrzypkowski</small></td>
+            </tr>
+            <tr>
+               <td>19:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/GnmpsnK/DJ-Charis.jpg"></td>
+               <td>Jest Weekend Jest Impreza<br><small>DJ Charis</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 08:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>08:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1X6WR0L/CLP-1400x1400.jpg"></td>
+               <td><small>publicystyka</small><br>Co Ludzie Powiedzą<br><small>Adam Feder</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 10:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1bMZm7F/Projekt-bez-nazwy5.jpg"></td>
+               <td>VOX FM - W Rytmie Hitów<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>10:00 - 15:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/3MQhBpm/Piotr-Micha.jpg"></td>
+               <td>Jest Weekend w Rytmie Hitów<br><small>Michał Trawka &amp; Piotr Ambroży</small></td>
+            </tr>
+            <tr>
+               <td>15:00 - 19:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1bMZm7F/Projekt-bez-nazwy5.jpg"></td>
+               <td>VOX FM - W Rytmie Hitów<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>19:00 - 23:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/GnmpsnK/DJ-Charis.jpg"></td>
+               <td>Jest Weekend Jest Impreza<br><small>DJ Charis</small></td>
+            </tr>
+            <tr>
+               <td>23:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr>
+               <td>00:00 - 08:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>08:00 - 09:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/dt64jmz/VOX-NGP24-1500x1500.jpg"></td>
+               <td><small>publicystyka</small><br>Nie Ma Głupich Pytań<br><small>Ewelina Kamińska</small></td>
+            </tr>
+            <tr>
+               <td>09:00 - 11:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/F5yyDFd/431502809_801439115350010_2300527941242498435_n.jpg"></td>
+               <td>The Best of Pierwsza Zmiana<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>11:00 - 12:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1bMZm7F/Projekt-bez-nazwy5.jpg"></td>
+               <td>VOX FM - W Rytmie Hitów<br><small>VOX FM</small></td>
+            </tr>
+            <tr>
+               <td>12:00 - 16:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1nKfZCW/Przemek-500x500.jpg"></td>
+               <td>Jest Weekend w Rytmie Hitów<br><small>Przemek Sasowski</small></td>
+            </tr>
+            <tr>
+               <td>16:00 - 18:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/NtYWvGn/Pawel-750x750.jpg"></td>
+               <td>Jest Weekend w Rytmie Hitów<br><small>Paweł Doncbach</small></td>
+            </tr>
+            <tr>
+               <td>18:00 - 19:00</td>
+               <td><img class="boximg" src="https://i.ibb.co/1X6WR0L/CLP-1400x1400.jpg"></td>
+               <td>Co Ludzie Powiedzą<br><small>Adam Feder</small></td>
+            </tr>
+            <tr>
+               <td>19:00 - 23:59</td>
+               <td><img class="boximg" src="https://i.ibb.co/NjLm8CS/Projekt-bez-nazwy4.jpg"></td>
+               <td>Noc z VOX FM<br><small>VOX FM</small></td>
+            </tr>
+         </table>
+      </div>
+      <script type="text/javascript" src="tabs.js" ></script>
+      <script type="text/javascript" src="tabschedule.js" ></script>
+   </body>
+</html>
