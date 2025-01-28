@@ -73,6 +73,16 @@
  tr:hover {
      background-color: #CCC;
 }
+.sch-subevent1 {
+     background-color: #eee;   
+}
+.sch-subevent2 {
+     background-color: #e8e8e8;   
+}
+.sch-cancel {
+     filter: grayscale(95%);
+     text-decoration: line-through;
+}
 /* Style the tab */
  .tab {
      overflow: hidden;
