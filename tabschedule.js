@@ -49,6 +49,8 @@ tablinks.forEach(function (tablink, day) {
 openDAY((new Date().getDay() || 7) - 1)
 setInterval(showTodaysSchedule, 60000);
 setInterval(showOnAir, 60000);
+showTodaysSchedule()
+showOnAir()
 
 var show_schedule = function(schedule){
   var no_entry = 'Niestety nie ma transmisji';
