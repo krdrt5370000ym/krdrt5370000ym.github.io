@@ -4,6 +4,8 @@ var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tab
 function showTodaysSchedule() {
   var currentDay = new Date().getDay();
   document.getElementById("day-"+currentDay).classList.add('today');    
+} else {
+  document.getElementById("day-"+currentDay).classList.remove('today');
 }
 
 function showOnAir() {
@@ -26,6 +28,8 @@ function showOnAir() {
     return currentTime >= auditionStart && currentTime < auditionEnd;
   });
   currentAudition?.classList.add("on-air");
+} else {
+  currentAudition?.classList.remove("on-air");
 }
   
 function openDAY(day) {
