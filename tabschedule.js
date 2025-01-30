@@ -1,5 +1,27 @@
 var tablinks = Array.prototype.slice.call(document.getElementsByClassName("tablinks"));
 var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tabcontent"));
+
+function showOnAir() {
+  const date = new Date();
+
+  const currentTime = `${String(date.getHours()).padStart(2, "0")}:${String(
+    date.getMinutes()
+  ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
+
+  const auditions = document.querySelectorAll(".schedule");
+
+  if (!auditions.length) return;
+
+  const [currentAudition] = [...auditions].filter((audition) => {
+    const auditionStart =
+      audition.querySelector(".start").textContent + ":00";
+    const auditionEnd =
+      audition.querySelector(".end").textContent + ":00";
+
+    return currentTime >= auditionStart && currentTime < auditionEnd;
+  });
+  currentAudition?.classList.add("on-air");
+}
   
 function openDAY(day) {
   var i;
@@ -20,6 +42,7 @@ tablinks.forEach(function (tablink, day) {
 })
 
 openDAY((new Date().getDay() || 7) - 1)
+showOnAir()
 
 var show_schedule = function(schedule){
   var no_entry = 'Niestety nie ma transmisji';
