@@ -3,7 +3,6 @@ var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tab
 
 function showTodaysSchedule() {
   var currentDay = new Date().getDay();
-  document.getElementById("day-"+currentDay).classList.remove('today');
   document.getElementById("day-"+currentDay).classList.add('today');    
 }
 
@@ -26,7 +25,6 @@ function showOnAir() {
 
     return currentTime >= auditionStart && currentTime < auditionEnd;
   });
-  currentAudition?.classList.remove("on-air");
   currentAudition?.classList.add("on-air");
 }
   
@@ -49,8 +47,6 @@ tablinks.forEach(function (tablink, day) {
 })
 
 openDAY((new Date().getDay() || 7) - 1)
-setInterval(showTodaysSchedule, 60000);
-setInterval(showOnAir, 60000);
 showTodaysSchedule()
 showOnAir()
 
