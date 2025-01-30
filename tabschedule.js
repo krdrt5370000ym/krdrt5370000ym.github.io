@@ -1,6 +1,11 @@
 var tablinks = Array.prototype.slice.call(document.getElementsByClassName("tablinks"));
 var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tabcontent"));
 
+function showTodaysSchedule() {
+  var currentDay = new Date().getDay();
+  document.getElementById("day-"+currentDay).classList.add('today');    
+}
+
 function showOnAir() {
   const date = new Date();
 
@@ -8,7 +13,7 @@ function showOnAir() {
     date.getMinutes()
   ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
 
-  const auditions = document.querySelectorAll(".schedule");
+  const auditions = document.querySelectorAll(".today .schedule");
 
   if (!auditions.length) return;
 
@@ -42,6 +47,7 @@ tablinks.forEach(function (tablink, day) {
 })
 
 openDAY((new Date().getDay() || 7) - 1)
+showTodaysSchedule()
 showOnAir()
 
 var show_schedule = function(schedule){
