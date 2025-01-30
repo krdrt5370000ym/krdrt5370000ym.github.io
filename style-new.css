@@ -73,6 +73,9 @@
  tr:hover {
      background-color: #CCC;
 }
+.on-air {
+     color: #FFA500;
+}
 .sch-subevent1 {
      background-color: #eee;   
 }
