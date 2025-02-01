@@ -27,6 +27,25 @@ function showOnAir() {
   });
   currentAudition?.classList.add("on-air");
 }
+
+function refreshOnAir() {
+  document.querySelectorAll('#day-1 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-2 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-3 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-4 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-5 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-6 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-0 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelector("#day-1").classList.remove("today");
+  document.querySelector("#day-2").classList.remove("today");
+  document.querySelector("#day-3").classList.remove("today");
+  document.querySelector("#day-4").classList.remove("today");
+  document.querySelector("#day-5").classList.remove("today");
+  document.querySelector("#day-6").classList.remove("today");
+  document.querySelector("#day-0").classList.remove("today");
+  showTodaysSchedule()
+  showOnAir()
+}
   
 function openDAY(day) {
   var i;
@@ -49,6 +68,7 @@ tablinks.forEach(function (tablink, day) {
 openDAY((new Date().getDay() || 7) - 1)
 showTodaysSchedule()
 showOnAir()
+setInterval(refreshOnAir, 60000)
 
 var show_schedule = function(schedule){
   var no_entry = 'Niestety nie ma transmisji';
