@@ -1,0 +1,442 @@
+
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/podcast-radioplus.html">▶ Podcasty</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Radio Eska ROCK.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://waw.ic.smcdn.pl/4990-1.aac"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Radio Eska ROCK.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://waw.ic.smcdn.pl/4990-1.aac"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Radio Eska ROCK.rm" href="data:application/vnd.rn-realmedia,https://waw.ic.smcdn.pl/4990-1.aac"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/radio-plus"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://waw.ic.smcdn.pl/4990-1.aac"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://waw.ic.smcdn.pl/4990-1.aac">Radio Plus</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-bdg.mp3">Bydgoszcz</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-gdn.mp3">Gdańsk</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-glg.mp3">Głogów</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-gnz.mp3">Gniezno</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-grz.mp3">Gorzów</option>
+         <option value="https://waw.ic.smcdn.pl/4270-1.aac">Koszalin</option>
+         <option value="https://waw.ic.smcdn.pl/4070-1.aac">Kraków</option>
+         <option value="https://waw.ic.smcdn.pl/4130-1.aac">Lublin</option>
+         <option value="https://waw.ic.smcdn.pl/4100-1.aac">Łódź</option>
+         <option value="https://waw.ic.smcdn.pl/4110-1.aac">Olsztyn</option>
+         <option value="https://waw.ic.smcdn.pl/4340-1.aac">Podhale</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-rdo.mp3">Radom</option>
+         <option value="https://waw.ic.smcdn.pl/4260-1.aac">Szczecin</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-waw.mp3">Warszawa</option>
+         <option value="https://pl.cdn.eurozet.pl/plu-zgr.mp3">Zielona Góra</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/radio-plus">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://waw.ic.smcdn.pl/4990-1.aac">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://www.radioplus.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.radioplus.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://www.radioplus.pl/wiadomosci/podcasty-radio-plus-aa-i8uG-D72g-EeJf.html">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/90456662460">🗨 Messenger</a></button><button class="but but1"><a href="tel:691141141">📞 691 141 141</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table id="day-1" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">08:45</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1MfvkhC/Kasia-Tomek-500x500.jpg"></td>
+               <td>Kto Rano Wstaje<br><small>Katarzyna Kozimor, Tomasz Waloszczyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:45</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DJ3f0sj/SP-500x500.jpg"></td>
+               <td>Sedno Sprawy<br><small>Jacek Prusinowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/g3wJMcp/Agnieszka-Morawska-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Agnieszka Morawska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Przebojowa Poczta Marka Sierockiego<br><small>Marek Sierocki</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0rxB1TK/Jan-Pasterski-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Jan Pasterski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GQpKxcYb/WRW-500x500.jpg"></td>
+               <td>W Rytmie Wydarzeń<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Radio Plus</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0RZtmrJH/LG-500x500.jpg"></td>
+               <td>Ludzkim Głosem<br><small>Patrycja Michońska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-2" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">01:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">08:45</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1MfvkhC/Kasia-Tomek-500x500.jpg"></td>
+               <td>Kto Rano Wstaje<br><small>Katarzyna Kozimor, Tomasz Waloszczyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:45</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DJ3f0sj/SP-500x500.jpg"></td>
+               <td>Sedno Sprawy<br><small>Jacek Prusinowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/g3wJMcp/Agnieszka-Morawska-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Agnieszka Morawska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Przebojowa Poczta Marka Sierockiego<br><small>Marek Sierocki</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0rxB1TK/Jan-Pasterski-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Jan Pasterski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GQpKxcYb/WRW-500x500.jpg"></td>
+               <td>W Rytmie Wydarzeń<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Radio Plus</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Rk3MXd8J/SSP-500x500.jpg"></td>
+               <td>Sedno Sprawy Plus<br><small>Jacek Prusinowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-3" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">01:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">08:45</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1MfvkhC/Kasia-Tomek-500x500.jpg"></td>
+               <td>Kto Rano Wstaje<br><small>Katarzyna Kozimor, Tomasz Waloszczyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:45</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DJ3f0sj/SP-500x500.jpg"></td>
+               <td>Sedno Sprawy<br><small>Jacek Prusinowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/g3wJMcp/Agnieszka-Morawska-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Agnieszka Morawska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Przebojowa Poczta Marka Sierockiego<br><small>Marek Sierocki</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0rxB1TK/Jan-Pasterski-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Jan Pasterski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GQpKxcYb/WRW-500x500.jpg"></td>
+               <td>W Rytmie Wydarzeń<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Radio Plus</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5XfY4sk0/ST-500x500.jpg"></td>
+               <td>Środek Tygodnia<br><small>Kamila Baranowska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-4" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">01:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">08:45</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1MfvkhC/Kasia-Tomek-500x500.jpg"></td>
+               <td>Kto Rano Wstaje<br><small>Katarzyna Kozimor, Tomasz Waloszczyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:45</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DJ3f0sj/SP-500x500.jpg"></td>
+               <td>Sedno Sprawy<br><small>Jacek Prusinowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/g3wJMcp/Agnieszka-Morawska-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Agnieszka Morawska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Przebojowa Poczta Marka Sierockiego<br><small>Marek Sierocki</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0rxB1TK/Jan-Pasterski-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Jan Pasterski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GQpKxcYb/WRW-500x500.jpg"></td>
+               <td>W Rytmie Wydarzeń<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Radio Plus</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jZv79wsP/Czlowiek-Z-Bliska-500x500.jpg"></td>
+               <td>Człowiek Z Bliska<br><small>Małgorzata Świtała</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-5" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">01:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg"></td>
+               <td>Nocne Światła<br><small>Paweł Krzemiński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">08:45</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1MfvkhC/Kasia-Tomek-500x500.jpg"></td>
+               <td>Kto Rano Wstaje<br><small>Katarzyna Kozimor, Tomasz Waloszczyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:45</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DJ3f0sj/SP-500x500.jpg"></td>
+               <td>Sedno Sprawy<br><small>Jacek Prusinowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/g3wJMcp/Agnieszka-Morawska-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Agnieszka Morawska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Przebojowa Poczta Marka Sierockiego<br><small>Marek Sierocki</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0rxB1TK/Jan-Pasterski-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Jan Pasterski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GQpKxcYb/WRW-500x500.jpg"></td>
+               <td>W Rytmie Wydarzeń<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Radio Plus</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Prywatka z Markiem Sierockim<br><small>Marek Sierocki</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-6" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/g3wJMcp/Agnieszka-Morawska-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Agnieszka Morawska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/z6mqGxd/Mariusz-Syta-500x500.jpg"></td>
+               <td>Aleja Gwiazd<br><small>Mariusz Syta</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/kJJWxyZ/Andrzej-Jaszczyszyn-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Andrzej Jaszczyszyn</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Prywatka z Markiem Sierockim<br><small>Marek Sierocki</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-0" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">08:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Transmisja Mszy Świętej<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/BH3DpHQT/OGC-500x500.jpg"></td>
+               <td>Ósma Godzina Czytań<br><small>Artur Moczarski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">11:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/8LRn7DmT/KWK-500x500.jpg"></td>
+               <td>Kościół Wydarzenia Komentarze<br><small>Weronika Kostrzewa</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">11:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/kJJWxyZ/Andrzej-Jaszczyszyn-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Andrzej Jaszczyszyn</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jW6k191/Marek-Sierocki-500x500.jpg"></td>
+               <td>Muzyczny Alfabet Marka Sierockiego<br><small>Marek Sierocki</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Jv7Lhxp/Plus-500x500.jpg"></td>
+               <td>Przeboje Z Nutą Nostalgii<br><small>Radio Plus</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/z6mqGxd/Mariusz-Syta-500x500.jpg"></td>
+               <td>Aleja Gwiazd powt.<br><small>Mariusz Syta</small></td>
+            </tr>
+         </table>
+      </div>
+      <script type="text/javascript" src="tabs.js"></script>
+      <script type="text/javascript" src="tabschedule.js"></script>
+   </body>
+</html>
