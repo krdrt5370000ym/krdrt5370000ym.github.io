@@ -2,14 +2,12 @@ var tablinks = Array.prototype.slice.call(document.getElementsByClassName("tabli
 var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tabcontent"));
 
 function showTodaysSchedule() {
-  var currentTZ = new Date().toLocaleString(undefined, {timeZone: "Europe/Warsaw"});
-  var currentDay = new Date(currentTZ).getDay();
+  var currentDay = new Date().getDay();
   document.getElementById("day-"+currentDay).classList.add('today');    
 }
 
 function showOnAir() {
-  const TZ = new Date().toLocaleString(undefined, {timeZone: "Europe/Warsaw"});
-  const date = new Date(TZ);
+  const date = new Date();
 
   const currentTime = `${String(date.getHours()).padStart(2, "0")}:${String(
     date.getMinutes()
@@ -67,7 +65,7 @@ tablinks.forEach(function (tablink, day) {
   })
 })
 
-openDAY((new Date(new Date().toLocaleString(undefined, {timeZone: "Europe/Warsaw"})).getDay() || 7) - 1)
+openDAY((new Date().getDay() || 7) - 1)
 showTodaysSchedule()
 showOnAir()
 setInterval(refreshOnAir, 60000)
