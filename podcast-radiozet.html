@@ -1,0 +1,221 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new3.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/player-radiozet.html">📻 Player</a></button><hr>
+      <h2>Podcasty Radia ZET</h2>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but1" onclick="sortTable()">Sort</button>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/ZWGsfjM/Niech-To-Uslysza-serial-kryminalny-Radia-ZET.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Niech-To-Uslysza">Niech To Usłyszą – serial kryminalny Radia ZET</a><br><small>Jakub Ćwiek, Wojciech Chmielarz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/rcNM9Q4/Gosc-Radia-ZET-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Gosc-Radia-ZET">Gość Radia ZET</a><br><small>Bogdan Rymanowski, Beata Lubecka</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/QYqgTzp/Szymon-Majewski-Szal.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Szymon-Majewski-Szal">Szymon Majewski Szał</a><br><small>Szymon Majewski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Popoludniowy-Gosc-Radia-ZET">Popołudniowy Gość Radia ZET</a><br><small>Beata Lubecka</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/jkqp90B/7-Dzien-Tygodnia-w-Radiu-ZET-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/7.-Dzien-Tygodnia-w-Radiu-ZET">7. Dzień Tygodnia w Radiu ZET</a><br><small>Andrzej Stankiewicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Zh84SqM/Kocham-Cie-Kino.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Kocham-Cie-Kino">Kocham Cię Kino</a><br><small>Grażyna Torbicka</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/TgdmwLW/Wiadomosci-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Wiadomosci">Wiadomości</a><br><small>Redakcja Radia ZET</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/G9Vw4Hf/Wiadomosci-sportowe-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Wiadomosci-sportowe">Wiadomości sportowe</a><br><small>Redakcja Radia ZET</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/vJGMqmW/Wiadomosci-ekonomiczne-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Wiadomosci-ekonomiczne">Wiadomości ekonomiczne</a><br><small>Redakcja Radia ZET</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/QCsXQJL/Wiadomosci-kulturalne-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Wiadomosci-kulturalne">Wiadomości kulturalne</a><br><small>Redakcja Radia ZET</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/QK45sH5/To-sie-nagrywa.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/To-sie-nagrywa">To się nagrywa</a><br><small>Magdalena Barczyk</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Q8GZxZy/ZET-jak-Zdrowie-size-160x160.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/ZET-jak-Zdrowie2">ZET jak Zdrowie</a><br><small>Iwona Kutyna, Agnieszka Kołodziejska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/NyzJkWM/ZET-za-Kolkiem-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/ZET-za-Kolkiem">ZET za Kółkiem</a><br><small>Michał Adamiuk, Joanna Zientarska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/mBBBvHN/SzyminEM.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/SZYMIN3M">SzyminEM</a><br><small>Szymon Majewski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/XJ9RL9z/Machina-wladzy-size-160x160.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Machina-wladzy">Machina władzy</a><br><small>Mikołaj Pietraszewski, Błażej Makarewicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/jJ6xhr3/Biznes-Miedzy-wierszami.jpg"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Biznes.-Miedzy-wierszami">Biznes. Między wierszami</a><br><small>Katarzyna Witwicka, Agnieszka Zaręba</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/j4J3Dcq/Szkola-marzen.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Szkola-marzen">Szkoła marzeń</a><br><small>Aleksandra Pucułek</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/FgzQ4ms/Podejrzani-politycy-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Podejrzani-politycy">Podejrzani politycy</a><br><small>Radosław Gruca, Błażej Makarewicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/F5rKLQz/Na-walizkach.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Na-walizkach">Na walizkach</a><br><small>Paulina Ermel, Jolanta Waligóra, Nina Czochara</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/W2J0Myp/Planuje-dlugie-zycie-square.jpg"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Planuje-dlugie-zycie">Planuję długie życie</a><br><small>Materiały partnerskie</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/frBppxf/Na-gole-piesci-square.jpg"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Na-gole-piesci">Na gołe pięści</a><br><small>Andreas Nicolaides</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/4Vg7W0F/Wspolrzedne-Swiata.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Wspolrzedne-Swiata">Współrzędne Świata </a><br><small>Piotr Drabik</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/b1qKQ8h/Material-dowodowy-podcast-kryminalny-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Material-dowodowy-podcast-kryminalny">Materiał dowodowy - podcast kryminalny</a><br><small>Mateusz Kapera</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/HhqNJJM/Psyche.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Psyche">Psyche</a><br><small>Aleksandra Sobieraj, Monika Karbarczyk, Aleksandra Pucułek</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/F7rmBgf/BMWA.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Biznes.-Miedzy-wierszami-audioprezentacja">Biznes. Między wierszami - audioprezentacja</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/4dzSMRQ/Pogadamy-Zobaczymy-size-160x160.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Pogadamy-Zobaczymy">Pogadamy, Zobaczymy</a><br><small>Patryk Wołosz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/M5TRzNH/PSEiZK.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Program-Srodowisko-Energia-i-Zmiany-Klimatu-Audioprezentacja">Program Środowisko, Energia i Zmiana Klimatu [AUDIOPREZENTACJA]</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/HrXsNxs/Media-i-polityka-Niebezpieczne-zwiazki.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Media-i-polityka.-Niebezpieczne-zwiazki2">Media i polityka. Niebezpieczne związki</a><br><small>Maciej Bąk</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/vxmcz0f/OUiK.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Odkryc-ukryte-i-niedopowiedziane.-Z-nominowanymi-do-Nagrody-Woyciechowskiego-2023-rozmawia-Rafal-Mizejewski">Odkryć ukryte i niedopowiedziane. Z nominowanymi do Nagrody Woyciechowskiego 2023 rozmawia Rafał Miżejewski</a><br><small>Rafał Miżejewski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/2ctnjxR/WTMDW.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/WALORY-TURYSTYCZNE-MIEDZYNARODOWEJ-DROGI-WODNEJ-E70/Z-WIELKOPOLSKIM-PORZADKIEM-I-SZACUNKIEM-DO-TRADYCJI">Walory turystyczne międzynarodowej drogi wodnej e70 [AUDIOPREZENTACJA]</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/F6STvq6/Opowiesc-wigilijna-w-Radiu-ZET.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Opowiesc-wigilijna-w-Radiu-ZET">"Opowieść wigilijna" w Radiu ZET </a><br><small>Redakcja Radia ZET</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/ydkXChw/Graj-z-m-Bankiem-na-32-Finale-WOSP.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Graj-z-mBankiem-na-32.-Finale-WOSP">Graj z mBankiem na 32. Finale WOŚP</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/9NKfcd8/Sekcja-Komentarzy.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Sekcja-Komentarzy">Sekcja Komentarzy</a><br><small>Maciej Bąk</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/MRxjmSp/Poszukiwacze-domowych-skarbow-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Poszukiwacze-domowych-skarbow">Poszukiwacze domowych skarbów</a><br><small>Michał Tomaszkiewicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/6FWLWh1/Zloto-Baltyku-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Zloto-Baltyku">Złoto Bałtyku</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Hq9wfcH/sPKBiSKwZO.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/sPrawa-dla-Konsumenta-Swiadomosc-konsumencka-i-bezpieczenstwo-zakupow-online">sPrawa Konsumenta – Bezpieczeństwo i Świadomość Konsumencka w Zakupach Online</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/nRZwy3S/Magazyn-Euro-2024-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Magazyn-Euro-2024">Magazyn Euro 2024</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/cgqfBgH/SEZON-OGORKOWY-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/SEZON-OGORKOWY">SEZON OGÓRKOWY</a><br><small>Beata Lubecka</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/fdJLWvJ/Audioprezentacja-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Audioprezentacja">W drodze do pracy - audioprezentacja</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/NtqHVJv/Co-By-Bylo-Gdyby-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Co-By-Bylo-Gdyby">Co By Było Gdyby</a><br><small>Robert Karpowicz, Bartosz Gajda</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/9wG0RWg/Jak-aplikowac-w-Sciezce-SMART-audioprezentacja-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Jak-aplikowac-w-Sciezce-SMART-audioprezentacja">Jak aplikować w Ścieżce SMART- audioprezentacja</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/hLZKr8t/Krotkowzrocznosc-u-dzieci-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Krotkowzrocznosc-u-dzieci">Krótkowzroczność u dzieci</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/DQpwyc5/Ubezpieczenie-Szpitalne-Pelna-Opieka-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/LUX-MED-Audioprezentacja">Ubezpieczenie Szpitalne - Pełna Opieka</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Y3Wd403/Potega-nauki-i-wiedzy-UMCS-na-uczelnianej-mapie-Polski-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Potega-nauki-i-wiedzy.-UMCS-na-uczelnianej-mapie-Polski">Potęga nauki i wiedzy. UMCS na uczelnianej mapie Polski</a><br><small>Aleksandra Pucułek</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/cXH4j94/AUDIOPREZENTACJA-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Audioprezentacja2/Ostatnie-mroczne-spotkanie-z-Sewerynem-Zaorskim/(offset)/1">AUDIOPREZENTACJA</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/89Vpkqv/Niebieskie-technologie-z-Funduszami-Norweskimi-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Niebieskie-technologie-z-Funduszami-Norweskimi">Niebieskie technologie z Funduszami Norweskimi</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/j8FXwhN/NA-CHLOPSKI-ROZUM-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/NA-CHLOPSKI-ROZUM">NA CHŁOPSKI ROZUM</a><br><small>Michał Korościel, Marcin Sońta</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/fxHCYTt/Finanse-w-biznesie-size-228x228.webp"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Finanse-w-biznesie">Finanse w biznesie</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/cKTZm0nZ/Polska-w-Unii-Europejskiej-size-228x228.png"></td>
+            <td><a href="https://player.radiozet.pl/Podcasty/Polska-w-Unii-Europejskiej">Polska w Unii Europejskiej</a><br><small>Materiał promocyjny</small></td>
+         </tr>
+      </table>
+      <script src="filters2.js"></script>
+   </body>
+</html>
