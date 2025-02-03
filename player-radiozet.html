@@ -1,0 +1,503 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/podcast-radiozet.html">▶ Podcasty</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/qNMTNY9/Radio-ZET.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Radio ZET.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Radio ZET.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Radio ZET.rm" href="data:application/vnd.rn-realmedia,https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/radio-zet"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www">Radio ZET</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=8400&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Radio ZET (serwer #2)</option>
+         <option value="https://cast.tunzilla.com/https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www">Radio ZET (bez reklam)</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETNAR.mp3">Radio ZET na Rower</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETHIT.mp3">Radio ZET Same Hity</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETPL1.mp3">Radio ZET Po Polsku</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETPAR.mp3">Radio ZET Impreza</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETPRK.mp3">Radio ZET Pop Rock</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETDAN.mp3">Radio ZET Dance</option>
+         <option value="https://zt.cdn.eurozet.pl/ZET080.mp3">Radio ZET 80</option>
+         <option value="https://zt.cdn.eurozet.pl/ZET090.mp3">Radio ZET 90</option>
+         <option value="https://zt.cdn.eurozet.pl/ZET200.mp3">Radio ZET 2000</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETLOV.mp3">Radio ZET Love</option>
+         <option value="https://ch.cdn.eurozet.pl/ZETLTN.mp3">Radio ZET Latino</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETKID.mp3">Radio ZET Dla Dzieci</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETLIV.mp3">Radio ZET Live</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETKOL.mp3">Radio ZET Kolędy</option>
+         <option value="https://zt.cdn.eurozet.pl/ZETSWI.mp3">Radio ZET na Święta</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/radio-zet">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://player.radiozet.pl/Ramowka">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://player.radiozet.pl/Podcasty">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/84022354529">🗨 Messenger</a></button><button class="but but1"><a href="tel:321321321">📞 321 321 321</a></button><button class="but but1"><a href="https://player.radiozet.pl/Programy">📻 Programy</a></button><button class="but but1"><a href="https://player.radiozet.pl/Ludzie-Radia">🧍 Ludzie</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table id="day-1" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TrK2Q0s/Dzien-Dobry-Bardzo-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo<br><small>Marek Starybrat, Bartosz Gajda</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">07:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">08:02</span> - <span class="end">08:12</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0n7tPjX/Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Gość Radia ZET<br><small>Bogdan Rymanowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0X2Yxrf/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Agnieszka Kołodziejska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">14:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0ttk3JR/Szczyt-Wszystkiego-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Szczyt Wszystkiego w Radiu ZET<br><small>Michał Korościel, Marcin Sońta</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td><small>powtórka</small><br>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">18:02</span> - <span class="end">18:10</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Popołudniowy Gość Radia ZET<br><small>Beata Lubecka</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dKC5xdJ/Lista-Przebojow-Radia-ZET-Lubie-to-size-228x228.png"></td>
+               <td>Lista Przebojów Radia ZET „Lubię to!”<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ykhXmdM/Lubie-to-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Lubię to w Radiu ZET<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/N3v11Ms/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Marcin Wojciechowski</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-2" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/N3v11Ms/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Marcin Wojciechowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TrK2Q0s/Dzien-Dobry-Bardzo-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo<br><small>Marek Starybrat, Bartosz Gajda</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">07:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">08:02</span> - <span class="end">08:12</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0n7tPjX/Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Gość Radia ZET<br><small>Bogdan Rymanowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">11:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0X2Yxrf/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Agnieszka Kołodziejska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">11:30</span> - <span class="end">12:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/k69DzRz/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Agnieszka Kołodziejska, Michał Adamski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:30</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/tb1ss4F/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Michał Adamski</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td><small>powtórka</small><br>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0ttk3JR/Szczyt-Wszystkiego-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Szczyt Wszystkiego w Radiu ZET<br><small>Michał Korościel, Marcin Sońta</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">18:02</span> - <span class="end">18:10</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Popołudniowy Gość Radia ZET<br><small>Beata Lubecka</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dKC5xdJ/Lista-Przebojow-Radia-ZET-Lubie-to-size-228x228.png"></td>
+               <td>Lista Przebojów Radia ZET „Lubię to!”<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ykhXmdM/Lubie-to-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Lubię to w Radiu ZET<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-3" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TrK2Q0s/Dzien-Dobry-Bardzo-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo<br><small>Marek Starybrat, Bartosz Gajda</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">07:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">08:02</span> - <span class="end">08:12</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0n7tPjX/Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Gość Radia ZET<br><small>Bogdan Rymanowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0X2Yxrf/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Agnieszka Kołodziejska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Wy0dTTW/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Ewelina Pacyna</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td><small>powtórka</small><br>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0ttk3JR/Szczyt-Wszystkiego-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Szczyt Wszystkiego w Radiu ZET<br><small>Michał Korościel, Marcin Sońta</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">18:02</span> - <span class="end">18:10</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Popołudniowy Gość Radia ZET<br><small>Beata Lubecka</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dKC5xdJ/Lista-Przebojow-Radia-ZET-Lubie-to-size-228x228.png"></td>
+               <td>Lista Przebojów Radia ZET „Lubię to!”<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ykhXmdM/Lubie-to-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Lubię to w Radiu ZET<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-4" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TrK2Q0s/Dzien-Dobry-Bardzo-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo<br><small>Marek Starybrat, Bartosz Gajda</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">07:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">08:02</span> - <span class="end">08:12</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0n7tPjX/Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Gość Radia ZET<br><small>Bogdan Rymanowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0X2Yxrf/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Agnieszka Kołodziejska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Wy0dTTW/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Ewelina Pacyna</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td><small>powtórka</small><br>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0ttk3JR/Szczyt-Wszystkiego-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Szczyt Wszystkiego w Radiu ZET<br><small>Michał Korościel, Marcin Sońta</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">18:02</span> - <span class="end">18:10</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Popołudniowy Gość Radia ZET<br><small>Beata Lubecka</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dKC5xdJ/Lista-Przebojow-Radia-ZET-Lubie-to-size-228x228.png"></td>
+               <td>Lista Przebojów Radia ZET „Lubię to!”<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ykhXmdM/Lubie-to-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Lubię to w Radiu ZET<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-5" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TrK2Q0s/Dzien-Dobry-Bardzo-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo<br><small>Marek Starybrat, Bartosz Gajda</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">07:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="sch-subevent1 schedule">
+               <td><span class="start">08:02</span> - <span class="end">08:12</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jwwjFqV/Gosc-Radia-ZET-size-228x228.png"></td>
+               <td>Gość Radia ZET<br><small>Beata Lubecka</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0X2Yxrf/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Agnieszka Kołodziejska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Wy0dTTW/Szybko-zleci-size-228x228.png"></td>
+               <td>Szybko zleci<br><small>Ewelina Pacyna</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:47</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/6DFJz6D/Szymon-Majewski-Szal.png"></td>
+               <td><small>powtórka</small><br>Szymon Majewski Szał<br><small>Szymon Majewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/cgJ4m3L/Szczyt-Wszystkiego-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Szczyt Wszystkiego w Radiu ZET<br><small>Marcin Sońta, Michał Adamski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dKC5xdJ/Lista-Przebojow-Radia-ZET-Lubie-to-size-228x228.png"></td>
+               <td>Lista Przebojów Radia ZET „Lubię to!”<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ykhXmdM/Lubie-to-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Lubię to w Radiu ZET<br><small>Mateusz Ptaszyński</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-6" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7XQV6fv/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">06:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/b60H4yt/Dzien-Dobry-Bardzo-Weekend-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo Weekend<br><small>Michał Adamski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Cs6SMKV/Na-luzie-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Na luzie w Radiu ZET<br><small>Ewelina Pacyna</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/16DHPpm/Czas-wolny-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Czas wolny w Radiu ZET<br><small>Marcin Wojciechowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/NNqwx6Q/Party-ZETka-size-228x228.png"></td>
+               <td>PartyZETka<br><small>Hubert Radzikowski</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-0" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">06:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/b60H4yt/Dzien-Dobry-Bardzo-Weekend-size-228x228.png"></td>
+               <td>Dzień Dobry Bardzo Weekend<br><small>Michał Adamski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jkqp90B/7-Dzien-Tygodnia-w-Radiu-ZET-size-228x228.png"></td>
+               <td>7. Dzień Tygodnia w Radiu ZET<br><small>Andrzej Stankiewicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Cs6SMKV/Na-luzie-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Na luzie w Radiu ZET<br><small>Ewelina Pacyna</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/16DHPpm/Czas-wolny-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Czas wolny w Radiu ZET<br><small>Marcin Wojciechowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dkMBxpv/Dzieje-sie-w-Radiu-ZET-size-228x228.png"></td>
+               <td>Dzieje się w Radiu ZET<br><small>Michał Korościel</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/DC4qz3t/Fajna-nocka-size-228x228.png"></td>
+               <td>Fajna nocka<br><small>Redakcja Radia ZET</small></td>
+            </tr>
+         </table>
+      </div>
+      <script type="text/javascript" src="tabs.js"></script>
+      <script type="text/javascript" src="tabschedule.js"></script>
+   </body>
+</html>
