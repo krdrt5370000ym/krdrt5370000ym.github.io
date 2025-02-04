@@ -124,7 +124,6 @@
 }
 
 .tooltip {
-  display: inline;
   position: relative;
 }
 .tooltip:hover:after {
