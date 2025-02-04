@@ -1,0 +1,437 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/podcast-antyradio.html">▶ Podcasty</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/QnDCPvf/antyradio.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Antyradio.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Antyradio.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Antyradio.rm" href="data:application/vnd.rn-realmedia,https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/antyradio"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www">Radio ZET</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=8602&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Radio ZET (serwer #2)</option>
+         <option value="https://cast.tunzilla.com/https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www">Radio ZET (bez reklam)</option>
+         <option value="https://an02.cdn.eurozet.pl/ant-kat.mp3">Katowice</option>
+         <option value="https://an.cdn.eurozet.pl/ANTUNP.mp3">Antyradio Unplugged</option>
+         <option value="https://an.cdn.eurozet.pl/ANTMAK.mp3">Antyradio Makak</option>
+         <option value="https://an.cdn.eurozet.pl/ANTBAL.mp3">Antyradio Ballads</option>
+         <option value="https://an.cdn.eurozet.pl/ANTHAR.mp3">Antyradio Hard</option>
+         <option value="https://an.cdn.eurozet.pl/ANTCOV.mp3">Antyradio Covers</option>
+         <option value="https://an.cdn.eurozet.pl/ANTPOL.mp3">Antyradio Made In Poland</option>
+         <option value="https://an.cdn.eurozet.pl/ANTGRE.mp3">Antyradio Greatest</option>
+         <option value="https://an.cdn.eurozet.pl/ANTCLA.mp3">Antyradio Classic Rock</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/antyradio">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://player.antyradio.pl/Ramowka">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.antyradio.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://player.antyradio.pl/Podcasty">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/102931770742">🗨 Messenger</a></button><button class="but but1"><a href="tel:321321666">📞 321 321 666</a></button><button class="but but1"><a href="https://player.antyradio.pl/Programy">📻 Programy</a></button><button class="but but1"><a href="https://player.antyradio.pl/Ludzie-radia">🧍 Ludzie</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table id="day-1" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/fvYmc6G/JAG.jpg"></td>
+               <td>Rzeźnia<br><small>Jarosław Anzhellmo Giers</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MRcBX58/selerski.jpg"></td>
+               <td>Bestseler w Antyradiu<br><small>Dominik Selerski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ZmSGTg1/fig-kedzi.jpg"></td>
+               <td>Desperanos w Antyradiu<br><small>Michał Figurski, Piotr Kędzierski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/nb8yF8f/ostry.jpg"></td>
+               <td>Ostry Dyżur<br><small>Aleksander Ostry Ostrowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Y8vq800/czubaj.jpg"></td>
+               <td>Rockomotywa<br><small>Konrad Czubaj</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jRBQWqd/Joanna-Zientarska.webp"></td>
+               <td>Odjechani<br><small>Joanna Zientarska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Kasprologia<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1GrwL07/owsiak.jpg"></td>
+               <td>Zaraz będzie ciemno<br><small>Jurek Owsiak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/C7p4Byr/makak.jpg"></td>
+               <td>Makakofonia / MakakArt<br><small>Piotr Makak Szarłacki</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-2" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MRcBX58/selerski.jpg"></td>
+               <td>Bestseler w Antyradiu<br><small>Dominik Selerski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ZmSGTg1/fig-kedzi.jpg"></td>
+               <td>Desperanos w Antyradiu<br><small>Michał Figurski, Piotr Kędzierski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/nb8yF8f/ostry.jpg"></td>
+               <td>Ostry Dyżur<br><small>Aleksander Ostry Ostrowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Y8vq800/czubaj.jpg"></td>
+               <td>Rockomotywa<br><small>Konrad Czubaj</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jRBQWqd/Joanna-Zientarska.webp"></td>
+               <td>Odjechani<br><small>Joanna Zientarska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Kasprologia<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dmJk88M/PFM.jpg"></td>
+               <td>Turbo Top<br><small>Piotr Frank Marciniak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/C7p4Byr/makak.jpg"></td>
+               <td>Makakofonia / MakakArt<br><small>Piotr Makak Szarłacki</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-3" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MRcBX58/selerski.jpg"></td>
+               <td>Bestseler w Antyradiu<br><small>Dominik Selerski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ZmSGTg1/fig-kedzi.jpg"></td>
+               <td>Desperanos w Antyradiu<br><small>Michał Figurski, Piotr Kędzierski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/nb8yF8f/ostry.jpg"></td>
+               <td>Ostry Dyżur<br><small>Aleksander Ostry Ostrowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Y8vq800/czubaj.jpg"></td>
+               <td>Rockomotywa<br><small>Konrad Czubaj</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jRBQWqd/Joanna-Zientarska.webp"></td>
+               <td>Odjechani<br><small>Joanna Zientarska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Kasprologia<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dmJk88M/PFM.jpg"></td>
+               <td>Turbo Top<br><small>Piotr Frank Marciniak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/C7p4Byr/makak.jpg"></td>
+               <td>Makakofonia / MakakArt<br><small>Piotr Makak Szarłacki</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-4" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MRcBX58/selerski.jpg"></td>
+               <td>Bestseler w Antyradiu<br><small>Dominik Selerski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ZmSGTg1/fig-kedzi.jpg"></td>
+               <td>Desperanos w Antyradiu<br><small>Michał Figurski, Piotr Kędzierski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/nb8yF8f/ostry.jpg"></td>
+               <td>Ostry Dyżur<br><small>Aleksander Ostry Ostrowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Y8vq800/czubaj.jpg"></td>
+               <td>Rockomotywa<br><small>Konrad Czubaj</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jRBQWqd/Joanna-Zientarska.webp"></td>
+               <td>Odjechani<br><small>Joanna Zientarska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Kasprologia<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dmJk88M/PFM.jpg"></td>
+               <td>Turbo Top<br><small>Piotr Frank Marciniak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/C7p4Byr/makak.jpg"></td>
+               <td>Makakofonia / MakakArt<br><small>Piotr Makak Szarłacki</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-5" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MRcBX58/selerski.jpg"></td>
+               <td>Bestseler w Antyradiu<br><small>Dominik Selerski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ZmSGTg1/fig-kedzi.jpg"></td>
+               <td>Desperanos w Antyradiu<br><small>Michał Figurski, Piotr Kędzierski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/nb8yF8f/ostry.jpg"></td>
+               <td>Ostry Dyżur<br><small>Aleksander Ostry Ostrowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Y8vq800/czubaj.jpg"></td>
+               <td>Rockomotywa<br><small>Konrad Czubaj</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/jRBQWqd/Joanna-Zientarska.webp"></td>
+               <td>Odjechani<br><small>Joanna Zientarska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Kasprologia<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dmJk88M/PFM.jpg"></td>
+               <td>Turbo Top<br><small>Piotr Frank Marciniak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7j6H6cP/leszek.jpg"></td>
+               <td>Rockolekcje w Antyradiu<br><small>Leszek Gnoiński</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-6" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dmJk88M/PFM.jpg"></td>
+               <td>Sobota(ż)<br><small>Piotr Frank Marciniak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/YkLG8JX/Kuba.png"></td>
+               <td>Najlepszy rock na weekend<br><small>Kuba Olszewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Y8vq800/czubaj.jpg"></td>
+               <td>Pan Solo w Antyradiu<br><small>Konrad Czubaj</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/VMVcdcD/zientarska.jpg"></td>
+               <td>Rajder w Antyradiu<br><small>Joanna Zientarska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Blok z wielkiej płyty w Antyradiu<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/KF3CKbv/MB.webp"></td>
+               <td>Świeży Towar<br><small>Marcin Bąkiewicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/1GrwL07/owsiak.jpg"></td>
+               <td>Zaraz będzie ciemno<br><small>Jurek Owsiak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/rFgxG2M/three-shords-and-the-truth.jpg"></td>
+               <td>Three Chords and the Truth w Antyradiu<br><small>Duff McKagan i Susan Holmes McKagan</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-0" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/GCMWspW/NRNS.jpg"></td>
+               <td>Najlepszy ROCK na świecie<br><small>Redakcja Antyradia</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/ZmSGTg1/fig-kedzi.jpg"></td>
+               <td>Desperanos w Antyradiu<br><small>Michał Figurski, Piotr Kędzierski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/YkLG8JX/Kuba.png"></td>
+               <td>Ranking Kojota w Antyradiu<br><small>Kuba Olszewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HN3Pdht/pc.jpg"></td>
+               <td>Siódmy Dzień Rocka w Antyradiu<br><small>Paweł Chowaniec</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg"></td>
+               <td>Klasyczna Lista Przebojów<br><small>Tomasz Kasprzyk</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/hXL5rGj/weiss.jpg"></td>
+               <td>Teraz Rock<br><small>Wiesław Weiss</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/mRjYxgk/czule-dranie.png"></td>
+               <td>Czułe Dranie<br><small>Aleksander Ostry Ostrowski, Grzegorz Kornacki, Włodzimierz Zientarski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/fvYmc6G/JAG.jpg"></td>
+               <td>Rzeźnia<br><small>Jarosław Anzhellmo Giers</small></td>
+            </tr>
+         </table>
+      </div>
+      <script type="text/javascript" src="tabs.js"></script>
+      <script type="text/javascript" src="tabschedule.js"></script>
+   </body>
+</html>
