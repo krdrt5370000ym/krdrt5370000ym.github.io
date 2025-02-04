@@ -1,0 +1,125 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new3.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/player-chillizet.html">📻 Player</a></button><hr>
+      <h2>Podcasty Chillizet</h2>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but1" onclick="sortTable()">Sort</button>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/xYN56Gz/mleczko.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/W-pogoni-za-kultura">W Pogoni za kulturą extra</a><br><small>Magdalena Mleczko</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Plac-Zabaw">Plac Zabaw</a><br><small>Magdalena Bauer</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/0m08kZg/pedowicz.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Tylko-dla-doroslych">Tylko dla dorosłych</a><br><small>Jeremi Pedowicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/f0xj2jg/Rozmowy-Chillizet-size-228x228.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Rozmowy-Chillizet">Rozmowy Chillizet</a><br><small>Redakcja Chillizet</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Program-specjalny-z-okazji-Miedzynarodowego-Dnia-Teatru">Program specjalny z okazji Międzynarodowego Dnia Teatru</a><br><small>Rafał Turowski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/60dNXkS/Dagmara-Kowalska.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Popoludniowa-regeneracja">Regeneracja</a><br><small>Dagmara Kowalska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/5KDS9fP/krulewicz.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/KrUlewicz">KrUlewicz</a><br><small>Maciej Ulewicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/0m08kZg/pedowicz.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Trzecia-planeta-od-slonca">Trzecia planeta od słońca</a><br><small>Jeremi Pedowicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/60dNXkS/Dagmara-Kowalska.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Bryki-Dagmary">Bryki Dagmary </a><br><small>Dagmara Kowalska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Na-chilloucie">Na chilloucie</a><br><small>Rafał Turowski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Gt6jHqg/Dominika-Bieganska.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Dobre-Wibracje">Dobre Wibracje</a><br><small>Dominika Biegańska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/8B7q0nL/rydlewska.png"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Edycja-limitowana">Edycja limitowana</a><br><small>Hanna Rydlewska</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Programy/W-pogoni-za-kultura">W pogoni za kulturą</a><br><small>Magdalena Bauer</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Sniadanie-do-Lozka">Śniadanie do łóżka</a><br><small>Magda Kasperowicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/920XwNM/gabi.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Gabinet-Dzwieku">Gabinet Dźwięku</a><br><small>Gabi Drzewiecka</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/KmpGSK8/zza-kulis.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Zza-kulis">Zza kulis</a><br><small>Maks Behr</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/bmrN0Dh/kontarowicz.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Primadoma-club">Primadoma Club</a><br><small>Dominika Kontarowicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/qYxvCWC/SSM.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Szczeka-merda-mowi">Szczeka, Merda, Mówi</a><br><small>Zofia Zaniewska-Wojtków i Piotr Wojtków</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Filmozgrani">Filmozgrani</a><br><small>Tomasz Śliwiński, Anna Serdiukow</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Skubas-i-premiera-singla-W-ogien/(offset)/1">Poza czasem</a><br><small>Tomasz Śliwiński</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Tgm1Fvb/Znani-zasluchani.png"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Znani-zasluchani">Znani zasłuchani</a><br><small>Redakcja Chillizet</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/DQhf8ch/Bartek-Winczewski.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Osobiscie-wyszukane">Osobiście wyszukane</a><br><small>Bartek Winczewski</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Programy/W-miedzyczasie">W międzyczasie</a><br><small>Jakub Lachowicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/NS6HVGh/Miasto-o-swicie.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Miasto-o-swicie">Miasto o świcie</a><br><small>Magdalena Bauer, Katarzyna Kozak</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/p0YvWbP/Po-swojemu-size-228x228.webp"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Po-swojemu">Po swojemu</a><br><small>Natalia Waloch</small></td>
+         </tr>
+      </table>
+      <script src="filters2.js"></script>
+   </body>
+</html>
