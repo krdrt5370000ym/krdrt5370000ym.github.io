@@ -1,0 +1,619 @@
+
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/podcast-chillizet.html">▶ Podcasty</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/Ss3xLN7/CHILLIZET.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Chillizet.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Chillizet.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Chillizet.rm" href="data:application/vnd.rn-realmedia,https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/chillizet"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www">Chillizet</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=9900&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Chillizet (serwer #2)</option>
+         <option value="https://cast.tunzilla.com/https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www">Chillizet (bez reklam)</option>
+         <option value="https://ch.cdn.eurozet.pl/CHIWJZ.mp3">Chillizet World Jazz</option>
+         <option value="https://chi.cdn.eurozet.pl/CHIJAZ.mp3">Chillizet Jazz</option>
+         <option value="https://ch.cdn.eurozet.pl/CHISOU.mp3">Chillizet Soul</option>
+         <option value="https://ch.cdn.eurozet.pl/CHICOV.mp3">Chillizet Covers</option>
+         <option value="https://ch.cdn.eurozet.pl/CHILAD.mp3">Chillizet Ladies</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/chillizet">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://player.chillizet.pl/Ramowka">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.chillizet.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://player.chillizet.pl/Podcasty">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/85962197431">🗨 Messenger</a></button><button class="but but1"><a href="tel:(22)5833572">📞 (22) 583 35 72</a></button><button class="but but1"><a href="https://player.chillizet.pl/Programy">📻 Programy</a></button><button class="but but1"><a href="https://player.chillizet.pl/Ludzie-radia">🧍 Ludzie</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table id="day-1" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg"></td>
+               <td>Śniadanie Do Łóżka<br><small>Magda Kasperowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/XbFxGnC/biegaska.jpg"></td>
+               <td>Dobre Wibracje<br><small>Dominika Biegańska</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">11:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+               <td>Na chilloucie<br><small>Rafał Turowski</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg"></td>
+               <td>W międzyczasie<br><small>Jakub Lachowicz</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5KDS9fP/krulewicz.jpg"></td>
+               <td>KrUlewicz<br><small>Maciej Ulewicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Hot’n’Chill<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-2" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg"></td>
+               <td>Śniadanie Do Łóżka<br><small>Magda Kasperowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/XbFxGnC/biegaska.jpg"></td>
+               <td>Dobre Wibracje<br><small>Dominika Biegańska</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">11:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+               <td>Na chilloucie<br><small>Rafał Turowski</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg"></td>
+               <td>W międzyczasie<br><small>Jakub Lachowicz</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/m8rx170/winczewski.jpg"></td>
+               <td>Osobiście wyszukane<br><small>Bartek Winczewski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Hot’n’Chill<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-3" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg"></td>
+               <td>Śniadanie Do Łóżka<br><small>Magda Kasperowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/XbFxGnC/biegaska.jpg"></td>
+               <td>Dobre Wibracje<br><small>Dominika Biegańska</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">11:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+               <td>Na chilloucie<br><small>Rafał Turowski</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg"></td>
+               <td>W międzyczasie<br><small>Jakub Lachowicz</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/920XwNM/gabi.jpg"></td>
+               <td>Gabinet Dźwięku<br><small>Gabi Drzewiecka</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Hot’n’Chill<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-4" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg"></td>
+               <td>Śniadanie Do Łóżka<br><small>Magda Kasperowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/XbFxGnC/biegaska.jpg"></td>
+               <td>Dobre Wibracje<br><small>Dominika Biegańska</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">11:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+               <td>Na chilloucie<br><small>Rafał Turowski</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg"></td>
+               <td>W międzyczasie<br><small>Jakub Lachowicz</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5KDS9fP/krulewicz.jpg"></td>
+               <td>KrUlewicz<br><small>Maciej Ulewicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Hot’n’Chill<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-5" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg"></td>
+               <td>Śniadanie Do Łóżka<br><small>Magda Kasperowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/XbFxGnC/biegaska.jpg"></td>
+               <td>Dobre Wibracje<br><small>Dominika Biegańska</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">11:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg"></td>
+               <td>Filmozgrani<br><small>Tomasz Śliwiński, Anna Serdiukow</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">16:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg"></td>
+               <td>Na chilloucie<br><small>Tomasz Śliwiński</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">16:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg"></td>
+               <td>W międzyczasie<br><small>Jakub Lachowicz</small></td>
+            </tr>
+            <tr class="sch-subevent2">
+               <td><span class="start">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>W pogoni za kulturą<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/bmrN0Dh/kontarowicz.jpg"></td>
+               <td>Primadoma Club<br><small>Dominika Kontarowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Chilli City<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">23:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Hot’n’Chill<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-6" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">06:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">06:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/5kWwpCp/bauer.jpg"></td>
+               <td>Weekend w wielkim mieście<br><small>Magdalena Bauer</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0m08kZg/pedowicz.jpg"></td>
+               <td>Trzecia planeta od słońca<br><small>Jeremi Pedowicz</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Esencja Chilloutu<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">14:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/2YCF9vF5/Ala-500x500.jpg"></td>
+               <td>Odbicia kultury<br><small>Alicja Myśliwiec</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/KmpGSK8/zza-kulis.jpg"></td>
+               <td>Zza kulis<br><small>Maks Behr</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/mJ1m03y/glitterbox.jpg"></td>
+               <td>Glitterbox Radio Show<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/h2tvRQM/defected.png"></td>
+               <td>Defected Radio Show<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Chilli City<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-0" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">02:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">02:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/9qyHzS6/turowski.jpg"></td>
+               <td>Weekend w Wielkim Mieście<br><small>Rafał Turowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Rb0HHs8/waloch.jpg"></td>
+               <td>Po swojemu<br><small>Natalia Waloch</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Esencja Chilloutu<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">14:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/2YCF9vF5/Ala-500x500.jpg"></td>
+               <td>Odbicia kultury<br><small>Alicja Myśliwiec</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">19:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/8B7q0nL/rydlewska.png"></td>
+               <td>Edycja limitowana<br><small>Hanna Rydlewska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">19:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Tgm1Fvb/Znani-zasluchani.png"></td>
+               <td>Znani zasłuchani<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Nastaw się na Chillout<br><small>Redakcja Chillizet</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">22:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/0K7CH7k/trabka.png"></td>
+               <td>Midnight Jazz<br><small>Redakcja Chillizet</small></td>
+            </tr>
+         </table>
+      </div>
+      <script type="text/javascript" src="tabs.js"></script>
+      <script type="text/javascript" src="tabschedule.js"></script>
+   </body>
+</html>
