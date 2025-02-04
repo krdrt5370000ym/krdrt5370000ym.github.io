@@ -126,7 +126,6 @@
 .tooltip {
   display: inline;
   position: relative;
-  top: 50px;
 }
 .tooltip:hover:after {
   background: #333;
