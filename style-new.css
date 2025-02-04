@@ -127,6 +127,7 @@
   position: relative;
 }
 .tooltip:hover:after {
+  display: inline;
   background: #333;
   background: rgba(0, 0, 0, .8);
   border-radius: 5px;
@@ -140,12 +141,13 @@
   width: 220px;
 }
 .tooltip:hover:before {
+  display: inline;
   border: solid;
   border-color: #333 transparent;
   border-width: 6px 6px 0 6px;
   bottom: 20px;
   content: "";
-  left: 50%;
+  left: 22%;
   position: absolute;
-  z-index: 99;
+  z-index: 98;
 }
