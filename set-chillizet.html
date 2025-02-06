@@ -1,0 +1,38 @@
+
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new3.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/player-chillizet.html">📻 Player</a></button><button class="but but1"><a href="/podcast-chillizet.html">▶ Podcasty</a></button><hr>
+      <h2>Sety Chillizet</h2>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but1" onclick="sortTable()">Sort</button>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/bmrN0Dh/kontarowicz.jpg"></td>
+            <td><a href="https://player.chillizet.pl/Podcasty/Primadoma-club">Primadoma Club</a><br><small>Dominika Kontarowicz</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/mJ1m03y/glitterbox.jpg"></td>
+            <td><a href="https://www.youtube.com/@glitterboxibiza/videos">Glitterbox Radio Show</a><br><small>Redakcja Chillizet</small></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/h2tvRQM/defected.png"></td>
+            <td><a href="https://www.youtube.com/@DefectedMusic/videos">Defected Radio Show</a><br><small>Redakcja Chillizet</small></td>
+         </tr>
+      </table>
+      <script src="filters2.js"></script>
+   </body>
+</html>
