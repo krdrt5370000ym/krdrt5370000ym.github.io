@@ -1,0 +1,353 @@
+
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/podcast-radiokolor.html">▶ Podcasty</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/VNh4cjK/586e1976757f1.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Radio Kolor 103 FM.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://stream.rcs.revma.com/zbq79057xd3vv"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Radio Kolor 103 FM.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://stream.rcs.revma.com/zbq79057xd3vv"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Radio Kolor 103 FM.rm" href="data:application/vnd.rn-realmedia,https://stream.rcs.revma.com/zbq79057xd3vv"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/radio-kolor"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://stream.rcs.revma.com/zbq79057xd3vv"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://stream.rcs.revma.com/zbq79057xd3vv">Radio Kolor 103 FM</option>
+         <option value="https://cast.tunzilla.com/https://stream.rcs.revma.com/zbq79057xd3vv">Radio Kolor 103 FM (bez reklam)</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/radio-kolor">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://stream.rcs.revma.com/zbq79057xd3vv">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://radiokolor.pl/program/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://radiokolor.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://radiokolor.pl/podcasty/">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/245012180446">🗨 Messenger</a></button><button class="but but1"><a href="tel:508999103">📞 508 999 103</a></button><button class="but but1"><a href="https://radiokolor.pl/ekipa/">🧍 Ludzie</a></button>
+      <div class="tab">
+         <button class="tablinks">Poniedziałek</button>
+         <button class="tablinks">Wtorek</button>
+         <button class="tablinks">Środa</button>
+         <button class="tablinks">Czwartek</button>
+         <button class="tablinks">Piątek</button>
+         <button class="tablinks">Sobota</button>
+         <button class="tablinks">Niedziela</button>
+      </div>
+      <div class="tabcontent">
+         <table id="day-1" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/p6HtWtw/SLIDER-MOBILE-Mateusz.jpg"></td>
+               <td>Jeszcze 5 minut<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Gcc03tG/PORANEK-mobile.jpg"></td>
+               <td>Start-up z Kolorem<br><small>Tomek Bryczek, Przemek Cacak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MpgNYfQ/SLIDER-MOBILE-Ala-1.jpg"></td>
+               <td>Dzień barwny<br><small>Alicja Bendkowska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/pKRxW64/SLIDER-MOBILE-Mateusz-1.jpg"></td>
+               <td>Zbawienie w pracy<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/VYbbxbP/SLIDER-MOBILE-lukasz.jpg"></td>
+               <td>W dobrą stronę<br><small>Łukasz Suda</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/JjJ3GNw/SLIDER-MOBILE-Bartek.jpg"></td>
+               <td>Kolor po godzinach<br><small>Bartek Wejman</small></td>
+            </tr>
+            <tr class="sch-cancel">
+               <td><span class="start">21:00</span> - <span class="end">22:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/PzwN1qy/SLIDER-MOBILE-Martyna-1.jpg"></td>
+               <td class="tooltip" data-title="Audycja odwołana">Kawałek Polski<br><small>Martyna Wawryło</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-2" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/p6HtWtw/SLIDER-MOBILE-Mateusz.jpg"></td>
+               <td>Jeszcze 5 minut<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Gcc03tG/PORANEK-mobile.jpg"></td>
+               <td>Start-up z Kolorem<br><small>Tomek Bryczek, Przemek Cacak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MpgNYfQ/SLIDER-MOBILE-Ala-1.jpg"></td>
+               <td>Dzień barwny<br><small>Alicja Bendkowska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/pKRxW64/SLIDER-MOBILE-Mateusz-1.jpg"></td>
+               <td>Zbawienie w pracy<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/VYbbxbP/SLIDER-MOBILE-lukasz.jpg"></td>
+               <td>W dobrą stronę<br><small>Łukasz Suda</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/JjJ3GNw/SLIDER-MOBILE-Bartek.jpg"></td>
+               <td>Kolor po godzinach<br><small>Bartek Wejman</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-3" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/p6HtWtw/SLIDER-MOBILE-Mateusz.jpg"></td>
+               <td>Jeszcze 5 minut<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Gcc03tG/PORANEK-mobile.jpg"></td>
+               <td>Start-up z Kolorem<br><small>Tomek Bryczek, Przemek Cacak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">14:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MpgNYfQ/SLIDER-MOBILE-Ala-1.jpg"></td>
+               <td>Dzień barwny<br><small>Alicja Bendkowska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">14:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/pKRxW64/SLIDER-MOBILE-Mateusz-1.jpg"></td>
+               <td>Zbawienie w pracy<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/JjJ3GNw/SLIDER-MOBILE-Bartek.jpg"></td>
+               <td>Kolor po godzinach<br><small>Bartek Wejman</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-4" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/p6HtWtw/SLIDER-MOBILE-Mateusz.jpg"></td>
+               <td>Jeszcze 5 minut<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Gcc03tG/PORANEK-mobile.jpg"></td>
+               <td>Start-up z Kolorem<br><small>Tomek Bryczek, Przemek Cacak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">13:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MpgNYfQ/SLIDER-MOBILE-Ala-1.jpg"></td>
+               <td>Dzień barwny<br><small>Alicja Bendkowska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">13:00</span> - <span class="end">17:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/pKRxW64/SLIDER-MOBILE-Mateusz-1.jpg"></td>
+               <td>Zbawienie w pracy<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">17:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/JjJ3GNw/SLIDER-MOBILE-Bartek.jpg"></td>
+               <td>Kolor po godzinach<br><small>Bartek Wejman</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-5" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">05:30</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">05:30</span> - <span class="end">07:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/p6HtWtw/SLIDER-MOBILE-Mateusz.jpg"></td>
+               <td>Jeszcze 5 minut<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">07:00</span> - <span class="end">09:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/Gcc03tG/PORANEK-mobile.jpg"></td>
+               <td>Start-up z Kolorem<br><small>Tomek Bryczek, Przemek Cacak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">09:00</span> - <span class="end">12:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/MpgNYfQ/SLIDER-MOBILE-Ala-1.jpg"></td>
+               <td>Dzień barwny<br><small>Alicja Bendkowska</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">12:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/pKRxW64/SLIDER-MOBILE-Mateusz-1.jpg"></td>
+               <td>Zbawienie w pracy<br><small>Mateusz Kwiatkowski</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">18:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/VYbbxbP/SLIDER-MOBILE-lukasz.jpg"></td>
+               <td>W dobrą stronę<br><small>Łukasz Suda</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">18:00</span> - <span class="end">21:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/JjJ3GNw/SLIDER-MOBILE-Bartek.jpg"></td>
+               <td>Kolor po godzinach<br><small>Bartek Wejman</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">21:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-6" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">08:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wsbt3WX/SLIDER-MOBILE-barwne-granie.jpg></td>
+               <td>Barwne granie</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/y0WQMT2/Lysiak-Mateusz-Slider-Mobile.png"></td>
+               <td>Weekend z Kolorem<br><small>Mateusz Łysiak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wsbt3WX/SLIDER-MOBILE-barwne-granie.jpg></td>
+               <td>Barwne granie</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <div class="tabcontent">
+         <table id="day-0" style="width:100%">
+            <tr style="visibility: collapse">
+               <td style="width:8%"></td>
+               <td style="width:2%"></td>
+               <td style="width:90%"></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">00:00</span> - <span class="end">08:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/HHgY99B/SLIDER-MOBILE-swiety-spokoj.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">08:00</span> - <span class="end">10:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wsbt3WX/SLIDER-MOBILE-barwne-granie.jpg></td>
+               <td>Barwne granie</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">10:00</span> - <span class="end">15:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/y0WQMT2/Lysiak-Mateusz-Slider-Mobile.png"></td>
+               <td>Weekend z Kolorem<br><small>Mateusz Łysiak</small></td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">15:00</span> - <span class="end">20:00</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wsbt3WX/SLIDER-MOBILE-barwne-granie.jpg></td>
+               <td>Barwne granie</td>
+            </tr>
+            <tr class="schedule">
+               <td><span class="start">20:00</span> - <span class="end">23:59</span></td>
+               <td><img class="boximg" src="https://i.ibb.co/wBYcKvN/SLIDER-MOBILE-swiety-spokoj-noc.jpg"></td>
+               <td>Święty spokój</td>
+            </tr>
+         </table>
+      </div>
+      <script type="text/javascript" src="tabs.js"></script>
+      <script type="text/javascript" src="tabschedule.js"></script>
+   </body>
+</html>
