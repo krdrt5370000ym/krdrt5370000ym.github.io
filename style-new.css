@@ -167,7 +167,7 @@
   bottom: -4.6em;
   color: #fff;
   content: attr(data-title);
-  left: 100%;
+  left: 0%;
   padding: 5px 15px;
   position: absolute;
   z-index: 99999;
