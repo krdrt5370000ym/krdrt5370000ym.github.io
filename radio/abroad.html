@@ -2,15 +2,15 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="icon" type="image/png" href="/favicon.png">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="style-new2.css">
+      <link rel="stylesheet" href="/style-new2.css">
       <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
    </head>
    <body>
-      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/radio-info.html">Informacja radia</a></button>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="info">Informacja radia</a></button>
       <hr>
       <h2>Radio internetowe - zagranicy</h2>
       <audio controls id="audioplayer">
@@ -46,12 +46,10 @@
          <button class="btn but but3" onclick="filterSelection('[nrj]')"> NRJ+</button>
          <button class="btn but but3" onclick="filterSelection('[goloud]')"> GoLoud</button>
          <button class="btn but but3" onclick="filterSelection('[1-fm]')"> 1.FM</button>
-         <button class="btn but but3"><a href="/radio.html"> Radio</a></button>
-         <button class="btn but but3"><a href="/radio-tv.html"> TV</a></button>
-         <button class="btn but but3"><a href="/radio-podcasts.html"> Podcasty</a></button>
-         <button class="btn but but3"><a href="/radio-sets.html"> Sety</a></button>
-         <button class="btn but but3"><a href="/radio-music.html"> Muzyka</a></button>
-         <button class="btn but but3"><a href="/link-info.html"> Witryna</a></button>
+         <button class="btn but but3"><a href="/radio"> Radio</a></button>
+         <button class="btn but but3"><a href="tv"> TV</a></button>
+         <button class="btn but but3"><a href="music"> Muzyka</a></button>
+         <button class="btn but but3"><a href="link"> Witryna</a></button>
          <button class="but but3" onclick="sortList()">Sortuj</button>
       </div>
       <ul id="myUL">
@@ -840,6 +838,6 @@
          <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://live.m6radio.quortex.io/webpHJPXnXrN7B6J7Q8mcqmxP/groupfun/national/long/index.m3u8'" title="Kraj: Francja">FUN Radio</a></li>
          <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.revma.ihrhls.com/zc7108'" title="Kraj: USA">PRIDE Radio Orlando</a></li>
       </ul>
-      <script src="filters.js"></script>
+      <script src="/filters.js"></script>
    </body>
 </html>
