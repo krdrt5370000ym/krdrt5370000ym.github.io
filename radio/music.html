@@ -2,15 +2,15 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="icon" type="image/png" href="/favicon.png">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="style-new2.css">
+      <link rel="stylesheet" href="/style-new2.css">
       <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
    </head>
    <body>
-      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/radio-info.html">Informacja radia</a></button>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="info">Informacja radia</a></button>
       <hr>
       <h2>Radio internetowe - muzyka</h2>
       <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
@@ -18,12 +18,10 @@
       <div id="myBtnContainer">
          <button class="btn active but but3" onclick="filterSelection('all')"> Wszystkie</button>
          <button class="btn but but3" onclick="filterSelection('[ulubione]')"> Ulubione</button>
-         <button class="btn but but3"><a href="/radio.html"> Radio</a></button>
-         <button class="btn but but3"><a href="/radio-tv.html"> TV</a></button>
-         <button class="btn but but3"><a href="/radio-abroad.html"> Zagranicy</a></button>
-         <button class="btn but but3"><a href="/radio-podcasts.html"> Podcasty</a></button>
-         <button class="btn but but3"><a href="/radio-sets.html"> Sety</a></button>
-         <button class="btn but but3"><a href="/link-info.html"> Witryna</a></button>
+         <button class="btn but but3"><a href="/radio"> Radio</a></button>
+         <button class="btn but but3"><a href="tv"> TV</a></button>
+         <button class="btn but but3"><a href="abroad"> Zagranicy</a></button>
+         <button class="btn but but3"><a href="link"> Witryna</a></button>
          <button class="but but3" onclick="sortList()">Sortuj</button>
       </div>
       <ul id="myUL">
@@ -35,6 +33,6 @@
          <li class="filterDiv"><a href="https://open.spotify.com/search/Disco%20Polo">Disco Polo</a></li>
          <li class="filterDiv"><a href="https://open.spotify.com/search/Phonk">Phonk</a></li>
       </ul>
-      <script src="filters.js"></script>
+      <script src="/filters.js"></script>
    </body>
 </html>
