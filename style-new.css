@@ -164,11 +164,10 @@
   background: rgba(0, 0, 0, .8);
   border-radius: 5px;
   bottom: 26px;
-  bottom: -1.6em;
+  bottom: -4.6em;
   color: #fff;
   content: attr(data-title);
   left: 100%;
-  white-space: nowrap;
   padding: 5px 15px;
   position: absolute;
   z-index: 99999;
