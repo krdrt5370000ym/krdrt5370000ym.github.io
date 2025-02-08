@@ -169,3 +169,14 @@
   z-index: 98;
   width: auto;
 }
+.tooltip2:hover:before {
+  display: inline;
+  border: solid;
+  border-color: #333 transparent;
+  border-width: 6px 6px 0 6px;
+  bottom: 20px;
+  content: "";
+  left: 22%;
+  position: absolute;
+  z-index: 98;
+}
