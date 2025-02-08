@@ -1,0 +1,86 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="/favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="/style-new.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/5nKMH0G/RMF-MAXX-logo.jpg" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="RMF MAXX.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://rs103-krk.rmfstream.pl/rmf_maxxx"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="RMF MAXX.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://rs103-krk.rmfstream.pl/rmf_maxxx"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="RMF MAXX.rm" href="data:application/vnd.rn-realmedia,https://rs103-krk.rmfstream.pl/rmf_maxxx"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/rmf-maxxx"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://rs103-krk.rmfstream.pl/rmf_maxxx"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx">RMF MAXX</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx">RMF MAXX (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_byd">Bydgoszcz</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_byd">Bydgoszcz (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_cze">Częstochowa</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_cze">Częstochowa (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_wal">Dolny Śląsk</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_wal">Dolny Śląsk (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_ino">Inowrocław</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_ino">Inowrocław (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_knn">Konin</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_knn">Konin (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_kra">Kraków</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_kra">Kraków (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_ksn">Krosno</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_ksn">Krosno (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_zgr">Lubuskie</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_zgr">Lubuskie (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_cie">Mazowsze</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_cie">Mazowsze (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_nsa">Nowy Sącz</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_nsa">Nowy Sącz (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_ole">Oleśnica</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_ole">Oleśnica (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_opo">Opole</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_opo">Opole (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_pil">Piła</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_pil">Piła (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_lom">Podlasie</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_lom">Podlasie (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_slu">Pomorze</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_slu">Pomorze (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_poz">Poznań</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_poz">Poznań (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_szc">Szczecin</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_szc">Szczecin (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_slk">Śląsk</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_slk">Śląsk (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_kie">Świętokrzyskie</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_kie">Świętokrzyskie (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_tmz">Tomaszów Maz.</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_tmz">Tomaszów Maz. (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_gda">Trójmiasto</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_gda">Trójmiasto (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_waw">Warszawa</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_waw">Warszawa (bez reklam)</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_wlc">Włocławek</option>
+         <option value="https://cast.tunzilla.com/https://rs103-krk.rmfstream.pl/rmf_maxxx_wlc">Włocławek (bez reklam)</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/rmf-maxxx">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://rs103-krk.rmfstream.pl/rmf_maxxx">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://www.rmfmaxx.pl/ramowka">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.rmfmaxx.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://www.rmfmaxx.pl/dzwieki">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/114083575305140">🗨 Messenger</a></button><button class="but but1"><a href="tel:fax:126622476">📞 fax: 12 662 24 76</a></button><button class="but but1"><a href="https://www.rmfmaxx.pl/programy/lista">📻 Programy</a></button>
+      <br>
+      <a href="https://www.fb.com/114083575305140" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
+      <a href="https://www.instagram.com/radio_rmfmaxx/" title="Instagram"><i class="fa-brands fa-instagram" style="font-size:36px"></i></a>
+      <a href="https://pl.wikipedia.org/wiki/RMF_Maxx" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" style="font-size:36px"></i></a>
+      <script type="text/javascript" src="/tabs.js"></script>
+      <script type="text/javascript" src="/tabschedule.js"></script>
+   </body>
+</html>
