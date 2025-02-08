@@ -1,0 +1,65 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style-new.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="#" class="tooltip2" data-title="Strona w budowie już wkrótce">▶ Podcasty</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/jDdn5z5/radiozloteprzeboje.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="Radio Złote Przeboje.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="Radio Złote Przeboje.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="Radio Złote Przeboje.rm" href="data:application/vnd.rn-realmedia,https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/radio-zlote-przeboje"><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">Złote Przeboje</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=9&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Złote Przeboje (serwer #2)</option>
+         <option value="https://cast.tunzilla.com/https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">Złote Przeboje (bez reklam)</option>
+         <option value="https://radiostream.pl/tuba8900-1.mp3">Białystok</option>
+         <option value="https://radiostream.pl/tuba8902-1.mp3">Bydgoszcz</option>
+         <option value="https://radiostream.pl/tuba8946-1.mp3">Bieszczady</option>
+         <option value="https://radiostream.pl/tuba8904-1.mp3">Częstochowa</option>
+         <option value="https://radiostream.pl/tuba8906-1.mp3">Gdańsk</option>
+         <option value="https://radiostream.pl/tuba8908-1.mp3">Jelenia Góra</option>
+         <option value="https://radiostream.pl/tuba8910-1.mp3">Katowice</option>
+         <option value="https://radiostream.pl/tuba8914-1.mp3">Kraków</option>
+         <option value="https://radiostream.pl/tuba8912-1.mp3">Kielce</option>
+         <option value="https://radiostream.pl/tuba8916-1.mp3">Legnica</option>
+         <option value="https://radiostream.pl/tuba8920-1.mp3">Lublin</option>
+         <option value="https://radiostream.pl/tuba8918-1.mp3">Łódź</option>
+         <option value="https://radiostream.pl/tuba8924-1.mp3">Opole</option>
+         <option value="https://radiostream.pl/tuba8922-1.mp3">Podhale</option>
+         <option value="https://radiostream.pl/tuba8926-1.mp3">Poznań</option>
+         <option value="https://radiostream.pl/tuba8928-1.mp3">Rzeszów</option>
+         <option value="https://radiostream.pl/tuba8930-1.mp3">Szczecin</option>
+         <option value="https://radiostream.pl/tuba8932-1.mp3">Tarnów</option>
+         <option value="https://radiostream.pl/tuba8934-1.mp3">Wałbrzych</option>
+         <option value="https://radiostream.pl/tuba8936-1.mp3">Warszawa</option>
+         <option value="https://radiostream.pl/tuba8938-1.mp3">Wolin</option>
+         <option value="https://radiostream.pl/tuba8940-1.mp3">Wrocław</option>
+         <option value="https://radiostream.pl/tuba8942-1.mp3">Zamość</option>
+         <option value="https://radiostream.pl/tuba8944-1.mp3">Zielona Góra</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/radio-zlote-przeboje">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://zloteprzeboje.pl/ramowka/">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://zloteprzeboje.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://zloteprzeboje.pl/audycje">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/188573206798">🗨 Messenger</a></button><button class="but but1"><a href="tel:224444000">📞 22 4444 000</a></button><button class="but but1"><a href="https://radio.zloteprzeboje.pl/prowadzacy/">🧍 Ludzie</a></button>
+      <br>
+      <a href="https://www.fb.com/188573206798" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/></svg></a>
+      <a href="https://www.instagram.com/radio_zlote_przeboje/" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a>
+      <a href="https://pl.wikipedia.org/wiki/Radio_Z%C5%82ote_Przeboje" title="Wikipedia"><svg xmlns="http://www.w3.org/2000/svg" height="32" width="40" viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M640 51.2l-.3 12.2c-28.1 .8-45 15.8-55.8 40.3-25 57.8-103.3 240-155.3 358.6H415l-81.9-193.1c-32.5 63.6-68.3 130-99.2 193.1-.3 .3-15 0-15-.3C172 352.3 122.8 243.4 75.8 133.4 64.4 106.7 26.4 63.4 .2 63.7c0-3.1-.3-10-.3-14.2h161.9v13.9c-19.2 1.1-52.8 13.3-43.3 34.2 21.9 49.7 103.6 240.3 125.6 288.6 15-29.7 57.8-109.2 75.3-142.8-13.9-28.3-58.6-133.9-72.8-160-9.7-17.8-36.1-19.4-55.8-19.7V49.8l142.5 .3v13.1c-19.4 .6-38.1 7.8-29.4 26.1 18.9 40 30.6 68.1 48.1 104.7 5.6-10.8 34.7-69.4 48.1-100.8 8.9-20.6-3.9-28.6-38.6-29.4 .3-3.6 0-10.3 .3-13.6 44.4-.3 111.1-.3 123.1-.6v13.6c-22.5 .8-45.8 12.8-58.1 31.7l-59.2 122.8c6.4 16.1 63.3 142.8 69.2 156.7L559.2 91.8c-8.6-23.1-36.4-28.1-47.2-28.3V49.6l127.8 1.1 .2 .5z"/></svg></a>
+	  <h2>Ramówka na stronie w budowie już wkrótce</h2>
+      <script type="text/javascript" src="tabs.js"></script>
+      <script type="text/javascript" src="tabschedule.js"></script>
+   </body>
+</html>
