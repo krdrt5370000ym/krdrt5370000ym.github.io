@@ -1,0 +1,53 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="/favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="/style-new3.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/player/zloteprzeboje">📻 Player</a></button><hr>
+      <h2>Podcasty Radia Złote Przeboje</h2>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but1" onclick="sortTable()">Sort</button>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/HTwxSv5/Weekend-jak-marzenie.png"></td>
+            <td><a href="https://zloteprzeboje.pl/weekend-jak-marzenie">Weekend jak marzenie</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/hmtGy2s/zp-db.png"></td>
+            <td><a href="https://zloteprzeboje.pl/zlote-przeboje-na-dzien-dobry">Złote Przeboje na dzień dobry</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/QQZZVdm/Zloty-srodek-dnia.png"></td>
+            <td><a href="https://zloteprzeboje.pl/zloty-srodek-dnia">Złoty środek dnia</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/njfH7S1/Dobre-popoludnie.png"></td>
+            <td><a href="https://zloteprzeboje.pl/dobre-popoludnie">Dobre popołudnie</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/Xjn0bBJ/Cala-muzyka.png"></td>
+            <td><a href="https://zloteprzeboje.pl/cala-muzyka">Cała muzyka</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/mbsSW1p/Spr-sr.png"></td>
+            <td><a href="https://zloteprzeboje.pl/sprawdzone-srody-poradnik-radia-zlote-przeboje-2">Sprawdzone środy. Poradnik Radia Złote Przeboje</a></td>
+         </tr>
+         <tr>
+            <td><img class="boximg" src="https://i.ibb.co/h8PHTbk/RZP-audycje-10.png"></td>
+            <td><a href="https://zloteprzeboje.pl/weekend-z-radiem-zlote-przeboje">Złote Przeboje na dzień dobry – weekend</a></td>
+         </tr>
+      </table>
+      <script src="/filters2.js"></script>
+   </body>
+</html>
