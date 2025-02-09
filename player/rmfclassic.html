@@ -1,0 +1,40 @@
+<html lang="pl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="icon" type="image/png" href="/favicon.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="/style-new.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+      <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
+   </head>
+   <body>
+      <button class="but but1"><a href="/">Wstecz</a></button><hr>
+      <img class="boximgmain" src="https://i.ibb.co/Zmnkx5W/rmfclassic-2022.png" id="hp">
+      <span style="font-size:28px">Radio Online</span><br>
+      <a download="RMF Classic.pls" href="data:audio/x-scpls,[playlist]%10NumberOfEntries=1%10File1=https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic"><img src="https://krdrt5370000ym.github.io/winamp.png" alt=""></a>
+      <a download="RMF Classic.m3u" href="data:audio/x-mpegurl,#EXTM3U%10#EXTINF:0,wmp%10https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic"><img src="https://krdrt5370000ym.github.io/media.png" alt=""></a>
+      <a download="RMF Classic.rm" href="data:application/vnd.rn-realmedia,https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic"><img src="https://krdrt5370000ym.github.io/real.png" alt=""></a>
+      <a href="https://myradioonline.pl/rmf-classic><img src="https://krdrt5370000ym.github.io/online2.png" alt=""></a>
+      <a href="data:text/plain;charset=utf8,Strumień tutaj URL:%10https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic"><img src="https://krdrt5370000ym.github.io/links.png" alt=""></a><br>
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;document.getElementById('player').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic">RMF Classic</option>
+         <option value="https://cast.tunzilla.com/https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic">RMF Classic (bez reklam)</option>
+      </select>
+      <br>
+      <button class="but but1" onclick="player.load();">▶</button><button class="but but1"><a href="https://myradioonline.pl/rmf-classic">♪ Sprawdź co graliśmy!</a></button><br>
+      <audio id="player" controls>
+         <source src="https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic">
+      </audio>
+      <br>
+      <button class="but but1"><a href="https://www.rmfclassic.pl/radio/ramowka">📅 Aktualna ramówka</a></button><button class="but but1"><a href="https://www.rmfclassic.pl/">🌐 Strona</a></button><button class="but but1"><a href="https://www.rmfclassic.pl/podcasty">▶ Podcasty</a></button><button class="but but1"><a href="https://m.me/120191531356609">🗨 Messenger</a></button><button class="but but1"><a href="tel:126622263">📞 12 6622263</a></button><button class="but but1"><a href="https://www.rmfclassic.pl/radio/programy">📻 Programy</a></button><button class="but but1"><a href="https://www.rmfclassic.pl/radio/ludzie">🧍 Ludzie</a></button>
+      <br>
+      <a href="https://www.fb.com/120191531356609" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
+      <a href="https://www.instagram.com/rmfclassic/" title="Instagram"><i class="fa-brands fa-instagram" style="font-size:36px"></i></a>
+      <a href="https://pl.wikipedia.org/wiki/RMF_Classic" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" style="font-size:36px"></i></a>
+      <script type="text/javascript" src="/tabs.js"></script>
+      <script type="text/javascript" src="/tabschedule.js"></script>
+   </body>
+</html>
