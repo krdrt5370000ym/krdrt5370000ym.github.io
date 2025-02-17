@@ -23,7 +23,13 @@ function showOnAir() {
     const auditionEnd =
       audition.querySelector(".end").textContent + ":00";
 
-    return currentTime >= auditionStart && currentTime < auditionEnd;
+    if (auditionEnd > auditionStart) {
+      return currentTime >= auditionStart && currentTime < auditionEnd;
+    } else if (auditionEnd == auditionStart) {
+      return currentTime >= auditionStart && currentTime < auditionEnd;
+    } else {
+      return currentTime >= auditionStart && currentTime < (24 + auditionEnd);
+  }
   });
   currentAudition?.classList.add("on-air");
 }
