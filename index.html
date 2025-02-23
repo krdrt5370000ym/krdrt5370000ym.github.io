@@ -7,8 +7,22 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="style-new.css">
+      <link rel="stylesheet" href="style-menu.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
    </head>
    <body>
+      <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+          <a href="https://krdrt5370000ym.github.io">Strona główna</a>
+          <a href="https://krdrt5370000ym.github.io/radio">Radio</a>
+          <a href="https://krdrt5370000ym.github.io/link">Witryna</a>
+          <a href="https://krdrt5370000ym.github.io/radio/info">Informacja radia</a>
+        </div>
+      </div>
+      <div class="header" id="myHeader">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span><span class="overlaymenu"><a href="https://krdrt5370000ym.github.io">Strona główna</a></span>
+      </div>
       <span style="font-size:32px">Strona w budowie.</span>
       <table style="width:100%">
          <tr style="visibility: collapse">
@@ -132,5 +146,6 @@
             <td><button class="but but1"><a href="/radio">📻 Radio</a></button><button class="btn but but1"><a href="/radio/tv"> TV</a></button><button class="btn but but1"><a href="/radio/abroad"> Zagranicy</a></button><button class="btn but but1"><a href="/radio/music"> Muzyka</a></button><button class="btn but but1"><a href="/radio/link"> Witryna</a></button></td>
          </tr>
       </table>
+      <script type="text/javascript" src="/style-menu.js"></script>
    </body>
 </html>
