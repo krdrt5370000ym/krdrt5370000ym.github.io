@@ -7,11 +7,24 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="/style-new.css">
+      <link rel="stylesheet" href="/style-menu.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
       <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
    </head>
    <body>
-      <button class="but but1"><a href="/radio">Wstecz</a></button>
-      <hr>
+      <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+          <a href="https://krdrt5370000ym.github.io">Strona główna</a>
+          <a href="https://krdrt5370000ym.github.io/radio">Radio</a>
+          <a href="https://krdrt5370000ym.github.io/radio/link">Witryna</a>
+          <a href="https://krdrt5370000ym.github.io/radio/info">Informacja radia</a>
+        </div>
+      </div>
+      <div class="header" id="myHeader">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span><span class="overlaymenu"><a href="https://krdrt5370000ym.github.io">Strona główna</a></span>
+      </div>
+      <span><a href="/">Strona główna</a> / Informacja radia</span><hr>
       <p>Jak: <a href="https://spidersweb.pl/2024/08/emulator-androida-co-to-jaki-na-windows.html">Emulator Androida</a> , <a href="https://www-guru99-com.translate.goog/best-ios-emulators-pc-windows-mac.html?_x_tr_sl=auto&_x_tr_tl=pl&_x_tr_hl=pl&_x_tr_pto=wapp">Emulator IOSa</a></p>
       <p>Aplikacje:</p>
       <ul>
@@ -56,5 +69,6 @@
          <li><a href="https://tunein.com/radio/music/">TuneIn</a></li>
          <li><a href="https://www.radioplayer.de/">RadioPlayer.de</a></li>
       </ul>
+      <script type="text/javascript" src="/style-menu.js"></script>
    </body>
 </html>
