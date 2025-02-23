@@ -7,10 +7,24 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="/style-new3.css">
+      <link rel="stylesheet" href="/style-menu.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
       <title>Słuchaj online: stacja radiowe, VOD, muzyki, podcasty i playlisty</title>
    </head>
    <body>
-      <button class="but but1"><a href="/">Wstecz</a></button><button class="but but1"><a href="/player/voxfm">📻 Player</a></button><hr>
+      <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+          <a href="https://krdrt5370000ym.github.io">Strona główna</a>
+          <a href="https://krdrt5370000ym.github.io/radio">Radio</a>
+          <a href="https://krdrt5370000ym.github.io/radio/link">Witryna</a>
+          <a href="https://krdrt5370000ym.github.io/radio/info">Informacja radia</a>
+        </div>
+      </div>
+      <div class="header" id="myHeader">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span><span class="overlaymenu"><a href="https://krdrt5370000ym.github.io">Strona główna</a></span>
+      </div>
+      <span><a href="/">Strona główna</a> / <a href="/player/voxfm">VOX FM</a> / Podcasty</span><br><button class="but but1"><a href="/player/voxfm">📻 Player</a></button><hr>
       <h2>Podcasty VOX FM</h2>
       <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
       <button class="but but1" onclick="sortTable()">Sort</button>
@@ -73,5 +87,6 @@
          </tr>
       </table>
       <script src="/filters2.js"></script>
+      <script type="text/javascript" src="/style-menu.js"></script>
    </body>
 </html>
