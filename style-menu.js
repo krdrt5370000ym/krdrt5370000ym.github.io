@@ -1,4 +1,4 @@
-window.onscroll = function() {myFunction()};
+window.onscroll = function() {myFunctionMenu()};
 
 var header = document.getElementById("myHeader");
 var sticky = header.offsetTop;
