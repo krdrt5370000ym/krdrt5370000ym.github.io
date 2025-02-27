@@ -3,7 +3,7 @@ window.onscroll = function() {myFunctionMenu()};
 var header = document.getElementById("myHeader");
 var sticky = header.offsetTop;
 
-function myFunction() {
+function myFunctionMenu() {
   if (window.pageYOffset > sticky) {
     header.classList.add("sticky");
   } else {
