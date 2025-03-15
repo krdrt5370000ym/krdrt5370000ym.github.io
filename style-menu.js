@@ -18,3 +18,9 @@ function openNav() {
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
+
+function changeFont() {
+    var myselect = document.getElementById("input-font");
+    var font = myselect.options[myselect.selectedIndex].value;
+    document.getElementById("output-text").style.fontFamily = font;
+}
