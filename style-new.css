@@ -173,3 +173,18 @@
   z-index: 99999;
   width: auto;
 }
+
+.program_name {
+  font-size: 16px;
+  display: block;
+}
+
+.program_host {
+  font-size: 13px;
+  display: block;
+}
+
+.program_item {
+  font-size: 13px;
+  display: block;
+}
