@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Archiwalne podcasty | krdrt537000ym.github.io</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts/style-font.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Sofia Pro", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
+
+.buttons {
+  border: none;
+  color: white;
+  padding: 1px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttons1 {
+  background-color: inherit; 
+  color: black; 
+  border: 2px solid #000000;
+}
+
+.buttons1:hover {
+  background-color: #000000;
+  color: white;
+}
+
+ a:link {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+ table {
+     border-collapse: collapse;
+     width: 100%;
+}
+ tr {
+     height: 36px;
+}
+ th, td {
+     padding: 8px;
+     text-align: left;
+     border-bottom: 1px solid #DDD;
+}
+ tr:hover {
+     background-color: #CCC;
+}
+
+ .boximg {
+     border: 1px solid #130010;
+     border-radius: 100px;
+     width: 100px;
+     height: 100px;
+}
+
+ .boximg_small {
+     border: 1px solid #130010;
+     border-radius: 75px;
+     width: 75px;
+     height: 75px;
+}
+
+ .ps_name {
+     font-weight: 600;
+     font-size: 16px;
+     display: block;
+}
+
+ .ps_host {
+     font-weight: 400;
+     font-size: 13px;
+     display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="https://krdrt5370000ym.github.io/" class="w3-bar-item w3-button">STRONA GŁÓWNA</a>
+    <a href="https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/program.xlsb&AllowTyping=True" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-calendar-days"></i> PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-podcast"></i> PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-headset"></i> SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-radio"></i> RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-info"></i> INFORMACJA RADIA</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+    </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/program.xlsb&AllowTyping=True" class="w3-bar-item w3-button" onclick="toggleFunction()">PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button" onclick="toggleFunction()">PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button" onclick="toggleFunction()">SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button" onclick="toggleFunction()">RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button" onclick="toggleFunction()">INFORMACJA RADIA</a>
+  </div>
+</div>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+<p><a href="https://krdrt5370000ym.github.io/">Strona Główna</a> / <a href="https://krdrt5370000ym.github.io/podcast">Podcasty</a> / Archiwum</p>
+  <h3 class="w3-center">Radio ESKA</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/N2sY4w1/e981c5f32751011392a044003ec58368.jpg" title="ESKA RAZEM przeciw DEPRESJI">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/N2sY4w1/e981c5f32751011392a044003ec58368.jpg" title="ESKA RAZEM przeciw DEPRESJI">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5975497">ESKA RAZEM przeciw DEPRESJI</a></span>
+			   <span class="ps_host">Maja Pisarek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4f59Q3q/76658915e42e45b90ef36500ec6406ff.jpg" title="To Się Kręci">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4f59Q3q/76658915e42e45b90ef36500ec6406ff.jpg" title="To Się Kręci">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5543050">To Się Kręci</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/GxGJ1Wz/20dbd81c0a592de0a6f358f68c51c771.jpg" title="Wkrętarka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/GxGJ1Wz/20dbd81c0a592de0a6f358f68c51c771.jpg" title="Wkrętarka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5503801">Wkrętarka</a></span>
+			   <span class="ps_host">Albert</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio ESKA 2</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Ph4QCnt/3ef52192215ddf56b6c7043fa9da741c.jpg" title="DeDektyw Inwektyw. Felietony.">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Ph4QCnt/3ef52192215ddf56b6c7043fa9da741c.jpg" title="DeDektyw Inwektyw. Felietony.">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4672037">DeDektyw Inwektyw. Felietony.</a></span>
+			   <span class="ps_host">Tomasz Łysiak</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/v46ngCV/5293e11b1e4898fff995194178f29158.jpg" title="Mówimy Jak jest">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/v46ngCV/5293e11b1e4898fff995194178f29158.jpg" title="Mówimy Jak jest">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4902045">Mówimy Jak jest</a></span>
+			   <span class="ps_host">Redakcja SuperNova</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/DDwB3mJ/129016df036b9140a37ce24953360aa8.jpg" title="Niewydarzenia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/DDwB3mJ/129016df036b9140a37ce24953360aa8.jpg" title="Niewydarzenia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5083786">Niewydarzenia</a></span>
+			   <span class="ps_host">Piotr Guma Gumulec</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9yPh6xS/ce6d508f4d2270580efe8c35fe20ebf2.jpg" title="Podcast olimpijski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9yPh6xS/ce6d508f4d2270580efe8c35fe20ebf2.jpg" title="Podcast olimpijski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5364193">Podcast olimpijski</a></span>
+			   <span class="ps_host">Redakcja SuperNova</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/LR5btPH/64ffc42177a174b3f09da3148cd68f55.jpg" title="Śliwką w kompot">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/LR5btPH/64ffc42177a174b3f09da3148cd68f55.jpg" title="Śliwką w kompot">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4902041">Śliwką w kompot</a></span>
+			   <span class="ps_host">Marcin Śliwa</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0CyC7Z0/9f6d2e5261ef521f22bd35b1e2b68dd3.jpg" title="SuperNova na święta">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0CyC7Z0/9f6d2e5261ef521f22bd35b1e2b68dd3.jpg" title="SuperNova na święta">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5283487">SuperNova na święta</a></span>
+			   <span class="ps_host">Dominik Rutkowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/GCTBXqh/a368bc4518e1ed485ffdcd17364232e0.jpg" title="SuperSelfie w Radiu SuperNova">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/GCTBXqh/a368bc4518e1ed485ffdcd17364232e0.jpg" title="SuperSelfie w Radiu SuperNova">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4993385">SuperSelfie w Radiu SuperNova</a></span>
+			   <span class="ps_host">Redakcja SuperNova</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/swj6gW3/073da6d286a77947d5fb7c642981d95a.jpg" title="SuperStar">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/swj6gW3/073da6d286a77947d5fb7c642981d95a.jpg" title="SuperStar">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4903616">SuperStar</a></span>
+			   <span class="ps_host">Paweł Wiszniewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QbHkVkg/3e12bc80adb129d4cb30f54df624cb05.jpg" title="SuperTemat">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QbHkVkg/3e12bc80adb129d4cb30f54df624cb05.jpg" title="SuperTemat">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5417933">SuperTemat</a></span>
+			   <span class="ps_host">Artur Jarząbek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/10Fhz7y/1c0f1d9e6fd5c1ce5914d9ad4f5ac30c.jpg" title="Szybkie Pytania">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/10Fhz7y/1c0f1d9e6fd5c1ce5914d9ad4f5ac30c.jpg" title="Szybkie Pytania">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5482087">Szybkie Pytania</a></span>
+			   <span class="ps_host">Paweł Wiszniewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Qp2YmxJ/3dc3fc965971d06947fc84f8b0ed9fb0.jpg" title="W samo południe">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Qp2YmxJ/3dc3fc965971d06947fc84f8b0ed9fb0.jpg" title="W samo południe">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4910489">W samo południe</a></span>
+			   <span class="ps_host">Artur Jarząbek</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Pogoda</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ZBTSsMb/1920x960-1.png" title="Najpiękniejsze melodie Andrzeja Rybińskiego w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ZBTSsMb/1920x960-1.png" title="Najpiękniejsze melodie Andrzeja Rybińskiego w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/najpiekniejsze-melodie-andrzeja-rybinskiego-w-radiu-pogoda">Najpiękniejsze melodie Andrzeja Rybińskiego w Radiu Pogoda</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/d5rwNS2/Alicja-Majewska.jpg" title="Najpiękniejsze melodie Alicji Majewskiej w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/d5rwNS2/Alicja-Majewska.jpg" title="Najpiękniejsze melodie Alicji Majewskiej w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/najpiekniejsze-melodie-alicji-majewskiej-w-radiu-pogoda">Najpiękniejsze melodie Alicji Majewskiej w Radiu Pogoda</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/cT9GjD4/Dewajtis.jpg" title="&quot;Dewajtis&quot; - Powieść Radia Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/cT9GjD4/Dewajtis.jpg" title="&quot;Dewajtis&quot; - Powieść Radia Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/dewajtis-audiobook">"Dewajtis" - Powieść Radia Pogoda</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">VOX FM</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gtBTxKx/79c7eb027ec201981e13759a3023523c.jpg" title="Typowy Seba - cesarz imprezowania">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gtBTxKx/79c7eb027ec201981e13759a3023523c.jpg" title="Typowy Seba - cesarz imprezowania">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5333066">Typowy Seba - cesarz imprezowania</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/NCSMvwm/7567983cf589b5919fcbde7faca00ebd.jpg" title="Extramocni">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/NCSMvwm/7567983cf589b5919fcbde7faca00ebd.jpg" title="Extramocni">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/4994765">Extramocni</a></span>
+			   <span class="ps_host">Maria Guzek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Jyttpjj/f51fdd8ea8e83cc9c7aff9b27316c303.jpg" title="Gość w Samą Porę">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Jyttpjj/f51fdd8ea8e83cc9c7aff9b27316c303.jpg" title="Gość w Samą Porę">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5301488">Gość w Samą Porę</a></span>
+			   <span class="ps_host">Przemek Sasowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Y7LRBTD/620f4332f33c5a83aadfd444556aab7b.jpg" title="Konstantyn Loff - dr Love">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Y7LRBTD/620f4332f33c5a83aadfd444556aab7b.jpg" title="Konstantyn Loff - dr Love">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5425765">Konstantyn Loff - dr Love</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio RSC 88.6 FM</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/z77SHTb/IGCzytelnia.png" title="Czytelnia Radia RSC">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/z77SHTb/IGCzytelnia.png" title="Czytelnia Radia RSC">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/czytelnia-radia-rsc/">Czytelnia Radia RSC</a></span>
+			   <span class="ps_host">Karolina Bast-Kolasa</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/LnYrPX7/kret.jpg" title="Gramy Po Polsku">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/LnYrPX7/kret.jpg" title="Gramy Po Polsku">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/gramy-po-polsku/">Gramy Po Polsku</a></span>
+			   <span class="ps_host">Jacek Kret</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/xqvzT94/moto-minuty-logo.png" title="Moto-minuty">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/xqvzT94/moto-minuty-logo.png" title="Moto-minuty">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/moto-minuty/">Moto-minuty</a></span>
+			   <span class="ps_host">Michał Krawczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/V3k7td3/DSC-6041-scaled-e1713785652607-500x500.jpg" title="Rowelove">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/V3k7td3/DSC-6041-scaled-e1713785652607-500x500.jpg" title="Rowelove">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/rowelove/">Rowelove</a></span>
+			   <span class="ps_host">Bartek Migała</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0F36FXN/DSC-6005-scaled-e1713786120759-500x500.jpg" title="Sielsko Anielsko">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0F36FXN/DSC-6005-scaled-e1713786120759-500x500.jpg" title="Sielsko Anielsko">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/sielsko-anielsko/">Sielsko Anielsko</a></span>
+			   <span class="ps_host">Maciej Bąba</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/dbvTVT9/sluchowisko-wielkanoc.jpg" title="Wielkanoc - wielkie dni">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/dbvTVT9/sluchowisko-wielkanoc.jpg" title="Wielkanoc - wielkie dni">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/archiwum-audycji/wielkanoc-wielkie-dni/">Wielkanoc - wielkie dni</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/D4tttzf/IG-1.png" title="Złoty wiek">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/D4tttzf/IG-1.png" title="Złoty wiek">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/archiwum-audycji/zloty-wiek/">Złoty wiek</a></span>
+			   <span class="ps_host">Michał Krawczyk</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+</div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <div class="w3-xlarge w3-section">
+    <i class="fa-brands fa-facebook w3-hover-opacity"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-snapchat w3-hover-opacity"></i>
+    <i class="fa-brands fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa-brands fa-twitter w3-hover-opacity"></i>
+    <i class="fa-brands fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>
