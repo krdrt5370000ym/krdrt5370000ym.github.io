@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sety | krdrt537000ym.github.io</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts/style-font.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Sofia Pro", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
+
+.buttons {
+  border: none;
+  color: white;
+  padding: 1px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttons1 {
+  background-color: inherit; 
+  color: black; 
+  border: 2px solid #000000;
+}
+
+.buttons1:hover {
+  background-color: #000000;
+  color: white;
+}
+
+ a:link {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+ table {
+     border-collapse: collapse;
+     width: 100%;
+}
+ tr {
+     height: 36px;
+}
+ th, td {
+     padding: 8px;
+     text-align: left;
+     border-bottom: 1px solid #DDD;
+}
+ tr:hover {
+     background-color: #CCC;
+}
+
+ .boximg {
+     border: 1px solid #130010;
+     border-radius: 100px;
+     width: 100px;
+     height: 100px;
+}
+
+ .boximg_small {
+     border: 1px solid #130010;
+     border-radius: 75px;
+     width: 75px;
+     height: 75px;
+}
+
+ .ps_name {
+     font-weight: 600;
+     font-size: 16px;
+     display: block;
+}
+
+ .ps_host {
+     font-weight: 400;
+     font-size: 13px;
+     display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="https://krdrt5370000ym.github.io/" class="w3-bar-item w3-button">STRONA GŁÓWNA</a>
+    <a href="https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/program.xlsb&AllowTyping=True" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-calendar-days"></i> PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-podcast"></i> PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-headset"></i> SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-radio"></i> RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-info"></i> INFORMACJA RADIA</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+    </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/program.xlsb&AllowTyping=True" class="w3-bar-item w3-button" onclick="toggleFunction()">PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button" onclick="toggleFunction()">PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button" onclick="toggleFunction()">SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button" onclick="toggleFunction()">RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button" onclick="toggleFunction()">INFORMACJA RADIA</a>
+  </div>
+</div>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+  <h3 class="w3-center">Meloradio</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="Clapcast">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="Clapcast">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@NightLife-OK/videos">Clapcast</a></span>
+			   <span class="ps_host">Claptone</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/rQ2fFDt/DM-tiesto.png" title="Tiësto's Club Life">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/rQ2fFDt/DM-tiesto.png" title="Tiësto's Club Life">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@tiesto/videos">Tiësto's Club Life</a></span>
+			   <span class="ps_host">Tiësto</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HpNyhnd/DM-pink.png" title="Heartfeldt Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HpNyhnd/DM-pink.png" title="Heartfeldt Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://soundcloud.com/heartfeldt">Heartfeldt Radio</a></span>
+			   <span class="ps_host">Sam Feldt</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="Hexagon Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="Hexagon Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hl828P_cBXe6ARTTdZFLgxr">Hexagon Radio</a></span>
+			   <span class="ps_host">Don Diablo</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="CYB3RPVNK Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="CYB3RPVNK Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://soundcloud.com/r3hab">CYB3RPVNK Radio</a></span>
+			   <span class="ps_host">R3hab</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HpNyhnd/DM-pink.png" title="Jonasu's House Party">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HpNyhnd/DM-pink.png" title="Jonasu's House Party">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@JonasuOfficial/videos">Jonasu's House Party</a></span>
+			   <span class="ps_host">Jonasu</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/k6hmz4S/DM-missmonique.png" title="MiMo Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/k6hmz4S/DM-missmonique.png" title="MiMo Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://soundcloud.com/alesia-arkusha">MiMo Radio</a></span>
+			   <span class="ps_host">Miss Monique</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="The Controversia Radioshow">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="The Controversia Radioshow">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hl4YGazIg95E9VQ6lw-xfFq">The Controversia Radioshow</a></span>
+			   <span class="ps_host">Alok</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/tL2vtJq/DM-arminvanburren.png" title="A State of Trance">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/tL2vtJq/DM-arminvanburren.png" title="A State of Trance">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@arminvanbuuren/streams">A State of Trance</a></span>
+			   <span class="ps_host">Armin van Buuren</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/71W3XRz/DM-amelielens.png" title="Amelie Lens Radio Show">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/71W3XRz/DM-amelielens.png" title="Amelie Lens Radio Show">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://soundcloud.com/amelielens">Amelie Lens Radio Show</a></span>
+			   <span class="ps_host">Amelie Lens</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="Defected">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/VLPDn9L/DM-blue.jpg" title="Defected">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@DefectedMusic/videos">Defected</a></span>
+			   <span class="ps_host">DJs Team</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Chillizet</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gLSjy300/dominika_kontarowicz.jpg" title="Primadoma Club">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gLSjy300/dominika_kontarowicz.jpg" title="Primadoma Club">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Primadoma-club">Primadoma Club</a></span>
+			   <span class="ps_host">Dominika Kontarowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/mJ1m03y/glitterbox.jpg" title="Glitterbox Radio Show">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/mJ1m03y/glitterbox.jpg" title="Glitterbox Radio Show">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@glitterboxibiza/videos">Glitterbox Radio Show</a></span>
+			   <span class="ps_host">Redakcja Chillizet</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gbqQ0wGr/Niedzielni-size-228x228.jpg" title="Niedzielni">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gbqQ0wGr/Niedzielni-size-228x228.jpg" title="Niedzielni">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Niedzielni-Ep.01/(offset)/1">Niedzielni</a></span>
+			   <span class="ps_host">Redakcja Chillizet</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">InterStacja</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/pd543M2/IZv-N-17-Z0-ZU.jpg" title="Magic Sound Radioshow">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/pd543M2/IZv-N-17-Z0-ZU.jpg" title="Magic Sound Radioshow">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://soundcloud.com/kontroller_project">Magic Sound Radioshow</a></span>
+			   <span class="ps_host">Kontroller Project</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/G3W0VZNH/skytech.jpg" title="This is Skytech">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/G3W0VZNH/skytech.jpg" title="This is Skytech">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/channel/UC7D8GB9sNIDfELGO6BI2gPQ">This is Skytech</a></span>
+			   <span class="ps_host">Skytech</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Inne stacje</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/kVkrHXN5/image.jpg" title="Seciki.pl">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/kVkrHXN5/image.jpg" title="Seciki.pl">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@SecikiPL-sety/videos">Seciki.pl</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/G39yQFDX/image.jpg" title="vRq - Sety Klubowe">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/G39yQFDX/image.jpg" title="vRq - Sety Klubowe">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@vRq_Sety_Klubowe/videos">vRq - Sety Klubowe</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9HSCTSnz/energy2000.jpg" title="Energy 2000">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9HSCTSnz/energy2000.jpg" title="Energy 2000">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@energy2000official/videos">Energy 2000</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/rRSjGCwG/artworks-rJ9iF3t3UwveUdIq-e4S5pg-t200x200.jpg" title="Lucas &amp; Steve Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/rRSjGCwG/artworks-rJ9iF3t3UwveUdIq-e4S5pg-t200x200.jpg" title="Lucas &amp; Steve Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://soundcloud.com/lucasandsteve">Lucas &amp; Steve Radio</a></span>
+			   <span class="ps_host">Lucas &amp; Steve</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9HY3VDYT/avatars-000184193905-uxl3jy-t200x200.jpg" title="Spinnin’ Sessions Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9HY3VDYT/avatars-000184193905-uxl3jy-t200x200.jpg" title="Spinnin’ Sessions Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@spinninrecords/videos">Spinnin’ Sessions Radio</a></span>
+			   <span class="ps_host">Spinnin' Records</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Yv22mJQ/above-and-beyond.jpg" title="Group Therapy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Yv22mJQ/above-and-beyond.jpg" title="Group Therapy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/@aboveandbeyond/streams">Group Therapy</a></span>
+			   <span class="ps_host">Above &amp; Beyond</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/KpB3nXGC/aoki-s-house.jpg" title="Aoki's House">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/KpB3nXGC/aoki-s-house.jpg" title="Aoki's House">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkM793GW9nc3mrj2fSMjCdo">Aoki's House</a></span>
+			   <span class="ps_host">Steve Aoki</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/3yQMj9TP/house-session.jpg" title="House Session">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/3yQMj9TP/house-session.jpg" title="House Session">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkPkKB0JaU-jLaX6HD5on0S">House Session</a></span>
+			   <span class="ps_host">DJ Ramirez</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/S4M7SnTy/disco-marusya.jpg" title="Disco Marusya">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/S4M7SnTy/disco-marusya.jpg" title="Disco Marusya">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hnKS8wjAVtCihWyHmnSO5nB">Disco Marusya</a></span>
+			   <span class="ps_host">DJ Ramirez</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/fdtyMGvf/mike-williams.jpg" title="On Track">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/fdtyMGvf/mike-williams.jpg" title="On Track">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hmMIsUEmCv9pwiHxU92DdMd">On Track</a></span>
+			   <span class="ps_host">Mike Williams</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/wZDkPzz6/weekend-party-mix.jpg" title="Weekend Party">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/wZDkPzz6/weekend-party-mix.jpg" title="Weekend Party">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkJCzwMhQmg_xRtUiGqweRk">Weekend Party</a></span>
+			   <span class="ps_host">DJ Ramirez</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/hxRzr80q/blasterjaxx.jpg" title="Maxximize On Air">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/hxRzr80q/blasterjaxx.jpg" title="Maxximize On Air">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkl3IcDwjMuvT4WUuwhiCvA">Maxximize On Air</a></span>
+			   <span class="ps_host">Blasterjaxx</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Fkfggsjh/hysteria-radio.jpg" title="Hysteria Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Fkfggsjh/hysteria-radio.jpg" title="Hysteria Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hn_iaZnJFAPhySAaV-BzDnW">Hysteria Radio</a></span>
+			   <span class="ps_host">Bingo Players</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QvRDNGys/darklight-sessions.jpg" title="Darklight Sessions">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QvRDNGys/darklight-sessions.jpg" title="Darklight Sessions">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hk9A_xjloXquPBqJ_eiKmX3">Darklight Sessions</a></span>
+			   <span class="ps_host">Fedde Le Grand</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/yFF45RV5/heldeep-radio.jpg" title="Heldeep Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/yFF45RV5/heldeep-radio.jpg" title="Heldeep Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hmQolAmlyt6LfhFGMIyOOJ3">Heldeep Radio</a></span>
+			   <span class="ps_host">Oliver Heldens</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/XxvjRM9q/hardwell-on-air.jpg" title="Hardwell On Air">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/XxvjRM9q/hardwell-on-air.jpg" title="Hardwell On Air">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkxrbf5aXqMqGC6Qupg31pM">Hardwell On Air</a></span>
+			   <span class="ps_host">Hardwell</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HfkBWbj3/phoenix-radio.jpg" title="Phoenix Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HfkBWbj3/phoenix-radio.jpg" title="Phoenix Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hmwBJLxBXZSP6eJRImof11Q">Phoenix Radio</a></span>
+			   <span class="ps_host">ILLENIUM</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/RkJmYcm8/midnight-mix.jpg" title="Midnight Mix">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/RkJmYcm8/midnight-mix.jpg" title="Midnight Mix">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkiR8g5smCmS9u2XsKCY46N">Midnight Mix</a></span>
+			   <span class="ps_host">DJ Ramirez</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/VWkkWXj9/monthly-mixes.jpg" title="Monthly Mixes">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/VWkkWXj9/monthly-mixes.jpg" title="Monthly Mixes">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hmYnISCP8zCMRii0O7xY6kz">Monthly Mixes</a></span>
+			   <span class="ps_host">Kolya Funk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/v40b928p/record-club.jpg" title="Record Club">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/v40b928p/record-club.jpg" title="Record Club">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hkfbCurn75TMCjuYy0CZjbp">Record Club</a></span>
+			   <span class="ps_host">DJ Цветкоff</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/W4Vjj7Zx/stereohype-radio.jpg" title="Stereohype Radio">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/W4Vjj7Zx/stereohype-radio.jpg" title="Stereohype Radio">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hn_brLiSJxJfo3m-2eDZjZL">Stereohype Radio</a></span>
+			   <span class="ps_host">James Hype</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/8LBNLdKT/the-martin-garrix-show.jpg" title="The Martin Garrix Show">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/8LBNLdKT/the-martin-garrix-show.jpg" title="The Martin Garrix Show">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hmsYGGZHggxoq6ehUsHUDHq">The Martin Garrix Show</a></span>
+			   <span class="ps_host">Martin Garrix</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/nMNYXGy8/garage.jpg" title="Garage Radioshow">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/nMNYXGy8/garage.jpg" title="Garage Radioshow">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/playlist?list=PLa4IsZ_Fr7hky3EnTNA9jHQSxoaBwF2bu">Garage Radioshow</a></span>
+			   <span class="ps_host">Garage Sound System</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+</div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <div class="w3-xlarge w3-section">
+    <i class="fa-brands fa-facebook w3-hover-opacity"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-snapchat w3-hover-opacity"></i>
+    <i class="fa-brands fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa-brands fa-twitter w3-hover-opacity"></i>
+    <i class="fa-brands fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>

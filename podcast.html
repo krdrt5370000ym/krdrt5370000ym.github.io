@@ -1,0 +1,2844 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Podcasty | krdrt537000ym.github.io</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts/style-font.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Sofia Pro", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
+
+.buttons {
+  border: none;
+  color: white;
+  padding: 1px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttons1 {
+  background-color: inherit; 
+  color: black; 
+  border: 2px solid #000000;
+}
+
+.buttons1:hover {
+  background-color: #000000;
+  color: white;
+}
+
+ a:link {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+ table {
+     border-collapse: collapse;
+     width: 100%;
+}
+ tr {
+     height: 36px;
+}
+ th, td {
+     padding: 8px;
+     text-align: left;
+     border-bottom: 1px solid #DDD;
+}
+ tr:hover {
+     background-color: #CCC;
+}
+
+ .boximg {
+     border: 1px solid #130010;
+     border-radius: 100px;
+     width: 100px;
+     height: 100px;
+}
+
+ .boximg_small {
+     border: 1px solid #130010;
+     border-radius: 75px;
+     width: 75px;
+     height: 75px;
+}
+
+ .ps_name {
+     font-weight: 600;
+     font-size: 16px;
+     display: block;
+}
+
+ .ps_host {
+     font-weight: 400;
+     font-size: 13px;
+     display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="https://krdrt5370000ym.github.io/" class="w3-bar-item w3-button">STRONA GŁÓWNA</a>
+    <a href="https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/program.xlsb&AllowTyping=True" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-calendar-days"></i> PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-podcast"></i> PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-headset"></i> SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-radio"></i> RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-info"></i> INFORMACJA RADIA</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+    </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/program.xlsb&AllowTyping=True" class="w3-bar-item w3-button" onclick="toggleFunction()">PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button" onclick="toggleFunction()">PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button" onclick="toggleFunction()">SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button" onclick="toggleFunction()">RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button" onclick="toggleFunction()">INFORMACJA RADIA</a>
+  </div>
+</div>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+  <h3 class="w3-center">Radio ZET</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ZWGsfjM/Niech-To-Uslysza-serial-kryminalny-Radia-ZET.webp" title="Niech To Usłyszą – serial kryminalny Radia ZET">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ZWGsfjM/Niech-To-Uslysza-serial-kryminalny-Radia-ZET.webp" title="Niech To Usłyszą – serial kryminalny Radia ZET">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Niech-To-Uslysza">Niech To Usłyszą – serial kryminalny Radia ZET</a></span>
+			   <span class="ps_host">Jakub Ćwiek, Wojciech Chmielarz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/rcNM9Q4/Gosc-Radia-ZET-size-228x228.png" title="Gość Radia ZET">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/rcNM9Q4/Gosc-Radia-ZET-size-228x228.png" title="Gość Radia ZET">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Gosc-Radia-ZET">Gość Radia ZET</a></span>
+			   <span class="ps_host">Bogdan Rymanowski, Beata Lubecka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QYqgTzp/Szymon-Majewski-Szal.png" title="Szymon Majewski Szał">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QYqgTzp/Szymon-Majewski-Szal.png" title="Szymon Majewski Szał">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Szymon-Majewski-Szal">Szymon Majewski Szał</a></span>
+			   <span class="ps_host">Szymon Majewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png" title="Popołudniowy Gość Radia ZET">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/RTQVwyQ/Popoludniowy-Gosc-Radia-ZET-size-228x228.png" title="Popołudniowy Gość Radia ZET">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Popoludniowy-Gosc-Radia-ZET">Popołudniowy Gość Radia ZET</a></span>
+			   <span class="ps_host">Beata Lubecka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jkqp90B/7-Dzien-Tygodnia-w-Radiu-ZET-size-228x228.png" title="7. Dzień Tygodnia w Radiu ZET">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jkqp90B/7-Dzien-Tygodnia-w-Radiu-ZET-size-228x228.png" title="7. Dzień Tygodnia w Radiu ZET">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/7.-Dzien-Tygodnia-w-Radiu-ZET">7. Dzień Tygodnia w Radiu ZET</a></span>
+			   <span class="ps_host">Andrzej Stankiewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Zh84SqM/Kocham-Cie-Kino.png" title="Kocham Cię Kino">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Zh84SqM/Kocham-Cie-Kino.png" title="Kocham Cię Kino">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Kocham-Cie-Kino">Kocham Cię Kino</a></span>
+			   <span class="ps_host">Grażyna Torbicka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/TgdmwLW/Wiadomosci-size-228x228.png" title="Wiadomości">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/TgdmwLW/Wiadomosci-size-228x228.png" title="Wiadomości">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Wiadomosci">Wiadomości</a></span>
+			   <span class="ps_host">Redakcja Radia ZET</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/G9Vw4Hf/Wiadomosci-sportowe-size-228x228.png" title="Wiadomości sportowe">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/G9Vw4Hf/Wiadomosci-sportowe-size-228x228.png" title="Wiadomości sportowe">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Wiadomosci-sportowe">Wiadomości sportowe</a></span>
+			   <span class="ps_host">Redakcja Radia ZET</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/vJGMqmW/Wiadomosci-ekonomiczne-size-228x228.png" title="Wiadomości ekonomiczne">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/vJGMqmW/Wiadomosci-ekonomiczne-size-228x228.png" title="Wiadomości ekonomiczne">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Wiadomosci-ekonomiczne">Wiadomości ekonomiczne</a></span>
+			   <span class="ps_host">Redakcja Radia ZET</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QCsXQJL/Wiadomosci-kulturalne-size-228x228.png" title="Wiadomości kulturalne">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QCsXQJL/Wiadomosci-kulturalne-size-228x228.png" title="Wiadomości kulturalne">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Wiadomosci-kulturalne">Wiadomości kulturalne</a></span>
+			   <span class="ps_host">Redakcja Radia ZET</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QK45sH5/To-sie-nagrywa.png" title="To się nagrywa">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QK45sH5/To-sie-nagrywa.png" title="To się nagrywa">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/To-sie-nagrywa">To się nagrywa</a></span>
+			   <span class="ps_host">Magdalena Barczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Q8GZxZy/ZET-jak-Zdrowie-size-160x160.webp" title="ZET jak Zdrowie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Q8GZxZy/ZET-jak-Zdrowie-size-160x160.webp" title="ZET jak Zdrowie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/ZET-jak-Zdrowie2">ZET jak Zdrowie</a></span>
+			   <span class="ps_host">Iwona Kutyna, Agnieszka Kołodziejska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/NyzJkWM/ZET-za-Kolkiem-size-228x228.png" title="ZET za Kółkiem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/NyzJkWM/ZET-za-Kolkiem-size-228x228.png" title="ZET za Kółkiem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/ZET-za-Kolkiem">ZET za Kółkiem</a></span>
+			   <span class="ps_host">Michał Adamiuk, Joanna Zientarska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/mBBBvHN/SzyminEM.webp" title="SzyminEM">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/mBBBvHN/SzyminEM.webp" title="SzyminEM">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/SZYMIN3M">SzyminEM</a></span>
+			   <span class="ps_host">Szymon Majewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/XJ9RL9z/Machina-wladzy-size-160x160.webp" title="Machina władzy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/XJ9RL9z/Machina-wladzy-size-160x160.webp" title="Machina władzy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Machina-wladzy">Machina władzy</a></span>
+			   <span class="ps_host">Mikołaj Pietraszewski, Błażej Makarewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jJ6xhr3/Biznes-Miedzy-wierszami.jpg" title="Biznes. Między wierszami">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jJ6xhr3/Biznes-Miedzy-wierszami.jpg" title="Biznes. Między wierszami">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Biznes.-Miedzy-wierszami">Biznes. Między wierszami</a></span>
+			   <span class="ps_host">Katarzyna Witwicka, Agnieszka Zaręba</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/j4J3Dcq/Szkola-marzen.png" title="Szkoła marzeń">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/j4J3Dcq/Szkola-marzen.png" title="Szkoła marzeń">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Szkola-marzen">Szkoła marzeń</a></span>
+			   <span class="ps_host">Aleksandra Pucułek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/FgzQ4ms/Podejrzani-politycy-size-228x228.webp" title="Podejrzani politycy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/FgzQ4ms/Podejrzani-politycy-size-228x228.webp" title="Podejrzani politycy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Podejrzani-politycy">Podejrzani politycy</a></span>
+			   <span class="ps_host">Radosław Gruca, Błażej Makarewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/F5rKLQz/Na-walizkach.png" title="Na walizkach">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/F5rKLQz/Na-walizkach.png" title="Na walizkach">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Na-walizkach">Na walizkach</a></span>
+			   <span class="ps_host">Paulina Ermel, Jolanta Waligóra, Nina Czochara</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/W2J0Myp/Planuje-dlugie-zycie-square.jpg" title="Planuję długie życie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/W2J0Myp/Planuje-dlugie-zycie-square.jpg" title="Planuję długie życie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Planuje-dlugie-zycie">Planuję długie życie</a></span>
+			   <span class="ps_host">Materiały partnerskie</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/frBppxf/Na-gole-piesci-square.jpg" title="Na gołe pięści">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/frBppxf/Na-gole-piesci-square.jpg" title="Na gołe pięści">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Na-gole-piesci">Na gołe pięści</a></span>
+			   <span class="ps_host">Andreas Nicolaides</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4Vg7W0F/Wspolrzedne-Swiata.png" title="Współrzędne Świata ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4Vg7W0F/Wspolrzedne-Swiata.png" title="Współrzędne Świata ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Wspolrzedne-Swiata">Współrzędne Świata </a></span>
+			   <span class="ps_host">Piotr Drabik</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/b1qKQ8h/Material-dowodowy-podcast-kryminalny-size-228x228.webp" title="Materiał dowodowy - podcast kryminalny">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/b1qKQ8h/Material-dowodowy-podcast-kryminalny-size-228x228.webp" title="Materiał dowodowy - podcast kryminalny">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Material-dowodowy-podcast-kryminalny">Materiał dowodowy - podcast kryminalny</a></span>
+			   <span class="ps_host">Mateusz Kapera</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HhqNJJM/Psyche.webp" title="Psyche">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HhqNJJM/Psyche.webp" title="Psyche">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Psyche">Psyche</a></span>
+			   <span class="ps_host">Aleksandra Sobieraj, Monika Karbarczyk, Aleksandra Pucułek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4dzSMRQ/Pogadamy-Zobaczymy-size-160x160.webp" title="Pogadamy, Zobaczymy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4dzSMRQ/Pogadamy-Zobaczymy-size-160x160.webp" title="Pogadamy, Zobaczymy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Pogadamy-Zobaczymy">Pogadamy, Zobaczymy</a></span>
+			   <span class="ps_host">Patryk Wołosz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/M5TRzNH/PSEiZK.webp" title="Program Środowisko, Energia i Zmiana Klimatu [AUDIOPREZENTACJA]">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/M5TRzNH/PSEiZK.webp" title="Program Środowisko, Energia i Zmiana Klimatu [AUDIOPREZENTACJA]">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Program-Srodowisko-Energia-i-Zmiany-Klimatu-Audioprezentacja">Program Środowisko, Energia i Zmiana Klimatu [AUDIOPREZENTACJA]</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HrXsNxs/Media-i-polityka-Niebezpieczne-zwiazki.webp" title="Media i polityka. Niebezpieczne związki">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HrXsNxs/Media-i-polityka-Niebezpieczne-zwiazki.webp" title="Media i polityka. Niebezpieczne związki">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Media-i-polityka.-Niebezpieczne-zwiazki2">Media i polityka. Niebezpieczne związki</a></span>
+			   <span class="ps_host">Maciej Bąk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/vxmcz0f/OUiK.webp" title="Odkryć ukryte i niedopowiedziane. Z nominowanymi do Nagrody Woyciechowskiego 2023 rozmawia Rafał Miżejewski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/vxmcz0f/OUiK.webp" title="Odkryć ukryte i niedopowiedziane. Z nominowanymi do Nagrody Woyciechowskiego 2023 rozmawia Rafał Miżejewski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Odkryc-ukryte-i-niedopowiedziane.-Z-nominowanymi-do-Nagrody-Woyciechowskiego-2023-rozmawia-Rafal-Mizejewski">Odkryć ukryte i niedopowiedziane. Z nominowanymi do Nagrody Woyciechowskiego 2023 rozmawia Rafał Miżejewski</a></span>
+			   <span class="ps_host">Rafał Miżejewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/2ctnjxR/WTMDW.webp" title="Walory turystyczne międzynarodowej drogi wodnej e70 [AUDIOPREZENTACJA]">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/2ctnjxR/WTMDW.webp" title="Walory turystyczne międzynarodowej drogi wodnej e70 [AUDIOPREZENTACJA]">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/WALORY-TURYSTYCZNE-MIEDZYNARODOWEJ-DROGI-WODNEJ-E70/Z-WIELKOPOLSKIM-PORZADKIEM-I-SZACUNKIEM-DO-TRADYCJI">Walory turystyczne międzynarodowej drogi wodnej e70 [AUDIOPREZENTACJA]</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/F6STvq6/Opowiesc-wigilijna-w-Radiu-ZET.png" title=""Opowieść wigilijna" w Radiu ZET ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/F6STvq6/Opowiesc-wigilijna-w-Radiu-ZET.png" title=""Opowieść wigilijna" w Radiu ZET ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Opowiesc-wigilijna-w-Radiu-ZET">"Opowieść wigilijna" w Radiu ZET </a></span>
+			   <span class="ps_host">Redakcja Radia ZET</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ydkXChw/Graj-z-m-Bankiem-na-32-Finale-WOSP.webp" title="Graj z mBankiem na 32. Finale WOŚP">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ydkXChw/Graj-z-m-Bankiem-na-32-Finale-WOSP.webp" title="Graj z mBankiem na 32. Finale WOŚP">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Graj-z-mBankiem-na-32.-Finale-WOSP">Graj z mBankiem na 32. Finale WOŚP</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9NKfcd8/Sekcja-Komentarzy.webp" title="Sekcja Komentarzy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9NKfcd8/Sekcja-Komentarzy.webp" title="Sekcja Komentarzy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Sekcja-Komentarzy">Sekcja Komentarzy</a></span>
+			   <span class="ps_host">Maciej Bąk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/MRxjmSp/Poszukiwacze-domowych-skarbow-size-228x228.webp" title="Poszukiwacze domowych skarbów">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/MRxjmSp/Poszukiwacze-domowych-skarbow-size-228x228.webp" title="Poszukiwacze domowych skarbów">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Poszukiwacze-domowych-skarbow">Poszukiwacze domowych skarbów</a></span>
+			   <span class="ps_host">Michał Tomaszkiewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/6FWLWh1/Zloto-Baltyku-size-228x228.webp" title="Złoto Bałtyku">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/6FWLWh1/Zloto-Baltyku-size-228x228.webp" title="Złoto Bałtyku">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Zloto-Baltyku">Złoto Bałtyku</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Hq9wfcH/sPKBiSKwZO.webp" title="sPrawa Konsumenta – Bezpieczeństwo i Świadomość Konsumencka w Zakupach Online">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Hq9wfcH/sPKBiSKwZO.webp" title="sPrawa Konsumenta – Bezpieczeństwo i Świadomość Konsumencka w Zakupach Online">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/sPrawa-dla-Konsumenta-Swiadomosc-konsumencka-i-bezpieczenstwo-zakupow-online">sPrawa Konsumenta – Bezpieczeństwo i Świadomość Konsumencka w Zakupach Online</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/nRZwy3S/Magazyn-Euro-2024-size-228x228.webp" title="Magazyn Euro 2024">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/nRZwy3S/Magazyn-Euro-2024-size-228x228.webp" title="Magazyn Euro 2024">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Magazyn-Euro-2024">Magazyn Euro 2024</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/cgqfBgH/SEZON-OGORKOWY-size-228x228.webp" title="SEZON OGÓRKOWY">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/cgqfBgH/SEZON-OGORKOWY-size-228x228.webp" title="SEZON OGÓRKOWY">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/SEZON-OGORKOWY">SEZON OGÓRKOWY</a></span>
+			   <span class="ps_host">Beata Lubecka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/fdJLWvJ/Audioprezentacja-size-228x228.png" title="W drodze do pracy - audioprezentacja">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/fdJLWvJ/Audioprezentacja-size-228x228.png" title="W drodze do pracy - audioprezentacja">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Audioprezentacja">W drodze do pracy - audioprezentacja</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/NtqHVJv/Co-By-Bylo-Gdyby-size-228x228.webp" title="Co By Było Gdyby">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/NtqHVJv/Co-By-Bylo-Gdyby-size-228x228.webp" title="Co By Było Gdyby">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Co-By-Bylo-Gdyby">Co By Było Gdyby</a></span>
+			   <span class="ps_host">Robert Karpowicz, Bartosz Gajda</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9wG0RWg/Jak-aplikowac-w-Sciezce-SMART-audioprezentacja-size-228x228.webp" title="Jak aplikować w Ścieżce SMART- audioprezentacja">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9wG0RWg/Jak-aplikowac-w-Sciezce-SMART-audioprezentacja-size-228x228.webp" title="Jak aplikować w Ścieżce SMART- audioprezentacja">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Jak-aplikowac-w-Sciezce-SMART-audioprezentacja">Jak aplikować w Ścieżce SMART- audioprezentacja</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/hLZKr8t/Krotkowzrocznosc-u-dzieci-size-228x228.webp" title="Krótkowzroczność u dzieci">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/hLZKr8t/Krotkowzrocznosc-u-dzieci-size-228x228.webp" title="Krótkowzroczność u dzieci">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Krotkowzrocznosc-u-dzieci">Krótkowzroczność u dzieci</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/DQpwyc5/Ubezpieczenie-Szpitalne-Pelna-Opieka-size-228x228.webp" title="Ubezpieczenie Szpitalne - Pełna Opieka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/DQpwyc5/Ubezpieczenie-Szpitalne-Pelna-Opieka-size-228x228.webp" title="Ubezpieczenie Szpitalne - Pełna Opieka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/LUX-MED-Audioprezentacja">Ubezpieczenie Szpitalne - Pełna Opieka</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Y3Wd403/Potega-nauki-i-wiedzy-UMCS-na-uczelnianej-mapie-Polski-size-228x228.webp" title="Potęga nauki i wiedzy. UMCS na uczelnianej mapie Polski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Y3Wd403/Potega-nauki-i-wiedzy-UMCS-na-uczelnianej-mapie-Polski-size-228x228.webp" title="Potęga nauki i wiedzy. UMCS na uczelnianej mapie Polski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Potega-nauki-i-wiedzy.-UMCS-na-uczelnianej-mapie-Polski">Potęga nauki i wiedzy. UMCS na uczelnianej mapie Polski</a></span>
+			   <span class="ps_host">Aleksandra Pucułek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/cXH4j94/AUDIOPREZENTACJA-size-228x228.webp" title="AUDIOPREZENTACJA">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/cXH4j94/AUDIOPREZENTACJA-size-228x228.webp" title="AUDIOPREZENTACJA">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Audioprezentacja2/Ostatnie-mroczne-spotkanie-z-Sewerynem-Zaorskim/(offset)/1">AUDIOPREZENTACJA</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/89Vpkqv/Niebieskie-technologie-z-Funduszami-Norweskimi-size-228x228.png" title="Niebieskie technologie z Funduszami Norweskimi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/89Vpkqv/Niebieskie-technologie-z-Funduszami-Norweskimi-size-228x228.png" title="Niebieskie technologie z Funduszami Norweskimi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Niebieskie-technologie-z-Funduszami-Norweskimi">Niebieskie technologie z Funduszami Norweskimi</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/j8FXwhN/NA-CHLOPSKI-ROZUM-size-228x228.png" title="NA CHŁOPSKI ROZUM">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/j8FXwhN/NA-CHLOPSKI-ROZUM-size-228x228.png" title="NA CHŁOPSKI ROZUM">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/NA-CHLOPSKI-ROZUM">NA CHŁOPSKI ROZUM</a></span>
+			   <span class="ps_host">Michał Korościel, Marcin Sońta</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/fxHCYTt/Finanse-w-biznesie-size-228x228.webp" title="Finanse w biznesie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/fxHCYTt/Finanse-w-biznesie-size-228x228.webp" title="Finanse w biznesie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Finanse-w-biznesie">Finanse w biznesie</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/cKTZm0nZ/Polska-w-Unii-Europejskiej-size-228x228.png" title="Polska w Unii Europejskiej">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/cKTZm0nZ/Polska-w-Unii-Europejskiej-size-228x228.png" title="Polska w Unii Europejskiej">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Polska-w-Unii-Europejskiej">Polska w Unii Europejskiej</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9k69LpMb/Demokracja-w-cieniu-dezinformacji-size-228x228.png" title="Demokracja w cieniu dezinformacji">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9k69LpMb/Demokracja-w-cieniu-dezinformacji-size-228x228.png" title="Demokracja w cieniu dezinformacji">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Demokracja-w-cieniu-dezinformacji">Demokracja w cieniu dezinformacji</a></span>
+			   <span class="ps_host">Mariusz Nowik</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/yc0D8dpB/W-zwiazku-ze-sledztwem-size-228x228.jpg" title="W związku ze śledztwem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/yc0D8dpB/W-zwiazku-ze-sledztwem-size-228x228.jpg" title="W związku ze śledztwem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/W-zwiazku-ze-sledztwem">W związku ze śledztwem</a></span>
+			   <span class="ps_host">Dominika Długosz-Gierszewska, Mariusz Gierszewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/274kTV4d/Odkryc-ukryte-i-niedopowiedziane-2024-size-228x228.jpg" title="Odkryć ukryte i niedopowiedziane 2024">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/274kTV4d/Odkryc-ukryte-i-niedopowiedziane-2024-size-228x228.jpg" title="Odkryć ukryte i niedopowiedziane 2024">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.radiozet.pl/Podcasty/Odkryc-ukryte-i-niedopowiedziane-2024">Odkryć ukryte i niedopowiedziane 2024</a></span>
+			   <span class="ps_host">Iwona Kutyna</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio ESKA</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/hKcK5S4/gosc-radia-eska.webp" title="Gość Radia ESKA">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/hKcK5S4/gosc-radia-eska.webp" title="Gość Radia ESKA">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/gosc-radia-eska-ps-6t5A-sJHE-rTHt.html">Gość Radia ESKA</a></span>
+			   <span class="ps_host">Kasia Węsierska Hany</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/vc7Zyw2/moj-pierwszy-raz.webp" title="Mój Pierwszy Raz">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/vc7Zyw2/moj-pierwszy-raz.webp" title="Mój Pierwszy Raz">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/moj-pierwszy-raz-michal-hanczak-radio-eska-ps-m2Ln-iuWf-gPLP.html">Mój Pierwszy Raz</a></span>
+			   <span class="ps_host">Hany</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/GMZWpsK/psycha-wysiada.webp" title="Psycha wysiada">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/GMZWpsK/psycha-wysiada.webp" title="Psycha wysiada">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/psycha-wysiada-ps-qx26-mLuF-jUML.html">Psycha wysiada</a></span>
+			   <span class="ps_host">Paweł Czyżewski &amp; Agnieszka Zalewska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7yvJSLz/jak-baba-z-chlopem.webp" title="Jak Baba z Chłopem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7yvJSLz/jak-baba-z-chlopem.webp" title="Jak Baba z Chłopem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/jak-baba-z-chlopem-ps-wyoY-FZ3p-rfi9.html">Jak Baba z Chłopem</a></span>
+			   <span class="ps_host">Gabrysia Gargaś</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/BqWW0z6/eska-daje-szkole.webp" title="Eska Daje szkołę">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/BqWW0z6/eska-daje-szkole.webp" title="Eska Daje szkołę">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/eska-daje-szkole-ps-m81d-r2Xy-ACJB.html">Eska Daje szkołę</a></span>
+			   <span class="ps_host">Mati Fuczyło, Kasia Węsierska, Rudy</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gjT6RXj/lektury-szkolne-streszczenia.jpg" title="Lektury szkolne - Streszczenia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gjT6RXj/lektury-szkolne-streszczenia.jpg" title="Lektury szkolne - Streszczenia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/lektury-szkolne-streszczenia-ps-FVoL-gg18-HaFe.html">Lektury szkolne - Streszczenia</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/FKsLBz8/glos-portowcow.webp" title="Głos Portowców">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/FKsLBz8/glos-portowcow.webp" title="Głos Portowców">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/glos-portowcow-ps-gxCy-cRnp-n8ND.html">Głos Portowców</a></span>
+			   <span class="ps_host">Mateusz Rzepecki Bartosz Ślusarski Adam Krokowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg" title="Nosel wkręca">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jbhGMVR/mediateka-nosel.jpg" title="Nosel wkręca">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/nosel-wkreca-ps-Sp32-Ksoz-VJUC.html">Nosel wkręca</a></span>
+			   <span class="ps_host">Kamil Nosel</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/TT4LsCg/gf-Sv1s-NL6D-wmqe-eska-bez-barier-994x828.jpg" title="ESKA bez barier">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/TT4LsCg/gf-Sv1s-NL6D-wmqe-eska-bez-barier-994x828.jpg" title="ESKA bez barier">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.eska.pl/szczecin/eska-bez-barier-podcast-aa-vQZw-xb21-MKDf.html">ESKA bez barier</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Pcn4Y51/znani-ludzie-o-lodzi-zajawka.jpg" title="Znani ludzie o Łodzi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Pcn4Y51/znani-ludzie-o-lodzi-zajawka.jpg" title="Znani ludzie o Łodzi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/6029629">Znani ludzie o Łodzi</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/y0XsSYz/3312a1e7be7008481657b5e1af932475.jpg" title="Niesamowite Lubuskie w Radio ESKA">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/y0XsSYz/3312a1e7be7008481657b5e1af932475.jpg" title="Niesamowite Lubuskie w Radio ESKA">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/6154973">Niesamowite Lubuskie w Radio ESKA</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/L1xWN75/491461c5115fff5c9c7193ac81bffe03.jpg" title="RAP20">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/L1xWN75/491461c5115fff5c9c7193ac81bffe03.jpg" title="RAP20">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/rap20-ps-7hjM-i3BR-dWdv.html">RAP20</a></span>
+			   <span class="ps_host">Mati Fuczyło</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio ESKA 2</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/RvnJLZd/gf-jZtz-M8fj-3A7h-coolturalne-rozmowy-664x0-nocrop.jpg" title="Coolturalne Rozmowy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/RvnJLZd/gf-jZtz-M8fj-3A7h-coolturalne-rozmowy-664x0-nocrop.jpg" title="Coolturalne Rozmowy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/coolturalne-rozmowy-ps-8pKy-MVps-5Mtm.html">Coolturalne Rozmowy</a></span>
+			   <span class="ps_host">Kuba Klym</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ryk10m8/SuperSport.jpg" title="SuperSport">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ryk10m8/SuperSport.jpg" title="SuperSport">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/supersport-ps-qDx7-gdZX-z4LV.html">SuperSport</a></span>
+			   <span class="ps_host">Ofiara, Jamrożek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/3BM0fMF/superzdrowi-eska2-podcast.jpg" title="SuperZdrowi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/3BM0fMF/superzdrowi-eska2-podcast.jpg" title="SuperZdrowi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/superzdrowi-ps-8eHi-QvbQ-xRET.html">SuperZdrowi</a></span>
+			   <span class="ps_host">Kasia Grodzka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0cN0YQS/miejskie-granie-eska2-podcast.jpg" title="Miejskie Granie - Strefa Kultury i Novej Muzyki!">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0cN0YQS/miejskie-granie-eska2-podcast.jpg" title="Miejskie Granie - Strefa Kultury i Novej Muzyki!">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/miejskie-granie-ps-jbqr-qCGL-4SHo.html">Miejskie Granie - Strefa Kultury i Novej Muzyki!</a></span>
+			   <span class="ps_host">Redakcja</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/bb4kWxh/zbrodniarz-i-kara-eska2-podcast.jpg" title="Zbrodniarz i kara">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/bb4kWxh/zbrodniarz-i-kara-eska2-podcast.jpg" title="Zbrodniarz i kara">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/zbrodniarz-i-kara-ps-6vHH-f7zi-8bL7.html">Zbrodniarz i kara</a></span>
+			   <span class="ps_host">Redakcja</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/27bW41Lk/gf-8u6N-PYDT-VwV8_jarzabek-prawde-ci-powie-994x828.jpg" title="Jarząbek prawdę Ci powie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/27bW41Lk/gf-8u6N-PYDT-VwV8_jarzabek-prawde-ci-powie-994x828.jpg" title="Jarząbek prawdę Ci powie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/na-klopoty-jarzabek-ps-HDH7-nRkF-zcAj.html">Jarząbek prawdę Ci powie</a></span>
+			   <span class="ps_host">Artur Jarząbek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/FwTQqPF/muzyka-za-przewodnika-eska2-podcast.jpg" title="Muzyka za przewodnika">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/FwTQqPF/muzyka-za-przewodnika-eska2-podcast.jpg" title="Muzyka za przewodnika">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/muzyka-za-przewodnika-ps-cojt-DXyb-6GQi.html">Muzyka za przewodnika</a></span>
+			   <span class="ps_host">Wojtek Góralski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/smRrDnj/najfajniejszy-zwierzak.webp" title="Najfajniejszy Zwierzak">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/smRrDnj/najfajniejszy-zwierzak.webp" title="Najfajniejszy Zwierzak">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/najfajniejszy-zwierzak-ps-vb5c-wpqs-C96n.html">Najfajniejszy Zwierzak</a></span>
+			   <span class="ps_host">Redakcja</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/znKBYsY/uwierz-w-szczescie.webp" title="Uwierz w szczęście. Poradnik dla pragnących zmian.">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/znKBYsY/uwierz-w-szczescie.webp" title="Uwierz w szczęście. Poradnik dla pragnących zmian.">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player2.eska.pl/podcast/uwierz-w-szczescie-poradnik-dla-pragnacych-zmian-ps-J2h8-PaHN-Gbcj.html">Uwierz w szczęście. Poradnik dla pragnących zmian.</a></span>
+			   <span class="ps_host">Krystyna Mirek</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">ESKA Rock</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jr4V3bV/mellina.webp" title="Mellina">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jr4V3bV/mellina.webp" title="Mellina">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/mellina-ps-5Rcv-wYbB-BTji.html">Mellina</a></span>
+			   <span class="ps_host">Marcin Meller</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4jLQc77/czlowiek-z-metalu.jpg" title="Człowiek z metalu">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4jLQc77/czlowiek-z-metalu.jpg" title="Człowiek z metalu">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.eskarock.pl/radar/czlowiek-z-metalu-wszystkie-tracklisty-z-autorskiej-audycji-krzyska-sokolowskiego-aa-zDoU-7J7r-4sQ3.html">Człowiek z metalu</a></span>
+			   <span class="ps_host">Krzysiek Sokołowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jMY5cyr/rockowe-kalendarium-jaro-sobierajewicza.webp" title="Rockowe Kalendarium">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jMY5cyr/rockowe-kalendarium-jaro-sobierajewicza.webp" title="Rockowe Kalendarium">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/rockowe-kalendarium-ps-EXs3-zCMx-bDTY.html">Rockowe Kalendarium</a></span>
+			   <span class="ps_host"> Jaro Sobierajewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/6B7Cn0y/drogowskazy.webp" title="Drogowskazy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/6B7Cn0y/drogowskazy.webp" title="Drogowskazy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/drogowskazy-ps-XAM7-t4As-HxAZ.html">Drogowskazy</a></span>
+			   <span class="ps_host">Aleksandra Galant i Michał Poklękowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gbYT2Rr/tak-trzeba-zyc.webp" title="Tak trzeba żyć">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gbYT2Rr/tak-trzeba-zyc.webp" title="Tak trzeba żyć">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/tak-trzeba-zyc-ps-aVCk-pSB1-KoyJ.html">Tak trzeba żyć</a></span>
+			   <span class="ps_host">Wojtek Góralski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/xgSLkSK/wywiadowka.webp" title="Wywiadówka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/xgSLkSK/wywiadowka.webp" title="Wywiadówka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/wywiadowka-ps-7HeR-7sL8-R2Vz.html">Wywiadówka</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/6N8Swxn/wojna-wedlug-woloszanskiego.webp" title="Wojna według Wołoszańskiego ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/6N8Swxn/wojna-wedlug-woloszanskiego.webp" title="Wojna według Wołoszańskiego ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/wojna-wedlug-woloszanskiego-ps-2Qgj-xmpZ-cFae.html">Wojna według Wołoszańskiego </a></span>
+			   <span class="ps_host">Bogusław Wołoszański</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/25mWgzw/kawaki-mojego-ycia.jpg" title="Kawałki mojego życia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/25mWgzw/kawaki-mojego-ycia.jpg" title="Kawałki mojego życia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.eskarock.pl/radar/kawalki-mojego-zycia-wracaja-na-antene-eski-rock-aa-Veoq-T8Wu-foiW.html">Kawałki mojego życia</a></span>
+			   <span class="ps_host">Wojtek Góralski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QN48jtV/b679b22056594a88ccdba0118bcad0be.jpg" title="Szkuta mówi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QN48jtV/b679b22056594a88ccdba0118bcad0be.jpg" title="Szkuta mówi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/szkuta-mowi-ps-HdgN-tVHr-gZbV.html">Szkuta mówi</a></span>
+			   <span class="ps_host">Agnieszka Szkuta</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/3p5zFvv/gf-VzCM-9gwa-caXq_swieza-krew-994x828.jpg" title="Świeża Krew">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/3p5zFvv/gf-VzCM-9gwa-caXq_swieza-krew-994x828.jpg" title="Świeża Krew">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/swieza-krew-ps-HS7i-ViaB-4txP.html">Świeża Krew</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/NV7CYRY/gf-Feje-AZwS-agjF_garaz-994x828.jpg" title="Garaż">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/NV7CYRY/gf-Feje-AZwS-agjF_garaz-994x828.jpg" title="Garaż">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/garaz-ps-LAFt-rnMX-dmso.html">Garaż</a></span>
+			   <span class="ps_host">Adam Kornacki, Wiktor Brzozowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Kqg0cWT/gf-JZZb-FAZC-m6Dt_goscie-eski-rock-994x828.jpg" title="Goście Eski Rock">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Kqg0cWT/gf-JZZb-FAZC-m6Dt_goscie-eski-rock-994x828.jpg" title="Goście Eski Rock">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/goscie-eski-rock-ps-J4R9-T4ur-4EBY.html">Goście Eski Rock</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7CQ7Nvv/historia-z-koprem.webp" title="Historia z Koprem ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7CQ7Nvv/historia-z-koprem.webp" title="Historia z Koprem ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/historia-ze-slawomirem-koprem-ps-XfhA-K7fG-UPvd.html">Historia z Koprem </a></span>
+			   <span class="ps_host">Sławomir Koper</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0jTk0yX/porachunki-osobiste-eska-rock.jpg" title="Porachunki Osobiste. Eska ROCK">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0jTk0yX/porachunki-osobiste-eska-rock.jpg" title="Porachunki Osobiste. Eska ROCK">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/porachunki-osobiste-ps-736t-ADs2-NXdV.html">Porachunki Osobiste. Eska ROCK</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/SdbbyBc/7be3be03cce9997a318f94f9367c9d7e.jpg" title="Jemy co chcemy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/SdbbyBc/7be3be03cce9997a318f94f9367c9d7e.jpg" title="Jemy co chcemy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/jemy-co-chcemy-ps-45Me-9seu-qFwq.html">Jemy co chcemy</a></span>
+			   <span class="ps_host">Paweł Loroch</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QCCs9Vb/gf-JsZS-GRbK-8CsH_dobre-flow-hirek-wrona-664x442-nocrop.jpg" title="Dobre Flow">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QCCs9Vb/gf-JsZS-GRbK-8CsH_dobre-flow-hirek-wrona-664x442-nocrop.jpg" title="Dobre Flow">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/dobre-flow-hirek-wrona-ps-YtVg-U2uk-apXh.html">Dobre Flow</a></span>
+			   <span class="ps_host">Hirek Wrona</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/fvLJtW2/gf-WaKM-Znq2-bP6B_playlista-osobista-664x442-nocrop.jpg" title="Playlista Osobista">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/fvLJtW2/gf-WaKM-Znq2-bP6B_playlista-osobista-664x442-nocrop.jpg" title="Playlista Osobista">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/playlista-osobista-ps-K7H8-3pqS-BtsG.html">Playlista Osobista</a></span>
+			   <span class="ps_host">Michał Cieślik</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jWdRy4s/kultowe-kawalki.webp" title="Kultowe kawałki kultowe historie. ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jWdRy4s/kultowe-kawalki.webp" title="Kultowe kawałki kultowe historie. ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/kultowe-kawalki-kultowe-historie-ps-2348-vLdc-EyxC.html">Kultowe kawałki kultowe historie. </a></span>
+			   <span class="ps_host">Jara Sobierajewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/DPHbWCsv/gf-HkyP-d237-R7rD_dekolczing-osobisty-994x828.jpg" title="Dekołczing Osobisty">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/DPHbWCsv/gf-HkyP-d237-R7rD_dekolczing-osobisty-994x828.jpg" title="Dekołczing Osobisty">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/dekolczing-osobisty-ps-MK8u-64a9-gT46.html">Dekołczing Osobisty</a></span>
+			   <span class="ps_host">Wiktor Brzozowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7JZp61x0/gf-5gfW-aizB-6LDW_to-byl-dobry-rock-664x0-nocrop.jpg" title="To był dobry rock">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7JZp61x0/gf-5gfW-aizB-6LDW_to-byl-dobry-rock-664x0-nocrop.jpg" title="To był dobry rock">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eskarock.pl/podcast/to-byl-dobry-rock-ps-m2iG-noy5-fMot.html">To był dobry rock</a></span>
+			   <span class="ps_host">Jaro Sobierajewicz</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Antyradio</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/vkfc94K/Audioprezentacja.webp" title="Audioprezentacja">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/vkfc94K/Audioprezentacja.webp" title="Audioprezentacja">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Audioprezentacja">Audioprezentacja</a></span>
+			   <span class="ps_host">Materiał promocyjny</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Dw2bHrv/Antyradio-Ekstra-size-228x228.png" title="Antyradio Ekstra">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Dw2bHrv/Antyradio-Ekstra-size-228x228.png" title="Antyradio Ekstra">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Antyradio-extra">Antyradio Ekstra</a></span>
+			   <span class="ps_host">Piotr Frank Marciniak, Małgorzata Wierzejewska, Joanna Zientarska, Bartosz Synowiec</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/1GrwL07/owsiak.jpg" title="Zaraz będzie ciemno">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/1GrwL07/owsiak.jpg" title="Zaraz będzie ciemno">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Zaraz-bedzie-ciemno">Zaraz będzie ciemno</a></span>
+			   <span class="ps_host">Jurek Owsiak</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/C7p4Byr/makak.jpg" title="Makakofonia / MakakArt">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/C7p4Byr/makak.jpg" title="Makakofonia / MakakArt">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Makakofonia-MakakArt">Makakofonia / MakakArt</a></span>
+			   <span class="ps_host">Piotr Makak Szarłacki</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/mRjYxgk/czule-dranie.png" title="Czułe Dranie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/mRjYxgk/czule-dranie.png" title="Czułe Dranie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Czule-Dranie">Czułe Dranie</a></span>
+			   <span class="ps_host">Aleksander Ostry Ostrowski, Grzegorz Kornacki, Włodzimierz Zientarski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg" title="Historia Niejednej Piosenki">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7vMYjB3/tomek-kasprzyk.jpg" title="Historia Niejednej Piosenki">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Historia-niejednej-piosenki">Historia Niejednej Piosenki</a></span>
+			   <span class="ps_host">Tomasz Kasprzyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7j6H6cP/leszek.jpg" title="Rockolekcje w Antyradiu">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7j6H6cP/leszek.jpg" title="Rockolekcje w Antyradiu">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Rockolekcje">Rockolekcje w Antyradiu</a></span>
+			   <span class="ps_host">Leszek Gnoiński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/j4k72tj/jarek-s.jpg" title="Wszystko w sam raz w Antyradiu">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/j4k72tj/jarek-s.jpg" title="Wszystko w sam raz w Antyradiu">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.antyradio.pl/Podcasty/Wszystko-w-sam-raz-w-Antyradiu">Wszystko w sam raz w Antyradiu</a></span>
+			   <span class="ps_host">Jarek Szubrycht</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Rock Radio</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/nnPxwjv/06-370.png" title="Powstanie na Weekend">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/nnPxwjv/06-370.png" title="Powstanie na Weekend">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/powstanie-na-weekend/">Powstanie na Weekend</a></span>
+			   <span class="ps_host">Jan Bajorek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/cTygrJN/12-370.jpg" title="Pociąg Do Kina">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/cTygrJN/12-370.jpg" title="Pociąg Do Kina">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/pociag-do-kina/">Pociąg Do Kina</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/rpKY7Jn/72-370.png" title="Rock Radio poleca na wynos">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/rpKY7Jn/72-370.png" title="Rock Radio poleca na wynos">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/rock-radio-poleca-na-wynos/">Rock Radio poleca na wynos</a></span>
+			   <span class="ps_host">Kuba Kaleta, Tomasz Obertyn, Mariusz Stelmaszczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/v183SJr/76-370.jpg" title="Niezły Gość">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/v183SJr/76-370.jpg" title="Niezły Gość">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/niezly-gosc/">Niezły Gość</a></span>
+			   <span class="ps_host">Ryszard Brzeziński, Kuba Kaleta, Tomasz Obertyn, Mariusz Stelmaszczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/wgcN3pN/96-370.jpg" title="Klasyczny wieczór">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/wgcN3pN/96-370.jpg" title="Klasyczny wieczór">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/klasyczny-wieczor/">Klasyczny wieczór</a></span>
+			   <span class="ps_host">Mariusz Stelmaszczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/8mHdX4Y/97-370.jpg" title="Powstanie Rock Radia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/8mHdX4Y/97-370.jpg" title="Powstanie Rock Radia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/powstanie-rock-radia/">Powstanie Rock Radia</a></span>
+			   <span class="ps_host">Jan Bajorek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HKFH5Bb/00-370.gif" title="Przystanek Klasyka Rocka I">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HKFH5Bb/00-370.gif" title="Przystanek Klasyka Rocka I">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/przystanek-klasyka-rocka-i/">Przystanek Klasyka Rocka I</a></span>
+			   <span class="ps_host">Kuba Kaleta</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7k6sNYc/02-370.jpg" title="Klasyczna 10">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7k6sNYc/02-370.jpg" title="Klasyczna 10">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/klasyczna-10/">Klasyczna 10</a></span>
+			   <span class="ps_host">Mariusz Stelmaszczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/K6kFWmW/09-370.jpg" title="Wyloguj się na weekend z Rock Radiem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/K6kFWmW/09-370.jpg" title="Wyloguj się na weekend z Rock Radiem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/wyloguj-sie-na-weekend-z-rock-radiem/">Wyloguj się na weekend z Rock Radiem</a></span>
+			   <span class="ps_host">Ryszard Brzeziński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/sQd57Nm/15-370.png" title="Klasyka Gatunku">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/sQd57Nm/15-370.png" title="Klasyka Gatunku">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/klasyka-gatunku/">Klasyka Gatunku</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7jR3dpf/16-370.jpg" title="Przystanek Klasyka Rocka II">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7jR3dpf/16-370.jpg" title="Przystanek Klasyka Rocka II">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/przystanek-klasyka-rocka-ii/">Przystanek Klasyka Rocka II</a></span>
+			   <span class="ps_host">Tomasz Obertyn</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/1MPQZ7k/20-370.jpg" title="Rebus Jebus">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/1MPQZ7k/20-370.jpg" title="Rebus Jebus">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/rebus-jebus/">Rebus Jebus</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/5BMjL0Q/23-370.png" title="Lektura Obowiązkowa">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/5BMjL0Q/23-370.png" title="Lektura Obowiązkowa">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/lektura-obowiazkowa/">Lektura Obowiązkowa</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/sQd57Nm/15-370.png" title="Materiał promocyjny">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/sQd57Nm/15-370.png" title="Materiał promocyjny">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/material-promocyjny/">Materiał promocyjny</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4Rqg4qd/37-370.png" title="WIOSŁO I PIEC W ROCK RADIU">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4Rqg4qd/37-370.png" title="WIOSŁO I PIEC W ROCK RADIU">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/wioslo-i-piec-w-rock-radiu/">WIOSŁO I PIEC W ROCK RADIU</a></span>
+			   <span class="ps_host">Ryszard Brzeziński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/B33154J/28.jpg" title="50 TWARZY ROCKA">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/B33154J/28.jpg" title="50 TWARZY ROCKA">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/50-twarzy-rocka/">50 TWARZY ROCKA</a></span>
+			   <span class="ps_host">Mariusz Stelmaszczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/S3F2G8G/28.jpg" title="Cedrowe serce">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/S3F2G8G/28.jpg" title="Cedrowe serce">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.rockradio.pl/cedrowe-serce/">Cedrowe serce</a></span>
+			   <span class="ps_host">Mariusz Stelmaszczyk</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Chillizet</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/xYN56Gz/mleczko.webp" title="W Pogoni za kulturą extra">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/xYN56Gz/mleczko.webp" title="W Pogoni za kulturą extra">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/W-pogoni-za-kultura">W Pogoni za kulturą extra</a></span>
+			   <span class="ps_host">Magdalena Mleczko</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/5kWwpCp/bauer.jpg" title="Plac Zabaw">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/5kWwpCp/bauer.jpg" title="Plac Zabaw">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Plac-Zabaw">Plac Zabaw</a></span>
+			   <span class="ps_host">Magdalena Bauer</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0m08kZg/pedowicz.jpg" title="Tylko dla dorosłych">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0m08kZg/pedowicz.jpg" title="Tylko dla dorosłych">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Tylko-dla-doroslych">Tylko dla dorosłych</a></span>
+			   <span class="ps_host">Jeremi Pedowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/f0xj2jg/Rozmowy-Chillizet-size-228x228.webp" title="Rozmowy Chillizet">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/f0xj2jg/Rozmowy-Chillizet-size-228x228.webp" title="Rozmowy Chillizet">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Rozmowy-Chillizet">Rozmowy Chillizet</a></span>
+			   <span class="ps_host">Redakcja Chillizet</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9qyHzS6/turowski.jpg" title="Program specjalny z okazji Międzynarodowego Dnia Teatru">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9qyHzS6/turowski.jpg" title="Program specjalny z okazji Międzynarodowego Dnia Teatru">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Program-specjalny-z-okazji-Miedzynarodowego-Dnia-Teatru">Program specjalny z okazji Międzynarodowego Dnia Teatru</a></span>
+			   <span class="ps_host">Rafał Turowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/60dNXkS/Dagmara-Kowalska.webp" title="Regeneracja">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/60dNXkS/Dagmara-Kowalska.webp" title="Regeneracja">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Popoludniowa-regeneracja">Regeneracja</a></span>
+			   <span class="ps_host">Dagmara Kowalska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/5KDS9fP/krulewicz.jpg" title="KrUlewicz">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/5KDS9fP/krulewicz.jpg" title="KrUlewicz">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/KrUlewicz">KrUlewicz</a></span>
+			   <span class="ps_host">Maciej Ulewicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0m08kZg/pedowicz.jpg" title="Trzecia planeta od słońca">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0m08kZg/pedowicz.jpg" title="Trzecia planeta od słońca">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Trzecia-planeta-od-slonca">Trzecia planeta od słońca</a></span>
+			   <span class="ps_host">Jeremi Pedowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/60dNXkS/Dagmara-Kowalska.webp" title="Bryki Dagmary ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/60dNXkS/Dagmara-Kowalska.webp" title="Bryki Dagmary ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Bryki-Dagmary">Bryki Dagmary </a></span>
+			   <span class="ps_host">Dagmara Kowalska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9qyHzS6/turowski.jpg" title="Na chilloucie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9qyHzS6/turowski.jpg" title="Na chilloucie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Na-chilloucie">Na chilloucie</a></span>
+			   <span class="ps_host">Rafał Turowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Gt6jHqg/Dominika-Bieganska.webp" title="Dobre Wibracje">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Gt6jHqg/Dominika-Bieganska.webp" title="Dobre Wibracje">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Dobre-Wibracje">Dobre Wibracje</a></span>
+			   <span class="ps_host">Dominika Biegańska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/8B7q0nL/rydlewska.png" title="Edycja limitowana">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/8B7q0nL/rydlewska.png" title="Edycja limitowana">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Edycja-limitowana">Edycja limitowana</a></span>
+			   <span class="ps_host">Hanna Rydlewska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/5kWwpCp/bauer.jpg" title="W pogoni za kulturą">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/5kWwpCp/bauer.jpg" title="W pogoni za kulturą">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Programy/W-pogoni-za-kultura">W pogoni za kulturą</a></span>
+			   <span class="ps_host">Magdalena Bauer</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg" title="Śniadanie do łóżka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/m4z9F1J/kasperowicz.jpg" title="Śniadanie do łóżka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Sniadanie-do-Lozka">Śniadanie do łóżka</a></span>
+			   <span class="ps_host">Magda Kasperowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/920XwNM/gabi.jpg" title="Gabinet Dźwięku">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/920XwNM/gabi.jpg" title="Gabinet Dźwięku">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Gabinet-Dzwieku">Gabinet Dźwięku</a></span>
+			   <span class="ps_host">Gabi Drzewiecka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/KmpGSK8/zza-kulis.jpg" title="Zza kulis">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/KmpGSK8/zza-kulis.jpg" title="Zza kulis">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Zza-kulis">Zza kulis</a></span>
+			   <span class="ps_host">Maks Behr</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gLSjy300/dominika_kontarowicz.jpg" title="Primadoma Club">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gLSjy300/dominika_kontarowicz.jpg" title="Primadoma Club">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Primadoma-club">Primadoma Club</a></span>
+			   <span class="ps_host">Dominika Kontarowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/qYxvCWC/SSM.jpg" title="Szczeka, Merda, Mówi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/qYxvCWC/SSM.jpg" title="Szczeka, Merda, Mówi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Szczeka-merda-mowi">Szczeka, Merda, Mówi</a></span>
+			   <span class="ps_host">Zofia Zaniewska-Wojtków i Piotr Wojtków</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg" title="Filmozgrani">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg" title="Filmozgrani">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Filmozgrani">Filmozgrani</a></span>
+			   <span class="ps_host">Tomasz Śliwiński, Anna Serdiukow</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg" title="Poza czasem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/dcpbqFQ/sliwinski.jpg" title="Poza czasem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Skubas-i-premiera-singla-W-ogien/(offset)/1">Poza czasem</a></span>
+			   <span class="ps_host">Tomasz Śliwiński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Tgm1Fvb/Znani-zasluchani.png" title="Znani zasłuchani">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Tgm1Fvb/Znani-zasluchani.png" title="Znani zasłuchani">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Znani-zasluchani">Znani zasłuchani</a></span>
+			   <span class="ps_host">Redakcja Chillizet</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/DQhf8ch/Bartek-Winczewski.webp" title="Osobiście wyszukane">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/DQhf8ch/Bartek-Winczewski.webp" title="Osobiście wyszukane">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Osobiscie-wyszukane">Osobiście wyszukane</a></span>
+			   <span class="ps_host">Bartek Winczewski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg" title="W międzyczasie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/TkgMyZg/JL-500x500.jpg" title="W międzyczasie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Programy/W-miedzyczasie">W międzyczasie</a></span>
+			   <span class="ps_host">Jakub Lachowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/NS6HVGh/Miasto-o-swicie.webp" title="Miasto o świcie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/NS6HVGh/Miasto-o-swicie.webp" title="Miasto o świcie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Miasto-o-swicie">Miasto o świcie</a></span>
+			   <span class="ps_host">Magdalena Bauer, Katarzyna Kozak</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/p0YvWbP/Po-swojemu-size-228x228.webp" title="Po swojemu">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/p0YvWbP/Po-swojemu-size-228x228.webp" title="Po swojemu">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.chillizet.pl/Podcasty/Po-swojemu">Po swojemu</a></span>
+			   <span class="ps_host">Natalia Waloch</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Złote Przeboje</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/C5qcwsbX/1024x1024-Laczy-nas-muzyka-6-1.jpg" title="Łączy nas muzyka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/C5qcwsbX/1024x1024-Laczy-nas-muzyka-6-1.jpg" title="Łączy nas muzyka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/laczy-nas-muzyka">Łączy nas muzyka</a></span>
+			   <span class="ps_host">Wojtek Babiarczyk, Kasia Wilk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QvpdF1MP/Weekend-jak-marzenie-1024x1024.png" title="Weekend jak marzenie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QvpdF1MP/Weekend-jak-marzenie-1024x1024.png" title="Weekend jak marzenie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/weekend-jak-marzenie">Weekend jak marzenie</a></span>
+			   <span class="ps_host">Marzena Rogalska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/CptPwGCz/Zlote-Przeboje-na-dzien-dobry-1024x1024.png" title="Złote Przeboje na dzień dobry">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/CptPwGCz/Zlote-Przeboje-na-dzien-dobry-1024x1024.png" title="Złote Przeboje na dzień dobry">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/zlote-przeboje-na-dzien-dobry">Złote Przeboje na dzień dobry</a></span>
+			   <span class="ps_host">Tomek Florkiewicz, Piotr Jaworski, Iwona Barańska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/TD3YpqwV/Zloty-srodek-dnia-1-1024x1024.png" title="Złoty środek dnia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/TD3YpqwV/Zloty-srodek-dnia-1-1024x1024.png" title="Złoty środek dnia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/zloty-srodek-dnia">Złoty środek dnia</a></span>
+			   <span class="ps_host">Gosia Kościelniak</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/bgwn972M/Dobre-popoludnie-1024x1024.png" title="Dobre popołudnie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/bgwn972M/Dobre-popoludnie-1024x1024.png" title="Dobre popołudnie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/dobre-popoludnie">Dobre popołudnie</a></span>
+			   <span class="ps_host">Jerzy Telesiński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/RpgQh4Rp/Cala-muzyka-1024x1024.png" title="Cała muzyka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/RpgQh4Rp/Cala-muzyka-1024x1024.png" title="Cała muzyka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/cala-muzyka">Cała muzyka</a></span>
+			   <span class="ps_host">Tomasz Brhel</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ZRRxjgpG/Sprawdzone-srody-Poradnik-Radia-Zlote-Przeboje.png" title="Sprawdzone środy. Poradnik Radia Złote Przeboje">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ZRRxjgpG/Sprawdzone-srody-Poradnik-Radia-Zlote-Przeboje.png" title="Sprawdzone środy. Poradnik Radia Złote Przeboje">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/sprawdzone-srody-poradnik-radia-zlote-przeboje">Sprawdzone środy. Poradnik Radia Złote Przeboje</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/LDRH3b5K/Zlote-przeboje-na-dzien-dobry-weekend-1024x1024.png" title="Złote Przeboje na dzień dobry – weekend">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/LDRH3b5K/Zlote-przeboje-na-dzien-dobry-weekend-1024x1024.png" title="Złote Przeboje na dzień dobry – weekend">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/zlote-przeboje-na-dzien-dobry-weekend">Złote Przeboje na dzień dobry – weekend</a></span>
+			   <span class="ps_host">Kacper Sosnowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/k2wmWHt6/Najlepsze-lata-muzyki-1024x1024.png" title="Najlepsze lata muzyki">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/k2wmWHt6/Najlepsze-lata-muzyki-1024x1024.png" title="Najlepsze lata muzyki">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radio.zloteprzeboje.pl/najlepsze-lata-muzyki">Najlepsze lata muzyki</a></span>
+			   <span class="ps_host">Wojtek Babiarczyk</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Pogoda</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/2MC7FTj/1.jpg" title="Pogodny Poranek Radia Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/2MC7FTj/1.jpg" title="Pogodny Poranek Radia Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/pogodny-poranek-radia-pogoda">Pogodny Poranek Radia Pogoda</a></span>
+			   <span class="ps_host">Asia Kruk, Zygmunt Chajzer, Michał Pierzchała</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/DG2Gznm/RP-grafiki-do-AUDYCJI2.jpg" title="Świnki Trzy w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/DG2Gznm/RP-grafiki-do-AUDYCJI2.jpg" title="Świnki Trzy w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/swinki-trzy-w-radiu-pogoda">Świnki Trzy w Radiu Pogoda</a></span>
+			   <span class="ps_host">Wojciech Pijanowski, Włodzimierz Zientarski, Krzysztof Szewczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/j3mKpW4/grafy-do-2.jpg" title="Szlachetne zdrowie w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/j3mKpW4/grafy-do-2.jpg" title="Szlachetne zdrowie w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/ewa-podolska-szlachetne-zdrowie-w-radiu-pogoda">Szlachetne zdrowie w Radiu Pogoda</a></span>
+			   <span class="ps_host">Ewa Podolska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/vXqybrD/4-1.jpg" title="Gość Radia Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/vXqybrD/4-1.jpg" title="Gość Radia Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/gosc-radia-pogoda-2">Gość Radia Pogoda</a></span>
+			   <span class="ps_host">Anna Stachowska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/8ssQWNN/RP-FULL-HD12.jpg" title="Koncert Życzeń w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/8ssQWNN/RP-FULL-HD12.jpg" title="Koncert Życzeń w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/koncert-zyczen-w-radiu-pogoda">Koncert Życzeń w Radiu Pogoda</a></span>
+			   <span class="ps_host">Robert Janowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/H2K3RXs/9-1024x576.jpg" title="Technicznie proste w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/H2K3RXs/9-1024x576.jpg" title="Technicznie proste w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/wiktor-niedzicki-technicznie-proste-radio-pogoda-podcasty">Technicznie proste w Radiu Pogoda</a></span>
+			   <span class="ps_host">Wiktor Niedzicki</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gmZ9SHS/RP-FULL-HD10.jpg" title="Witaj w Klubie!">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gmZ9SHS/RP-FULL-HD10.jpg" title="Witaj w Klubie!">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/witaj-w-klubie">Witaj w Klubie!</a></span>
+			   <span class="ps_host">Monika Tarka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/SN4GSS6/grafy-do-4-1024x576.jpg" title="Wieczór Autorski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/SN4GSS6/grafy-do-4-1024x576.jpg" title="Wieczór Autorski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/audycja-wieczor-autorski">Wieczór Autorski</a></span>
+			   <span class="ps_host">Anna Stachowska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/xfjBHyk/grafy-do-3.jpg" title="Moje Najpiękniejsze Melodie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/xfjBHyk/grafy-do-3.jpg" title="Moje Najpiękniejsze Melodie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/moje-najpiekniejsze-melodie-podcasty">Moje Najpiękniejsze Melodie</a></span>
+			   <span class="ps_host">Asia Kruk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/GpQ1C1B/7.jpg" title="Pogodne Popołudnie z Radiem Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/GpQ1C1B/7.jpg" title="Pogodne Popołudnie z Radiem Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/pogodne-popoludnie-w-radiu-pogoda">Pogodne Popołudnie z Radiem Pogoda</a></span>
+			   <span class="ps_host">Monika Tarka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/NZV45Mr/RP-grafiki-do-AUDYCJI.jpg" title="Radio Pogoda – Najpiękniejsze melodie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/NZV45Mr/RP-grafiki-do-AUDYCJI.jpg" title="Radio Pogoda – Najpiękniejsze melodie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/radio-pogoda-najpiekniejsze-melodie-na-lato">Radio Pogoda – Najpiękniejsze melodie</a></span>
+			   <span class="ps_host">Piotr Sworakowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QCY1rpF/73.png" title="Aleja Sław Radia Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QCY1rpF/73.png" title="Aleja Sław Radia Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/aleja-slaw-radia-pogoda">Aleja Sław Radia Pogoda</a></span>
+			   <span class="ps_host">Monika Tarka, Anna Stachowska, Piotr Sworakowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/d2Trhgq/88.jpg" title="Zdrowie i uroda w Radiu Pogoda">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/d2Trhgq/88.jpg" title="Zdrowie i uroda w Radiu Pogoda">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://moje.radiopogoda.pl/zdrowie-i-uroda">Zdrowie i uroda w Radiu Pogoda</a></span>
+			   <span class="ps_host">Anna Stachowska</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">VOX FM</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/jrQ2xvZ/zlo.webp" title="ZŁO - Zbrodnia Łowca Ofiara">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/jrQ2xvZ/zlo.webp" title="ZŁO - Zbrodnia Łowca Ofiara">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/zlo-zbrodnia-lowca-ofiara-ps-H6oj-JeEF-5ZbP.html">ZŁO - Zbrodnia Łowca Ofiara</a></span>
+			   <span class="ps_host">Marta kiermasz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/r7sPRyH/gf-KCJa-djBa-KwfC_opowiesc-wigilijna-664x442-nocrop.jpg" title="Opowieść wigilijna">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/r7sPRyH/gf-KCJa-djBa-KwfC_opowiesc-wigilijna-664x442-nocrop.jpg" title="Opowieść wigilijna">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/opowiesc-wigilijna-czyli-operacja-zima-ps-8FSG-x3iP-vWxS.html">Opowieść wigilijna</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0pLd4tm/gf-esEk-foo4-QcZS-pierwsza-zmiana-budzi-ludzi-994x828.jpg" title="Pierwsza Zmiana Budzi Ludzi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0pLd4tm/gf-esEk-foo4-QcZS-pierwsza-zmiana-budzi-ludzi-994x828.jpg" title="Pierwsza Zmiana Budzi Ludzi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/pierwsza-zmiana-budzi-ludzi-ps-YpBU-45T5-ewDw.html">Pierwsza Zmiana Budzi Ludzi</a></span>
+			   <span class="ps_host">Piwowarski, Pawelec, Chren</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/PG10ZW9/kochaj-albo-rzucaj-vox-fm.webp" title="Kochaj albo Rzucaj">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/PG10ZW9/kochaj-albo-rzucaj-vox-fm.webp" title="Kochaj albo Rzucaj">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/kochaj-albo-rzucaj-podcasty-vox-fm-ps-n6cu-mxeG-QiuM.html">Kochaj albo Rzucaj</a></span>
+			   <span class="ps_host">Pawelec</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/XSz6D8K/2076b0d5b4998976230e21bb0ed3f73d.jpg" title="Co ludzie powiedzą?">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/XSz6D8K/2076b0d5b4998976230e21bb0ed3f73d.jpg" title="Co ludzie powiedzą?">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/co-ludzie-powiedza-ps-3ARA-okvb-Umuf.html">Co ludzie powiedzą?</a></span>
+			   <span class="ps_host">Adam Feder</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HKLcqHf/9ba5d5d7273adf09a46e561f5d4cbd25.jpg" title="Nie ma głupich pytań">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HKLcqHf/9ba5d5d7273adf09a46e561f5d4cbd25.jpg" title="Nie ma głupich pytań">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/nie-ma-glupich-pytan-ps-A9Qf-AFMm-79D9.html">Nie ma głupich pytań</a></span>
+			   <span class="ps_host">Ewelina Kamińska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ySVfyh5/punkt-krytyczny.webp" title="Punkt Krytyczny">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ySVfyh5/punkt-krytyczny.webp" title="Punkt Krytyczny">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/punkt-krytyczny-najwieksze-polskie-katastrofy-ps-oRzf-QCe4-5g2B.html">Punkt Krytyczny</a></span>
+			   <span class="ps_host">Kamil Rutkowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/N1kTKwX/f5d4aa1f966286fdd2390bbd996ad625.jpg" title="Goście Jest Weekend">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/N1kTKwX/f5d4aa1f966286fdd2390bbd996ad625.jpg" title="Goście Jest Weekend">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/goscie-jest-weekend-ps-KCGs-994j-5hEn.html">Goście Jest Weekend</a></span>
+			   <span class="ps_host">Paweł Doncbach</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/6BG6FFW/20ecb5024de482fbed827d9197ef897e.jpg" title="Sex w moim mieście">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/6BG6FFW/20ecb5024de482fbed827d9197ef897e.jpg" title="Sex w moim mieście">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/sex-w-moim-miescie-ps-wiPd-XZgA-bCCC.html">Sex w moim mieście</a></span>
+			   <span class="ps_host">Iga Dudziuk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/1JFF4F1/kapitan-karkowka-na-tropie.jpg" title="Kapitan Karkówka na tropie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/1JFF4F1/kapitan-karkowka-na-tropie.jpg" title="Kapitan Karkówka na tropie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.voxfm.pl/rozrywka/kapitan-karkowka-na-tropie-podcast-aa-3v6j-zZbK-AtRc.html">Kapitan Karkówka na tropie</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/kVq4XG6c/gf-5576-vmRV-aUzi_podcast-zwrot-akcji-300x250.jpg" title="Zwrot Akcji">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/kVq4XG6c/gf-5576-vmRV-aUzi_podcast-zwrot-akcji-300x250.jpg" title="Zwrot Akcji">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/zwrot-akcji-ps-e6X3-rkS5-tzut.html">Zwrot Akcji</a></span>
+			   <span class="ps_host">Katarzyna Pilewska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/wpf1Rbv/czerwony-kapturek-vox-fm.webp" title="Czerwony Kapturek – nowe porządki">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/wpf1Rbv/czerwony-kapturek-vox-fm.webp" title="Czerwony Kapturek – nowe porządki">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/czerwony-kapturek-nowe-porzadki/">Czerwony Kapturek – nowe porządki</a></span>
+			   <span class="ps_host">Przemek Sasowski, Marta Kiermasz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/PxFDpct/suchary-pana-ryska.webp" title="Suchary Pana Ryśka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/PxFDpct/suchary-pana-ryska.webp" title="Suchary Pana Ryśka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/suchary-pana-ryska-z-gwiazdami-podcasty-vox-fm-ps-22PD-3vuM-3BfJ.html">Suchary Pana Ryśka</a></span>
+			   <span class="ps_host">Rysiek Piwek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/r4Ck39C/wspomnienia-powstanki-warszawskiej.jpg" title="Powstanie Warszawskie - wspomnienia ps. Iskra.">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/r4Ck39C/wspomnienia-powstanki-warszawskiej.jpg" title="Powstanie Warszawskie - wspomnienia ps. Iskra.">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.voxfm.pl/podcast/powstanie-warszawskie-ps-Lbh9-V6U4-MaXW.html">Powstanie Warszawskie - wspomnienia ps. Iskra.</a></span>
+			   <span class="ps_host">jacek ponder</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Vibe FM</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/nzTM8rS/vibe-zajawka-streszczenie-lektur-300x250.webp" title="Lektury szkolne">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/nzTM8rS/vibe-zajawka-streszczenie-lektur-300x250.webp" title="Lektury szkolne">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.vibefm.pl/podcast/lektury-szkolne-streszczenia-ps-FVoL-gg18-HaFe.html">Lektury szkolne</a></span>
+			   <span class="ps_host">Streszczenia</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/fxDkNPq/zlo-zbrodnia-lowca-ofiara-og-300x250.webp" title="ZŁO - Zbrodnia Łowca, Ofiara">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/fxDkNPq/zlo-zbrodnia-lowca-ofiara-og-300x250.webp" title="ZŁO - Zbrodnia Łowca, Ofiara">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.vibefm.pl/podcast/zlo-zbrodnia-lowca-ofiara-ps-H6oj-JeEF-5ZbP.html">ZŁO - Zbrodnia Łowca, Ofiara</a></span>
+			   <span class="ps_host">Marta Kiermasz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/FWcjNfk/gf-hoSL-ti22-zh7t-sex-w-moim-miescie-cover-994x828.webp" title="Iga Dudziuk - SEX w moim mieście">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/FWcjNfk/gf-hoSL-ti22-zh7t-sex-w-moim-miescie-cover-994x828.webp" title="Iga Dudziuk - SEX w moim mieście">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.vibefm.pl/podcast/lektury-szkolne-streszczenia-ps-FVoL-gg18-HaFe.html">Iga Dudziuk - SEX w moim mieście</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Super Express</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Xx3HCsxh/gf-Kxs6-MT6g-X6-N1-express-biedrzyckiej-664x0-nocrop.jpg" title="Express Biedrzyckiej  - seria DOBRZE POSŁUCHAĆ">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Xx3HCsxh/gf-Kxs6-MT6g-X6-N1-express-biedrzyckiej-664x0-nocrop.jpg" title="Express Biedrzyckiej  - seria DOBRZE POSŁUCHAĆ">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/express-biedrzyckiej-seria-dobrze-posluchac-ps-vW13-aqZq-kFRF.html">Express Biedrzyckiej  - seria DOBRZE POSŁUCHAĆ</a></span>
+			   <span class="ps_host">Kamila Biedrzycka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/b53gPfD8/gf-yn-VB-z-Fkt-c2xo-sedno-sprawy-cover-2-664x0-nocrop.png" title="Sedno sprawy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/b53gPfD8/gf-yn-VB-z-Fkt-c2xo-sedno-sprawy-cover-2-664x0-nocrop.png" title="Sedno sprawy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/sedno-sprawy-ps-HBJt-kDZ6-Bz1F.html">Sedno sprawy</a></span>
+			   <span class="ps_host">Jacek Prusinowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7JYZbS0T/gf-pNKK-UoWN-HsFb_harde-slowa-lekkie-mysli-664x0-nocrop.jpg" title="Raport">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7JYZbS0T/gf-pNKK-UoWN-HsFb_harde-slowa-lekkie-mysli-664x0-nocrop.jpg" title="Raport">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/raport-ps-vwtg-Ddm8-c1aF.html">Raport</a></span>
+			   <span class="ps_host">Jan Złotorowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/GGnY2z7/gf-mYSa-3J1a-x8ht_co-ludzie-powiedza-664x0-nocrop.jpg" title="Co ludzie powiedzą?">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/GGnY2z7/gf-mYSa-3J1a-x8ht_co-ludzie-powiedza-664x0-nocrop.jpg" title="Co ludzie powiedzą?">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/co-ludzie-powiedza-ps-3ARA-okvb-Umuf.html">Co ludzie powiedzą?</a></span>
+			   <span class="ps_host">Adam Feder</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7JYZbS0T/gf-pNKK-UoWN-HsFb_harde-slowa-lekkie-mysli-664x0-nocrop.jpg" title="HARDE słowa, LEKKIE myśli">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7JYZbS0T/gf-pNKK-UoWN-HsFb_harde-slowa-lekkie-mysli-664x0-nocrop.jpg" title="HARDE słowa, LEKKIE myśli">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/harde-slowa-lekkie-mysli-ps-JoMR-kmDD-yvNM.html">HARDE słowa, LEKKIE myśli</a></span>
+			   <span class="ps_host">Wydawnictwo Harde</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/3ydV24bg/gf-TGbt-SAz7-Yuj-U-wieczorny-express-664x0-nocrop.jpg" title="Wieczorny Express">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/3ydV24bg/gf-TGbt-SAz7-Yuj-U-wieczorny-express-664x0-nocrop.jpg" title="Wieczorny Express">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/wieczorny-express-ps-KfiM-a4dE-58RX.html">Wieczorny Express</a></span>
+			   <span class="ps_host">Hubert Biskupski i Kamil Szewczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/PGKCqQJK/gf-Npnm-ko-NQ-Y8-Cz-pokoj-zbrodni-cover-glowny-664x0-nocrop.jpg" title="Pokój Zbrodni">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/PGKCqQJK/gf-Npnm-ko-NQ-Y8-Cz-pokoj-zbrodni-cover-glowny-664x0-nocrop.jpg" title="Pokój Zbrodni">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/pokoj-zbrodni-ps-1wvU-otPx-E8zv.html">Pokój Zbrodni</a></span>
+			   <span class="ps_host">Bartosz Wojsa</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gM8ZSrLP/gf-Uqyd-KcVF-PKSJ_dudek-o-polityce-664x0-nocrop.jpg" title="DUDEK o polityce">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gM8ZSrLP/gf-Uqyd-KcVF-PKSJ_dudek-o-polityce-664x0-nocrop.jpg" title="DUDEK o polityce">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/dudek-o-polityce-ps-PEb6-4Lxu-4dS2.html">DUDEK o polityce</a></span>
+			   <span class="ps_host">Antoni Dudek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/v4r5yGfx/gf-vntf-ro4z-pUJx-co-nas-czeka-664x0-nocrop.jpg" title="Co nas czeka?">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/v4r5yGfx/gf-vntf-ro4z-pUJx-co-nas-czeka-664x0-nocrop.jpg" title="Co nas czeka?">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/co-nas-czeka-ps-my92-WS3p-Qh3u.html">Co nas czeka?</a></span>
+			   <span class="ps_host">Michał Prokopowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/ymsLCGLW/gf-Etpd-smfu-Hn1-C-nocna-zmiana-664x0-nocrop.jpg" title="Nocna Zmiana">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/ymsLCGLW/gf-Etpd-smfu-Hn1-C-nocna-zmiana-664x0-nocrop.jpg" title="Nocna Zmiana">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/nocna-zmiana-ps-1Baj-uENm-puKx.html">Nocna Zmiana</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/39QxddwP/gf-PxNf-5ndm-qEh6_polska-na-ucho-664x0-nocrop.jpg" title="Polska na ucho">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/39QxddwP/gf-PxNf-5ndm-qEh6_polska-na-ucho-664x0-nocrop.jpg" title="Polska na ucho">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/polska-na-ucho-ps-prXS-jBye-dS8v.html">Polska na ucho</a></span>
+			   <span class="ps_host">Michał Poklękowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/204kcJbc/gf-LDXW-TdDN-4P7Y_nauczycielki-zycia-664x0-nocrop.jpg" title="Nauczycielki życia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/204kcJbc/gf-LDXW-TdDN-4P7Y_nauczycielki-zycia-664x0-nocrop.jpg" title="Nauczycielki życia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/nauczycielki-zycia-ps-fMBJ-ESek-8vNb.html">Nauczycielki życia</a></span>
+			   <span class="ps_host">Oliwia Krettek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/kgMRCsqk/gf-6hpp-q4c-X-8-SP5-super-ring-664x0-nocrop.jpg" title="SuperRing">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/kgMRCsqk/gf-6hpp-q4c-X-8-SP5-super-ring-664x0-nocrop.jpg" title="SuperRing">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/superring-ps-ZJYv-3U4G-xUxG.html">SuperRing</a></span>
+			   <span class="ps_host">Artur Jarząbek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/bgwJx8nY/gf-CccR-vZvD-7ycp_alfabet-millera-664x0-nocrop.jpg" title="Alfabet Millera">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/bgwJx8nY/gf-CccR-vZvD-7ycp_alfabet-millera-664x0-nocrop.jpg" title="Alfabet Millera">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/6513562">Alfabet Millera</a></span>
+			   <span class="ps_host">Leszek Miller</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/zTM0rjY7/gf-onQ2-pNTe-Z67g_rozjazd-664x0-nocrop.jpg" title="Rozjazd">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/zTM0rjY7/gf-onQ2-pNTe-Z67g_rozjazd-664x0-nocrop.jpg" title="Rozjazd">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/6513602">Rozjazd</a></span>
+			   <span class="ps_host">Joanna Miziołek i Łukasz Warzecha</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/N5H0rcG/gf-9bP9-ss1T-zFTM_odkrywczynie-znaczen-horoskopy-hieroglify-hasztagi-664x0-nocrop.jpg" title="ODKRYWCZYNIE ZNACZEŃ horoskopy hieroglify hasztagi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/N5H0rcG/gf-9bP9-ss1T-zFTM_odkrywczynie-znaczen-horoskopy-hieroglify-hasztagi-664x0-nocrop.jpg" title="ODKRYWCZYNIE ZNACZEŃ horoskopy hieroglify hasztagi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/podcast/odkrywczynie-znaczen-horoskopy-hieroglify-hasztagi-ps-4Kij-mRix-orjQ.html">ODKRYWCZYNIE ZNACZEŃ horoskopy hieroglify hasztagi</a></span>
+			   <span class="ps_host">Kasia Pilewska i Sylwia Dominik</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Plus</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/rZ72dXp/sedno-sprawy.png" title="Sedno Sprawy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/rZ72dXp/sedno-sprawy.png" title="Sedno Sprawy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/wiadomosci/polska/sedno-sprawy-podcast-aa-GfHu-msYp-AKdD.html">Sedno Sprawy</a></span>
+			   <span class="ps_host">Jacek Prusinowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/dcdc0LV/muzyczny-alfabet-marka-sierockiego.jpg" title="Muzyczny Alfabet Marka Sierockiego">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/dcdc0LV/muzyczny-alfabet-marka-sierockiego.jpg" title="Muzyczny Alfabet Marka Sierockiego">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5052815">Muzyczny Alfabet Marka Sierockiego</a></span>
+			   <span class="ps_host">Marek Sierocki</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/JB7B15w/aleja-gwiazd.jpg" title="Aleja Gwiazd">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/JB7B15w/aleja-gwiazd.jpg" title="Aleja Gwiazd">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5052763">Aleja Gwiazd</a></span>
+			   <span class="ps_host">Mariusz Syta</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/fQdyv07/osma-godzina-czytan.jpg" title="Ósma Godzina Czytań">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/fQdyv07/osma-godzina-czytan.jpg" title="Ósma Godzina Czytań">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5052808">Ósma Godzina Czytań</a></span>
+			   <span class="ps_host">Artur Moczarski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/pWsxRS3/kardynal-wyszynski-biografia.jpg" title="Kardynał Wyszyński Biografia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/pWsxRS3/kardynal-wyszynski-biografia.jpg" title="Kardynał Wyszyński Biografia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5057497">Kardynał Wyszyński Biografia</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7VFtxzb/rozmowy-beatyfikacyjne-malgorzaty-sw-italy.jpg" title="Rozmowy beatyfikacyjne Małgorzaty Świtały">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7VFtxzb/rozmowy-beatyfikacyjne-malgorzaty-sw-italy.jpg" title="Rozmowy beatyfikacyjne Małgorzaty Świtały">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5082068">Rozmowy beatyfikacyjne Małgorzaty Świtały</a></span>
+			   <span class="ps_host">Małgorzata Świtała</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/KWBbFfy/kosciol-wydarzenia-komentarze.jpg" title="Kościół Wydarzenia Komentarze">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/KWBbFfy/kosciol-wydarzenia-komentarze.jpg" title="Kościół Wydarzenia Komentarze">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5116268">Kościół Wydarzenia Komentarze</a></span>
+			   <span class="ps_host">Weronika Kostrzewa</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/hYwsntp/srodek-tygodnia.jpg" title="Środek Tygodnia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/hYwsntp/srodek-tygodnia.jpg" title="Środek Tygodnia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5179879">Środek Tygodnia</a></span>
+			   <span class="ps_host">Kamila Baranowska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/wdgmxZb/czlowiek-z-bliska.jpg" title="Człowiek Z Bliska">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/wdgmxZb/czlowiek-z-bliska.jpg" title="Człowiek Z Bliska">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5179883">Człowiek Z Bliska</a></span>
+			   <span class="ps_host">Małgorzata Świtała</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/zV8Mwh3/ludzkim-glosem.jpg" title="Ludzkim Głosem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/zV8Mwh3/ludzkim-glosem.jpg" title="Ludzkim Głosem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5179874">Ludzkim Głosem</a></span>
+			   <span class="ps_host">Patrycja Michońska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg" title="Nocne Światła">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/DD2YhDk7/NS-500x500.jpg" title="Nocne Światła">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.youtube.com/channel/UCrG-sVBJk6dMzrTiDF9UxjA/videos">Nocne Światła</a></span>
+			   <span class="ps_host">Paweł Krzemiński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/9TPDzt2/smaki-z-plusem.jpg" title="Smaki z Plusem">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/9TPDzt2/smaki-z-plusem.jpg" title="Smaki z Plusem">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.spreaker.com/show/5279214">Smaki z Plusem</a></span>
+			   <span class="ps_host">Agnieszka Morawska</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Kolor 103 FM</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gwTqM59/kolor.png" title="(S)Ala gimnastyczna">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gwTqM59/kolor.png" title="(S)Ala gimnastyczna">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/sala-gimnastyczna/">(S)Ala gimnastyczna</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gbnVMrHq/burza-mzgw.jpg" title="Burza mózgów">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gbnVMrHq/burza-mzgw.jpg" title="Burza mózgów">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/burza-mozgow/">Burza mózgów</a></span>
+			   <span class="ps_host">Katarzyna Burzyńska-Sychowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/h2T9N0f/thumb-list-1702897617-DOKTOR-KOLOR.jpg" title="Doktor Kolor">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/h2T9N0f/thumb-list-1702897617-DOKTOR-KOLOR.jpg" title="Doktor Kolor">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/doktor-kolor/">Doktor Kolor</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gwTqM59/kolor.png" title="Inne">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gwTqM59/kolor.png" title="Inne">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/inne/">Inne</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/BPwwQ6J/thumb-list-1702835902-Kawa-ek-Polski.jpg" title="Kawałek Polski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/BPwwQ6J/thumb-list-1702835902-Kawa-ek-Polski.jpg" title="Kawałek Polski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/kawalek-polski/">Kawałek Polski</a></span>
+			   <span class="ps_host">Martyna Wawryło</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Gfdr0ZqX/005-Idz-tak-jakbys-stopami.jpg" title="Najpiękniejsze piosenki świata">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Gfdr0ZqX/005-Idz-tak-jakbys-stopami.jpg" title="Najpiękniejsze piosenki świata">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/najpiekniejsze-piosenki-swiata/">Najpiękniejsze piosenki świata</a></span>
+			   <span class="ps_host">Beata Pawlikowska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0C0y0Kc/thumb-list-1702560447-PE-NA-KULTURA.jpg" title="Pełna kultura">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0C0y0Kc/thumb-list-1702560447-PE-NA-KULTURA.jpg" title="Pełna kultura">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/pelna-kultura/">Pełna kultura</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gt1dwMX/thumb-list-1703242712-Pomoc-Kuchenna.jpg" title="Pomoc kuchenna">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gt1dwMX/thumb-list-1703242712-Pomoc-Kuchenna.jpg" title="Pomoc kuchenna">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/pomoc-kuchenna/">Pomoc kuchenna</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/2Y45k5d/thumb-list-1702295931-ROZMOWA.jpg" title="Rozmowy / wywiady">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/2Y45k5d/thumb-list-1702295931-ROZMOWA.jpg" title="Rozmowy / wywiady">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/rozmowy-wywiady/">Rozmowy / wywiady</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/GCymvwK/thumb-list-1702910816-Sekrety-brzmienia.jpg" title="Sekrety brzmienia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/GCymvwK/thumb-list-1702910816-Sekrety-brzmienia.jpg" title="Sekrety brzmienia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/sekrety-brzmienia/">Sekrety brzmienia</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/BLnrjS2/thumb-list-1703087467-Stacja-Mokot-w.jpg" title="Stacja Mokotów">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/BLnrjS2/thumb-list-1703087467-Stacja-Mokot-w.jpg" title="Stacja Mokotów">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/stacja-mokotow/">Stacja Mokotów</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/k4KjQD9/thumb-list-1703087561-Stolica-Historii.jpg" title="Stolica historii">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/k4KjQD9/thumb-list-1703087561-Stolica-Historii.jpg" title="Stolica historii">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/stolica-historii/">Stolica historii</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4Txj870/thumb-list-1548261430-Instagram-panoramiczne-1080x566.jpg" title="Urodziny Radia Kolor">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4Txj870/thumb-list-1548261430-Instagram-panoramiczne-1080x566.jpg" title="Urodziny Radia Kolor">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/urodziny-radia-kolor/">Urodziny Radia Kolor</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0msC362/thumb-list-1702985728-WARSZAWA-W-KWIATACH.jpg" title="Warszawa w kwiatach">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0msC362/thumb-list-1702985728-WARSZAWA-W-KWIATACH.jpg" title="Warszawa w kwiatach">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/warszawa-w-kwiatach/">Warszawa w kwiatach</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gwTqM59/kolor.png" title="Wpół do weekendu">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gwTqM59/kolor.png" title="Wpół do weekendu">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/wpol-do-weekendu/">Wpół do weekendu</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Cmdwnhf/thumb-list-1702631716z-boru-do-koloru.jpg" title="Z boru dla Koloru">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Cmdwnhf/thumb-list-1702631716z-boru-do-koloru.jpg" title="Z boru dla Koloru">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiokolor.pl/programy-podcastow/z-boru-dla-koloru/">Z boru dla Koloru</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio RSC 88.6 FM</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/5NsvykRW/automagazyn.jpg" title="Automagazyn">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/5NsvykRW/automagazyn.jpg" title="Automagazyn">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/automagazyn/">Automagazyn</a></span>
+			   <span class="ps_host">Krzysztof Czapnik</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/6QXGmJ7R/DSC-2393-scaled-e1713786551346-500x500.jpg" title="Czerwony dywan">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/6QXGmJ7R/DSC-2393-scaled-e1713786551346-500x500.jpg" title="Czerwony dywan">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/czerwony-dywan/">Czerwony dywan</a></span>
+			   <span class="ps_host">Dagmara Obrębska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/W4wJRWry/DSC-6208-scaled-e1713786603141-500x500.jpg" title="Filmożercy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/W4wJRWry/DSC-6208-scaled-e1713786603141-500x500.jpg" title="Filmożercy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/filmozercy/">Filmożercy</a></span>
+			   <span class="ps_host">Arkadiusz Żytka</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/RV4QNtCK/ramowkowe-grafiki.png" title="Gość dnia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/RV4QNtCK/ramowkowe-grafiki.png" title="Gość dnia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/gosc-dnia/">Gość dnia</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/k4PRLrBK/jpg.jpg" title="Mam pytanie do...">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/k4PRLrBK/jpg.jpg" title="Mam pytanie do...">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/mam-pytanie-do/">Mam pytanie do...</a></span>
+			   <span class="ps_host">Dariusz Ziemiańczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/Kzc3mPD8/DSC-6117-scaled-e1713786503620-500x500.jpg" title="Na sportowo">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/Kzc3mPD8/DSC-6117-scaled-e1713786503620-500x500.jpg" title="Na sportowo">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/na-sportowo/">Na sportowo</a></span>
+			   <span class="ps_host">Darek Machowski</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/kghx1hQv/Popoludniowka.webp" title="Popołudniówka">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/kghx1hQv/Popoludniowka.webp" title="Popołudniówka">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/popoludniowka/">Popołudniówka</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/zX2b8HyJ/samorz-skierniewice.png" title="Program samorządowy">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/zX2b8HyJ/samorz-skierniewice.png" title="Program samorządowy">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/program-samorzadowy/">Program samorządowy</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/5M87ZB8/rsc.png" title="Program samorządowy gminy Skierniewice">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/5M87ZB8/rsc.png" title="Program samorządowy gminy Skierniewice">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/program-samorzadowy-gminy-skierniewice/">Program samorządowy gminy Skierniewice</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/5M87ZB8/rsc.png" title="Program samorządowy powiatu skierniewickiego">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/5M87ZB8/rsc.png" title="Program samorządowy powiatu skierniewickiego">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/program-samorzadowy-powiatu-skierniewickiego/">Program samorządowy powiatu skierniewickiego</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/MHWMKy0G/rentgen.jpg" title="Rentgen">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/MHWMKy0G/rentgen.jpg" title="Rentgen">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/rentgen/">Rentgen</a></span>
+			   <span class="ps_host">Dariusz Ziemiańczyk</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/Hngwg5Bm/Z-LASU-NA-ANTENE.png" title="Z lasu na antenę">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/Hngwg5Bm/Z-LASU-NA-ANTENE.png" title="Z lasu na antenę">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/z-lasu-na-antene/">Z lasu na antenę</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/sHVzjYD/DSC-6076-scaled-e1713789475374-500x500.jpg" title="Zakochani w pomaganiu">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/sHVzjYD/DSC-6076-scaled-e1713789475374-500x500.jpg" title="Zakochani w pomaganiu">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/zakochani-w-pomaganiu/">Zakochani w pomaganiu</a></span>
+			   <span class="ps_host">Magdalena Gorożankin-Masłocha</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.postimg.cc/J0qXbT7J/IGZwierze.png" title="Zwierzę w eterze">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.postimg.cc/J0qXbT7J/IGZwierze.png" title="Zwierzę w eterze">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiorsc.pl/kategoria/audycje/zwierze-w-eterze/">Zwierzę w eterze</a></span>
+			   <span class="ps_host">Karolina Bast-Kolasa i Adam Cyniak</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Radio Victoria</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/wNnmh625/text-brownlight.jpg" title="Gość dnia">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/wNnmh625/text-brownlight.jpg" title="Gość dnia">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiovictoria.pl/gosc/">Gość dnia</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/QvCFqX2g/text-brown.jpg" title="Materiał reporterski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/QvCFqX2g/text-brown.jpg" title="Materiał reporterski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiovictoria.pl/reporter/">Materiał reporterski</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Vpw1KVb3/text-orange.jpg" title="Radioaktywna kultura">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Vpw1KVb3/text-orange.jpg" title="Radioaktywna kultura">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiovictoria.pl/audycje/kulturalne-lato/">Radioaktywna kultura</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Vpw1KVb3/text-orange.jpg" title="Od zakrystii">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Vpw1KVb3/text-orange.jpg" title="Od zakrystii">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://radiovictoria.pl/audycje/od-zakrystii/">Od zakrystii</a></span>
+			   <span class="ps_host"></span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+  <h3 class="w3-center">Podcasty pozaradiowe</h3>
+      <table id="myTable" style="width:100%">
+         <tr style="visibility: collapse">
+            <th style="width:3%"></th>
+            <th style="width:98%"></th>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/0pFNqD9H/gf-THmW-1Jep-fWL8_sila-kobiet-994x828.jpg" title="Siła kobiet">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/0pFNqD9H/gf-THmW-1Jep-fWL8_sila-kobiet-994x828.jpg" title="Siła kobiet">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://mediateka.pl/silakobiet/">Siła kobiet</a></span>
+			   <span class="ps_host">Katarzyna Ziółkowska-Dąbek</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/HT1KwRpV/gf-Ckbg-GDuZ-mEBC_podcast-sayhi-994x828.jpg" title="SAYHi">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/HT1KwRpV/gf-Ckbg-GDuZ-mEBC_podcast-sayhi-994x828.jpg" title="SAYHi">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://player.eska.pl/podcast/sayhi-ps-vWNX-JyvU-ySS8.html">SAYHi</a></span>
+			   <span class="ps_host">Angelika Majewska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7JD0N24P/gf-AcCY-RFBu-axSQ_gadaj-zdrow-300x250.jpg" title="Gadaj Zdrów">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7JD0N24P/gf-AcCY-RFBu-axSQ_gadaj-zdrow-300x250.jpg" title="Gadaj Zdrów">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.poradnikzdrowie.pl/podcast/gadaj-zdrow-ps-Gsxh-CEVB-8Hrw.html">Gadaj Zdrów</a></span>
+			   <span class="ps_host">Ewelina Celejewska</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4nv5F3jS/gf-LqyT-nBpp-412s_murowane-starcie-300x250.jpg" title="Murowane Starcie">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4nv5F3jS/gf-LqyT-nBpp-412s_murowane-starcie-300x250.jpg" title="Murowane Starcie">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://muratordom.pl/murowanestarcie/">Murowane Starcie</a></span>
+			   <span class="ps_host">Murator</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/hxxc0NLy/gf-udA2-6iqc-P2xY_podcast-miejski-300x250.jpg" title="Podcast Miejski">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/hxxc0NLy/gf-udA2-6iqc-P2xY_podcast-miejski-300x250.jpg" title="Podcast Miejski">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://architektura.muratorplus.pl/podcast/podcast-miejski-ps-v8MU-1Twh-Bpin.html">Podcast Miejski</a></span>
+			   <span class="ps_host">Artur Celiński</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/67f04rvP/gf-6hH8-xStb-PDgD_mediateka-architektura-994x828.jpg" title="Architektura Murator, Podcast 30/30">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/67f04rvP/gf-6hH8-xStb-PDgD_mediateka-architektura-994x828.jpg" title="Architektura Murator, Podcast 30/30">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://architektura.muratorplus.pl/podcast/podcast-miejski-ps-v8MU-1Twh-Bpin.html">Architektura Murator, Podcast 30/30</a></span>
+			   <span class="ps_host">redakcja</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/WvFnpd0G/gf-Qy77-ksBu-vg1L_ezoteryka-dla-rozwaznych-zakawka-994x828.jpg" title="Ezoteryka dla odważnych">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/WvFnpd0G/gf-Qy77-ksBu-vg1L_ezoteryka-dla-rozwaznych-zakawka-994x828.jpg" title="Ezoteryka dla odważnych">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.eska.pl/wiadomosci/astrolozka-o-czekajacych-nas-rewolucyjnych-zmianach-podcast-ezoteryka-dla-rozwaznych-katarzyny-poludniak-ak-1Nqp-fmNG-hw1A.html">Ezoteryka dla odważnych</a></span>
+			   <span class="ps_host">Katarzyna Południak</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/gcPcgHy/gf-s1Sf-DGVc-Bvde_mediateka-szkola-budowania-994x828.jpg" title="Szkoła budowania">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/gcPcgHy/gf-s1Sf-DGVc-Bvde_mediateka-szkola-budowania-994x828.jpg" title="Szkoła budowania">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://muratordom.pl/aktualnosci/szkola-budowania-muratora-aa-E19P-iTep-jJD9.html">Szkoła budowania</a></span>
+			   <span class="ps_host">Murator</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/4Z5Pn0F2/gf-1dq7-6eAh-ymah_mediateka-pogadane-zbudowane-994x828.jpg" title="Pogad@ne. Zbudowane.">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/4Z5Pn0F2/gf-1dq7-6eAh-ymah_mediateka-pogadane-zbudowane-994x828.jpg" title="Pogad@ne. Zbudowane.">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://muratordom.pl/aktualnosci/pogad-ne-zbudowane-rozmowy-o-budowaniu-aa-6TFA-32A2-2Lfo.html">Pogad@ne. Zbudowane.</a></span>
+			   <span class="ps_host">Murator</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/7JPn48J7/gf-nfDL-w88t-hvmG_mediateka-debata-o-polsce-994x828.jpg" title="Debata o Polsce">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/7JPn48J7/gf-nfDL-w88t-hvmG_mediateka-debata-o-polsce-994x828.jpg" title="Debata o Polsce">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/wiadomosci/polska/debata-o-polsce-podcast-aa-BR2i-QEdD-Di4Z.html">Debata o Polsce</a></span>
+			   <span class="ps_host">Jan Złotorowicz</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <img class="boximg w3-hide-small" src="https://i.ibb.co/Jw2jz0MS/gf-YkBM-11fD-vdrd_mediateka-pieniadze-to-nie-wszystko-994x828.jpg" title="Pieniądze to nie wszystko">
+               <img class="boximg_small w3-hide-large w3-hide-medium" src="https://i.ibb.co/Jw2jz0MS/gf-YkBM-11fD-vdrd_mediateka-pieniadze-to-nie-wszystko-994x828.jpg" title="Pieniądze to nie wszystko">
+			</td>
+            <td>
+			   <span class="ps_name"><a href="https://www.se.pl/wiadomosci/polska/pieniadze-to-nie-wszystko-podcast-aa-cYuy-1WuG-Wb6L.html">Pieniądze to nie wszystko</a></span>
+			   <span class="ps_host">Hubert Biskupski</span>
+            </td>
+         </tr>
+      </table>
+	  <hr>
+</div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <div class="w3-xlarge w3-section">
+    <i class="fa-brands fa-facebook w3-hover-opacity"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-snapchat w3-hover-opacity"></i>
+    <i class="fa-brands fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa-brands fa-twitter w3-hover-opacity"></i>
+    <i class="fa-brands fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>
