@@ -440,6 +440,23 @@ body, html {
       <a href="https://www.youtube.com/@radio_chillizet" title="YouTube"><i class="fa-brands fa-youtube" style="font-size:36px"></i></a>
       <a href="https://pl.wikipedia.org/wiki/Chillizet" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" style="font-size:36px"></i></a>
 	  <hr>
+      <h2 class="w3-center">Planeta FM</h2>
+      <select onchange="document.getElementById('planeta-fm').src=this.options[this.selectedIndex].value;document.getElementById('planeta-fm').style='display:initial';" style="margin: 7px auto; width: 250px;">
+         <option value="https://stream.palneta.pl:8443/palneta">Planeta FM</option>
+         <option value="https://stream.palneta.pl:8443/palneta_trance">Planeta Trance</option>
+         <option value="https://pl01.cdn.eurozet.pl/pla-net.mp3">Stara Planeta FM</option>
+      </select>
+      <button class="buttons buttons1" onclick="document.getElementById('planeta-fm').src='https://stream.palneta.pl:8443/palneta';document.getElementById('planeta-fm').style='display:initial';">Włącz radio</button>
+	  <br>
+      <audio style="display:none;" id="planeta-fm" controls>
+         <source src="">
+      </audio>
+      <br>
+      <button class="buttons buttons1"><a href="https://palneta.pl/">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://palneta.pl/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.planeta.pl/">🌐 Strona (Planeta.pl)</a></button><br>
+      <a href="https://www.fb.com/100064812337782" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
+      <a href="https://www.instagram.com/planeta_pl/" title="Instagram"><i class="fa-brands fa-instagram" style="font-size:36px"></i></a>
+      <a href="https://x.com/Planeta_FM" title="X"><i class="fa-brands fa-x-twitter" style="font-size:36px"></i></a>
+	  <hr>
       <h2 class="w3-center">Radio Złote Przeboje</h2>
       <select onchange="document.getElementById('zloteprzeboje').src=this.options[this.selectedIndex].value;document.getElementById('zloteprzeboje').style='display:initial';" style="margin: 7px auto; width: 250px;">
          <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">Złote Przeboje</option>
