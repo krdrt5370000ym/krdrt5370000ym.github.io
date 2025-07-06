@@ -80,7 +80,8 @@ body, html {
 <!-- Container (About Section) -->
 <div class="w3-content w3-container w3-padding-64" id="about">
 <p><a href="https://krdrt5370000ym.github.io/">Strona Główna</a> / <a href="https://krdrt5370000ym.github.io/program">Program</a> / Time</p>
-  <h2 class="w3-center"><a href="https://www.eska.pl/program/">Radio ESKA</a></h2>
+  <h2 class="w3-center accordion"><a href="https://www.eska.pl/program/">Radio ESKA</a></h2>
+  <div class="panel">
       <h3 class="w3-center">PONIEDZIAŁEK</h3>
           <h4><i class="fa fa-microphone-lines"></i> 06:00 - 09:00 <strong>OBUDŹ SIĘ NA JANKESA</strong></h4><hr>
           <ul>
@@ -159,6 +160,7 @@ body, html {
           </ul>
           <h4><i class="fa fa-microphone-lines"></i> 13:00 - 18:00 <strong>WEEKEND Z HITAMI NA CZASIE</strong></h4><hr>
           <h4><i class="fa fa-microphone-lines"></i> 18:00 - 06:00 <strong>NOC Z ESKĄ</strong></h4><hr>
+  </div>
   <h2 class="w3-center"><a href="https://dwa.eska.pl/program/">Radio ESKA 2</a></h2>
       <h3 class="w3-center">PONIEDZIAŁEK</h3>
           <h4><i class="fa fa-microphone-lines"></i> 06:00 - 09:00 <strong>PORANEK Z ESKĄ2</strong></h4><hr>
@@ -298,6 +300,21 @@ body, html {
 </footer>
  
 <script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+
 // Modal Image Gallery
 function onClick(element) {
   document.getElementById("img01").src = element.src;
