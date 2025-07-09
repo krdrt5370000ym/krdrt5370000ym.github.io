@@ -100,6 +100,35 @@ color: #f70d28;
     margin: 0;
     padding: 0;
 }
+
+.tooltip {
+  position: relative;
+}
+.tooltip:hover:after {
+  display: inline;
+  background: #333;
+  background: rgba(0, 0, 0, .8);
+  border-radius: 5px;
+  bottom: 26px;
+  color: #fff;
+  content: attr(data-title);
+  left: 20%;
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  width: auto;
+}
+.tooltip:hover:before {
+  display: inline;
+  border: solid;
+  border-color: #333 transparent;
+  border-width: 6px 6px 0 6px;
+  bottom: 20px;
+  content: "";
+  left: 22%;
+  position: absolute;
+  z-index: 98;
+}
 </style>
 </head>
 <body>
@@ -152,7 +181,7 @@ color: #f70d28;
           <ul>
             <li>21:30-22:00 Pasmo lokalne (ESKA Południe)</li>
           </ul>
-          <div class="heading"><i class="fa fa-microphone"></i> 23:00 - 00:00 <strong title="informacja/ Będzie gościem do 01:00, ale nie będzie do 00:00"><a href="https://www.eska.pl/rap20/">RAP 20</a></strong></div>
+          <div class="heading"><i class="fa fa-microphone"></i> 23:00 - 00:00 <strong class="tooltip" data-title="informacja/ Będzie gościem do 01:00, ale nie będzie do 00:00"><a href="https://www.eska.pl/rap20/">RAP 20</a></strong></div>
       </div>
       <h3 class="w3-center accordion">WTOREK</h3>
       <div class="panel">
