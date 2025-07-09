@@ -100,6 +100,37 @@ color: #f70d28;
     margin: 0;
     padding: 0;
 }
+
+/*.tooltip {
+  position: relative;
+} */
+.tooltip:hover:after {
+  font-size: 13px;
+  font-weight: normal;
+  display: inline;
+  background: #333;
+  background: rgba(0, 0, 0, .8);
+  border-radius: 5px;
+  bottom: 26px;
+  color: #fff;
+  content: attr(data-title);
+  left: 20%;
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  width: auto;
+}
+.tooltip:hover:before {
+  display: inline;
+  border: solid;
+  border-color: #333 transparent;
+  border-width: 6px 6px 0 6px;
+  bottom: 20px;
+  content: "";
+  left: 22%;
+  position: absolute;
+  z-index: 98;
+}
 </style>
 </head>
 <body>
