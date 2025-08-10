@@ -19,6 +19,7 @@
       margin-block-start: 0.2em;
       margin-block-end: 0.2em;
       color: #ff0000;
+      line-height: 16px;
     }
 
     .schedule-title {
@@ -29,6 +30,7 @@
       margin-block-start: 0.2em;
       margin-block-end: 0.2em;
       font-weight: 600;
+      line-height: 24px;
     }
 
     .schedule-author {
@@ -39,6 +41,7 @@
       margin-block-start: 0.2em;
       margin-block-end: 0.2em;
       color: #777;
+      line-height: 16px;
     }
 
     .schedule-photo {
