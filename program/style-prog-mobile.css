@@ -11,7 +11,7 @@
       text-decoration: none;
     }
 
-    .rS__img {
+    .rS__program .rS__image img {
       border: 10px solid #777;
       border-radius: 250px;
       height: 250px;
@@ -22,7 +22,21 @@
       box-shadow: 0px 0px 32px rgba(117, 117, 117, 4), 0px 0px 64px rgba(117, 117, 117, 4);
     }
 
-    .rS__img::after {
+    .rS__program .rS__image::before {
+      content: '';
+      display: block;
+      width: 288px;
+      height: 288px;
+      position: absolute;
+      top: -24px;
+      bottom: 0;
+      left: 44px;
+      right: 0;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 100%;
+    }
+
+    rS__program .rS__image::after {
       content: '';
       display: block;
       width: 344px;
