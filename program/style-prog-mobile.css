@@ -30,7 +30,7 @@
       position: absolute;
       top: -24px;
       bottom: 0;
-      left: 92px;
+      left: 16px;
       right: 0;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 100%;
@@ -44,7 +44,7 @@
       position: absolute;
       top: -60px;
       bottom: 0;
-      left: 56px;
+      left: -16px;
       right: 0;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 100%;
