@@ -25,26 +25,26 @@
     .rS__program .rS__image::before {
       content: '';
       display: block;
-      width: 288px;
-      height: 288px;
+      width: 314px;
+      height: 314px;
       position: absolute;
       top: -24px;
       bottom: 0;
-      left: 44px;
+      left: 92px;
       right: 0;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 100%;
     }
 
-    rS__program .rS__image::after {
+    .rS__program .rS__image::after {
       content: '';
       display: block;
-      width: 344px;
-      height: 344px;
+      width: 386px;
+      height: 386px;
       position: absolute;
-      top: -52px;
+      top: -60px;
       bottom: 0;
-      left: 16px;
+      left: 56px;
       right: 0;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 100%;
