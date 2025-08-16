@@ -87,6 +87,10 @@ body, html {
      font-size: 13px;
      display: block;
 }
+
+.panel {
+  display: none;
+}
 </style>
 </head>
 <body>
@@ -127,7 +131,8 @@ body, html {
   <p>Miksy można zobaczyć na Beatport: <a href="https://apps.apple.com/pl/app/beatport-music-for-djs/id1543739988?l=pl">Apple</a>, <a href="https://play.google.com/store/apps/details?id=com.beatport.mobile&hl=pl">Android</a>, <a href="https://www.beatport.com/">WWW</a>.</p>
   <p>Bardzo stare sety Radia RSC: <a href="https://www.mixcloud.com/djmmm">MaraTone</a>, <a href="https://www.mixcloud.com/macrodj/">MacroDJ</a> i <a href="https://www.mixcloud.com/Twix_PL/">TwixPL</a>.</p>
   <p>Bardzo stare sety audycji <a href="https://www.youtube.com/@bacao1000">ESKA Live RMX</a> i <a href="https://www.youtube.com/@Donn_Sunny_San">inne</a>.</p>
-  <h3 class="w3-center">Meloradio</h3>
+  <h3 class="w3-center accordion">Meloradio</h3>
+      <div class="panel">
       <table id="myTable" style="width:100%">
          <tr style="visibility: collapse">
             <th style="width:3%"></th>
@@ -264,8 +269,10 @@ body, html {
             </td>
          </tr>
       </table>
+      </div>
 	  <hr>
-  <h3 class="w3-center">Chillizet</h3>
+  <h3 class="w3-center accordion">Chillizet</h3>
+      <div class="panel">
       <table id="myTable" style="width:100%">
          <tr style="visibility: collapse">
             <th style="width:3%"></th>
@@ -302,8 +309,10 @@ body, html {
             </td>
          </tr>
       </table>
+      </div>
 	  <hr>
-  <h3 class="w3-center">Planeta FM</h3>
+  <h3 class="w3-center accordion">Planeta FM</h3>
+      <div class="panel">
       <table id="myTable" style="width:100%">
          <tr style="visibility: collapse">
             <th style="width:3%"></th>
@@ -320,8 +329,10 @@ body, html {
             </td>
          </tr>
       </table>
+      </div>
 	  <hr>
-  <h3 class="w3-center">InterStacja</h3>
+  <h3 class="w3-center accordion">InterStacja</h3>
+      <div class="panel">
       <table id="myTable" style="width:100%">
          <tr style="visibility: collapse">
             <th style="width:3%"></th>
@@ -348,8 +359,10 @@ body, html {
             </td>
          </tr>
       </table>
+      </div>
 	  <hr>
-  <h3 class="w3-center">Inne stacje</h3>
+  <h3 class="w3-center accordion">Inne stacje</h3>
+      <div class="panel">
       <table id="myTable" style="width:100%">
          <tr style="visibility: collapse">
             <th style="width:3%"></th>
@@ -596,6 +609,7 @@ body, html {
             </td>
          </tr>
       </table>
+      </div>
 	  <hr>
 </div>
 <!-- Footer -->
@@ -612,6 +626,21 @@ body, html {
 </footer>
  
 <script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+
 // Modal Image Gallery
 function onClick(element) {
   document.getElementById("img01").src = element.src;
@@ -644,4 +673,3 @@ function toggleFunction() {
 
 </body>
 </html>
-
