@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sety | krdrt537000ym.github.io</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts/style-font.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Sofia Pro", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
+
+.buttons {
+  border: none;
+  color: white;
+  padding: 1px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttons1 {
+  background-color: inherit; 
+  color: black; 
+  border: 2px solid #000000;
+}
+
+.buttons1:hover {
+  background-color: #000000;
+  color: white;
+}
+
+ a:link {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="https://krdrt5370000ym.github.io/" class="w3-bar-item w3-button">STRONA GŁÓWNA</a>
+    <a href="https://krdrt5370000ym.github.io/program" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-calendar-days"></i> PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-podcast"></i> PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-headset"></i> SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-radio"></i> RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-info"></i> INFORMACJA RADIA</a>
+    <a href="https://servers.fmdx.org" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-tower-cell"></i> ONLINE FMDX</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+    </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="https://krdrt5370000ym.github.io/program" class="w3-bar-item w3-button" onclick="toggleFunction()">PROGRAM</a>
+    <a href="https://krdrt5370000ym.github.io/podcast" class="w3-bar-item w3-button" onclick="toggleFunction()">PODCASTY</a>
+    <a href="https://krdrt5370000ym.github.io/set" class="w3-bar-item w3-button" onclick="toggleFunction()">SETY</a>
+    <a href="https://krdrt5370000ym.github.io/radio" class="w3-bar-item w3-button" onclick="toggleFunction()">RADIO</a>
+    <a href="https://krdrt5370000ym.github.io/info" class="w3-bar-item w3-button" onclick="toggleFunction()">INFORMACJA RADIA</a>
+    <a href="https://servers.fmdx.org" class="w3-bar-item w3-button" onclick="toggleFunction()">ONLINE FMDX</a>
+  </div>
+</div>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+<h3 style='text-align: center;color: rgb(0, 0, 0);background-color: rgb(255, 255, 255);font-size: 24px;font-family: "'>
+  <strong>Wyniki i triumfatorzy plebiscyt&oacute;w z lat 2003-2005</strong>
+</h3>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>* <u>Katalog opublikowanych na MUZYKO(B)LOGu wynik&oacute;w muzycznych plebiscyt&oacute;w (aktualizowany na bieżąco), w tym plebiscyt&oacute;w Radia Eska</u>: <a href="http://muzykoblog.pl/2015/06/11/muzyczne-plebiscyty-katalog-2006-2015/" target="_blank" rel="noopener noreferrer" style="color: rgb(35, 182, 182);">
+    <u>zobacz</u>
+  </a>. </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>* <u>Triumfatorzy poprzednich plebiscyt&oacute;w Radia Eska</u>: </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>&ndash; przeb&oacute;j roku 2005:&nbsp; <strong>Mezo/Tabb feat. Kasia Wilk &bdquo;Ważne&rdquo;</strong>, <br>&ndash; przeb&oacute;j roku 2004:&nbsp; <strong>Usher feat. Lil&rsquo; Jon &amp; Ludacris &bdquo;Yeah!&rdquo;</strong>, <br>&ndash; przeb&oacute;j roku 2003: <strong>The Rasmus &bdquo;In the shadows&rdquo;</strong>. </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>* <u>Najwyżej notowany utw&oacute;r wykonywany przez polskiego artystę w poprzednich plebiscytach Radia Eska</u>: </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>&ndash; za rok 2005:&nbsp; <strong>Mezo/Tabb feat. Kasia Wilk &bdquo;Ważne&rdquo;</strong> (#1), <br>&ndash; za rok 2004:&nbsp; <strong>Krzysztof Krawczyk feat. Edyta Bartosiewicz &bdquo;Trudno tak (razem być nam ze sobą)&rdquo;</strong> (#3), <br>&ndash; za rok 2003: <strong>Ewelina Flinta&nbsp;&bdquo;Żałuję&rdquo;</strong> (#7). </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>
+  <em>wyniki plebiscyt&oacute;w &ndash; zapiski własne na podstawie informacji z anteny Radia Eska</em>
+  <br>
+  <em>nagł&oacute;wek &ndash; fot. okładka singla: Timbaland feat. OneRepublic &bdquo;Apologize&rdquo; (discogs.com)</em>
+<h3 style='text-align: center;color: rgb(0, 0, 0);background-color: rgb(255, 255, 255);font-size: 24px;font-family: "'>
+  <strong>2006</strong>
+</h3>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>
+  <u>
+    <strong>Gorąca 100 Radia Eska za rok 2006</strong>&nbsp; </u>&ndash; wyniki głosowania w plebiscycie Radia Eska na przeb&oacute;j roku 2006:
+</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>100. Velvet &bdquo;Don&rsquo;t stop movin&apos;&rdquo; <br>99. Cherish feat. Sean Paul (of YoungBloodZ) &bdquo;Do it to it&rdquo; <br>98. Roger Sanchez feat. Katherine Ellis &bdquo;Lost&rdquo; <br>97. Jamelia &bdquo;Something about you&rdquo; <br>96. Starting Rock feat. Diva Avari &bdquo;Don&rsquo;t go&rdquo; <br>95. Beyonc&eacute; &bdquo;Irreplaceable&rdquo; <br>94. Joey Negro &bdquo;Make a move on me&rdquo; <br>93. Virgin &bdquo;Szansa&rdquo; <br>92. Plasticgirl &bdquo;Better off alone&rdquo; <br>91. Rihanna &bdquo;We ride&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>90. Kate Ryan &bdquo;Je t&rsquo;adore&rdquo; <br>89. Madonna &bdquo;Jump&rdquo; <br>88. Stachursky &bdquo;Z każdym twym oddechem&rdquo; <br>87. September &bdquo;It doesn&rsquo;t matter&rdquo; <br>86. The Pussycat Dolls &bdquo;I don&rsquo;t need a man&rdquo; <br>85. Phunk-A-Delic &bdquo;Rockin&apos;&rdquo; <br>84. Goya &bdquo;Tylko mnie kochaj&rdquo; <br>83. Starstylers feat. Michy &bdquo;Keep on moving&rdquo; <br>82. Aneela feat. Arash &bdquo;Chori chori&rdquo; <br>81. Chicane feat. Tom Jones &bdquo;Stoned in love&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>80. Owal &bdquo;Spokojnie&rdquo; <br>79. Danzel vs DJ F.R.A.N.K. &bdquo;My arms keep missing you&rdquo; <br>78. Shakira feat. Wyclef Jean &bdquo;Hips don&rsquo;t lie&rdquo; <br>77. Beatfreakz &bdquo;Somebody&rsquo;s watching me&rdquo; <br>76. Gosia Andrzejewicz &bdquo;Słowa&rdquo; <br>75. Infernal &bdquo;Self control&rdquo; <br>74. Gnarls Barkley &bdquo;Crazy&rdquo; <br>73. David Guetta feat. Chris Willis vs The Egg &bdquo;Love don&rsquo;t let me go (walking away)&rdquo; <br>72. Activ &bdquo;Visez&rdquo; <br>71. The Pussycat Dolls &bdquo;Stickwitu&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>70. Uniting Nations &bdquo;Music in me&rdquo; <br>69. Verba &bdquo;Mogliśmy&rdquo; <br>68. Supermode &bdquo;Tell me why&rdquo; <br>67. Nelly Furtado feat. Timbaland &bdquo;Promiscuous&rdquo; <br>66. Cuba Club &bdquo;Cuba&rdquo; <br>65. Cascada &bdquo;Everytime we touch&rdquo; <br>64. Juanes &bdquo;La camisa negra&rdquo; <br>63. Kalwi &amp; Remi &bdquo;Victory&rdquo; <br>62. Akcent &bdquo;Kylie&rdquo; <br>61. Ania &bdquo;Trudno mi się przyznać&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>60. Filterfunk &bdquo;S.O.S. (message in a bottle)&rdquo; <br>59. Christian Walz &bdquo;Wonderchild&rdquo; <br>58. ATB &bdquo;Let U go 2005&rdquo; <br>57. Kasia Cerekwicka &bdquo;Potrafię kochać&rdquo; <br>56. DJ Magic vs Max Farenthide &bdquo;Get down&rdquo; <br>55. Meck feat. Leo Sayer &bdquo;Thunder in my heart&rdquo; <br>54. Activ &bdquo;Doar cu tine&rdquo; <br>53. Madonna &bdquo;Sorry&rdquo; <br>52. Kelly Clarkson &bdquo;Because of you&rdquo; <br>51. DJ Ross feat. Double You &bdquo;Beat goes on (on the radio)&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>50. Kash vs INXS &bdquo;Dream on black girl&rdquo; <br>49. Gosia Andrzejewicz &bdquo;Trochę ciepła&rdquo; <br>48. C-Bool &bdquo;Would you feel&rdquo; <br>47. Sean Paul feat. Keyshia Cole &bdquo;(When you gonna) give it up to me&rdquo; <br>46. Velvet &bdquo;Rock down to (electric avenue)&rdquo; <br>45. Bob Sinclar &amp; Cutee B feat. Dollarman &amp; Big Ali &amp; Makedah &bdquo;Rock this party (everybody dance now)&rdquo; <br>44. Double Nation &bdquo;Move your love&rdquo; <br>43. Goleo Vi Presents Lumidee &amp; Fatman Scoop &bdquo;Dance!&rdquo; <br>42. Ti&euml;sto feat. Maxi Jazz &bdquo;Dance 4 life&rdquo; <br>41. Paul Wall &bdquo;Girl&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>40. Sylver &bdquo;Lay all your love on me&rdquo; <br>39. The Pussycat Dolls feat. Snoop Dogg &bdquo;Buttons&rdquo; <br>38. Mbrother &bdquo;Trebles&rdquo; <br>37. Forseco &bdquo;Insane&rdquo; <br>36. Nelly Furtado &bdquo;Maneater&rdquo; <br>35. Andrea &bdquo;Time to pray&rdquo; <br>34. Virgin &bdquo;2 bajki&rdquo; <br>33. East Clubbers &bdquo;Sextasy&rdquo; <br>32. Arash feat. Helena &bdquo;Arash&rdquo; <br>31. Sandra &bdquo;Around my heart 2006&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>30. Rihanna &bdquo;Unfaithful&rdquo; <br>29. Kalwi &amp; Remi &bdquo;Imagination&rdquo; <br>28. Bob Sinclar feat. Steve Edwards &bdquo;World, hold on (children of the sky)&rdquo; <br>27. Jan Hammer Project feat. TQ &bdquo;Crockett&rsquo;s theme 2006&rdquo; <br>26. Basic Element &bdquo;Raise the gain&rdquo; <br>25. Akcent &bdquo;Jokero&rdquo; <br>24. Karmah &bdquo;Just be good to me&rdquo; <br>23. Pakito &bdquo;Moving on stereo&rdquo; <br>22. Gosia Andrzejewicz &bdquo;Pozw&oacute;l żyć&rdquo; <br>21. Supafly Inc &bdquo;Moving too fast&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>20. Eugenia Vlasova feat. Andru Donalds &bdquo;Wind of hope&rdquo; <br>19. Wet Fingers &bdquo;Hi-Fi superstar&rdquo; <br>18. Fort Minor feat. Holly Brook &amp; Jonah Matranga &bdquo;Where&rsquo;d you go&rdquo; <br>17. September &bdquo;Satellites&rdquo; <br>16. Kasia Cerekwicka &bdquo;Na kolana&rdquo; <br>15. Blank &amp; Jones &bdquo;Catch&rdquo; <br>14. The Buddhist Monks &bdquo;My spirit flies to you&rdquo; <br>13. Holly Dolly &bdquo;Dolly song (Leva&rsquo;s polka)&rdquo; <br>12. Hi_Tack &bdquo;Say say say (waiting 4 U)&rdquo; <br>11. Brodka &bdquo;Znam cię na pamięć&rdquo; </p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>10. The Drill &bdquo;The drill&rdquo; <br>9. Akon feat. Eminem &bdquo;Smack that&rdquo; <br>8. Bob Sinclar feat. Gary &bdquo;Nesta&rdquo; Pine &bdquo;Love generation&rdquo; <br>7. BassHunter &bdquo;Boten Anna&rdquo; <br>6. Jamal &bdquo;Policeman&rdquo; <span style="font-size: x-small;">
+    <br>
+  </span>
+  <strong>5. Kalwi &amp; Remi &bdquo;Explosion&rdquo;</strong>
+  <br>
+  <strong>4. Flipsyde feat. Piper &bdquo;Happy birthday&rdquo;</strong>
+  <br>
+  <strong>3. Armand van Helden feat. Tara McDonald &bdquo;My my my 2006&rdquo;</strong>
+  <br>
+  <strong>2. Mezo/Tabb feat. Kasia Wilk &bdquo;Sacrum&rdquo;</strong>
+  <br>
+  <strong>1. Pakito &bdquo;Living on video&rdquo;</strong>
+</p>
+<h3 style='text-align: center;color: rgb(0, 0, 0);background-color: rgb(255, 255, 255);font-size: 24px;font-family: "'><strong>2007</strong></h3>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'><u><strong>Gorąca 100 Radia Eska za rok 2007</strong>&nbsp;</u>&ndash; wyniki głosowania w plebiscycie Radia Eska na przeb&oacute;j roku 2007:</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>100. Minimalistix &bdquo;Whistling drive&rdquo;<br>99. Jeden Osiem L feat. Joanna Bicz &bdquo;Kilka chwil&rdquo;<br>98. Max Farenthide feat. Disco Superstars &bdquo;Slice me nice&rdquo;<br>97. Kasia Cerekwicka &bdquo;S.O.S.&rdquo;<br>96. Kate Ryan &bdquo;Voyage voyage&rdquo;<br>95. Monrose &bdquo;Shame&rdquo;<br>94. Basic Element &bdquo;To you&rdquo;<br>93. Beyonc&eacute;&nbsp;&amp; Shakira &bdquo;Beautiful liar&rdquo;<br>92. Street Parade feat. Maury &bdquo;Respect&rdquo;<br>91. Jay Delano &bdquo;Close to you&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>90. John Marks &bdquo;Insanity&rdquo;<br>89. Gwen Stefani feat. Akon &bdquo;The sweet escape&rdquo;<br>88. Danzel &bdquo;You spin me round (like a record)&rdquo;<br>87. Yves Larock feat. Jaba &bdquo;Rise up&rdquo;<br>86. Linkin Park &bdquo;What I&rsquo;ve done&rdquo;<br>85. DJ Cargo feat. D-Verse &bdquo;Jump to the bass&rdquo;<br>84. Jay Delano &bdquo;Just like me&rdquo;<br>83. Beattrax &bdquo;Project well&rdquo;<br>82. Shaggy feat. Na&rsquo;sha &bdquo;Those days&rdquo;<br>81. Milk Inc. &bdquo;Run&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>80. Bob Sinclar feat. Gary &bdquo;Nesta&rdquo; Pine &amp; Dollarman &bdquo;Sound of freedom&rdquo;<br>79. Mbrother &bdquo;I can&rsquo;t wait no more&rdquo;<br>78. Infernal &bdquo;Ten miles&rdquo;<br>77. Monrose &bdquo;Even heaven cries&rdquo;<br>76. BassHunter &bdquo;Vi sitter i ventrilo och spelar DotA&rdquo;<br>75. Ida Corr vs Fedde Le Grand &bdquo;Let me think about it&rdquo;<br>74. ATB feat. Heather Nova &bdquo;Renegade&rdquo;<br>73. Mezo/Tabb feat. Kasia Wilk &bdquo;Mamy siebie&rdquo;<br>72. Favretto &bdquo;People of the night&rdquo;<br>71. Gwen Stefani &bdquo;4 in the morning&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>70. Defrikz &bdquo;Round and round&rdquo;<br>69. Akon feat. Snoop Dogg &bdquo;I wanna love you&rdquo;<br>68. Verona &bdquo;Ti sento&rdquo;<br>67. Patrycja Markowska &bdquo;Zaćmienie serca&rdquo;<br>66. 4 Strings feat. Tina Cousins &bdquo;Curious&rdquo;<br>65. Fergie feat. Ludacris &bdquo;Glamorous&rdquo;<br>64. Global Deejay vs Technotronic &bdquo;Get up! (before the night is over)&rdquo;<br>63. Monrose &bdquo;Hot summer&rdquo;<br>62. Milk Inc. &bdquo;Sunrise&rdquo;<br>61. Britney Spears &bdquo;Gimme more&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>60. DJ Magic &bdquo;Inside&rdquo;<br>59. M&aring;ns Zelmerl&ouml;w &bdquo;Maniac&rdquo;<br>58. Enrique Iglesias &bdquo;Do you know? (the ping pong song)&rdquo;<br>57. Alchemist Project &bdquo;Viva carnival&rdquo;<br>56. Akon &bdquo;Don&rsquo;t matter&rdquo;<br>55. David Guetta feat. Chris Willis &bdquo;Love is gone&rdquo;<br>54. The Last Goodnight &bdquo;Pictures of you&rdquo;<br>53. September &bdquo;Can&rsquo;t get over&rdquo;<br>52. Łukasz Zagrobelny &bdquo;Nieprawda&rdquo;<br>51. Pakito &bdquo;Are U ready?&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>50. Monrose &bdquo;Strictly physical&rdquo;<br>49. Akcent &bdquo;French kiss&rdquo;<br>48. Akon &bdquo;Sorry, blame it on me&rdquo;<br>47. Infernal &bdquo;I won&rsquo;t be crying&rdquo;<br>46. DJ Magic &bdquo;Cocaine&rdquo;<br>45. Patrycja Markowska &bdquo;Świat się pomylił&rdquo;<br>44. Krist Van D &bdquo;You are the one&rdquo;<br>43. M&aring;ns Zelmerl&ouml;w &bdquo;Cara mia&rdquo;<br>42. Alicia Keys &bdquo;No one&rdquo;<br>41. September &bdquo;Looking for love&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>40. Nelly Furtado feat. Missy Elliott &bdquo;Do it&rdquo;<br>39. DJ Remo feat. Queen Of The Night &bdquo;My music song&rdquo;<br>38. Sean Kingston &bdquo;Beautiful girls&rdquo;<br>37. Sunblock feat. Sandy &bdquo;Baby baby&rdquo;<br>36. Kaye Styles &bdquo;Prison Break anthem&rdquo;<br>35. Alex Gaudino feat. Crystal Waters &bdquo;Destination Calabria&rdquo;<br>34. Łukasz Zagrobelny &bdquo;Życie na czekanie&rdquo;<br>33. Justin Timberlake &bdquo;What goes around&hellip; comes around&rdquo;<br>32. David Guetta feat. Cozi &bdquo;Baby when the light&rdquo;<br>31. Marquess &bdquo;Vayamos companeros&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>30. Yarabi &bdquo;I amar&rdquo;<br>29. Rihanna &bdquo;Shut up and drive&rdquo;<br>28. Alchemist Project feat. Angie &bdquo;Music is my extasy&rdquo;<br>27. Nicole Scherzinger feat. will.i.am &bdquo;Baby love&rdquo;<br>26. John Marks &bdquo;Carnival&rdquo;<br>25. Szymon Wydra &amp; Carpe Diem &bdquo;Jak ja jej to powiem&rdquo;<br>24. Alchemist Project &bdquo;Krishna&rdquo;<br>23. Nelly Furtado &bdquo;All good things (come to an end)&rdquo;<br>22. Natalia Karpa &bdquo;Kalyna&rdquo;<br>21. Fergie &bdquo;Big girls don&rsquo;t cry&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>20. Velvet &bdquo;Fix me&rdquo;<br>19. Feel &bdquo;No pokaż na co cię stać&rdquo;<br>18. Akcent &bdquo;King of disco&rdquo;<br>17. Rihanna &bdquo;Don&rsquo;t stop the music&rdquo;<br>16. Millenium &bdquo;Day after day&rdquo;<br>15. Timbaland feat. Keri Hilson &amp; D.O.E. &bdquo;The way I are&rdquo;<br>14. Yarabi &bdquo;Yarabi&rdquo;<br>13. Nelly Furtado &bdquo;Say it right&rdquo;<br>12. East Clubbers &bdquo;My love&rdquo;<br>11. Sugababes &bdquo;About you now&rdquo;</p>
+<p style='text-align: start;color: rgb(80, 84, 92);background-color: rgb(255, 255, 255);font-size: 15px;font-family: "'>10. September &bdquo;Cry for you&rdquo;<br>9. 50 Cent feat. Justin Timberlake &amp; Timbaland &bdquo;AYO technology&rdquo;<br>8. Bum &bdquo;Kanikuły&rdquo;<br>7. Mika &bdquo;Relax, take it easy&rdquo;<br>6. Shaun Baker feat. MaLoY &bdquo;V.I.P.&rdquo;<span style="font-size: x-small;"><br></span><strong>5. Timbaland feat. Nelly Furtado &amp; Justin Timberlake &bdquo;Give it to me&rdquo;</strong><span style="font-size: x-small;"><br></span><strong>4. Jeckyll &amp; Hyde &bdquo;Freefall&rdquo;</strong><br><strong>3. Rihanna feat. Jay-Z &bdquo;Umbrella&rdquo;</strong><br><strong>2. Feel &bdquo;A gdy jest już ciemno&rdquo;</strong><br><strong>1. Timbaland feat. OneRepublic &bdquo;Apologize&rdquo;</strong></p>
+</div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <div class="w3-xlarge w3-section">
+    <i class="fa-brands fa-facebook w3-hover-opacity"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-snapchat w3-hover-opacity"></i>
+    <i class="fa-brands fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa-brands fa-twitter w3-hover-opacity"></i>
+    <i class="fa-brands fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>
