@@ -1,16 +1,3 @@
-    @import url('https://krdrt5370000ym.github.io/fonts/style-font.css');
-
-    body {
-      font-family: 'Sofia Pro', sans-serif;
-      color: #000000;
-    }
-
-    a:link {
-      color: inherit;
-      background-color: transparent;
-      text-decoration: none;
-    }
-
     .rS__program .rS__image img {
       border: 10px solid #777;
       border-radius: 250px;
