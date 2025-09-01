@@ -85,6 +85,11 @@ body, html {
      text-transform: uppercase;
 }
 
+.songs {
+ font-style: italic;
+ text-transform: uppercase;
+}
+
 .panel {
   display: none;
 }
