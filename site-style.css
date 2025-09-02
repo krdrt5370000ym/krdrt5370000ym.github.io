@@ -35,20 +35,22 @@ body, html {
   text-decoration: none;
 }
 
- .list-table > table {
-     border-collapse: collapse;
-     width: 100%;
-}
- .list-table > tr {
-     height: 36px;
-}
- .list-table > th, td {
-     padding: 8px;
-     text-align: left;
-     border-bottom: 1px solid #DDD;
-}
-  .list-table > tr:hover {
-     background-color: #CCC;
+ .list-table {
+	 table {
+         border-collapse: collapse;
+         width: 100%;
+    }
+     tr {
+         height: 36px;
+    }
+     th, td {
+         padding: 8px;
+         text-align: left;
+         border-bottom: 1px solid #DDD;
+    }
+     tr:hover {
+         background-color: #CCC;
+    }
 }
 
  .boximg {
