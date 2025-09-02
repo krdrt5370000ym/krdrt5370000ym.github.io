@@ -78,6 +78,10 @@ body, html {
 	 text-transform: uppercase;
 }
 
+ .ps_info {
+	  letter-spacing: 5px;
+ }
+
  .ps2_name {
      font-weight: 600;
      font-size: 14px;
