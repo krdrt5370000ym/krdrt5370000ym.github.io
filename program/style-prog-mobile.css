@@ -15,10 +15,9 @@
       width: 314px;
       height: 314px;
       position: absolute;
-      top: -24px;
-      bottom: 0;
-      left: 16px;
-      right: 0;
+      transform: translate(-50%,-50%);
+      left: 50%;
+      top: 50%;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 100%;
     }
@@ -29,10 +28,9 @@
       width: 386px;
       height: 386px;
       position: absolute;
-      top: -60px;
-      bottom: 0;
-      left: -16px;
-      right: 0;
+      transform: translate(-50%,-50%);
+      left: 50%;
+      top: 50%;
       border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 100%;
     }
