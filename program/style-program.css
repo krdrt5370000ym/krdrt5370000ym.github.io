@@ -207,7 +207,10 @@
     }
 
     .radioSchedule {
-      width: 1000px;
+      @media (min-width:850px) {
+      width: 1000px;}
+      @media (max-width:850px) {
+      width: 500px;}
       border: 0px solid #c3c3c3;
       display: flex;
       flex-wrap: wrap;
