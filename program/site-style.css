@@ -4,3 +4,9 @@ body, html {
   color: #777;
   line-height: 1.8;
 }
+
+ a:link {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
