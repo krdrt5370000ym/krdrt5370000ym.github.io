@@ -35,19 +35,19 @@ body, html {
   text-decoration: none;
 }
 
- table {
+ .list-table > table {
      border-collapse: collapse;
      width: 100%;
 }
- tr {
+ .list-table > tr {
      height: 36px;
 }
- th, td {
+ .list-table > th, td {
      padding: 8px;
      text-align: left;
      border-bottom: 1px solid #DDD;
 }
- tr:hover {
+  .list-table > tr:hover {
      background-color: #CCC;
 }
 
