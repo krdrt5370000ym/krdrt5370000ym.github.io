@@ -82,6 +82,10 @@ body, html {
 	  letter-spacing: 5px;
  }
 
+ .ps_top1 {
+    background-color: #c3c3c3;
+}
+
  .ps2_name {
      font-weight: 600;
      font-size: 14px;
