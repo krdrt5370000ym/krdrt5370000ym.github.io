@@ -184,3 +184,51 @@ color: #f70d28;
   position: absolute;
   z-index: 98;
 }
+
+@media (max-width:600px) {
+	div#menusub {
+    width:auto;
+    height:190px;
+}
+div#menusub > div#menuranking {
+    position:relative;
+    top:42px;
+    left:7px;
+    width:auto;
+    height:45px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space: nowrap;
+}
+div#menusub > div#menuranking > div.menulist {
+    display: inline-block;
+    width:67px;
+    height:auto;
+    margin-left:5px;
+    text-align:center;
+    margin:3px;
+    background-color:#c3c3c3;
+}
+}
+@media (min-width:600px) {
+	div#menusub {
+    width:auto;
+    height:190px;
+}
+div#menusub > div#menuranking {
+    position:relative;
+    top:42px;
+    left:7px;
+    width:auto;
+    height:45px;
+}
+div#menusub > div#menuranking > div.menulist {
+    display: inline-block;
+    width:67px;
+    height:auto;
+    margin-left:5px;
+    text-align:center;
+    margin:3px;
+    background-color:#c3c3c3;
+}
+}
