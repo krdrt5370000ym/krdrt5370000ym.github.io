@@ -219,11 +219,13 @@ div#menusub > div#menuranking {
 }
 div#menusub > div#menuranking > div.menulist {
     display: inline-block;
-    width:67px;
+    width:auto;
     height:auto;
     margin-left:5px;
     text-align:center;
     margin:3px;
     background-color:#c3c3c3;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 }
