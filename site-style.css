@@ -197,7 +197,7 @@ div#menusub > div#menuranking {
 }
 div#menusub > div#menuranking > div.menulist {
     display: inline-block;
-    width:67px;
+    width:auto;
     height:auto;
     margin-left:5px;
     text-align:center;
