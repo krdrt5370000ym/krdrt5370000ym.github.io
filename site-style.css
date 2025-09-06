@@ -183,14 +183,14 @@ color: #f70d28;
 @media (max-width:600px) {
 	div#menusub {
     width:auto;
-    height:190px;
+    height:auto;
 }
 div#menusub > div#menuranking {
-    position:relative;
+    position:inherit;
     top:42px;
     left:7px;
     width:auto;
-    height:45px;
+    height:auto;
     overflow-x:auto;
     overflow-y:hidden;
     white-space: nowrap;
@@ -208,14 +208,14 @@ div#menusub > div#menuranking > div.menulist {
 @media (min-width:600px) {
 	div#menusub {
     width:auto;
-    height:190px;
+    height:auto;
 }
 div#menusub > div#menuranking {
-    position:relative;
+    position:inherit;
     top:42px;
     left:7px;
     width:auto;
-    height:45px;
+    height:auto;
 }
 div#menusub > div#menuranking > div.menulist {
     display: inline-block;
