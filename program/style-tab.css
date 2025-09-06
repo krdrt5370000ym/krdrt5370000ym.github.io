@@ -38,6 +38,7 @@
      padding: 6px 12px;
      border: 1px solid #ccc;
      border-top: none;
+     @media (max-width:600px) {ul {font-size: 12px;};}
 }
  .tabcontent.active {
      display: block;
