@@ -16,12 +16,14 @@ var tablinks = Array.prototype.slice.call(document.getElementsByClassName("tabli
 var tabcontent = Array.prototype.slice.call(document.getElementsByClassName("tabcontent"));
 
 function showTodaysSchedule() {
-  var currentDay = new Date().getDay();
+  var currentTZ = new Date().toLocaleString(undefined, {timeZone: "Europe/Warsaw"});
+  var currentDay = new Date(currentTZ).getDay();
   document.getElementById("day-"+currentDay).classList.add('today');    
 }
 
 function showOnAir() {
-  const date = new Date();
+  const TZ = new Date().toLocaleString(undefined, {timeZone: "Europe/Warsaw"});
+  const date = new Date(TZ);
 
   const currentTime = `${String(date.getHours()).padStart(2, "0")}:${String(
     date.getMinutes()
@@ -37,13 +39,7 @@ function showOnAir() {
     const auditionEnd =
       audition.querySelector(".end").textContent + ":00";
 
-    if (auditionEnd > auditionStart) {
-      return currentTime >= auditionStart && currentTime < auditionEnd;
-    } else if (auditionEnd == auditionStart) {
-      return currentTime >= auditionStart && currentTime < auditionEnd;
-    } else {
-      return currentTime >= auditionStart && currentTime < (24 + auditionEnd);
-  }
+    return currentTime >= auditionStart && currentTime < auditionEnd;
   });
   currentAudition?.classList.add("on-air");
 }
@@ -85,7 +81,7 @@ tablinks.forEach(function (tablink, day) {
   })
 })
 
-openDAY((new Date().getDay() || 7) - 1)
+openDAY((new Date(new Date().toLocaleString(undefined, {timeZone: "Europe/Warsaw"})).getDay() || 7) - 1)
 showTodaysSchedule()
 showOnAir()
 setInterval(refreshOnAir, 60000)
