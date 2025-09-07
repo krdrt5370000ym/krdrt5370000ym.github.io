@@ -33,11 +33,12 @@ body, html {
   background-color: inherit; 
   color: black; 
   border: 2px solid #000000;
+  background-color: silver;
 }
 
 .buttons2:hover {
   background-color: #000000;
-  color: silver;
+  color: white;
 }
 
  a:link {
