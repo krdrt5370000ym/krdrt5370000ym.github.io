@@ -29,6 +29,17 @@ body, html {
   color: white;
 }
 
+.buttons2 {
+  background-color: inherit; 
+  color: black; 
+  border: 2px solid #000000;
+}
+
+.buttons2:hover {
+  background-color: #000000;
+  color: silver;
+}
+
  a:link {
   color: inherit;
   background-color: transparent;
