@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Arial';
+    src: url('https://krdrt5370000ym.github.io/fonts/arial.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url('https://krdrt5370000ym.github.io/fonts/arialbd.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url('https://krdrt5370000ym.github.io/fonts/arialbi.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url('https://krdrt5370000ym.github.io/fonts/ariali.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arial';
+    src: url('https://krdrt5370000ym.github.io/fonts/ariblk.ttf');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('https://krdrt5370000ym.github.io/fonts/ARIALN.TTF');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('https://krdrt5370000ym.github.io/fonts/ARIALNB.TTF');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('https://krdrt5370000ym.github.io/fonts/ARIALNBI.TTF');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('https://krdrt5370000ym.github.io/fonts/ARIALNI.TTF');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arial Black';
+    src: url('https://krdrt5370000ym.github.io/fonts/ariblk.ttf');
+    font-weight: normal;
+    font-style: normal;
+}

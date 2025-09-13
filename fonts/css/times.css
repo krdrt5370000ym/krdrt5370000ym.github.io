@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('https://krdrt5370000ym.github.io/fonts/times.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('https://krdrt5370000ym.github.io/fonts/timesbd.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('https://krdrt5370000ym.github.io/fonts/timesbi.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('https://krdrt5370000ym.github.io/fonts/timesi.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
