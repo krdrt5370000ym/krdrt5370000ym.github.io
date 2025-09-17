@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Radio internetowe | krdrt537000ym.github.io</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+<script src="/font-setup.js"></script>
+<link rel="stylesheet" href="/site-style.css">
+</head>
+<body>
+
+<script src="/site-top.js">
+</script>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+<p><a href="https://krdrt5370000ym.github.io/">Strona Główna</a> / Radio</p>
+  <h3 class="w3-center">Radio</h3>
+      <audio controls id="audioplayer">
+         <source preload="none" src="">
+      </audio>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but4" onclick="myFunctionShow()">Pokaż/ukryj</button>
+      <div id="myBtnContainer">
+         <button class="btn active but but3" onclick="filterSelection('all')"> Wszystkie</button>
+         <button class="btn but but3" onclick="filterSelection('[test]')"> Test</button>
+         <button class="but but3" onclick="sortList()">Sortuj</button>
+      </div>
+      <ul id="myUL">
+         <li class="filterDiv [bbc]"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://a.files.bbci.co.uk/ms6/live/3441A116-B12E-4D2F-ACA8-C1984642FA4B/audio/simulcast/hls/nonuk/audio_syndication_low_sbr_v1/cfs/bbc_radio_one.m3u8'">Test 1</a></li>
+         <li class="filterDiv [bbc]"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://a.files.bbci.co.uk/ms6/live/3441A116-B12E-4D2F-ACA8-C1984642FA4B/audio/simulcast/hls/nonuk/audio_syndication_low_sbr_v1/cfs/bbc_radio_two.m3u8'">Test 2</a></li>
+      </ul>
+</div>
+
+<script src="/filter.js"></script>
+<script src="/site-bottom.js">
+</script>
+ 
+<script src="/simple.js"></script>
+
+</body>
+</html>
