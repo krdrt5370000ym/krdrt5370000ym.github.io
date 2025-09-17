@@ -21,6 +21,7 @@
       <audio controls id="audioplayer">
          <source preload="none" src="">
       </audio>
+      <div class="filterradios">
       <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
       <button class="but but4" onclick="myFunctionShow()">Pokaż/ukryj</button>
       <div id="myBtnContainer">
@@ -32,6 +33,7 @@
          <li class="filterDiv [bbc]"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream2.nadaje.com:11141/rdc'">Test 1</a></li>
          <li class="filterDiv [bbc]"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.radiolodz.pl/RadioLodz-1-HQ.aac'">Test 2</a></li>
       </ul>
+      </div>
 </div>
 
 <script src="filters.js"></script>
