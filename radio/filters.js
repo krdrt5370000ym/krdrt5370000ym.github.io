@@ -21,7 +21,7 @@ function filterSelection(c) {
    var x, i;
    x = document.getElementsByClassName("filterDiv");
    document.getElementById('myInput').value = '';
-   myFunction();
+   mySearchFunction();
    if (c == "all") c = "";
    for (i = 0; i < x.length; i++) {
       w3RemoveClass(x[i], "show");
