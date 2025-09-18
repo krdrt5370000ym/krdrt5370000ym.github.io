@@ -273,7 +273,9 @@ div#menusub > div#menuranking > div.menulist {
         text-decoration: none;
         font-size: 16px;
         color: black;
-        display: block
+        display: block;
+        font-weight: 600;
+        text-transform: uppercase;
       }
       
       #myUL li a:hover:not(.header) {
