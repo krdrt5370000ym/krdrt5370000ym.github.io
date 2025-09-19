@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Radio internetowe | krdrt537000ym.github.io</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+<script src="/font-setup.js"></script>
+<link rel="stylesheet" href="/site-style.css">
+</head>
+<body>
+
+<script src="/site-top.js">
+</script>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+<p><a href="https://krdrt5370000ym.github.io/">Strona Główna</a> / <a href="https://krdrt5370000ym.github.io/radio">Radio</a> / Ogólnopolskie</p>
+  <h3 class="w3-center">Ogólnopolskie</h3>
+  <script src="site-radiomenu.js">
+  </script>
+      <audio style="display:none;" id="audioplayer" controls>
+         <source preload="none" src="">
+      </audio>
+      <div class="filterradios">
+      <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Szukaj.." title="Wpisz nazwę">
+      <button class="but but4" onclick="myFunctionShow()">Pokaż/ukryj</button>
+      <div id="myBtnContainer">
+         <button class="btn active but but3" onclick="filterSelection('all')">Wszystkie</button>
+         <button class="but but3" onclick="sortList()">Sortuj</button>
+      </div>
+      <ul id="myUL">
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://player.legnica.fm/listen/radio_plus_legnica/radio128.mp3'">Legnica FM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/yxv344rra2zuv'">Radio ONY</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/94fud6a6z72vv'">Radio RSC 88,6 FM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/x6bhu8a6z72vv'">RSC Dance</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.v4.radiovictoria.pl:8076/;'">Radio Victoria</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream11.polskieradio.pl/pr1/pr1.sdp/playlist.m3u8'">PR Jedynka</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream12.polskieradio.pl/pr2/pr2.sdp/playlist.m3u8'">PR Dwójka</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream13.polskieradio.pl/pr3/pr3.sdp/playlist.m3u8'">PR Trójka</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream14.polskieradio.pl/pr4/pr4.sdp/playlist.m3u8'">PR Czwórka</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream15.polskieradio.pl/pr24/pr24.sdp/playlist.m3u8'">PR Polskie Radio 24</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://fastcast4u.com/player/radiomaryja/radiomaryja.php'">Radio Maryja</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream4.nadaje.com:8625/mcradio'">Radio MC</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.radiolodz.pl/RadioLodz-1-HQ.aac'">Radio Łódź</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream2.nadaje.com:11141/rdc'">Radio RDC</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/cvswvmyewzzuv'">Disco Radio</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/0004tehdxzzuv'">Radio Nuta</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/q18ty3qhwzzuv'">Mega Radio</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.radiosochaczew.pl/streamq/index.html?sid=1'">Radio Sochaczew</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/gzwc1xcq042vv'">Muzyczne Radio</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://hotfm-przemysl.pl:8443/hotfm128.mp3'">HOT FM Przemyśl</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://88.199.169.10:7600/rn.mp3'">Radio Niepokalanów</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream4.nadaje.com:15275/live'">Radio Parada</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://rs103-krk.rmfstream.pl/radio_gra'">Radio Gra Toruń</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/ye5kghkgcm0uv'">Radio 357</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream4.nadaje.com:13771/'">Radio Fama Żyrardów</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://sluchaj.link:5443/plonsk'">Radio Płońsk</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://sluchaj.link:5443/popradio'">Radio POP</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://sluchaj.link:5443/nastoku'">Radio Na Stoku 94,8 FM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://sluchaj.link:5443/wasze'">Wasze Radio</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://sluchaj2.radiopark.biz.pl:8443/stream'">Radio Park</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://play.radiofest.pl:8443/fest'">Radio Fest</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3'">InterStacja - Kanał Główny</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18274/;stream.mp3'">InterStacja - Disco Polo</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18268/;stream.mp3'">InterStacja - Club</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18180/;stream.mp3'">InterStacja - Eurodance</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18410/;stream.mp3'">InterStacja - Najnowsze Hity</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18290/;stream.mp3'">InterStacja - Oldies</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://cast.tunzilla.com/http://4stream.pl:18254/;stream.mp3'">InterStacja - Polskie Hity</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/7vhveccrnquvv'">Radio Yanosik</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/whxxccsdp7uvv'">Radio Yanosik Rock</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/s4exa6c6y33vv'">Radio Yanosik EDM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/8fqn8rr6ktuvv'">Radio Yanosik Love</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/4r4nzs58rquvv'">Radio Yanosik Road</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/uwey4ye0gfcwv'">Radio Yanosik '80s</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.zeno.fm/6vvk1umgs7zuv'">ViceFM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.zeno.fm/cdmhcpwy1f9uv'">LicznikFM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.zeno.fm/sgzg9sfq1zhvv'">RADIO 100</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://ssl-1.radiotvrepublika.pl:8000/stream'">Radio Republika (Kanał Główny)</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://ssl-2.radiotvrepublika.pl:8024/stream'">Radio Republika (Kanał Muzyczny)</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://stream.rcs.revma.com/prfmwmwy768uv'">Polish Radio London</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://s.radiors.pl/stream128'">RadioRS.pl - Kanał Główny</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://s.radiors.pl/edm'">RadioRS.pl - Kanał EDM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://play.radioftb.net:8000/stream'">Radio FTB - Club</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://play.radioftb.net:8022/stream'">Radio FTB - Disco</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://play.radioftb.net:8008/stream'">Radio FTB - Flash FM</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://play.radioftb.net:8028/stream'">Radio FTB - Trance</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://play.radioftb.net:8016/stream'">Radio FTB - Retro DJ</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8000/RadioMbox128'">Radio MBOX - Kanał Główny</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8030/DiscoPolo128kbps'">Radio MBOX - Disco Polo</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8040/GoldHits128kbps'">Radio MBOX - Gold Hit's</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8070/Club128kbps'">Radio MBOX - Club</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8090/Rock128kbps'">Radio MBOX - Rock'n'Roll</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8050/RnbHH128kbps'">Radio MBOX - RNB & Rap</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8100/Chill128kbps'">Radio MBOX - Chillout</a></li>
+         <li class="filterDiv"><a href="#" onclick="var radio = document.getElementById('audioplayer');radio.style='display:initial';radio.src='https://panel.radiombox.pl/radio/8060/Pol128kbps'">Radio MBOX - Polska Muzyka</a></li>
+      </ul>
+      </div>
+</div>
+
+<script src="/site-bottom.js">
+</script>
+ 
+<script src="/simple.js"></script>
+<script src="filters.js"></script>
+  
+</body>
+</html>
