@@ -8,19 +8,12 @@
 <link rel="stylesheet" href="/style.css">
 <script src="/font-setup.js"></script>
 <link rel="stylesheet" href="/site-style.css">
+<link rel="stylesheet" href="/songsplayed.css">
 </head>
 <body>
 
 <script src="/site-top.js">
 </script>
-
-<style>
-[data-audio]{cursor:pointer;}
-[data-audio].pause{color: #0ac;}
-/*https://fortawesome.github.io/Font-Awesome/cheatsheet/*/
-[data-audio]:before{content:"\f144";}
-[data-audio].pause:before{content:"\f28b";}
-</style>
 
 <!-- Container (About Section) -->
 <div class="w3-content w3-container w3-padding-64" id="about">
@@ -144,24 +137,7 @@
 <script src="/site-bottom.js">
 </script>
 
- <script>
-;/*SIMPLE AUDIO PLAYER*/(() => {
-  // https://stackoverflow.com/a/34487069/383904
-  const AUD = new Audio(),
-      BTNS = document.querySelectorAll("[data-audio]");
-  
-  function playPause() {
-    const src = this.dataset.audio;
-    if (AUD.src != src) AUD.src = src;
-    AUD[AUD.paused ? "play" : "pause"]();
-    BTNS.forEach(el => el.classList.remove("pause"));
-    this.classList.toggle("pause", !AUD.paused);
-  }
-  
-  AUD.addEventListener("ended", playPause);
-  BTNS.forEach(el => el.addEventListener("click", playPause));
-})();
-</script>
+<script src="/songsplayed.js"></script>
 <script src="/simple.js"></script>
 
 </body>
