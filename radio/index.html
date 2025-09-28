@@ -27,9 +27,6 @@
 <source type="" src="">
 </audio>
 <script>
-document.getElementById('playerid_play').style='display:none';
-document.getElementById('playerid_pause').style='display:none';
-  
 function ChannelsPlayer(my_src,my_type) {
 document.body.scrollTop=0;
 document.documentElement.scrollTop=0;
@@ -52,7 +49,7 @@ document.getElementById('playerid_play').style='display:initial';
 document.getElementById('playerid_pause').style='display:none';
 }
 </script>
-<a id="playerid_play" href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
+<a id="playerid_play" style="display:none' href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" style="display:none' href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
       <h2 class="w3-center">Ulubione</h2>
      <div class="list-table">
      <table style="width:100%">
@@ -685,6 +682,7 @@ document.getElementById('playerid_pause').style='display:none';
 
 </body>
 </html>
+
 
 
 
