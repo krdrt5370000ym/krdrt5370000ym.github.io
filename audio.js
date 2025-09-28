@@ -1,8 +1,8 @@
-function ChannelsPlayer(my_src,my_type,my_text) {
+function ChannelsPlayer(playerid_src,playerid_type,playerid_text) {
 document.body.scrollTop=0;
 document.documentElement.scrollTop=0;
 const player = videojs('hls-example');
-player.src({src:my_src,type:my_type});
+player.src({src:playerid_src,type:playerid_type});
 player.play();
 document.getElementById('playerid_play').style='display:none;font-size:48px;';
 document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
