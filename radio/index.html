@@ -27,23 +27,32 @@
 <source type="" src="">
 </audio>
 <script>
+playerid_play.hide();
+playerid_pause.hide();
+  
 function ChannelsPlayer(my_src,my_type) {
 document.body.scrollTop=0;
 document.documentElement.scrollTop=0;
 const player = videojs('hls-example');
 player.src({src:my_src,type:my_type});
 player.play();
+playerid_play.hide();
+playerid_pause.show();
 }
 function PlayedPlayer() {
 const player = videojs('hls-example');
 player.play();
+playerid_play.hide();
+playerid_pause.show();
 }
 function StoppedPlayer() {
 const player = videojs('hls-example');
 player.pause();
+playerid_play.show();
+playerid_pause.hide();
 }
 </script>
-<a href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
+<a id="playerid_play" href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
       <h2 class="w3-center">Ulubione</h2>
      <div class="list-table">
      <table style="width:100%">
@@ -676,6 +685,7 @@ player.pause();
 
 </body>
 </html>
+
 
 
 
