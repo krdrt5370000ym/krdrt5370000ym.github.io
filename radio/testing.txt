@@ -4,7 +4,7 @@
 
 <!-- HTML -->
 <video style="display:none;" id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
-<source type="application/x-mpegURL" src="https://liveradio.timesa.pl/6260-1.aac/playlist.m3u8">
+<source type="" src="">
 </video>
 
 
@@ -15,9 +15,38 @@
 <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
 
 <script>
-var player = videojs('hls-example');
+
+var songplaying = null
+
+function RTRE(my_src,my_type) {
+var playing = null;
+if(songplaying==null){
+playing = false;
+}else{
+playing = true;
+}
+player = videojs('hls-example');
+mysrc = player.src({src:my_src,type:my_type});
+if(!playing){
 player.play();
+songplaying=player;
+}else{
+var song_alredyplaying = songplaying;
+song_alredyplaying.pause();
+player.play();
+songplaying=player;
+}
+}
+
 </script>
 
-<a href="#" onclick="let test1 = 'https://liveradio.timesa.pl/6270-1.aac/playlist.m3u8';let test2 = 'application/x-mpegURL';var player = videojs('hls-example');var mysrc = player.src({src:test1,type:test2});if(player.paused()){mysrc;player.play();} else {player.pause();}">Play</a>
-<a href="#" onclick="let test1 = 'https://liveradio.timesa.pl/6280-1.aac/playlist.m3u8';let test2 = 'application/x-mpegURL';var player = videojs('hls-example');var mysrc = player.src({src:test1,type:test2});if(player.paused()){mysrc;player.play();} else {player.pause();}">Play</a>
+<a href="#" onclick="RTRE('https://liveradio.timesa.pl/6250-1.aac/playlist.m3u8','application/x-mpegURL')">RTRE1</a>
+<a href="#" onclick="RTRE('https://liveradio.timesa.pl/6260-1.aac/playlist.m3u8','application/x-mpegURL')">RTRE2</a>
+
+<!--<script>
+var player = videojs('hls-example');
+player.play();
+</script>-->
+
+<!--<a href="#" onclick="test1 = 'https://liveradio.timesa.pl/5980-1.aac/playlist.m3u8';test2 = 'application/x-mpegURL';player = videojs('hls-example');mysrc = player.src({src:test1,type:test2});if(player.paused()){player.play();} else if (test1=mysrc) {player.pause();}">Play</a>
+<a href="#" onclick="test1 = 'https://liveradio.timesa.pl/6280-1.aac/playlist.m3u8';test2 = 'application/x-mpegURL';player = videojs('hls-example');mysrc = player.src({src:test1,type:test2});if(player.paused()){player.play();} else if (test1=mysrc) {player.pause();}">Play</a>-->
