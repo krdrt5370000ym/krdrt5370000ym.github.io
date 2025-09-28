@@ -19,4 +19,5 @@ var player = videojs('hls-example');
 player.play();
 </script>
 
-<a href="#" onclick="var player = videojs('hls-example');var mysrc = player.src({src:'https://liveradio.timesa.pl/6250-1.aac/playlist.m3u8',type:'application/x-mpegURL'});if(player.paused()){mysrc;player.play();} else {player.pause();}">Play</a>
+<a href="#" onclick="let test1 = 'https://liveradio.timesa.pl/6270-1.aac/playlist.m3u8';let test2 = 'application/x-mpegURL';var player = videojs('hls-example');var mysrc = player.src({src:test1,type:test2});if(player.paused()){mysrc;player.play();} else {player.pause();}">Play</a>
+<a href="#" onclick="let test1 = 'https://liveradio.timesa.pl/6280-1.aac/playlist.m3u8';let test2 = 'application/x-mpegURL';var player = videojs('hls-example');var mysrc = player.src({src:test1,type:test2});if(player.paused()){mysrc;player.play();} else {player.pause();}">Play</a>
