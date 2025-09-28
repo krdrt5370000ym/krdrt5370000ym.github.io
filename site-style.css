@@ -68,6 +68,7 @@ body, html {
 .playerid_distext {
   margin: 15px;
   text-transform: uppercase;
+  display: inline-block;
 }
 
  .boximg {
