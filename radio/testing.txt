@@ -3,7 +3,7 @@
 
 
 <!-- HTML -->
-<video id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
+<video style="display:none;" id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
 <source type="application/x-mpegURL" src="https://liveradio.timesa.pl/6260-1.aac/playlist.m3u8">
 </video>
 
