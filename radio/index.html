@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/style.css">
 <script src="/font-setup.js"></script>
 <link rel="stylesheet" href="/site-style.css">
-  <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
 <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
 </head>
@@ -26,29 +26,6 @@
 <audio style="display:none;" id='hls-example' class="video-js vjs-default-skin" width="400" height="300" controls>
 <source type="" src="">
 </audio>
-<script>
-function ChannelsPlayer(my_src,my_type) {
-document.body.scrollTop=0;
-document.documentElement.scrollTop=0;
-const player = videojs('hls-example');
-player.src({src:my_src,type:my_type});
-player.play();
-document.getElementById('playerid_play').style='display:none;font-size:48px;';
-document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
-}
-function PlayedPlayer() {
-const player = videojs('hls-example');
-player.play();
-document.getElementById('playerid_play').style='display:none;font-size:48px;';
-document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
-}
-function StoppedPlayer() {
-const player = videojs('hls-example');
-player.pause();
-document.getElementById('playerid_play').style='display:initial;font-size:48px;';
-document.getElementById('playerid_pause').style='display:none;font-size:48px;';
-}
-</script>
 <a id="playerid_play" style="display:none;font-size:48px;' href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" style="display:none;font-size:48px;' href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
       <h2 class="w3-center">Ulubione</h2>
      <div class="list-table">
@@ -677,10 +654,9 @@ document.getElementById('playerid_pause').style='display:none;font-size:48px;';
   
 <script src="/site-bottom.js">
 </script>
- 
+
+<script src="/audio.js"></script>
 <script src="/simple.js"></script>
 
 </body>
 </html>
-
-
