@@ -1,6 +1,7 @@
 function ChannelsPlayer(playerid_src,playerid_type,playerid_text) {
 document.body.scrollTop=0;
 document.documentElement.scrollTop=0;
+document.getElementById("playerid_texts").innerHTML = playerid_text;
 const player = videojs('hls-example');
 player.src({src:playerid_src,type:playerid_type});
 player.play();
