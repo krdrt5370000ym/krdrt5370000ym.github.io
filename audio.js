@@ -1,4 +1,4 @@
-function ChannelsPlayer(my_src,my_type) {
+function ChannelsPlayer(my_src,my_type,my_text) {
 document.body.scrollTop=0;
 document.documentElement.scrollTop=0;
 const player = videojs('hls-example');
