@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="/style.css">
 <script src="/font-setup.js"></script>
 <link rel="stylesheet" href="/site-style.css">
+  <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+<script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
 </head>
 <body>
 
@@ -20,9 +23,27 @@
   <h3 class="w3-center">Radio</h3>
   <script src="site-radiomenu.js">
   </script>
-      <audio style="display:none;" id="player" controls>
-         <source src="">
-      </audio>
+<audio style="display:none;" id='hls-example' class="video-js vjs-default-skin" width="400" height="300" controls>
+<source type="" src="">
+</audio>
+<script>
+function ChannelsPlayer(my_src,my_type) {
+const player = videojs('hls-example');
+mysrc = player.src({src:my_src,type:my_type});
+player.play();
+  document.body.scrollTop=0;
+  document.documentElement.scrollTop=0;
+}
+function PlayedPlayer() {
+const player = videojs('hls-example');
+player.play();
+}
+function StoppedPlayer() {
+const player = videojs('hls-example');
+player.pause();
+}
+</script>
+<a href="#" onclick="PlayedPlayer()">Play</a>, <a href="#" onclick="StoppedPlayer()">Pause</a>
       <h2 class="w3-center">Ulubione</h2>
      <div class="list-table">
      <table style="width:100%">
@@ -56,7 +77,7 @@
          </tr>
          <tr>
             <td>
-               <span class="ps2_name"><a href="#" onclick="document.getElementById('player').src='https://liveradio.timesa.pl/2380-1.aac/playlist.m3u8';document.getElementById('player').style='display:initial';document.body.scrollTop=0;document.documentElement.scrollTop=0;">Radio ESKA Warszawa</a></span>
+               <span class="ps2_name"><a href="#" onclick="ChannelsPlayer('https://liveradio.timesa.pl/2380-1.aac/playlist.m3u8','application/x-mpegURL')">Radio ESKA Warszawa</a></span>
             </td>
          </tr>
          <tr>
@@ -655,3 +676,4 @@
 
 </body>
 </html>
+
