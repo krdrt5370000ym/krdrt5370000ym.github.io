@@ -33,23 +33,23 @@ document.documentElement.scrollTop=0;
 const player = videojs('hls-example');
 player.src({src:my_src,type:my_type});
 player.play();
-document.getElementById('playerid_play').style='display:none';
-document.getElementById('playerid_pause').style='display:initial';
+document.getElementById('playerid_play').style='display:none;font-size:48px;';
+document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
 }
 function PlayedPlayer() {
 const player = videojs('hls-example');
 player.play();
-document.getElementById('playerid_play').style='display:none';
-document.getElementById('playerid_pause').style='display:initial';
+document.getElementById('playerid_play').style='display:none;font-size:48px;';
+document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
 }
 function StoppedPlayer() {
 const player = videojs('hls-example');
 player.pause();
-document.getElementById('playerid_play').style='display:initial';
-document.getElementById('playerid_pause').style='display:none';
+document.getElementById('playerid_play').style='display:initial;font-size:48px;';
+document.getElementById('playerid_pause').style='display:none;font-size:48px;';
 }
 </script>
-<a id="playerid_play" style="display:none' href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" style="display:none' href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
+<a id="playerid_play" style="display:none;font-size:48px;' href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" style="display:none;font-size:48px;' href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
       <h2 class="w3-center">Ulubione</h2>
      <div class="list-table">
      <table style="width:100%">
@@ -682,6 +682,7 @@ document.getElementById('playerid_pause').style='display:none';
 
 </body>
 </html>
+
 
 
 
