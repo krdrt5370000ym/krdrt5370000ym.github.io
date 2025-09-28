@@ -28,11 +28,11 @@
 </audio>
 <script>
 function ChannelsPlayer(my_src,my_type) {
+  document.body.scrollTop=0;
+  document.documentElement.scrollTop=0;
 const player = videojs('hls-example');
 mysrc = player.src({src:my_src,type:my_type});
 player.play();
-  document.body.scrollTop=0;
-  document.documentElement.scrollTop=0;
 }
 function PlayedPlayer() {
 const player = videojs('hls-example');
@@ -676,4 +676,5 @@ player.pause();
 
 </body>
 </html>
+
 
