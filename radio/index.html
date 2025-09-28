@@ -27,8 +27,8 @@
 <source type="" src="">
 </audio>
 <script>
-playerid_play.hide();
-playerid_pause.hide();
+document.getElementById('playerid_play').style='display:none';
+document.getElementById('playerid_pause').style='display:none';
   
 function ChannelsPlayer(my_src,my_type) {
 document.body.scrollTop=0;
@@ -36,20 +36,20 @@ document.documentElement.scrollTop=0;
 const player = videojs('hls-example');
 player.src({src:my_src,type:my_type});
 player.play();
-playerid_play.hide();
-playerid_pause.show();
+document.getElementById('playerid_play').style='display:none';
+document.getElementById('playerid_pause').style='display:initial';
 }
 function PlayedPlayer() {
 const player = videojs('hls-example');
 player.play();
-playerid_play.hide();
-playerid_pause.show();
+document.getElementById('playerid_play').style='display:none';
+document.getElementById('playerid_pause').style='display:initial';
 }
 function StoppedPlayer() {
 const player = videojs('hls-example');
 player.pause();
-playerid_play.show();
-playerid_pause.hide();
+document.getElementById('playerid_play').style='display:initial';
+document.getElementById('playerid_pause').style='display:none';
 }
 </script>
 <a id="playerid_play" href="#" onclick="PlayedPlayer()"><i class="fa-solid fa-circle-play fa-48xs"></i></a><a id="playerid_pause" href="#" onclick="StoppedPlayer()"><i class="fa-solid fa-circle-pause fa-48xs"></i></a>
@@ -685,6 +685,7 @@ playerid_pause.hide();
 
 </body>
 </html>
+
 
 
 
