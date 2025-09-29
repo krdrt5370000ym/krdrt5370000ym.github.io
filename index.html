@@ -625,7 +625,7 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Plus</h2>
       <div class="panel">
-      <select onchange="document.body.scrollTop=0;document.documentElement.scrollTop=0;playerid_src=event.target.options[event.target.selectedIndex].dataset.value;playerid_type=event.target.options[event.target.selectedIndex].dataset.type;playerid_text;event.target.options[event.target.selectedIndex].text;document.getElementById('playerid_texts').innerHTML = playerid_text;const player = videojs('hls-example');player.src({src:playerid_src,type:playerid_type});player.play();" style="margin: 7px auto; width: 250px;">
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
          <option value="21" data-value="https://liveradio.timesa.pl/4990-1.aac/playlist.m3u8" date-type="application/x-mpegURL">Radio Plus</option>
          <option value="21" data-value="https://pl.cdn.eurozet.pl/plu-bdg.mp3" date-type="audio/mpeg">Bydgoszcz</option>
          <option value="21" data-value="https://pl.cdn.eurozet.pl/plu-gdn.mp3" date-type="audio/mpeg">Gdańsk</option>
@@ -779,4 +779,5 @@
 
 </body>
 </html>
+
 
