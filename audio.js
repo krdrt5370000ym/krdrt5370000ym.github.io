@@ -10,8 +10,6 @@ document.getElementById('playerid_pause').style='display:initial;font-size:48px;
 }
 
 function SelectedChaPlayer() {
-document.body.scrollTop=0;
-document.documentElement.scrollTop=0;
 playerid_src=event.target.options[event.target.selectedIndex].dataset.value;
 playerid_type=event.target.options[event.target.selectedIndex].dataset.type;
 playerid_text;event.target.options[event.target.selectedIndex].text;
@@ -21,6 +19,8 @@ player.src({src:playerid_src,type:playerid_type});
 player.play();
 document.getElementById('playerid_play').style='display:none;font-size:48px;';
 document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
+document.body.scrollTop=0;
+document.documentElement.scrollTop=0;
 }
 
 function PlayedPlayer() {
