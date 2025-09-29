@@ -625,7 +625,7 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Plus</h2>
       <div class="panel">
-      <select onchange="playerid_src=event.target.options[event.target.selectedIndex].dataset.value;playerid_type=event.target.options[event.target.selectedIndex].dataset.type;const player = videojs('hls-example');player.src({src:playerid_src,type:playerid_type});" style="margin: 7px auto; width: 250px;">
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
          <option value="21" data-value="https://liveradio.timesa.pl/4990-1.aac/playlist.m3u8" date-type="application/x-mpegURL">Radio Plus</option>
          <option value="21" data-value="https://pl.cdn.eurozet.pl/plu-bdg.mp3" date-type="audio/mpeg">Bydgoszcz</option>
          <option value="21" data-value="https://pl.cdn.eurozet.pl/plu-gdn.mp3" date-type="audio/mpeg">Gdańsk</option>
@@ -643,7 +643,7 @@
          <option value="21" data-value="https://pl.cdn.eurozet.pl/plu-waw.mp3" date-type="audio/mpeg">Warszawa</option>
          <option value="21" data-value="https://pl.cdn.eurozet.pl/plu-zgr.mp3" date-type="audio/mpeg">Zielona Góra</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('radio-plus').src='https://liveradio.timesa.pl/4990-1.aac/playlist.m3u8';document.getElementById('radio-plus').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://liveradio.timesa.pl/4990-1.aac/playlist.m3u8','audio/mpeg','Radio Plus')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/radioplus">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/radioplus">▶ Podcasty</a></button><br>
@@ -778,3 +778,4 @@
 
 </body>
 </html>
+
