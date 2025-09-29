@@ -1,7 +1,7 @@
 function ChannelsPlayer(playerid_src,playerid_type,playerid_text) {
 document.body.scrollTop=0;
 document.documentElement.scrollTop=0;
-document.getElementById("playerid_texts").innerHTML = playerid_text;
+document.getElementById('playerid_texts').innerHTML = playerid_text;
 const player = videojs('hls-example');
 player.src({src:playerid_src,type:playerid_type});
 player.play();
@@ -15,7 +15,7 @@ document.documentElement.scrollTop=0;
 playerid_src=event.target.options[event.target.selectedIndex].dataset.value;
 playerid_type=event.target.options[event.target.selectedIndex].dataset.type;
 playerid_text;event.target.options[event.target.selectedIndex].text;
-document.getElementById("playerid_texts").innerHTML = playerid_text;
+document.getElementById('playerid_texts').innerHTML = playerid_text;
 const player = videojs('hls-example');
 player.src({src:playerid_src,type:playerid_type});
 player.play();
