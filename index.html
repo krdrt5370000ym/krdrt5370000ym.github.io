@@ -427,9 +427,9 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Złote Przeboje</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('zloteprzeboje').src=this.options[this.selectedIndex].value;document.getElementById('zloteprzeboje').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">Złote Przeboje</option>
-         <option value="21" data-value="https://hub.radiostream.pl/stream.pls?radio=9&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Złote Przeboje (serwer #2)</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www" data-type="audio/mpeg" data-name="">Złote Przeboje</option>
+         <option value="21" data-value="https://hub.radiostream.pl/stream.pls?radio=9&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true" data-type="audio/mpeg" data-name="">Złote Przeboje (serwer #2)</option>
          <option value="21" data-value="https://radiostream.pl/tuba8900-1.mp3" data-type="audio/mpeg" data-name="">Białystok</option>
          <option value="21" data-value="https://radiostream.pl/tuba8902-1.mp3" data-type="audio/mpeg" data-name="">Bydgoszcz</option>
          <option value="21" data-value="https://radiostream.pl/tuba8946-1.mp3" data-type="audio/mpeg" data-name="">Bieszczady</option>
@@ -455,7 +455,7 @@
          <option value="21" data-value="https://radiostream.pl/tuba8942-1.mp3" data-type="audio/mpeg" data-name="">Zamość</option>
          <option value="21" data-value="https://radiostream.pl/tuba8944-1.mp3" data-type="audio/mpeg" data-name="">Zielona Góra</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('zloteprzeboje').src='https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www';document.getElementById('zloteprzeboje').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www','audio/mpeg','Radio Pogoda')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/zloteprzeboje">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/zloteprzeboje">▶ Podcasty</a></button><br>
@@ -467,19 +467,19 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Pogoda</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('radio-pogoda').src=this.options[this.selectedIndex].value;document.getElementById('radio-pogoda').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_POGODA.mp3?dist=gra_www">Radio Pogoda</option>
-         <option value="21" data-value="https://hub.radiostream.pl/stream.pls?radio=38&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Radio Pogoda (serwer #2)</option>
-         <option value="21" data-value="https://radiostream.pl/tuba143-1.mp3" data-type="audio/mpeg" data-name="">Bydgoszcz</option>
-         <option value="21" data-value="https://radiostream.pl/tuba145-1.mp3" data-type="audio/mpeg" data-name="">Gdańsk</option>
-         <option value="21" data-value="https://radiostream.pl/tuba144-1.mp3" data-type="audio/mpeg" data-name="">Katowice</option>
-         <option value="21" data-value="https://radiostream.pl/tuba139-1.mp3" data-type="audio/mpeg" data-name="">Kraków</option>
-         <option value="21" data-value="https://radiostream.pl/tuba141-1.mp3" data-type="audio/mpeg" data-name="">Opole</option>
-         <option value="21" data-value="https://radiostream.pl/tuba138-1.mp3" data-type="audio/mpeg" data-name="">Poznań</option>
-         <option value="21" data-value="https://radiostream.pl/tuba140-1.mp3" data-type="audio/mpeg" data-name="">Warszawa</option>
-         <option value="21" data-value="https://radiostream.pl/tuba142-1.mp3" data-type="audio/mpeg" data-name="">Wrocław</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_POGODA.mp3?dist=gra_www" data-type="audio/mpeg" data-name="">Radio Pogoda</option>
+         <option value="21" data-value="https://hub.radiostream.pl/stream.pls?radio=38&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true" data-type="audio/mpeg" data-name="">Radio Pogoda (serwer #2)</option>
+         <option value="21" data-value="https://radiostream.pl/tuba143-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Bydgoszcz</option>
+         <option value="21" data-value="https://radiostream.pl/tuba145-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Gdańsk</option>
+         <option value="21" data-value="https://radiostream.pl/tuba144-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Katowice</option>
+         <option value="21" data-value="https://radiostream.pl/tuba139-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Kraków</option>
+         <option value="21" data-value="https://radiostream.pl/tuba141-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Opole</option>
+         <option value="21" data-value="https://radiostream.pl/tuba138-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Poznań</option>
+         <option value="21" data-value="https://radiostream.pl/tuba140-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Warszawa</option>
+         <option value="21" data-value="https://radiostream.pl/tuba142-1.mp3" data-type="audio/mpeg" data-name="Radio Pogoda ">Wrocław</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('radio-pogoda').src='https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_POGODA.mp3?dist=gra_www';document.getElementById('radio-pogoda').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_POGODA.mp3?dist=gra_www','audio/mpeg','Radio Pogoda')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/radiopogoda">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/radiopogoda">▶ Podcasty</a></button><br>
@@ -490,10 +490,10 @@
 	  <hr>
       <h2 class="w3-center accordion">RMF Classic</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('rmf-classic').src=this.options[this.selectedIndex].value;document.getElementById('rmf-classic').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic">RMF Classic</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic" data-type="audio/mpeg" data-name="">RMF Classic</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('rmf-classic').src='https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic';document.getElementById('rmf-classic').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic','audio/mpeg','RMF Classic')">Włącz radio</button>
 	  <br>
       <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/rmf-classic">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/rmf-classic">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/radio/ramowka">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/podcasty">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/120191531356609">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:126622263">📞 12 6622263</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/radio/programy">📻 Programy</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/radio/ludzie">🧍 Ludzie</a></button><br>
@@ -504,61 +504,60 @@
 	  <hr>
       <h2 class="w3-center accordion">VOX FM</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('vox-fm').src=this.options[this.selectedIndex].value;document.getElementById('vox-fm').style='display:initial';" style="margin: 7px auto; width: 250px;">
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
     <option value="21" data-value="https://liveradio.timesa.pl/3980-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">VOX w Rytmie Hitów</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Biała Podlaska</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Białystok</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Bielsko-Biała</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Bydgoszcz</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Częstochowa</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Elbląg</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Gdańsk</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Gdynia</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3040-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Gorzów Wielkopolski</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Grudziądz</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Jelenia Góra</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Kalisz</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Katowice</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Kielce</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Koszalin</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Konin</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Kraków</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Krosno</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Legnica</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Leszno</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Lublin</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Łomża</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Łódź</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Nowy Sącz</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Olsztyn</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Opole</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Ostrołęka</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Piotrków Trybunalski</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Płock</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3140-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Poznań</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Przemyśl</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3210-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Radom</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Rzeszów</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Siedlce</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Suwałki</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Szczecin</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Tarnobrzeg</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Tarnów</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Toruń</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Tychy</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Wałbrzych</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Warszawa</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Włocławek</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Wrocław</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Zamość</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">Zielona Góra</option>
-         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">VOX Zielona Góra</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Biała Podlaska</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Białystok</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Bielsko-Biała</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Bydgoszcz</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Częstochowa</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Elbląg</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Gdańsk</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Gdynia</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3040-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Gorzów Wielkopolski</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Grudziądz</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Jelenia Góra</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Kalisz</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Katowice</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Kielce</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Koszalin</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Konin</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Kraków</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Krosno</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Legnica</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Leszno</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Lublin</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Łomża</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Łódź</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Nowy Sącz</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Olsztyn</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Opole</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Ostrołęka</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Piotrków Trybunalski</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Płock</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3140-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Poznań</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Przemyśl</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3210-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Radom</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Rzeszów</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Siedlce</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Suwałki</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Szczecin</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Tarnobrzeg</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Tarnów</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Toruń</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Tychy</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Wałbrzych</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Warszawa</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Włocławek</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Wrocław</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Zamość</option>
+         <option value="21" data-value="https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="VOX ">Zielona Góra</option>
          <option value="21" data-value="https://liveradio.timesa.pl/6080-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">VOX FM Best lista 2024</option>
          <option value="21" data-value="https://liveradio.timesa.pl/6100-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">VOX Best Lista</option>
          <option value="21" data-value="https://liveradio.timesa.pl/6020-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">VOX DJ Mix</option>
          <option value="21" data-value="https://liveradio.timesa.pl/6180-1.aac/playlist.m3u8" data-type="application/x-mpegURL" data-name="">VOX Dance</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('vox-fm').src='https://liveradio.timesa.pl/3980-1.aac/playlist.m3u8';document.getElementById('vox-fm').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://liveradio.timesa.pl/3980-1.aac/playlist.m3u8','application/x-mpegURL','VOX w Rytmie Hitów')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/voxfm">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/voxfm">▶ Podcasty</a></button><br>
@@ -779,6 +778,7 @@
 
 </body>
 </html>
+
 
 
 
