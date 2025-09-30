@@ -25,6 +25,7 @@ document.getElementById('playerid_pause').style='display:initial;font-size:48px;
 }
 
 function AudioChaPlayer() {
+const player = videojs('hls-example');
 player.play();
 document.getElementById('playerid_play').style='display:none;font-size:48px;';
 document.getElementById('playerid_pause').style='display:initial;font-size:48px;';
