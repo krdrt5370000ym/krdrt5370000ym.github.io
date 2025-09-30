@@ -655,16 +655,16 @@
 	  <hr>
       <h2 class="w3-center accordion">InterStacja</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('interstacja').src=this.options[this.selectedIndex].value;document.getElementById('interstacja').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3" data-type="audio/mpeg" data-name="">Kanał Główny</option>
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18274/;stream.mp3" data-type="audio/mpeg" data-name="">Disco Polo</option>
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18268/;stream.mp3" data-type="audio/mpeg" data-name="">Club</option>
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18180/;stream.mp3" data-type="audio/mpeg" data-name="">Eurodance</option>
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18410/;stream.mp3" data-type="audio/mpeg" data-name="">Najnowsze Hity</option>
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18290/;stream.mp3" data-type="audio/mpeg" data-name="">Oldies</option>
-         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18254/;stream.mp3" data-type="audio/mpeg" data-name="">Polskie Hity</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Kanał Główny</option>
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18274/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Disco Polo</option>
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18268/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Club</option>
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18180/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Eurodance</option>
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18410/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Najnowsze Hity</option>
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18290/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Oldies</option>
+         <option value="21" data-value="https://cast.tunzilla.com/http://4stream.pl:18254/;stream.mp3" data-type="audio/mpeg" data-name="InterStacja ">Polskie Hity</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('interstacja').src='https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3';document.getElementById('interstacja').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3','audio/mpeg','InterStacja Kanał Główny')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/interstacja">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/set/interstacja">🎧 Sety</a></button><br>
@@ -674,10 +674,10 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Płońsk</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('radio-plonsk').src=this.options[this.selectedIndex].value;document.getElementById('radio-plonsk').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://sluchaj.link:5443/plonsk">Radio Płońsk</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://sluchaj.link:5443/plonsk" data-type="audio/mpeg" data-name="">Radio Płońsk</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('radio-plonsk').src='https://sluchaj.link:5443/plonsk';document.getElementById('radio-plonsk').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://sluchaj.link:5443/plonsk','audio/mpeg','Radio Płońsk')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/radioplonsk">📅 Program</a></button><br>
@@ -688,10 +688,10 @@
 	  <hr>
       <h2 class="w3-center accordion">POPradio</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('popradio').src=this.options[this.selectedIndex].value;document.getElementById('popradio').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://sluchaj.link:5443/popradio">POPradio</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://sluchaj.link:5443/popradio" data-type="audio/mpeg" data-name="">POPradio</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('popradio').src='https://sluchaj.link:5443/popradio';document.getElementById('popradio').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://sluchaj.link:5443/popradio','audio/mpeg','POPradio')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/popradio">📅 Program</a></button><br>
@@ -704,10 +704,10 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Kolor 103 FM</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('radio-kolor').src=this.options[this.selectedIndex].value;document.getElementById('radio-kolor').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://stream.rcs.revma.com/zbq79057xd3vv">Radio Kolor 103 FM</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://stream.rcs.revma.com/zbq79057xd3vv" data-type="audio/mpeg" data-name="">Radio Kolor 103 FM</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('radio-kolor').src='https://stream.rcs.revma.com/zbq79057xd3vv';document.getElementById('radio-kolor').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://stream.rcs.revma.com/zbq79057xd3vv','audio/mpeg','Radio Kolor 103 FM')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/radiokolor">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/radiokolor">▶ Podcasty</a></button><br>
@@ -722,11 +722,11 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio RSC 88.6 FM</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('radio-rsc').src=this.options[this.selectedIndex].value;document.getElementById('radio-rsc').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://stream.rcs.revma.com/94fud6a6z72vv">Radio RSC 88.6 FM</option>
-         <option value="21" data-value="https://stream.rcs.revma.com/x6bhu8a6z72vv">RSC Dance</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://stream.rcs.revma.com/94fud6a6z72vv" data-type="audio/mpeg" data-name="">Radio RSC 88.6 FM</option>
+         <option value="21" data-value="https://stream.rcs.revma.com/x6bhu8a6z72vv" data-type="audio/mpeg" data-name="">RSC Dance</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('radio-rsc').src='https://stream.rcs.revma.com/94fud6a6z72vv';document.getElementById('radio-rsc').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://stream.rcs.revma.com/94fud6a6z72vv','audio/mpeg','Radio RSC 88.6 FM')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/radiorsc">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/rscdance">📅 Program (RSC Dance)</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/radiorsc">▶ Podcasty</a></button><br>
@@ -741,10 +741,10 @@
 	  <hr>
       <h2 class="w3-center accordion">Radio Victoria</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('radio-victoria').src=this.options[this.selectedIndex].value;document.getElementById('radio-victoria').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://stream.v4.radiovictoria.pl:8076/;">Radio Victoria</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://stream.v4.radiovictoria.pl:8076/;" data-type="audio/mpeg" data-name="">Radio Victoria</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('radio-victoria').src='https://stream.v4.radiovictoria.pl:8076/;';document.getElementById('radio-victoria').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://stream.v4.radiovictoria.pl:8076/;','audio/mpeg','Radio Victoria')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/radiovictoria">📅 Program</a></button><button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/podcast/radiovictoria">▶ Podcasty</a></button><br>
@@ -757,10 +757,10 @@
 	  <hr>
       <h2 class="w3-center accordion">Wasze Radio FM</h2>
 	  <div class="panel">
-      <select onchange="document.getElementById('wasze-radio-fm').src=this.options[this.selectedIndex].value;document.getElementById('wasze-radio-fm').style='display:initial';" style="margin: 7px auto; width: 250px;">
-         <option value="21" data-value="https://sluchaj.link:5443/wasze">Wasze Radio FM</option>
+      <select onchange="SelectedChaPlayer()" style="margin: 7px auto; width: 250px;">
+         <option value="21" data-value="https://sluchaj.link:5443/wasze" data-type="audio/mpeg" data-name="">Wasze Radio FM</option>
       </select>
-      <button class="buttons buttons1" onclick="document.getElementById('wasze-radio-fm').src='https://sluchaj.link:5443/wasze';document.getElementById('wasze-radio-fm').style='display:initial';">Włącz radio</button>
+      <button class="buttons buttons1" onclick="ChannelsPlayer('https://sluchaj.link:5443/wasze','audio/mpeg','Wasze Radio FM')">Włącz radio</button>
 	  <br>
       <br>
 	  <button class="buttons buttons2"><a href="https://krdrt5370000ym.github.io/program/waszeradiofm">📅 Program</a></button><br>
@@ -779,12 +779,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
