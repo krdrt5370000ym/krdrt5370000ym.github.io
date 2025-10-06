@@ -59,10 +59,10 @@
           }
           .schedule_genre {
                @media (max-width:600px) {
-                    font-size:8px;
+                    font-size:7px;
                }
                @media (min-width:600px) {
-                    font-size:10px;
+                    font-size:9px;
                }
                color: silver;
                display: block;
