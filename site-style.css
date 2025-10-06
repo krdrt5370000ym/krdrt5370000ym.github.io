@@ -141,9 +141,10 @@ body, html {
 
 .heading > strong {
      color: #f70d28;
-	.allcases {
-     	text-transform: uppercase;
-	}
+}
+
+.heading > .allcaps {
+     text-transform: uppercase;
 }
 
 .bheading {
