@@ -49,13 +49,13 @@ function showOnAir() {
 }
 
 function refreshOnAir() {
-  document.querySelectorAll('#day-1 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
-  document.querySelectorAll('#day-2 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
-  document.querySelectorAll('#day-3 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
-  document.querySelectorAll('#day-4 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
-  document.querySelectorAll('#day-5 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
-  document.querySelectorAll('#day-6 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
-  document.querySelectorAll('#day-0 > tbody > tr:nth-child(n)').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-1 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-2 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-3 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-4 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-5 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-6 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
+  document.querySelectorAll('#day-0 > div:nth-child(n) > span').forEach(i => i.classList.remove('on-air'));
   document.querySelector("#day-1").classList.remove("today");
   document.querySelector("#day-2").classList.remove("today");
   document.querySelector("#day-3").classList.remove("today");
