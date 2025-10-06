@@ -48,11 +48,33 @@
           font-size: 12px;
           }
      }
-     .schedule_info > span {
+     .schedule_info > .schedule_host {
           @media (max-width:600px) {
           font-size:12px;
           }
-          line-height: 30px;
+          color: darkturquoise;
+          text-decoration: underline;
+          font-style: oblique;
+     }
+     .schedule_info > .schedule_genre {
+          @media (max-width:600px) {
+          font-size:12px;
+          }
+          color: silver;
+     }
+     .schedule_info > ul > .schedule_host {
+          @media (max-width:600px) {
+          font-size:12px;
+          }
+          color: darkturquoise;
+          text-decoration: underline;
+          font-style: oblique;
+     }
+     .schedule_info > ul > .schedule_genre {
+          @media (max-width:600px) {
+          font-size:12px;
+          }
+          color: silver;
      }
 }
  .tabcontent.active {
