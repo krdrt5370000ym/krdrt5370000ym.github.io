@@ -54,7 +54,7 @@
                @media (min-width:600px) {
                     font-size:10px;
                }
-               color: darkturquoise;
+               color: saddlebrown;
                text-decoration: underline;
                font-style: oblique;
                display: block;
@@ -90,7 +90,7 @@
           @media (max-width:600px) {
           font-size:12px;
           }
-          color: darkturquoise;
+          color: saddlebrown;
           text-decoration: underline;
           font-style: oblique;
      }
