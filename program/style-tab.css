@@ -47,6 +47,26 @@
           @media (max-width:600px) {
           font-size: 12px;
           }
+               .schedule_host {
+          @media (max-width:600px) {
+          font-size:8px;
+          }
+          @media (min-width:600px) {
+          font-size:10px;
+          }
+          color: darkturquoise;
+          text-decoration: underline;
+          font-style: oblique;
+     }
+     .schedule_genre {
+          @media (max-width:600px) {
+          font-size:8px;
+          }
+          @media (min-width:600px) {
+          font-size:10px;
+          }
+          color: silver;
+     }
      }
      .schedule_info > .schedule_host {
           @media (max-width:600px) {
