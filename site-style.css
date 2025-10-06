@@ -142,10 +142,10 @@ body, html {
 
 .heading > .schedule_host {
      @media (max-width:600px) {
-     font-size:10px;
+     font-size:11px;
      }
      @media (min-width:600px) {
-     font-size:12px;
+     font-size:13px;
      }
      color: saddlebrown;
      display: block;
@@ -153,10 +153,10 @@ body, html {
 
 .heading > .schedule_genre {
      @media (max-width:600px) {
-     font-size:9px;
+     font-size:10px;
      }
      @media (min-width:600px) {
-     font-size:11px;
+     font-size:12px;
      }
      color: silver;
      display: block;
