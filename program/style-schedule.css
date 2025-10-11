@@ -5,7 +5,7 @@
     min-height: 5rem;
     padding: 1rem 0;
     list-style: none;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #e3e3e3;
 }
 
 .prog_hour {
@@ -35,4 +35,13 @@
 
 .prog_item {
     font-size: 0.7rem;
+}
+
+.schedule {
+     .subsch {
+         color: silver;
+    }
+    .onair {
+        color: red;
+    }
 }
