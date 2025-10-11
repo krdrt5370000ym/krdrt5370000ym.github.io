@@ -1,0 +1,25 @@
+.sch__prog {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 5rem;
+    padding: 1rem 0;
+    list-style: none;
+    border-bottom: 1px solid;
+}
+
+.prog_hour {
+    flex: 0 0 14rem;
+}
+
+.prog_cover {
+    flex: 0 0 6rem;
+    max-width: 6rem;
+    max-height: 6rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.prog_content {
+    font-size: 2rem;
+}
