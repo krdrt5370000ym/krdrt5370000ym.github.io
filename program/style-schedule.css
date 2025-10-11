@@ -9,17 +9,30 @@
 }
 
 .prog_hour {
-    flex: 0 0 14rem;
+    flex: 0 0 7rem;
 }
 
 .prog_cover {
     flex: 0 0 6rem;
-    max-width: 6rem;
-    max-height: 6rem;
+    max-width: 4rem;
+    max-height: 4rem;
     border-radius: 1rem;
     overflow: hidden;
+    img {
+       display: block;
+       height: auto;
+     max-width: 100%;
+    }
 }
 
-.prog_content {
-    font-size: 2rem;
+.prog_name {
+    font-size: 1.2rem;
+}
+
+.prog_host {
+    font-size: 0.9rem;
+}
+
+.prog_item {
+    font-size: 0.7rem;
 }
