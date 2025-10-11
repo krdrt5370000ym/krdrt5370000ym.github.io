@@ -1,3 +1,16 @@
+    .title {
+      display: block;
+      font-size: 2em;
+      margin-block-start: 0.83em;
+      margin-block-end: 0.83em;
+      color: #777;
+      text-align: center;
+    }
+
+.title_days {
+    margin-left: 50px;
+}
+
 .sch__prog {
     display: flex;
     align-items: center;
