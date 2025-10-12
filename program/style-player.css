@@ -108,3 +108,77 @@
       color: white;
     }
 }
+
+.schedule_onair {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 5rem;
+    padding: 1rem 0;
+    list-style: none;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.schedule_cover {
+    flex: 0 0 6rem;
+    max-width: 6rem;
+    max-height: 6rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    img {
+       display: block;
+       height: auto;
+     max-width: 100%;
+    }
+}
+
+.schedule_title {
+    font-size: 1.5rem;
+}
+
+.schedule_author {
+    font-size: 1rem;
+}
+
+.schedule_hour {
+    font-size: 0.8rem;
+}
+
+.schedule_item {
+    font-size: 0.8rem;
+}
+
+@media screen and (max-width: 600px) {
+.schedule_cover {
+    flex: 0 0 6rem;
+    max-width: 4rem;
+    max-height: 4rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    img {
+       display: block;
+       height: auto;
+     max-width: 100%;
+    }
+}
+
+.schedule_title {
+    font-size: 1rem;
+}
+
+.schedule_author {
+    font-size: 0.7rem;
+}
+
+.schedule_hour {
+    font-size: 0.5rem;
+}
+
+.schedule_item {
+    font-size: 0.5rem;
+}
+
+.schedule_content {
+    line-height: 1.8;
+}
