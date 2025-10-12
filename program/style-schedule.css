@@ -18,6 +18,8 @@
     background: silver;
     display: inline;
     margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .sch_prog {
