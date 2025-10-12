@@ -115,7 +115,7 @@
     align-items: center;
     gap: 2rem;
     min-height: 5rem;
-    padding: 1rem 0;
+    /* padding: 1rem 0; */
     list-style: none;
 }
 
@@ -152,6 +152,11 @@
 }
 
 @media screen and (max-width: 600px) {
+.schedule_info {
+   padding:1rem;
+   margin:0rem;
+}
+
 .schedule_onair {
     gap: 1rem;
     min-height: 1rem;
