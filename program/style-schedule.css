@@ -78,13 +78,17 @@
 }
 
 .prog_hour {
-    font-size: 1.4rem;
+    font-size: 1.0rem;
     flex: 0 0 auto;
 }
 
-.prog_hour {
+.sch__prog {
     align-items: start;
     flex-direction: column-reverse;
     gap: 2rem;
+    line-height: 0.5;
 }
+
+.prog_content {
+    line-height: 1.8;
 }
