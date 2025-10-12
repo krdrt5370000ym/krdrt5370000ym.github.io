@@ -20,7 +20,7 @@
     margin-left: 40px;
 }
 
-.sch__prog {
+.sch_prog {
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -98,7 +98,7 @@
     flex: 0 0 auto;
 }
 
-.sch__prog {
+.sch_prog {
     align-items: start;
     flex-direction: column-reverse;
     gap: 2rem;
