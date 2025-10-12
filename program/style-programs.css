@@ -7,9 +7,12 @@
       text-align: center;
     }
 
-.title_days {
-    font-weight: 700;
-    margin-left: 50px;
+.paged_category {
+    font-weight: 600;
+    text-transform: uppercase;
+    background: gray;
+    display: inline;
+    margin-left: 40px;
 }
 
 .paged_title {
