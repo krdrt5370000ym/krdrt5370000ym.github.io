@@ -12,6 +12,14 @@
     margin-left: 50px;
 }
 
+.paged_title {
+    font-weight: 600;
+    text-transform: uppercase;
+    background: silver;
+    display: inline;
+    margin-left: 40px;
+}
+
 .sch__prog {
     display: flex;
     align-items: center;
