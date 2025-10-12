@@ -32,6 +32,39 @@
 
 .prog_cover {
     flex: 0 0 6rem;
+    max-width: 6rem;
+    max-height: 6rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    img {
+       display: block;
+       height: auto;
+     max-width: 100%;
+    }
+}
+
+.prog_name {
+    font-size: 1.5rem;
+}
+
+.prog_host {
+    font-size: 1rem;
+}
+
+.prog_onair {
+    font-size: 0.8rem;
+}
+
+.programs {
+    width: 100%;
+    p {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+.prog_cover {
+    flex: 0 0 6rem;
     max-width: 4rem;
     max-height: 4rem;
     border-radius: 1rem;
@@ -44,46 +77,15 @@
 }
 
 .prog_name {
-    font-size: 1.2rem;
-}
-
-.prog_host {
-    font-size: 0.9rem;
-}
-
-.prog_onair {
-    font-size: 0.7rem;
-}
-
-.programs {
-    width: 100%;
-    p {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 600px) {
-.prog_cover {
-    display: none;
-}
-
-.prog_name {
     font-size: 1rem;
 }
 
 .prog_host {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .prog_onair {
-    font-size: 0.6rem;
-}
-
-.prog_info {
-    align-items: start;
-    flex-direction: column-reverse;
-    gap: 2rem;
-    line-height: 0.5;
+    font-size: 0.5rem;
 }
 
 .prog_content {
