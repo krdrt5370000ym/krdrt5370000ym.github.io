@@ -31,7 +31,8 @@
 }
 
 .prog_hour {
-    flex: 0 0 7rem;
+    width: auto;
+    min-width: 105px;
 }
 
 .prog_cover {
