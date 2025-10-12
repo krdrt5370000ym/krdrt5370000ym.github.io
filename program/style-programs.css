@@ -14,6 +14,8 @@
     color: black;
     display: inline;
     margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .paged_title {
@@ -22,6 +24,8 @@
     background: silver;
     display: inline;
     margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .prog_info {
