@@ -59,3 +59,32 @@
         color: red;
     }
 }
+
+@media screen and (max-width: 600px) {
+.prog_cover {
+    display:none;
+}
+
+.prog_name {
+    font-size: 1rem;
+}
+
+.prog_host {
+    font-size: 0.7rem;
+}
+
+.prog_item {
+    font-size: 0.6rem;
+}
+
+.audycja__godzina {
+    font-size: 1.4rem;
+    flex: 0 0 auto;
+}
+
+.prog_hour {
+    align-items: start;
+    flex-direction: column-reverse;
+    gap: 2rem;
+}
+}
