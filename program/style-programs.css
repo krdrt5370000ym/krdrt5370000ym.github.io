@@ -156,3 +156,17 @@
     letter-spacing: 5px;
     margin-left: 25px;
 }
+
+@media screen and (max-width: 600px) {
+.program_info_box {
+    display: block;
+}
+.program_info_cover {
+  margin: auto;
+}
+
+.program_info_data {
+    margin-left: 0px;
+}
+
+}
