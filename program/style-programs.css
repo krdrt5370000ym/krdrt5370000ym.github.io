@@ -105,3 +105,41 @@
     margin-left: 25px;
 }
 }
+
+.program_info_title {
+    margin-left: 25px;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.program_info_box {
+    display: flex;
+    margin-left: 25px;
+}
+
+.program_info_cover {
+    flex: 0 0 10rem;
+    max-width: 10rem;
+    max-height: 10rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    img {
+       display: block;
+       height: auto;
+     max-width: 100%;
+    }
+}
+
+.program_info_data {
+    align-items: center;
+    margin-left: 10px;
+    padding: 1rem 0;  
+}
+
+.program_info_desc {
+    align-items: center;
+    margin-left: 25px;
+    padding: 1rem 0;  
+}
