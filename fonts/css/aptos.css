@@ -1,96 +1,96 @@
 @font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-light.ttf');
-    font-weight: 300;
-    font-style: normal;
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-light.ttf');
+     font-weight: 300;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-light-italic.ttf');
-    font-weight: 300;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-light-italic.ttf');
+     font-weight: 300;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos.ttf');
-    font-weight: 400;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos.ttf');
+     font-weight: 400;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-italic.ttf');
-    font-weight: 400;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-italic.ttf');
+     font-weight: 400;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-semibold.ttf');
-    font-weight: 600;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-semibold.ttf');
+     font-weight: 600;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-semibold.ttf');
-    font-weight: 600;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-semibold.ttf');
+     font-weight: 600;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-bold.ttf');
-    font-weight: 700;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-bold.ttf');
+     font-weight: 700;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-bold.ttf');
-    font-weight: 700;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-bold.ttf');
+     font-weight: 700;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-extrabold.ttf');
-    font-weight: 800;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-extrabold.ttf');
+     font-weight: 800;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-extrabold-italic.ttf');
-    font-weight: 800;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-extrabold-italic.ttf');
+     font-weight: 800;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-black.ttf');
-    font-weight: 900;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-black.ttf');
+     font-weight: 900;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptos-black-italic.ttf');
-    font-weight: 900;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptos-black-italic.ttf');
+     font-weight: 900;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos Narrow';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow.ttf');
-    font-weight: normal;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos Narrow';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow.ttf');
+     font-weight: normal;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos Narrow';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow-bold.ttf');
-    font-weight: bold;
-    font-style: normal;
+ @font-face {
+     font-family: 'Aptos Narrow';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow-bold.ttf');
+     font-weight: bold;
+     font-style: normal;
 }
-@font-face {
-    font-family: 'Aptos Narrow';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow-bold-italic.ttf');
-    font-weight: bold;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos Narrow';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow-bold-italic.ttf');
+     font-weight: bold;
+     font-style: italic;
 }
-@font-face {
-    font-family: 'Aptos Narrow';
-    src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow-italic.ttf');
-    font-weight: normal;
-    font-style: italic;
+ @font-face {
+     font-family: 'Aptos Narrow';
+     src: url('https://krdrt5370000ym.github.io/fonts/aptosnarrow-italic.ttf');
+     font-weight: normal;
+     font-style: italic;
 }
