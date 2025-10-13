@@ -138,6 +138,14 @@
     padding: 1rem 0;  
 }
 
+.program_info_djs {
+    font-size: 18px;
+}
+
+.program_info_airtime {
+    font-weight: 600;
+}
+
 .program_info_desc {
     align-items: center;
     margin-left: 25px;
