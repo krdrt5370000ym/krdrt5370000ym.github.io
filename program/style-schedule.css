@@ -75,6 +75,7 @@
      .prog_cover {
          grid-row-start: 1;
          grid-row-end: 3;
+         width: 250px;
     }
      .prog_name {
          font-size: 1rem;
