@@ -56,6 +56,9 @@
      background: silver;
      display: inline;
 }
+ .prog_desc {
+     font-size: 0.8rem;
+}
  .schedule {
      width: 100%;
      p {
@@ -81,6 +84,9 @@
     }
      .prog_item {
          font-size: 0.6rem;
+    }
+     .prog_desc {
+         font-size: 0.5rem;
     }
      .prog_hour {
          grid-column: 2;
