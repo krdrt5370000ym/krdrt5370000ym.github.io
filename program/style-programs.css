@@ -133,6 +133,7 @@
  .program_info_urls {
      letter-spacing: 5px;
      margin-left: 25px;
+     font-size: 28px;
 }
  @media screen and (max-width: 600px) {
      .program_info_box {
