@@ -104,6 +104,7 @@
          grid-column: 2;
          grid-row: 1;
          line-height: 1.8;
+         width: 250px;
          
     }
      .title_days {
