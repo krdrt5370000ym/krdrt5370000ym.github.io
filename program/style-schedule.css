@@ -70,7 +70,8 @@
 }
  @media screen and (max-width: 600px) {
      .prog_cover {
-         display: none;
+         grid-row-start: 1;
+         grid-row-end: 3;
     }
      .prog_name {
          font-size: 1rem;
@@ -82,17 +83,21 @@
          font-size: 0.6rem;
     }
      .prog_hour {
+         grid-column: 2;
+         grid-row: 2;
          font-size: 1.0rem;
-         flex: 0 0 auto;
+         width: 250px;
     }
      .sch_prog {
-         align-items: start;
-         flex-direction: column-reverse;
-         gap: 2rem;
+         display: grid;
          line-height: 0.5;
+         column-gap: 0px;
     }
      .prog_content {
+         grid-column: 2;
+         grid-row: 1;
          line-height: 1.8;
+         
     }
      .title_days {
          font-weight: 700;
