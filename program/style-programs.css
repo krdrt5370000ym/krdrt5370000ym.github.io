@@ -97,6 +97,7 @@
      font-size: 2rem;
      margin-top: 20px;
      margin-bottom: 10px;
+     line-height: 40px;
 }
  .program_info_box {
      display: flex;
