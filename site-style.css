@@ -317,3 +317,6 @@ body
          display: block;
     }
 }
+.website_portal {
+     column-count: 2;
+}
