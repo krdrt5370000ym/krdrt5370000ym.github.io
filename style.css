@@ -1,20 +1,19 @@
 .website_portal {
+  a {
+     text-decoration: none;
+  }
   @media (min-width:800px) {
      column-count: 3;
-     text-decoration: none;
   }
   @media (max-width:800px) and (min-width:600px) {
      column-count: 2;
-     text-decoration: none;
   }
   @media (max-width:600px) and (min-width:400px) {
      column-count: 2;
      font-size: 12px;
-     text-decoration: none;
   }
   @media (max-width:400px) {
      column-count: 2;
      font-size: 10px;
-     text-decoration: none;
   }
 }
