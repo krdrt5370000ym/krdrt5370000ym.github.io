@@ -4,6 +4,11 @@
     text-decoration: none;
     }
 }
+.playerid_distext {
+  font-weight: 600;
+  display: block; 
+  margin-left: 25px;
+}
 .schedule_onair {
      width: 100%;
      display: flex;
