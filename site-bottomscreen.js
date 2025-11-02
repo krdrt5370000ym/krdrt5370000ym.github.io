@@ -1,0 +1,1 @@
+document.write('<br><script src=\"site-bottom.js\"></script><!-- Footer --><footer class=\"w3-container w3-padding-16 w3-light-grey\"><h4>STOPKA</h4><p>Powered by <a href=\"https://www.w3schools.com/w3css/default.asp\" target=\"_blank\">w3.css</a></p></footer><!-- End page content -->');
