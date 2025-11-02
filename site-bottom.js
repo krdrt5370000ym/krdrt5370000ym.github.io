@@ -1,0 +1,1 @@
+document.write('<div class=\"w3-container w3-dark-grey w3-padding-32\"><div class=\"w3-row\"><div class=\"w3-container w3-third\"><h5 class=\"w3-bottombar w3-border-green\">Menu</h5><p><a href=\"https://servers.fmdx.org\">ONLINE FMDX</a></p></div></div></div>');
