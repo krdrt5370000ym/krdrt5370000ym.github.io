@@ -1,4 +1,9 @@
  /* PLAYER */
+.but1 {
+    a {
+    text-decoration: none;
+    }
+}
 .schedule_onair {
      width: 100%;
      display: flex;
@@ -34,7 +39,7 @@
      }
 }
  .schedule_hour {
-     font-size: 0.8rem;
+     font-size: 1rem;
 }
  .schedule_item {
      font-size: 0.8rem;
@@ -70,10 +75,10 @@
          font-size: 0.7rem;
     }
      .schedule_hour {
-         font-size: 0.5rem;
+         font-size: 0.7rem;
     }
      .schedule_item {
-         font-size: 0.5rem;
+         font-size: 0.6rem;
     }
      .schedule_content {
          line-height: 1.5;
