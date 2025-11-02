@@ -1,4 +1,5 @@
 .website_portal {
+  text-decoration: none;
   @media (min-width:800px) {
      column-count: 3;
   }
