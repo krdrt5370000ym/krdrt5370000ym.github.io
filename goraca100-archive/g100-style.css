@@ -1,4 +1,21 @@
- .boximg {
+ .list-table {
+     table {
+         border-collapse: collapse;
+         width: 100%;
+    }
+     tr {
+         height: 36px;
+    }
+     th, td {
+         padding: 8px;
+         text-align: left;
+         border-bottom: 1px solid #DDD;
+    }
+     tr:hover {
+         background-color: #CCC;
+    }
+}
+.boximg {
      border: 1px solid #130010;
      @media (min-width:600px) {
          border-radius: 100px;
@@ -15,12 +32,18 @@
      font-weight: 600;
      font-size: 16px;
      display: block;
+     a {
+        text-decoration: none;
+     }
 }
  .ps_host {
      font-weight: 400;
      font-size: 11px;
      display: block;
      text-transform: uppercase;
+     a {
+        text-decoration: none;
+     }
 }
  .ps_info {
      letter-spacing: 5px;
