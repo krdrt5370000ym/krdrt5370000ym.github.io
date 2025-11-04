@@ -17,7 +17,7 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-      <select onchange="pl_src=event.target.options[event.target.selectedIndex].dataset.value;pl_type=event.target.options[event.target.selectedIndex].dataset.type;const pl = document.getElementById('player');pl.src({src:pl_src,type:pl_type});" style="margin: 7px auto; width: 250px;">
+      <select onchange="pl_src=event.target.options[event.target.selectedIndex].dataset.value;pl_type=event.target.options[event.target.selectedIndex].dataset.type;const pl = document.getElementById('player');pl.src=pl_src;pl.type=pl_type;" style="margin: 7px auto; width: 250px;">
          <option value="21" data-value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www" data-type="audio/mpeg">Radio ZET</option>
          <option value="21" data-value="https://hub.radiostream.pl/stream.pls?radio=8400&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true" data-type="audio/mpeg">Radio ZET (serwer #2)</option>
          <option value="21" data-value="https://zt.cdn.eurozet.pl/ZETNAR.mp3" data-type="audio/mpeg">Radio ZET na Rower</option>
@@ -54,4 +54,5 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
 
