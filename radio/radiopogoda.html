@@ -17,7 +17,23 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_POGODA.mp3?dist=gra_www">Radio Pogoda</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=38&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Radio Pogoda (serwer #2)</option>
+         <option value="https://radiostream.pl/tuba143-1.mp3">Bydgoszcz</option>
+         <option value="https://radiostream.pl/tuba145-1.mp3">Gdańsk</option>
+         <option value="https://radiostream.pl/tuba144-1.mp3">Katowice</option>
+         <option value="https://radiostream.pl/tuba139-1.mp3">Kraków</option>
+         <option value="https://radiostream.pl/tuba141-1.mp3">Opole</option>
+         <option value="https://radiostream.pl/tuba138-1.mp3">Poznań</option>
+         <option value="https://radiostream.pl/tuba140-1.mp3">Warszawa</option>
+         <option value="https://radiostream.pl/tuba142-1.mp3">Wrocław</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_POGODA.mp3?dist=gra_www">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/radio-pogoda">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/radio-pogoda">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://moje.radiopogoda.pl/ramowka/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://radiopogoda.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://moje.radiopogoda.pl/audycje-podcasty/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/1850511965172963">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:225555100">📞 22 5555 100</a></button><button class="buttons buttons1"><a href="https://moje.radiopogoda.pl/prowadzacy/">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/1850511965172963" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -29,3 +45,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
