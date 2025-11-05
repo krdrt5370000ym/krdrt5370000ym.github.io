@@ -17,7 +17,14 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://stream.v4.radiovictoria.pl:8076/;">Radio Victoria</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://stream.v4.radiovictoria.pl:8076/;">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/radio-victoria">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/radio-victoria">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://radiovictoria.pl/radio/program/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.radiovictoria.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://m.me/128436400515900">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:468376615">📞 46 837 66 15</a></button><button class="buttons buttons1"><a href="https://radiovictoria.pl/ludzie-radia/">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/128436400515900" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -31,3 +38,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
