@@ -17,7 +17,14 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://sluchaj.link:5443/popradio">POPradio</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://sluchaj.link:5443/popradio">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/pop-radio-pruszkow">💡 Online</a></button><button class="buttons buttons1"><a href="https://popradio.pl/ramowka/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://popradio.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://popradio.pl/strona-glowna/aktualnosci/podcasty/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/1077421182274585">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:222906699">📞 22 290 66 99</a></button><button class="buttons buttons1"><a href="https://popradio.pl/popekipa/">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/1077421182274585" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -31,3 +38,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
