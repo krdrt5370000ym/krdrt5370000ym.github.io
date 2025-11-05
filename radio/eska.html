@@ -18,7 +18,68 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://waw.ic.smcdn.pl/2980-1.aac">Hity na Czasie</option>
+         <option value="https://waw.ic.smcdn.pl/2010-1.aac">Bełchatów</option>
+         <option value="https://waw.ic.smcdn.pl/2300-1.aac">Beskidy</option>
+         <option value="https://waw.ic.smcdn.pl/2020-1.aac">Białystok</option>
+         <option value="https://waw.ic.smcdn.pl/2520-1.aac">Braniewo</option>
+         <option value="https://waw.ic.smcdn.pl/2030-1.aac">Bydgoszcz</option>
+         <option value="https://waw.ic.smcdn.pl/2220-1.aac">Chorzów</option>
+         <option value="https://waw.ic.smcdn.pl/2430-1.aac">Elbląg</option>
+         <option value="https://waw.ic.smcdn.pl/2040-1.aac">Gorzów Wielkopolski</option>
+         <option value="https://waw.ic.smcdn.pl/2450-1.aac">Grudziądz</option>
+         <option value="https://waw.ic.smcdn.pl/2440-1.aac">Iława</option>
+         <option value="https://waw.ic.smcdn.pl/2480-1.aac">Jelenia Góra</option>
+         <option value="https://waw.ic.smcdn.pl/2200-1.aac">Kalisz</option>
+         <option value="https://waw.ic.smcdn.pl/2220-1.aac">Katowice</option>
+         <option value="https://waw.ic.smcdn.pl/2050-1.aac">Kielce</option>
+         <option value="https://waw.ic.smcdn.pl/2270-1.aac">Koszalin</option>
+         <option value="https://waw.ic.smcdn.pl/2070-1.aac">Kraków</option>
+         <option value="https://waw.ic.smcdn.pl/2360-1.aac">Kraśnik</option>
+         <option value="https://waw.ic.smcdn.pl/2080-1.aac">Leszno</option>
+         <option value="https://waw.ic.smcdn.pl/2130-1.aac">Lublin</option>
+         <option value="https://waw.ic.smcdn.pl/2460-1.aac">Łomża</option>
+         <option value="https://waw.ic.smcdn.pl/2100-1.aac">Łódź</option>
+         <option value="https://waw.ic.smcdn.pl/2330-1.aac">Nowy Sącz</option>
+         <option value="https://waw.ic.smcdn.pl/2110-1.aac">Olsztyn</option>
+         <option value="https://waw.ic.smcdn.pl/2120-1.aac">Opole</option>
+         <option value="https://waw.ic.smcdn.pl/2200-1.aac">Ostrów</option>
+         <option value="https://waw.ic.smcdn.pl/2500-1.aac">Ostrzeszów</option>
+         <option value="https://waw.ic.smcdn.pl/2090-1.aac">Piła</option>
+         <option value="https://waw.ic.smcdn.pl/2250-1.aac">Płock</option>
+         <option value="https://waw.ic.smcdn.pl/2570-1.aac">Południe</option>
+         <option value="https://waw.ic.smcdn.pl/2140-1.aac">Poznań</option>
+         <option value="https://waw.ic.smcdn.pl/2320-1.aac">Przemyśl</option>
+         <option value="https://waw.ic.smcdn.pl/2210-1.aac">Radom</option>
+         <option value="https://waw.ic.smcdn.pl/2240-1.aac">Rzeszów</option>
+         <option value="https://waw.ic.smcdn.pl/2060-1.aac">Siedlce</option>
+         <option value="https://waw.ic.smcdn.pl/2220-1.aac">Sosnowiec</option>
+         <option value="https://waw.ic.smcdn.pl/2400-1.aac">Starachowice</option>
+         <option value="https://waw.ic.smcdn.pl/2540-1.aac">Suwałki</option>
+         <option value="https://waw.ic.smcdn.pl/2260-1.aac">Szczecin</option>
+         <option value="https://waw.ic.smcdn.pl/2310-1.aac">Szczecinek</option>
+         <option value="https://waw.ic.smcdn.pl/2220-1.aac">Śląsk</option>
+         <option value="https://waw.ic.smcdn.pl/2160-1.aac">Tarnów</option>
+         <option value="https://waw.ic.smcdn.pl/2150-1.aac">Toruń</option>
+         <option value="https://waw.ic.smcdn.pl/2170-1.aac">Trójmiasto</option>
+         <option value="https://waw.ic.smcdn.pl/2380-1.aac">Warszawa</option>
+         <option value="https://waw.ic.smcdn.pl/2180-1.aac">Wrocław</option>
+         <option value="https://waw.ic.smcdn.pl/2230-1.aac">Zamość</option>
+         <option value="https://waw.ic.smcdn.pl/2190-1.aac">Zielona Góra</option>
+         <option value="https://waw.ic.smcdn.pl/2420-1.aac">Żary</option>
+         <option value="https://waw.ic.smcdn.pl/6120-1.aac">ESKA G100</option>
+         <option value="https://waw.ic.smcdn.pl/6030-1.aac">ESKA Impreska</option>
+         <option value="https://waw.ic.smcdn.pl/6130-1.aac">ESKA G20</option>
+         <option value="https://waw.ic.smcdn.pl/6140-1.aac">ESKA Do Pracy</option>
+         <option value="https://waw.ic.smcdn.pl/6190-1.aac">ESKA Rap20</option>
+         <option value="https://waw.ic.smcdn.pl/6250-1.aac">ESKA News Wrocław</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://waw.ic.smcdn.pl/2980-1.aac">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/radio-eska">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/radio-eska">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://www.eska.pl/program/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.eska.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://player.eska.pl">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/95661128574">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:664402302">📞 664 402 302</a></button><button class="buttons buttons1"><a href="https://krdrt5370000ym.github.io/goraca100-archive">♪ Gorąca 100 - archiwum</a></button><br>
 	  <a href="https://www.fb.com/95661128574" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
