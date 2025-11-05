@@ -17,7 +17,64 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://waw.ic.smcdn.pl/3980-1.aac">VOX w Rytmie Hitów</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Biała Podlaska</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Białystok</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Bielsko-Biała</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Bydgoszcz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Częstochowa</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Elbląg</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Gdańsk</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Gdynia</option>
+         <option value="https://waw.ic.smcdn.pl/3040-1.aac">Gorzów Wielkopolski</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Grudziądz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Jelenia Góra</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Kalisz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Katowice</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Kielce</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Koszalin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Konin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Kraków</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Krosno</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Legnica</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Leszno</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Lublin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Łomża</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Łódź</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Nowy Sącz</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Olsztyn</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Opole</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Ostrołęka</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Piotrków Trybunalski</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Płock</option>
+         <option value="https://waw.ic.smcdn.pl/3140-1.aac">Poznań</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Przemyśl</option>
+         <option value="https://waw.ic.smcdn.pl/3210-1.aac">Radom</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Rzeszów</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Siedlce</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Suwałki</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Szczecin</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Tarnobrzeg</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Tarnów</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Toruń</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Tychy</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Wałbrzych</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Warszawa</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Włocławek</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Wrocław</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Zamość</option>
+         <option value="https://waw.ic.smcdn.pl/3990-1.aac">Zielona Góra</option>
+         <option value="https://waw.ic.smcdn.pl/6080-1.aac">VOX FM Best lista 2024</option>
+         <option value="https://waw.ic.smcdn.pl/6100-1.aac">VOX Best Lista</option>
+         <option value="https://waw.ic.smcdn.pl/6020-1.aac">VOX DJ Mix</option>
+         <option value="https://waw.ic.smcdn.pl/6180-1.aac">VOX Dance</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://waw.ic.smcdn.pl/3980-1.aac">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/vox-fm">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/vox-fm">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://www.voxfm.pl/program/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.voxfm.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://player.voxfm.pl/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/248345514887">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:609869869">📞 609 869 869</a></button><br>
       <a href="https://www.fb.com/248345514887" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -32,3 +89,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
