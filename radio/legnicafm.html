@@ -17,7 +17,14 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://player.legnica.fm/listen/radio_plus_legnica/radio128.mp3">Legnica FM</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://player.legnica.fm/listen/radio_plus_legnica/radio128.mp3">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://onlineradiobox.com/pl/radiopluslegnica/">💡 Online</a></button><button class="buttons buttons1"><a href="https://onlineradiobox.com/pl/radiopluslegnica/">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://www.legnica.fm/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://m.me/100063131443775">🗨 Messenger</a></button><br>
       <a href="https://www.fb.com/100063131443775" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -29,3 +36,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
