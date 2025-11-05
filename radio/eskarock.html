@@ -17,7 +17,22 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://waw.ic.smcdn.pl/5980-1.aac">Eska ROCK Online</option>
+         <option value="https://waw.ic.smcdn.pl/5380-1.aac">Warszawa</option>
+         <option value="https://waw.ic.smcdn.pl/5990-1.aac">Eska ROCK</option>
+         <option value="https://waw.ic.smcdn.pl/6200-1.aac">Eska ROCK Rocktoberfest</option>
+         <option value="https://waw.ic.smcdn.pl/6060-1.aac">Eska ROCK Nowy Rock</option>
+         <option value="https://waw.ic.smcdn.pl/6050-1.aac">Eska ROCK Ozzy Osbourne</option>
+         <option value="https://waw.ic.smcdn.pl/6010-1.aac">Eska ROCK Rock Ballads</option>
+         <option value="https://waw.ic.smcdn.pl/6070-1.aac">Eska ROCK Klasyka Rocka</option>
+         <option value="https://waw.ic.smcdn.pl/6090-1.aac">Eska ROCK Teraz Polski Rock</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://waw.ic.smcdn.pl/5980-1.aac">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/muzo-fm">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/muzo-fm">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/eska-rock">♪ Warszawa</a></button><button class="buttons buttons1"><a href="https://www.eskarock.pl/program/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.eskarock.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://player.eskarock.pl/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/192641444532">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:691613613">📞 691 613 613</a></button><br>
       <a href="https://www.fb.com/192641444532" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -32,3 +47,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
