@@ -17,7 +17,42 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/MELORADIO.mp3?dist=gra_www">Meloradio</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=8800&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Meloradio (serwer #2)</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-bls.mp3">Bielsko-Biała</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-dzr.mp3">Dzierżoniów</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-gzc.mp3">Giżycko</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ilw.mp3">Iława</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-inw.mp3">Inowrocław</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-klc.mp3">Kielce</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-opl.mp3">Kluczbork</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-knn.mp3">Konin</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-krk.mp3">Kraków</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ldz.mp3">Łódź</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ost.mp3">Mazury</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ost.mp3">Morąg</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-mrg.mp3">Mrągowo</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ols.mp3">Olsztyn</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ost.mp3">Olsztynek</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-opl.mp3">Opole</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ost.mp3">Ostróda</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-poz.mp3">Poznań</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-slp.mp3">Słupca</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-ktw.mp3">Śląsk</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-trb.mp3">Tarnobrzeg</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-trn.mp3">Toruń</option>
+         <option value="https://n-11-25.dcs.redcdn.pl/sc/o2/Eurozet/live/meloradio.livx">Warszawa</option>
+         <option value="https://ml01.cdn.eurozet.pl/mel-wro.mp3">Wrocław</option>
+         <option value="https://ml.cdn.eurozet.pl/MELDEL.mp3">Meloradio Delicate</option>
+         <option value="https://ml.cdn.eurozet.pl/MELFST.mp3">melo. FAST SONGS</option>
+         <option value="https://ml.cdn.eurozet.pl/MELHDN.mp3">Meloradio Hot Dance</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/MELORADIO.mp3?dist=gra_www">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/meloradio">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/meloradio">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://player.meloradio.pl/Ramowka">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.meloradio.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://player.meloradio.pl/Podcasty">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/1705954716380355">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:321321777">📞 321 321 777</a></button><button class="buttons buttons1"><a href="https://player.meloradio.pl/Programy">📻 Programy</a></button><button class="buttons buttons1"><a href="https://player.meloradio.pl/Ludzie-radia">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/1705954716380355" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -32,3 +67,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
