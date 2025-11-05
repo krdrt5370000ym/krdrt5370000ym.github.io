@@ -17,7 +17,15 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://stream.palneta.pl:8443/palneta">Planeta FM</option>
+         <option value="https://pl01.cdn.eurozet.pl/pla-net.mp3">Stara Planeta FM</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://stream.palneta.pl:8443/palneta">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://palneta.pl/">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://palneta.pl/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.planeta.pl/">🌐 Strona (Planeta.pl)</a></button><br>
       <a href="https://www.fb.com/100064812337782" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -30,3 +38,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
