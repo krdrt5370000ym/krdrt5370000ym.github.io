@@ -17,7 +17,37 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx">RMF MAXX</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_byd">Bydgoszcz</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_cze">Częstochowa</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_wal">Dolny Śląsk</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_ino">Inowrocław</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_knn">Konin</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_kra">Kraków</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_ksn">Krosno</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_zgr">Lubuskie</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_cie">Mazowsze</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_nsa">Nowy Sącz</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_ole">Oleśnica</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_opo">Opole</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_pil">Piła</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_lom">Podlasie</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_slu">Pomorze</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_poz">Poznań</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_szc">Szczecin</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_slk">Śląsk</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_kie">Świętokrzyskie</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_tmz">Tomaszów Maz.</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_gda">Trójmiasto</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_waw">Warszawa</option>
+         <option value="https://rs103-krk.rmfstream.pl/rmf_maxxx_wlc">Włocławek</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://rs103-krk.rmfstream.pl/rmf_maxxx">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/rmf-maxxx">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/rmf-maxxx">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://www.rmfmaxx.pl/ramowka">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.rmfmaxx.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://www.rmfmaxx.pl/dzwieki">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/114083575305140">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:fax:126622476">📞 fax: 12 662 24 76</a></button><button class="buttons buttons1"><a href="https://www.rmfmaxx.pl/programy/lista">📻 Programy</a></button><br>
       <a href="https://www.fb.com/114083575305140" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -30,3 +60,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
