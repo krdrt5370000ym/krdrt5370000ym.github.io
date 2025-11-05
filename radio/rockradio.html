@@ -17,7 +17,19 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ROCK.mp3?dist=gra_www">Rock Radio</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=8&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Rock Radio (serwer #2)</option>
+         <option value="https://radiostream.pl/tuba9000-1.mp3">Kraków</option>
+         <option value="https://radiostream.pl/tuba9002-1.mp3">Opole</option>
+         <option value="https://radiostream.pl/tuba9004-1.mp3">Poznań</option>
+         <option value="https://radiostream.pl/tuba9006-1.mp3">Warszawa</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ROCK.mp3?dist=gra_www">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/rock-radio">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/rock-radio">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://radio.rockradio.pl/ramowka/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://rockradio.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://radio.rockradio.pl/audycje/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/82608051075">🗨 Messenger</a></button><button class="buttons buttons1"><a href="https://radio.rockradio.pl/ludzie-radia">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/82608051075" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -29,3 +41,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
