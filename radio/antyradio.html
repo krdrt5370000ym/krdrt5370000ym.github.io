@@ -17,7 +17,24 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www">Antyradio</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=8602&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Antyradio (serwer #2)</option>
+         <option value="https://an02.cdn.eurozet.pl/ant-kat.mp3">Katowice</option>
+         <option value="https://an.cdn.eurozet.pl/ANTUNP.mp3">Antyradio Unplugged</option>
+         <option value="https://an.cdn.eurozet.pl/ANTMAK.mp3">Antyradio Makak</option>
+         <option value="https://an.cdn.eurozet.pl/ANTBAL.mp3">Antyradio Ballads</option>
+         <option value="https://an.cdn.eurozet.pl/ANTHAR.mp3">Antyradio Hard</option>
+         <option value="https://an.cdn.eurozet.pl/ANTCOV.mp3">Antyradio Covers</option>
+         <option value="https://an.cdn.eurozet.pl/ANTPOL.mp3">Antyradio Made In Poland</option>
+         <option value="https://an.cdn.eurozet.pl/ANTGRE.mp3">Antyradio Greatest</option>
+         <option value="https://an.cdn.eurozet.pl/ANTCLA.mp3">Antyradio Classic Rock</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/ANTYRADIO.mp3?dist=gra_www">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/antyradio">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/antyradio">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://player.antyradio.pl/Ramowka">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.antyradio.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://player.antyradio.pl/Podcasty">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/102931770742">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:321321666">📞 321 321 666</a></button><button class="buttons buttons1"><a href="https://player.antyradio.pl/Programy">📻 Programy</a></button><button class="buttons buttons1"><a href="https://player.antyradio.pl/Ludzie-radia">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/102931770742" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -32,3 +49,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
