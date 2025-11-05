@@ -17,7 +17,39 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">Złote Przeboje</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=9&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Złote Przeboje (serwer #2)</option>
+         <option value="https://radiostream.pl/tuba8900-1.mp3">Białystok</option>
+         <option value="https://radiostream.pl/tuba8902-1.mp3">Bydgoszcz</option>
+         <option value="https://radiostream.pl/tuba8946-1.mp3">Bieszczady</option>
+         <option value="https://radiostream.pl/tuba8904-1.mp3">Częstochowa</option>
+         <option value="https://radiostream.pl/tuba8906-1.mp3">Gdańsk</option>
+         <option value="https://radiostream.pl/tuba8908-1.mp3">Jelenia Góra</option>
+         <option value="https://radiostream.pl/tuba8910-1.mp3">Katowice</option>
+         <option value="https://radiostream.pl/tuba8914-1.mp3">Kraków</option>
+         <option value="https://radiostream.pl/tuba8912-1.mp3">Kielce</option>
+         <option value="https://radiostream.pl/tuba8916-1.mp3">Legnica</option>
+         <option value="https://radiostream.pl/tuba8920-1.mp3">Lublin</option>
+         <option value="https://radiostream.pl/tuba8918-1.mp3">Łódź</option>
+         <option value="https://radiostream.pl/tuba8924-1.mp3">Opole</option>
+         <option value="https://radiostream.pl/tuba8922-1.mp3">Podhale</option>
+         <option value="https://radiostream.pl/tuba8926-1.mp3">Poznań</option>
+         <option value="https://radiostream.pl/tuba8928-1.mp3">Rzeszów</option>
+         <option value="https://radiostream.pl/tuba8930-1.mp3">Szczecin</option>
+         <option value="https://radiostream.pl/tuba8932-1.mp3">Tarnów</option>
+         <option value="https://radiostream.pl/tuba8934-1.mp3">Wałbrzych</option>
+         <option value="https://radiostream.pl/tuba8936-1.mp3">Warszawa</option>
+         <option value="https://radiostream.pl/tuba8938-1.mp3">Wolin</option>
+         <option value="https://radiostream.pl/tuba8940-1.mp3">Wrocław</option>
+         <option value="https://radiostream.pl/tuba8942-1.mp3">Zamość</option>
+         <option value="https://radiostream.pl/tuba8944-1.mp3">Zielona Góra</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZLOTE_PRZEBOJE.mp3?dist=gra_www">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/radio-zlote-przeboje">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/radio-zlote-przeboje">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://radio.zloteprzeboje.pl/ramowka/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://zloteprzeboje.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://radio.zloteprzeboje.pl/audycje-i-podcasty/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/188573206798">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:224444000">📞 22 4444 000</a></button><button class="buttons buttons1"><a href="https://radio.zloteprzeboje.pl/prowadzacy/">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/188573206798" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -30,3 +62,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
