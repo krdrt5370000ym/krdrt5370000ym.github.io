@@ -17,7 +17,14 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic">RMF Classic</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://rs101-krk-cyfronet.rmfstream.pl/rmf_classic">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/rmf-classic">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/rmf-classic">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/radio/ramowka">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/podcasty">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/120191531356609">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:126622263">📞 12 6622263</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/radio/programy">📻 Programy</a></button><button class="buttons buttons1"><a href="https://www.rmfclassic.pl/radio/ludzie">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/120191531356609" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -30,3 +37,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
