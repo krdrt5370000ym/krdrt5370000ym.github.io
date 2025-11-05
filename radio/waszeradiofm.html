@@ -17,7 +17,14 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://sluchaj.link:5443/wasze">Wasze Radio FM</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://sluchaj.link:5443/wasze">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/wasze-radio-fm">💡 Online</a></button><button class="buttons buttons1"><a href="https://waszeradiofm.pl/audycje">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.waszeradiofm.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="http://waszeradiofm.pl/podcasty">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/1138287822849778">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:506200102">📞 506 200 102</a></button><button class="buttons buttons1"><a href="tel:616604616">📞 616-604-616 (WRFM)</a></button><button class="buttons buttons1"><a href="http://waszeradiofm.pl/ekipa">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/1138287822849778" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -29,3 +36,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
