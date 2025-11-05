@@ -17,7 +17,20 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www">Chillizet</option>
+         <option value="https://hub.radiostream.pl/stream.pls?radio=9900&amp;type=none&amp;dist=onlineradiobox&amp;app=none&amp;coding=mp3&amp;redirect=true">Chillizet (serwer #2)</option>
+         <option value="https://ch.cdn.eurozet.pl/CHIWJZ.mp3">Chillizet World Jazz</option>
+         <option value="https://chi.cdn.eurozet.pl/CHIJAZ.mp3">Chillizet Jazz</option>
+         <option value="https://ch.cdn.eurozet.pl/CHISOU.mp3">Chillizet Soul</option>
+         <option value="https://ch.cdn.eurozet.pl/CHICOV.mp3">Chillizet Covers</option>
+         <option value="https://ch.cdn.eurozet.pl/CHILAD.mp3">Chillizet Ladies</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/CHILLI.mp3?dist=gra_www">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://myradioonline.pl/chillizet">💡 Online</a></button><button class="buttons buttons1"><a href="https://myradioonline.pl/chillizet">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://player.chillizet.pl/Ramowka">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://www.chillizet.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://player.chillizet.pl/Podcasty">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://m.me/85962197431">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:225833572">📞 (22) 583 35 72</a></button><button class="buttons buttons1"><a href="https://player.chillizet.pl/Programy">📻 Programy</a></button><button class="buttons buttons1"><a href="https://player.chillizet.pl/Ludzie-radia">🧍 Ludzie</a></button><br>
       <a href="https://www.fb.com/85962197431" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -31,3 +44,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
