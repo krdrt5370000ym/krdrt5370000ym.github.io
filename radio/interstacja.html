@@ -17,7 +17,20 @@
 	<script src="site-progmenu.js">
     </script> 
   <hr>
-
+      <select onchange="document.getElementById('player').src=this.options[this.selectedIndex].value;" style="margin: 7px auto; width: 250px;">
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3">Kanał Główny</option>
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18274/;stream.mp3">Disco Polo</option>
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18268/;stream.mp3">Club</option>
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18180/;stream.mp3">Eurodance</option>
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18410/;stream.mp3">Najnowsze Hity</option>
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18290/;stream.mp3">Oldies</option>
+         <option value="https://cast.tunzilla.com/http://4stream.pl:18254/;stream.mp3">Polskie Hity</option>
+      </select>
+            <button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration:none;">▶</a></button>
+            <br>
+            <audio id="player" controls>
+               <source src="https://cast.tunzilla.com/http://4stream.pl:18322/;stream.mp3">
+            </audio>
     <br>
       <button class="buttons buttons1"><a href="https://onlineradiobox.com/pl/interstacja/">💡 Online</a></button><button class="buttons buttons1"><a href="https://onlineradiobox.com/pl/interstacja/">♪ Sprawdź co graliśmy!</a></button><button class="buttons buttons1"><a href="https://interstacja.pl/ramowka/">📅 Aktualna ramówka</a></button><button class="buttons buttons1"><a href="https://interstacja.pl/">🌐 Strona</a></button><button class="buttons buttons1"><a href="https://m.me/529211213755758">🗨 Messenger</a></button><button class="buttons buttons1"><a href="tel:678887176">📞 67 888 71 76</a></button><br>
       <a href="https://www.fb.com/529211213755758" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a>
@@ -28,3 +41,4 @@
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
+
