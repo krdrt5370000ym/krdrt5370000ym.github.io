@@ -82,3 +82,67 @@
 .panel {
      display: none;
 }
+
+
+ .podcast_info {
+     display: flex;
+     align-items: center;
+     gap: 2rem;
+     min-height: 5rem;
+     padding: 1rem 0;
+     list-style: none;
+     border-bottom: 1px solid #e3e3e3;
+}
+ .podcast_image {
+     flex: 0 0 6rem;
+     max-width: 6rem;
+     max-height: 6rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
+ .podcast_name {
+     font-size: 1.5rem;
+}
+ .podcast_host {
+     font-size: 1rem;
+}
+ .podcast_onair {
+     font-size: 0.8rem;
+}
+ .podcasts {
+     width: 100%;
+     p {
+         display: none;
+    }
+}
+ @media screen and (max-width: 600px) {
+     .podcast_image {
+         flex: 0 0 6rem;
+         max-width: 4rem;
+         max-height: 4rem;
+         border-radius: 1rem;
+         overflow: hidden;
+         img {
+             display: block;
+             height: auto;
+             max-width: 100%;
+        }
+    }
+     .podcast_name {
+         font-size: 1rem;
+    }
+     .podcast_host {
+         font-size: 0.7rem;
+    }
+     .podcast_date {
+         font-size: 0.5rem;
+    }
+     .podcast_content {
+         line-height: 1.8;
+    }
+}
