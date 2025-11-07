@@ -1,153 +1,371 @@
-.website_portal {
-  a {
-     text-decoration: none;
-  }
-  @media (min-width:800px) {
-     column-count: 3;
-  }
-  @media (max-width:800px) and (min-width:600px) {
-     column-count: 2;
-  }
-  @media (max-width:600px) and (min-width:400px) {
-     column-count: 2;
-     font-size: 12px;
-  }
-  @media (max-width:400px) {
-     column-count: 2;
-     font-size: 10px;
-  }
-}
- @media (max-width:600px) {
-     div#menusub {
-         width:auto;
-         height:auto;
-    }
-     div#menusub > div#menuranking {
-         position:inherit;
-         top:42px;
-         left:7px;
-         width:auto;
-         height:auto;
-         overflow-x:auto;
-         overflow-y:hidden;
-         white-space: nowrap;
-    }
-     div#menusub > div#menuranking > div.menulist {
-         display: inline-block;
-         width:auto;
-         height:auto;
-         margin-left:5px;
-         text-align:center;
-         margin:3px;
-         background-color:#c3c3c3;
-         padding-right: 10px;
-         padding-left: 10px;
-         a {
-            text-decoration: none;
-         }
+ /* PLAYER */
+.but1 {
+    a {
+    text-decoration: none;
     }
 }
- @media (min-width:600px) {
-     div#menusub {
-         width:auto;
-         height:auto;
-    }
-     div#menusub > div#menuranking {
-         position:inherit;
-         top:42px;
-         left:7px;
-         width:auto;
-         height:auto;
-    }
-     div#menusub > div#menuranking > div.menulist {
-         display: inline-block;
-         width:auto;
-         height:auto;
-         margin-left:5px;
-         text-align:center;
-         margin:3px;
-         background-color:#c3c3c3;
-         padding-right: 10px;
-         padding-left: 10px;
-         a {
-            text-decoration: none;
-         }
-    }
+.playerid_dismain {
+  display: block; 
 }
-.buttons {
-  a {
-     text-decoration: none;
-  }
+.playerid_distext {
+  font-weight: 600;
+  margin-left: 10px;
 }
-.panel {
-     display: none;
-}
-
-
- .podcast_info {
+.schedule_onair {
+     width: 100%;
      display: flex;
      align-items: center;
-     gap: 1.2rem;
+     gap: 1.5rem;
      min-height: 5rem;
-     padding: 1rem 0;
+    /* padding: 1rem 0;
+     */
      list-style: none;
-     border-bottom: 1px solid #e3e3e3;
 }
- .podcast_image {
-     flex: 0 0 6rem;
-     max-width: 6rem;
-     max-height: 6rem;
+ .schedule_cover {
+     flex: 0 0 8rem;
+     max-width: 8rem;
+     max-height: 8rem;
      border-radius: 1rem;
      overflow: hidden;
-     margin-left:25px;
      img {
          display: block;
          height: auto;
          max-width: 100%;
     }
 }
- .podcast_name {
+ .schedule_title {
      font-size: 1.5rem;
+          a {
+         text-decoration: none;
+     }
 }
- .podcast_host {
+ .schedule_author {
+     font-size: 1rem;
+          a {
+         text-decoration: none;
+     }
+}
+ .schedule_hour {
      font-size: 1rem;
 }
- .podcast_onair {
+ .schedule_item {
      font-size: 0.8rem;
-}
- .podcasts {
-     width: 100%;
-     p {
-         display: none;
-    }
+     text-transform: uppercase;
+     background: silver;
+     display: inline;
 }
  @media screen and (max-width: 600px) {
-     .podcast_image {
-         flex: 0 0 6rem;
-         max-width: 4rem;
-         max-height: 4rem;
+     .schedule_info {
+         padding:1rem;
+         margin:0rem;
+    }
+     .schedule_onair {
+         gap: 1rem;
+         min-height: 1rem;
+    }
+     .schedule_cover {
+         flex: 0 0 5rem;
+         max-width: 5rem;
+         max-height: 5rem;
          border-radius: 1rem;
          overflow: hidden;
-         margin-left:10px;
          img {
              display: block;
              height: auto;
              max-width: 100%;
         }
     }
-     .podcast_name {
+     .schedule_title {
          font-size: 1rem;
     }
-     .podcast_host {
+     .schedule_author {
          font-size: 0.7rem;
     }
-     .podcast_date {
-         font-size: 0.8rem;
+     .schedule_hour {
+         font-size: 0.7rem;
     }
-     .podcast_content {
-         line-height: 1.7;
+     .schedule_item {
+         font-size: 0.6rem;
     }
-     .podcast_info {
-         gap: 1rem;
+     .schedule_content {
+         line-height: 1.5;
+    }
+}
+
+/* PROGRAMY */
+
+ .title {
+     display: block;
+     font-size: 2em;
+     margin-block-start: 0.83em;
+     margin-block-end: 0.83em;
+     color: #777;
+     text-align: center;
+}
+ .paged_category {
+     font-weight: 600;
+     text-transform: uppercase;
+     background: gray;
+     color: black;
+     display: inline;
+     margin-left: 40px;
+     padding-left: 10px;
+     padding-right: 10px;
+}
+ .paged_title {
+     font-weight: 600;
+     text-transform: uppercase;
+     background: silver;
+     display: inline;
+     margin-left: 40px;
+     padding-left: 10px;
+     padding-right: 10px;
+}
+ .prog_info {
+     display: flex;
+     align-items: center;
+     gap: 2rem;
+     min-height: 5rem;
+     padding: 1rem 0;
+     list-style: none;
+     border-bottom: 1px solid #e3e3e3;
+}
+ .prog_cover {
+     flex: 0 0 6rem;
+     max-width: 6rem;
+     max-height: 6rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
+ .prog_name {
+     font-size: 1.5rem;
+}
+ .prog_host {
+     font-size: 1rem;
+}
+ .prog_onair {
+     font-size: 0.8rem;
+}
+ .programs {
+     width: 100%;
+     p {
+         display: none;
+    }
+}
+ @media screen and (max-width: 600px) {
+     .prog_cover {
+         flex: 0 0 6rem;
+         max-width: 4rem;
+         max-height: 4rem;
+         border-radius: 1rem;
+         overflow: hidden;
+         img {
+             display: block;
+             height: auto;
+             max-width: 100%;
+        }
+    }
+     .prog_name {
+         font-size: 1rem;
+    }
+     .prog_host {
+         font-size: 0.7rem;
+    }
+     .prog_onair {
+         font-size: 0.5rem;
+    }
+     .prog_content {
+         line-height: 1.8;
+    }
+     .title_days {
+         font-weight: 700;
+         margin-left: 25px;
+    }
+}
+ .program_info_title {
+     margin-left: 25px;
+     font-weight: 700;
+     font-size: 2rem;
+     margin-top: 20px;
+     margin-bottom: 10px;
+     line-height: 40px;
+}
+ .program_info_box {
+     display: flex;
+     margin-left: 25px;
+}
+ .program_info_cover {
+     flex: 0 0 10rem;
+     max-width: 10rem;
+     max-height: 10rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
+ .program_info_data {
+     align-items: center;
+     margin-left: 10px;
+     padding: 1rem 0;
+}
+ .program_info_djs {
+     font-size: 18px;
+}
+ .program_info_airtime {
+     font-weight: 600;
+}
+ .program_info_desc {
+     align-items: center;
+     margin-left: 25px;
+     padding: 1rem 0;
+}
+ .program_info_urls {
+     letter-spacing: 5px;
+     margin-left: 25px;
+     font-size: 28px;
+}
+ @media screen and (max-width: 600px) {
+     .program_info_box {
+         display: block;
+    }
+     .program_info_cover {
+         margin: auto;
+    }
+     .program_info_data {
+         margin-left: 0px;
+    }
+}
+
+/* RAMÓWKA */
+
+ .title {
+     display: block;
+     font-size: 2em;
+     margin-block-start: 0.83em;
+     margin-block-end: 0.83em;
+     color: #777;
+     text-align: center;
+     a {
+         text-decoration: none;
      }
+}
+ .title_days {
+     font-weight: 700;
+     margin-left: 50px;
+}
+ .paged_title {
+     font-weight: 600;
+     text-transform: uppercase;
+     background: silver;
+     display: inline;
+     margin-left: 40px;
+     padding-left: 10px;
+     padding-right: 10px;
+}
+ .sch_prog {
+     display: flex;
+     align-items: center;
+     gap: 2rem;
+     min-height: 5rem;
+     padding: 1rem 0;
+     list-style: none;
+     border-bottom: 1px solid #e3e3e3;
+}
+ .prog_hour {
+     width: auto;
+     min-width: 105px;
+}
+ .prog_cover {
+     flex: 0 0 6rem;
+     max-width: 4rem;
+     max-height: 4rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
+ .prog_name {
+     font-size: 1.2rem;
+          a {
+         text-decoration: none;
+     }
+}
+ .prog_host {
+     font-size: 0.9rem;
+          a {
+         text-decoration: none;
+     }
+}
+ .prog_item {
+     font-size: 0.7rem;
+     text-transform: uppercase;
+     background: silver;
+     display: inline;
+}
+ .prog_desc {
+     font-size: 0.8rem;
+}
+ .schedule {
+     width: 100%;
+     p {
+         display: none;
+    }
+     .subsch {
+         color: grey;
+    }
+     .onair {
+         color: red;
+    }
+}
+ @media screen and (max-width: 600px) {
+     .prog_cover {
+         grid-row-start: 1;
+         grid-row-end: 3;
+         width: 250px;
+    }
+     .prog_name {
+         font-size: 1rem;
+    }
+     .prog_host {
+         font-size: 0.75rem;
+    }
+     .prog_item {
+         font-size: 0.6rem;
+    }
+     .prog_desc {
+         font-size: 0.6rem;
+    }
+     .prog_hour {
+         grid-column: 2;
+         grid-row: 2;
+         font-size: 1.0rem;
+         width: 250px;
+    }
+     .sch_prog {
+         display: grid;
+         line-height: 0.5;
+         column-gap: 0px;
+    }
+     .prog_content {
+         grid-column: 2;
+         grid-row: 1;
+         line-height: 1.8;
+         width: 250px;
+         
+    }
+     .title_days {
+         font-weight: 700;
+         margin-left: 25px;
+    }
 }
