@@ -147,6 +147,10 @@
 	}
 }
 
+.podcast_title {
+	margin-left: 20px;
+}
+
 .podcast_name {
 	font-size: 1.5rem;
 }
@@ -212,5 +216,8 @@
 
 	.podcast_img_arch {
 		font-size: 8px;
+	}
+	.podcast_title {
+		margin-left: 10px;
 	}
 }
