@@ -152,11 +152,13 @@
 }
 
 .podcast_host {
-	font-size: 1rem;
+	font-size: 0.8rem;
+	text-transform: uppercase;
 }
 
-.podcast_onair {
-	font-size: 0.8rem;
+.podcast_date {
+	font-size: 0.7rem;
+	text-transform: uppercase;
 }
 
 .podcasts {
@@ -192,7 +194,7 @@
 	}
 
 	.podcast_date {
-		font-size: 0.8rem;
+		font-size: 0.6rem;
 	}
 
 	.podcast_content {
