@@ -165,6 +165,12 @@
 	text-transform: uppercase;
 }
 
+.podcast_station {
+	font-size: 0.7rem;
+	color: red;
+	text-transform: uppercase;
+}
+
 .podcast_img_arch {
 	font-size: 12px;
 	text-transform: uppercase;
@@ -203,6 +209,10 @@
 	}
 
 	.podcast_date {
+		font-size: 0.6rem;
+	}
+
+	.podcast_station {
 		font-size: 0.6rem;
 	}
 
