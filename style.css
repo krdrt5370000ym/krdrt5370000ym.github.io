@@ -161,6 +161,11 @@
 	text-transform: uppercase;
 }
 
+.podcast_img_arch {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
 .podcasts {
 	width: 100%;
 
@@ -206,6 +211,6 @@
 	}
 
 	.podcast_img_arch {
-		font-size: 10px;
+		font-size: 8px;
 	}
 }
