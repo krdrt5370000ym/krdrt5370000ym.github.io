@@ -93,6 +93,14 @@
 	}
 }
 
+.buttons1 {
+	color: white;
+}
+
+.buttons2 {
+	color: silver;
+}
+
 .panel {
 	display: none;
 }
