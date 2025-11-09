@@ -87,18 +87,18 @@
 	}
 }
 
+.buttons1 {
+	background-color: white;
+}
+
+.buttons2 {
+	background-color: silver;
+}
+
 .buttons {
 	a {
 		text-decoration: none;
 	}
-}
-
-.buttons1 {
-	color: white;
-}
-
-.buttons2 {
-	color: silver;
 }
 
 .panel {
