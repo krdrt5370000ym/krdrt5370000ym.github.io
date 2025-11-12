@@ -51,8 +51,14 @@
  .schedule_item {
      font-size: 0.8rem;
      text-transform: uppercase;
+     padding-left: 4px;
+     padding-right: 4px;
      background: silver;
      display: inline;
+}
+ .schedule_item:empty {
+     padding-left: 0px;
+     padding-right: 0px;
 }
  @media screen and (max-width: 600px) {
      .schedule_info {
