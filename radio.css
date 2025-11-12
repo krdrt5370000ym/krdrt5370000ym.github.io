@@ -310,6 +310,8 @@
  .prog_item {
      font-size: 0.7rem;
      text-transform: uppercase;
+     padding-left: 4px;
+     padding-right: 4px;
      background: silver;
      display: inline;
 }
