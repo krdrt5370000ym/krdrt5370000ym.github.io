@@ -315,7 +315,7 @@
      background: silver;
      display: inline;
 }
- .prog_item {
+ .prog_item:empty {
      padding-left: 0px;
      padding-right: 0px;
 }
