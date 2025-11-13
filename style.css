@@ -1,8 +1,8 @@
 .body {
-	font-family: "Kumbh Sans";
+	font-family: "Kumbh Sans", sans-serif;
 }
 .website_portal {
-	font-family: "Quicksand";
+	font-family: "Quicksand", sans-serif;
 	a {
 		text-decoration: none;
 	}
