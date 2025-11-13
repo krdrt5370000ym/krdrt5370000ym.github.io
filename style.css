@@ -1,5 +1,8 @@
-.body {
-	font-family: "Kumbh Sans", sans-serif;
+body {
+	font-family: "Kumbh Sans", "Quicksand", sans-serif;
+}
+.font_QS {
+	font-family: "Quicksand", sans-serif;
 }
 .website_portal {
 	font-family: "Quicksand", sans-serif;
