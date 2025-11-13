@@ -1,4 +1,8 @@
+.body {
+	font-family: "Kumbh Sans";
+}
 .website_portal {
+	font-family: "Quicksand";
 	a {
 		text-decoration: none;
 	}
