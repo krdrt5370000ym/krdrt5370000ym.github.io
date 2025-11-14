@@ -1,6 +1,9 @@
 body {
 	font-family: "Kumbh Sans", "Quicksand", sans-serif;
 }
+.w3-bar .w3-bar-item {
+	font-family: "Raleway", sans-serif;
+}
 .font_QS {
 	font-family: "Quicksand", sans-serif;
 }
