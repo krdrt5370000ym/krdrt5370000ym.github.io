@@ -1,5 +1,5 @@
 body {
-	font-family: "Kumbh Sans", "Quicksand", sans-serif;
+	font-family: "Kumbh Sans", "Roboto", sans-serif;
 }
 .w3-bar .w3-bar-item {
 	font-family: "Raleway", sans-serif;
@@ -9,6 +9,9 @@ body {
 }
 .font_RW {
 	font-family: "Raleway", sans-serif;
+}
+.font_RO {
+	font-family: "Roboto", sans-serif;
 }
 .website_portal {
 	font-family: "Quicksand", sans-serif;
@@ -109,6 +112,7 @@ body {
 }
 
 .buttons {
+	font-family: "Roboto", sans-serif;
 	a {
 		text-decoration: none;
 	}
