@@ -103,11 +103,16 @@
 
  .title {
      display: block;
-     font-size: 2em;
+     font-weight: 700;
+     text-transform: uppercase;
+     font-size: 1.5em;
      margin-block-start: 0.83em;
      margin-block-end: 0.83em;
      color: #777;
      text-align: center;
+     a {
+         text-decoration: none;
+     }
 }
  .paged_category {
      font-weight: 600;
@@ -255,7 +260,9 @@
 
  .title {
      display: block;
-     font-size: 2em;
+     font-weight: 700;
+     text-transform: uppercase;
+     font-size: 1.5em;
      margin-block-start: 0.83em;
      margin-block-end: 0.83em;
      color: #777;
