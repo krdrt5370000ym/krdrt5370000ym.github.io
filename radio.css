@@ -91,6 +91,7 @@
          font-size: 0.7rem;
     }
      .schedule_hour {
+         -webkit-line-clamp: 2;
          font-size: 0.7rem;
     }
      .schedule_item {
