@@ -232,16 +232,25 @@ body {
 	}
 
 	.podcast_name {
+		display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
 		-webkit-line-clamp: 2;
 		font-size: 1rem;
 	}
 
 	.podcast_host {
+		display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
 		-webkit-line-clamp: 2;
 		font-size: 0.7rem;
 	}
 
 	.podcast_date {
+		display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
 		-webkit-line-clamp: 2;
 		font-size: 0.6rem;
 	}
