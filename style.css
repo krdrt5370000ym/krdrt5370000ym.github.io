@@ -232,14 +232,17 @@ body {
 	}
 
 	.podcast_name {
+		-webkit-line-clamp: 2;
 		font-size: 1rem;
 	}
 
 	.podcast_host {
+		-webkit-line-clamp: 2;
 		font-size: 0.7rem;
 	}
 
 	.podcast_date {
+		-webkit-line-clamp: 2;
 		font-size: 0.6rem;
 	}
 
