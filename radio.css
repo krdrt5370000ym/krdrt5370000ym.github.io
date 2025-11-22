@@ -83,14 +83,23 @@
         }
     }
      .schedule_title {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
          -webkit-line-clamp: 2;
          font-size: 1rem;
     }
      .schedule_author {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
          -webkit-line-clamp: 2;
          font-size: 0.7rem;
     }
      .schedule_hour {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
          -webkit-line-clamp: 2;
          font-size: 0.7rem;
     }
