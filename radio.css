@@ -257,10 +257,11 @@
      font-size: 28px;
 }
  .program_info_onairs {
+     font-size: 16px;
+     margin-top: 10px;
      margin-left: 25px;
 }
  .program_info_onairs_list {
-     font-size: 16px;
      margin-left: 25px;
 }
  @media screen and (max-width: 600px) {
@@ -272,6 +273,12 @@
     }
      .program_info_data {
          margin-left: 0px;
+    }
+     .program_info_onairs {
+         font-size: 14px;
+    }
+     .program_info_onairs_list {
+         font-size: 12px;
     }
 }
 
