@@ -256,6 +256,13 @@
      margin-left: 25px;
      font-size: 28px;
 }
+ .program_info_onairs {
+     margin-left: 25px;
+}
+ .program_info_onairs_list {
+     font-size: 16px;
+     margin-left: 25px;
+}
  @media screen and (max-width: 600px) {
      .program_info_box {
          display: block;
