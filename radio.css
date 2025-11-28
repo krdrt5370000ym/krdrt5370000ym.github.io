@@ -337,6 +337,18 @@
          max-width: 100%;
     }
 }
+.subsch > .prog_cover {
+     flex: 0 0 2.5rem;
+     max-width: 2.5rem;
+     max-height: 2.5rem;
+     border-radius: 0.5rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
  .prog_name {
      font-weight: 600;
      font-size: 1.2rem;
@@ -377,6 +389,38 @@
          color: red;
     }
 }
+.subsch > .prog_content > .prog_name {
+     font-weight: 600;
+     font-size: 0.8rem;
+          a {
+         text-decoration: none;
+     }
+}
+.subsch > .prog_content > .prog_host {
+     font-size: 0.6rem;
+          a {
+         text-decoration: none;
+     }
+}
+.subsch > .prog_hour {
+    font-size: 0.8rem;
+     min-width: 75px;
+}
+.subsch > .prog_content > .prog_item {
+     font-size: 0.5rem;
+     text-transform: uppercase;
+     padding-left: 4px;
+     padding-right: 4px;
+     background: silver;
+     display: inline;
+}
+.subsch > .prog_content > .prog_item:empty {
+     padding-left: 0px;
+     padding-right: 0px;
+}
+.subsch > .prog_content > .prog_desc {
+     font-size: 0.6rem;
+}
  @media screen and (max-width: 600px) {
      .prog_cover {
          grid-row-start: 1;
@@ -416,5 +460,20 @@
      .title_days {
          font-weight: 700;
          margin-left: 25px;
+    }
+     .subsch > .prog_content > .prog_item {
+         font-size: 0.75rem;
+    }
+     .subsch > .prog_content > .prog_name {
+         font-size: 0.75rem;
+    }
+     .subsch > .prog_content > .prog_host {
+         font-size: 0.6rem;
+    }
+     .subsch > .prog_content > .prog_item {
+         font-size: 0.4rem;
+    }
+     .subsch > .prog_content > .prog_desc {
+         font-size: 0.4rem;
     }
 }
