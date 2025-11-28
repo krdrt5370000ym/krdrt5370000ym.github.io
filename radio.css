@@ -321,6 +321,9 @@
      list-style: none;
      border-bottom: 1px solid #e3e3e3;
 }
+.subsch {
+     gap: 1.5rem;
+}
  .prog_hour {
      width: auto;
      min-width: 105px;
