@@ -425,6 +425,12 @@
      font-size: 0.6rem;
 }
  @media screen and (max-width: 600px) {
+     .subsch > .prog_cover {
+         flex: 0 0 3rem;
+         max-width: 3rem;
+         max-height: 3rem;
+         border-radius: 0.5rem;
+    }
      .prog_cover {
          grid-row-start: 1;
          grid-row-end: 3;
@@ -465,13 +471,13 @@
          margin-left: 25px;
     }
      .subsch > .prog_content > .prog_item {
-         font-size: 0.75rem;
+         font-size: 0.6rem;
     }
      .subsch > .prog_content > .prog_name {
-         font-size: 0.75rem;
+         font-size: 0.6rem;
     }
      .subsch > .prog_content > .prog_host {
-         font-size: 0.6rem;
+         font-size: 0.5rem;
     }
      .subsch > .prog_content > .prog_item {
          font-size: 0.4rem;
