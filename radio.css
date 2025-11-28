@@ -470,14 +470,14 @@
          font-weight: 700;
          margin-left: 25px;
     }
-     .subsch > .prog_content > .prog_item {
-         font-size: 0.6rem;
+     .subsch > .prog_hour {
+         font-size: 0.7rem;
     }
      .subsch > .prog_content > .prog_name {
-         font-size: 0.6rem;
+         font-size: 0.55rem;
     }
      .subsch > .prog_content > .prog_host {
-         font-size: 0.5rem;
+         font-size: 0.45rem;
     }
      .subsch > .prog_content > .prog_item {
          font-size: 0.4rem;
