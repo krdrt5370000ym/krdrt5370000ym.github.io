@@ -73,6 +73,7 @@
     text-align: center;
     text-transform: uppercase;
     font-size: 13px;
+    line-height: 1em;
 }
  @media screen and (max-width: 600px) {
      .schedule_info {
@@ -296,6 +297,7 @@
     text-align: center;
     text-transform: uppercase;
     font-size: 16px;
+    line-height: 1em;
 }
  @media screen and (max-width: 600px) {
      .program_info_box {
@@ -455,6 +457,34 @@
 .subsch > .prog_content > .prog_desc {
      font-size: 0.6rem;
 }
+.prog_name_box {
+    background-color: #616161;
+    border-radius: 1rem;
+    color: white;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 6.4px;
+    line-height: 1em;
+}
+.subsch > .prog_cover > .prog_name_box {
+    background-color: #616161;
+    border-radius: 0.5rem;
+    color: white;
+    width: 37.5px;
+    height: 37.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 3.9px;
+    line-height: 1em;
+}
  @media screen and (max-width: 600px) {
      .subsch > .prog_cover {
          flex: 0 0 3rem;
@@ -515,5 +545,10 @@
     }
      .subsch > .prog_content > .prog_desc {
          font-size: 0.4rem;
+    }
+     .subsch > .prog_cover > .prog_name_box {
+         width: 45px;
+         height: 45px;
+         font-size: 4.7px;
     }
 }
