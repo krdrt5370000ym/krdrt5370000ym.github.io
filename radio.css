@@ -201,6 +201,20 @@
          display: none;
     }
 }
+.prog_name_box {
+    background-color: #616161;
+    border-radius: 1rem;
+    color: white;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 1em;
+}
  @media screen and (max-width: 600px) {
      .prog_cover {
          flex: 0 0 6rem;
