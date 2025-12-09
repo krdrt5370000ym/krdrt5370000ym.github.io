@@ -61,6 +61,19 @@
      padding-left: 0px;
      padding-right: 0px;
 }
+.schedule_name_box {
+    background-color: #616161;
+    border-radius: 1rem;
+    color: white;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+}
  @media screen and (max-width: 600px) {
      .schedule_info {
          padding:1rem;
@@ -108,6 +121,11 @@
     }
      .schedule_content {
          line-height: 1.5;
+    }
+     .schedule_name_box {
+         width: 75px;
+         height: 75px;
+         font-size: 8px;
     }
 }
 
