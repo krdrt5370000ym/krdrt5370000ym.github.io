@@ -138,7 +138,7 @@
 	color: grey;
 }
 
-.podcast_archived>.podcast_image {
+.podcast_archived > .podcast_image {
 	position: relative;
 	text-align: center;
 	color: white;
