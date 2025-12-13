@@ -135,9 +135,13 @@
 }
 
 .podcasts_archived {
+	width: 100%;
 	color: grey;
 	img {
 		opacity: 0.6;
+	}
+	p {
+		display: none;
 	}
 }
 
