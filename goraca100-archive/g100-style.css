@@ -15,7 +15,7 @@
          background-color: #CCC;
     }
 }
-.boximg {
+ .boximg {
      border: 1px solid #130010;
      @media (min-width:600px) {
          border-radius: 100px;
@@ -27,14 +27,14 @@
          width: 75px;
          height: 75px;
     }
-} 
-.ps_name {
-     font-weight: 600; 
+}
+ .ps_name {
+     font-weight: 600;
      font-size: 16px;
      display: block;
      a {
-        text-decoration: none;
-     }
+         text-decoration: none;
+    }
 }
  .ps_host {
      font-weight: 400;
@@ -42,8 +42,8 @@
      display: block;
      text-transform: uppercase;
      a {
-        text-decoration: none;
-     }
+         text-decoration: none;
+    }
 }
  .ps_info {
      letter-spacing: 5px;
