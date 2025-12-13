@@ -211,6 +211,24 @@
          display: none;
     }
  }
+ .programs_archived > .prog_info > .prog_cover {
+     position: relative;
+     text-align: center;
+     color: white;
+     .program_img_arch {
+         width: 100%;
+         height: 18px;
+         text-align: center;
+         font-size: 9px;
+         position: absolute;
+         top: 0;
+         background: rgba(1, 1, 1, 0.5);
+         text-transform: uppercase;
+         padding-top: 4px;
+         color: white;
+         z-index: 0;
+    }
+}
 .prog_name_box {
     background-color: #616161;
     border-radius: 1rem;
