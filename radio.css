@@ -201,6 +201,16 @@
          display: none;
     }
 }
+ .programs_archived {
+     width: 100%;
+     color: grey;
+     img {
+         opacity: 0.6;
+     }
+     p {
+         display: none;
+    }
+ }
 .prog_name_box {
     background-color: #616161;
     border-radius: 1rem;
