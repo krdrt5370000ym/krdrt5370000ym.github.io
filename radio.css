@@ -1,17 +1,17 @@
 /* PLAYER */
-.but1 {
-    a {
-    text-decoration: none;
+ .but1 {
+     a {
+         text-decoration: none;
     }
 }
-.playerid_dismain {
-  display: block; 
+ .playerid_dismain {
+     display: block;
 }
-.playerid_distext {
-  font-weight: 600;
-  margin-left: 10px;
+ .playerid_distext {
+     font-weight: 600;
+     margin-left: 10px;
 }
-.schedule_onair {
+ .schedule_onair {
      width: 100%;
      display: flex;
      align-items: center;
@@ -36,15 +36,15 @@
  .schedule_title {
      font-weight: 600;
      font-size: 1.5rem;
-          a {
+     a {
          text-decoration: none;
-     }
+    }
 }
  .schedule_author {
      font-size: 1rem;
-          a {
+     a {
          text-decoration: none;
-     }
+    }
 }
  .schedule_hour {
      font-size: 1rem;
@@ -61,19 +61,19 @@
      padding-left: 0px;
      padding-right: 0px;
 }
-.schedule_name_box {
-    background-color: #616161;
-    border-radius: 1rem;
-    color: white;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 13px;
-    line-height: 1em;
+ .schedule_name_box {
+     background-color: #616161;
+     border-radius: 1rem;
+     color: white;
+     width: 120px;
+     height: 120px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 13px;
+     line-height: 1em;
 }
  @media screen and (max-width: 600px) {
      .schedule_info {
@@ -129,9 +129,7 @@
          font-size: 8px;
     }
 }
-
 /* PROGRAMY */
-
  .title {
      display: block;
      font-weight: 700;
@@ -143,7 +141,7 @@
      text-align: center;
      a {
          text-decoration: none;
-     }
+    }
 }
  .paged_category {
      font-weight: 600;
@@ -206,11 +204,11 @@
      color: grey;
      img {
          opacity: 0.6;
-     }
+    }
      p {
          display: none;
     }
- }
+}
  .programs_archived > .prog_info > .prog_cover {
      position: relative;
      text-align: center;
@@ -229,19 +227,19 @@
          z-index: 0;
     }
 }
-.prog_name_box {
-    background-color: #616161;
-    border-radius: 1rem;
-    color: white;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 1em;
+ .prog_name_box {
+     background-color: #616161;
+     border-radius: 1rem;
+     color: white;
+     width: 60px;
+     height: 60px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 16px;
+     line-height: 1em;
 }
  @media screen and (max-width: 600px) {
      .prog_cover {
@@ -327,19 +325,19 @@
  .program_info_onairs_list {
      margin-left: 25px;
 }
-.program_info_name_box {
-    background-color: #616161;
-    border-radius: 1rem;
-    color: white;
-    width: 150px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 1em;
+ .program_info_name_box {
+     background-color: #616161;
+     border-radius: 1rem;
+     color: white;
+     width: 150px;
+     height: 150px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 16px;
+     line-height: 1em;
 }
  @media screen and (max-width: 600px) {
      .program_info_box {
@@ -358,9 +356,7 @@
          font-size: 12px;
     }
 }
-
 /* RAMÓWKA */
-
  .title {
      display: block;
      font-weight: 700;
@@ -372,7 +368,7 @@
      text-align: center;
      a {
          text-decoration: none;
-     }
+    }
 }
  .title_days {
      font-weight: 700;
@@ -396,7 +392,7 @@
      list-style: none;
      border-bottom: 1px solid #e3e3e3;
 }
-.subsch {
+ .subsch {
      gap: 1.5rem;
 }
  .prog_hour {
@@ -415,7 +411,7 @@
          max-width: 100%;
     }
 }
-.subsch > .prog_cover {
+ .subsch > .prog_cover {
      flex: 0 0 2.5rem;
      max-width: 2.5rem;
      max-height: 2.5rem;
@@ -430,15 +426,15 @@
  .prog_name {
      font-weight: 600;
      font-size: 1.2rem;
-          a {
+     a {
          text-decoration: none;
-     }
+    }
 }
  .prog_host {
      font-size: 0.9rem;
-          a {
+     a {
          text-decoration: none;
-     }
+    }
 }
  .prog_item {
      font-size: 0.7rem;
@@ -467,24 +463,24 @@
          color: red;
     }
 }
-.subsch > .prog_content > .prog_name {
+ .subsch > .prog_content > .prog_name {
      font-weight: 600;
      font-size: 0.8rem;
-          a {
+     a {
          text-decoration: none;
-     }
+    }
 }
-.subsch > .prog_content > .prog_host {
+ .subsch > .prog_content > .prog_host {
      font-size: 0.6rem;
-          a {
+     a {
          text-decoration: none;
-     }
+    }
 }
-.subsch > .prog_hour {
-    font-size: 0.8rem;
+ .subsch > .prog_hour {
+     font-size: 0.8rem;
      min-width: 75px;
 }
-.subsch > .prog_content > .prog_item {
+ .subsch > .prog_content > .prog_item {
      font-size: 0.5rem;
      text-transform: uppercase;
      padding-left: 4px;
@@ -492,40 +488,40 @@
      background: silver;
      display: inline;
 }
-.subsch > .prog_content > .prog_item:empty {
+ .subsch > .prog_content > .prog_item:empty {
      padding-left: 0px;
      padding-right: 0px;
 }
-.subsch > .prog_content > .prog_desc {
+ .subsch > .prog_content > .prog_desc {
      font-size: 0.6rem;
 }
-.prog_name_box {
-    background-color: #616161;
-    border-radius: 1rem;
-    color: white;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 6.4px;
-    line-height: 1em;
+ .prog_name_box {
+     background-color: #616161;
+     border-radius: 1rem;
+     color: white;
+     width: 60px;
+     height: 60px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 6.4px;
+     line-height: 1em;
 }
-.subsch > .prog_cover > .prog_name_box {
-    background-color: #616161;
-    border-radius: 0.5rem;
-    color: white;
-    width: 37.5px;
-    height: 37.5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 3.9px;
-    line-height: 1em;
+ .subsch > .prog_cover > .prog_name_box {
+     background-color: #616161;
+     border-radius: 0.5rem;
+     color: white;
+     width: 37.5px;
+     height: 37.5px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 3.9px;
+     line-height: 1em;
 }
  @media screen and (max-width: 600px) {
      .subsch > .prog_cover {
@@ -567,7 +563,6 @@
          grid-row: 1;
          line-height: 1.8;
          width: 250px;
-         
     }
      .title_days {
          font-weight: 700;
