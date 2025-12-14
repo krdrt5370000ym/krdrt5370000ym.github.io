@@ -1,0 +1,146 @@
+<!doctype html>
+<meta charset=utf-8>
+<div id=app style=height:97vh></div>
+<script src=./webamp.bundle.min.js></script>
+<script src=./butterchurn.min.js></script>
+<script src=./butterchurnPresets.min.js></script>
+<script>
+  const Webamp = window.Webamp;
+  new Webamp({
+    initialTracks: [{
+      metaData: {
+        title: "Radio ZET (107,5 FM - Warszawa, 92,6 FM - Łódź)"
+      },
+      url: "https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ZET.mp3?dist=gra_www"
+    }, {
+      metaData: {
+        title: "Radio ZET (NO ADS)"
+      },
+      url: "https://n-11-29.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx?audio=5"
+    }, {
+      metaData: {
+        title: "RMF FM (91 FM, 90,6 FM - Warszawa, 93,5 FM - Łódź)"
+      },
+      url: "https://rs103-krk.rmfstream.pl/rmf_fm"
+    }, {
+      metaData: {
+        title: "RMF MAXX Warszawa (95,8 FM)"
+      },
+      url: "https://rs103-krk.rmfstream.pl/rmf_maxxx_waw"
+    }, {
+      metaData: {
+        title: "RMF MAXX Tomaszów Maz. (88,4 FM)"
+      },
+      url: "https://rs103-krk.rmfstream.pl/rmf_maxxx_tmz"
+    }, {
+      metaData: {
+        title: "Radio ESKA Warszawa (105,6 FM)"
+      },
+      url: "https://liveradio.timesa.pl/2380-1.aac/playlist.m3u8"
+    }, {
+      metaData: {
+        title: "Radio ESKA Warszawa (105,6 FM) (IC)"
+      },
+      url: "https://waw.ic.smcdn.pl/2380-1.aac"
+    }, {
+      metaData: {
+        title: "Radio ESKA Łódź (90,1 FM)"
+      },
+      url: "https://liveradio.timesa.pl/2100-1.aac/playlist.m3u8"
+    }, {
+      metaData: {
+        title: "Radio ESKA Łódź (90,1 FM) (IC)"
+      },
+      url: "https://waw.ic.smcdn.pl/2100-1.aac"
+    }, {
+      metaData: {
+        title: "Meloradio Warszawa (94 FM)"
+      },
+      url: "https://n-11-25.dcs.redcdn.pl/sc/o2/Eurozet/live/meloradio.livx"
+    }, {
+      metaData: {
+        title: "Meloradio Łódź (104,5 FM)"
+      },
+      url: "https://ml01.cdn.eurozet.pl/mel-ldz.mp3"
+    }, {
+      metaData: {
+        title: "VOX FM Warszawa (104,4 FM) / Łódź (97,9 FM)"
+      },
+      url: "https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8"
+    }, {
+      metaData: {
+        title: "VOX FM Warszawa (104,4 FM) / Łódź (97,9 FM) (IC)"
+      },
+      url: "https://waw.ic.smcdn.pl/3990-1.aac"
+    }, {
+      metaData: {
+        title: "Radio RSC 88,6 FM"
+      },
+      url: "https://stream.rcs.revma.com/94fud6a6z72vv"
+    }, {
+      metaData: {
+        title: "Radio Victoria (93,8 FM - Kutno, 94,7 FM - Rawa Maz., 96,7 - Sk-ce, 98,1 FM - Mszc., 103,5 FM - Łowicz)"
+      },
+      url: "https://stream.v4.radiovictoria.pl:8076/;"
+    }, {
+      metaData: {
+        title: "Radio Fama Żyrardów (104,1 FM)"
+      },
+      url: "https://stream4.nadaje.com:13771/"
+    }, {
+      metaData: {
+        title: "Radio POP"
+      },
+      url: "https://sluchaj.link:5443/popradio"
+    }, {
+      metaData: {
+        title: "Wasze Radio"
+      },
+      url: "https://sluchaj.link:5443/wasze"
+    }, {
+      metaData: {
+        title: "Radio Fest"
+      },
+      url: "https://play.radiofest.pl:8443/fest"
+    }],
+    __butterchurnOptions: {
+      importButterchurn: () => Promise.resolve(window.butterchurn),
+      getPresets: () => {
+        const e = window.butterchurnPresets.getPresets();
+        return Object.keys(e).map(t => ({
+          name: t,
+          butterchurnPresetObject: e[t]
+        }))
+      },
+      butterchurnOpen: !0
+    },
+    __initialWindowLayout: {
+      main: {
+        position: {
+          x: 0,
+          y: 0
+        }
+      },
+      equalizer: {
+        position: {
+          x: 0,
+          y: 116
+        }
+      },
+      playlist: {
+        position: {
+          x: 0,
+          y: 232
+        },
+        size: [0, 4]
+      },
+      milkdrop: {
+        position: {
+          x: 275,
+          y: 0
+        },
+        size: [7, 12]
+      }
+    }
+  }).renderWhenReady(document.getElementById("app"))
+</script>
