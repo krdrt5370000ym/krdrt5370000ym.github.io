@@ -1,0 +1,665 @@
+#EXTM3U
+#RADIOBROWSERUUID:9d69cc77-b698-40c0-8036-17cd1f09ca44
+#EXTINF:1,	Fun Radio
+http://stream.funradio.sk:8000/fun128.mp3
+
+#RADIOBROWSERUUID:b1b95ad4-306b-4fb8-9ae8-7859634beffe
+#EXTINF:1,897
+https://c34.radioboss.fm:8106/stream
+
+#RADIOBROWSERUUID:3801bf8f-0956-4e4d-85a9-362c589445c2
+#EXTINF:1,Abdulbasit Abdulsamad
+https://radio.mp3islam.com/listen/abdulbasit/radio.mp3
+
+#RADIOBROWSERUUID:961b450e-0561-47f9-ae88-8150358cae3b
+#EXTINF:1,BB FM rádio
+http://stream.bbfm.sk/bbfm128.mp3
+
+#RADIOBROWSERUUID:3e108ce9-d0cd-4ea8-9392-1c2a99bb47f8
+#EXTINF:1,BestFM
+https://stream3.bestfm.sk:8000/160.aac
+
+#RADIOBROWSERUUID:b87c401d-a36a-4845-b626-37778ddb42c2
+#EXTINF:1,Československé radio 
+http://live.topradio.cz:8000/csradio128
+
+#RADIOBROWSERUUID:dbb7a102-2945-4e20-9bc7-be0ed1affbfc
+#EXTINF:1,Detské rádio
+https://stream.21.sk/detskeradio-192.mp3
+
+#RADIOBROWSERUUID:b3db4961-4d2a-460b-89cf-083ad78b3799
+#EXTINF:1,Detské Rádio
+http://stream.21.sk/detskeradio-192.mp3
+
+#RADIOBROWSERUUID:d2427cd9-ec80-4c07-976b-118b777e6679
+#EXTINF:1,Dobré Rádio
+https://stream.dobreradio.sk/dobreradio.mp3
+
+#RADIOBROWSERUUID:7197943c-8feb-47a0-b76e-aa3e46160c98
+#EXTINF:1,Duflo Radio
+http://stream.zeno.fm/kxwhyvz2fm0uv
+
+#RADIOBROWSERUUID:cb61763d-d635-4983-82c1-4a6a1e8ad17b
+#EXTINF:1,Europa 2 
+https://stream.bauermedia.sk/europa2.mp3
+
+#RADIOBROWSERUUID:5d4051ee-246c-429f-9fa2-651d9f043659
+#EXTINF:1,Europa 2
+https://stream.bauermedia.sk/europa2.mp3
+
+#RADIOBROWSERUUID:6deabeee-eb84-4044-a22f-c3a13b721a43
+#EXTINF:1,Fit Famili Rádio 
+https://solid1.streamupsolutions.com/proxy/utwrguip/stream
+
+#RADIOBROWSERUUID:6bb4b15c-cc80-476d-ae34-8777e157e429
+#EXTINF:1,Fit Famili Rádio 
+https://solid1.streamupsolutions.com/proxy/utwrguip/stream
+
+#RADIOBROWSERUUID:b476dd00-2453-42d2-89bb-ccfb61f28b67
+#EXTINF:1,Fred Film Radio-25 Slovenčina
+https://s10.webradio-hosting.com/proxy/fredradiosk/stream
+
+#RADIOBROWSERUUID:2faf7516-b743-4c34-a949-0e10a5c5b76f
+#EXTINF:1,FRESH rádio
+https://icecast2.radionet.sk/freshradio.sk
+
+#RADIOBROWSERUUID:c32c44f8-5493-4c9b-a1dc-ec5dc59ba611
+#EXTINF:1,Fresh Rádio
+https://icecast2.radionet.sk/freshradio.sk
+
+#RADIOBROWSERUUID:188a79f7-f612-43b9-8216-afc25d9ce2bd
+#EXTINF:1,FRESH Rádio 
+https://icecast2.radionet.sk/freshradio.sk
+
+#RADIOBROWSERUUID:960efe59-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Fun Radio
+http://stream.funradio.sk:8000/fun128.mp3
+
+#RADIOBROWSERUUID:685f6c24-67a0-41b3-b76a-df51e1243428
+#EXTINF:1,FUN RÁDIO
+http://stream.funradio.sk:8000/fun128.mp3
+
+#RADIOBROWSERUUID:81b88161-c3f7-4958-8165-7d408d7689db
+#EXTINF:1,Fun Radio  Chill
+https://stream.funradio.sk:8000/chill128.mp3
+
+#RADIOBROWSERUUID:847dd754-4b32-40d5-be4a-a8e91c2bd5e8
+#EXTINF:1,FUN RÁDIO 80-90
+http://stream.funradio.sk:8000/80-90-128.mp3
+
+#RADIOBROWSERUUID:89902d6b-8d45-4856-ae81-ca2f769a8615
+#EXTINF:1,FUN RÁDIO 80-90
+http://stream.funradio.sk:8000/80-90-128.mp3
+
+#RADIOBROWSERUUID:a7a481bd-e42b-42eb-91d8-76cb56642e67
+#EXTINF:1,FUN RÁDIO 80-90
+http://stream.funradio.sk:8000/80-90-128.mp3
+
+#RADIOBROWSERUUID:960f00de-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Fun Radio 80&90
+http://stream.funradio.sk:8000/80-90-128.mp3
+
+#RADIOBROWSERUUID:960eff36-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Fun Radio CZ
+http://stream.funradio.sk:8000/cs128.mp3
+
+#RADIOBROWSERUUID:71d410fa-dedb-4566-ba65-09c42735096b
+#EXTINF:1,FUN RÁDIO DANCE
+http://stream.funradio.sk:8000/dance128.mp3
+
+#RADIOBROWSERUUID:960f000f-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Fun Radio Dance
+http://stream.funradio.sk:8000/dance128.mp3
+
+#RADIOBROWSERUUID:25bdc571-f069-408c-844d-9810075c2f89
+#EXTINF:1,FUN RÁDIO DANCE
+http://stream.funradio.sk:8000/dance128.mp3
+
+#RADIOBROWSERUUID:a79da3d2-8891-4622-ade3-35b8f7a9979c
+#EXTINF:1,Funrádio Mileniálky
+http://stream.funradio.sk:8000/milenialky128.mp3
+
+#RADIOBROWSERUUID:f0e06d4a-fdad-4773-a046-1eda297aa349
+#EXTINF:1,G-Radio
+http://88.212.34.18:8050/mp3midband
+
+#RADIOBROWSERUUID:42b85b36-77e3-11ea-b1cf-52543be04c81
+#EXTINF:1,G-Radio
+http://88.212.34.18:8050/mp3midband
+
+#RADIOBROWSERUUID:8fb8daed-9737-4848-84ff-83998d24f993
+#EXTINF:1,Hitrádio Slovakia
+https://hitradioslovakia.stream.laut.fm/hitradioslovakia
+
+#RADIOBROWSERUUID:10ee764e-6213-488b-bc2b-5b6d973a5c06
+#EXTINF:1,Hitrádio Slovakia
+https://hitradioslovakia.stream.laut.fm/hitradioslovakia
+
+#RADIOBROWSERUUID:ac94d4a3-b385-45ba-8695-9ab0108556ea
+#EXTINF:1,House Radio
+http://stream.zeno.fm/qm8e21gta18uv
+
+#RADIOBROWSERUUID:db6473f0-1700-4867-9680-e61b5176ddad
+#EXTINF:1,Infovojna
+http://159.69.219.5:8010/aac
+
+#RADIOBROWSERUUID:b799a7c1-d550-429c-a999-7e45d8711e10
+#EXTINF:1,janko hraško
+http://78.24.9.110:31088/
+
+#RADIOBROWSERUUID:e60aa070-018e-4810-acd7-7f2d80b0c1d7
+#EXTINF:1,Jubilanti 
+http://109.71.67.102:8000/beta_jubilanti.mp3
+
+#RADIOBROWSERUUID:52200b1e-fcd2-4268-8666-962760c328e7
+#EXTINF:1,Kosice International ATC
+https://www.liveatc.net/play/lzkz.pls
+
+#RADIOBROWSERUUID:dfb1911a-35be-4df4-8214-1a83319e87a7
+#EXTINF:1,mars dance
+https://stream-153.zeno.fm/683gf5xrxfeuv?zs=gtI4gERBSUGu8f0FOcDOWw&1686916511841
+
+#RADIOBROWSERUUID:f77411a2-8285-4271-8fa8-178a0792a22c
+#EXTINF:1,METALSCENA netRADIO
+https://listen.radioking.com/radio/263218/stream/308365
+
+#RADIOBROWSERUUID:12b9253e-774f-11ea-b1cf-52543be04c81
+#EXTINF:1,Mirjam Rádio - Mária Rádió Felvidék
+http://193.87.81.131:8081/MariaRadioFelvidek
+
+#RADIOBROWSERUUID:aa272086-942c-48ec-b20e-2b4319297886
+#EXTINF:1,Party Mix Radio
+http://stream.zeno.fm/rw6ckefezs8uv
+
+#RADIOBROWSERUUID:8e94c1a0-d37c-4f3a-aa1a-0911a57fbc30
+#EXTINF:1,Party Radio
+https://mpc1.mediacp.eu/stream/partyradio
+
+#RADIOBROWSERUUID:0ab0056c-6b80-11ea-b1cf-52543be04c81
+#EXTINF:1,Pátria Rádió
+https://icecast.stv.livebox.sk/patria_128.mp3
+
+#RADIOBROWSERUUID:e61ff127-65d0-429d-9c5e-83a9803b697c
+#EXTINF:1,Radio 7
+https://play.radio7.sk/128
+
+#RADIOBROWSERUUID:62302ec6-773f-11ea-b1cf-52543be04c81
+#EXTINF:1,Rádio Aetter
+http://stream.aetter.sk:8000/aetter
+
+#RADIOBROWSERUUID:2b6f3fe7-29fa-4c9b-9687-ba7b54730df5
+#EXTINF:1,Radio Basavel
+https://stream.zeno.fm/6gd9c6yn4nhvv
+
+#RADIOBROWSERUUID:12e9aa8b-996e-4cf0-aace-3a8addf4dd57
+#EXTINF:1,Radio Bela
+http://65.109.81.84:8855/live
+
+#RADIOBROWSERUUID:1a7b895a-56a7-422d-b498-8a282f73430f
+#EXTINF:1,RÁDIO BEST FM
+https://stream3.bestfm.sk:8000/128.mp3
+
+#RADIOBROWSERUUID:f0b20e25-3fcd-4d5c-95e9-85f051a81fbb
+#EXTINF:1,Rádio BestFM
+https://stream3.bestfm.sk:8000/128.mp3
+
+#RADIOBROWSERUUID:53801113-bed5-4b44-979f-a56d610f3991
+#EXTINF:1,RÁDIO BETA
+http://109.71.67.102:8000/beta_live_high.mp3
+
+#RADIOBROWSERUUID:c3b1d4ff-0e01-4139-95e6-c54da7b6acb0
+#EXTINF:1,Rádio Beta
+http://109.71.67.102:8000/beta_live_high.mp3
+
+#RADIOBROWSERUUID:9121c583-e7af-4db6-b6a4-d663950fb84e
+#EXTINF:1,RÁDIO BETA - České a Slovenské hity
+http://109.71.67.102:8000/beta_cspop.mp3
+
+#RADIOBROWSERUUID:6a8becdf-4652-4fe5-b171-b277ba76ed88
+#EXTINF:1,RÁDIO BETA 80-90
+http://109.71.67.102:8000/beta_80a90.mp3
+
+#RADIOBROWSERUUID:705b9534-2708-11ea-aa0c-52543be04c81
+#EXTINF:1,RADIO BIBLIA SK
+http://radiobiblia.online:8000/stream.ogg
+
+#RADIOBROWSERUUID:80b0faee-f8dd-4237-93a0-7068fc50609f
+#EXTINF:1,Rádio Devín
+http://live.slovakradio.sk:8000/Devin_256.mp3
+
+#RADIOBROWSERUUID:f69a6077-0486-47b3-928d-3df68e09eb3d
+#EXTINF:1,Rádio Devín
+https://icecast.stv.livebox.sk/devin_128.mp3
+
+#RADIOBROWSERUUID:21cd0c8e-1d30-43a7-a7c6-e3e2244339e5
+#EXTINF:1,Radio Dychovka
+https://epanel.mediacp.eu:7661/stream
+
+#RADIOBROWSERUUID:315e6ac6-d6a4-4d23-8796-8cb2cb28a07c
+#EXTINF:1,Radio Ekspres
+https://stream.nextmedia.si/proxy/ekspres1?mp=/stream
+
+#RADIOBROWSERUUID:d1b6b7c4-f503-4211-a99f-9a11b60fe649
+#EXTINF:1,RÁDIO EXPRES
+http://stream.expres.sk/128.mp3
+
+#RADIOBROWSERUUID:a39a5e69-81c7-4823-aabd-202472fc644b
+#EXTINF:1,RÁDIO EXPRES
+https://stream.bauermedia.sk/128.mp3
+
+#RADIOBROWSERUUID:7759341b-7e8d-462b-885a-d6e974fc3816
+#EXTINF:1,Rádio Expres
+http://stream.expres.sk/128.mp3
+
+#RADIOBROWSERUUID:e876d397-4a73-4a31-aa94-810aeec81465
+#EXTINF:1,Radio Extra
+http://live.topradio.cz:8000/extra192
+
+#RADIOBROWSERUUID:ec91bee4-2482-4e7a-bdf0-05e02bcae6fb
+#EXTINF:1,RÁDIO FM
+https://icecast.stv.livebox.sk/fm_128.mp3
+
+#RADIOBROWSERUUID:329577b0-b2ed-4191-bab7-a44dd1d790c0
+#EXTINF:1,Rádio FM
+https://icecast.stv.livebox.sk/fm_128.mp3
+
+#RADIOBROWSERUUID:24b5be31-68e8-4cb9-a5ce-4cefefeef98f
+#EXTINF:1,Rádio FM
+https://icecast.stv.livebox.sk/fm_128.mp3
+
+#RADIOBROWSERUUID:576e64fd-74ac-11ea-b1cf-52543be04c81
+#EXTINF:1,Radio FM
+https://icecast.stv.livebox.sk/fm_128.mp3
+
+#RADIOBROWSERUUID:7d334f43-30b8-49e3-9a7a-6db9fdd97eec
+#EXTINF:1,Rádio Folk
+https://mpc1.mediacp.eu/stream/demo2
+
+#RADIOBROWSERUUID:c7ddd729-41b7-11e8-b74d-52543be04c81
+#EXTINF:1,Rádio Frontinus
+http://stream.frontinus.sk:8000/frontinus128.mp3
+
+#RADIOBROWSERUUID:963c4b36-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Rádio Janko Hraško
+http://78.24.9.110:31088/
+
+#RADIOBROWSERUUID:709b3c11-77e7-11ea-b1cf-52543be04c81
+#EXTINF:1,Rádio Janko Hraško
+http://78.24.9.110:31088/;
+
+#RADIOBROWSERUUID:913b7498-8e2d-420b-8c3b-dbacdf9597c4
+#EXTINF:1,Rádio Jazz
+http://stream.sepia.sk:8000/jazz128.mp3
+
+#RADIOBROWSERUUID:524c6d90-493a-4692-aa6d-292ab4cc6350
+#EXTINF:1,Rádio KIKS
+https://online.radiokiks.sk:8000/kiks_hq.mp3
+
+#RADIOBROWSERUUID:d936322c-e288-44e7-a60e-7f3d5e1d6d30
+#EXTINF:1,Rádio KIKS
+https://online.radiokiks.sk:8000/kiks_hq.mp3
+
+#RADIOBROWSERUUID:8f423278-840d-40b3-bb3e-6b69f74c8492
+#EXTINF:1,Rádio KIKS - Big 80s
+https://online.radiokiks.sk:8000/kiks_big80s.mp3
+
+#RADIOBROWSERUUID:a1382ead-1c26-4ba7-a431-c5e17fb4e577
+#EXTINF:1,Rádio KIKS - Big 90s
+https://online.radiokiks.sk:8000/kiks_big90s.mp3
+
+#RADIOBROWSERUUID:07948109-21d6-4646-ba28-c35467973895
+#EXTINF:1,Rádio KIKS - Rock Music
+https://online.radiokiks.sk:8000/kiks_rock.mp3
+
+#RADIOBROWSERUUID:96121667-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Rádio Košice
+http://stream.ecce.sk:8000/radiokosice-128.mp3
+
+#RADIOBROWSERUUID:34299afa-0e57-434b-ab0c-b36bfeaa0490
+#EXTINF:1,Rádio Košice BA
+http://176.102.98.74:8000/radiokosice-ba-128.mp3
+
+#RADIOBROWSERUUID:9085bd94-5e3d-4d15-a223-0588c235e11e
+#EXTINF:1,Rádio Litera
+https://icecast.stv.livebox.sk/litera_128.mp3
+
+#RADIOBROWSERUUID:2eed477d-5f84-4d7f-b126-f9b8a1631bcc
+#EXTINF:1,Rádio Logos
+http://radioserver.online:8824/;
+
+#RADIOBROWSERUUID:963a8583-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Rádio Lumen
+http://audio.lumen.sk:8000/live128.mp3
+
+#RADIOBROWSERUUID:d05ad985-7193-4de8-80ca-225052e6b1d6
+#EXTINF:1,Rádio MÁRIA SLOVENSKO 
+https://dreamsiteradiocp5.com/proxy/radiomariaslomp3?mp=/stream.mp3
+
+#RADIOBROWSERUUID:3769c6d7-f6e2-11e8-a471-52543be04c81
+#EXTINF:1,Rádio Maria Slovensko
+http://dreamsiteradiocp5.com:8012/streaming.mp3
+
+#RADIOBROWSERUUID:f75cc3d3-10eb-40e3-926a-a9030eae3bba
+#EXTINF:1,Rádio Melody
+https://stream.bauermedia.sk/melody-hi.mp3
+
+#RADIOBROWSERUUID:1c05a63e-76a3-45ad-be21-13b1ec74bf6b
+#EXTINF:1,Radio Melody
+https://stream.bauermedia.sk/melody-lo.mp3?aw_0_req.gdpr=false&aw_0_1st.playerid=melody_web_mobile
+
+#RADIOBROWSERUUID:dfb09fd4-9844-46ef-8905-906e6b1e62eb
+#EXTINF:1,Rádio Melody
+https://stream.bauermedia.sk/melody-hi.mp3
+
+#RADIOBROWSERUUID:5efb7095-c97b-4f67-98b9-eaf1239e9011
+#EXTINF:1,radio metropolitan
+https://mpc2.mediacp.eu:8214/stream
+
+#RADIOBROWSERUUID:79bfc948-cc01-4b1e-82f1-1eb1ea4556b7
+#EXTINF:1,Rádio Paráda
+https://extra.mediacp.eu/stream/RadioParada,o.z.
+
+#RADIOBROWSERUUID:166c7734-19e0-4612-b16c-301858582cb5
+#EXTINF:1,Rádio Pohoda 2 
+http://mpc1.mediacp.eu:18111/stream
+
+#RADIOBROWSERUUID:31e7d355-bdeb-4a05-8289-a2ee80c19ecf
+#EXTINF:1,rádio pokoj
+http://radioserver.online:8822/;
+
+#RADIOBROWSERUUID:fa0d1cc7-d162-41a3-9192-6742ad04a401
+#EXTINF:1,Rádio Pyramída
+https://icecast.stv.livebox.sk/klasika_128.mp3
+
+#RADIOBROWSERUUID:295acdf1-0599-4963-b143-118bdab6bf43
+#EXTINF:1,Rádio Rebeca
+https://mpc2.mediacp.eu:8200/rebecaweb
+
+#RADIOBROWSERUUID:043fba3d-9977-4991-97b1-64576df4da6d
+#EXTINF:1,Rádio REGINA ZÁPAD
+https://icecast.stv.livebox.sk/regina-ba_128.mp3
+
+#RADIOBROWSERUUID:1592f35d-74f8-4ed1-a2bf-ad2df2f4e50d
+#EXTINF:1,Rádio Regina Západ
+https://icecast.stv.livebox.sk/regina-ba_128.mp3
+
+#RADIOBROWSERUUID:648e9e34-640d-4c9c-acc8-32d72063c44f
+#EXTINF:1,Rádio Relax International
+https://stream.relaxfm.ee/international
+
+#RADIOBROWSERUUID:6fecd080-93f8-41d6-8371-713221653fab
+#EXTINF:1,Rádio ROCK
+https://stream.bauermedia.sk/rock-hi.mp3
+
+#RADIOBROWSERUUID:cb61d755-6bb7-4575-98d1-cd7434bfa567
+#EXTINF:1,Rádio ROCK
+https://stream.bauermedia.sk/rock-hi.mp3
+
+#RADIOBROWSERUUID:3f07f08f-5e26-4794-947e-9565b6b50eeb
+#EXTINF:1,Rádio Rock SV
+https://s2.myradiostream.com/:4870/listen.mp3
+
+#RADIOBROWSERUUID:c1d05d02-4974-419c-a9cb-030d9739a052
+#EXTINF:1,Rádio RSI
+https://icecast.stv.livebox.sk/rsi_128.mp3
+
+#RADIOBROWSERUUID:bda90961-e6e1-4964-8516-90a0b72fb83d
+#EXTINF:1,Rádio Sity
+https://radiosity.online:8000/aac
+
+#RADIOBROWSERUUID:e131b9aa-3c63-4b58-a852-d1363158ea31
+#EXTINF:1,Rádio Slovensko
+https://icecast.stv.livebox.sk/slovensko_128.mp3
+
+#RADIOBROWSERUUID:90ad59d7-68b5-4a49-addd-9498843da6f2
+#EXTINF:1,Radio Slovensko
+https://icecast.stv.livebox.sk/slovensko_128.mp3
+
+#RADIOBROWSERUUID:800803bb-a650-4711-b1eb-d7bd33674aee
+#EXTINF:1,RÁDIO SLOVENSKO 
+https://icecast.stv.livebox.sk/slovensko_128.mp3
+
+#RADIOBROWSERUUID:70680e8d-8b0e-4935-a2a6-8cb6a3d0bf64
+#EXTINF:1,Rádio TOPOĽČANY 
+http://80.242.44.249:8000/;
+
+#RADIOBROWSERUUID:7ee66666-7361-468c-ace4-1f7a357b58f6
+#EXTINF:1,Rádio Topoľčany 
+http://80.242.44.249:8000/;
+
+#RADIOBROWSERUUID:78fc7d34-1d0e-49dd-a5cd-56b60ae608bd
+#EXTINF:1,Rádio Topolčany
+http://80.242.44.249:8000/
+
+#RADIOBROWSERUUID:4f99292d-e7c8-4b09-b81b-deaef50a3ab7
+#EXTINF:1,Rádio v Nitre
+http://195.210.28.150:8932/radiovnitre_live.mp3
+
+#RADIOBROWSERUUID:9fdb8374-aba2-4ecf-91e8-460c4761af7c
+#EXTINF:1,RÁDIO VIVA
+http://stream.sepia.sk:8000/viva128.mp3
+
+#RADIOBROWSERUUID:59223240-4a86-492d-aed7-14025920265d
+#EXTINF:1,Rádio Viva
+http://stream.sepia.sk:8000/viva128.mp3
+
+#RADIOBROWSERUUID:4bbf64b0-ab2f-4da7-96bb-0529b1f21331
+#EXTINF:1,Radio VIVA
+https://stream.sepia.sk/viva128.mp3
+
+#RADIOBROWSERUUID:960f082d-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Radio Viva Metropol
+http://stream.sepia.sk:8000/viva128.mp3
+
+#RADIOBROWSERUUID:2a1c284b-7ebc-4714-9f17-c5b164a68dbb
+#EXTINF:1,Rádio Vlna
+http://stream.radiovlna.sk/vlna-hi.mp3
+
+#RADIOBROWSERUUID:96121add-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Rádio Vlna
+http://stream.radiovlna.sk/vlna-hi.mp3
+
+#RADIOBROWSERUUID:6f0d9de7-af4f-454f-81f1-cbb7b68b5f82
+#EXTINF:1,RÁDIO VLNA
+http://stream.radiovlna.sk/vlna-hi.mp3
+
+#RADIOBROWSERUUID:982bbf49-215e-4d6c-ab01-0fe48b025e6c
+#EXTINF:1,RÁDIO VLNA 60-70
+https://stream.radiovlna.sk/gold-hi.mp3
+
+#RADIOBROWSERUUID:262ae0bf-b085-40a7-82dd-ab56b72cc9c9
+#EXTINF:1,RÁDIO VLNA 60-70
+https://stream.radiovlna.sk/gold-hi.mp3
+
+#RADIOBROWSERUUID:2237de8b-11bf-4c6f-a857-aa51d994c240
+#EXTINF:1,RÁDIO VLNA 60-70
+https://stream.radiovlna.sk/gold-hi.mp3
+
+#RADIOBROWSERUUID:9b801122-248a-46ab-b15b-c4a7bacf36d4
+#EXTINF:1,RÁDIO VLNA CLASSIC ROCK
+http://stream.radiovlna.sk:8000/rock-hi.mp3
+
+#RADIOBROWSERUUID:333d11b1-7841-4352-b023-549c87b27f8e
+#EXTINF:1,RÁDIO VLNA Classic Rock
+http://stream.radiovlna.sk:8000/rock-hi.mp3
+
+#RADIOBROWSERUUID:aa653f36-283a-4191-b980-33c5740c39f4
+#EXTINF:1,RÁDIO VLNA Classic Rock
+http://stream.radiovlna.sk:8000/rock-hi.mp3
+
+#RADIOBROWSERUUID:8586f9dc-278c-411b-89de-ba114db35c32
+#EXTINF:1,Rádio Vlna CLASSIC ROCK 
+http://stream.radiovlna.sk:8000/rock-hi.mp3
+
+#RADIOBROWSERUUID:6d8788ec-3006-40de-b674-35b367940e0d
+#EXTINF:1,Rádio Vlna Golden hits
+https://stream.radiovlna.sk/gold-hi.mp3
+
+#RADIOBROWSERUUID:571b264d-e432-4281-93fb-0efc77dd5fb6
+#EXTINF:1,RÁDIO VLNA Oldies Party
+https://stream.radiovlna.sk/party-hi.mp3
+
+#RADIOBROWSERUUID:b09e0f7c-b125-4c2b-9552-8a5e41f9e643
+#EXTINF:1,RÁDIO VLNA OLDIES PARTY
+https://stream.radiovlna.sk/party-hi.mp3
+
+#RADIOBROWSERUUID:2fb5eb01-7e34-42b7-9b06-2bff5084127b
+#EXTINF:1,Rádio Vlna Oldies Party
+https://stream.radiovlna.sk/party-hi.mp3
+
+#RADIOBROWSERUUID:6842fffe-1676-47d7-9a2e-9c859b25af26
+#EXTINF:1,Radio Zabava
+https://stream.zeno.fm/eyac00cx1nhvv
+
+#RADIOBROWSERUUID:b6c91be8-beb1-4d2e-8ab7-3c853e19bdb5
+#EXTINF:1,RÁDIO_FM
+http://live.slovakradio.sk:8000/FM_256.mp3
+
+#RADIOBROWSERUUID:f98d1243-c62c-4726-ae79-ab728182b098
+#EXTINF:1,RÁDIO_FM
+http://live.slovakradio.sk:8000/FM_256.mp3
+
+#RADIOBROWSERUUID:000e17dc-b28b-453b-8de0-cfe0e2654c46
+#EXTINF:1,Radiopokoj
+http://radioserver.online:8822/;
+
+#RADIOBROWSERUUID:00c38432-76ce-4d8c-9e92-121f7a982232
+#EXTINF:1,Regina Východ
+https://icecast.stv.livebox.sk/regina-ke_128.mp3
+
+#RADIOBROWSERUUID:ab1e278e-2490-468f-a12c-ba837f61461c
+#EXTINF:1,Repete
+http://stream.rusyn.fm/rusyny-low.mp3
+
+#RADIOBROWSERUUID:2d04650f-78a6-41b5-8e0e-f5b79bc60afe
+#EXTINF:1,Rock Radio
+https://stream.bauermedia.sk/rock-hi.mp3
+
+#RADIOBROWSERUUID:6102c39e-1f26-47d0-9223-e70987841a3d
+#EXTINF:1,RTVS Litera256
+http://live.slovakradio.sk:8000/Litera_256.mp3
+
+#RADIOBROWSERUUID:d3ea2946-e400-4c8c-9b7e-6eb5664ae9a0
+#EXTINF:1,Rusyn FM
+https://stream.rusyn.fm/rusyny.mp3
+
+#RADIOBROWSERUUID:9645d6a2-0601-11e8-ae97-52543be04c81
+#EXTINF:1,RusynFM
+http://stream.rusyn.fm/rusyny.mp3
+
+#RADIOBROWSERUUID:9c72a077-97ee-494a-80e8-6f6a30661185
+#EXTINF:1,SKY Rádio
+http://stream.skyradio.sk:8000/sky128
+
+#RADIOBROWSERUUID:9633f1f6-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SKY Rádio
+http://stream.skyradio.sk:8000/sky128
+
+#RADIOBROWSERUUID:4d997172-794a-4407-8b5e-69b2e8d6d741
+#EXTINF:1,Sllobodný vysielač
+http://159.69.219.5:8010//aac
+
+#RADIOBROWSERUUID:f2c43947-7742-11ea-b1cf-52543be04c81
+#EXTINF:1,Slobodný vysielač
+http://159.69.219.5:8010/mp3
+
+#RADIOBROWSERUUID:cef9d349-beb3-4f40-978a-7160e163926f
+#EXTINF:1,SLOBODNÝ VYSIELAČ
+http://vysielanie.online/radio/8020/SV128.mp3
+
+#RADIOBROWSERUUID:a5b3820c-14d8-4bde-a10a-9ebf75d8e296
+#EXTINF:1,Slobodný vysielač
+http://vysielanie.online/radio/8020/SV128.mp3
+
+#RADIOBROWSERUUID:960efc45-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo1 Rádio Slovensko
+http://live.slovakradio.sk:8000/Slovensko_128.mp3
+
+#RADIOBROWSERUUID:4997994c-7e38-4263-a9db-3d262c995936
+#EXTINF:1,SRo1 Rádio Slovensko
+http://live.slovakradio.sk:8000/Slovensko_128.mp3
+
+#RADIOBROWSERUUID:b45002ed-3692-11e9-9b4e-52543be04c81
+#EXTINF:1,SRo1 Rádio Slovensko (256k)
+http://live.slovakradio.sk:8000/Slovensko_256.mp3
+
+#RADIOBROWSERUUID:962c3268-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo2 Rádio Regina Stred
+http://icecast.stv.livebox.sk/regina-bb_128.mp3
+
+#RADIOBROWSERUUID:962c34b9-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo2 Rádio Regina Východ
+http://icecast.stv.livebox.sk/regina-ke_128.mp3
+
+#RADIOBROWSERUUID:962c33ed-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo2 Rádio Regina Západ
+http://icecast.stv.livebox.sk/regina-ba_128.mp3
+
+#RADIOBROWSERUUID:96252946-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo3: Rádio Devín
+http://icecast.stv.livebox.sk/devin_128.mp3
+
+#RADIOBROWSERUUID:96121f0f-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo4 Rádio FM
+http://live.slovakradio.sk:8000/FM_256.mp3
+
+#RADIOBROWSERUUID:960f2635-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo5 Rádio Pátria /RSI
+http://live.slovakradio.sk:8000/Patria_128.mp3
+
+#RADIOBROWSERUUID:962c31a9-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo6 Radio Slovakia International
+http://icecast.stv.livebox.sk/rsi_128.mp3
+
+#RADIOBROWSERUUID:96164051-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo8 Rádio Litera
+http://icecast.stv.livebox.sk/litera_128.mp3
+
+#RADIOBROWSERUUID:96122b41-0601-11e8-ae97-52543be04c81
+#EXTINF:1,SRo9 Rádio Junior
+http://live.slovakradio.sk:8000/Junior_128.mp3
+
+#RADIOBROWSERUUID:5548758e-3908-11e9-9b4e-52543be04c81
+#EXTINF:1,SRo9 Rádio Junior (256k)
+http://live.slovakradio.sk:8000/Junior_256.mp3
+
+#RADIOBROWSERUUID:ffa240ab-e69e-407d-be4c-19500490c22b
+#EXTINF:1,SUB:FM
+http://stream.subfm.sk/subfm
+
+#RADIOBROWSERUUID:fb47dc6d-e323-4fbe-af3e-52980e11a5c9
+#EXTINF:1,SubFM
+https://stream.subfm.sk/subfm
+
+#RADIOBROWSERUUID:53771506-fa99-4778-878a-c74ff3c52f20
+#EXTINF:1,TA3
+https://n13.stv.livebox.sk/ta3/685d9a141bd846e8facf83bc378da26b/1.smil/chunklist_b2691072.m3u8
+
+#RADIOBROWSERUUID:6ae3a862-44eb-44da-8c21-d87aaa10e582
+#EXTINF:1,Top Rádio
+https://solid1.streamupsolutions.com/proxy/vhhggmih/stream
+
+#RADIOBROWSERUUID:f6da7b70-916b-4c64-bf73-ddbb5a561734
+#EXTINF:1,TRNAVSKÉ RÁDIO
+https://solid33.streamupsolutions.com/proxy/mujdmamw/trnavske
+
+#RADIOBROWSERUUID:7c46c1ce-376c-4b38-ab73-a43b9e2681e3
+#EXTINF:1,TRNAVSKÉ RÁDIO
+https://solid33.streamupsolutions.com/proxy/mujdmamw/trnavske
+
+#RADIOBROWSERUUID:ed3d4fe9-bb9e-4d9d-9985-fa0bda0c08dd
+#EXTINF:1,Trnavské Rádio
+https://solid33.streamupsolutions.com/proxy/mujdmamw/trnavske
+
+#RADIOBROWSERUUID:440031ae-eeeb-4dd0-beb7-4ca89492d843
+#EXTINF:1,TT Rádio
+https://solid33.streamupsolutions.com/proxy/mujdmamw/trnavske
+
+#RADIOBROWSERUUID:f077f5bd-f4ce-4636-81f3-0563867b82b6
+#EXTINF:1,TV Lux (audio)
+https://stream.tvlux.sk/lux/lux.stream_aac/playlist.m3u8
+
+#RADIOBROWSERUUID:96121bb1-0601-11e8-ae97-52543be04c81
+#EXTINF:1,Záhorácke Rádio
+http://live.zahorackeradio.sk:8080/zr128.mp3
+
