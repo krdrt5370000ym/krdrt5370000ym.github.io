@@ -1383,6 +1383,10 @@ https://waw.ic.smcdn.pl/6180-1.aac
 https://liveradio.timesa.pl/6490-1.aac/playlist.m3u8
 #EXTINF:-1, Vibe FM (IC)
 https://waw.ic.smcdn.pl/6490-1.aac
+#EXTINF:-1, Radio Super Express
+https://liveradio.timesa.pl/6260-1.aac/playlist.m3u8
+#EXTINF:-1, Radio Super Express (IC)
+https://waw.ic.smcdn.pl/6260-1.aac
 #EXTINF:-1, Radio Super Express Białystok
 https://liveradio.timesa.pl/6270-1.aac/playlist.m3u8
 #EXTINF:-1, Radio Super Express Białystok (IC)
@@ -1607,3 +1611,4 @@ https://getradio.reconv.pl/kissfmro?s=magic-movie-hits
 https://getradio.reconv.pl/kissfmro?s=magic-rainy-days-hits
 #EXTINF:-1, KissFMRo - One FM
 https://getradio.reconv.pl/kissfmro?s=one-fm
+
