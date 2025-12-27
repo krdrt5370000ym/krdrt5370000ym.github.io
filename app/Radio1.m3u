@@ -202,20 +202,12 @@ https://sluchaj2.radiopark.biz.pl:8443/stream
 #EXTINF:-1, Radio Fest
 https://play.radiofest.pl:8443/fest
 #EXTINF:-1, InterStacja - Kanał Główny
-http://4stream.pl:18322/;stream.mp3
-#EXTINF:-1, InterStacja - Disco Polo
-http://4stream.pl:18274/;stream.mp3
-#EXTINF:-1, InterStacja - Club
-http://4stream.pl:18268/;stream.mp3
-#EXTINF:-1, InterStacja - Oldies
-http://4stream.pl:18290/;stream.mp3
-#EXTINF:-1, InterStacja - Kanał Główny (Serwer 2)
 https://radio.castpol.pl:8140/;
-#EXTINF:-1, InterStacja - Disco Polo (Serwer 2)
+#EXTINF:-1, InterStacja - Disco Polo
 https://radio.castpol.pl:8150/;
-#EXTINF:-1, InterStacja - Club (Serwer 2)
+#EXTINF:-1, InterStacja - Club
 https://radio.castpol.pl:8160/;
-#EXTINF:-1, InterStacja - Oldies (Serwer 2)
+#EXTINF:-1, InterStacja - Oldies
 https://radio.castpol.pl:8170/;
 #EXTINF:-1, Radio Yanosik
 https://stream.rcs.revma.com/7vhveccrnquvv
@@ -401,4 +393,5 @@ https://icecast.pulsradio.com/puls90HD.mp3
 https://icecast.pulsradio.com/magicradioHD.mp3
 #EXTINF:-1, InTheMixRadio DE
 http://sdstream.de:9300/inthemixradio
+
 
