@@ -303,6 +303,10 @@
  .program_info_djs {
      font-size: 18px;
 }
+ .program_info_djs_podcast {
+     font-size: 16px;
+     text-transform: uppercase;
+}
  .program_info_airtime {
      font-weight: 600;
 }
