@@ -315,6 +315,12 @@
  .program_info_airtime_podcast {
      font-weight: 400;
 }
+ .program_info_producter_podcast {
+     font-size: 14px;
+}
+ .program_info_email_podcast {
+     font-size: 14px;
+}
  .program_info_desc {
      align-items: center;
      margin-left: 25px;
