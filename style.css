@@ -17,6 +17,11 @@
          font-size: 10px;
     }
 }
+.website_info_page {
+     a {
+         text-decoration: none;
+    }
+}
  @media (max-width:600px) {
      div#menusub {
          width: auto;
