@@ -373,6 +373,9 @@
      .program_info_data {
          margin-left: 0px;
     }
+     .program_info_airtime {
+         margin-top: 5px;
+     }
      .program_info_onairs {
          font-size: 14px;
     }
