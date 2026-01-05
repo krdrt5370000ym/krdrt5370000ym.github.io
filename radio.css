@@ -261,12 +261,24 @@
         }
     }
      .prog_name {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         -webkit-line-clamp: 3;
          font-size: 1rem;
     }
      .prog_host {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         -webkit-line-clamp: 2;
          font-size: 0.7rem;
     }
      .prog_onair {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         -webkit-line-clamp: 2;
          font-size: 0.5rem;
          margin-top: 5px;
     }
