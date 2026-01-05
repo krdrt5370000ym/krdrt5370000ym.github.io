@@ -318,6 +318,8 @@
 }
  .program_info_airtime {
      font-weight: 600;
+     text-transform: uppercase;
+     margin-top: 10px;
 }
  .program_info_airtime_podcast {
      font-weight: 400;
