@@ -1,18 +1,17 @@
 [data-audio]{
-    cursor:pointer;
+     cursor:pointer;
 }
  [data-audio].pause{
-    color: #ff0000;
+     color: #ff0000;
 }
-/*https://fortawesome.github.io/Font-Awesome/cheatsheet
+/*https://fortawesome.github.io/Font-Awesome/cheatsheet 
 /*/
  [data-audio]:before{
-    content:"\f144";
+     content:"\f144";
 }
  [data-audio].pause:before{
-    content:"\f28b";
+     content:"\f28b";
 }
-
  .hits_list_songs {
      display: flex;
      align-items: center;
@@ -42,12 +41,10 @@
      padding: 1rem 0;
      list-style: none;
 }
-
  .song_number {
      font-size: 1.5rem;
      font-weight: 700;
 }
-
  .song_track {
      font-weight: 600;
      font-size: 1.4rem;
@@ -62,36 +59,36 @@
  .top1 {
      background-color: #DDD;
 }
-@media screen and (max-width: 600px) {
- .hits_list_songs {
-     padding: 0.5rem 0;
-     gap: 1rem;
-}
- .song_content {
-     gap: 1rem;
-}
-.song_cover {
+ @media screen and (max-width: 600px) {
+     .hits_list_songs {
+         padding: 0.5rem 0;
+         gap: 1rem;
+    }
+     .song_content {
+         gap: 1rem;
+    }
+     .song_cover {
          flex: 0 0 3rem;
          max-width: 3rem;
          max-height: 3rem;
          border-radius: 0.5rem;
     }
- .song_number {
-     font-size: 1rem;
-     font-weight: 700;
-}
- .song_track {
-     display: -webkit-box;
-     -webkit-box-orient: vertical;
-     overflow: hidden;
-     -webkit-line-clamp: 2;
-     font-size: 1rem;
-}
- .song_artist {
-     display: -webkit-box;
-     -webkit-box-orient: vertical;
-     overflow: hidden;
-     -webkit-line-clamp: 2;
-     font-size: 0.6rem;
-}
+     .song_number {
+         font-size: 1rem;
+         font-weight: 700;
+    }
+     .song_track {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         -webkit-line-clamp: 2;
+         font-size: 1rem;
+    }
+     .song_artist {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         -webkit-line-clamp: 2;
+         font-size: 0.6rem;
+    }
 }
