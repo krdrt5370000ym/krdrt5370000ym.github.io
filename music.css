@@ -1,0 +1,14 @@
+[data-audio]{
+    cursor:pointer;
+}
+ [data-audio].pause{
+    color: #ff0000;
+}
+/*https://fortawesome.github.io/Font-Awesome/cheatsheet
+/*/
+ [data-audio]:before{
+    content:"\f144";
+}
+ [data-audio].pause:before{
+    content:"\f28b";
+}
