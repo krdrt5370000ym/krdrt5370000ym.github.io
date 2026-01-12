@@ -217,6 +217,11 @@
 		max-width: 100%;
 	}
 }
+.pathology_content {
+      a {
+         text-decoration: none;
+    }
+}
  @media screen and (max-width: 600px) {
      .podcast_image {
          flex: 0 0 6rem;
