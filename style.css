@@ -194,6 +194,29 @@
          display: none;
     }
 }
+.pathology_list {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	min-height: 5rem;
+	padding: 0.5rem 0;
+	list-style: none;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+.pathology_cover {
+	flex: 0 0 3rem;
+	max-width: 3rem;
+	max-height: 3rem;
+	border-radius: 1rem;
+	overflow: hidden;
+
+	img {
+		display: block;
+		height: auto;
+		max-width: 100%;
+	}
+}
  @media screen and (max-width: 600px) {
      .podcast_image {
          flex: 0 0 6rem;
