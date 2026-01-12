@@ -267,8 +267,15 @@
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+   @media screen and (min-width: 600px) {
+  padding: 10px 12px;
   transition: 0.3s;
+   }
+   @media screen and (max-width: 600px) {
+  padding: 6px 6px;
+  transition: 0.3s;
+  font-size: 10px;
+   }
 }
 
 /* Change background color of buttons on hover */
