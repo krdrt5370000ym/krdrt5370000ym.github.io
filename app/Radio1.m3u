@@ -325,6 +325,8 @@ https://zt.cdn.eurozet.pl/ZETLOV.mp3
 https://zt.cdn.eurozet.pl/ZETLTN.mp3
 #EXTINF:-1, Radio ZET Dla Dzieci
 https://zt.cdn.eurozet.pl/ZETKID.mp3
+#EXTINF:-1, Radio ZET do biegania
+https://zt.cdn.eurozet.pl/ZETDBG.mp3
 #EXTINF:-1, Meloradio - Hot Dance
 https://ml.cdn.eurozet.pl/MELHDN.mp3
 #EXTINF:-1, melo. FAST SONGS
@@ -393,5 +395,6 @@ https://icecast.pulsradio.com/puls90HD.mp3
 https://icecast.pulsradio.com/magicradioHD.mp3
 #EXTINF:-1, InTheMixRadio DE
 http://sdstream.de:9300/inthemixradio
+
 
 
