@@ -721,6 +721,8 @@ https://zt.cdn.eurozet.pl/ZET090.mp3
 https://zt.cdn.eurozet.pl/ZET200.mp3
 #EXTINF:-1, Radio ZET Pop Rock
 https://zt.cdn.eurozet.pl/ZETPRK.mp3
+#EXTINF:-1, Radio ZET do biegania
+https://zt.cdn.eurozet.pl/ZETDBG.mp3
 #EXTINF:-1, Radio ZET na Rower
 https://zt.cdn.eurozet.pl/ZETNAR.mp3
 #EXTINF:-1, Radio ZET Love
@@ -745,8 +747,6 @@ https://an02.cdn.eurozet.pl/ant-kat.mp3
 https://an.cdn.eurozet.pl/ANTBAL.mp3
 #EXTINF:-1, Antyradio Classic Rock
 https://an.cdn.eurozet.pl/ANTCLA.mp3
-#EXTINF:-1, Antyradio Covers
-https://an.cdn.eurozet.pl/ANTCOV.mp3
 #EXTINF:-1, Antyradio Greatest
 https://an.cdn.eurozet.pl/ANTGRE.mp3
 #EXTINF:-1, Antyradio Hard
@@ -757,6 +757,8 @@ https://an.cdn.eurozet.pl/ANTPOL.mp3
 https://an.cdn.eurozet.pl/ANTMAK.mp3
 #EXTINF:-1, Antyradio Unplugged
 https://an.cdn.eurozet.pl/ANTUNP.mp3
+#EXTINF:-1, Antyradio Zaraz Będzie Ciemno
+https://an.cdn.eurozet.pl/ANTPAR.mp3
 #EXTINF:-1, Meloradio Polska
 https://playerservices.streamtheworld.com/api/livestream-redirect/MELORADIOAAC.aac?dist=tunein
 #EXTINF:-1, Meloradio Polska
@@ -1611,4 +1613,5 @@ https://getradio.reconv.pl/kissfmro?s=magic-movie-hits
 https://getradio.reconv.pl/kissfmro?s=magic-rainy-days-hits
 #EXTINF:-1, KissFMRo - One FM
 https://getradio.reconv.pl/kissfmro?s=one-fm
+
 
