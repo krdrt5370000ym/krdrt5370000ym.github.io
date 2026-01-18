@@ -1365,9 +1365,9 @@ https://waw.ic.smcdn.pl/3990-1.aac
 https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8
 #EXTINF:-1, VOX Zielona Góra (IC)
 https://waw.ic.smcdn.pl/3990-1.aac
-#EXTINF:-1, VOX FM Best lista 2024
+#EXTINF:-1, VOX FM Best lista 2025
 https://liveradio.timesa.pl/6080-1.aac/playlist.m3u8
-#EXTINF:-1, VOX FM Best lista 2024 (IC)
+#EXTINF:-1, VOX FM Best lista 2025 (IC)
 https://waw.ic.smcdn.pl/6080-1.aac
 #EXTINF:-1, VOX Best Lista
 https://liveradio.timesa.pl/6100-1.aac/playlist.m3u8
@@ -1613,5 +1613,3 @@ https://getradio.reconv.pl/kissfmro?s=magic-movie-hits
 https://getradio.reconv.pl/kissfmro?s=magic-rainy-days-hits
 #EXTINF:-1, KissFMRo - One FM
 https://getradio.reconv.pl/kissfmro?s=one-fm
-
-
