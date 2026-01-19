@@ -1041,6 +1041,10 @@ https://waw.ic.smcdn.pl/6120-1.aac
 https://liveradio.timesa.pl/6030-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA Impreska (IC)
 https://waw.ic.smcdn.pl/6030-1.aac
+#EXTINF:-1, ESKA FITNESS
+https://liveradio.timesa.pl/6150-1.aac/playlist.m3u8
+#EXTINF:-1, ESKA FITNESS (IC)
+https://waw.ic.smcdn.pl/6150-1.aac
 #EXTINF:-1, ESKA G20
 https://liveradio.timesa.pl/6130-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA G20 (IC)
@@ -1613,3 +1617,4 @@ https://getradio.reconv.pl/kissfmro?s=magic-movie-hits
 https://getradio.reconv.pl/kissfmro?s=magic-rainy-days-hits
 #EXTINF:-1, KissFMRo - One FM
 https://getradio.reconv.pl/kissfmro?s=one-fm
+
