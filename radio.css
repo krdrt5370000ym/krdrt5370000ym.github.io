@@ -593,7 +593,6 @@
          display: grid;
          line-height: 0.5;
          column-gap: 0px;
-         grid-template-columns: auto auto auto;
     }
      .prog_content {
          grid-column: 2;
@@ -606,7 +605,15 @@
          margin-left: 25px;
     }
      .subsch {
-         padding-left: 30px;
+         column-gap: 15px;
+         .prog_content {
+             width: auto;
+             margin-left: -120px;
+         }
+         .prog_hour {
+             width: auto;
+             margin-left: -120px;
+         }
     }
      .subsch > .prog_hour {
          font-size: 0.7rem;
