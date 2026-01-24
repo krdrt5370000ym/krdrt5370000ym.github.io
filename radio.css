@@ -587,18 +587,20 @@
          grid-column: 2;
          grid-row: 2;
          font-size: 1.0rem;
-         width: 250px;
+         width: auto;
+         
     }
      .sch_prog {
          display: grid;
          line-height: 0.5;
-         column-gap: 0px;
+         column-gap: 20px;
+         justify-self: left;
     }
      .prog_content {
          grid-column: 2;
          grid-row: 1;
          line-height: 1.8;
-         width: 250px;
+         width: auto;
     }
      .title_days {
          font-weight: 700;
