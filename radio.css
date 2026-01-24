@@ -605,14 +605,11 @@
          margin-left: 25px;
     }
      .subsch {
-         column-gap: 15px;
          .prog_content {
-             width: auto;
-             margin-left: -120px;
+             width: 220px;
          }
          .prog_hour {
-             width: auto;
-             margin-left: -120px;
+             width: 220px;
          }
     }
      .subsch > .prog_hour {
