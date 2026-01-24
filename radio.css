@@ -604,6 +604,9 @@
          font-weight: 700;
          margin-left: 25px;
     }
+     .subsch {
+         column-gap: 15px;
+     }
      .subsch > .prog_hour {
          font-size: 0.7rem;
     }
