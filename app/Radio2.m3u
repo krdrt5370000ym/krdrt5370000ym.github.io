@@ -1057,6 +1057,18 @@ https://waw.ic.smcdn.pl/6140-1.aac
 https://liveradio.timesa.pl/6190-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA Rap20 (IC)
 https://waw.ic.smcdn.pl/6190-1.aac
+#EXTINF:-1, ESKA’00
+https://liveradio.timesa.pl/6160-1.aac/playlist.m3u8
+#EXTINF:-1, ESKA’00 (IC)
+https://waw.ic.smcdn.pl/6160-1.aac
+#EXTINF:-1, ESKA’10
+https://liveradio.timesa.pl/6170-1.aac/playlist.m3u8
+#EXTINF:-1, ESKA’10 (IC)
+https://waw.ic.smcdn.pl/6170-1.aac
+#EXTINF:-1, ESKA’20
+https://liveradio.timesa.pl/6240-1.aac/playlist.m3u8
+#EXTINF:-1, ESKA’20 (IC)
+https://waw.ic.smcdn.pl/6240-1.aac
 #EXTINF:-1, ESKA News Wrocław
 https://liveradio.timesa.pl/6250-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA News Wrocław (IC)
@@ -1617,3 +1629,4 @@ https://getradio.reconv.pl/kissfmro?s=magic-movie-hits
 https://getradio.reconv.pl/kissfmro?s=magic-rainy-days-hits
 #EXTINF:-1, KissFMRo - One FM
 https://getradio.reconv.pl/kissfmro?s=one-fm
+
