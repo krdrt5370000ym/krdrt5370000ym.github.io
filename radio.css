@@ -606,10 +606,10 @@
     }
      .subsch {
          .prog_content {
-             width: 220px;
+             width: 200px;
          }
          .prog_hour {
-             width: 220px;
+             width: 200px;
          }
     }
      .subsch > .prog_hour {
