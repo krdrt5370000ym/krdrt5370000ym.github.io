@@ -587,8 +587,7 @@
          grid-column: 2;
          grid-row: 2;
          font-size: 1.0rem;
-         width: auto;
-         
+         width: 250px; 
     }
      .sch_prog {
          display: grid;
@@ -600,7 +599,7 @@
          grid-column: 2;
          grid-row: 1;
          line-height: 1.8;
-         width: auto;
+         width: 250px;
     }
      .title_days {
          font-weight: 700;
@@ -608,6 +607,10 @@
     }
      .subsch > .prog_hour {
          font-size: 0.7rem;
+         width: 205px;
+    }
+     .subsch > .prog_content {
+         width: 205px;
     }
      .subsch > .prog_content > .prog_name {
          font-size: 0.55rem;
