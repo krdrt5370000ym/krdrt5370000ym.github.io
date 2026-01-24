@@ -604,14 +604,6 @@
          font-weight: 700;
          margin-left: 25px;
     }
-     .subsch {
-         .prog_content {
-             width: 210px;
-         }
-         .prog_hour {
-             width: 210px;
-         }
-    }
      .subsch > .prog_hour {
          font-size: 0.7rem;
     }
