@@ -587,7 +587,39 @@
          grid-column: 2;
          grid-row: 2;
          font-size: 1.0rem;
-         width: 250px; 
+         @media (min-width:576px) {
+             width: 425px;
+        }
+         @media (max-width:575px) and (min-width:551px) {
+             width: 400px;
+        }
+         @media (max-width:550px) and (min-width:526px) {
+             width: 375px;
+        }
+         @media (max-width:525px) and (min-width:501px) {
+             width: 350px;
+        }
+         @media (max-width:500px) and (min-width:476px) {
+             width: 325px;
+        }
+         @media (max-width:475px) and (min-width:451px) {
+             width: 300px;
+        }
+         @media (max-width:450px) and (min-width:426px) {
+             width: 275px;
+        }
+         @media (max-width:425px) and (min-width:401px) {
+             width: 250px;
+        }
+         @media (max-width:400px) and (min-width:376px) {
+             width: 225px;
+        }
+         @media (max-width:375px) and (min-width:351px) {
+             width: 200px;
+        }
+         @media (max-width:350px) {
+             width: 175px;
+        }
     }
      .sch_prog {
          display: grid;
@@ -599,7 +631,39 @@
          grid-column: 2;
          grid-row: 1;
          line-height: 1.8;
-         width: 250px;
+         @media (min-width:576px) {
+             width: 425px;
+        }
+         @media (max-width:575px) and (min-width:551px) {
+             width: 400px;
+        }
+         @media (max-width:550px) and (min-width:526px) {
+             width: 375px;
+        }
+         @media (max-width:525px) and (min-width:501px) {
+             width: 350px;
+        }
+         @media (max-width:500px) and (min-width:476px) {
+             width: 325px;
+        }
+         @media (max-width:475px) and (min-width:451px) {
+             width: 300px;
+        }
+         @media (max-width:450px) and (min-width:426px) {
+             width: 275px;
+        }
+         @media (max-width:425px) and (min-width:401px) {
+             width: 250px;
+        }
+         @media (max-width:400px) and (min-width:376px) {
+             width: 225px;
+        }
+         @media (max-width:375px) and (min-width:351px) {
+             width: 200px;
+        }
+         @media (max-width:350px) {
+             width: 175px;
+        }
     }
      .title_days {
          font-weight: 700;
@@ -607,10 +671,74 @@
     }
      .subsch > .prog_hour {
          font-size: 0.7rem;
-         width: 205px;
+         @media (min-width:576px) {
+             width: 380px;
+        }
+         @media (max-width:575px) and (min-width:551px) {
+             width: 355px;
+        }
+         @media (max-width:550px) and (min-width:526px) {
+             width: 330px;
+        }
+         @media (max-width:525px) and (min-width:501px) {
+             width: 305px;
+        }
+         @media (max-width:500px) and (min-width:476px) {
+             width: 280px;
+        }
+         @media (max-width:475px) and (min-width:451px) {
+             width: 255px;
+        }
+         @media (max-width:450px) and (min-width:426px) {
+             width: 230px;
+        }
+         @media (max-width:425px) and (min-width:401px) {
+             width: 205px;
+        }
+         @media (max-width:400px) and (min-width:376px) {
+             width: 180px;
+        }
+         @media (max-width:375px) and (min-width:351px) {
+             width: 155px;
+        }
+         @media (max-width:350px) {
+             width: 130px;
+        }
     }
      .subsch > .prog_content {
-         width: 205px;
+         @media (min-width:576px) {
+             width: 380px;
+        }
+         @media (max-width:575px) and (min-width:551px) {
+             width: 355px;
+        }
+         @media (max-width:550px) and (min-width:526px) {
+             width: 330px;
+        }
+         @media (max-width:525px) and (min-width:501px) {
+             width: 305px;
+        }
+         @media (max-width:500px) and (min-width:476px) {
+             width: 280px;
+        }
+         @media (max-width:475px) and (min-width:451px) {
+             width: 255px;
+        }
+         @media (max-width:450px) and (min-width:426px) {
+             width: 230px;
+        }
+         @media (max-width:425px) and (min-width:401px) {
+             width: 205px;
+        }
+         @media (max-width:400px) and (min-width:376px) {
+             width: 180px;
+        }
+         @media (max-width:375px) and (min-width:351px) {
+             width: 155px;
+        }
+         @media (max-width:350px) {
+             width: 130px;
+        }
     }
      .subsch > .prog_content > .prog_name {
          font-size: 0.55rem;
