@@ -772,6 +772,9 @@
      display: flex;
      font-size: 1.3em;
      font-weight: 600;
+     a {
+         text-decoration: none;
+    }
 }
  .dsch_icon {
      margin-right: 5px;
