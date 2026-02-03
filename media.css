@@ -1,0 +1,212 @@
+/* PROGRAMY */
+ .title {
+     display: block;
+     font-weight: 700;
+     text-transform: uppercase;
+     font-size: 1.5em;
+     margin-block-start: 0.83em;
+     margin-block-end: 0.83em;
+     color: #777;
+     text-align: center;
+     a {
+         text-decoration: none;
+    }
+}
+ .paged_category {
+     font-weight: 600;
+     text-transform: uppercase;
+     background: gray;
+     color: black;
+     display: inline;
+     margin-left: 40px;
+     padding-left: 10px;
+     padding-right: 10px;
+}
+ .paged_title {
+     font-weight: 600;
+     text-transform: uppercase;
+     background: silver;
+     display: inline;
+     margin-left: 40px;
+     padding-left: 10px;
+     padding-right: 10px;
+}
+ .podc_info {
+     display: flex;
+     align-items: center;
+     gap: 2rem;
+     min-height: 5rem;
+     padding: 1rem 0;
+     list-style: none;
+     border-bottom: 1px solid #e3e3e3;
+}
+ .podc_cover {
+     flex: 0 0 6rem;
+     max-width: 6rem;
+     max-height: 6rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
+ .podc_name {
+     font-weight: 600;
+     font-size: 1.5rem;
+}
+ .podcasts {
+     width: 100%;
+     p {
+         display: none;
+    }
+}
+ .podcasts_archived {
+     width: 100%;
+     color: grey;
+     img {
+         opacity: 0.6;
+    }
+     p {
+         display: none;
+    }
+}
+ .podcasts_archived > .podc_info > .podc_cover {
+     position: relative;
+     text-align: center;
+     color: white;
+     .podcast_img_arch {
+         width: 100%;
+         height: 18px;
+         text-align: center;
+         font-size: 8px;
+         position: absolute;
+         top: 0;
+         background: rgba(1, 1, 1, 0.5);
+         text-transform: uppercase;
+         padding-top: 4px;
+         color: white;
+         z-index: 0;
+    }
+}
+ .podc_name_box {
+     background-color: #616161;
+     border-radius: 1rem;
+     color: white;
+     width: 60px;
+     height: 60px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 16px;
+     line-height: 1em;
+}
+ @media screen and (max-width: 600px) {
+     .podc_cover {
+         flex: 0 0 6rem;
+         max-width: 4rem;
+         max-height: 4rem;
+         border-radius: 1rem;
+         overflow: hidden;
+         img {
+             display: block;
+             height: auto;
+             max-width: 100%;
+        }
+    }
+     .podc_name {
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         -webkit-line-clamp: 3;
+         font-size: 1rem;
+    }
+     .podc_content {
+         line-height: 1.8;
+    }
+     .title_days {
+         font-weight: 700;
+         margin-left: 25px;
+    }
+}
+ .podcast_info_title {
+     margin-left: 25px;
+     font-weight: 700;
+     font-size: 2rem;
+     margin-top: 20px;
+     margin-bottom: 10px;
+     line-height: 40px;
+}
+ .podcast_info_box {
+     display: flex;
+     margin-left: 25px;
+}
+ .podcast_info_cover {
+     flex: 0 0 10rem;
+     max-width: 10rem;
+     max-height: 10rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     img {
+         display: block;
+         height: auto;
+         max-width: 100%;
+    }
+}
+ .podcast_info_data {
+     align-items: center;
+     margin-left: 10px;
+     padding: 1rem 0;
+}
+ .podcast_info_djs {
+     font-size: 16px;
+     text-transform: uppercase;
+     font-weight: 600;
+}
+ .podcast_info_airtime {
+     font-weight: 400;
+}
+ .podcast_info_producter {
+     font-size: 14px;
+}
+ .podcast_info_email {
+     font-size: 14px;
+}
+ .podcast_info_desc {
+     align-items: center;
+     margin-left: 25px;
+     padding: 1rem 0;
+}
+ .podcast_info_urls {
+     letter-spacing: 5px;
+     margin-left: 25px;
+     font-size: 28px;
+}
+ .podcast_info_name_box {
+     background-color: #616161;
+     border-radius: 1rem;
+     color: white;
+     width: 150px;
+     height: 150px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 16px;
+     line-height: 1em;
+}
+ @media screen and (max-width: 600px) {
+     .podcast_info_box {
+         display: block;
+    }
+     .podcast_info_cover {
+         margin: auto;
+    }
+     .podcast_info_data {
+         margin-left: 0px;
+    }
+}
