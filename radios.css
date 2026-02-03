@@ -323,23 +323,9 @@
      font-size: 18px;
      font-weight: 400;
 }
- .program_info_djs_podcast {
-     font-size: 16px;
-     text-transform: uppercase;
-     font-weight: 600;
-}
  .program_info_airtime {
      font-weight: 600;
      text-transform: uppercase;
-}
- .program_info_airtime_podcast {
-     font-weight: 400;
-}
- .program_info_producter_podcast {
-     font-size: 14px;
-}
- .program_info_email_podcast {
-     font-size: 14px;
 }
  .program_info_desc {
      align-items: center;
