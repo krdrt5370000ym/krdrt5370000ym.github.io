@@ -292,8 +292,8 @@
          font-weight: 700;
          margin-left: 25px;
     }
-     .podcasts_archived > .pro_info > .pro_cover {
-         .podcast_img_arch {
+     .programs_archived > .pro_info > .pro_cover {
+         .program_img_arch {
              font-size: 8px;
         }
     }
