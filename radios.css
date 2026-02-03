@@ -224,7 +224,7 @@
      color: white;
      .program_img_arch {
          width: 100%;
-         height: 18px;
+         height: 24px;
          text-align: center;
          font-size: 12px;
          position: absolute;
@@ -294,6 +294,7 @@
     }
      .programs_archived > .pro_info > .pro_cover {
          .program_img_arch {
+             height: 18px;
              font-size: 8px;
         }
     }
