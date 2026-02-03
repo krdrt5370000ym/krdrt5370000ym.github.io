@@ -162,7 +162,7 @@
      padding-left: 10px;
      padding-right: 10px;
 }
- .prog_info {
+ .pro_info {
      display: flex;
      align-items: center;
      gap: 2rem;
@@ -171,7 +171,7 @@
      list-style: none;
      border-bottom: 1px solid #e3e3e3;
 }
- .prog_cover {
+ .pro_cover {
      flex: 0 0 6rem;
      max-width: 6rem;
      max-height: 6rem;
@@ -183,20 +183,20 @@
          max-width: 100%;
     }
 }
- .prog_name {
+ .pro_name {
      font-weight: 600;
      font-size: 1.5rem;
 }
- .prog_host {
+ .pro_host {
      font-size: 1rem;
 }
- .prog_onair {
+ .pro_onair {
      font-size: 0.8rem;
      font-weight: 600;
      text-transform: uppercase;
      margin-top: 15px;
 }
- .prog_onair:empty {
+ .pro_onair:empty {
      margin-top: 0px;
 }
  .programs {
@@ -215,7 +215,7 @@
          display: none;
     }
 }
- .programs_archived > .prog_info > .prog_cover {
+ .programs_archived > .pro_info > .pro_cover {
      position: relative;
      text-align: center;
      color: white;
@@ -223,7 +223,7 @@
          width: 100%;
          height: 18px;
          text-align: center;
-         font-size: 8px;
+         font-size: 12px;
          position: absolute;
          top: 0;
          background: rgba(1, 1, 1, 0.5);
@@ -233,22 +233,22 @@
          z-index: 0;
     }
 }
- .prog_name_box {
+ .pro_name_box {
      background-color: #616161;
      border-radius: 1rem;
      color: white;
-     width: 60px;
-     height: 60px;
+     width: 90px;
+     height: 90px;
      display: flex;
      justify-content: center;
      align-items: center;
      text-align: center;
      text-transform: uppercase;
-     font-size: 16px;
+     font-size: 9.6px;
      line-height: 1em;
 }
  @media screen and (max-width: 600px) {
-     .prog_cover {
+     .pro_cover {
          flex: 0 0 6rem;
          max-width: 4rem;
          max-height: 4rem;
@@ -260,21 +260,21 @@
              max-width: 100%;
         }
     }
-     .prog_name {
+     .pro_name {
          display: -webkit-box;
          -webkit-box-orient: vertical;
          overflow: hidden;
          -webkit-line-clamp: 3;
          font-size: 1rem;
     }
-     .prog_host {
+     .pro_host {
          display: -webkit-box;
          -webkit-box-orient: vertical;
          overflow: hidden;
          -webkit-line-clamp: 2;
          font-size: 0.7rem;
     }
-     .prog_onair {
+     .pro_onair {
          display: -webkit-box;
          -webkit-box-orient: vertical;
          overflow: hidden;
@@ -282,12 +282,22 @@
          font-size: 0.5rem;
          margin-top: 5px;
     }
-     .prog_content {
+     .pro_content {
          line-height: 1.8;
     }
      .title_days {
          font-weight: 700;
          margin-left: 25px;
+    }
+     .podcasts_archived > .pro_info > .pro_cover {
+         .podcast_img_arch {
+             font-size: 8px;
+        }
+    }
+     .pro_name_box {
+         width: 60px;
+         height: 60px;
+         font-size: 6.4px;
     }
 }
  .program_info_title {
