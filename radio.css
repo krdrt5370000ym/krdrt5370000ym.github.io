@@ -778,13 +778,16 @@
 }
  .dsch_host {
      font-size: 0.9em;
+     margin-left: 25px;
 }
  .dsch_hours {
      font-size: 0.8em;
      color: #444;
+     margin-left: 25px;
 }
  .dsch_desc {
      font-size: 0.6em;
+     margin-left: 25px;
 }
  @media screen and (max-width: 600px) {
      .dsch_host {
