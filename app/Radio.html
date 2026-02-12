@@ -1,11 +1,62 @@
-<div id="app"></div>
-<script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
-<script>
-  const Webamp = window.Webamp;
-  const webamp = new Webamp({
-    initialPlaylistUrl: [
-      { url: "Radio.m3u" }
-    ],
-  });
-  webamp.renderWhenReady(document.getElementById('app'));
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>M3U Web Player</title>
+    <script src="https://cdn.jsdelivr.net"></script>
+    <style>
+        body { font-family: sans-serif; display: flex; }
+        #playlist { width: 30%; height: 100vh; overflow-y: scroll; border-right: 1px solid #ccc; }
+        #video-container { width: 70%; padding: 20px; }
+        video { width: 100%; }
+        .channel-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
+        .channel-item:hover { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <div id="playlist"><h3>Channels</h3><div id="channels"></div></div>
+    <div id="video-container">
+        <video id="video" controls autoplay></video>
+    </div>
+    <script>
+    const m3uUrl = 'https://krdrt5370000ym.github.io/app/Radio.m3u'; // Your initial playlist file
+const video = document.getElementById('video');
+const channelsContainer = document.getElementById('channels');
+
+// Function to parse M3U
+async function loadPlaylist() {
+    const response = await fetch(m3uUrl);
+    const data = await response.text();
+    const lines = data.split('\n');
+
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i].startsWith('#EXTINF')) {
+            const title = lines[i].split(',')[1];
+            const url = lines[i + 1];
+            
+            const div = document.createElement('div');
+            div.className = 'channel-item';
+            div.innerText = title;
+            div.onclick = () => playStream(url);
+            channelsContainer.appendChild(div);
+        }
+    }
+}
+
+// Function to play stream
+function playStream(url) {
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+        video.addEventListener('loadedmetadata', () => video.play());
+    }
+}
+
+loadPlaylist();
+    </script>
+</body>
+</html>
