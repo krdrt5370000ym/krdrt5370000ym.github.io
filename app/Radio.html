@@ -1,62 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>M3U Web Player</title>
-    <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6.4/dist/jquery.min.js"></script>
+    <!-- Biblioteka hls.js dla wsparcia m3u8 w Chrome/Firefox -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { font-family: sans-serif; display: flex; }
-        #playlist { width: 30%; height: 100vh; overflow-y: scroll; border-right: 1px solid #ccc; }
-        #video-container { width: 70%; padding: 20px; }
-        video { width: 100%; }
-        .channel-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
-        .channel-item:hover { background-color: #f0f0f0; }
+        body { background: #111; color: white; text-align: center; font-family: sans-serif; }
+        video { width: 80%; max-width: 800px; border: 2px solid #444; border-radius: 8px; margin-top: 20px; }
+        input { padding: 10px; width: 60%; border-radius: 4px; border: none; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div id="playlist"><h3>Channels</h3><div id="channels"></div></div>
-    <div id="video-container">
-        <video id="video" controls autoplay></video>
-    </div>
+    <h1>M3U Web Player</h1>
+    <input type="text" id="m3u-url" placeholder="https://krdrt5370000ym.github.io/app/Radio.m3u">
+    <button onclick="loadStream()">Graj</button>
+    <br>
+    <video id="video" controls></video>
+
     <script>
-    const m3uUrl = 'https://krdrt5370000ym.github.io/app/Radio.m3u'; // Your initial playlist file
-const video = document.getElementById('video');
-const channelsContainer = document.getElementById('channels');
+        function loadStream() {
+            var video = document.getElementById('video');
+            var videoSrc = document.getElementById('m3u-url').value;
 
-// Function to parse M3U
-async function loadPlaylist() {
-    const response = await fetch(m3uUrl);
-    const data = await response.text();
-    const lines = data.split('\n');
-
-    for (let i = 0; i < lines.length; i++) {
-        if (lines[i].startsWith('#EXTINF')) {
-            const title = lines[i].split(',')[1];
-            const url = lines[i + 1];
-            
-            const div = document.createElement('div');
-            div.className = 'channel-item';
-            div.innerText = title;
-            div.onclick = () => playStream(url);
-            channelsContainer.appendChild(div);
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                // Natywne wsparcie (np. Safari)
+                video.src = videoSrc;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
         }
-    }
-}
-
-// Function to play stream
-function playStream(url) {
-    if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = url;
-        video.addEventListener('loadedmetadata', () => video.play());
-    }
-}
-
-loadPlaylist();
     </script>
 </body>
 </html>
