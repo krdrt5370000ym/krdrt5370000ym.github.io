@@ -80,7 +80,7 @@
         element.classList.add('active');
         
         title.innerText = "Teraz grasz: " + station.name;
-        player.src = station.url;
+        player.src = station.url.replace(/^http:\/\//, "https://cast.tunzilla.com/http://");
         player.play();
     }
 </script>
