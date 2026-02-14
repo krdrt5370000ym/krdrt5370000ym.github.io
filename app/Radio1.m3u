@@ -62,7 +62,7 @@ https://streaming.radio5.com.pl:8888/bayerfm
 #EXTINF:-1, Radio 7
 https://stream.radio7.pl/;stream.mp3
 #EXTINF:-1, Radio Jard
-http://online.jard.pl:8744/jard1
+https://stream4.nadaje.com:8745/jard1
 #EXTINF:-1, Radio MC
 https://stream4.nadaje.com:8625/mcradio
 #EXTINF:-1, Radio Łódź (99,2 FM)
@@ -86,7 +86,7 @@ https://hotfm.pl:8443/hotfm.mp3
 #EXTINF:-1, HOT FM Przemyśl (HD)
 https://hotfm.pl:8443/hotfm_hd.mp3
 #EXTINF:-1, Radio Niepokalanów (Mazowsze - 102,7 FM, Łódzkie - 98,6 FM)
-http://88.199.169.10:7600/rn.mp3
+https://stream.rcs.revma.com/gg1s5wrph72vv
 #EXTINF:-1, Radio Parada (96 FM)
 https://stream4.nadaje.com:15275/live
 #EXTINF:-1, Radio Gra Toruń
@@ -413,3 +413,4 @@ https://icecast.pulsradio.com/puls90HD.mp3
 https://icecast.pulsradio.com/magicradioHD.mp3
 #EXTINF:-1, InTheMixRadio DE
 http://sdstream.de:9300/inthemixradio
+
