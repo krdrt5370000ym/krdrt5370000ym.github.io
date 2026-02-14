@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true"/>
     <meta charset="UTF-8">
     <title>Radio M3U Player</title>
     <script src="https://krdrt5370000ym.github.io/site-head.js"></script>
@@ -80,7 +81,7 @@
         element.classList.add('active');
         
         title.innerText = "Teraz grasz: " + station.name;
-        player.src = station.url.replace(/^http:\/\//, "https://cast.tunzilla.com/http://");
+        player.src = station.url;
         player.play();
     }
 </script>
