@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="UTF-8">
     <title>Radio M3U Player</title>
     <script src="https://krdrt5370000ym.github.io/site-head.js"></script>
@@ -30,8 +29,8 @@
 </div>
 
 <script>
-    async function fetchPlaylist() {
-        const url = "https://krdrt5370000ym.github.io/app/Radio.m3u";
+    async function fetchPlaylist(name) {
+        const url = "https://krdrt5370000ym.github.io/app/" + name + ".m3u";
         try {
             const response = await fetch(url);
             const text = await response.text();
@@ -81,11 +80,11 @@
         element.classList.add('active');
         
         title.innerText = "Teraz grasz: " + station.name;
-        player.src = station.url;
+        player.src = station.url.replace(/^http:\/\//, "https://cast.tunzilla.com/http://");
         player.play();
     }
 </script>
-<script>fetchPlaylist()</script>
+<script>fetchPlaylist('Radio')</script>
 
 </body>
 </html>
