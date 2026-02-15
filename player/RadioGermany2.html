@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Radio internetowe</title>
+    <script src="https://krdrt5370000ym.github.io/site-head.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="sidebar">
+    <a style="text-decoration:none;" href="krdrt5370000ym.github.io/player">Wstecz</a>
+    <h3>Stacje Radiowe</h3>
+
+    <div id="playlist-container"></div>
+</div>
+
+<div id="content">
+    <h2 id="current-station">Wybierz stację z listy</h2>
+    <audio id="player" controls></audio>
+    <a style="text-decoration:none;margin-top:10px;" href="RadioGermany2.m3u">Pobierz M3U</a>
+</div>
+
+<script src="radios.js"></script>
+<script>fetchPlaylist('RadioGermany2')</script>
+
+</body>
+</html>
