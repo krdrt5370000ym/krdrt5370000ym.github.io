@@ -54,3 +54,11 @@
      border: 1px solid #444;
      color: white;
 }
+@media (max-width:600px) {
+      h2 {
+          font-size: 20px;
+      }
+       h3 {
+          font-size: 16px;
+      }
+}
