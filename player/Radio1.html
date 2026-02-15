@@ -17,8 +17,8 @@
 
 <div id="content">
     <h2 id="current-station">Wybierz stację z listy</h2>
-    <audio id="player" controls></audio>
-    <span style="margin-top:10px;"><button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration: none;">▶</a></button><button><a style="text-decoration:none;" href="Radio1.m3u"><i class="fa-solid fa-download"></i></a></button></span>
+    <audio id="player" style="display:none;" controls></audio>
+    <span id="buttons" style="margin-top:10px;display:none;"><button><a href="#" onclick="document.getElementById('player').load();" style="text-decoration: none;">▶</a></button><button><a style="text-decoration:none;" href="Radio1.m3u"><i class="fa-solid fa-download"></i></a></button></span>
 </div>
 
 <script src="radios.js"></script>
