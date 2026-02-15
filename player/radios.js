@@ -51,4 +51,5 @@
         title.innerText = "Teraz grasz: " + station.name;
         player.src = station.url.replace(/^http:\/\//, "https://cast.tunzilla.com/http://");
         player.play();
+        document.querySelector('audio').style='display:initial;';
     }
