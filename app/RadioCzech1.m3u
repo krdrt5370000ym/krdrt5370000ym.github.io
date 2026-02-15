@@ -1,1093 +1,547 @@
 #EXTM3U
-#RADIOBROWSERUUID:86bf90bd-67e7-400d-8fc2-08cc57a7e73e
-#EXTINF:1,Abdulbasit Abdulsamad
+#EXTINF:-1, Abdulbasit Abdulsamad
 https://radio.mp3islam.com/listen/abdulbasit/radio.mp3
-
-#RADIOBROWSERUUID:960cd948-0601-11e8-ae97-52543be04c81
-#EXTINF:1,ABradio Chillout
+#EXTINF:-1, ABradio Chillout
 http://mp3stream4.abradio.cz/chillout128.mp3
-
-#RADIOBROWSERUUID:b744d69a-928e-4c04-a630-1076a2e586af
-#EXTINF:1,BIKERS RADIO DOUPE
+#EXTINF:-1, BIKERS RADIO DOUPE
 https://icecast7.play.cz/bikersradiodoupe128.mp3
-
-#RADIOBROWSERUUID:742cecbd-db1f-4515-9f28-0ee41b09a77b
-#EXTINF:1,Black Hornet Radio
+#EXTINF:-1, Black Hornet Radio
 http://icecast2.play.cz/bhradio-192.mp3
-
-#RADIOBROWSERUUID:c18b8935-33b9-41f5-b675-ed952668f877
-#EXTINF:1,BlueRadio.cz
+#EXTINF:-1, BlueRadio.cz
 http://sc.ipip.cz:7980/;?1711695047279
-
-#RADIOBROWSERUUID:a7febd85-ca0f-400d-b209-bba3d59a67eb
-#EXTINF:1,BojlerRoom
+#EXTINF:-1, BojlerRoom
 https://ice4.abradio.cz/bojler_room_128.aac
-
-#RADIOBROWSERUUID:b13ea46f-9a4e-4a42-a16f-0c5e3da82657
-#EXTINF:1,Calimeroclub Radio
+#EXTINF:-1, Calimeroclub Radio
 http://live.topradio.cz:8000/calimero192
-
-#RADIOBROWSERUUID:a3c8b03b-0139-4067-a677-79392598f242
-#EXTINF:1,Český Impuls
+#EXTINF:-1, Český Impuls
 https://icecast6.play.cz/cesky-impuls.mp3
-
-#RADIOBROWSERUUID:40c7fb8f-287f-11e8-91bf-52543be04c81
-#EXTINF:1,Český Impuls
+#EXTINF:-1, Český Impuls
 http://icecast6.play.cz/cesky-impuls.mp3
-
-#RADIOBROWSERUUID:0e8a50f5-5f1a-4d5f-9350-83eff4efea9f
-#EXTINF:1,Český rozhlas Brno
+#EXTINF:-1, Český rozhlas Brno
 https://rozhlas.stream/brno.mp3
-
-#RADIOBROWSERUUID:07eb56e1-0eb8-4070-a68e-4bd24b545db3
-#EXTINF:1,Český rozhlas České Budějovice
+#EXTINF:-1, Český rozhlas České Budějovice
 https://rozhlas.stream/ceske_budejovice_high.aac
-
-#RADIOBROWSERUUID:aaec68f1-aa06-423e-aa82-2dab5a36ff82
-#EXTINF:1,Cesky Rozhlas Classical Lossless FLAC Stream
+#EXTINF:-1, Cesky Rozhlas Classical Lossless FLAC Stream
 http://amp.cesnet.cz:8000/cro-d-dur.flac
-
-#RADIOBROWSERUUID:f30802ce-2b2c-4a5c-8f18-7537b2234617
-#EXTINF:1,Cesky Rozhlas D-dur
+#EXTINF:-1, Cesky Rozhlas D-dur
 http://amp.cesnet.cz:8000/cro-d-dur-256.ogg
-
-#RADIOBROWSERUUID:6e24e63f-a100-4df7-bc25-bc9fa327ac07
-#EXTINF:1,Cesky Rozhlas Jazz
+#EXTINF:-1, Cesky Rozhlas Jazz
 https://rozhlas.stream/jazz_high.aac
-
-#RADIOBROWSERUUID:9a25d1e8-04bf-4987-bffc-d455447af673
-#EXTINF:1,Cesky Rozhlas Jazz Lossless FLAC Stream
+#EXTINF:-1, Cesky Rozhlas Jazz Lossless FLAC Stream
 http://amp.cesnet.cz:8000/cro-jazz.flac
-
-#RADIOBROWSERUUID:0e8e5dec-9bac-40d4-8f60-163e6aa4b10e
-#EXTINF:1,Chat Rádio
+#EXTINF:-1, Chat Rádio
 https://radio.chatujme.cz:8000/chatradio
-
-#RADIOBROWSERUUID:58633ddd-fa5d-4ead-a150-a95137ac094d
-#EXTINF:1,City FM
+#EXTINF:-1, City FM
 http://ice.abradio.cz/cityfm128.mp3
-
-#RADIOBROWSERUUID:e34d0358-26f3-11e8-91bf-52543be04c81
-#EXTINF:1,City Milenium
+#EXTINF:-1, City Milenium
 http://ice.abradio.cz:8000/citymi128.mp3
-
-#RADIOBROWSERUUID:9647ec96-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Classic Praha
+#EXTINF:-1, Classic Praha
 http://icecast8.play.cz/classic128.mp3
-
-#RADIOBROWSERUUID:c34f97eb-de1b-4164-9344-b9f0a4f9ac91
-#EXTINF:1,COLOR Music Radio
+#EXTINF:-1, COLOR Music Radio
 https://icecast8.play.cz/color128.mp3
-
-#RADIOBROWSERUUID:17e20c76-e993-45fb-88f4-6efdef17cc28
-#EXTINF:1,Color Music Radio
+#EXTINF:-1, Color Music Radio
 http://sc.ipip.cz:8206/;stream
-
-#RADIOBROWSERUUID:b2e362d0-b8e0-11e9-acb2-52543be04c81
-#EXTINF:1,Comedy Club R@dio DIANA
+#EXTINF:-1, Comedy Club R@dio DIANA
 https://westradio.cz/radio/8010/radio.mp3
-
-#RADIOBROWSERUUID:720e5547-8a01-4f5c-a404-e53dcc8a9c3c
-#EXTINF:1,COOP TIP Radio
+#EXTINF:-1, COOP TIP Radio
 http://ice4.abradio.cz/coop128.mp3
-
-#RADIOBROWSERUUID:a3566686-dace-4de3-9e62-67f1e56ec886
-#EXTINF:1,COOP TIP Radio
+#EXTINF:-1, COOP TIP Radio
 http://mp3stream4.abradio.cz:8000/coop128.mp3
-
-#RADIOBROWSERUUID:960ece9a-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Country Radio
+#EXTINF:-1, Country Radio
 http://icecast2.play.cz:8000/country128aac
-
-#RADIOBROWSERUUID:7ecb52d8-d8ea-4750-855a-69950f7226ee
-#EXTINF:1,Country Radio
+#EXTINF:-1, Country Radio
 http://icecast4.play.cz/country128.mp3
-
-#RADIOBROWSERUUID:626c8105-6388-4a20-aaa6-c6fe02c44a32
-#EXTINF:1,County
+#EXTINF:-1, County
 http://icecast4.play.cz/country128.mp3
-
-#RADIOBROWSERUUID:ab08ad62-1c48-41f9-ab09-3a87edb1486f
-#EXTINF:1,Crazy Rádio
+#EXTINF:-1, Crazy Rádio
 http://live.topradio.cz:8000/crazy128
-
-#RADIOBROWSERUUID:0b88b8ac-30cb-4ee7-af0e-e76b01960c55
-#EXTINF:1,ČRo D-dur
+#EXTINF:-1, ČRo D-dur
 http://amp.cesnet.cz:8000/cro-d-dur.flac
-
-#RADIOBROWSERUUID:0933cedf-76b4-4953-8561-12563becd8ee
-#EXTINF:1,ČRo D-dur FLAC
+#EXTINF:-1, ČRo D-dur FLAC
 http://amp.cesnet.cz:8000/cro-d-dur.flac
-
-#RADIOBROWSERUUID:309a02c6-8c06-474d-94db-8b2845f7c909
-#EXTINF:1,ČRo D-dur HD
+#EXTINF:-1, ČRo D-dur HD
 http://radio.cesnet.cz/cgi-bin/cro-d-dur-256-ogg.pls
-
-#RADIOBROWSERUUID:960c2ef6-0601-11e8-ae97-52543be04c81
-#EXTINF:1,ČRo Dvojka
+#EXTINF:-1, ČRo Dvojka
 http://icecast6.play.cz/cro2-128.mp3
-
-#RADIOBROWSERUUID:8fc59db6-d356-429a-98a0-4e284fa8d50e
-#EXTINF:1,Čro Dvojka (256k ogg)
+#EXTINF:-1, Čro Dvojka (256k ogg)
 http://amp1.cesnet.cz:8000/cro2-256.ogg
-
-#RADIOBROWSERUUID:1c73ba77-2de2-420f-90dd-74d15118a9be
-#EXTINF:1,ČRo Jazz
+#EXTINF:-1, ČRo Jazz
 http://amp.cesnet.cz:8000/cro-jazz.flac
-
-#RADIOBROWSERUUID:de4f53b1-3a55-447d-b3e8-29b9f09833a4
-#EXTINF:1,ČRo Olomouc
+#EXTINF:-1, ČRo Olomouc
 https://rozhlas.stream/olomouc_low.aac
-
-#RADIOBROWSERUUID:56359e3e-8447-4c27-a577-60d54a8e9b39
-#EXTINF:1,ČRo Ostrava
+#EXTINF:-1, ČRo Ostrava
 https://rozhlas.stream/ostrava_high.aac
-
-#RADIOBROWSERUUID:50c08114-84d3-41ac-9f40-02b09e4913fe
-#EXTINF:1,ČRo Plus
+#EXTINF:-1, ČRo Plus
 https://rozhlas.stream/plus_mp3_128.mp3
-
-#RADIOBROWSERUUID:961f6420-0601-11e8-ae97-52543be04c81
-#EXTINF:1,ČRo Plus
+#EXTINF:-1, ČRo Plus
 http://amp.cesnet.cz:8000/cro-plus-256.ogg.m3u
-
-#RADIOBROWSERUUID:917790a4-3209-4d61-84b7-b2356ae78b61
-#EXTINF:1,ČRo Plus
+#EXTINF:-1, ČRo Plus
 https://rozhlas.stream/plus_low.aac
-
-#RADIOBROWSERUUID:961f0c9d-0601-11e8-ae97-52543be04c81
-#EXTINF:1,ČRo Radio Wave
+#EXTINF:-1, ČRo Radio Wave
 http://amp.cesnet.cz:8000/cro-radio-wave-256.ogg
-
-#RADIOBROWSERUUID:bdb4026e-62a0-44f8-a5d2-0164aa4938f5
-#EXTINF:1,Cro Radio Wave
+#EXTINF:-1, Cro Radio Wave
 http://amp.cesnet.cz:8000/cro-radio-wave.flac
-
-#RADIOBROWSERUUID:5a0b9ad6-d9ff-44dc-8b4c-08988b07a5be
-#EXTINF:1,ČRo Radio Wave
+#EXTINF:-1, ČRo Radio Wave
 http://amp.cesnet.cz:8000/cro-radio-wave-256.ogg.m3u
-
-#RADIOBROWSERUUID:960c2e1f-0601-11e8-ae97-52543be04c81
-#EXTINF:1,ČRo Radiožurnál
+#EXTINF:-1, ČRo Radiožurnál
 http://icecast8.play.cz/cro1-128.mp3
-
-#RADIOBROWSERUUID:ffc0040e-5e9c-4e08-8c57-94db090c9e7a
-#EXTINF:1,CRo Radiozurnal
+#EXTINF:-1, CRo Radiozurnal
 https://rozhlas.stream/radiozurnal_aac_128.aac
-
-#RADIOBROWSERUUID:c1f742d6-b2c4-4b73-a9ad-30ddf194345e
-#EXTINF:1,ČRO Radiožurnál Sport
+#EXTINF:-1, ČRO Radiožurnál Sport
 https://rozhlas.stream/radiozurnal_sport_high.aac
-
-#RADIOBROWSERUUID:380525e0-e2bb-4419-98ee-fc21c83f45c5
-#EXTINF:1,čro Radiožurnál Sport AdHoc stream 1
+#EXTINF:-1, čro Radiožurnál Sport AdHoc stream 1
 https://rozhlas.stream/radiozurnal_sport_adhoc_1_high.mp3
-
-#RADIOBROWSERUUID:d20f94a0-4f9c-4a71-8957-bd1216e8e9c6
-#EXTINF:1,ČRO Radiožurnál sport Adhoc stream 2
+#EXTINF:-1, ČRO Radiožurnál sport Adhoc stream 2
 http://rozhlas.stream/radiozurnal_sport_adhoc_2_high.mp3
-
-#RADIOBROWSERUUID:b74ae42b-9648-4caa-9a95-bd175294d0af
-#EXTINF:1,ČRO Radiožurnál sport AdHoc stream 2
+#EXTINF:-1, ČRO Radiožurnál sport AdHoc stream 2
 https://rozhlas.stream/radiozurnal_sport_adhoc_2_high.mp3
-
-#RADIOBROWSERUUID:d45dca1f-d3ab-4bc6-a247-ad98d91cb09e
-#EXTINF:1,čro radiožurnál sport Stream AdHoc 2
+#EXTINF:-1, čro radiožurnál sport Stream AdHoc 2
 https://rozhlas.stream/radiozurnal_sport_adhoc_2_high.mp3
-
-#RADIOBROWSERUUID:960bf772-0601-11e8-ae97-52543be04c81
-#EXTINF:1,ČRo Vltava
+#EXTINF:-1, ČRo Vltava
 http://icecast5.play.cz/cro3-128.mp3
-
-#RADIOBROWSERUUID:55e08718-a4de-49c3-958a-e8a8f4de21f6
-#EXTINF:1,Čro Vltava Flac
+#EXTINF:-1, Čro Vltava Flac
 https://amp.cesnet.cz:8443/cro3.flac
-
-#RADIOBROWSERUUID:b371f892-5d45-413c-bd65-d6143c1245b5
-#EXTINF:1,CRo Vysocina
+#EXTINF:-1, CRo Vysocina
 https://rozhlas.stream/vysocina_high.aac
-
-#RADIOBROWSERUUID:04602093-2633-4f1a-9e22-c0007e9436af
-#EXTINF:1,ČRo Wave
+#EXTINF:-1, ČRo Wave
 https://rozhlas.stream/wave_mp3_128.mp3
-
-#RADIOBROWSERUUID:3963a7f3-d1cc-4fe1-831b-36499ca21b6f
-#EXTINF:1,ČRo Wave
+#EXTINF:-1, ČRo Wave
 https://rozhlas.stream/wave_mp3_256.mp3
-
-#RADIOBROWSERUUID:d16b9c34-86c0-4a5f-bce2-d981d1aeb56b
-#EXTINF:1,Čro3 Vltava
+#EXTINF:-1, Čro3 Vltava
 http://amp.cesnet.cz:8000/cro3-256.ogg
-
-#RADIOBROWSERUUID:6f61cd1b-a6f8-4546-b8f5-c848571c116a
-#EXTINF:1,Czech radio classical
+#EXTINF:-1, Czech radio classical
 http://amp.cesnet.cz:8000/cro-d-dur.flac
-
-#RADIOBROWSERUUID:dc8919ca-4a37-4a25-881a-8c2b15294979
-#EXTINF:1,Czech Radio ČRo D-dur
+#EXTINF:-1, Czech Radio ČRo D-dur
 http://amp.cesnet.cz:8000/cro-d-dur.flac
-
-#RADIOBROWSERUUID:d82146be-974e-47d8-85fb-935985e44482
-#EXTINF:1,Dance Club FM
+#EXTINF:-1, Dance Club FM
 http://mp3stream4.abradio.cz/dance128.mp3
-
-#RADIOBROWSERUUID:c6c9277a-68ae-4230-9d06-aeab4847d649
-#EXTINF:1,Dance Club Radio
+#EXTINF:-1, Dance Club Radio
 https://ice4.abradio.cz/dance128.mp3
-
-#RADIOBROWSERUUID:cd563cdc-5c77-11e9-a622-52543be04c81
-#EXTINF:1,Dance Radio
+#EXTINF:-1, Dance Radio
 http://ice.actve.net/dance-radio128.mp3
-
-#RADIOBROWSERUUID:b5792bd1-5c77-11e9-a622-52543be04c81
-#EXTINF:1,Dance Radio
+#EXTINF:-1, Dance Radio
 http://ice.actve.net/dance-radio320.mp3
-
-#RADIOBROWSERUUID:7c169c79-1cd9-40c5-a74f-fa91a467dccd
-#EXTINF:1,Dance rádio cz
+#EXTINF:-1, Dance rádio cz
 https://ice.actve.net/dance-radio128.mp3
-
-#RADIOBROWSERUUID:f92326ed-2b37-49f3-a6ff-8fe611dc3e23
-#EXTINF:1,Decennial Gothica Radio II
+#EXTINF:-1, Decennial Gothica Radio II
 http://65.21.202.84:9332/stream
-
-#RADIOBROWSERUUID:f84d4751-53b7-4a05-b838-5923740429aa
-#EXTINF:1,ELLIS
+#EXTINF:-1, ELLIS
 http://stream.laut.fm/ellis
-
-#RADIOBROWSERUUID:d5145b3a-7814-4690-b496-a04f02ff0ce9
-#EXTINF:1,ENERGIC
+#EXTINF:-1, ENERGIC
 https://icecast9.play.cz/energic.mp3
-
-#RADIOBROWSERUUID:8552af34-2284-41bd-9a0e-2c534fcc59b0
-#EXTINF:1,Evropa 2 - aac
+#EXTINF:-1, Evropa 2 - aac
 https://playerservices.streamtheworld.com/api/livestream-redirect/EVROPA2AAC.aac
-
-#RADIOBROWSERUUID:7cf86499-d207-4522-bb8a-0b5a25f8bb73
-#EXTINF:1,Evropa 2 - Actve
+#EXTINF:-1, Evropa 2 - Actve
 https://ice.actve.net/fm-evropa2-128
-
-#RADIOBROWSERUUID:129b3663-0543-443a-886e-b2c101cf326b
-#EXTINF:1,Evropa 2 - mp3
+#EXTINF:-1, Evropa 2 - mp3
 https://playerservices.streamtheworld.com/api/livestream-redirect/EVROPA2.mp3
-
-#RADIOBROWSERUUID:1b568695-9ce7-493d-ba72-d9b3d5e0a364
-#EXTINF:1,Evropa 2 - Radio
+#EXTINF:-1, Evropa 2 - Radio
 https://ice.actve.net/fm-evropa2-128
-
-#RADIOBROWSERUUID:7feb3c60-f5b5-4796-8c4c-a0acd40d4895
-#EXTINF:1,Evropa2 Youradio Flashbacky
+#EXTINF:-1, Evropa2 Youradio Flashbacky
 https://ice.actve.net/web-e2-flashback
-
-#RADIOBROWSERUUID:d6bb6104-fc0b-41d9-9e46-24ffb08543ef
-#EXTINF:1,Expres FM
+#EXTINF:-1, Expres FM
 http://icecast8.play.cz/expres128mp3
-
-#RADIOBROWSERUUID:960ed031-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Expresradio
+#EXTINF:-1, Expresradio
 http://icecast5.play.cz:8000/expres128mp3
-
-#RADIOBROWSERUUID:c6756b5f-3bd7-422d-87c7-4e4ae8fe829f
-#EXTINF:1,Express FM
+#EXTINF:-1, Express FM
 http://icecast8.play.cz/expres128mp3
-
-#RADIOBROWSERUUID:568ef843-32e6-4911-849e-1151e47f4269
-#EXTINF:1,Fajn Fresh
+#EXTINF:-1, Fajn Fresh
 http://ice.abradio.cz/fajnfresh128.mp3
-
-#RADIOBROWSERUUID:5d37c750-97ad-4305-9c0b-9a6a6cb02100
-#EXTINF:1,Fajn Fresh Radio
+#EXTINF:-1, Fajn Fresh Radio
 http://mp3stream4.abradio.cz/fajnfresh64.mp3
-
-#RADIOBROWSERUUID:8c5750b4-6870-11ea-9d09-52543be04c81
-#EXTINF:1,Fajn Rádio
+#EXTINF:-1, Fajn Rádio
 http://ice.abradio.cz/fajn128.mp3
-
-#RADIOBROWSERUUID:149c48ae-ab14-40b6-8fd7-6f26635bec90
-#EXTINF:1,Fed's Trap Radio
+#EXTINF:-1, Fed's Trap Radio
 https://backend.fedstrapradio.com:8000/radio.mp3
-
-#RADIOBROWSERUUID:89c307c8-626a-4af8-aae1-c332b6492f3a
-#EXTINF:1,Fed's Trap Radio
+#EXTINF:-1, Fed's Trap Radio
 https://backend.fedstrapradio.com:8000/radio.mp3
-
-#RADIOBROWSERUUID:0b0538d7-3a3f-40a1-a4f5-6de534b5298c
-#EXTINF:1,Fed's Trap Radio
+#EXTINF:-1, Fed's Trap Radio
 https://backend.fedstrapradio.com:8000/radio.mp3
-
-#RADIOBROWSERUUID:06c53709-7964-4650-8809-1266932e3fb6
-#EXTINF:1,Flash radio
+#EXTINF:-1, Flash radio
 http://185.47.222.75:8750/
-
-#RADIOBROWSERUUID:33d5e36b-7301-494c-b022-d7f3a304f72b
-#EXTINF:1,Free Rádio 107,0 FM Brno
+#EXTINF:-1, Free Rádio 107,0 FM Brno
 http://icecast8.play.cz/freeradio128.mp3
-
-#RADIOBROWSERUUID:961f6cc4-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Free Rádio 107,0 FM Brno
+#EXTINF:-1, Free Rádio 107,0 FM Brno
 http://icecast8.play.cz/freeradio128.mp3
-
-#RADIOBROWSERUUID:7b65aafa-6b87-4164-866a-01234cc6e27d
-#EXTINF:1,Free Rave CZ
+#EXTINF:-1, Free Rave CZ
 http://freerave.cz/freerave.pls
-
-#RADIOBROWSERUUID:613525ac-8afa-4e94-beec-ae5cf6c7034e
-#EXTINF:1,FREERAVE.CZ
+#EXTINF:-1, FREERAVE.CZ
 http://164.68.122.137:8061/
-
-#RADIOBROWSERUUID:927edba2-7db7-40f2-96bd-8a9316de90f4
-#EXTINF:1,FREKVENCE 1
+#EXTINF:-1, FREKVENCE 1
 https://playerservices.streamtheworld.com/api/livestream-redirect/FREKVENCE1.mp3
-
-#RADIOBROWSERUUID:d59ad82a-3044-4951-8c6c-a0d72b26001c
-#EXTINF:1,Frekvence 1
+#EXTINF:-1, Frekvence 1
 http://ice.actve.net/fm-frekvence1-aac
-
-#RADIOBROWSERUUID:5dfff7e0-a712-4fc4-bac2-ba9c2769309f
-#EXTINF:1,Frekvence 1 - Youradio Československé hity
+#EXTINF:-1, Frekvence 1 - Youradio Československé hity
 http://ice.actve.net/web-e2-csweb
-
-#RADIOBROWSERUUID:033a307e-4396-4b97-b2c5-a7f24cf604fc
-#EXTINF:1,Frekvence 1 - Youradio Legendy
+#EXTINF:-1, Frekvence 1 - Youradio Legendy
 http://ice.actve.net/web-f1-legendy
-
-#RADIOBROWSERUUID:6d8af92e-3174-472d-8476-6521cb520054
-#EXTINF:1,Frekvence 1 - Youradio Osmdesátky
+#EXTINF:-1, Frekvence 1 - Youradio Osmdesátky
 http://ice.actve.net/web-80
-
-#RADIOBROWSERUUID:c1555df0-3fe9-49cb-b2f4-9e3c7c46d4c2
-#EXTINF:1,Fresh radio 103.6
+#EXTINF:-1, Fresh radio 103.6
 https://icecast.beatzone.cz/radio/8000/128.mp3
-
-#RADIOBROWSERUUID:120f9ba0-c55a-498a-ae36-58b5c27ac2af
-#EXTINF:1,Funkstar Radio
+#EXTINF:-1, Funkstar Radio
 https://funkstar.radioca.st/stream
-
-#RADIOBROWSERUUID:b581783f-fe7c-4f4d-9aff-f22e04aead8a
-#EXTINF:1,Ghost Rádios
+#EXTINF:-1, Ghost Rádios
 http://servidor39.brlogic.com:8252/live?type=.m3u
-
-#RADIOBROWSERUUID:6f27451f-84bf-454f-971d-9c8c28c59c37
-#EXTINF:1,Haná
+#EXTINF:-1, Haná
 http://icecast8.play.cz/hana128.mp3
-
-#RADIOBROWSERUUID:961d4eb8-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Helax 93,7
+#EXTINF:-1, Helax 93,7
 http://ice.abradio.cz/helax128.mp3
-
-#RADIOBROWSERUUID:961d7067-0601-11e8-ae97-52543be04c81
-#EXTINF:1,HEY rádio
+#EXTINF:-1, HEY rádio
 http://icecast3.play.cz/hey-radio128.mp3
-
-#RADIOBROWSERUUID:e45ddf1d-963b-4e32-94d9-a3f1ed9cbc00
-#EXTINF:1,Hit FM Plus
+#EXTINF:-1, Hit FM Plus
 http://ice.abradio.cz:8000/fmplus64.aac
-
-#RADIOBROWSERUUID:9bea3d90-d08b-4441-ab92-47ab2ccb5c9b
-#EXTINF:1,Hit PopRock
+#EXTINF:-1, Hit PopRock
 http://ice.abradio.cz/hitpoprock128.mp3
-
-#RADIOBROWSERUUID:a005443c-083b-11e8-ae97-52543be04c81
-#EXTINF:1,HIT Rádio Orion
+#EXTINF:-1, HIT Rádio Orion
 http://ice.abradio.cz/orion128.mp3
-
-#RADIOBROWSERUUID:6f54eb2a-7fc1-4837-b25b-ded903ec4dbe
-#EXTINF:1,Hitrádio Černá Hora
+#EXTINF:-1, Hitrádio Černá Hora
 http://ice.abradio.cz/cernahora64.mp3
-
-#RADIOBROWSERUUID:81361abb-1d2f-4064-bace-ac0e32bbe505
-#EXTINF:1,Hitrádio Černá Hora
+#EXTINF:-1, Hitrádio Černá Hora
 http://ice.abradio.cz/cernahora128.mp3
-
-#RADIOBROWSERUUID:ea3b7622-08e8-445e-8728-15043d4fdf6a
-#EXTINF:1,Hitrádio Černá Hora 128
+#EXTINF:-1, Hitrádio Černá Hora 128
 http://ice.abradio.cz/cernahora128.mp3
-
-#RADIOBROWSERUUID:10dc2cfb-5938-4336-bfa8-51231ad5e5b1
-#EXTINF:1,Hitrádio City 93.7 FM
+#EXTINF:-1, Hitrádio City 93.7 FM
 https://provisioning.streamtheworld.com/pls/HITRADIO_CITY_PRAHA.pls
-
-#RADIOBROWSERUUID:96398566-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Hitrádio City Brno
+#EXTINF:-1, Hitrádio City Brno
 http://ice.abradio.cz/magicbrno128.mp3
-
-#RADIOBROWSERUUID:431e7237-86b0-11e8-aa66-52543be04c81
-#EXTINF:1,hitradio City zona Lasky
+#EXTINF:-1, hitradio City zona Lasky
 http://ice.abradio.cz/cityzl128.mp3
-
-#RADIOBROWSERUUID:811e935c-fc92-4a70-9eb8-f215059d446d
-#EXTINF:1,Hitrádio Contact
+#EXTINF:-1, Hitrádio Contact
 https://ice3.abradio.cz/hitradiocontact128.mp3
-
-#RADIOBROWSERUUID:a86c3cb7-e0ae-4f12-afa7-264696e79d55
-#EXTINF:1,Hitrádio Devadesátka
+#EXTINF:-1, Hitrádio Devadesátka
 https://ice2.radia.cz/hit90128.aac
-
-#RADIOBROWSERUUID:31988e3e-db92-4d93-8c5a-d7b56bbebc92
-#EXTINF:1,Hitrádio Devadesátka
+#EXTINF:-1, Hitrádio Devadesátka
 https://radia.cz/spa/assets/c8516a638fbaff4ae963.mp3
-
-#RADIOBROWSERUUID:ca6353a3-fb85-4277-8490-7afabc388cf2
-#EXTINF:1,Hitrádio Devadesátka
+#EXTINF:-1, Hitrádio Devadesátka
 https://radia.cz/spa/assets/c8516a638fbaff4ae963.mp3
-
-#RADIOBROWSERUUID:960c2ab1-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Hitrádio Devadesátka
+#EXTINF:-1, Hitrádio Devadesátka
 http://ice.abradio.cz/hit90128.mp3
-
-#RADIOBROWSERUUID:056e5ad2-c0d5-4e72-a719-d39c86fc734b
-#EXTINF:1,Hitrádio Faktor
+#EXTINF:-1, Hitrádio Faktor
 https://ice.abradio.cz/faktor128.mp3
-
-#RADIOBROWSERUUID:fb6df011-77a5-11e8-83fa-52543be04c81
-#EXTINF:1,Hitrádio FM
+#EXTINF:-1, Hitrádio FM
 http://ice.abradio.cz/hitradiofm128.mp3
-
-#RADIOBROWSERUUID:c39ee6bf-d126-11e8-a54a-52543be04c81
-#EXTINF:1,Hitrádio FM Crystal
+#EXTINF:-1, Hitrádio FM Crystal
 http://ice.abradio.cz/crystal128.mp3
-
-#RADIOBROWSERUUID:961cf04b-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Hitrádio Osmdesátka
+#EXTINF:-1, Hitrádio Osmdesátka
 http://ice.abradio.cz/hit80128.mp3
-
-#RADIOBROWSERUUID:638c4a10-d179-46d5-86bc-d8cb1f35013f
-#EXTINF:1,Hitrádio Osmdesátka
+#EXTINF:-1, Hitrádio Osmdesátka
 https://27753.live.streamtheworld.com/HITRADIO_OSMDESATKA.aac
-
-#RADIOBROWSERUUID:4740ae67-9381-4846-8fba-8aaf5707d889
-#EXTINF:1,Hitrádio PopRock
+#EXTINF:-1, Hitrádio PopRock
 http://ice.abradio.cz/hitpoprock128.mp3
-
-#RADIOBROWSERUUID:961dc5c0-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Hitrádio Vysočina
+#EXTINF:-1, Hitrádio Vysočina
 http://ice5.abradio.cz/hitvysocina128.mp3
-
-#RADIOBROWSERUUID:7f727b20-8a77-4978-8bec-b5101a1867cc
-#EXTINF:1,Hitradio Zlín
+#EXTINF:-1, Hitradio Zlín
 https://ice.radia.cz/radiozlin128.mp3
-
-#RADIOBROWSERUUID:bc5b6165-a6da-42a8-a676-8e1f42eb23fc
-#EXTINF:1,Impuls
+#EXTINF:-1, Impuls
 http://icecast1.play.cz/impuls128.mp3
-
-#RADIOBROWSERUUID:738686d7-63c4-4965-b7ef-32c01651e076
-#EXTINF:1,Impuls Ráááádio
+#EXTINF:-1, Impuls Ráááádio
 https://icecast5.play.cz/impuls128.mp3?1571059741
-
-#RADIOBROWSERUUID:c45e34f4-d927-11e9-a861-52543be04c81
-#EXTINF:1,Impuls Ráááádio
+#EXTINF:-1, Impuls Ráááádio
 http://icecast5.play.cz/impuls128.mp3
-
-#RADIOBROWSERUUID:d5b6be0e-7d96-4ac7-b310-2ef5bfcafd47
-#EXTINF:1,JČ1 - Televize jižní Čechy
+#EXTINF:-1, JČ1 - Televize jižní Čechy
 https://stream.jc1.cz/hls/jc1.m3u8
-
-#RADIOBROWSERUUID:960ed37d-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Kiss 98 FM
+#EXTINF:-1, Kiss 98 FM
 http://icecast2.play.cz:8000/kiss128aac
-
-#RADIOBROWSERUUID:961edb13-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Kiss Delta
+#EXTINF:-1, Kiss Delta
 http://icecast1.play.cz:8000/kissdelta192.mp3
-
-#RADIOBROWSERUUID:960d5c99-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Kiss Hady
+#EXTINF:-1, Kiss Hady
 http://icecast8.play.cz/kisshady128.mp3
-
-#RADIOBROWSERUUID:961ed5ff-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Kiss Publikum
+#EXTINF:-1, Kiss Publikum
 http://icecast1.play.cz:8000/kisspublikum128aac
-
-#RADIOBROWSERUUID:348fdad1-69cc-4f53-a848-a73175aad522
-#EXTINF:1,Kiss Radio
+#EXTINF:-1, Kiss Radio
 http://icecast4.play.cz/kiss128.mp3
-
-#RADIOBROWSERUUID:fac2e54e-c199-46fb-afd9-e47b6f7ee5d4
-#EXTINF:1,Kiss Radio - 128MP3
+#EXTINF:-1, Kiss Radio - 128MP3
 https://icecast1.play.cz/kissdelta128.mp3
-
-#RADIOBROWSERUUID:12f79ab6-1e88-482a-8021-5e99c6f20f13
-#EXTINF:1,LA RADIO PLUS ANNECY
+#EXTINF:-1, LA RADIO PLUS ANNECY
 https://laradioplus.ice.infomaniak.ch/laradioplus-high.aac?i=96970
-
-#RADIOBROWSERUUID:c9323802-ed08-433d-b777-a5a05a7dd240
-#EXTINF:1,Luc Radio
+#EXTINF:-1, Luc Radio
 https://cast1.torontocast.com:3800/stream
-
-#RADIOBROWSERUUID:15580ab2-1817-11e9-a80b-52543be04c81
-#EXTINF:1,Metal Heart
+#EXTINF:-1, Metal Heart
 http://fr.radio-streamhosting.com:8000/metalheartradio64aac
-
-#RADIOBROWSERUUID:b565f9c1-212b-4e4b-9175-9f1f089dfc2d
-#EXTINF:1,Metal Heart Radio
+#EXTINF:-1, Metal Heart Radio
 https://cz.radio-streamhosting.com:8443/metalheartradio128mp3
-
-#RADIOBROWSERUUID:961d4cf1-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Metalománie
+#EXTINF:-1, Metalománie
 http://ice.abradio.cz/metalomanie128.mp3
-
-#RADIOBROWSERUUID:60df337a-fd2d-435e-83ef-8cf6ae395779
-#EXTINF:1,Mňau TV
+#EXTINF:-1, Mňau TV
 https://5ca49f2417d90.streamlock.net/mnau/livestream/playlist.m3u8
-
-#RADIOBROWSERUUID:4300fc98-119d-417d-b9d7-f06578d68240
-#EXTINF:1,Netro Life radio 100,8 FM
+#EXTINF:-1, Netro Life radio 100,8 FM
 https://icecast9.play.cz/netro-life-radio.mp3
-
-#RADIOBROWSERUUID:86ade1ec-0b06-4ede-97a1-04ab18299265
-#EXTINF:1,Netro Life Radio 100,8 FM
+#EXTINF:-1, Netro Life Radio 100,8 FM
 https://icecast9.play.cz/netro-life-radio.mp3
-
-#RADIOBROWSERUUID:64059b8b-db39-4414-8f0c-fec635744cfc
-#EXTINF:1,Óčko
+#EXTINF:-1, Óčko
 http://ocko-live.ssl.cdn.cra.cz/channels/ocko/playlist/cze/live_lq.m3u8
-
-#RADIOBROWSERUUID:eb2c518f-2279-45df-beba-ce5293897479
-#EXTINF:1,Óčko Expres
+#EXTINF:-1, Óčko Expres
 http://ocko-live.ssl.cdn.cra.cz/channels/ocko_expres/playlist/cze/live_lq.m3u8
-
-#RADIOBROWSERUUID:3321ebec-e7f8-46bc-bf47-3a4de512ecf1
-#EXTINF:1,Óčko Star
+#EXTINF:-1, Óčko Star
 https://ocko-live-dash.ssl.cdn.cra.cz/cra_live2/ocko_gold.stream.1.smil/playlist.m3u8
-
-#RADIOBROWSERUUID:f94d6ffa-4eaf-41ac-9d17-9db568814d7b
-#EXTINF:1,OIK TV
+#EXTINF:-1, OIK TV
 https://streamer05.low-latency.cz/oiktv/index.m3u8
-
-#RADIOBROWSERUUID:59425e67-86b7-11e9-aa30-52543be04c81
-#EXTINF:1,Oldies Rádio
+#EXTINF:-1, Oldies Rádio
 http://ice.abradio.cz/oldiesradio128.mp3
-
-#RADIOBROWSERUUID:4e9b0f36-3b10-4e00-baa0-ab2e18322dbe
-#EXTINF:1,Phonk Nation Radio
+#EXTINF:-1, Phonk Nation Radio
 https://radio.mxnticek.eu/listen/phonk/128.mp3
-
-#RADIOBROWSERUUID:4ee5a87d-e445-4ce2-8cad-da534e8be10b
-#EXTINF:1,Phonk Nation Radio
+#EXTINF:-1, Phonk Nation Radio
 https://radio.mxnticek.eu/listen/phonk/128.mp3
-
-#RADIOBROWSERUUID:edbb4c24-20ff-49a9-889e-7faeaa98c2cd
-#EXTINF:1,PHONK RADIO
+#EXTINF:-1, PHONK RADIO
 https://stream-43.zeno.fm/90fvpb27u18uv?zs=vRvgZYxuSUWsgBGCbKMLnA
-
-#RADIOBROWSERUUID:72e15a70-d929-11e9-a861-52543be04c81
-#EXTINF:1,Pigy.cz – Disko Trysko
+#EXTINF:-1, Pigy.cz – Disko Trysko
 http://ice.actve.net/web-pg-disko
-
-#RADIOBROWSERUUID:9eb9bcda-d929-11e9-a861-52543be04c81
-#EXTINF:1,Pigy.cz – Písničky z pohádek
+#EXTINF:-1, Pigy.cz – Písničky z pohádek
 http://ice.actve.net/web-pg-pisnicky
-
-#RADIOBROWSERUUID:3fda342d-d929-11e9-a861-52543be04c81
-#EXTINF:1,Pigy.cz – Pohádky
+#EXTINF:-1, Pigy.cz – Pohádky
 http://ice.actve.net/web-pg-pohadky
-
-#RADIOBROWSERUUID:8e221247-8103-4209-a119-519b4bd9fb93
-#EXTINF:1,Plzeň TV
+#EXTINF:-1, Plzeň TV
 https://vysilani.zaktv.cz/broadcast/hls/ptv/index.m3u8
-
-#RADIOBROWSERUUID:848caf0f-5992-11ea-be63-52543be04c81
-#EXTINF:1,povídka
+#EXTINF:-1, povídka
 https://ice3.abradio.cz/povidka128.mp3
-
-#RADIOBROWSERUUID:628ae621-9cdf-4f69-b638-8f40d69e8fc2
-#EXTINF:1,PowerPonies Radio
+#EXTINF:-1, PowerPonies Radio
 http://powerponies.cz:8000/;stream.mp3
-
-#RADIOBROWSERUUID:2391e0fd-3755-41f7-8389-f9bd9e89d350
-#EXTINF:1,PowerPonies Radio
+#EXTINF:-1, PowerPonies Radio
 http://powerponies.cz:8000/;stream.mp3
-
-#RADIOBROWSERUUID:20489f66-8d40-493b-bf8a-36f2941237c8
-#EXTINF:1,Queenradio.net
+#EXTINF:-1, Queenradio.net
 http://stream.radiojar.com/4gw72qm8u68uv
-
-#RADIOBROWSERUUID:94567573-8777-473b-8ab0-09487d84ebef
-#EXTINF:1,Radia CZ - Depeche Mode
+#EXTINF:-1, Radia CZ - Depeche Mode
 http://mp3stream4.abradio.cz/depeche128.mp3
-
-#RADIOBROWSERUUID:bfed09a5-8ea4-45f9-916f-e3e5b8f6e4b4
-#EXTINF:1,Rádio 1
+#EXTINF:-1, Rádio 1
 http://icecast6.play.cz/radio1-128.mp3
-
-#RADIOBROWSERUUID:961001b0-0601-11e8-ae97-52543be04c81
-#EXTINF:1,RADIO 1
+#EXTINF:-1, RADIO 1
 http://icecast2.play.cz/radio1.mp3
-
-#RADIOBROWSERUUID:fcb5cbcf-e658-427c-82f7-a673d765dadb
-#EXTINF:1,Radio 4U
+#EXTINF:-1, Radio 4U
 http://mpc1.mediacp.eu:8342/stream
-
-#RADIOBROWSERUUID:6fbf70f4-d9b2-4550-a4ca-120e13c91c75
-#EXTINF:1,RADIO 4U
+#EXTINF:-1, RADIO 4U
 http://mpc1.mediacp.eu:8342/stream
-
-#RADIOBROWSERUUID:9d254d7c-0274-49d1-adc7-90d0047f83d6
-#EXTINF:1,Radio 4U .pls
+#EXTINF:-1, Radio 4U .pls
 https://mpc1.mediacp.eu:2000/tunein/radio4u/stream/pls
-
-#RADIOBROWSERUUID:4b42896a-5fd7-4f9a-bc35-32d93ef650e3
-#EXTINF:1,Rádio 7
+#EXTINF:-1, Rádio 7
 http://icecast8.play.cz/radio7-128.mp3
-
-#RADIOBROWSERUUID:4cf99ab0-79f3-45bf-8dca-7fa71002c716
-#EXTINF:1,Rádio 7 32kb
+#EXTINF:-1, Rádio 7 32kb
 http://icecast1.play.cz:8000/radio7cz32.mp3
-
-#RADIOBROWSERUUID:938a5577-f0ad-47d1-a256-498e5f857a05
-#EXTINF:1,Rádio Applaus
+#EXTINF:-1, Rádio Applaus
 http://mp3stream3.abradio.cz/applaus128.mp3
-
-#RADIOBROWSERUUID:a75c45b5-3783-4038-bd8c-f4fcf8826c8a
-#EXTINF:1,Radio B
+#EXTINF:-1, Radio B
 https://stream.radiojar.com/9nayamd31tzuv?1660328034
-
-#RADIOBROWSERUUID:05af3db3-5b11-483c-b008-07f3fd56df15
-#EXTINF:1,Rádio Beat
+#EXTINF:-1, Rádio Beat
 http://icecast2.play.cz/radiobeat128.mp3
-
-#RADIOBROWSERUUID:fd85ae48-f7ae-4e77-91f0-aac9160fcdd4
-#EXTINF:1,Radio Beat
+#EXTINF:-1, Radio Beat
 http://icecast2.play.cz/radiobeat128.mp3
-
-#RADIOBROWSERUUID:961d7ccb-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Beat
+#EXTINF:-1, Radio Beat
 http://icecast2.play.cz/radiobeat128.mp3
-
-#RADIOBROWSERUUID:75d183c0-73b1-4f9e-a305-a429064f7ca4
-#EXTINF:1,RADIO BEAT
+#EXTINF:-1, RADIO BEAT
 http://icecast1.play.cz/beat64.mp3
-
-#RADIOBROWSERUUID:c80ec3dc-15ca-4b52-8dcd-c03efa77c95c
-#EXTINF:1,Rádio Beat (128 AAC)
+#EXTINF:-1, Rádio Beat (128 AAC)
 https://icecast2.play.cz/beat128aac
-
-#RADIOBROWSERUUID:48b6108e-3cf5-4985-843f-25a5380a494a
-#EXTINF:1,Radio Beat 128 MP3
+#EXTINF:-1, Radio Beat 128 MP3
 http://icecast2.play.cz/radiobeat128.mp3
-
-#RADIOBROWSERUUID:eac6a047-c06e-42bf-a504-09ace8f810a3
-#EXTINF:1,Rádio BLANÍK
+#EXTINF:-1, Rádio BLANÍK
 https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_BLANIK.aac?gdpr=0
-
-#RADIOBROWSERUUID:5f7c90af-32b5-4c04-8af9-d07642a73250
-#EXTINF:1,Rádio Blaník
+#EXTINF:-1, Rádio Blaník
 https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_BLANIK_128.mp3
-
-#RADIOBROWSERUUID:964e8c15-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Rádio Blaník CZ Webové rádio
+#EXTINF:-1, Rádio Blaník CZ Webové rádio
 http://ice.abradio.cz/blanikcz128.mp3
-
-#RADIOBROWSERUUID:75700bcd-72d7-4398-9e20-df1e9633adcc
-#EXTINF:1,Radio Blaník Morava a Slezsko 
+#EXTINF:-1, Radio Blaník Morava a Slezsko 
 https://ice.abradio.cz/blanikmorava128.mp3?gdpr=1&gdpr_consent=Q084aEUyaE84aEUyaEFjQUJCRU5BX0NnQVBfQUFIX0FBQVlnRjVvQmhEeEVCU0ZDQUdKb1lOa2dBQUFXeHdBQUFDQUNBQUFBb0FBQUFCb0FBQVFBQUFBQUFBQWdCQUFBQUJJQUlBSUFBQUJBR0VBQUFBQUFBQUFBQUFBQUFFQUFBQUFBSVFBQUFBQUFBQ0JBQUFBQUFBQUFBQUFBQUFBQVFBQUFnWG5BZUFBV0FCVUFDNEFIQUFRQUFxQUJvQURrQUlnQVRBQW5nQlZBQzRBRjhBTVFBaElCRUFFVUFLVUFXSUF5d0Jtd0R1QU84QWhBQkZnQzBnRjFBTUNBYXdCTm9DOHdBQUFBLllBQUFBQUFBQUFBQQ==
-
-#RADIOBROWSERUUID:3107a066-eebd-4dcf-834c-eaa3ab106354
-#EXTINF:1,Rádio Blaník Oldies
+#EXTINF:-1, Rádio Blaník Oldies
 https://ice.radia.cz/oldiesradio128.mp3
-
-#RADIOBROWSERUUID:960ec4c7-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Rádio Blaník živé
+#EXTINF:-1, Rádio Blaník živé
 http://ice.abradio.cz/blanikfm128.mp3
-
-#RADIOBROWSERUUID:1bbe1a17-ce95-431f-a113-e8887ebb5326
-#EXTINF:1,Radio Bonton
+#EXTINF:-1, Radio Bonton
 https://27753.live.streamtheworld.com/BONTONAAC.aac?tdsdk=js-2.9&swm=false&pname=TDSdk&pversion=2.9&banners=none&burst-time=15&sbmid=4ef04b1d-096f-4273-f8be-4c056d2bd182
-
-#RADIOBROWSERUUID:0b03c88e-42c4-43fc-884b-f2db4421fc92
-#EXTINF:1,Rádio Bonton
+#EXTINF:-1, Rádio Bonton
 http://ice.actve.net/fm-bonton-128
-
-#RADIOBROWSERUUID:84e39c40-439c-4b6b-911a-5f5086722434
-#EXTINF:1,Radio Budweis
+#EXTINF:-1, Radio Budweis
 https://rozhlas.stream/ceske_budejovice_high.aac
-
-#RADIOBROWSERUUID:d8b251be-d16e-4aef-ab1b-21f054d0445b
-#EXTINF:1,Radio Cas
+#EXTINF:-1, Radio Cas
 http://icecast6.play.cz/casradio128.mp3
-
-#RADIOBROWSERUUID:7bd36bea-3d4f-43cc-8ff1-28ad8e4d24a6
-#EXTINF:1,Radio Čas
+#EXTINF:-1, Radio Čas
 http://icecast6.play.cz/casradio128.mp3
-
-#RADIOBROWSERUUID:9641d770-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Čas Rock
+#EXTINF:-1, Radio Čas Rock
 http://icecast6.play.cz/casrock128.mp3
-
-#RADIOBROWSERUUID:8214fbd9-51be-4222-b9a6-47aa0c6c71a0
-#EXTINF:1,Radio Cas Rock
+#EXTINF:-1, Radio Cas Rock
 http://icecast6.play.cz/casrock128.mp3
-
-#RADIOBROWSERUUID:298d3e94-dd4b-4dbd-b336-2d7b631b1d79
-#EXTINF:1,Radio Cas Rock
+#EXTINF:-1, Radio Cas Rock
 http://icecast6.play.cz/casrock128.mp3
-
-#RADIOBROWSERUUID:f65738f3-ddd7-49fc-bf72-15a1ad472338
-#EXTINF:1,Rádio Čas Rock (192 kbps)
+#EXTINF:-1, Rádio Čas Rock (192 kbps)
 https://icecast9.play.cz/casrock192.mp3
-
-#RADIOBROWSERUUID:960c7093-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio City FM
+#EXTINF:-1, Radio City FM
 http://ice.abradio.cz/cityfm128.mp3
-
-#RADIOBROWSERUUID:ca2f254a-1908-42a7-aefc-85e7a0984b2c
-#EXTINF:1,Rádio Click & Country
+#EXTINF:-1, Rádio Click & Country
 http://radio.clickandcountry.cz:8000/clickandcountry.mp3
-
-#RADIOBROWSERUUID:fd23d4ea-4bc3-4398-aa71-050cee899d1e
-#EXTINF:1,Radio Dechovka
+#EXTINF:-1, Radio Dechovka
 http://icecast5.play.cz/dechovka128.mp3
-
-#RADIOBROWSERUUID:961d4f6c-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Dechovka 1233 Stredni Vlny
+#EXTINF:-1, Radio Dechovka 1233 Stredni Vlny
 http://icecast5.play.cz/dechovka128.mp3
-
-#RADIOBROWSERUUID:961d4a91-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Depeche Mode
+#EXTINF:-1, Radio Depeche Mode
 http://mp3stream4.abradio.cz/depeche128.mp3
-
-#RADIOBROWSERUUID:d28e2fc3-2b9e-4a56-a34c-ef139a9dffce
-#EXTINF:1,Rádio Diana – Retro Club
+#EXTINF:-1, Rádio Diana – Retro Club
 https://westradio.cz/radio/8000/radio.mp3
-
-#RADIOBROWSERUUID:331ab90c-d68c-4b02-affa-a3bfe824dd87
-#EXTINF:1,Radio Dixie
+#EXTINF:-1, Radio Dixie
 http://icecast8.play.cz/radiodixie192.mp3
-
-#RADIOBROWSERUUID:37f9c6db-a491-4893-a1b8-dcf22e73a0c1
-#EXTINF:1,Rádio DNB TV
+#EXTINF:-1, Rádio DNB TV
 https://ice3.abradio.cz/shadowbox128.mp3
-
-#RADIOBROWSERUUID:27e1f1e4-7857-4ddf-bbb8-0604234c08e4
-#EXTINF:1,Rádio Energic
+#EXTINF:-1, Rádio Energic
 https://icecast9.play.cz/energic.mp3
-
-#RADIOBROWSERUUID:2111400a-69b3-4302-bee9-a80460b57bfd
-#EXTINF:1,Radio Folk
+#EXTINF:-1, Radio Folk
 http://ice2.abradio.cz/folk64a.aac
-
-#RADIOBROWSERUUID:00a169e2-99be-4eb5-88f6-e32960718882
-#EXTINF:1,Rádio folk Czech 
+#EXTINF:-1, Rádio folk Czech 
 http://mp3stream2.abradio.cz:8000/folk320.mp3
-
-#RADIOBROWSERUUID:6726334b-7ec2-49af-aa11-3ad83a2bbbb9
-#EXTINF:1,Rádio Hády
+#EXTINF:-1, Rádio Hády
 http://46.36.36.149:8000/live
-
-#RADIOBROWSERUUID:1c2591b7-7f69-4144-a366-8e4c87f947a1
-#EXTINF:1,Radio Helax
+#EXTINF:-1, Radio Helax
 http://ice.abradio.cz:8000/helax128.mp3?type=.mp3/;stream.mp3
-
-#RADIOBROWSERUUID:960ec633-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Humor
+#EXTINF:-1, Radio Humor
 http://mp3stream4.abradio.cz:8000/humor128.mp3
-
-#RADIOBROWSERUUID:5c65222f-7623-4cda-8d02-110b1dd35b18
-#EXTINF:1,Rádio humor 2
+#EXTINF:-1, Rádio humor 2
 https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_HUMOR.aac
-
-#RADIOBROWSERUUID:308030ee-8c31-4ce7-99f4-88179811cbb9
-#EXTINF:1,Rádio Jih
+#EXTINF:-1, Rádio Jih
 https://icecast6.play.cz/jih32.mp3
-
-#RADIOBROWSERUUID:281c9866-2b6d-47ed-840e-49055f6d94c8
-#EXTINF:1,Rádio Jih
+#EXTINF:-1, Rádio Jih
 http://icecast6.play.cz/jih128.mp3
-
-#RADIOBROWSERUUID:2577a021-2392-4baa-8f6c-bcdefeab7957
-#EXTINF:1,Radio JIH Cimbalka
+#EXTINF:-1, Radio JIH Cimbalka
 http://icecast6.play.cz/jihcimbalka128.mp3
-
-#RADIOBROWSERUUID:df3f953b-10e4-444e-b2db-a009459f54c8
-#EXTINF:1,Rádio Jih Cimbálka
+#EXTINF:-1, Rádio Jih Cimbálka
 http://icecast6.play.cz/jihcimbalka128.mp3
-
-#RADIOBROWSERUUID:962b184b-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Rádio Junior
+#EXTINF:-1, Rádio Junior
 http://amp.cesnet.cz:8000/cro-radio-junior-256.ogg.m3u
-
-#RADIOBROWSERUUID:2f6e1b51-69d4-4280-ab8d-ab9f8dc75530
-#EXTINF:1,Rádio Junior
+#EXTINF:-1, Rádio Junior
 http://amp.cesnet.cz:8000/cro-radio-junior-256.ogg.m3u
-
-#RADIOBROWSERUUID:72fd7498-b41e-448d-9f1a-b8a00e3b8ca8
-#EXTINF:1,Radio Kiss
+#EXTINF:-1, Radio Kiss
 http://icecast4.play.cz/kiss128.mp3
-
-#RADIOBROWSERUUID:4a84dbc3-3203-4ef4-b5b6-4babd9ce4ae8
-#EXTINF:1,Rádio Koleda
+#EXTINF:-1, Rádio Koleda
 https://ice3.radia.cz/koleda_64.aac
-
-#RADIOBROWSERUUID:5275df88-4198-4524-acf3-abc564737131
-#EXTINF:1,Radio Krokodyl
+#EXTINF:-1, Radio Krokodyl
 http://icecast4.play.cz/krokodyl128.mp3.m3u
-
-#RADIOBROWSERUUID:961e622e-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Krokodyl
+#EXTINF:-1, Radio Krokodyl
 http://icecast4.play.cz/krokodyl128.mp3.m3u
-
-#RADIOBROWSERUUID:ccc6b59f-e9bb-4373-9f29-eeecf4c98342
-#EXTINF:1,Rádio MB
+#EXTINF:-1, Rádio MB
 http://icecast3.play.cz/radiomb.mp3
-
-#RADIOBROWSERUUID:298bbb68-fb2b-43b4-b476-94a482458bbc
-#EXTINF:1,Rádio Nostalgie
+#EXTINF:-1, Rádio Nostalgie
 https://icecast3.play.cz/radio-nostalgie128.mp3
-
-#RADIOBROWSERUUID:9d1ae637-b524-4282-916a-a358adb30f4e
-#EXTINF:1,Radio O106
+#EXTINF:-1, Radio O106
 https://www.radioking.com/play/o106
-
-#RADIOBROWSERUUID:be44d41e-f9c0-410a-89c2-a5d631377817
-#EXTINF:1,Radio Ostravan
+#EXTINF:-1, Radio Ostravan
 http://icecast9.play.cz/radio-ostravan-256.mp3
-
-#RADIOBROWSERUUID:65beccff-268e-401e-8dda-d8147a398c5a
-#EXTINF:1,Radio Otava
+#EXTINF:-1, Radio Otava
 https://radiootava.trefcon.cz:8889/radio.mp3
-
-#RADIOBROWSERUUID:9646c6ce-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Rádio pohádka
+#EXTINF:-1, Rádio pohádka
 http://ice3.abradio.cz/pohadka128.mp3
-
-#RADIOBROWSERUUID:ded23118-e7ba-40a6-a104-173959417ebd
-#EXTINF:1,Radio Prague International
+#EXTINF:-1, Radio Prague International
 https://rozhlas.stream/cro7_mp3_128.mp3
-
-#RADIOBROWSERUUID:573c39a8-734d-476c-8f64-df296527dd58
-#EXTINF:1,Radio Prague International
+#EXTINF:-1, Radio Prague International
 https://rozhlas.stream/radio_prague_int_high.aac
-
-#RADIOBROWSERUUID:964f22ad-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Praha
+#EXTINF:-1, Radio Praha
 http://icecast2.play.cz/cro7-128.mp3
-
-#RADIOBROWSERUUID:962b436c-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Radio Proglas
+#EXTINF:-1, Radio Proglas
 http://icecast2.play.cz/proglas128
-
-#RADIOBROWSERUUID:e843dbaf-4021-4594-ba0d-c3e85024954c
-#EXTINF:1,Radio Proglas
+#EXTINF:-1, Radio Proglas
 http://icecast1.play.cz/proglas96aac
-
-#RADIOBROWSERUUID:578a673c-52d4-46bb-94e8-42b4469b55da
-#EXTINF:1,Radio Prostor
+#EXTINF:-1, Radio Prostor
 https://bcast.spmmedia.cz/prostor-mp3
-
-#RADIOBROWSERUUID:5192677e-a070-4b94-b570-d93f1103ca19
-#EXTINF:1,Radio Punctum
+#EXTINF:-1, Radio Punctum
 https://radiopunctum.cz:8001/radio
-
-#RADIOBROWSERUUID:b99a11c6-7681-4a79-a340-f7581a1940bc
-#EXTINF:1,Radio Punctum
+#EXTINF:-1, Radio Punctum
 https://radiopunctum.cz:8001/radio
-
-#RADIOBROWSERUUID:d138985b-253b-431e-b9f3-d16901681424
-#EXTINF:1,Radio R
+#EXTINF:-1, Radio R
 https://radior.video.muni.cz/FSS_mp3-128.mp3.m3u
-
-#RADIOBROWSERUUID:edff4cbe-7e39-44bc-a248-29744cd303ed
-#EXTINF:1,Rádio Relax
+#EXTINF:-1, Rádio Relax
 http://icecast7.play.cz/relax128.mp3
-
-#RADIOBROWSERUUID:d7415eb0-4f23-11e9-a4d7-52543be04c81
-#EXTINF:1,Radio ROCK
+#EXTINF:-1, Radio ROCK
 http://ice.abradio.cz/rockradio128.mp3
-
-#RADIOBROWSERUUID:a6d008c4-2085-4816-801c-9310f66c4fb0
-#EXTINF:1,Rádio Samson
+#EXTINF:-1, Rádio Samson
 http://icecast2.play.cz/samsonfm128aac
-
-#RADIOBROWSERUUID:145f24ec-56b3-11e9-aa33-52543be04c81
-#EXTINF:1,Rádio Samson
+#EXTINF:-1, Rádio Samson
 http://icecast8.play.cz/samsonfm128.mp3
-
-#RADIOBROWSERUUID:033a539d-41b8-433c-908a-e74edbab1d91
-#EXTINF:1,Rádio Samson
+#EXTINF:-1, Rádio Samson
 https://icecast2.play.cz/samsonfm128aac
-
-#RADIOBROWSERUUID:5f8ff326-922f-445d-a544-7e73d946da55
-#EXTINF:1,Radio Sázava
+#EXTINF:-1, Radio Sázava
 http://sc.ipip.cz:8224/;stream
-
-#RADIOBROWSERUUID:4bd6e6c3-6284-4a83-9d30-edbc7666265f
-#EXTINF:1,Rádio Sázava
+#EXTINF:-1, Rádio Sázava
 https://icecast8.play.cz/sazava192.mp3
-
-#RADIOBROWSERUUID:81deb949-4ceb-4c4a-b99f-435467508a34
-#EXTINF:1,Radio Slobodna Evropa
+#EXTINF:-1, Radio Slobodna Evropa
 https://n08.radiojar.com/bugesa4nn3quv?rj-ttl=5&rj-tok=AAABikFH4NsAib8tua7OjeefLg
-
-#RADIOBROWSERUUID:8cdf37a5-303a-4f50-8395-623466abdacb
-#EXTINF:1,Radio SPIN 96.2 FM
+#EXTINF:-1, Radio SPIN 96.2 FM
 http://icecast-u2.play.cz:8000/spin128.mp3
-
-#RADIOBROWSERUUID:979f5cb0-a052-456d-95e7-48d032aedd00
-#EXTINF:1,Radio Svoboda (ru) (official stream)
+#EXTINF:-1, Radio Svoboda (ru) (official stream)
 https://stream.radiojar.com/hcrb063nn3quv
-
-#RADIOBROWSERUUID:22427bf9-3ae6-11ea-8dd7-52543be04c81
-#EXTINF:1,Radio Svoboda Rus
+#EXTINF:-1, Radio Svoboda Rus
 http://rfe04.akacast.akamaistream.net/7/509/437762/v1/ibb.akacast.akamaistream.net/rfe04
-
-#RADIOBROWSERUUID:9d87a8ad-edfc-41b3-9ca8-ad2bca01208c
-#EXTINF:1,Radio Wave
+#EXTINF:-1, Radio Wave
 http://rozhlas.stream/wave_mp3_256.mp3
-
-#RADIOBROWSERUUID:f5b421b3-a688-4a60-a2ce-5baf482b4c56
-#EXTINF:1,Rádio Xaver
+#EXTINF:-1, Rádio Xaver
 https://icecast6.play.cz/radio-xaver.aac
-
-#RADIOBROWSERUUID:a097a164-e995-4925-83ec-823392dbfd98
-#EXTINF:1,RADIO1
+#EXTINF:-1, RADIO1
 http://www.play.cz/radio/radio1-192.mp3.m3u
-
-#RADIOBROWSERUUID:9a8a6f92-c904-4586-ac23-15ccef1c2c41
-#EXTINF:1,Radio7
+#EXTINF:-1, Radio7
 https://api.play.cz/radio/radio7-32aac.m3u
-
-#RADIOBROWSERUUID:d4482e6e-7a01-45b3-addb-a88224d39026
-#EXTINF:1,Radio7
+#EXTINF:-1, Radio7
 http://icecast8.play.cz/radio7-128.mp3
-
-#RADIOBROWSERUUID:146fc49c-d0eb-4fbb-bc4f-79a772c769e2
-#EXTINF:1,RadioParty.pl
+#EXTINF:-1, RadioParty.pl
 https://s2.radioparty.pl:8015/stream
-
-#RADIOBROWSERUUID:f80785d4-ff58-4559-a1ae-b44640ad2348
-#EXTINF:1,RELAX Radio Kladno - 92,3 FM
+#EXTINF:-1, RELAX Radio Kladno - 92,3 FM
 http://icecast7.play.cz/relax128.mp3
-
-#RADIOBROWSERUUID:38dd84f1-4954-4311-ae11-ba189b528801
-#EXTINF:1,Retro Music Television
+#EXTINF:-1, Retro Music Television
 http://stream.mediawork.cz/retrotv/retrotvHQ1/playlist.m3u8
-
-#RADIOBROWSERUUID:245b213b-e8c1-496b-a963-450286f216f8
-#EXTINF:1,Retro Music TV
+#EXTINF:-1, Retro Music TV
 http://stream.mediawork.cz/retrotv/retrotvHQ1/chunklist_w627639048.m3u8
-
-#RADIOBROWSERUUID:96494925-0601-11e8-ae97-52543be04c81
-#EXTINF:1,RFE/RL Radio Farda
+#EXTINF:-1, RFE/RL Radio Farda
 http://rfe21.akacast.akamaistream.net/7/751/437779/v1/ibb.akacast.akamaistream.net/rfe21
-
-#RADIOBROWSERUUID:1961d0d5-e080-43ad-bf48-7a5e8424f6fe
-#EXTINF:1,ROCK MAX
+#EXTINF:-1, ROCK MAX
 http://ice.abradio.cz/rockmax256.mp3
-
-#RADIOBROWSERUUID:c15295f4-561f-47a5-8c4f-9bdb40210582
-#EXTINF:1,Rock Radio
+#EXTINF:-1, Rock Radio
 https://playerservices.streamtheworld.com/api/livestream-redirect/ROCK_RADIO_128.mp3
-
-#RADIOBROWSERUUID:f74b1240-0198-4828-91a8-ef7718cd255b
-#EXTINF:1,Rock rádio – CZ Rock
+#EXTINF:-1, Rock rádio – CZ Rock
 https://ice2.radia.cz/rockzabava128.aac
-
-#RADIOBROWSERUUID:96209a4c-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Rock Rádio Šumava
+#EXTINF:-1, Rock Rádio Šumava
 http://ice.abradio.cz/sumava128.mp3
-
-#RADIOBROWSERUUID:960e4c91-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Rocková zábava
+#EXTINF:-1, Rocková zábava
 http://ice.abradio.cz/rockzabava128.mp3
-
-#RADIOBROWSERUUID:c7571cbe-b514-11e9-acb2-52543be04c81
-#EXTINF:1,Rockzone
+#EXTINF:-1, Rockzone
 http://icecast5.play.cz/rockzone128.mp3
-
-#RADIOBROWSERUUID:c4ea5162-ed42-47cd-8648-382832620f45
-#EXTINF:1,RockZone 105,9 FM
+#EXTINF:-1, RockZone 105,9 FM
 https://icecast5.play.cz/rockzone128.mp3
-
-#RADIOBROWSERUUID:4837625e-7d95-42a1-8f13-3f796568d5f4
-#EXTINF:1,Samson
+#EXTINF:-1, Samson
 http://icecast2.play.cz:8000/samsonfm128aac
-
-#RADIOBROWSERUUID:eb59211d-4643-4b66-be2f-9d4be3948963
-#EXTINF:1,SeeJay Radio
+#EXTINF:-1, SeeJay Radio
 http://icecast6.play.cz/seejay128.mp3
-
-#RADIOBROWSERUUID:40b1f7b6-93da-4187-9f4b-76b1a9ba8f1c
-#EXTINF:1,SeeJay Radio
+#EXTINF:-1, SeeJay Radio
 http://icecast6.play.cz/seejay128.mp3
-
-#RADIOBROWSERUUID:bc95343c-2d65-11ea-aa0c-52543be04c81
-#EXTINF:1,Signál Rádio
+#EXTINF:-1, Signál Rádio
 http://icecast1.play.cz/signal128.mp3
-
-#RADIOBROWSERUUID:fc58b020-2d65-11ea-aa0c-52543be04c81
-#EXTINF:1,Signál Rádio Brno
+#EXTINF:-1, Signál Rádio Brno
 http://icecast6.play.cz/signal-brno128.mp3
-
-#RADIOBROWSERUUID:0d96bce2-55dd-4099-8e5a-f42653409406
-#EXTINF:1,SKYROCK
+#EXTINF:-1, SKYROCK
 http://icecast8.play.cz/skyrock128.mp3
-
-#RADIOBROWSERUUID:f6bc1537-107b-46a1-9c81-f25839474911
-#EXTINF:1,Sunrise Radio (Czechia)
+#EXTINF:-1, Sunrise Radio (Czechia)
 https://stream.laut.fm/radio-dance-eu
-
-#RADIOBROWSERUUID:94850cb6-4bcd-11e8-a4d1-52543be04c81
-#EXTINF:1,svobodne-radio
+#EXTINF:-1, svobodne-radio
 http://svobodneradio.radioca.st:8859/stream
-
-#RADIOBROWSERUUID:014a73bb-b743-4619-a2b5-103a333022ac
-#EXTINF:1,Svobodný vysílač
+#EXTINF:-1, Svobodný vysílač
 http://stream.svobodny-vysilac.cz:8000/live.ogg
-
-#RADIOBROWSERUUID:c6dbc068-03f6-486e-bf74-bbd13c75d1c2
-#EXTINF:1,Svobodný vysílač
+#EXTINF:-1, Svobodný vysílač
 http://stream.svobodny-vysilac.cz:8000/live.mp3
-
-#RADIOBROWSERUUID:9991af65-746a-4a1c-a61f-51e5eb19e0a7
-#EXTINF:1,We House Radio (AAC+ High)
+#EXTINF:-1, We House Radio (AAC+ High)
 https://stream.wehouseradio.com/stream/2/
-
-#RADIOBROWSERUUID:c9b32b22-7823-11e9-aa30-52543be04c81
-#EXTINF:1,WebRadio Epigon
+#EXTINF:-1, WebRadio Epigon
 http://ice3.abradio.cz/epigon128.mp3
-
-#RADIOBROWSERUUID:1eb41dea-3db4-4b65-ba14-6d97b999842a
-#EXTINF:1,WeHouseRadio
+#EXTINF:-1, WeHouseRadio
 https://stream.wehouseradio.com/stream/1/
-
-#RADIOBROWSERUUID:c47820b3-e0ec-49f6-b51b-d88b604e1d2b
-#EXTINF:1,WeHouseRadio
+#EXTINF:-1, WeHouseRadio
 https://stream.wehouseradio.com/stream/3/
-
-#RADIOBROWSERUUID:a0c12bdc-290e-4121-b6f6-933dd1a24bac
-#EXTINF:1,WorldRadio
+#EXTINF:-1, WorldRadio
 https://worldradio100.radioca.st/stream
-
-#RADIOBROWSERUUID:c79485f1-013e-46ec-a2ef-8eb3cef2d6dd
-#EXTINF:1,Známka Punku
+#EXTINF:-1, Známka Punku
 https://ice.abradio.cz/znamkapunku128.mp3
-
-#RADIOBROWSERUUID:e24d6fd1-3c8f-4e18-b898-cd3fd29dde55
-#EXTINF:1,Zoner Underground Network
+#EXTINF:-1, Zoner Underground Network
 https://stream.zunradio.cz/zun3.mp3
-
-#RADIOBROWSERUUID:1fa537a5-d0af-48b6-b2ed-bbbca5d238f5
-#EXTINF:1,ZUN rádio
+#EXTINF:-1, ZUN rádio
 https://icecast9.play.cz/zun48.aac
-
-#RADIOBROWSERUUID:fbc0f7d3-49e6-4dbb-b768-c4a4318be7ee
-#EXTINF:1,Крым Реалии (rus, ukr) (official stream)
+#EXTINF:-1, Крым Реалии (rus, ukr) (official stream)
 https://stream.radiojar.com/wm9sntcpn3quv
-
-#RADIOBROWSERUUID:d3bd0cbb-993e-4673-81b4-d74f6cc498e7
-#EXTINF:1,Крым.Реалии
+#EXTINF:-1, Крым.Реалии
 https://rfe-ingest.akamaized.net/hls/live/2035288/axia19/playlist.m3u8
-
-#RADIOBROWSERUUID:9d2b7b0b-f0cf-4c32-a1ce-bc6e964a7c1a
-#EXTINF:1,Радио Свобода
+#EXTINF:-1, Радио Свобода
 https://rfe-ingest.akamaized.net/hls/live/2035254/axia04/playlist.m3u8
-
-#RADIOBROWSERUUID:964959cb-0601-11e8-ae97-52543be04c81
-#EXTINF:1,Радио Свобода (Radio Svoboda, RFE/RL Russian, ch. 4)
+#EXTINF:-1, Радио Свобода (Radio Svoboda, RFE/RL Russian, ch. 4)
 http://rfe04.akacast.akamaistream.net/7/509/437762/v1/ibb.akacast.akamaistream.net/rfe04.m3u
-
-#RADIOBROWSERUUID:3b7fc8b5-c929-47ab-b203-ededce877a24
-#EXTINF:1,Свобода
+#EXTINF:-1, Свобода
 https://rfe-ingest.akamaized.net/hls/live/2035254/axia04/playlist.m3u8
-
