@@ -223,6 +223,10 @@ https://stream.zeno.fm/sgzg9sfq1zhvv
 https://ssl-1.radiotvrepublika.pl:8000/stream
 #EXTINF:-1, Polish Radio London
 https://stream.rcs.revma.com/prfmwmwy768uv
+#EXTINF:-1, ESKA ODWOŁUJE ZIMĘ
+https://liveradio.timesa.pl/6290-1.aac/playlist.m3u8
+#EXTINF:-1, ESKA ODWOŁUJE ZIMĘ (IC)
+https://waw.ic.smcdn.pl/6290-1.aac
 #EXTINF:-1, ESKA GORĄCA 100
 https://liveradio.timesa.pl/6120-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA GORĄCA 100 (IC)
