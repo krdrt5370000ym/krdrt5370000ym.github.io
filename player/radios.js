@@ -52,4 +52,5 @@
         player.src = station.url.replace(/^http:\/\//, "https://cast.tunzilla.com/http://");
         player.play();
         player.style='display:initial;';
+        document.getElementById('buttons').style='display:initial;';
     }
