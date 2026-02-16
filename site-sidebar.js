@@ -52,3 +52,11 @@ function openCity(evt, cityName) {
    document.getElementById(cityName).style.display = "block";
    evt.currentTarget.className += " active";
 }
+
+// METODA BLOB (Zalecana zamiast data URL)
+function openplayer(name) {
+   const codeHTML = "<!DOCTYPE html><html lang=\"pl\"><head><meta charset=\"UTF-8\"><title>Radio internetowe</title><script src=\"https://krdrt5370000ym.github.io/site-head.js\"></script><link rel=\"stylesheet\" href=\"https://krdrt5370000ym.github.io/player/style.css\"></head><body><div id=\"sidebar\"><a style=\"text-decoration:none;\" href=\"https://krdrt5370000ym.github.io/player\">Wstecz</a><h3>Stacje Radiowe</h3><div id=\"playlist-container\"></div></div><div id=\"content\"><h2 id=\"current-station\">Wybierz stację z listy</h2><audio id=\"player\" style=\"display:none;\" controls></audio><span style=\"margin-top:10px;\"><button id=\"buttons\" style=\"display:none;\"><a href=\"#\" onclick=\"document.getElementById('player').load();document.getElementById('player').play();\" style=\"text-decoration: none;\">▶</a></button><button><a style=\"text-decoration:none;\" href=\"https://krdrt5370000ym.github.io/player/" + name + ".m3u\"><i class=\"fa-solid fa-download\"></i></a></button></span></div><script src=\"https://krdrt5370000ym.github.io/player/radios.js\"></script><script>fetchPlaylist('" + name + "')</script></body></html>";
+   const blob = new Blob([codeHTML], { type: 'text/html;charset=UTF-8' });
+   const urlPlayer = URL.createObjectURL(blob);
+   window.open(urlPlayer, '_blank');
+}
