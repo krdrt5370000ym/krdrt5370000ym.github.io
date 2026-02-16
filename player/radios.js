@@ -49,7 +49,7 @@
         element.classList.add('active');
         
         title.innerText = "Teraz grasz: " + station.name;
-        player.src = station.url.replace(/^http:\/\//, "");
+        player.src = station.url;
         player.play();
         player.style='display:initial;';
         document.getElementById('buttons').style='display:initial;';
