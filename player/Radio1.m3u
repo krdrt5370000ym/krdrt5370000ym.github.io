@@ -416,4 +416,4 @@ https://icecast.pulsradio.com/puls90HD.mp3
 #EXTINF:-1, PulsRadio 80s
 https://icecast.pulsradio.com/magicradioHD.mp3
 #EXTINF:-1, InTheMixRadio DE
-https://sdstream.de:9300/inthemixradio
+http://sdstream.de:9300/inthemixradio
