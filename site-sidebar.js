@@ -53,8 +53,8 @@ function openCity(evt, cityName) {
    evt.currentTarget.className += " active";
 }
 
-async function pobierzUtwor(radio_id) {
-    const output = document.getElementById('wynik');
+async function daneTrack(radio_id) {
+    const output = document.getElementById('resultTrack');
     // Używamy /raw, aby AllOrigins nie pakowało danych w JSON, tylko oddało czysty HTML
     const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + radio_id;
     const proxyUrl = 'https://api.allorigins.win/get?callback=myFunc&url=' + encodeURIComponent(targetUrl);
