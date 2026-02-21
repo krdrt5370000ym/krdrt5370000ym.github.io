@@ -5,7 +5,7 @@
     }
 }
 .player_song {
-    margin-left: 10px;
+    margin-left: 35px;
 }
  .playerid_dismain {
      display: block;
@@ -79,6 +79,10 @@
      line-height: 1em;
 }
  @media screen and (max-width: 600px) {
+     .player_song {
+         margin-left: 15px;
+         font-size: 1em;
+     }
      .schedule_info {
          padding:1rem;
          margin:0rem;
