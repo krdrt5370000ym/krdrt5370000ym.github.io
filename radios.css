@@ -4,6 +4,9 @@
          text-decoration: none;
     }
 }
+.player_song {
+    margin-left: 10px;
+}
  .playerid_dismain {
      display: block;
 }
