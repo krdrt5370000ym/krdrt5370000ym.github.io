@@ -710,7 +710,7 @@ https://getradio.reconv.pl/rmfon?s=rmf-maxx-feat-2
 #EXTINF:-1, RMF ON - 36 lat RMF FM
 https://getradio.reconv.pl/rmfon?s=36lat-rmf-fm
 #EXTINF:-1, Radio ZET
-https://n-11-29.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx?audio=5
+https://zt03.cdn.eurozet.pl/zet-tun.mp3
 #EXTINF:-1, Radio ZET Same Hity
 https://zt.cdn.eurozet.pl/ZETHIT.mp3
 #EXTINF:-1, Radio ZET Po Polsku
@@ -746,7 +746,7 @@ https://zt.cdn.eurozet.pl/ZETKOL.mp3
 #EXTINF:-1, Radio ZET do biegania
 https://zt.cdn.eurozet.pl/ZETDBG.mp3
 #EXTINF:-1, Antyradio
-https://redir.atmcdn.pl/sc/o2/Eurozet/live/antyradio.livx
+https://an02.cdn.eurozet.pl/ant-web.mp3
 #EXTINF:-1, Antyradio Katowice
 https://an02.cdn.eurozet.pl/ant-kat.mp3
 #EXTINF:-1, Antyradio Ballads
@@ -828,7 +828,7 @@ https://ml.cdn.eurozet.pl/MELFST.mp3
 #EXTINF:-1, Planeta FM
 https://stream.palneta.pl:8443/palneta
 #EXTINF:-1, Chillizet online Warszawa
-https://redir.atmcdn.pl/sc/o2/Eurozet/live/chillizet.livx
+https://ch02.cdn.eurozet.pl/chi-net.mp3
 #EXTINF:-1, Chillizet Covers
 https://ch.cdn.eurozet.pl/CHICOV.mp3
 #EXTINF:-1, Chillizet Jazz
