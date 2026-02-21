@@ -74,7 +74,7 @@ const result = doc.evaluate(xpath, doc, null, XPathResult.FIRST_ORDERED_NODE_TYP
 const element = result.singleNodeValue;
 
 if (element) {
-    output.innerHTML = `<strong>${element.textContent.trim().replaceAll("\\n","")}</strong>`;
+    output.innerHTML = '<small>Teraz gramy:</small><br>${element.textContent.trim().replaceAll("\\n","")}';
 } else {
     output.innerText = "";
 }
