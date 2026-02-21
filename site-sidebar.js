@@ -52,3 +52,33 @@ function openCity(evt, cityName) {
    document.getElementById(cityName).style.display = "block";
    evt.currentTarget.className += " active";
 }
+
+async function pobierzUtwor(radio_id) {
+    const output = document.getElementById('wynik');
+    // Używamy /raw, aby AllOrigins nie pakowało danych w JSON, tylko oddało czysty HTML
+    const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + radio_id;
+    const proxyUrl = 'https://api.allorigins.win/get?callback=myFunc&url=' + encodeURIComponent(targetUrl);
+
+    try {
+const response = await fetch(proxyUrl);
+if (!response.ok) throw new Error('Problem z połączeniem');
+
+const htmlText = await response.text();
+
+const parser = new DOMParser();
+const doc = parser.parseFromString(htmlText, "text/html");
+
+// Używamy Twojego XPATH - dostosowanego do struktury tabeli
+const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
+const result = doc.evaluate(xpath, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+const element = result.singleNodeValue;
+
+if (element) {
+    output.innerHTML = `<strong>${element.textContent.trim().replaceAll("\\n","")}</strong>`;
+} else {
+    output.innerText = "";
+}
+    } catch (e) {
+output.innerText = "";
+    }
+}
