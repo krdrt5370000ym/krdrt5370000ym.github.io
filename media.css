@@ -1,4 +1,4 @@
-/* PROGRAMY */
+/* PODCASTY */
  .title {
      display: block;
      font-weight: 700;
@@ -176,18 +176,12 @@
      padding: 1rem 0;
 }
  .podcast_info_djs {
-     font-size: 16px;
-     text-transform: uppercase;
-     font-weight: 600;
-}
- .podcast_info_airtime {
+     font-size: 18px;
      font-weight: 400;
 }
- .podcast_info_producter {
-     font-size: 14px;
-}
- .podcast_info_email {
-     font-size: 14px;
+ .podcast_info_airtime {
+     font-weight: 600;
+     text-transform: uppercase;
 }
  .podcast_info_desc {
      align-items: center;
