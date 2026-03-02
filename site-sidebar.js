@@ -82,31 +82,3 @@ if (element) {
 output.innerText = "";
     }
 }
-
-// 1. POPRAWKA: '600x' zmienione na '600px'
-const mediaQuery = window.matchMedia('(max-width: 600px)');
-const radioSchHourElement = document.querySelector('.text');
-
-if (radioSchHourElement) {
-    const textLength = radioSchHourElement.textContent.length;
-
-    // 2. Definicja funkcji obsługującej zmianę rozmiaru
-    function handleTabletChange(e) {
-        if (e.matches && textLength > 50) {
-            // Tylko gdy ekran jest mały ORAZ tekst jest długi
-            // radioSchHourElement.style.fontSize = '12px';
-        } else if (textLength > 50) {
-            // Ekran duży, ale tekst nadal długi - np. średnia wielkość
-            radioSchHourElement.style.fontSize = '14px';
-        } else {
-            // Krótki tekst - standardowa wielkość
-            // radioSchHourElement.style.fontSize = '16px';
-        }
-    }
-
-    // 3. Nasłuchiwanie zmian (używamy nowoczesnego addEventListener)
-    mediaQuery.addEventListener('change', handleTabletChange);
-    
-    // 4. Wywołanie na start, aby dopasować wygląd od razu po wejściu
-    handleTabletChange(mediaQuery);
-}
