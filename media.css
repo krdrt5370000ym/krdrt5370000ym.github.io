@@ -104,7 +104,7 @@
      align-items: center;
      text-align: center;
      text-transform: uppercase;
-     font-size: 9.6px;
+     font-size: 9.4px;
      line-height: 1em;
 }
  @media screen and (max-width: 600px) {
@@ -125,7 +125,7 @@
          -webkit-box-orient: vertical;
          overflow: hidden;
          -webkit-line-clamp: 3;
-         font-size: 1rem;
+         font-size: 0.98rem;
     }
      .podc_content {
          line-height: 1.8;
@@ -143,13 +143,13 @@
      .podc_name_box {
          width: 60px;
          height: 60px;
-         font-size: 6.4px;
+         font-size: 6.2px;
     }
 }
  .podcast_info_title {
      margin-left: 25px;
      font-weight: 700;
-     font-size: 2rem;
+     font-size: 1.9rem;
      margin-top: 20px;
      margin-bottom: 10px;
      line-height: 40px;
@@ -176,7 +176,7 @@
      padding: 1rem 0;
 }
  .podcast_info_djs {
-     font-size: 18px;
+     font-size: 16px;
      font-weight: 400;
 }
  .podcast_info_airtime {
@@ -193,6 +193,11 @@
      margin-left: 25px;
      font-size: 28px;
 }
+ .podcast_info_email {
+    a {
+         text-decoration: none;
+    }
+ }
  .podcast_info_name_box {
      background-color: #616161;
      border-radius: 1rem;
