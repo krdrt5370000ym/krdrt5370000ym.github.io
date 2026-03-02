@@ -75,7 +75,7 @@
      align-items: center;
      text-align: center;
      text-transform: uppercase;
-     font-size: 13px;
+     font-size: 12.5px;
      line-height: 1em;
 }
  @media screen and (max-width: 600px) {
@@ -133,7 +133,7 @@
      .schedule_name_box {
          width: 75px;
          height: 75px;
-         font-size: 8px;
+         font-size: 7.5px;
     }
 }
 /* PROGRAMY */
@@ -254,7 +254,7 @@
      align-items: center;
      text-align: center;
      text-transform: uppercase;
-     font-size: 9.6px;
+     font-size: 9.4px;
      line-height: 1em;
 }
  @media screen and (max-width: 600px) {
@@ -275,21 +275,21 @@
          -webkit-box-orient: vertical;
          overflow: hidden;
          -webkit-line-clamp: 3;
-         font-size: 1rem;
+         font-size: 0.98rem;
     }
      .pro_host {
          display: -webkit-box;
          -webkit-box-orient: vertical;
          overflow: hidden;
          -webkit-line-clamp: 2;
-         font-size: 0.7rem;
+         font-size: 0.68rem;
     }
      .pro_onair {
          display: -webkit-box;
          -webkit-box-orient: vertical;
          overflow: hidden;
          -webkit-line-clamp: 2;
-         font-size: 0.5rem;
+         font-size: 0.48rem;
          margin-top: 5px;
     }
      .pro_content {
@@ -308,13 +308,13 @@
      .pro_name_box {
          width: 60px;
          height: 60px;
-         font-size: 6.4px;
+         font-size: 6.2px;
     }
 }
  .program_info_title {
      margin-left: 25px;
      font-weight: 700;
-     font-size: 2rem;
+     font-size: 1.9rem;
      margin-top: 20px;
      margin-bottom: 10px;
      line-height: 40px;
@@ -341,7 +341,7 @@
      padding: 1rem 0;
 }
  .program_info_djs {
-     font-size: 18px;
+     font-size: 16px;
      font-weight: 400;
 }
  .program_info_airtime {
@@ -358,6 +358,11 @@
      margin-left: 25px;
      font-size: 28px;
 }
+ .program_info_email {
+    a {
+         text-decoration: none;
+    }
+ }
  .program_info_onairs {
      font-weight: 600;
      font-size: 16px;
@@ -378,7 +383,7 @@
      align-items: center;
      text-align: center;
      text-transform: uppercase;
-     font-size: 16px;
+     font-size: 15.5px;
      line-height: 1em;
 }
  @media screen and (max-width: 600px) {
@@ -579,16 +584,16 @@
          width: 250px;
     }
      .prog_name {
-         font-size: 1rem;
+         font-size: 0.98em;
     }
      .prog_host {
-         font-size: 0.75rem;
+         font-size: 0.73rem;
     }
      .prog_item {
-         font-size: 0.6rem;
+         font-size: 0.58rem;
     }
      .prog_desc {
-         font-size: 0.6rem;
+         font-size: 0.58rem;
     }
      .prog_hour {
          grid-column: 2;
@@ -748,16 +753,16 @@
         }
     }
      .subsch > .prog_content > .prog_name {
-         font-size: 0.55rem;
+         font-size: 0.53rem;
     }
      .subsch > .prog_content > .prog_host {
-         font-size: 0.45rem;
+         font-size: 0.43rem;
     }
      .subsch > .prog_content > .prog_item {
-         font-size: 0.4rem;
+         font-size: 0.38rem;
     }
      .subsch > .prog_content > .prog_desc {
-         font-size: 0.4rem;
+         font-size: 0.38rem;
     }
      .subsch > .prog_cover > .prog_name_box {
          width: 45px;
