@@ -105,7 +105,7 @@
      text-align: center;
      text-transform: uppercase;
      font-size: 9.4px;
-     line-height: 1em;
+     line-height: 1.2em;
 }
  @media screen and (max-width: 600px) {
      .podc_cover {
@@ -210,7 +210,7 @@
      text-align: center;
      text-transform: uppercase;
      font-size: 16px;
-     line-height: 1em;
+     line-height: 1.2em;
 }
  @media screen and (max-width: 600px) {
      .podcast_info_box {
