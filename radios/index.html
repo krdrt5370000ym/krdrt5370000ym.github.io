@@ -29,12 +29,15 @@
       </div>
       <script src="/site-sidebar.js"></script>
       <script>
-function clearMyCookie() {
-    document.cookie = "moje_ciastko=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // alert("Ciasteczko zostało usunięte!");
-    localStorage.clear()
+// Dostęp do dokumentu wewnątrz iframe o id "my-iframe"
+const iframe = document.getElementById('my-iframe');
+const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+// Funkcja usuwająca konkretne ciasteczko wewnątrz iframe
+function deleteIframeCookie(name) {
+  iframeDoc.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
-         clearMyCookie()
+         deleteIframeCookie("https://krdrt5370000ym.github.io/radios/")
       </script>
    </body>
 </html>
