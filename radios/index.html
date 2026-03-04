@@ -28,29 +28,5 @@
          <script src="/site-bottomscreen.js"></script>
       </div>
       <script src="/site-sidebar.js"></script>
-      <script>
-// 1. Pobranie elementu iframe
-const iframe = document.getElementById('my-iframe');
-
-// 2. Bezpieczny dostęp do dokumentu i okna iframe
-if (iframe) {
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    const iframeWindow = iframe.contentWindow;
-
-    // Funkcja usuwająca konkretne ciasteczko wewnątrz iframe
-    function deleteIframeCookie(name) {
-        // Ustawienie daty wygaśnięcia na przeszłość usuwa ciasteczko
-        iframeDoc.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        console.log(`Próba usunięcia ciasteczka: ${name}`);
-    }
-
-    // Wywołanie funkcji - wstaw nazwę ciasteczka zamiast 'nazwa_ciasteczka'
-    deleteIframeCookie('nazwa_ciasteczka');
-
-    // 3. Opcjonalnie: Poinformowanie iframe o konieczności wyczyszczenia danych (postMessage)
-    // Działa również dla różnych domen, jeśli iframe słucha wiadomości
-    iframeWindow.postMessage('clearCookies', 'https://krdrt5370000ym.github.io/radios/');
-}
-      </script>
    </body>
 </html>
