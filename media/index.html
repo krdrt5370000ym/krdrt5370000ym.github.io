@@ -38,6 +38,7 @@ function deleteIframeCookie(name) {
   iframeDoc.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
          deleteIframeCookie("https://krdrt5370000ym.github.io/media/")
+         iframeWindow.postMessage('clearCookies', 'https://krdrt5370000ym.github.io/media/');
       </script>
    </body>
 </html>
