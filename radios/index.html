@@ -37,7 +37,8 @@ const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 function deleteIframeCookie(name) {
   iframeDoc.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
-         deleteIframeCookie("https://krdrt5370000ym.github.io/radios/")
+         deleteIframeCookie("https://krdrt5370000ym.github.io/radios/");
+         iframeWindow.postMessage('clearCookies', 'https://krdrt5370000ym.github.io/radios/');
       </script>
    </body>
 </html>
