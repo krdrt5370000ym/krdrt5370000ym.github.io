@@ -83,6 +83,7 @@ output.innerText = "";
     }
 }
 
+// <div id="episode-list">Ładowanie odcinków...</div>
 function SpreakerPodcast(showId) {
     // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
     const apiUrl = 'https://api.spreaker.com/v2/shows/' + showId + '/episodes?limit=100';
@@ -110,3 +111,32 @@ function SpreakerPodcast(showId) {
             container.innerHTML = "Błąd podczas ładowania podcastu.";
         });
 }
+
+function EurozetPodcast(showId, mainUrl, stationId) {
+    const apiUrl = 'https://player.chillizet.pl/api/podcasts/getPodcastListByProgram/(node)/' + showId + '/(station)/' + stationId;
+    const container = document.getElementById('episode-list');
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Dostęp do tablicy odcinków: response -> items
+            const episodes = data.data;
+            
+            if (episodes.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków.";
+                return;
+            }
+
+            const htmlContent = episodes.map(episode => 
+                `<p><a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a></p>`
+            ).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd Spreaker API:", error);
+            container.innerHTML = "Błąd podczas ładowania podcastu.";
+        });
+}
+// Wywołanie z Twoim ID
+//EurozetPodcast(12345, "https://player.radiozet.pl/", "radiozet");
