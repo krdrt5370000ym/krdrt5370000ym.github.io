@@ -170,6 +170,36 @@ function WPPodcast(categoryId,mainUrl) {
             container.innerHTML = "Błąd podczas ładowania postów.";
         });
 }
-
 // Przykład użycia (podaj ID kategorii z Twojego WordPressa)
 // WPPodcast(5,"https://radiorsc.pl");
+
+function AgoraPodcast(brandId, seriesId, mainUrl) {
+    // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
+    const apiUrl = 'https://podcasts.radioagora.pl/api/getPodcasts?brand_id=' + brandId + '&limit=100&offset=0&series_id=' + seriesId;
+    const container = document.getElementById('episode-list');
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Dostęp do tablicy odcinków: response -> items
+            // Bezpieczne pobranie rekordów z głębokiej struktury
+            const episodes = data.records;
+            
+            if (episodes.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków dla tych ID.";
+                return;
+            }
+
+            const htmlContent = episodes.map(episode => 
+                `<p><a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a></p>`
+            ).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd API:", error);
+            container.innerHTML = "Błąd połączenia z API Agory.";
+        });
+}
+// Poprawna kolejność: brandId (1) [Rock Radio, itp.], seriesId (176)
+AgoraPodcast(1,176,"https://radio.rockradio.pl");
