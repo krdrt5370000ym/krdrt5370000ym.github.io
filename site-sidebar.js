@@ -82,3 +82,31 @@ if (element) {
 output.innerText = "";
     }
 }
+
+function SpreakerPodcast(showId) {
+    // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
+    const apiUrl = 'https://api.spreaker.com/v2/shows/' + showId + '/episodes?limit=100';
+    const container = document.getElementById('episode-list');
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Dostęp do tablicy odcinków: response -> items
+            const episodes = data.response.items;
+            
+            if (episodes.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków.";
+                return;
+            }
+
+            const htmlContent = episodes.map(episode => 
+                `<p><a href="${episode.site_url}" target="_blank">${episode.title}</a></p>`
+            ).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd Spreaker API:", error);
+            container.innerHTML = "Błąd podczas ładowania podcastu.";
+        });
+}
