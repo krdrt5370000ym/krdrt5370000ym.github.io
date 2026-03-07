@@ -233,3 +233,63 @@ function WPPodcastRK(SearchId) {
             container.innerHTML = "Błąd podczas ładowania postów.";
         });
 }
+
+function WPPodcastRVG() {
+    // WordPress API zwraca tablicę postów bezpośrednio
+    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/gosc?per_page=100';
+    const container = document.getElementById('episode-list');
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
+            return response.json();
+        })
+        .then(posts => {
+            // W WP API 'posts' to już gotowa tablica
+            if (posts.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków.";
+                return;
+            }
+
+            const htmlContent = posts.map(post => 
+                // W WP API tytuł jest w title.rendered, a link w link
+                `<p><a href="${post.link}" target="_blank">${post.title.rendered}</a></p>`
+            ).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            container.innerHTML = "Błąd podczas ładowania postów.";
+        });
+}
+
+function WPPodcastRVA(ProgramId) {
+    // WordPress API zwraca tablicę postów bezpośrednio
+    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/programy?audycje=' + ProgramId + '&per_page=100';
+    const container = document.getElementById('episode-list');
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
+            return response.json();
+        })
+        .then(posts => {
+            // W WP API 'posts' to już gotowa tablica
+            if (posts.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków.";
+                return;
+            }
+
+            const htmlContent = posts.map(post => 
+                // W WP API tytuł jest w title.rendered, a link w link
+                `<p><a href="${post.link}" target="_blank">${post.title.rendered}</a></p>`
+            ).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            container.innerHTML = "Błąd podczas ładowania postów.";
+        });
+}
