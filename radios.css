@@ -388,6 +388,18 @@
      font-size: 16px;
      line-height: 1.2em;
 }
+.podcast_list_episode {
+    padding-left: 25px;
+    h3 {
+        font-weight: 600;
+    }
+    p {
+        padding-left: 20px;
+        a {
+            text-decoration: none;
+        }
+    }
+}
  @media screen and (max-width: 600px) {
      .program_info_box {
          display: block;
