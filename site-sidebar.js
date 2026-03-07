@@ -101,7 +101,7 @@ function SpreakerPodcast(showId) {
             }
 
             const htmlContent = episodes.map(episode => 
-                `<p><a href="${episode.site_url}" target="_blank">${episode.title}</a></p>`
+                `<ul><li><a href="${episode.site_url}" target="_blank">${episode.title}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
@@ -128,7 +128,7 @@ function EurozetPodcast(showId, mainUrl, stationId) {
             }
 
             const htmlContent = episodes.map(episode => 
-                `<p><a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a></p>`
+                `<ul><li><a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
@@ -160,7 +160,7 @@ function WPPodcast(categoryId,mainUrl) {
 
             const htmlContent = posts.map(post => 
                 // W WP API tytuł jest w title.rendered, a link w link
-                `<p><a href="${post.link}" target="_blank">${post.title.rendered}</a></p>`
+                `<ul><li><a href="${post.link}" target="_blank">${post.title.rendered}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
@@ -191,7 +191,7 @@ function AgoraPodcast(brandId, seriesId, mainUrl) {
             }
 
             const htmlContent = episodes.map(episode => 
-                `<p><a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a></p>`
+                `<ul><li><a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
@@ -223,7 +223,7 @@ function WPPodcastRK(SearchId) {
 
             const htmlContent = posts.map(post => 
                 // W WP API tytuł jest w title.rendered, a link w link
-                `<p><a href="${post.link}" target="_blank">${post.title.rendered}</a></p>`
+                `<ul><li><a href="${post.link}" target="_blank">${post.title.rendered}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
@@ -253,7 +253,7 @@ function WPPodcastRVG() {
 
             const htmlContent = posts.map(post => 
                 // W WP API tytuł jest w title.rendered, a link w link
-                `<p><a href="${post.link}" target="_blank">${post.title.rendered}</a></p>`
+                `<ul><li><a href="${post.link}" target="_blank">${post.title.rendered}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
@@ -283,7 +283,7 @@ function WPPodcastRVA(ProgramId) {
 
             const htmlContent = posts.map(post => 
                 // W WP API tytuł jest w title.rendered, a link w link
-                `<p><a href="${post.link}" target="_blank">${post.title.rendered}</a></p>`
+                `<ul><li><a href="${post.link}" target="_blank">${post.title.rendered}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
