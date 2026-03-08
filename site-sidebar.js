@@ -134,14 +134,14 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
             }
 
             const htmlContent = episodes.map(episode => 
-                `<ul><li><a href="${episode.playback_url}" target="_blank">${episode.title}</a></li></ul>`
+                `<ul><li><a href="data:text/html,<!DOCTYPE html><html><head><title></title><meta name=%22viewport%22 content=%22width=device-width, initial-scale=1%22></head><body><audio controls><source src=%22${episode.playback_url}%22></audio></body></html>" target="_blank">${episode.title}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
         })
         .catch(error => {
             console.error("Błąd:", error);
-            container.innerHTML = "Błąd podczas ładowania podcastu (CORS lub brak pliku).";
+            container.innerHTML = "Błąd podczas ładowania podcastu.";
         });
 }
 
@@ -167,7 +167,7 @@ function EurozetPodcast(showId, mainUrl, stationId) {
             container.innerHTML = htmlContent;
         })
         .catch(error => {
-            console.error("Błąd Spreaker API:", error);
+            console.error("Błąd:", error);
             container.innerHTML = "Błąd podczas ładowania podcastu.";
         });
 }
@@ -219,7 +219,7 @@ function AgoraPodcast(brandId, seriesId, mainUrl) {
             const episodes = data.records;
             
             if (episodes.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków dla tych ID.";
+                container.innerHTML = "Brak dostępnych odcinków.";
                 return;
             }
 
