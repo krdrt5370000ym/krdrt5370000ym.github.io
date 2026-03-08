@@ -112,6 +112,39 @@ function SpreakerPodcast(showId) {
         });
 }
 
+function GrupaZPRPodcast(podcastUid, SiteUid) {
+    // Używamy proxy, ponieważ GitHub nie obsługuje PHP do obejścia CORS
+    const targetUrl = `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${SiteUid}`;
+    const apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
+    
+    const container = document.getElementById('episode-list');
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci');
+            return response.json();
+        })
+        .then(data => {
+            // Grupa ZPR zwraca dane w polu 'episodes'
+            const episodes = data.episodes || [];
+            
+            if (episodes.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków.";
+                return;
+            }
+
+            const htmlContent = episodes.map(episode => 
+                `<ul><li><a href="${episode.playback_url}" target="_blank">${episode.title}</a></li></ul>`
+            ).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd:", error);
+            container.innerHTML = "Błąd podczas ładowania podcastu (CORS lub brak pliku).";
+        });
+}
+
 function EurozetPodcast(showId, mainUrl, stationId) {
     const apiUrl = 'https://player.chillizet.pl/api/podcasts/getPodcastListByProgram/(node)/' + showId + '/(station)/' + stationId;
     const container = document.getElementById('episode-list');
