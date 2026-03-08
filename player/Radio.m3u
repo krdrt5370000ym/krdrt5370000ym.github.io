@@ -12,11 +12,11 @@ https://rs103-krk.rmfstream.pl/rmf_maxxx_tmz
 #EXTINF:-1, Radio ESKA Warszawa (105,6 FM)
 https://liveradio.timesa.pl/2380-1.aac/playlist.m3u8
 #EXTINF:-1, Radio ESKA Warszawa (105,6 FM) (IC)
-http://waw.ic.smcdn.pl/2380-1.aac
+https://waw.ic.smcdn.pl/2380-1.aac
 #EXTINF:-1, Radio ESKA Łódź (90,1 FM)
 https://liveradio.timesa.pl/2100-1.aac/playlist.m3u8
 #EXTINF:-1, Radio ESKA Łódź (90,1 FM) (IC)
-http://waw.ic.smcdn.pl/2100-1.aac
+https://waw.ic.smcdn.pl/2100-1.aac
 #EXTINF:-1, Meloradio Warszawa (94 FM)
 https://n-11-25.dcs.redcdn.pl/sc/o2/Eurozet/live/meloradio.livx
 #EXTINF:-1, Meloradio Łódź (104,5 FM)
@@ -24,7 +24,7 @@ https://ml01.cdn.eurozet.pl/mel-ldz.mp3
 #EXTINF:-1, VOX FM Warszawa (104,4 FM) / Łódź (97,9 FM)
 https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8
 #EXTINF:-1, VOX FM Warszawa (104,4 FM) / Łódź (97,9 FM) (IC)
-http://waw.ic.smcdn.pl/3990-1.aac
+https://waw.ic.smcdn.pl/3990-1.aac
 #EXTINF:-1, Radio RSC 88,6 FM
 https://stream.rcs.revma.com/94fud6a6z72vv
 #EXTINF:-1, Radio Victoria (93,8 FM - Kutno, 94,7 FM - Rawa Maz., 96,7 - Sk-ce, 98,1 FM - Mszc., 103,5 FM - Łowicz)
