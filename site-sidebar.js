@@ -134,7 +134,7 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
             }
 
             const htmlContent = episodes.map(episode => 
-                `<ul><li><a href="data:text/html,<!DOCTYPE html><html><head><title></title><meta name=%22viewport%22 content=%22width=device-width, initial-scale=1%22></head><body><audio controls><source src=%22${episode.playback_url}%22></audio></body></html>" target="_blank">${episode.title}</a></li></ul>`
+                `<ul><li><a href="data:text/html,<!DOCTYPE html><html><head><title>.</title><meta name=%22viewport%22 content=%22width=device-width, initial-scale=1%22></head><body><audio controls><source src=%22${episode.playback_url}%22></audio></body></html>" target="_blank">${episode.title}</a></li></ul>`
             ).join('');
 
             container.innerHTML = htmlContent;
