@@ -226,8 +226,12 @@
     }
 }
  @media screen and (max-width: 600px) {
+     .podcast_info_title {
+         margin-left: 10px;
+    }
      .podcast_info_box {
          display: block;
+         margin-left: 10px;
     }
      .podcast_info_cover {
          margin: auto;
@@ -235,4 +239,13 @@
      .podcast_info_data {
          margin-left: 0px;
     }
+     .podcast_info_desc {
+         margin-left: 10px;
+    }
+     .podcast_info_urls {
+         margin-left: 10px;
+    }
+     .podcast_list_episode {
+         padding-left: 10px;
+     }
 }
