@@ -32,7 +32,7 @@ function WPRSCRSS() {
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
 
                 return `
-                    <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                         <a href="${post.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
                             ${post.title.rendered}
                         </a><div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
@@ -100,7 +100,7 @@ function WPRSS(mainUrl) {
                     : "";
 
                 return `
-                    <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                         <a href="${link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
                             ${title}
                         </a><div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
@@ -165,7 +165,7 @@ function WPRSS2(mainUrl) {
                     : "";
 
                 return `
-                    <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                         <a href="${link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
                             ${title}
                         </a>
