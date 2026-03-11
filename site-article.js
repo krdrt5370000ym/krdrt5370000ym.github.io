@@ -33,13 +33,11 @@ function WPRSCRSS() {
 
                 return `
                     <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                        <a href="${post.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em; display: block; margin-bottom: 4px;">
+                        <a href="${post.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
                             ${post.title.rendered}
-                        </a>
-                        <div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
-                        <div style="color: #666; font-size: 0.85em;">
-                            <i class="fa-solid fa-user"></i> ${author}<br>
-                            ${postDate}
+                        </a><div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
+                        <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
+                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
                         </div>
                     </div>`;
             }).join('');
@@ -53,44 +51,61 @@ function WPRSCRSS() {
 }
 
 function WPRSS(mainUrl) {
-    const rssUrl = mainUrl + '/feed/';
-    // Używamy RSS2JSON jako stabilnego konwertera i bramki CORS
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    // 1. Upewnij się, że URL jest poprawny (usuwamy ewentualny slash na końcu i dodajemy /feed/)
+    const cleanUrl = mainUrl.replace(/\/$/, "");
+    const rssUrl = cleanUrl + '/feed/';
+    
+    // 2. Używamy trybu /raw - AllOrigins zwróci bezpośrednio XML, co jest stabilniejsze
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`;
     const container = document.getElementById('article-list');
 
-    fetch(apiUrl)
+    console.log("Pobieranie z:", rssUrl);
+
+    fetch(proxyUrl)
         .then(response => {
-            if (!response.ok) throw new Error('Błąd połączenia');
-            return response.json();
+            if (!response.ok) throw new Error('Serwer proxy nie odpowiada');
+            return response.text(); // Pobieramy czysty tekst XML
         })
-        .then(data => {
-            if (data.status !== 'ok') throw new Error('Błąd RSS');
+        .then(str => {
+            console.log("Otrzymana zawartość (fragment):", str.substring(0, 200));
+            
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(str, "text/xml");
+            
+            // Sprawdzenie czy XML nie zawiera błędu parsowania
+            const parseError = xmlDoc.getElementsByTagName("parsererror");
+            if (parseError.length > 0) throw new Error('Błędny format XML');
 
-            const htmlContent = data.items.map(item => {
-                // 1. Formatowanie daty
-                const postDate = new Date(item.pubDate).toLocaleDateString('pl-PL', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
+            const items = xmlDoc.querySelectorAll("item");
+            if (items.length === 0) {
+                container.innerHTML = "Brak nowych wpisów.";
+                return;
+            }
 
-                // 2. Pobieranie kategorii
-                const categories = item.categories.length > 0 
-                    ? item.categories.join(' • ') 
-                    : 'Aktualności';
+            const htmlContent = Array.from(items).slice(0, 10).map(item => {
+                const title = item.querySelector("title")?.textContent || "Bez tytułu";
+                const link = item.querySelector("link")?.textContent || "#";
+                const pubDateRaw = item.querySelector("pubDate")?.textContent;
+                
+                // Obsługa autora w WordPress (dc:creator)
+                const author = item.getElementsByTagName("dc:creator")[0]?.textContent 
+                               || item.querySelector("author")?.textContent 
+                               || 'Redakcja';
 
-                // 3. Pobieranie autora
-                const author = item.author || 'Redakcja';
+                const categoriesArr = Array.from(item.querySelectorAll("category")).map(c => c.textContent);
+                const categories = categoriesArr.length > 0 ? categoriesArr.join(' • ') : 'Aktualności';
+                
+                const postDate = pubDateRaw 
+                    ? new Date(pubDateRaw).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })
+                    : "";
 
                 return `
                     <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                        <a href="${item.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em; display: block; margin-bottom: 4px;">
-                            ${item.title}
-                        </a>
-                        <div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
-                        <div style="color: #666; font-size: 0.85em;">
-                            <i class="fa-solid fa-user"></i> ${author}<br>
-                            ${postDate}
+                        <a href="${link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
+                            ${title}
+                        </a><div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
+                        <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
+                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
                         </div>
                     </div>`;
             }).join('');
@@ -98,8 +113,8 @@ function WPRSS(mainUrl) {
             container.innerHTML = htmlContent;
         })
         .catch(error => {
-            console.error("Błąd ładowania:", error);
-            container.innerHTML = "Błąd podczas ładowania aktualności.";
+            console.error("Błąd szczegółowy:", error);
+            container.innerHTML = "Nie udało się wczytać danych. Sprawdź konsolę (F12).";
         });
 }
 
