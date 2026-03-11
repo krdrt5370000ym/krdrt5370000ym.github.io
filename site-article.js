@@ -52,8 +52,8 @@ function WPRSCRSS() {
         });
 }
 
-function WPVictoriaRSS() {
-    const rssUrl = 'https://radiovictoria.pl/feed/';
+function WPRSS(mainUrl) {
+    const rssUrl = mainUrl + '/feed/';
     // Używamy RSS2JSON jako stabilnego konwertera i bramki CORS
     const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
     const container = document.getElementById('article-list');
@@ -67,121 +67,19 @@ function WPVictoriaRSS() {
             if (data.status !== 'ok') throw new Error('Błąd RSS');
 
             const htmlContent = data.items.map(item => {
-                // 1. Formatowanie daty (np. 11 marca 2026)
+                // 1. Formatowanie daty
                 const postDate = new Date(item.pubDate).toLocaleDateString('pl-PL', {
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric'
                 });
 
-                // 2. Pobieranie kategorii (np. Aktualności • Łowicz)
+                // 2. Pobieranie kategorii
                 const categories = item.categories.length > 0 
                     ? item.categories.join(' • ') 
                     : 'Aktualności';
 
-                // 3. Pobieranie autora (Renata Jastrzębska)
-                const author = item.author || 'Redakcja';
-
-                return `
-                    <div style="margin-bottom: 25px;">
-                        <a href="${item.link}" target="_blank" style="text-decoration:none; color: #000; font-weight: bold; font-size: 1.1em; display: block; margin-bottom: 4px;">
-                            ${item.title}
-                        </a>
-                        <div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
-                        <div style="color: #666; font-size: 0.85em;">
-                            <i class="fa-solid fa-user"></i> ${author}<br>
-                            ${postDate}
-                        </div>
-                    </div>`;
-            }).join('');
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd ładowania:", error);
-            container.innerHTML = "Błąd podczas ładowania aktualności.";
-        });
-}
-
-function WPKolorRSS() {
-    const rssUrl = 'https://radiokolor.pl/feed/';
-    // Używamy RSS2JSON jako stabilnego konwertera i bramki CORS
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-    const container = document.getElementById('article-list');
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd połączenia');
-            return response.json();
-        })
-        .then(data => {
-            if (data.status !== 'ok') throw new Error('Błąd RSS');
-
-            const htmlContent = data.items.map(item => {
-                // 1. Formatowanie daty (np. 11 marca 2026)
-                const postDate = new Date(item.pubDate).toLocaleDateString('pl-PL', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-                // 2. Pobieranie kategorii (np. Aktualności • Łowicz)
-                const categories = item.categories.length > 0 
-                    ? item.categories.join(' • ') 
-                    : 'Aktualności';
-
-                // 3. Pobieranie autora (Renata Jastrzębska)
-                const author = item.author || 'Redakcja';
-
-                return `
-                    <div style="margin-bottom: 25px;">
-                        <a href="${item.link}" target="_blank" style="text-decoration:none; color: #000; font-weight: bold; font-size: 1.1em; display: block; margin-bottom: 4px;">
-                            ${item.title}
-                        </a>
-                        <div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
-                        <div style="color: #666; font-size: 0.85em;">
-                            <i class="fa-solid fa-user"></i> ${author}<br>
-                            ${postDate}
-                        </div>
-                    </div>`;
-            }).join('');
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd ładowania:", error);
-            container.innerHTML = "Błąd podczas ładowania aktualności.";
-        });
-}
-
-function WPSOSWRSS() {
-    const rssUrl = 'https://radiokolor.pl/feed/';
-    // Używamy RSS2JSON jako stabilnego konwertera i bramki CORS
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-    const container = document.getElementById('article-list');
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd połączenia');
-            return response.json();
-        })
-        .then(data => {
-            if (data.status !== 'ok') throw new Error('Błąd RSS');
-
-            const htmlContent = data.items.map(item => {
-                // 1. Formatowanie daty (np. 11 marca 2026)
-                const postDate = new Date(item.pubDate).toLocaleDateString('pl-PL', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-                // 2. Pobieranie kategorii (np. Aktualności • Łowicz)
-                const categories = item.categories.length > 0 
-                    ? item.categories.join(' • ') 
-                    : 'Aktualności';
-
-                // 3. Pobieranie autora (Renata Jastrzębska)
+                // 3. Pobieranie autora
                 const author = item.author || 'Redakcja';
 
                 return `
