@@ -114,7 +114,7 @@ function WPRSS(mainUrl) {
         })
         .catch(error => {
             console.error("Błąd szczegółowy:", error);
-            container.innerHTML = "Nie udało się wczytać danych. Sprawdź konsolę (F12).";
+            container.innerHTML = "Błąd podczas ładowania aktualności.";
         });
 }
 
@@ -179,6 +179,6 @@ function WPRSS2(mainUrl) {
         })
         .catch(error => {
             console.error("Błąd szczegółowy:", error);
-            container.innerHTML = "Nie udało się wczytać danych. Sprawdź konsolę (F12).";
+            container.innerHTML = "Błąd podczas ładowania aktualności.";
         });
 }
