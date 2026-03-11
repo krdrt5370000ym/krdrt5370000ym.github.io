@@ -1,7 +1,7 @@
 // <div id="article-list">Ładowanie aktualności...</div>
 function WPRSCRSS() {
     // Używamy działającej listy kategorii (z pominięciem ID 16)
-    const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?categories=18,19,20,44,46,47,50,63,73,74&per_page=10';
+    const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=10';
     const container = document.getElementById('article-list');
 
     fetch(apiUrl)
