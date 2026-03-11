@@ -1,5 +1,5 @@
 // <div id="article-list">Ładowanie aktualności...</div>
-function WPRSCRSS() {
+function WPArticleRSC() {
     // Używamy działającej listy kategorii (z pominięciem ID 16)
     const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=10';
     const container = document.getElementById('article-list');
@@ -50,135 +50,69 @@ function WPRSCRSS() {
         });
 }
 
-function WPRSS(mainUrl) {
-    // 1. Upewnij się, że URL jest poprawny (usuwamy ewentualny slash na końcu i dodajemy /feed/)
-    const cleanUrl = mainUrl.replace(/\/$/, "");
-    const rssUrl = cleanUrl + '/feed/';
-    
-    // 2. Używamy trybu /raw - AllOrigins zwróci bezpośrednio XML, co jest stabilniejsze
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`;
+async function WPArticle(mainUrl, is_categories = true, is_author = true) {
     const container = document.getElementById('article-list');
+    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=10`;
 
-    console.log("Pobieranie z:", rssUrl);
+    try {
+        const response = await fetch(postsUrl);
+        const posts = await response.json();
 
-    fetch(proxyUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Serwer proxy nie odpowiada');
-            return response.text(); // Pobieramy czysty tekst XML
-        })
-        .then(str => {
-            console.log("Otrzymana zawartość (fragment):", str.substring(0, 200));
-            
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(str, "text/xml");
-            
-            // Sprawdzenie czy XML nie zawiera błędu parsowania
-            const parseError = xmlDoc.getElementsByTagName("parsererror");
-            if (parseError.length > 0) throw new Error('Błędny format XML');
+        if (!Array.isArray(posts) || posts.length === 0) {
+            container.innerHTML = "Brak dostępnych aktualności.";
+            return;
+        }
 
-            const items = xmlDoc.querySelectorAll("item");
-            if (items.length === 0) {
-                container.innerHTML = "Brak nowych wpisów.";
-                return;
+        const cache = { authors: {}, categories: {} };
+
+        const htmlContent = await Promise.all(posts.map(async (post) => {
+            // Logika pobierania autora
+            let authorDisplay = '';
+            if (is_author) {
+                if (!cache.authors[post.author]) {
+                    const authorRes = await fetch(`${mainUrl}/wp-json/wp/v2/users/${post.author}`);
+                    const authorData = await authorRes.json();
+                    cache.authors[post.author] = authorData.name || 'Redakcja';
+                }
+                authorDisplay = `<i class="fa-solid fa-user"></i> ${cache.authors[post.author]} | `;
             }
 
-            const htmlContent = Array.from(items).slice(0, 10).map(item => {
-                const title = item.querySelector("title")?.textContent || "Bez tytułu";
-                const link = item.querySelector("link")?.textContent || "#";
-                const pubDateRaw = item.querySelector("pubDate")?.textContent;
-                
-                // Obsługa autora w WordPress (dc:creator)
-                const author = item.getElementsByTagName("dc:creator")[0]?.textContent 
-                               || item.querySelector("author")?.textContent 
-                               || 'Redakcja';
-
-                const categoriesArr = Array.from(item.querySelectorAll("category")).map(c => c.textContent);
-                const categories = categoriesArr.length > 0 ? categoriesArr.join(' • ') : 'Aktualności';
-                
-                const postDate = pubDateRaw 
-                    ? new Date(pubDateRaw).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })
-                    : "";
-
-                return `
-                    <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                        <a href="${link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
-                            ${title}
-                        </a><div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
-                        <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
-                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
-                        </div>
-                    </div>`;
-            }).join('');
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd szczegółowy:", error);
-            container.innerHTML = "Błąd podczas ładowania aktualności.";
-        });
-}
-
-function WPRSS2(mainUrl) {
-    // 1. Upewnij się, że URL jest poprawny (usuwamy ewentualny slash na końcu i dodajemy /feed/)
-    const cleanUrl = mainUrl.replace(/\/$/, "");
-    const rssUrl = cleanUrl + '/feed/';
-    
-    // 2. Używamy trybu /raw - AllOrigins zwróci bezpośrednio XML, co jest stabilniejsze
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`;
-    const container = document.getElementById('article-list');
-
-    console.log("Pobieranie z:", rssUrl);
-
-    fetch(proxyUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Serwer proxy nie odpowiada');
-            return response.text(); // Pobieramy czysty tekst XML
-        })
-        .then(str => {
-            console.log("Otrzymana zawartość (fragment):", str.substring(0, 200));
-            
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(str, "text/xml");
-            
-            // Sprawdzenie czy XML nie zawiera błędu parsowania
-            const parseError = xmlDoc.getElementsByTagName("parsererror");
-            if (parseError.length > 0) throw new Error('Błędny format XML');
-
-            const items = xmlDoc.querySelectorAll("item");
-            if (items.length === 0) {
-                container.innerHTML = "Brak nowych wpisów.";
-                return;
+            // Logika pobierania kategorii
+            let categoriesDisplay = '';
+            if (is_categories) {
+                const categoryNames = [];
+                for (const catId of post.categories) {
+                    if (!cache.categories[catId]) {
+                        const catRes = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${catId}`);
+                        const catData = await catRes.json();
+                        cache.categories[catId] = catData.name;
+                    }
+                    categoryNames.push(cache.categories[catId]);
+                }
+                const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
+                categoriesDisplay = `<div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${cats}</div>`;
             }
 
-            const htmlContent = Array.from(items).slice(0, 10).map(item => {
-                const title = item.querySelector("title")?.textContent || "Bez tytułu";
-                const link = item.querySelector("link")?.textContent || "#";
-                const pubDateRaw = item.querySelector("pubDate")?.textContent;
-                
-                // Obsługa autora w WordPress (dc:creator)
-                const author = item.getElementsByTagName("dc:creator")[0]?.textContent 
-                               || item.querySelector("author")?.textContent 
-                               || 'Redakcja';
+            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
 
-                const postDate = pubDateRaw 
-                    ? new Date(pubDateRaw).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })
-                    : "";
+            return `
+                <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                    <a href="${post.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em; display:block; margin-bottom:5px;">
+                        ${post.title.rendered}
+                    </a>
+                    ${categoriesDisplay}
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
+                        ${authorDisplay}${postDate}
+                    </div>
+                </div>`;
+        }));
 
-                return `
-                    <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                        <a href="${link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
-                            ${title}
-                        </a>
-                        <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
-                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
-                        </div>
-                    </div>`;
-            }).join('');
+        container.innerHTML = htmlContent.join('');
 
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd szczegółowy:", error);
-            container.innerHTML = "Błąd podczas ładowania aktualności.";
-        });
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        container.innerHTML = "Błąd podczas ładowania aktualności.";
+    }
 }
