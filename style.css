@@ -187,3 +187,8 @@
         opacity: 1;
     }
 }
+._list_article {
+    h3 {
+        font-weight: 600;
+    }
+}
