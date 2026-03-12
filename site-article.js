@@ -31,13 +31,19 @@ function WPArticleRSC() {
                 // 3. Pobieranie wyświetlanej nazwy autora
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
 
+                // 4. Pobieranie obrazu
+                const image = post.featured_image_src_large ? '<img src="' + post.featured_image_src_large[0].replace("1024x768","300x225") + '" width="150" height="150">' : '';
+
                 return `
-                    <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                        <a href="${post.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em;">
-                            ${post.title.rendered}
-                        </a><div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${categories}</div>
-                        <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
-                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
+                    <div class="articles">
+                        <div class="article_cover">${image}<div>
+                        <div class="article_content">
+                            <div class="article_title"><a href="${post.link}" target="_blank">
+                                ${post.title.rendered}</div>
+                            </a><div class="article_category">${categories}</div>
+                            <div class="article_info">
+                                <i class="fa-solid fa-user"></i> ${author} | ${postDate}
+                            </div>
                         </div>
                     </div>`;
             }).join('');
