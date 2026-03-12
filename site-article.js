@@ -102,12 +102,14 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
             // Logika pobierania obrazu
             let imageDisplay = '';
             if (is_image) {
-                if (!cache.images[post.featured_media]) {
-                    const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
-                    const imagesData = await imagesRes.json();
-                    cache.images[post.featured_media] = imagesData.media_details.sizes.medium.source_url || '';
+                if (post.featured_media !== 0) {
+                    if (!cache.images[post.featured_media]) {
+                        const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
+                        const imagesData = await imagesRes.json();
+                        cache.images[post.featured_media] = imagesData.media_details.sizes.medium.source_url || '';
+                    }
+                    imageDisplay = `<img src="${cache.images[post.featured_media]}" width="150" height="150">`;
                 }
-                imageDisplay = `<img src="${cache.images[post.featured_media]}" width="150" height="150">`;
             }
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
