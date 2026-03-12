@@ -106,7 +106,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                     if (!cache.images[post.featured_media]) {
                         const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
                         const imagesData = await imagesRes.json();
-                        cache.images[post.featured_media] = imagesData.media_details.sizes.medium.source_url || '';
+                        cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || '';
                     }
                     imageDisplay = `<img src="${cache.images[post.featured_media]}" width="150" height="150">`;
                 }
@@ -195,7 +195,7 @@ async function WPArticleSOSW() {
                         cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
                     } catch (e) { cache.images[post.featured_media] = ''; }
                 }
-                imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="150" height="150" style="object-fit: cover;">` : '';
+                imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="150" height="150">` : '';
             }
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
@@ -203,11 +203,11 @@ async function WPArticleSOSW() {
             });
 
             return `
-                <div class="articles" style="display: flex; margin-bottom: 20px; gap: 15px;">
+                <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        <div class="article_title" style="font-weight: bold;">
-                            <a href="${post.link}" target="_blank" style="text-decoration: none; color: inherit;">
+                        <div class="article_title">
+                            <a href="${post.link}" target="_blank">
                                 ${post.title.rendered}
                             </a>
                         </div>
