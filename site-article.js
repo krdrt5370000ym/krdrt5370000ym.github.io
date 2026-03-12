@@ -38,10 +38,10 @@ function WPArticleRSC() {
                     <div class="articles">
                         <div class="article_cover">${image}</div>
                         <div class="article_content">
+                            <div class="article_category">${categories}</div>
                             <div class="article_title"><a href="${post.link}" target="_blank">
                                 ${post.title.rendered}</div>
-                            </a><div class="article_category">${categories}</div>
-                            <div class="article_info">
+                            </a><div class="article_info">
                                 <i class="fa-solid fa-user"></i> ${author} | ${postDate}
                             </div>
                         </div>
@@ -122,10 +122,10 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                 <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
+                        ${categoriesDisplay}
                         <div class="article_title"><a href="${post.link}" target="_blank">
                             ${post.title.rendered}
                         </a></div>
-                        ${categoriesDisplay}
                         <div class="article_info">
                             ${authorDisplay}${postDate}
                         </div>
@@ -208,12 +208,12 @@ async function WPArticleSOSW() {
                 <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
+                        ${categoriesDisplay}
                         <div class="article_title">
                             <a href="${post.link}" target="_blank">
                                 ${post.title.rendered}
                             </a>
                         </div>
-                        ${categoriesDisplay}
                         <div class="article_info">
                             <i class="fa-solid fa-user"></i> ${authorName} | ${postDate}
                         </div>
