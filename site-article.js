@@ -56,7 +56,7 @@ function WPArticleRSC() {
         });
 }
 
-async function WPArticle(mainUrl, is_categories = true, is_author = true) {
+async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true) {
     const container = document.getElementById('article-list');
     const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=10`;
 
@@ -69,7 +69,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true) {
             return;
         }
 
-        const cache = { authors: {}, categories: {} };
+        const cache = { authors: {}, categories: {}, images: {} };
 
         const htmlContent = await Promise.all(posts.map(async (post) => {
             // Logika pobierania autora
@@ -96,7 +96,18 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true) {
                     categoryNames.push(cache.categories[catId]);
                 }
                 const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
-                categoriesDisplay = `<div style="color: #444; font-size: 0.9em; margin-bottom: 4px;">${cats}</div>`;
+                categoriesDisplay = `<div class="article_category">${cats}</div>`;
+            }
+
+            // Logika pobierania obrazu
+            let imageDisplay = '';
+            if (is_image) {
+                if (!cache.images[post.featured_media]) {
+                    const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
+                    const imagesData = await imagesRes.json();
+                    cache.images[post.featured_media] = imagesData.media_details.sizes.medium.source_url || '';
+                }
+                imageDisplay = `<img src="${cache.images[post.featured_media]}" width="150" height="150">`;
             }
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
@@ -104,13 +115,16 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true) {
             });
 
             return `
-                <div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                    <a href="${post.link}" target="_blank" style="text-decoration:none; color: #004a99; font-weight: bold; font-size: 1.1em; display:block; margin-bottom:5px;">
-                        ${post.title.rendered}
-                    </a>
-                    ${categoriesDisplay}
-                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">
-                        ${authorDisplay}${postDate}
+                <div class="articles">
+                    <div class="article_cover">${imageDisplay}<div>
+                    <div class="article_content">
+                        <div class="article_title"><a href="${post.link}" target="_blank">
+                            ${post.title.rendered}
+                        </a></div>
+                        ${categoriesDisplay}
+                        <div class="article_info">
+                            ${authorDisplay}${postDate}
+                        </div>
                     </div>
                 </div>`;
         }));
