@@ -266,8 +266,13 @@
 }
 .article_cover {
     img {
+        width: 142.5px;
+        height: 142.5px;
         object-fit: cover;
     }
+}
+.article_content {
+    margin-block: auto;
 }
 .article_title {
     color: #004a99;
@@ -287,4 +292,12 @@
     color: #666;
     font-size: 0.85em;
     margin-top: 5px;
+}
+@media screen and (max-width: 600px) {
+    .article_cover {
+        img {
+            width: 70px;
+            height: 70px;
+        }
+    }
 }
