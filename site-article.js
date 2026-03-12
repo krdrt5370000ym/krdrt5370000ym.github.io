@@ -215,7 +215,7 @@ async function WPArticleSOSW() {
                         </div>
                         ${categoriesDisplay}
                         <div class="article_info">
-                            ${authorName} | ${postDate}
+                            <i class="fa-solid fa-user"></i> ${authorName} | ${postDate}
                         </div>
                     </div>
                 </div>`;
