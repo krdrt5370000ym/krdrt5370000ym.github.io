@@ -264,6 +264,11 @@
     padding-bottom: 10px;
     gap: 15px;
 }
+.article_cover {
+    img {
+        object-fit: cover;
+    }
+}
 .article_title {
     color: #004a99;
     font-weight: bold;
