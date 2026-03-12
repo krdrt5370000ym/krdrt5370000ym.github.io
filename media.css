@@ -257,3 +257,24 @@
         font-weight: 600;
     }
 }
+.articles {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.article_title {
+    text-decoration:none;
+    color: #004a99;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.article_category {
+    color: #444;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+.article_info {
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
