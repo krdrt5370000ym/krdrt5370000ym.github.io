@@ -136,3 +136,91 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
         container.innerHTML = "Błąd podczas ładowania aktualności.";
     }
 }
+
+async function WPArticleSOSW() {
+    const container = document.getElementById('article-list');
+    // Dodajemy parametr _embed, aby pobrać kategorie i zdjęcia w jednym zapytaniu (opcjonalnie, ale przyspiesza)
+    const postsUrl = 'https://soswskierniewice.pl/wp-json/wp/v2/posts?per_page=10';
+
+    // Mapa autorów zgodna z Twoją listą
+    const authorsMap = {
+        2: "Hubert Rosiński",
+        3: "Paweł Jaskuła",
+        4: "Mari Ola",
+        6: "Monika Urbańska",
+        7: "Martyna Pawlewicz",
+        10: "Andrzej Popiński",
+        11: "Agata Sadach"
+    };
+
+    try {
+        const response = await fetch(postsUrl);
+        const posts = await response.json();
+
+        if (!Array.isArray(posts) || posts.length === 0) {
+            container.innerHTML = "Brak dostępnych aktualności.";
+            return;
+        }
+
+        const cache = { categories: {}, images: {} };
+
+        const htmlContent = await Promise.all(posts.map(async (post) => {
+            
+            // 1. Pobieranie Autora z mapy
+            const authorName = authorsMap[post.author] || "Autor nieznany";
+
+            // 2. Logika kategorii
+            let categoriesDisplay = '';
+            const categoryNames = [];
+            for (const catId of post.categories) {
+                if (!cache.categories[catId]) {
+                    const catRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/categories/${catId}`);
+                    const catData = await catRes.json();
+                    cache.categories[catId] = catData.name;
+                }
+                categoryNames.push(cache.categories[catId]);
+            }
+            const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
+            categoriesDisplay = `<div class="article_category">${cats}</div>`;
+
+            // 3. Logika obrazu
+            let imageDisplay = '';
+            if (post.featured_media !== 0) {
+                if (!cache.images[post.featured_media]) {
+                    try {
+                        const imagesRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/media/${post.featured_media}`);
+                        const imagesData = await imagesRes.json();
+                        cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
+                    } catch (e) { cache.images[post.featured_media] = ''; }
+                }
+                imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="150" height="150" style="object-fit: cover;">` : '';
+            }
+
+            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+
+            return `
+                <div class="articles" style="display: flex; margin-bottom: 20px; gap: 15px;">
+                    <div class="article_cover">${imageDisplay}</div>
+                    <div class="article_content">
+                        <div class="article_title" style="font-weight: bold;">
+                            <a href="${post.link}" target="_blank" style="text-decoration: none; color: inherit;">
+                                ${post.title.rendered}
+                            </a>
+                        </div>
+                        ${categoriesDisplay}
+                        <div class="article_info">
+                            ${authorName} | ${postDate}
+                        </div>
+                    </div>
+                </div>`;
+        }));
+
+        container.innerHTML = htmlContent.join('');
+
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        container.innerHTML = "Błąd podczas ładowania aktualności.";
+    }
+}
