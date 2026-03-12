@@ -1,4 +1,4 @@
-async function getNowPlaying(stationId) {
+async function getNowPlayingGrupaZPR(stationId) {
     const container = document.getElementById('container');
     const url = `https://front-api.grupazprmedia.pl/music/v1/now_playing/${stationId}/`;
 
@@ -23,14 +23,10 @@ async function getNowPlaying(stationId) {
                 minute: '2-digit'
             });
 
-            container.innerHTML = `
-                <div style="font-weight: bold; font-size: 1.2em;">${artists} - ${track.name}</div>
-                <div style="color: #d32f2f;">Rozpoczęto: ${startTime}</div>
-            `;
-            console.log("Gramy teraz:", artists, "-", track.name);
+            container.innerHTML = `${artists} - ${track.name}`;
         }
     } catch (error) {
-        container.innerHTML = "Błąd synchronizacji czasu...";
+        container.innerHTML = "";
     }
 }
 // setInterval(() => getNowPlaying(3990), 20000);
