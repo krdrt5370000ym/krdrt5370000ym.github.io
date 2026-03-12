@@ -36,7 +36,7 @@ function WPArticleRSC() {
 
                 return `
                     <div class="articles">
-                        <div class="article_cover">${image}<div>
+                        <div class="article_cover">${image}</div>
                         <div class="article_content">
                             <div class="article_title"><a href="${post.link}" target="_blank">
                                 ${post.title.rendered}</div>
@@ -120,7 +120,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
 
             return `
                 <div class="articles">
-                    <div class="article_cover">${imageDisplay}<div>
+                    <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         <div class="article_title"><a href="${post.link}" target="_blank">
                             ${post.title.rendered}
