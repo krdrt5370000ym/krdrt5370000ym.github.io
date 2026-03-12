@@ -32,7 +32,7 @@ function WPArticleRSC() {
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
 
                 // 4. Pobieranie obrazu
-                const image = post.featured_image_src_large ? '<img src="' + post.featured_image_src_large[0].replace("1024x768","300x225") + '" width="150" height="150">' : '';
+                const image = post.featured_image_src_large ? '<img src="' + post.featured_image_src_large[0].replace("-1024x768.","-300x225.") + '" width="150" height="150">' : '';
 
                 return `
                     <div class="articles">
