@@ -249,3 +249,11 @@
          padding-left: 10px;
      }
 }
+
+/* AKTUALNOŚCI */
+.list_article {
+    padding-left: 10px;
+    h3 {
+        font-weight: 600;
+    }
+}
