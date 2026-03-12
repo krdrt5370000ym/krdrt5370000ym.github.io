@@ -300,4 +300,13 @@
             height: 70px;
         }
     }
+    .article_title {
+        font-size: 1em;
+    }
+    .article_category {
+        font-size: 0.8em;
+    }
+    .article_info {
+        font-size: 0.75em;
+    }
 }
