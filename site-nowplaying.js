@@ -77,8 +77,8 @@ function renderProgramGrupaZPR(program) {
 // Przykład użycia:
 // getCurrentProgram('sc-giFX-r6Hu-5naE', 'ra-4DgR-BbKY-FG3Z');
 
-async function getNowPlayingEurozet(stationid) {
-  const url = 'https://rds.eurozet.pl/reader/var/' + id + '.json';
+async function getNowPlayingEurozet(stationId) {
+  const url = 'https://rds.eurozet.pl/reader/var/' + stationId + '.json';
   try {
     const container = document.getElementById('container');
     const response = await fetch(url);
@@ -95,5 +95,33 @@ async function getNowPlayingEurozet(stationid) {
   } catch (error) {
     console.error('Błąd pobierania danych:', error);
     container.innerHTML = "";
+  }
+}
+
+async function getNowPlayingAgora(stationId) {
+  const url = `https://fm.tuba.pl/api3/onStation?limit=1&format=json&id=${stationId}`;
+  const container = document.getElementById('container');
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // Sprawdzamy czy onStation to tablica, czy pojedynczy obiekt
+    let track = null;
+    if (Array.isArray(data) && data.length > 0) {
+      track = data[0];
+    } else if (data && typeof data === 'object') {
+      track = data;
+    }
+
+    if (track && track.artist_name && track.song_title) {
+      container.innerHTML = `${track.artist_name} - ${track.song_title}`;
+    } else {
+      container.innerHTML = ''; // Aktualnie brak informacji o utworze
+    }
+    
+  } catch (error) {
+    console.error('Błąd:', error);
+    container.innerHTML = ''; // Błąd połączenia
   }
 }
