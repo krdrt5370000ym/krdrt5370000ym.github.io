@@ -125,3 +125,23 @@ async function getNowPlayingAgora(stationId) {
     container.innerHTML = ''; // Błąd połączenia
   }
 }
+
+async function getNowPlayingRadio(stationId) {
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
+const container = document.getElementById('container');
+
+fetch(proxyUrl + targetUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Zakładając typową strukturę odpowiedzi radio.de
+    const currentTrack = data[0]?.title || '';
+        container.innerText = currentTrack;
+    // Wyświetlenie na stronie:
+    // document.getElementById('song-title').innerText = currentTrack;
+  })
+  .catch(error => {
+      console.error('Błąd pobierania:', error);
+      container.innerText = "";
+  });
+}
