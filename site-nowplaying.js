@@ -127,21 +127,61 @@ async function getNowPlayingAgora(stationId) {
 }
 
 async function getNowPlayingRadio(stationId) {
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
-const container = document.getElementById('container');
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
+  const container = document.getElementById('container');
+  
+  fetch(proxyUrl + targetUrl)
+    .then(response => response.json())
+    .then(data => {
+      // Zakładając typową strukturę odpowiedzi radio.de
+      const currentTrack = data[0]?.title || '';
+          container.innerText = currentTrack;
+      // Wyświetlenie na stronie:
+      // document.getElementById('song-title').innerText = currentTrack;
+    })
+    .catch(error => {
+        console.error('Błąd pobierania:', error);
+        container.innerText = "";
+    });
+}
 
-fetch(proxyUrl + targetUrl)
-  .then(response => response.json())
-  .then(data => {
-    // Zakładając typową strukturę odpowiedzi radio.de
-    const currentTrack = data[0]?.title || '';
-        container.innerText = currentTrack;
-    // Wyświetlenie na stronie:
-    // document.getElementById('song-title').innerText = currentTrack;
-  })
-  .catch(error => {
-      console.error('Błąd pobierania:', error);
-      container.innerText = "";
-  });
+async function getNowPlayingPlaylistOS(stationId) {
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
+  // Poprawiony XPath (uproszczony dla lepszej stabilności)
+  const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
+  const container = document.getElementById('container');
+      try {
+          const response = await fetch(proxyUrl + targetUrl, {
+              headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          });
+  
+          if (!response.ok) {
+              if (response.status === 403) {
+                  console.error("BŁĄD 403: Musisz wejść na https://cors-anywhere.herokuapp.com/corsdemo i kliknąć przycisk!");
+              } else {
+                  console.error(`Błąd HTTP: ${response.status}`);
+              }
+              return;
+          }
+  
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+  
+          const result = doc.evaluate(xpath, doc, null, XPathResult.STRING_TYPE, null);
+          const songTitle = result.stringValue.trim();
+  
+          if (songTitle) {
+              container.innerText = songTitle; // Ostatnio grany utwór:
+          } else {
+              console.warn('Nie znaleziono utworu. Sprawdź, czy struktura strony się nie zmieniła.');
+              container.innerText = '';
+          }
+          
+      } catch (error) {
+          console.error('Błąd połączenia (sieć/CORS):', error);
+          container.innerText = '';
+      }
 }
