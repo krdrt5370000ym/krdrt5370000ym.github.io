@@ -1,3 +1,11 @@
+// Funkcja zamieniająca "FIELDS OF GOLD" na "Fields Of Gold"
+function formatToTitleCase(str) {
+  if (!str) return "";
+  return str.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+
 async function getNowPlayingGrupaZPR(stationId) {
     const container = document.getElementById('container');
     const url = `https://front-api.grupazprmedia.pl/music/v1/now_playing/${stationId}/`;
@@ -68,3 +76,24 @@ function renderProgramGrupaZPR(program) {
 }
 // Przykład użycia:
 // getCurrentProgram('sc-giFX-r6Hu-5naE', 'ra-4DgR-BbKY-FG3Z');
+
+async function getNowPlayingEurozet(stationid) {
+  const url = 'https://rds.eurozet.pl/reader/var/' + id + '.json';
+  try {
+    const container = document.getElementById('container');
+    const response = await fetch(url);
+    const text = await response.text();
+    
+    const jsonString = text.replace(/^rdsData\(|\)$/g, '');
+    const data = JSON.parse(jsonString);
+
+    const artist = formatToTitleCase(data.now.artist);
+    const title = formatToTitleCase(data.now.title);
+
+    container.innerHTML = `${artist} - ${title}`;
+    
+  } catch (error) {
+    console.error('Błąd pobierania danych:', error);
+    container.innerHTML = "";
+  }
+}
