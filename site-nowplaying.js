@@ -29,9 +29,9 @@ async function getNowPlayingGrupaZPR(stationId) {
         container.innerHTML = "";
     }
 }
-// setInterval(() => getNowPlaying(3990), 20000);
+// setInterval(() => getNowPlayingGrupaZPR(3990), 20000);
 
-async function getCurrentProgramZPR(siteUid, stationUid = "") {
+async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
     const baseUrl = "https://front-api.grupazprmedia.pl/radios/v1/current_program/";
     const url = stationUid ? `${baseUrl}${siteUid}/${stationUid}/` : `${baseUrl}${siteUid}/`;
 
@@ -41,14 +41,14 @@ async function getCurrentProgramZPR(siteUid, stationUid = "") {
         
         // Zakładamy, że interesuje nas pierwszy element z listy
         const program = data; 
-        renderProgramZPR(program);
+        renderProgramGrupaZPR(program);
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
         document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
     }
 }
 
-function renderProgramZPR(program) {
+function renderProgramGrupaZPR(program) {
     const container = document.getElementById('program-preview');
     
     if (!program) {
