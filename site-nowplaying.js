@@ -1,32 +1,35 @@
 async function getNowPlayingGrupaZPR(stationId) {
     const container = document.getElementById('container');
     const url = `https://front-api.grupazprmedia.pl/music/v1/now_playing/${stationId}/`;
+    const STREAM_DELAY_MS = 20000; // Standardowe opóźnienie ~20s dla ZPR
 
     try {
         const response = await fetch(url);
-        const data = await response.json(); // To jest tablica utworów
+        const data = await response.json(); 
         
-        const teraz = new Date();
+        // Czas z uwzględnieniem opóźnienia streamu
+        const adjustedNow = new Date(Date.now() - STREAM_DELAY_MS);
 
-        // FILTR: Szukamy utworu, który już się zaczął (start_time <= teraz)
-        // Sortujemy od najnowszego, żeby pierwszy na liście był tym aktualnym
-        const aktualneUtwory = data
-            .filter(t => new Date(t.start_time) <= teraz)
-            .sort((a, b) => new Date(b.start_time) - new Date(a.start_time));
+        // Logika z player_teaser.min.js:
+        // 1. Szukamy utworu, gdzie adjustedNow mieści się między start a end.
+        let track = data.find(t => {
+            const start = new Date(t.start_time);
+            const end = t.end_time ? new Date(t.end_time) : null;
+            return end && start < adjustedNow && adjustedNow < end;
+        });
 
-        const track = aktualneUtwory[0]; // To jest utwór, który TERAZ gra
+        // 2. Jeśli nie znaleziono (np. reklama), bierzemy ostatni utwór bez end_time.
+        if (!track) {
+            track = data.filter(t => !t.end_time).pop();
+        }
 
         if (track) {
-            const artists = Array.isArray(track.artists) ? track.artists.join(' ') : track.artists;
-            const startTime = new Date(track.start_time).toLocaleTimeString('pl-PL', {
-                hour: '2-digit', 
-                minute: '2-digit'
-            });
-
+            const artists = Array.isArray(track.artists) ? track.artists.join(', ') : track.artists;
             container.innerHTML = `${artists} - ${track.name}`;
         }
     } catch (error) {
         container.innerHTML = "";
+        console.error("Błąd pobierania:", error);
     }
 }
 // setInterval(() => getNowPlayingGrupaZPR(3990), 20000);
