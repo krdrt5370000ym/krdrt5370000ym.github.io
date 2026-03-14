@@ -245,3 +245,26 @@ async function getNowPlayingOpenFm(stationId) {
         if (container) container.innerHTML = "Błąd połączenia.";
     }
 }
+
+async function getPlanetaFMSong() {
+    try {
+        const response = await fetch('https://palneta.pl/stream_info.json');
+        
+        // Sprawdzenie czy zapytanie się powiodło (status 200-299)
+        if (!response.ok) {
+            throw new Error(`Błąd HTTP! Status: ${response.status}`);
+            container.innerHTML = '';
+        }
+
+        const data = await response.json();
+        const songs = data.current_song;
+        
+        // Wyciągnięcie nazwy utworu (zakładając strukturę JSON obiektu)
+        // Uwaga: Dokładny klucz (np. data.now_playing) zależy od struktury API
+        container.innerHTML = `<small>Teraz gramy:</small><br>${songs}`; // Aktualny utwór:
+        
+    } catch (error) {
+        console.error("Nie udało się pobrać danych:", error);
+        container.innerHTML = '';
+    }
+}
