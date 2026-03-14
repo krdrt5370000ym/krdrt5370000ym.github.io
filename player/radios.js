@@ -43,14 +43,25 @@
     function playStation(station, element) {
         const player = document.getElementById('player');
         const title = document.getElementById('current-station');
+        const isM3U8 = url.toLowerCase().includes('.m3u8');
+        const mimeType = isM3U8 ? 'application/vnd.apple.mpegurl' : null;
         
         // Aktualizacja UI
         document.querySelectorAll('.station-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         
         title.innerText = "Teraz grasz: " + station.name;
-        player.src = station.url;
-        player.play();
+        if (isM3U8 && Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(station);
+            hls.attachMedia(player);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => player.play());
+        } 
+        else if (audio.canPlayType(mimeType) || !isM3U8) {
+            player.src = station.url;
+            if (mimeType) player.type = mimeType;
+            player.play();
+        }
         player.style='display:initial;';
         document.getElementById('buttons').style='display:initial;';
     }
