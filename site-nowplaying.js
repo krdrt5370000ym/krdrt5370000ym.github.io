@@ -126,6 +126,33 @@ async function getNowPlayingAgora(stationId) {
   }
 }
 
+async function getNowPlayingGrupaRMF(stationId) {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const url = 'https://api.rmfon.pl/stations/' + stationId + '/playlist';
+    const container = document.getElementById('container');
+
+    try {
+        const odpowiedz = await fetch(proxyUrl + url);
+        if (!odpowiedz.ok) throw new Error('Błąd połączenia z API');
+
+        const dane = await odpowiedz.json();
+
+        // Znajdujemy utwór z "order": 0 (aktualnie grany)
+        const utwor = dane.find(item => item.order === 0);
+
+        if (utwor) {
+            const tekst = `${utwor.author} - ${utwor.title}`;
+            container.innerHTML = tekst; // Aktualnie w RMF FM
+            
+            // Jeśli masz w HTML element <div id="radio"></div>, odkomentuj linię poniżej:
+            // document.getElementById('radio').innerText = tekst;
+        }
+    } catch (blad) {
+        console.error('Wystąpił błąd:', blad);
+        container.innerHTML = '';
+    }
+}
+
 async function getNowPlayingRadio(stationId) {
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
@@ -146,7 +173,7 @@ async function getNowPlayingRadio(stationId) {
     });
 }
 
-async function getNowPlayingPlaylistOS(stationId) {
+async function getNowPlayingPlaylist(stationId) {
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
   // Poprawiony XPath (uproszczony dla lepszej stabilności)
