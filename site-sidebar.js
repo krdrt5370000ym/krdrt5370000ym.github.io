@@ -54,7 +54,7 @@ function openCity(evt, cityName) {
 }
 
 function AudioPlayer(url) {
-    const audio = document.getElementById('radio-player');
+    const audio = document.getElementById('player');
     
     // Sprawdzenie, czy URL kończy się na .m3u8 (ignorując wielkość liter)
     const isM3U8 = url.toLowerCase().includes('.m3u8');
