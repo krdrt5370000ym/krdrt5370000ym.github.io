@@ -33,7 +33,7 @@ async function getNowPlayingGrupaZPR(stationId) {
 
         if (track) {
             const artists = Array.isArray(track.artists) ? track.artists.join(', ') : track.artists;
-            container.innerHTML = `${artists} - ${track.name}`;
+            container.innerHTML = `<small>Teraz gramy:</small><br>${artists} - ${track.name}`;
         }
     } catch (error) {
         container.innerHTML = "";
@@ -90,7 +90,7 @@ async function getNowPlayingEurozet(stationId) {
     const artist = formatToTitleCase(data.now.artist);
     const title = formatToTitleCase(data.now.title);
 
-    container.innerHTML = `${artist} - ${title}`;
+    container.innerHTML = `<small>Teraz gramy:</small><br>${artist} - ${title}`;
     
   } catch (error) {
     console.error('Błąd pobierania danych:', error);
@@ -115,7 +115,7 @@ async function getNowPlayingAgora(stationId) {
     }
 
     if (track && track.artist_name && track.song_title) {
-      container.innerHTML = `${track.artist_name} - ${track.song_title}`;
+      container.innerHTML = `<small>Teraz gramy:</small><br>${track.artist_name} - ${track.song_title}`;
     } else {
       container.innerHTML = ''; // Aktualnie brak informacji o utworze
     }
@@ -142,7 +142,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 
         if (utwor) {
             const tekst = `${utwor.author} - ${utwor.title}`;
-            container.innerHTML = tekst; // Aktualnie w RMF FM
+            container.innerHTML = `<small>Teraz gramy:</small><br>${tekst}`; // Aktualnie w RMF FM
             
             // Jeśli masz w HTML element <div id="radio"></div>, odkomentuj linię poniżej:
             // document.getElementById('radio').innerText = tekst;
@@ -163,7 +163,7 @@ async function getNowPlayingRadio(stationId) {
     .then(data => {
       // Zakładając typową strukturę odpowiedzi radio.de
       const currentTrack = data[0]?.title || '';
-          container.innerText = currentTrack;
+          container.innerText = `<small>Teraz gramy:</small><br>${currentTrack}`;
       // Wyświetlenie na stronie:
       // document.getElementById('song-title').innerText = currentTrack;
     })
@@ -197,7 +197,7 @@ async function getNowPlayingPlaylist(stationId) {
           const songTitle = result.stringValue.trim();
   
           if (songTitle) {
-              container.innerText = songTitle; // Ostatnio grany utwór:
+              container.innerText = `<small>Teraz gramy:</small><br>${songTitle}`; // Ostatnio grany utwór:
           } else {
               console.warn('Nie znaleziono utworu. Sprawdź, czy struktura strony się nie zmieniła.');
               container.innerText = '';
@@ -225,7 +225,7 @@ async function getNowPlayingOpenFm(stationId) {
         const currentSong = station?.currentSong?.string;
 
         if (currentSong) {
-            if (container) container.innerHTML = currentSong;
+            if (container) container.innerHTML = `<small>Teraz gramy:</small><br>${currentSong}`;
             return currentSong;
         } else {
             if (container) container.innerHTML = ""; // Nie znaleziono utworu.
