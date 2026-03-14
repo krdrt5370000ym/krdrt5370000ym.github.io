@@ -43,25 +43,39 @@
     function playStation(station, element) {
         const player = document.getElementById('player');
         const title = document.getElementById('current-station');
-        const isM3U8 = url.toLowerCase().includes('.m3u8');
-        const mimeType = isM3U8 ? 'application/vnd.apple.mpegurl' : null;
         
+        // 1. Poprawione odniesienie do URL (station.url zamiast url)
+        const streamUrl = station.url;
+        const isM3U8 = streamUrl.toLowerCase().includes('.m3u8');
+        const mimeType = isM3U8 ? 'application/vnd.apple.mpegurl' : '';
+    
         // Aktualizacja UI
         document.querySelectorAll('.station-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
-        
         title.innerText = "Teraz grasz: " + station.name;
-        if (isM3U8 && Hls.isSupported()) {
+    
+        // 2. Obsługa HLS.js
+        if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
+            // Jeśli hls był już zainicjalizowany, warto go zniszczyć przed nowym źródłem
+            if (window.hlsInstance) window.hlsInstance.destroy();
+            
             const hls = new Hls();
-            hls.loadSource(station);
+            hls.loadSource(streamUrl);
             hls.attachMedia(player);
             hls.on(Hls.Events.MANIFEST_PARSED, () => player.play());
+            window.hlsInstance = hls; // Zapamiętujemy instancję
         } 
-        else if (audio.canPlayType(mimeType) || !isM3U8) {
-            player.src = station.url;
-            if (mimeType) player.type = mimeType;
-            player.play();
+        // 3. Natywna obsługa (Safari/iOS lub standardowe MP3)
+        else if (player.canPlayType(mimeType) || !isM3U8) {
+            if (window.hlsInstance) {
+                window.hlsInstance.destroy();
+                window.hlsInstance = null;
+            }
+            player.src = streamUrl;
+            player.play().catch(err => console.error("Błąd autoodtwarzania:", err));
         }
-        player.style='display:initial;';
-        document.getElementById('buttons').style='display:initial;';
+    
+        // Pokaż kontrolki
+        player.style.display = 'initial';
+        document.getElementById('buttons').style.display = 'initial';
     }
