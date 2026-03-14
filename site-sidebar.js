@@ -52,3 +52,25 @@ function openCity(evt, cityName) {
    document.getElementById(cityName).style.display = "block";
    evt.currentTarget.className += " active";
 }
+
+function AudioPlayer(url) {
+    const audio = document.getElementById('radio-player');
+    
+    // Sprawdzenie, czy URL kończy się na .m3u8 (ignorując wielkość liter)
+    const isM3U8 = url.toLowerCase().includes('.m3u8');
+    const mimeType = isM3U8 ? 'application/vnd.apple.mpegurl' : null;
+
+    if (isM3U8 && Hls.isSupported()) {
+        // Obsługa HLS przez bibliotekę (Chrome/Firefox)
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(audio);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
+    } 
+    else if (audio.canPlayType(mimeType) || !isM3U8) {
+        // Obsługa natywna (Safari) LUB zwykły plik MP3/AAC
+        audio.src = url;
+        if (mimeType) audio.type = mimeType; // Opcjonalne przypisanie typu
+        audio.play().catch(e => console.log("Wymagana interakcja użytkownika"));
+    }
+}
