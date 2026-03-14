@@ -127,7 +127,7 @@ async function getNowPlayingAgora(stationId) {
 }
 
 async function getNowPlayingGrupaRMF(stationId) {
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const proxyUrl = 'https://cors-anywhere.com/';
     const url = 'https://api.rmfon.pl/stations/' + stationId + '/playlist';
     const container = document.getElementById('container');
 
@@ -154,7 +154,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 }
 
 async function getNowPlayingRadio(stationId) {
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const proxyUrl = 'https://cors-anywhere.com/';
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
   const container = document.getElementById('container');
   
@@ -174,7 +174,7 @@ async function getNowPlayingRadio(stationId) {
 }
 
 async function getNowPlayingPlaylist(stationId) {
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const proxyUrl = 'https://cors-anywhere.com/';
   const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
   // Poprawiony XPath (uproszczony dla lepszej stabilności)
   const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
@@ -185,11 +185,7 @@ async function getNowPlayingPlaylist(stationId) {
           });
   
           if (!response.ok) {
-              if (response.status === 403) {
-                  console.error("BŁĄD 403: Musisz wejść na https://cors-anywhere.herokuapp.com/corsdemo i kliknąć przycisk!");
-              } else {
-                  console.error(`Błąd HTTP: ${response.status}`);
-              }
+              console.error(`Błąd HTTP: ${response.status}`);
               return;
           }
   
