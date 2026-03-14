@@ -248,6 +248,7 @@ async function getNowPlayingOpenFm(stationId) {
 
 async function getPlanetaFMSong() {
     try {
+        const container = document.getElementById('resultTrack');
         const response = await fetch('https://palneta.pl/stream_info.json');
         
         // Sprawdzenie czy zapytanie się powiodło (status 200-299)
