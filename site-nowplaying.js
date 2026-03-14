@@ -67,9 +67,10 @@ function renderProgramGrupaZPR(program) {
     //     return;
     // }
 
-    let imageDisplay = '';
     if (program.thumbnail_uri !== null) {
         imageDisplay = `<img decoding="async" src="${program.thumbnail_uri}" alt="${program.name}">`;
+    } else {
+        imageDisplay = '';
     }
 
     container.innerHTML = `
