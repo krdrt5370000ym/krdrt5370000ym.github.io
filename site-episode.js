@@ -30,7 +30,7 @@ function SpreakerPodcast(showId) {
 function GrupaZPRPodcast(podcastUid, SiteUid) {
     // Używamy proxy, ponieważ GitHub nie obsługuje PHP do obejścia CORS
     const apiUrl = `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${SiteUid}`;
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const proxyUrl = 'https://cors-anywhere.com/';
     
     const container = document.getElementById('episode-list');
 
