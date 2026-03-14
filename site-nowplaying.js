@@ -55,23 +55,31 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
         renderProgramGrupaZPR(program);
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
-        document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
+        // document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
     }
 }
 
 function renderProgramGrupaZPR(program) {
     const container = document.getElementById('program-preview');
     
-    if (!program) {
-        container.innerHTML = "Brak informacji o programie.";
-        return;
+    // if (!program) {
+    //     container.innerHTML = "Brak informacji o programie.";
+    //     return;
+    // }
+
+    let imageDisplay = '';
+    if (program.thumbnail_uri !== null) {
+        imageDisplay = `<img decoding="async" src="${program.thumbnail_uri}" alt="${program.name}">`;
     }
 
     container.innerHTML = `
-        <img src="${program.thumbnail_uri}" alt="${program.name}">
-        <div class="time">${program.hour_start} - ${program.hour_end}</div>
-        <div class="title">${program.name}</div>
-        <div class="host">${program.host || 'Brak prowadzącego'}</div>
+        <li class="schedule_onair">
+        <div class="schedule_cover">${imageDisplay}</div>
+        <div class="schedule_content">
+        <div class="schedule_item"></div><div class="schedule_hour">${program.hour_start} - ${program.hour_end}</div>
+        <div class="schedule_title">${program.name}</div>
+        <div class="schedule_author">${program.host}</div>
+        </div></li>
     `;
 }
 // Przykład użycia:
