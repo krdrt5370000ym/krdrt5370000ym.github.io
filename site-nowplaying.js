@@ -36,8 +36,12 @@ async function getNowPlayingGrupaZPR(stationId) {
             container.innerHTML = `<small>Teraz gramy:</small><br>${artists} - ${track.name}`;
         }
     } catch (error) {
-        container.innerHTML = "";
-        console.error("Błąd pobierania:", error);
+        if (error instanceof TypeError) {
+            console.error("Błąd pobierania:", error);
+        } else {
+            container.innerHTML = "";
+            console.error("Błąd pobierania:", error);
+        }
     }
 }
 // setInterval(() => getNowPlayingGrupaZPR(3990), 20000);
@@ -102,8 +106,12 @@ async function getNowPlayingEurozet(stationId) {
     container.innerHTML = `<small>Teraz gramy:</small><br>${artist} - ${title}`;
     
   } catch (error) {
-    console.error('Błąd pobierania danych:', error);
-    container.innerHTML = "";
+    if (error instanceof TypeError) {
+      console.error('Błąd pobierania danych:', error);
+    } else {
+      console.error('Błąd pobierania danych:', error);
+      container.innerHTML = "";
+    }
   }
 }
 
@@ -130,8 +138,12 @@ async function getNowPlayingAgora(stationId) {
     }
     
   } catch (error) {
-    console.error('Błąd:', error);
-    container.innerHTML = ''; // Błąd połączenia
+    if (error instanceof TypeError) {
+      console.error('Błąd:', error);
+    } else {
+      console.error('Błąd:', error);
+      container.innerHTML = ''; // Błąd połączenia
+    }
   }
 }
 
@@ -142,15 +154,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 
     try {
         const odpowiedz = await fetch(proxyUrl + url);
-        if (!odpowiedz.ok) {
-            if (odpowiedz.status === 500) {
-              throw new Error('Błąd połączenia z API');
-            } else {
-              throw new Error('Błąd połączenia z API');
-              container.innerHTML = '';
-            }
-            return;
-        }
+        if (!odpowiedz.ok) throw new Error('Błąd połączenia z API');
 
         const dane = await odpowiedz.json();
 
@@ -165,28 +169,46 @@ async function getNowPlayingGrupaRMF(stationId) {
             // document.getElementById('radio').innerHTML = tekst;
         }
     } catch (blad) {
-        console.error('Wystąpił błąd:', blad);
+        if (blad instanceof TypeError) {
+            console.error('Wystąpił błąd:', blad);
+        } else {
+            console.error('Wystąpił błąd:', blad);
+            container.innerHTML = '';
+        }
     }
 }
 
 async function getNowPlayingRadio(stationId) {
-  const proxyUrl = 'https://cors-anywhere.com/';
+  const proxyUrl = 'https://cors-anywhere.com/'; // Sprawdź poprawność URL proxy
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
   const container = document.getElementById('resultTrack');
   
-  fetch(proxyUrl + targetUrl)
-    .then(response => response.json())
-    .then(data => {
-      // Zakładając typową strukturę odpowiedzi radio.de
-      const currentTrack = data[0]?.title || '';
-          container.innerHTML = `<small>Teraz gramy:</small><br>${currentTrack}`;
-      // Wyświetlenie na stronie:
-      // document.getElementById('song-title').innerHTML = currentTrack;
-    })
-    .catch(error => {
-        console.error('Błąd pobierania:', error);
-        container.innerHTML = "";
-    });
+  try {
+    const response = await fetch(proxyUrl + targetUrl);
+    
+    // Sprawdzenie czy status HTTP jest OK (200-299)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // radio.de zazwyczaj zwraca tablicę obiektów
+    if (data && data.length > 0) {
+      const currentTrack = data[0].title || 'Brak informacji o utworze';
+      container.innerHTML = `<small>Teraz gramy:</small><br>${currentTrack}`;
+    } else {
+      container.innerHTML = ""; // Nie znaleziono danych o utworze.
+    }
+
+  } catch (error) {
+    if (error instanceof TypeError) {
+      console.error('Wystąpił błąd:', error);
+    } else {
+      console.error('Wystąpił błąd:', error);
+      container.innerHTML = ""; // Błąd połączenia z serwerem.
+    }
+  }
 }
 
 async function getNowPlayingPlaylist(stationId) {
@@ -201,12 +223,7 @@ async function getNowPlayingPlaylist(stationId) {
           });
   
           if (!response.ok) {
-              if (response.status === 500) {
-                  console.error(`Błąd HTTP: ${response.status}`);
-              } else {
-                  console.error(`Błąd HTTP: ${response.status}`);
-                  container.innerHTML = '';
-              }
+              console.error(`Błąd HTTP: ${response.status}`);
               return;
           }
   
@@ -225,7 +242,12 @@ async function getNowPlayingPlaylist(stationId) {
           }
           
       } catch (error) {
-          console.error('Błąd połączenia (sieć/CORS):', error);
+          if (error instanceof TypeError) {
+              console.error('Błąd połączenia (sieć/CORS):', error);
+          } else {
+              console.error('Błąd połączenia:', error);
+              container.innerHTML = '';
+          }
       }
 }
 
@@ -252,8 +274,12 @@ async function getNowPlayingOpenFm(stationId) {
         }
         
     } catch (error) {
-        console.error("Błąd pobierania:", error);
-        if (container) container.innerHTML = "Błąd połączenia.";
+        if (error instanceof TypeError) {
+            console.error("Błąd pobierania:", error);
+        } else {
+            console.error("Błąd pobierania:", error);
+            if (container) container.innerHTML = ""; // Błąd połączenia.
+        }
     }
 }
 
@@ -276,7 +302,11 @@ async function getPlanetaFMSong() {
         container.innerHTML = `<small>Teraz gramy:</small><br>${songs}`; // Aktualny utwór:
         
     } catch (error) {
-        console.error("Nie udało się pobrać danych:", error);
-        container.innerHTML = '';
+        if (error instanceof TypeError) {
+            console.error("Nie udało się pobrać danych:", error);
+        } else {
+            console.error("Nie udało się pobrać danych:", error);
+            container.innerHTML = '';
+        }
     }
 }
