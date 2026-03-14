@@ -154,7 +154,7 @@ async function getNowPlayingGrupaRMF(stationId) {
             container.innerHTML = `<small>Teraz gramy:</small><br>${tekst}`; // Aktualnie w RMF FM
             
             // Jeśli masz w HTML element <div id="radio"></div>, odkomentuj linię poniżej:
-            // document.getElementById('radio').innerText = tekst;
+            // document.getElementById('radio').innerHTML = tekst;
         }
     } catch (blad) {
         console.error('Wystąpił błąd:', blad);
@@ -172,13 +172,13 @@ async function getNowPlayingRadio(stationId) {
     .then(data => {
       // Zakładając typową strukturę odpowiedzi radio.de
       const currentTrack = data[0]?.title || '';
-          container.innerText = `<small>Teraz gramy:</small><br>${currentTrack}`;
+          container.innerHTML = `<small>Teraz gramy:</small><br>${currentTrack}`;
       // Wyświetlenie na stronie:
-      // document.getElementById('song-title').innerText = currentTrack;
+      // document.getElementById('song-title').innerHTML = currentTrack;
     })
     .catch(error => {
         console.error('Błąd pobierania:', error);
-        container.innerText = "";
+        container.innerHTML = "";
     });
 }
 
@@ -206,15 +206,15 @@ async function getNowPlayingPlaylist(stationId) {
           const songTitle = result.stringValue.trim();
   
           if (songTitle) {
-              container.innerText = `<small>Teraz gramy:</small><br>${songTitle}`; // Ostatnio grany utwór:
+              container.innerHTML = `<small>Teraz gramy:</small><br>${songTitle}`; // Ostatnio grany utwór:
           } else {
               console.warn('Nie znaleziono utworu. Sprawdź, czy struktura strony się nie zmieniła.');
-              container.innerText = '';
+              container.innerHTML = '';
           }
           
       } catch (error) {
           console.error('Błąd połączenia (sieć/CORS):', error);
-          container.innerText = '';
+          container.innerHTML = '';
       }
 }
 
