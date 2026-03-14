@@ -7,7 +7,7 @@ function formatToTitleCase(str) {
 }
 
 async function getNowPlayingGrupaZPR(stationId) {
-    const container = document.getElementById('container');
+    const container = document.getElementById('resultTrack');
     const url = `https://front-api.grupazprmedia.pl/music/v1/now_playing/${stationId}/`;
     const STREAM_DELAY_MS = 20000; // Standardowe opóźnienie ~20s dla ZPR
 
@@ -88,7 +88,7 @@ function renderProgramGrupaZPR(program) {
 async function getNowPlayingEurozet(stationId) {
   const url = 'https://rds.eurozet.pl/reader/var/' + stationId + '.json';
   try {
-    const container = document.getElementById('container');
+    const container = document.getElementById('resultTrack');
     const response = await fetch(url);
     const text = await response.text();
     
@@ -108,7 +108,7 @@ async function getNowPlayingEurozet(stationId) {
 
 async function getNowPlayingAgora(stationId) {
   const url = `https://fm.tuba.pl/api3/onStation?limit=1&format=json&id=${stationId}`;
-  const container = document.getElementById('container');
+  const container = document.getElementById('resultTrack');
 
   try {
     const response = await fetch(url);
@@ -137,7 +137,7 @@ async function getNowPlayingAgora(stationId) {
 async function getNowPlayingGrupaRMF(stationId) {
     const proxyUrl = 'https://cors-anywhere.com/';
     const url = 'https://api.rmfon.pl/stations/' + stationId + '/playlist';
-    const container = document.getElementById('container');
+    const container = document.getElementById('resultTrack');
 
     try {
         const odpowiedz = await fetch(proxyUrl + url);
@@ -164,7 +164,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 async function getNowPlayingRadio(stationId) {
   const proxyUrl = 'https://cors-anywhere.com/';
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
-  const container = document.getElementById('container');
+  const container = document.getElementById('resultTrack');
   
   fetch(proxyUrl + targetUrl)
     .then(response => response.json())
@@ -186,7 +186,7 @@ async function getNowPlayingPlaylist(stationId) {
   const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
   // Poprawiony XPath (uproszczony dla lepszej stabilności)
   const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
-  const container = document.getElementById('container');
+  const container = document.getElementById('resultTrack');
       try {
           const response = await fetch(proxyUrl + targetUrl, {
               headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -218,7 +218,7 @@ async function getNowPlayingPlaylist(stationId) {
 }
 
 async function getNowPlayingOpenFm(stationId) {
-    const container = document.getElementById('container');
+    const container = document.getElementById('resultTrack');
     // Używamy proxy, aby uniknąć błędów CORS w przeglądarce
     const apiUrl = 'https://open.fm/api/radio/playlist';
 
