@@ -208,3 +208,31 @@ async function getNowPlayingPlaylist(stationId) {
           container.innerText = '';
       }
 }
+
+async function getNowPlayingOpenFm(stationId) {
+    const container = document.getElementById('container');
+    // Używamy proxy, aby uniknąć błędów CORS w przeglądarce
+    const apiUrl = 'https://open.fm/api/radio/playlist';
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        // Dostęp do stacji za pomocą stationId jako klucza obiektu
+        const station = data[stationId];
+        
+        // Pobieramy informację z pola 'currentSong'
+        const currentSong = station?.currentSong?.string;
+
+        if (currentSong) {
+            if (container) container.innerHTML = currentSong;
+            return currentSong;
+        } else {
+            if (container) container.innerHTML = ""; // Nie znaleziono utworu.
+        }
+        
+    } catch (error) {
+        console.error("Błąd pobierania:", error);
+        if (container) container.innerHTML = "Błąd połączenia.";
+    }
+}
