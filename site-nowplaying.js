@@ -142,7 +142,15 @@ async function getNowPlayingGrupaRMF(stationId) {
 
     try {
         const odpowiedz = await fetch(proxyUrl + url);
-        if (!odpowiedz.ok) throw new Error('Błąd połączenia z API');
+        if (!odpowiedz.ok) {
+            if (odpowiedz.status === 500) {
+              throw new Error('Błąd połączenia z API');
+            } else {
+              throw new Error('Błąd połączenia z API');
+              container.innerHTML = '';
+            }
+            return;
+        }
 
         const dane = await odpowiedz.json();
 
@@ -158,7 +166,6 @@ async function getNowPlayingGrupaRMF(stationId) {
         }
     } catch (blad) {
         console.error('Wystąpił błąd:', blad);
-        container.innerHTML = '';
     }
 }
 
@@ -194,7 +201,12 @@ async function getNowPlayingPlaylist(stationId) {
           });
   
           if (!response.ok) {
-              console.error(`Błąd HTTP: ${response.status}`);
+              if (response.status === 500) {
+                  console.error(`Błąd HTTP: ${response.status}`);
+              } else {
+                  console.error(`Błąd HTTP: ${response.status}`);
+                  container.innerHTML = '';
+              }
               return;
           }
   
@@ -214,7 +226,6 @@ async function getNowPlayingPlaylist(stationId) {
           
       } catch (error) {
           console.error('Błąd połączenia (sieć/CORS):', error);
-          container.innerHTML = '';
       }
 }
 
