@@ -1,9 +1,9 @@
 // Funkcja zamieniająca "FIELDS OF GOLD" na "Fields Of Gold"
 function formatToTitleCase(str) {
   if (!str) return "";
-  return str.toLowerCase().split(' ').map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
+  return str.toLowerCase().replace(/(^|[^a-z\d])([a-z])/g, (match, p1, p2) => {
+    return p1 + p2.toUpperCase();
+  });
 }
 
 async function getNowPlayingGrupaZPR(stationId) {
