@@ -40,6 +40,8 @@
         });
     }
 
+    let hls; // Globalna instancja, aby móc ją poprawnie niszczyć
+
     function playStation(station, element) {
         const player = document.getElementById('player');
         const title = document.getElementById('current-station');
@@ -78,4 +80,15 @@
         // Pokaż kontrolki
         player.style.display = 'initial';
         document.getElementById('buttons').style.display = 'initial';
+    }
+
+    function reloadStation() {
+        const audio = document.getElementById('player');
+        // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
+        const currentUrl = hls ? hls.url : audio.src;
+        
+        if (currentUrl) {
+            console.log("Przeładowuję strumień...");
+            playStation(currentUrl,"");
+        }
     }
