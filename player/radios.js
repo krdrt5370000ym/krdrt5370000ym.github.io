@@ -40,55 +40,53 @@
         });
     }
 
-    let hls; // Globalna instancja, aby móc ją poprawnie niszczyć
+    let hlsInstance = null; // Używamy jednej spójnej zmiennej
+    let currentStationData = null; // Przechowujemy dane aktualnej stacji
+    let currentStationElement = null; // Przechowujemy referencję do elementu listy
 
     function playStation(station, element) {
         const player = document.getElementById('player');
         const title = document.getElementById('current-station');
         
-        // 1. Poprawione odniesienie do URL (station.url zamiast url)
+        // Zapisujemy aktualny stan dla funkcji reload
+        currentStationData = station;
+        currentStationElement = element;
+    
         const streamUrl = station.url;
         const isM3U8 = streamUrl.toLowerCase().includes('.m3u8');
-        const mimeType = isM3U8 ? 'application/vnd.apple.mpegurl' : '';
     
-        // Aktualizacja UI
+        // UI: Aktualizacja klasy active
         document.querySelectorAll('.station-item').forEach(el => el.classList.remove('active'));
-        element.classList.add('active');
+        if (element) element.classList.add('active');
         title.innerText = "Teraz grasz: " + station.name;
     
-        // 2. Obsługa HLS.js
-        if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
-            // Jeśli hls był już zainicjalizowany, warto go zniszczyć przed nowym źródłem
-            if (window.hlsInstance) window.hlsInstance.destroy();
-            
-            const hls = new Hls();
-            hls.loadSource(streamUrl);
-            hls.attachMedia(player);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => player.play());
-            window.hlsInstance = hls; // Zapamiętujemy instancję
-        } 
-        // 3. Natywna obsługa (Safari/iOS lub standardowe MP3)
-        else if (player.canPlayType(mimeType) || !isM3U8) {
-            if (window.hlsInstance) {
-                window.hlsInstance.destroy();
-                window.hlsInstance = null;
-            }
-            player.src = streamUrl;
-            player.play().catch(err => console.error("Błąd autoodtwarzania:", err));
+        // Czyszczenie poprzedniej instancji HLS
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
         }
     
-        // Pokaż kontrolki
-        player.style.display = 'initial';
-        document.getElementById('buttons').style.display = 'initial';
+        if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
+            hlsInstance = new Hls();
+            hlsInstance.loadSource(streamUrl);
+            hlsInstance.attachMedia(player);
+            hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => player.play());
+        } else {
+            // Natywna obsługa (Safari/iOS lub MP3)
+            player.src = streamUrl;
+            player.play().catch(err => console.error("Błąd odtwarzania:", err));
+        }
+    
+        player.style.display = 'block';
+        document.getElementById('buttons').style.display = 'block';
     }
-
+    
     function reloadStation() {
-        const audio = document.getElementById('player');
-        // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
-        const currentUrl = hls ? hls.url : audio.src;
-        
-        if (currentUrl) {
-            console.log("Przeładowuję strumień...");
-            playStation(currentUrl,"");
+        if (currentStationData) {
+            console.log("Przeładowuję:", currentStationData.name);
+            // Ponownie wywołujemy playStation z zapisanymi danymi
+            playStation(currentStationData, currentStationElement);
+        } else {
+            console.warn("Brak wybranej stacji do przeładowania.");
         }
     }
