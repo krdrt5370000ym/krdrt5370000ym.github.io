@@ -1,9 +1,27 @@
 // Funkcja zamieniająca "FIELDS OF GOLD" na "Fields Of Gold"
 function formatToTitleCase(str) {
   if (!str) return "";
-  return str.toLowerCase().replace(/(^|[^\p{L}\d])(\p{L})/gu, (match, p1, p2) => {
-    return p1 + p2.toUpperCase();
+
+  // 1. Najpierw standaryzujemy całość do małych liter
+  let formatted = str.toLowerCase();
+
+  // 2. Formatujemy słowa po separatorach (początek, spacja, nawias, myślnik)
+  formatted = formatted.replace(/(^|[ \(\)-])(\p{L})/gu, (match, separator, letter) => {
+    return separator + letter.toUpperCase();
   });
+
+  // 3. Obsługa specyficznych wyjątków (np. "Let's go")
+  const exceptions = {
+    "Let's Go": "Let's go",
+    "Atb": "ATB" // Przy okazji: skróty często lepiej pisać wielkimi
+  };
+
+  Object.keys(exceptions).forEach(key => {
+    const regex = new RegExp(`\\b${key}\\b`, 'g');
+    formatted = formatted.replace(regex, exceptions[key]);
+  });
+
+  return formatted;
 }
 
 async function getNowPlayingGrupaZPR(stationId) {
