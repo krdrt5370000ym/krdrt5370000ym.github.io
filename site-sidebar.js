@@ -75,27 +75,31 @@ function AudioPlayer(url) {
     }
 }
 
-function ReloadAudio() { // Dodano klamrę
+function ReloadAudio() {
     const audio = document.getElementById('player');
-    const sourceUrl = audio.querySelector('source')?.src || audio.src;
-    const isM3U8 = sourceUrl.includes('.m3u8');
+    const streamUrl = audio.querySelector('source')?.src || audio.src;
 
-    if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
+    // Resetujemy odtwarzacz przed ponownym ładowaniem
+    audio.pause();
+    audio.removeAttribute('src');
+    audio.load();
+
+    if (streamUrl.endsWith('.m3u8') && Hls.isSupported()) {
         const hls = new Hls();
-        hls.loadSource(sourceUrl); // Musisz załadować źródło do HLS
+        hls.loadSource(streamUrl);
         hls.attachMedia(audio);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            audio.play().catch(e => console.error("Autoplay zablokowany:", e));
+            audio.play().catch(err => console.log("Czekam na interakcję użytkownika"));
         });
     } 
     else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
-        // Natywne HLS (Safari)
-        audio.load(); // Dodano nawiasy
-        audio.play().catch(e => console.error("Błąd Safari:", e));
+        // Dla Safari (natywne wsparcie HLS)
+        audio.src = streamUrl;
+        audio.addEventListener('canplay', () => audio.play(), { once: true });
     }
     else {
-        // Standardowe pliki (MP3/AAC)
-        audio.load(); // Dodano nawiasy
-        audio.play().catch(e => console.error("Błąd odtwarzania:", e));
+        // Standardowe MP3/AAC
+        audio.src = streamUrl;
+        audio.play().catch(err => console.error("Błąd odtwarzania:", err));
     }
 }
