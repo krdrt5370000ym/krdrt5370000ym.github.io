@@ -313,6 +313,7 @@ async function getPlanetaFMSong() {
 
 async function getNowPlayingRevma(stationId) {
   // Publiczny proxy dodający nagłówki CORS
+  const container = document.getElementById('resultTrack');
   const proxy = 'https://cors-anywhere.com/';
   const apiUrl = `https://www.revma.com/api/stations/${stationId}/now_playing/`;
 
