@@ -12,7 +12,9 @@ function formatToTitleCase(str) {
 
   // 3. Obsługa specyficznych wyjątków (np. "Let's go")
   const exceptions = {
-    "Let's Go": "Let's go",
+    "&Amp;": "&",
+    "&Apos;": "\'",
+    "Ufo": "UFO",
     "Atb": "ATB" // Przy okazji: skróty często lepiej pisać wielkimi
   };
 
