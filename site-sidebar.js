@@ -74,3 +74,28 @@ function AudioPlayer(url) {
         audio.play().catch(e => console.log("Wymagana interakcja użytkownika"));
     }
 }
+
+function ReloadAudio() { // Dodano klamrę
+    const audio = document.getElementById('player');
+    const sourceUrl = audio.querySelector('source')?.src || audio.src;
+    const isM3U8 = sourceUrl.includes('.m3u8');
+
+    if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(sourceUrl); // Musisz załadować źródło do HLS
+        hls.attachMedia(audio);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            audio.play().catch(e => console.error("Autoplay zablokowany:", e));
+        });
+    } 
+    else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+        // Natywne HLS (Safari)
+        audio.load(); // Dodano nawiasy
+        audio.play().catch(e => console.error("Błąd Safari:", e));
+    }
+    else {
+        // Standardowe pliki (MP3/AAC)
+        audio.load(); // Dodano nawiasy
+        audio.play().catch(e => console.error("Błąd odtwarzania:", e));
+    }
+}
