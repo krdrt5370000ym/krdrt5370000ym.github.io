@@ -310,3 +310,37 @@ async function getPlanetaFMSong() {
         }
     }
 }
+
+async function getNowPlayingRevma(stationId) {
+  // Publiczny proxy dodający nagłówki CORS
+  const proxy = 'https://cors-anywhere.com/';
+  const apiUrl = `https://www.revma.com/api/stations/${stationId}/now_playing/`;
+
+  try {
+    const response = await fetch(proxy + apiUrl);
+    if (!response.ok) throw new Error('Błąd sieci');
+    
+    const data = await response.json();
+    const { artist, title } = data;
+
+    // Logika formatowania (zgodnie z Twoim wymaganiem)
+    const result = (artist === null || artist === "") 
+      ? title 
+      : `${artist} - ${title}`;
+
+    console.log(result);
+    if (result === "" || result === null) {
+        container.innerHTML = '';
+    } else {
+        container.innerHTML = `<small>Teraz gramy:</small><br>${formatToTitleCase(result)}`;
+    }
+    return result;
+  } catch (error) {
+    if (error instanceof TypeError) {
+        console.error("Błąd:", error.message);
+    } else {
+        console.error("Błąd:", error.message);
+        container.innerHTML = '';
+    }
+  }
+}
