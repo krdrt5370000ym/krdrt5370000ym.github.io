@@ -345,3 +345,28 @@ async function getNowPlayingRevma(stationId) {
     }
   }
 }
+
+async function getNowPlayingOnlineRadioBox(stationId) {
+  try {
+    const container = document.getElementById('resultTrack');
+    const response = await fetch('https://scraper.onlineradiobox.com/' + stationId);
+    const data = await response.json();
+
+    // adjust path depending on API structure
+    // PL: dostosuj ścieżkę w zależności od struktury API
+    const title = data.now_playing?.title || data.title || ""; // Unknown track | PL: Nieznany utwór
+
+    if (title === "" || title === null) {
+        container.innerHTML = title;
+    } else {
+        container.innerHTML = `<small>Teraz gramy:</small><br>${formatToTitleCase(title)}`;
+    }
+  } catch (error) {
+    if (error instanceof TypeError) {
+        console.error(error);
+    } else {
+        console.error(error);
+        container.innerHTML = "Failed to load"; // Failed to load | PL: Nie udało się załadować
+    }
+  }
+}
