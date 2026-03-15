@@ -1,7 +1,7 @@
 // Funkcja zamieniająca "FIELDS OF GOLD" na "Fields Of Gold"
 function formatToTitleCase(str) {
   if (!str) return "";
-  return str.toLowerCase().replace(/(^|[^a-z\d])([a-z])/g, (match, p1, p2) => {
+  return str.toLowerCase().replace(/(^|[^\p{L}\d])(\p{L})/gu, (match, p1, p2) => {
     return p1 + p2.toUpperCase();
   });
 }
