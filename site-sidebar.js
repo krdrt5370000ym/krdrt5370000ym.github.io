@@ -53,53 +53,55 @@ function openCity(evt, cityName) {
    evt.currentTarget.className += " active";
 }
 
+let hls; // Globalna instancja, aby móc ją poprawnie niszczyć
+
 function AudioPlayer(url) {
     const audio = document.getElementById('player');
-    
-    // Sprawdzenie, czy URL kończy się na .m3u8 (ignorując wielkość liter)
     const isM3U8 = url.toLowerCase().includes('.m3u8');
-    const mimeType = isM3U8 ? 'application/vnd.apple.mpegurl' : null;
+
+    // 1. Sprzątanie po poprzednim strumieniu
+    if (hls) {
+        hls.destroy();
+        hls = null;
+    }
 
     if (isM3U8 && Hls.isSupported()) {
-        // Obsługa HLS przez bibliotekę (Chrome/Firefox)
-        const hls = new Hls();
+        hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(audio);
         hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
+        
+        // Obsługa błędów sieciowych (częste w radio online)
+        hls.on(Hls.Events.ERROR, (event, data) => {
+            if (data.fatal) {
+                switch (data.type) {
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        hls.startLoad();
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        hls.recoverMediaError();
+                        break;
+                    default:
+                        AudioPlayer(url);
+                        break;
+                }
+            }
+        });
     } 
-    else if (audio.canPlayType(mimeType) || !isM3U8) {
-        // Obsługa natywna (Safari) LUB zwykły plik MP3/AAC
+    else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
+        // Safari lub zwykłe MP3
         audio.src = url;
-        if (mimeType) audio.type = mimeType; // Opcjonalne przypisanie typu
-        audio.play().catch(e => console.log("Wymagana interakcja użytkownika"));
+        audio.play().catch(() => console.log("Wymagana interakcja"));
     }
 }
 
 function ReloadAudio() {
     const audio = document.getElementById('player');
-    const streamUrl = audio.querySelector('source')?.src || audio.src;
-
-    // Resetujemy odtwarzacz przed ponownym ładowaniem
-    audio.pause();
-    audio.removeAttribute('src');
-    audio.load();
-
-    if (streamUrl.endsWith('.m3u8') && Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(streamUrl);
-        hls.attachMedia(audio);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            audio.play().catch(err => console.log("Czekam na interakcję użytkownika"));
-        });
-    } 
-    else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
-        // Dla Safari (natywne wsparcie HLS)
-        audio.src = streamUrl;
-        audio.addEventListener('canplay', () => audio.play(), { once: true });
-    }
-    else {
-        // Standardowe MP3/AAC
-        audio.src = streamUrl;
-        audio.play().catch(err => console.error("Błąd odtwarzania:", err));
+    // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
+    const currentUrl = hls ? hls.url : audio.src;
+    
+    if (currentUrl) {
+        console.log("Przeładowuję strumień...");
+        AudioPlayer(currentUrl);
     }
 }
