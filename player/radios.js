@@ -77,8 +77,8 @@
             player.play().catch(err => console.error("Błąd odtwarzania:", err));
         }
     
-        player.style.display = 'block';
-        document.getElementById('buttons').style.display = 'block';
+        player.style.display = 'initial';
+        document.getElementById('buttons').style.display = 'initial';
     }
     
     function reloadStation() {
