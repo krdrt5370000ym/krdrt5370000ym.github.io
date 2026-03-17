@@ -292,3 +292,104 @@ function WPArticleRSCPost(slug) {
             container.innerHTML = "Błąd podczas ładowania postów.";
         });
 }
+
+async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true) {
+    const container = document.getElementById('article-post');
+    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
+
+    try {
+        const response = await fetch(postsUrl);
+        const posts = await response.json();
+
+        if (!Array.isArray(posts) || posts.length === 0) {
+            container.innerHTML = "Brak dostępnych postów.";
+            return;
+        }
+
+        const cache = { authors: {}, categories: {}, tags: {}, images: {} };
+
+        const htmlContent = await Promise.all(posts.map(async (post) => {
+            // Logika pobierania autora
+            let authorDisplay = '';
+            if (is_author) {
+                if (!cache.authors[post.author]) {
+                    const authorRes = await fetch(`${mainUrl}/wp-json/wp/v2/users/${post.author}`);
+                    const authorData = await authorRes.json();
+                    cache.authors[post.author] = authorData.name || 'Redakcja';
+                }
+                authorDisplay = `<i class="fa-solid fa-user"></i> ${cache.authors[post.author]} | `;
+            }
+
+            // Logika pobierania kategorii
+            let categoriesDisplay = '';
+            if (is_categories) {
+                const categoryNames = [];
+                for (const catId of post.categories) {
+                    if (!cache.categories[catId]) {
+                        const catRes = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${catId}`);
+                        const catData = await catRes.json();
+                        cache.categories[catId] = catData.name;
+                    }
+                    categoryNames.push(cache.categories[catId]);
+                }
+                const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
+                categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
+            }
+
+            // Logika pobierania tagi
+            let tagsDisplay = '';
+            if (is_tags) {
+                const tagNames = [];
+                for (const tagId of post.tags) {
+                    if (!cache.tags[tagId]) {
+                        const tagRes = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagId}`);
+                        const tagData = await tagRes.json();
+                        cache.tags[tagId] = tagData.name;
+                    }
+                    tagNames.push(cache.tags[tagId]);
+                }
+                const tags = tagNames.length > 0 ? tagNames.join(', ') : '';
+                tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi:</div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
+            }
+
+            // Logika pobierania obrazu
+            let imageDisplay = '';
+            if (is_image) {
+                if (post.featured_media !== 0) {
+                    if (!cache.images[post.featured_media]) {
+                        try {
+                            const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
+                            const imagesData = await imagesRes.json();
+                            cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
+                        } catch (e) { cache.images[post.featured_media] = ''; }
+                    }
+                    imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="2560" height="1920">` : '';
+                }
+            }
+
+            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
+            });
+
+            return `
+                <div class="articles_posts">
+                    <article id="post-${post.id}">
+                        <header class="article_headers_posts">
+                            ${categoriesDisplay}
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                            <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
+                            ${tagsDisplay}
+                        </header>
+                        <div class="article_cover_posts">${imageDisplay}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered}</div>
+                    </article>
+                </div>`;
+        }));
+
+        container.innerHTML = htmlContent.join('');
+
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        container.innerHTML = "Błąd podczas ładowania postów.";
+    }
+}
