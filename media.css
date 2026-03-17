@@ -345,11 +345,18 @@ article {
     margin-bottom: 1em;
 }
 .article_cover_posts {
-    img {
-        height: 100%;
-        width: 100%;
+display: block;
+    height: 0;
+    padding-bottom: 66.67%;
+    overflow: hidden;
+    position: relative;
+     img {
+        flex: 1;
+        -o-object-fit: cover;
+        object-fit: cover;
         display: block;
-        max-width: 100%;
+        height: auto;
+        max-width: 100%    
     }
 }
 /* 1. Ustawienia kontenera (Flexbox) */
@@ -405,6 +412,15 @@ figure.wp-block-video {
 figure.wp-block-video video {
     width: 100% !important;
     height: 100%; !important;
+}
+figure.wp-block-image {
+    margin: 0px; !important;
+}
+figure.wp-block-image img {
+    box-sizing: border-box;
+    height: auto;
+    max-width: 100%;
+    vertical-align: bottom;
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
     .article_title_posts {
