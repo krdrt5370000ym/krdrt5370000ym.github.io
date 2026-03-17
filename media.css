@@ -312,9 +312,6 @@
 }
 
 /* AKTUALNOŚCI POSTÓW */
-article {
-    margin-left: 10px;
-}
 .article_title_posts {
     // color: #004a99;
     font-weight: 700;
