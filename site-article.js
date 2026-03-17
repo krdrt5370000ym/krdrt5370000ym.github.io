@@ -261,7 +261,7 @@ function WPArticleRSCPost(slug) {
                     : 'Aktualności';
                     
                 const tags = post.tag_info
-                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class="fa-solid fa-tags"></i> Tagi:</div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
+                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi:</div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
                     : '';
 
                 // 3. Pobieranie wyświetlanej nazwy autora
