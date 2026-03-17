@@ -362,6 +362,9 @@ article {
 .article_cover_posts:empty {
     padding-bottom: 0px;
 }
+.article_singlecontent_posts {
+    word-break: break-word;
+}
 /* 1. Ustawienia kontenera (Flexbox) */
 figure.wp-block-gallery.has-nested-images.is-layout-flex {
     display: flex;
