@@ -398,9 +398,6 @@ figure.wp-block-gallery.is-cropped .wp-block-image img {
 }
 figure.wp-block-audio {
     margin: 0px; !important;
-    width: 100%; !important;
-    height: 100%; !important;
-    display: block;
 }
 figure.wp-block-audio audio {
     width: 100% !important;
