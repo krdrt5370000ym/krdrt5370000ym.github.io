@@ -360,7 +360,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                         try {
                             const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
                             const imagesData = await imagesRes.json();
-                            cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
+                            cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
                         } catch (e) { cache.images[post.featured_media] = ''; }
                     }
                     imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="2560" height="1920">` : '';
@@ -460,7 +460,7 @@ async function WPArticleSOSWPost(slug) {
                     try {
                         const imagesRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/media/${post.featured_media}`);
                         const imagesData = await imagesRes.json();
-                        cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
+                        cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
                     } catch (e) { cache.images[post.featured_media] = ''; }
                 }
                 imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="2560" height="1920">` : '';
