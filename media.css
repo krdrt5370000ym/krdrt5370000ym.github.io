@@ -310,3 +310,33 @@
         font-size: 0.75em;
     }
 }
+
+/* AKTUALNOŚCI POSTÓW */
+.article_title_posts {
+    // color: #004a99;
+    font-weight: 700;
+    font-size: 2.5em;
+    a {
+    text-decoration: none;
+    }
+}
+.article_category_posts {
+    color: #444;
+}
+.article_postedon_posts {
+    color: #666;
+    margin-block: 0.3em;
+}
+.article_tags_posts {
+    align-self: center;
+    margin-block: 0.3em;
+}
+.article_tagsprefix_posts {
+    display: inline;
+}
+.article_tagsprefix_list {
+    display: inline;
+}
+.article_headers_posts {
+    margin-bottom: 1em;
+}
