@@ -289,6 +289,6 @@ function WPArticleRSCPost(slug) {
         })
         .catch(error => {
             console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postu.";
+            container.innerHTML = "Błąd podczas ładowania postów.";
         });
 }
