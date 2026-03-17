@@ -40,8 +40,8 @@ function WPArticleRSC() {
                         <div class="article_content">
                             <div class="article_category">${categories}</div>
                             <div class="article_title"><a href="${post.link}" target="_blank">
-                                ${post.title.rendered}</div>
-                            </a><div class="article_info">
+                                ${post.title.rendered}</a></div>
+                            <div class="article_info">
                                 <i class="fa-solid fa-user"></i> ${author} | ${postDate}
                             </div>
                         </div>
@@ -227,4 +227,68 @@ async function WPArticleSOSW() {
         console.error("Błąd WP API:", error);
         container.innerHTML = "Błąd podczas ładowania aktualności.";
     }
+}
+
+function WPArticleRSCPost(slug) {
+    // Używamy działającej listy kategorii (z pominięciem ID 16)
+    const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?slug=' + slug;
+    const container = document.getElementById('article-post');
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci/brak postu');
+            return response.json();
+        })
+        .then(posts => {
+            if (posts.length === 0) {
+                container.innerHTML = "Brak dostępnych postów.";
+                return;
+            }
+
+            const htmlContent = posts.map(post => {
+                // 1. Formatowanie daty na polski styl
+                const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                });
+
+                // 2. Pobieranie nazw kategorii z pola category_info (jeśli istnieje)
+                const categories = post.category_info 
+                    ? post.category_info.map(cat => cat.name).join(' • ') 
+                    : 'Aktualności';
+                    
+                const tags = post.tag_info
+                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\">Tagi:</div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
+                    : '';
+
+                // 3. Pobieranie wyświetlanej nazwy autora
+                const author = post.author_info ? post.author_info.display_name : 'Redakcja';
+
+                // 4. Pobieranie obrazu
+                const image = post.featured_image_src_large ? '<img src="' + post.featured_image_src_large[0] + '" width="2560" height="1920">' : '';
+
+                return `
+                    <div class="articles_posts">
+                        <article id="post-${post.id}">
+                            <header class="article_headers_posts">
+                                <div class="article_category_posts">${categories}</div>
+                                <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                                <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${author} | ${postDate}</div>
+                                ${tags}
+                            </header>
+                            <div class="article_cover_posts">${image}</div>
+                            <div class="article_singlecontent_posts">${post.content.rendered}</div>
+                        </article>
+                    </div>`;
+            }).join('');
+
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            container.innerHTML = "Błąd podczas ładowania postu.";
+        });
 }
