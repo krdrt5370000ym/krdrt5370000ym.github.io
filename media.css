@@ -344,12 +344,7 @@ article {
 .article_headers_posts {
     margin-bottom: 1em;
 }
-.article_cover_posts {
-display: block;
-    height: 0;
-    padding-bottom: 66.67%;
-    overflow: hidden;
-    position: relative;
+.article_cover_posts {display: block;height: 0;padding-bottom: 66.67%;overflow: hidden;position: relative;
      img {
         flex: 1;
         -o-object-fit: cover;
@@ -405,13 +400,11 @@ figure.wp-block-audio audio {
 }
 figure.wp-block-video {
     margin: 0px; !important;
-    width: 100%; !important;
-    height: 100%; !important;
-    display: block;
 }
 figure.wp-block-video video {
-    width: 100% !important;
-    height: 100%; !important;
+    height: auto;
+    vertical-align: middle;
+    width: 100%;
 }
 figure.wp-block-image {
     margin: 0px; !important;
