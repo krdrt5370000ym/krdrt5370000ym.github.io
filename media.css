@@ -312,12 +312,15 @@
 }
 
 /* AKTUALNOŚCI POSTÓW */
+article {
+    margin-left: 10px;
+}
 .article_title_posts {
     // color: #004a99;
     font-weight: 700;
     font-size: 2.5em;
     a {
-    text-decoration: none;
+        text-decoration: none;
     }
 }
 .article_category_posts {
@@ -380,4 +383,32 @@ figure.wp-block-gallery.is-cropped .wp-block-image img {
     aspect-ratio: 1 / 1; /* Kwadraty dla równej siatki */
     display: block;
     border-radius: 8px;
+}
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    .article_title_posts {
+        font-size: 2.2em;
+    }
+    .article_category_posts {
+        font-size: 95%
+    }
+    .article_postedon_posts {
+        font-size: 95%
+    }
+    .article_tags_posts {
+        font-size: 95%
+    }
+}
+@media screen and (max-width: 600px) {
+    .article_title_posts {
+        font-size: 1.8em;
+    }
+    .article_category_posts {
+        font-size: 90%
+    }
+    .article_postedon_posts {
+        font-size: 90%
+    }
+    .article_tags_posts {
+        font-size: 90%
+    }
 }
