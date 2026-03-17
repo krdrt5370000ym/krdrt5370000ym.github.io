@@ -401,7 +401,6 @@ figure.wp-block-audio {
 }
 figure.wp-block-audio audio {
     width: 100% !important;
-    height: 100%; !important;
 }
 figure.wp-block-video {
     margin: 0px; !important;
