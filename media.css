@@ -389,10 +389,22 @@ figure.wp-block-gallery.is-cropped .wp-block-image img {
 figure.wp-block-audio {
     margin: 0px; !important;
     width: 100%; !important;
+    height: 100%; !important;
     display: block;
 }
 figure.wp-block-audio audio {
     width: 100% !important;
+    height: 100%; !important;
+}
+figure.wp-block-video {
+    margin: 0px; !important;
+    width: 100%; !important;
+    height: 100%; !important;
+    display: block;
+}
+figure.wp-block-video video {
+    width: 100% !important;
+    height: 100%; !important;
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
     .article_title_posts {
