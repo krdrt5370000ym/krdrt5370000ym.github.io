@@ -261,7 +261,7 @@ function WPArticleRSCPost(slug) {
                     : 'Aktualności';
                     
                 const tags = post.tag_info
-                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi:</div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
+                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi: </div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
                     : '';
 
                 // 3. Pobieranie wyświetlanej nazwy autora
@@ -349,7 +349,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                     tagNames.push(cache.tags[tagId]);
                 }
                 const tags = tagNames.length > 0 ? tagNames.join(', ') : '';
-                tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi:</div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
+                tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
             }
 
             // Logika pobierania obrazu
@@ -451,7 +451,7 @@ async function WPArticleSOSWPost(slug) {
                 tagNames.push(cache.tags[tagId]);
             }
             const tags = tagNames.length > 0 ? tagNames.join(', ') : '';
-            tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi:</div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
+            tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
 
             // 4. Logika obrazu
             let imageDisplay = '';
