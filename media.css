@@ -344,7 +344,12 @@ article {
 .article_headers_posts {
     margin-bottom: 1em;
 }
-.article_cover_posts {display: block;height: 0;padding-bottom: 66.67%;overflow: hidden;position: relative;
+.article_cover_posts {
+    display: block;
+    height: 0;
+    padding-bottom: 66.67%;
+    overflow: hidden;
+    position: relative;
      img {
         flex: 1;
         -o-object-fit: cover;
@@ -353,6 +358,9 @@ article {
         height: auto;
         max-width: 100%    
     }
+}
+.article_cover_posts:empty {
+    padding-bottom: 0px;
 }
 /* 1. Ustawienia kontenera (Flexbox) */
 figure.wp-block-gallery.has-nested-images.is-layout-flex {
