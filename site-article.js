@@ -231,7 +231,7 @@ async function WPArticleSOSW() {
 
 function WPArticleRSCPost(slug) {
     // Używamy działającej listy kategorii (z pominięciem ID 16)
-    const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?slug=' + slug;
+    const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?slug=' + slug + '&per_page=1';
     const container = document.getElementById('article-post');
 
     fetch(apiUrl)
