@@ -235,41 +235,25 @@ function WPArticleRSCPost(slug) {
     const container = document.getElementById('article-post');
 
     fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci/brak postu');
-            return response.json();
-        })
-        .then(posts => {
-            if (posts.length === 0) {
+        .then(data => {
+            // Sprawdzamy czy dostaliśmy jeden post (obiekt), czy listę (tablicę)
+            const posts = Array.isArray(data) ? data : [data];
+        
+            if (posts.length === 0 || !posts[0].id) {
                 container.innerHTML = "Brak dostępnych postów.";
                 return;
             }
-
+        
             const htmlContent = posts.map(post => {
-                // 1. Formatowanie daty na polski styl
+                // ... reszta Twojej logiki formatowania (postDate, author, image itd.) ...
                 const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric'
+                    day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
                 });
-
-                // 2. Pobieranie nazw kategorii z pola category_info (jeśli istnieje)
-                const categories = post.category_info 
-                    ? post.category_info.map(cat => cat.name).join(' • ') 
-                    : 'Aktualności';
-                    
-                const tags = post.tag_info
-                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi: </div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
-                    : '';
-
-                // 3. Pobieranie wyświetlanej nazwy autora
+                
+                const categories = post.category_info ? post.category_info.map(cat => cat.name).join(' • ') : 'Aktualności';
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
-
-                // 4. Pobieranie obrazu
-                const image = post.featured_image_src_large ? '<img src="' + post.featured_image_src_large[0] + '" width="2560" height="1920">' : '';
-
+                const image = post.featured_image_src_large ? `<img src="${post.featured_image_src_large[0]}" width="2560" height="1920">` : '';
+        
                 return `
                     <div class="articles_posts">
                         <article id="post-${post.id}">
@@ -277,14 +261,13 @@ function WPArticleRSCPost(slug) {
                                 <div class="article_category_posts">${categories}</div>
                                 <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                                 <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${author} | ${postDate}</div>
-                                ${tags}
                             </header>
                             <div class="article_cover_posts">${image}</div>
                             <div class="article_singlecontent_posts">${post.content.rendered}</div>
                         </article>
                     </div>`;
             }).join('');
-
+        
             container.innerHTML = htmlContent;
         })
         .catch(error => {
