@@ -341,21 +341,19 @@
 .article_headers_posts {
     margin-bottom: 1em;
 }
-.article_cover_posts {
+.wp-site-blocks .post-thumbnail img {
+    border-radius: 8px; /* Rounds the corners */
+    transition: transform 0.3s ease; /* Prepares for hover effect */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft shadow */
+}
+.wp-site-blocks .post-thumbnail:hover img {
+    transform: scale(1.05); /* Slight zoom in */
+}
+.wp-site-blocks .post-thumbnail.kadence-thumbnail-ratio-inherit img {
     display: block;
-    height: 0;
-    padding-bottom: 66.67%;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 10px;
-     img {
-        flex: 1;
-        -o-object-fit: cover;
-        object-fit: cover;
-        display: block;
-        height: auto;
-        max-width: 100%    
-    }
+    margin: 0 auto; /* Centers the image */
+    max-width: 100%; 
+    height: auto;
 }
 .article_cover_posts:empty {
     padding-bottom: 0px;
