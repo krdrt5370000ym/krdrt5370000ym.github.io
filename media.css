@@ -361,111 +361,44 @@
 }
 .article_singlecontent_posts {
     word-break: break-word;
-/* 1. Ustawienia kontenera (Flexbox) */
-figure.wp-block-gallery.has-nested-images.is-layout-flex {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px; /* Odstęp między zdjęciami */
-    padding: 0;
-    margin: 20px 0;
-}
-
-/* 2. Desktop: 3 kolumny (Domyślnie powyżej 768px) */
-figure.wp-block-gallery.has-nested-images.is-layout-flex .wp-block-image {
-    /* Obliczenie: (100% / 3 kolumny) - (2/3 z odstępu 15px) */
-    flex-basis: calc(33.33% - 10px); 
-    flex-grow: 1;
-    margin: 0;
-}
-
-/* 3. Urządzenia mobilne i tablety: 2 kolumny (Poniżej 768px) */
-@media (max-width: 768px) {
-    figure.wp-block-gallery.has-nested-images.is-layout-flex .wp-block-image {
-        /* Obliczenie: (100% / 2 kolumny) - (1/2 z odstępu 15px) */
-        flex-basis: calc(50% - 8px);
-    }
-}
-/* 4. Dodatkowe wygładzenie zdjęć (opcjonalne) */
-figure.wp-block-gallery.is-cropped .wp-block-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 1 / 1; /* Kwadraty dla równej siatki */
-    display: block;
-    border-radius: 8px;
-}
-/* KONTENER GŁÓWNY - musi być flexem, by układać elementy obok siebie */
-.wp-block-gallery.wp-block-gallery-1, 
-.wp-block-gallery.is-layout-flex {
+/* 1. KONTENER GŁÓWNY */
+.wp-block-gallery.is-layout-flex,
+.wp-block-gallery.wp-block-gallery-1 {
     display: flex !important;
     flex-wrap: wrap !important;
-    flex-direction: row !important;
     gap: 15px !important;
-    padding: 0;
-    margin: 0;
-    list-style: none;
+    padding: 0 !important;
+    margin: 20px 0 !important;
+    list-style: none !important;
 }
 
-/* ELEMENTY GALERII (Dzieci) */
-.wp-block-gallery-1 .blocks-gallery-item,
+/* 2. ELEMENTY GALERII (Dzieci - Desktop: 3 kolumny) */
+.wp-block-gallery.is-layout-flex .wp-block-image,
 .wp-block-gallery.is-layout-flex .blocks-gallery-item {
-    margin: 0 !important;
-    /* Desktop: Domyślnie 3 kolumny */
-    width: calc(33.33% - (2 * 15px) / 3) !important;
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
+    margin: 0 !important;
+    /* Obliczenie dla 3 kolumn: (100% / 3) - (poprawka na gap) */
+    width: calc(33.33% - 10px) !important; 
 }
 
-/* OBRAZY - wygładzenie i proporcje */
-.blocks-gallery-item img {
+/* 3. OBRAZY (Wygładzenie i kwadraty) */
+.wp-block-gallery.is-layout-flex .wp-block-image img,
+.wp-block-gallery.is-layout-flex .blocks-gallery-item img {
     width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 1 / 1; /* Kwadraty */
-    object-fit: cover;
-    border-radius: 12px; /* Większe wygładzenie */
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    border-radius: 12px; /* Wygładzenie narożników */
     display: block;
+    transition: transform 0.3s ease;
 }
 
-/* MOBILE I TABLETY (poniżej 768px) */
+/* 4. RESPONSYWNOŚĆ (Mobile/Tablet: 2 kolumny poniżej 768px) */
 @media (max-width: 768px) {
-    .wp-block-gallery-1 .blocks-gallery-item,
+    .wp-block-gallery.is-layout-flex .wp-block-image,
     .wp-block-gallery.is-layout-flex .blocks-gallery-item {
-        /* Mobile: Dokładnie 2 kolumny */
-        width: calc(50% - 15px / 2) !important;
-    }
-}
-/* 1. KONTENER (Rodzic) */
-.wp-block-gallery.wp-block-gallery-1 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px; 
-    padding: 0;
-    margin: 0;
-}
-
-/* 2. ELEMENT LISTY (Dziecko) */
-.blocks-gallery-item {
-    list-style: none;
-    margin: 0;
-    /* Desktop: 3 kolumny */
-    width: calc(33.33% - (2 * 15px) / 3);
-}
-
-/* 3. OBRAZ (Wygładzenie i proporcje) */
-.blocks-gallery-item img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Idealny kwadrat */
-    object-fit: cover;
-    border-radius: 8px;
-    transition: opacity 0.3s ease; /* Przykładowe wygładzenie przejścia */
-}
-
-/* 4. RESPONSYWNOŚĆ: Mobile i Tablety */
-@media (max-width: 768px) {
-    .blocks-gallery-item {
-        /* Mobile: 2 kolumny */
-        width: calc(50% - 15px / 2);
+        /* Obliczenie dla 2 kolumn: (100% / 2) - (poprawka na gap) */
+        width: calc(50% - 8px) !important;
     }
 }
 .wp-block-audio {
