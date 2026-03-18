@@ -398,6 +398,46 @@
     border-radius: 8px !important; /* Wygładzenie krawędzi */
     display: block !important;
 }
+/* KONTENER GŁÓWNY - musi być flexem, by układać elementy obok siebie */
+.wp-block-gallery.wp-block-gallery-1, 
+.wp-block-gallery.is-layout-flex {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
+    gap: 15px !important;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* ELEMENTY GALERII (Dzieci) */
+.wp-block-gallery-1 .blocks-gallery-item,
+.wp-block-gallery.is-layout-flex .blocks-gallery-item {
+    margin: 0 !important;
+    /* Desktop: Domyślnie 3 kolumny */
+    width: calc(33.33% - (2 * 15px) / 3) !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* OBRAZY - wygładzenie i proporcje */
+.blocks-gallery-item img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1; /* Kwadraty */
+    object-fit: cover;
+    border-radius: 12px; /* Większe wygładzenie */
+    display: block;
+}
+
+/* MOBILE I TABLETY (poniżej 768px) */
+@media (max-width: 768px) {
+    .wp-block-gallery-1 .blocks-gallery-item,
+    .wp-block-gallery.is-layout-flex .blocks-gallery-item {
+        /* Mobile: Dokładnie 2 kolumny */
+        width: calc(50% - 15px / 2) !important;
+    }
+}
 .wp-block-audio {
     margin: 0px; !important;
 }
