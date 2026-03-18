@@ -257,6 +257,9 @@ function WPArticleRSCPost(slug) {
                 const categories = post.category_info ? post.category_info.map(cat => cat.name).join(' • ') : 'Aktualności';
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
                 const image = post.featured_image_src_large ? `<img src="${post.featured_image_src_large[0]}" width="2560" height="1920">` : '';
+                const tags = post.tag_info
+                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi: </div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
+                    : '';
         
                 return `
                     <div class="articles_posts">
@@ -265,6 +268,7 @@ function WPArticleRSCPost(slug) {
                                 <div class="article_category_posts">${categories}</div>
                                 <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                                 <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${author} | ${postDate}</div>
+                                ${tags}
                             </header>
                             <div class="article_cover_posts">${image}</div>
                             <div class="article_singlecontent_posts">${post.content.rendered}</div>
@@ -399,9 +403,10 @@ async function WPArticleSOSWPost(slug) {
 
     try {
         const response = await fetch(postsUrl);
-        const posts = await response.json();
+        let posts = await response.json();
+        if (!Array.isArray(posts)) posts = [posts]; // Zamień pojedynczy obiekt na tablicę jednoelementową
 
-        if (!Array.isArray(posts) || posts.length === 0) {
+        if (posts.length === 0 || !posts[0].id) { // Dodatkowe sprawdzenie czy post istnieje
             container.innerHTML = "Brak dostępnych postów.";
             return;
         }
