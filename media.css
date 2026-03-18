@@ -347,6 +347,7 @@
     padding-bottom: 66.67%;
     overflow: hidden;
     position: relative;
+    margin-bottom: 10px;
      img {
         flex: 1;
         -o-object-fit: cover;
