@@ -299,9 +299,10 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
 
     try {
         const response = await fetch(postsUrl);
-        const posts = await response.json();
-
-        if (!Array.isArray(posts) || posts.length === 0) {
+        let posts = await response.json();
+        if (!Array.isArray(posts)) posts = [posts]; // Zamień pojedynczy obiekt na tablicę jednoelementową
+        
+        if (posts.length === 0 || !posts[0].id) { // Dodatkowe sprawdzenie czy post istnieje
             container.innerHTML = "Brak dostępnych postów.";
             return;
         }
