@@ -231,7 +231,7 @@ async function WPArticleSOSW() {
 
 function WPArticleRSCPost(slug) {
     // Używamy działającej listy kategorii (z pominięciem ID 16)
-    const apiUrl = slug.slice(0,3) === '?p=' ? 'https://radiorsc.pl/wp-json/wp/v2/posts/' + slug.slice(4) + '?per_page=1' : 'https://radiorsc.pl/wp-json/wp/v2/posts?slug=' + slug + '&per_page=1';
+    const apiUrl = slug.slice(0,2) === '?p=' ? 'https://radiorsc.pl/wp-json/wp/v2/posts/' + slug.slice(3) + '?per_page=1' : 'https://radiorsc.pl/wp-json/wp/v2/posts?slug=' + slug + '&per_page=1';
     const container = document.getElementById('article-post');
 
     fetch(apiUrl)
@@ -295,7 +295,7 @@ function WPArticleRSCPost(slug) {
 
 async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true) {
     const container = document.getElementById('article-post');
-    const postsUrl = slug.slice(0,3) === '?p=' ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(4)}?per_page=1` : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
+    const postsUrl = slug.slice(0,2) === '?p=' ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(3)}?per_page=1` : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
 
     try {
         const response = await fetch(postsUrl);
@@ -396,7 +396,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
 
 async function WPArticleSOSWPost(slug) {
     const container = document.getElementById('article-post');
-    const postsUrl = slug.slice(0,3) === '?p=' ? `https://soswskierniewice.pl/wp-json/wp/v2/posts/${slug.slice(4)}?per_page=1` : `https://soswskierniewice.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
+    const postsUrl = slug.slice(0,2) === '?p=' ? `https://soswskierniewice.pl/wp-json/wp/v2/posts/${slug.slice(3)}?per_page=1` : `https://soswskierniewice.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
 
     // Mapa autorów zgodna z Twoją listą
     const authorsMap = {
