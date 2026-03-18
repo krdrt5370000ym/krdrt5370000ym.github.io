@@ -235,15 +235,19 @@ function WPArticleRSCPost(slug) {
     const container = document.getElementById('article-post');
 
     fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd połączenia');
+            return response.json(); // KLUCZOWE: musisz sparsować dane do JSON
+        })
         .then(data => {
-            // Sprawdzamy czy dostaliśmy jeden post (obiekt), czy listę (tablicę)
-            const posts = Array.isArray(data) ? data : [data];
-        
-            if (posts.length === 0 || !posts[0].id) {
-                container.innerHTML = "Brak dostępnych postów.";
+            // Standaryzacja: jeśli to obiekt (pojedynczy post), zamień go w tablicę jednoelementową
+            const posts = Array.isArray(data) ? data : (data && data.id ? [data] : []);
+            
+            if (posts.length === 0) {
+                document.getElementById('article-post').innerHTML = "Brak dostępnych postów.";
                 return;
             }
-        
+            
             const htmlContent = posts.map(post => {
                 // ... reszta Twojej logiki formatowania (postDate, author, image itd.) ...
                 const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
