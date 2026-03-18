@@ -395,24 +395,24 @@ figure.wp-block-gallery.is-cropped .wp-block-image img {
     display: block;
     border-radius: 8px;
 }
-figure.wp-block-audio {
+.wp-block-audio {
     margin: 0px; !important;
 }
-figure.wp-block-audio audio {
+.wp-block-audio audio {
     width: 100% !important;
 }
-figure.wp-block-video {
+.wp-block-video {
     margin: 0px; !important;
 }
-figure.wp-block-video video {
+.wp-block-video video {
     height: auto;
     vertical-align: middle;
     width: 100%;
 }
-figure.wp-block-image {
+.wp-block-image {
     margin: 0px; !important;
 }
-figure.wp-block-image img {
+.wp-block-image img {
     box-sizing: border-box;
     height: auto;
     max-width: 100%;
