@@ -341,22 +341,27 @@
 .article_headers_posts {
     margin-bottom: 1em;
 }
+/* 1. Naprawa wysokości kontenera, żeby nie był wyższy niż obraz */
+.wp-site-blocks .post-thumbnail {
+    height: auto !important;
+    padding-bottom: 0 !important; /* Usuwamy sztywny zapas wysokości */
+    overflow: hidden;
+    margin-bottom: 10px !important; /* Przyciągamy tekst blisko obrazka */
+}
+
+/* 2. Ustawienie zdjęcia, aby poprawnie wypełniało miejsce */
 .wp-site-blocks .post-thumbnail img {
-    border-radius: 8px; /* Rounds the corners */
-    transition: transform 0.3s ease; /* Prepares for hover effect */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft shadow */
-}
-.wp-site-blocks .post-thumbnail:hover img {
-    transform: scale(1.05); /* Slight zoom in */
-}
-.wp-site-blocks .post-thumbnail.kadence-thumbnail-ratio-inherit img {
     display: block;
-    margin: 0 auto; /* Centers the image */
-    max-width: 100%; 
-    height: auto;
+    width: 100% !important;
+    height: auto !important; /* Pozwalamy zdjęciu dyktować wysokość */
+    position: static !important; /* Wyłączamy pozycjonowanie absolutne, które robiło dziurę */
+    object-fit: contain;
 }
-.article_cover_posts:empty {
-    padding-bottom: 0px;
+
+/* 3. Jeśli używasz wewnętrznego kontenera (post-thumbnail-inner), go też musimy zresetować */
+.wp-site-blocks .post-thumbnail .post-thumbnail-inner {
+    position: static !important;
+    height: auto !important;
 }
 .article_singlecontent_posts {
     word-break: break-word;
