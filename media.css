@@ -506,6 +506,29 @@
         font-weight: 600;
         font-size: 1.1rem;
     }
+    /* Styl podpisu/autora (cite) */
+    blockquote.wp-block-quote cite {
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #646970;
+    }
+    /* Kontener główny cytatu */
+    blockquote.wp-block-quote.is-layout-flow {
+        border-left: 6px solid #007cba; /* Zmień kolor na swój */
+        padding: 20px 30px;
+        margin: 40px 0;
+        background-color: #f0f7fb;
+        border-radius: 0 8px 8px 0;
+    } 
+    /* Styl tekstu wewnątrz cytatu */
+    blockquote.wp-block-quote p {
+        font-size: 1.25rem;
+        line-height: 1.6;
+        font-style: italic;
+        color: #2c3338;
+        margin-bottom: 10px;
+    }
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
     .article_title_posts {
