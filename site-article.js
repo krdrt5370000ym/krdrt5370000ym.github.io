@@ -256,7 +256,7 @@ function WPArticleRSCPost(slug) {
                 
                 const categories = post.category_info ? post.category_info.map(cat => cat.name).join(' • ') : 'Aktualności';
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
-                const image = post.featured_image_src_large ? `<div class="post-thumbnail article-post-thumbnail kadence-thumbnail-position-below kadence-thumbnail-ratio-9-16"><div class="post-thumbnail-inner"><img src="${post.featured_image_src_large[0]}" width="2560" height="1920"></div></div>` : '';
+                const image = post.featured_image_src_large ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${post.featured_image_src_large[0]}" width="2560" height="1920"></div></div>` : '';
                 const tags = post.tag_info
                     ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi: </div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
                     : '';
@@ -355,7 +355,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
                         } catch (e) { cache.images[post.featured_media] = ''; }
                     }
-                    imageDisplay = cache.images[post.featured_media] ? `<div class="post-thumbnail article-post-thumbnail kadence-thumbnail-position-below kadence-thumbnail-ratio-9-16"><div class="post-thumbnail-inner"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
+                    imageDisplay = cache.images[post.featured_media] ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
                 }
             }
 
@@ -456,7 +456,7 @@ async function WPArticleSOSWPost(slug) {
                         cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
                     } catch (e) { cache.images[post.featured_media] = ''; }
                 }
-                imageDisplay = cache.images[post.featured_media] ? `<div class="post-thumbnail article-post-thumbnail kadence-thumbnail-position-below kadence-thumbnail-ratio-9-16"><div class="post-thumbnail-inner"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
+                imageDisplay = cache.images[post.featured_media] ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
             }
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
