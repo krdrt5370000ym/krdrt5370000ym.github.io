@@ -421,6 +421,34 @@
           height: auto;
   display: block;
     }
+    /* 1. Ustawienie siatki dla kontenera */
+    .et_pb_gallery_post_type .et_pb_slides {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 15px;
+        height: auto !important;
+    }
+    
+    /* 2. Naprawa widoczności slajdów i wymuszenie ich wysokości */
+    .et_pb_gallery_post_type .et_pb_slides .et_pb_slide {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        position: relative !important;
+        
+        /* KLUCZOWE: Musisz nadać wysokość, aby tło było widoczne */
+        min-height: 250px !important; 
+        
+        /* Stylowanie tła, aby wypełniło komórkę gridu */
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    
+    /* Usuwamy puste kontenery tekstowe wewnątrz slajdów (jeśli są) */
+    .et_pb_gallery_post_type .et_pb_slide_description {
+        display: none !important;
+    }
     .wp-block-audio {
         margin: 0px; !important;
     }
@@ -443,6 +471,9 @@
         height: auto;
         max-width: 100%;
         vertical-align: bottom;
+    }
+    iframe {
+        width: 100%;
     }
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
