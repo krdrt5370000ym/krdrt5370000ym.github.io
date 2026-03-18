@@ -256,7 +256,7 @@ function WPArticleRSCPost(slug) {
                 
                 const categories = post.category_info ? post.category_info.map(cat => cat.name).join(' • ') : 'Aktualności';
                 const author = post.author_info ? post.author_info.display_name : 'Redakcja';
-                const image = post.featured_image_src_large ? `<img src="${post.featured_image_src_large[0]}" width="2560" height="1920">` : '';
+                const image = post.featured_image_src_large ? `<div class="post-thumbnail article-post-thumbnail kadence-thumbnail-position-below kadence-thumbnail-ratio-9-16"><div class="post-thumbnail-inner"><img src="${post.featured_image_src_large[0]}" width="2560" height="1920"></div></div>` : '';
                 const tags = post.tag_info
                     ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi: </div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
                     : '';
@@ -270,7 +270,7 @@ function WPArticleRSCPost(slug) {
                                 <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${author} | ${postDate}</div>
                                 ${tags}
                             </header>
-                            <div class="article_cover_posts">${image}</div>
+                            ${image}
                             <div class="article_singlecontent_posts">${post.content.rendered}</div>
                         </article>
                     </div>`;
@@ -355,7 +355,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
                         } catch (e) { cache.images[post.featured_media] = ''; }
                     }
-                    imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="2560" height="1920">` : '';
+                    imageDisplay = cache.images[post.featured_media] ? `<div class="post-thumbnail article-post-thumbnail kadence-thumbnail-position-below kadence-thumbnail-ratio-9-16"><div class="post-thumbnail-inner"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
                 }
             }
 
@@ -372,7 +372,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
                             ${tagsDisplay}
                         </header>
-                        <div class="article_cover_posts">${imageDisplay}</div>
+                        ${imageDisplay}
                         <div class="article_singlecontent_posts">${post.content.rendered}</div>
                     </article>
                 </div>`;
@@ -456,7 +456,7 @@ async function WPArticleSOSWPost(slug) {
                         cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
                     } catch (e) { cache.images[post.featured_media] = ''; }
                 }
-                imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="2560" height="1920">` : '';
+                imageDisplay = cache.images[post.featured_media] ? `<div class="post-thumbnail article-post-thumbnail kadence-thumbnail-position-below kadence-thumbnail-ratio-9-16"><div class="post-thumbnail-inner"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
             }
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
@@ -472,7 +472,7 @@ async function WPArticleSOSWPost(slug) {
                             <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${authorName} | ${postDate}</div>
                             ${tagsDisplay}
                         </header>
-                        <div class="article_cover_posts">${imageDisplay}</div>
+                        ${imageDisplay}
                         <div class="article_singlecontent_posts">${post.content.rendered}</div>
                     </article>
                 </div>`;
