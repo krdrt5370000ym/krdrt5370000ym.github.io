@@ -486,6 +486,26 @@
     iframe {
         width: 100%;
     }
+    blockquote.wp-embedded-content {
+        background: #ffffff;
+        border: 1px solid #e1e8ed;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 25px;
+        margin: 20px 0;
+        /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
+        transition: transform 0.2s ease;
+    }
+    blockquote.wp-embedded-content:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }    
+    blockquote.wp-embedded-content a {
+        color: #1da1f2;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
     .article_title_posts {
