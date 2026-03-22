@@ -1,52 +1,49 @@
 .w3-row-padding > hr {
      border-top: 1px solid #e3e3e3;
 }
-/* Kontener listy - jedna kolumna */
+/* Kontener listy */
 .website_portal {
+  display: grid;
+  /* Trzy równe kolumny na komputerze */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px; /* Odstęp między kafelkami */
   list-style: none;
   padding: 0;
-  margin: 0 auto;
-  max-width: 800px; /* Ograniczenie szerokości dla lepszej czytelności */
+  margin: 20px 0;
 }
-/* Styl wiersza */
+/* Styl pojedynczego elementu listy */
 .website_portal li {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  border-bottom: 1px solid #f0f0f0; /* Subtelna linia zamiast tła */
-  padding: 12px 15px;
-  transition: background-color 0.2s ease;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee; /* Subtelna linia zamiast tła */
+  padding: 10px 5px;
+  transition: border-color 0.3s ease;
 }
-/* Hover na cały wiersz - delikatne podświetlenie bez pełnego koloru */
-.website_portal li:hover {
-  background-color: #fafafa;
-}
-/* Główny link (Tekstowy) */
-.website_portal li a {
+/* Link główny (tekst) */
+.website_portal li a:first-child {
   text-decoration: none;
   color: #333;
-  font-size: 16px;
   font-weight: 500;
-  transition: color 0.2s;
+  flex-grow: 1;
 }
-/* Styl dla głównego linku w wierszu */
-.website_portal li a:first-child {
-  flex-grow: 1; /* Popycha ikony na prawą stronę */
-}
-/* Styl dla ikon (social media) */
+/* Ikony społecznościowe obok tekstu */
 .website_portal li a i {
-  margin-left: 15px;
-  font-size: 18px;
+  margin-left: 8px;
   color: #888;
-  transition: transform 0.2s, color 0.2s;
+  font-size: 1.1em;
+  transition: color 0.2s, transform 0.2s;
 }
-/* Efekty hover dla linków i ikon */
+/* Efekty hover */
+.website_portal li:hover {
+  border-bottom-color: #007bff; /* Linia zmienia kolor przy najechaniu */
+}
 .website_portal li a:hover {
   color: #007bff;
 }
 .website_portal li a:hover i {
-  transform: scale(1.2);
   color: #007bff;
+  transform: scale(1.2);
 }
 .website_title {
   font-size: 1.2rem;
@@ -55,16 +52,25 @@
   padding-left: 10px;
   margin-top: 40px;
 }
-/* Wersja mobilna */
-@media screen and (max-width: 600px) {
-  .website_portal li {
-    padding: 15px 10px;
-    flex-wrap: wrap; /* W razie bardzo długich nazw */
-  } 
-  .website_portal li a {
-    font-size: 15px;
+/* --- Wersja Mobilna --- */
+@media screen and (max-width: 768px) {
+  .website_portal {
+    /* Dwie kolumny na telefonach */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
-  /* Styl nagłówków na mobile */
+  .website_portal li {
+    padding: 12px 5px;
+    font-size: 14px;
+  }
+}
+/* Opcjonalnie: jedna kolumna na bardzo małych ekranach (poniżej 400px) */
+@media screen and (max-width: 400px) {
+  .website_portal {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 600px) {
   .website_title {
     margin: 25px 0 10px 0;
     font-size: 1.1rem;
