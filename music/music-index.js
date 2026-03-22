@@ -17,7 +17,7 @@ submitButton.addEventListener("click", () => {
 
 async function getSongData(searchTerm) {
     musicContainer.innerHTML = "<p>Ładowanie wyników...</p>";
-    const url = `https://shazam.p.rapidapi.com/v2/search?term=${encodeURIComponent(searchTerm)}&locale=pl-PL&offset=0&limit=50`;
+    const url = `https://shazam.p.rapidapi.com/v2/search?term=${encodeURIComponent(searchTerm)}&locale=pl-PL&offset=0&limit=10`;
     
     const options = {
         method: "GET",
