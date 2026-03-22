@@ -17,7 +17,7 @@ submitButton.addEventListener("click", () => {
 
 async function getSongData(searchTerm) {
     musicContainer.innerHTML = "<p>Ładowanie wyników...</p>";
-    const url = `https://shazam.p.rapidapi.com/v2/search?term=${encodeURIComponent(searchTerm)}&locale=pl-PL&offset=0&limit=5`;
+    const url = `https://shazam.p.rapidapi.com/v2/search?term=${encodeURIComponent(searchTerm)}&locale=pl-PL&offset=0&limit=50`;
     
     const options = {
         method: "GET",
@@ -49,7 +49,7 @@ function setSongDataDisplay(songs) {
 
     songs.forEach(song => {
         const attr = song.attributes;
-        const artworkUrl = attr.artwork.url.replace('{w}', '100').replace('{h}', '100');
+        const artworkUrl = attr.artwork.url.replace('{w}', '500').replace('{h}', '500');
         const audioUrl = attr.previews && attr.previews.length > 0 ? attr.previews[0].url : "";
         const fullName = attr.artistName + ' - ' + attr.name;
 
