@@ -3,29 +3,25 @@
 }
 .website_portal {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
   list-style: none;
-  padding: 20px;
+  padding: 0;
 }
-
 .website_portal li a {
   display: block;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: #fff;
+  padding: 10px 15px;
+  border: 1px solid #ddd; /* Delikatna ramka */
+  border-radius: 8px;
+  color: #333;
   text-decoration: none;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease-in-out;
 }
-
 .website_portal li a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  border-color: #007bff; /* Kolor akcentu */
+  color: #007bff;
+  transform: scale(1.03); /* Subtelne powiększenie */
 }
  .website_info_page {
      a {
