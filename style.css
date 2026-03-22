@@ -1,45 +1,40 @@
 .w3-row-padding > hr {
      border-top: 1px solid #e3e3e3;
 }
-/* Kontener listy */
-.website_portal {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-  margin-bottom: 30px;
-}
-/* Elementy listy i linki */
+/* Styl dla wiersza z wieloma linkami */
 .website_portal li {
   display: flex;
   align-items: center;
-  gap: 10px; /* Odstęp między linkami w jednej linii (np. Instagram i Reddit) */
+  flex-wrap: wrap; /* Pozwala ikonom przejść do nowej linii na bardzo małych ekranach */
+  gap: 5px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
-.website_portal li a {
-  flex-grow: 1;
+
+/* Główny link tekstowy */
+.website_portal li a:first-child {
+  flex-grow: 1; /* Zajmuje dostępną przestrzeń po lewej */
+  font-weight: bold;
+  color: #333;
   text-decoration: none;
-  color: #444;
-  padding: 8px 12px;
-  border: 1px solid transparent; /* Ukryta ramka domyślnie */
-  border-bottom: 1px solid #eee; /* Delikatna linia pod spodem */
-  font-size: 14px;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
 }
-/* Efekt po najechaniu */
-.website_portal li a:hover {
-  color: #007bff;
-  border: 1px solid #007bff; /* Ramka pojawia się przy hoverze */
-  border-radius: 6px;
-  background: transparent; /* Brak tła */
-  padding-left: 18px; /* Subtelne przesunięcie tekstu */
-}
-/* Styl dla ikon FontAwesome (np. Reddit) */
+/* Style dla samych ikon społecznościowych */
 .website_portal li a i {
-  font-size: 1.2em;
-  color: #ff4500; /* Kolor ikony Reddit */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+  color: #555; /* Kolor ikon bez tła */
+}
+
+/* Efekt po najechaniu na ikonę - brak tła, tylko zmiana koloru ikony */
+.website_portal li a:hover i {
+  transform: translateY(-3px);
+  color: #007bff; /* Kolor akcentu przy hoverze */
 }
 /* Nagłówki sekcji */
 .website_title {
@@ -50,38 +45,14 @@
   margin-top: 40px;
 }
 @media screen and (max-width: 600px) {
-  /* Zmiana siatki na jedną kolumnę */
-  .website_portal {
-    display: flex;
-    flex-direction: column;
-    gap: 0; /* Usuwamy odstępy, by linie się stykały */
-    border-top: 1px solid #eee; /* Linia zamykająca od góry */
-  }
   .website_portal li {
-    display: flex;
-    align-items: stretch; /* Rozciąga linki na pełną szerokość */
-    width: 100%;
-    border-bottom: 1px solid #eee; /* Separator między wierszami */
+    justify-content: space-between;
   }
-  .website_portal li a {
-    flex-grow: 1;
-    padding: 15px 10px; /* Większy margines dla palca */
-    font-size: 16px; /* Czytelniejsza czcionka na telefonie */
-    border: none !important; /* Usuwamy ramki z wersji desktopowej */
-    border-radius: 0;
-    justify-content: space-between; /* Tekst po lewej, ewentualna ikona po prawej */
-  }
-  /* Subtelny efekt kliknięcia zamiast hovera (na mobile hover nie zawsze działa) */
-  .website_portal li a:active {
-    background-color: #fcfcfc;
-    color: #007bff;
-    padding-left: 15px;
-  }
-  /* Obsługa dwóch linków w jednej linii (np. Instagram + Reddit) */
-  .website_portal li a + a {
-    flex-grow: 0;
-    border-left: 1px solid #eee; /* Pionowa kreska oddzielająca ikonę */
-    padding: 15px 20px;
+  /* Na mobile ikony mogą być nieco większe dla łatwiejszego klikania */
+  .website_portal li a i {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
   }
   /* Styl nagłówków na mobile */
   .website_title {
