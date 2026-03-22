@@ -38,6 +38,7 @@ loadMoreBtn.addEventListener("click", () => {
 
 async function getSongData(searchTerm, offset) {
     loadMoreBtn.disabled = true;
+    loadMoreBtn.style.display = "block";
     loadMoreBtn.innerText = "Ładowanie...";
 
     const url = `https://shazam.p.rapidapi.com/v2/search?term=${encodeURIComponent(searchTerm)}&locale=pl-PL&offset=${offset}&limit=${limit}`;
@@ -76,7 +77,7 @@ async function getSongData(searchTerm, offset) {
 function appendSongsToDisplay(songs) {
     songs.forEach(song => {
         const attr = song.attributes;
-        const artworkUrl = attr.artwork.url.replace('{w}', '100').replace('{h}', '100');
+        const artworkUrl = attr.artwork.url.replace('{w}', '500').replace('{h}', '500');
         const audioUrl = attr.previews?.[0]?.url || "";
         const fullName = `${attr.artistName} - ${attr.name}`;
 
