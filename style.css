@@ -42,7 +42,7 @@
   color: #ff4500; /* Kolor ikony Reddit */
 }
 /* Nagłówki sekcji */
-h2 {
+.website_title {
   font-family: sans-serif;
   font-size: 1.2rem;
   color: #222;
