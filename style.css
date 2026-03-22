@@ -1,42 +1,53 @@
 .w3-row-padding > hr {
      border-top: 1px solid #e3e3e3;
 }
-/* Styl dla wiersza z wieloma linkami */
+/* Kontener listy - jedna kolumna */
+.website_portal {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 800px; /* Ograniczenie szerokości dla lepszej czytelności */
+}
+/* Styl wiersza */
 .website_portal li {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; /* Pozwala ikonom przejść do nowej linii na bardzo małych ekranach */
-  gap: 5px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  justify-content: flex-start;
+  border-bottom: 1px solid #f0f0f0; /* Subtelna linia zamiast tła */
+  padding: 12px 15px;
+  transition: background-color 0.2s ease;
 }
-
-/* Główny link tekstowy */
-.website_portal li a:first-child {
-  flex-grow: 1; /* Zajmuje dostępną przestrzeń po lewej */
-  font-weight: bold;
-  color: #333;
+/* Hover na cały wiersz - delikatne podświetlenie bez pełnego koloru */
+.website_portal li:hover {
+  background-color: #fafafa;
+}
+/* Główny link (Tekstowy) */
+.website_portal li a {
   text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s;
 }
-/* Style dla samych ikon społecznościowych */
+/* Styl dla głównego linku w wierszu */
+.website_portal li a:first-child {
+  flex-grow: 1; /* Popycha ikony na prawą stronę */
+}
+/* Styl dla ikon (social media) */
 .website_portal li a i {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 35px;
-  height: 35px;
+  margin-left: 15px;
   font-size: 18px;
-  border-radius: 50%;
-  transition: transform 0.2s, background 0.2s;
-  color: #555; /* Kolor ikon bez tła */
+  color: #888;
+  transition: transform 0.2s, color 0.2s;
 }
-
-/* Efekt po najechaniu na ikonę - brak tła, tylko zmiana koloru ikony */
+/* Efekty hover dla linków i ikon */
+.website_portal li a:hover {
+  color: #007bff;
+}
 .website_portal li a:hover i {
-  transform: translateY(-3px);
-  color: #007bff; /* Kolor akcentu przy hoverze */
+  transform: scale(1.2);
+  color: #007bff;
 }
-/* Nagłówki sekcji */
 .website_title {
   font-size: 1.2rem;
   color: #222;
@@ -44,15 +55,14 @@
   padding-left: 10px;
   margin-top: 40px;
 }
+/* Wersja mobilna */
 @media screen and (max-width: 600px) {
   .website_portal li {
-    justify-content: space-between;
-  }
-  /* Na mobile ikony mogą być nieco większe dla łatwiejszego klikania */
-  .website_portal li a i {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    padding: 15px 10px;
+    flex-wrap: wrap; /* W razie bardzo długich nazw */
+  } 
+  .website_portal li a {
+    font-size: 15px;
   }
   /* Styl nagłówków na mobile */
   .website_title {
