@@ -17,8 +17,10 @@ loadMoreBtn.style.margin = "20px auto"; // Wyśrodkowanie
 loadMoreBtn.style.display = "none";
 musicContainer.after(loadMoreBtn);
 
-// --- 1. OBSŁUGA WYSZUKIWANIA ---
-submitButton.addEventListener("click", () => {
+// --- 1. OBSŁUGA WYSZUKIWANIA (Kliknięcie i Enter) ---
+
+// Wspólna funkcja uruchamiająca szukanie
+function startSearch() {
     const query = inputKeywords.value.trim();
     if (query !== "") {
         currentTerm = query;
@@ -28,12 +30,16 @@ submitButton.addEventListener("click", () => {
     } else {
         alert("Wpisz coś w pole wyszukiwania!");
     }
-});
+}
+
+// Obsługa kliknięcia przycisku myszką
+submitButton.addEventListener("click", startSearch);
 
 // Obsługa klawisza Enter
-inputKeywords.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-        submitButton.click(); // Po prostu "symulujemy" kliknięcie w przycisk Szukaj
+inputKeywords.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Zapobiega ewentualnemu odświeżeniu strony
+        startSearch();
     }
 });
 
