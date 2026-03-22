@@ -2,26 +2,31 @@
      border-top: 1px solid #e3e3e3;
 }
 .website_portal {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   list-style: none;
   padding: 0;
 }
 .website_portal li a {
-  display: block;
-  padding: 10px 15px;
-  border: 1px solid #ddd; /* Delikatna ramka */
-  border-radius: 8px;
-  color: #333;
+  position: relative;
+  padding: 5px 0;
+  color: #222;
   text-decoration: none;
-  text-align: center;
-  transition: all 0.2s ease-in-out;
+  font-weight: 500;
 }
-.website_portal li a:hover {
-  border-color: #007bff; /* Kolor akcentu */
-  color: #007bff;
-  transform: scale(1.03); /* Subtelne powiększenie */
+.website_portal li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #2ecc71;
+  transition: width 0.3s ease;
+}
+.website_portal li a:hover::after {
+  width: 100%; /* Rozwijające się podkreślenie */
 }
  .website_info_page {
      a {
