@@ -24,7 +24,10 @@ const inputKeywords = document.getElementById("input-keywords");
 const submitButton = document.getElementById("submit");
 const musicContainer = document.querySelector(".hits_list");
 
-// Obsługa kliknięcia
+// JEDEN GLOBALNY ODTWARZACZ
+const AUD = new Audio();
+
+// 1. OBSŁUGA WYSZUKIWANIA
 submitButton.addEventListener("click", () => {
     const query = inputKeywords.value.trim();
     if (query !== "") {
@@ -36,28 +39,23 @@ submitButton.addEventListener("click", () => {
 
 async function getSongData(searchTerm) {
     musicContainer.innerHTML = "<p>Ładowanie wyników...</p>";
-
     const url = `https://shazam.p.rapidapi.com/v2/search?term=${encodeURIComponent(searchTerm)}&locale=pl-PL&offset=0&limit=5`;
     
     const options = {
         method: "GET",
         headers: {
-            "X-RapidAPI-Key": "688268f4d0msh69176cddbc5ed7bp1008d5jsn1f63b7d6afe9", // key api: ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e
+            "X-RapidAPI-Key": "688268f4d0msh69176cddbc5ed7bp1008d5jsn1f63b7d6afe9", 
             "X-RapidAPI-Host": "shazam.p.rapidapi.com"
         }
     };
 
     try {
         const response = await fetch(url, options);
-        const data = await response.json(); // Tu wynik ląduje w zmiennej 'data'
-        
-        console.log("Dane z API:", data);
-
-        // Zgodnie z Twoim logiem: data -> results -> songs -> data
+        const data = await response.json();
         const songs = data.results?.songs?.data || [];
 
         if (songs.length > 0) {
-            setSongDataDisplay(songs); // Przesyłamy samą tablicę piosenek
+            setSongDataDisplay(songs);
         } else {
             musicContainer.innerHTML = `<p>Brak wyników dla frazy: <b>${searchTerm}</b></p>`;
         }
@@ -67,23 +65,18 @@ async function getSongData(searchTerm) {
     }
 }
 
+// 2. WYŚWIETLANIE WYNIKÓW
 function setSongDataDisplay(songs) {
     musicContainer.innerHTML = ""; 
 
     songs.forEach(song => {
         const attr = song.attributes;
-        
-        // Naprawa URL zdjęcia
         const artworkUrl = attr.artwork.url.replace('{w}', '100').replace('{h}', '100');
-
-        // W Twoim JSON previews to tablica, więc bierzemy [0].url
         const audioUrl = attr.previews && attr.previews.length > 0 ? attr.previews[0].url : "";
         const fullName = attr.artistName + ' - ' + attr.name;
 
         const songElement = document.createElement("div");
         songElement.className = "song-item";
-        // songElement.style = "display: flex; align-items: center; margin-bottom: 15px; border: 1px solid #ddd; padding: 10px; border-radius: 8px;";
-        
         songElement.innerHTML = `<li class="hits_list_songs">
                   <div class="song_cover"><img decoding="async" src="${artworkUrl}"></div>
                   <div class="song_content">
@@ -97,15 +90,44 @@ function setSongDataDisplay(songs) {
         musicContainer.appendChild(songElement);
     });
 }
-const AUD = new Audio(), // Tworzy niewidzialny odtwarzacz w pamięci przeglądarki
-      BTNS = document.querySelectorAll("[data-audio]"); // Wyłapuje wszystkie przyciski z linkiem do muzyki
-       AUD.addEventListener("ended", playPause); // Gdy piosenka się skończy, zresetuj ikonkę
-BTNS.forEach(el => el.addEventListener("click", playPause)); // Przypisuje funkcję do każdego przycisku
+
+// 3. LOGIKA ODTWARZACZA (DELEGACJA ZDARZEŃ)
+musicContainer.addEventListener("click", (e) => {
+    // Sprawdzamy czy kliknięto w element z atrybutem data-audio
+    const btn = e.target.closest("[data-audio]");
+    if (!btn) return;
+
+    const src = btn.dataset.audio;
+    if (!src) {
+        alert("Brak podglądu audio dla tego utworu.");
+        return;
+    }
+
+    if (AUD.src !== src) {
+        AUD.src = src;
+    }
+
+    if (AUD.paused) {
+        AUD.play();
+    } else {
+        AUD.pause();
+    }
+
+    // Aktualizacja ikon (klasa .pause)
+    document.querySelectorAll("[data-audio]").forEach(el => {
+        if (el !== btn) el.classList.remove("pause");
+    });
+    btn.classList.toggle("pause", !AUD.paused);
+});
+
+// Reset ikony gdy piosenka się skończy
+AUD.addEventListener("ended", () => {
+    document.querySelectorAll("[data-audio]").forEach(el => el.classList.remove("pause"));
+});
 </script>
          </div>
          <script src="/site-bottomscreen.js"></script>
       </div>
       <script src="/site-sidebar.js"></script>
-      <script src="/music.js"></script>
    </body>
 </html>
