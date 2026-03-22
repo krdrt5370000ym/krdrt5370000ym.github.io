@@ -5,7 +5,7 @@
 .website_portal {
   display: grid;
   /* Trzy równe kolumny na komputerze */
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px; /* Odstęp między kafelkami */
   list-style: none;
   padding: 0;
@@ -53,6 +53,9 @@
   margin-top: 40px;
 }
 /* --- Wersja Mobilna --- */
+@media screen and (max-width: 1136px) {
+    grid-template-columns: repeat(3, 1fr);
+}
 @media screen and (max-width: 768px) {
   .website_portal {
     /* Dwie kolumny na telefonach */
