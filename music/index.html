@@ -97,6 +97,10 @@ function setSongDataDisplay(songs) {
         musicContainer.appendChild(songElement);
     });
 }
+const AUD = new Audio(), // Tworzy niewidzialny odtwarzacz w pamięci przeglądarki
+      BTNS = document.querySelectorAll("[data-audio]"); // Wyłapuje wszystkie przyciski z linkiem do muzyki
+       AUD.addEventListener("ended", playPause); // Gdy piosenka się skończy, zresetuj ikonkę
+BTNS.forEach(el => el.addEventListener("click", playPause)); // Przypisuje funkcję do każdego przycisku
 </script>
          </div>
          <script src="/site-bottomscreen.js"></script>
