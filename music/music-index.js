@@ -30,6 +30,13 @@ submitButton.addEventListener("click", () => {
     }
 });
 
+// Obsługa klawisza Enter
+inputKeywords.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        submitButton.click(); // Po prostu "symulujemy" kliknięcie w przycisk Szukaj
+    }
+});
+
 // --- 2. OBSŁUGA "POKAŻ WIĘCEJ" ---
 loadMoreBtn.addEventListener("click", () => {
     currentOffset += limit;
