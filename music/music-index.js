@@ -95,12 +95,14 @@ function appendSongsToDisplay(songs) {
                         <div class="song_teaser">
                             <a class="fa" data-audio="${audioUrl}"></a>
                             <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i></a>
+                            <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i></a>
                             <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i></a>
-                            <a target="_blank" href="https://music.apple.com{encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </li>`;
+                            <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i></a>
+                            <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i></a>
+                            <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i></a></div>
+                     </div>
+                  </div>
+               </li>`;
         musicContainer.appendChild(songElement);
     });
 }
