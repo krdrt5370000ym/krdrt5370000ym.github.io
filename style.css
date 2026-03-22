@@ -1,32 +1,54 @@
 .w3-row-padding > hr {
      border-top: 1px solid #e3e3e3;
 }
+/* Kontener listy */
 .website_portal {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
   list-style: none;
   padding: 0;
+  margin-bottom: 30px;
+}
+/* Elementy listy i linki */
+.website_portal li {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Odstęp między linkami w jednej linii (np. Instagram i Reddit) */
 }
 .website_portal li a {
-  position: relative;
-  padding: 5px 0;
-  color: #222;
+  flex-grow: 1;
   text-decoration: none;
-  font-weight: 500;
+  color: #444;
+  padding: 8px 12px;
+  border: 1px solid transparent; /* Ukryta ramka domyślnie */
+  border-bottom: 1px solid #eee; /* Delikatna linia pod spodem */
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
 }
-.website_portal li a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #2ecc71;
-  transition: width 0.3s ease;
+/* Efekt po najechaniu */
+.website_portal li a:hover {
+  color: #007bff;
+  border: 1px solid #007bff; /* Ramka pojawia się przy hoverze */
+  border-radius: 6px;
+  background: transparent; /* Brak tła */
+  padding-left: 18px; /* Subtelne przesunięcie tekstu */
 }
-.website_portal li a:hover::after {
-  width: 100%; /* Rozwijające się podkreślenie */
+/* Styl dla ikon FontAwesome (np. Reddit) */
+.website_portal li a i {
+  font-size: 1.2em;
+  color: #ff4500; /* Kolor ikony Reddit */
+}
+/* Nagłówki sekcji */
+h2 {
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  color: #222;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+  margin-top: 40px;
 }
  .website_info_page {
      a {
