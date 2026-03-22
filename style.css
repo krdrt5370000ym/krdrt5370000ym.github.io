@@ -49,6 +49,47 @@
   padding-left: 10px;
   margin-top: 40px;
 }
+@media screen and (max-width: 600px) {
+  /* Zmiana siatki na jedną kolumnę */
+  .website_portal {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Usuwamy odstępy, by linie się stykały */
+    border-top: 1px solid #eee; /* Linia zamykająca od góry */
+  }
+  .website_portal li {
+    display: flex;
+    align-items: stretch; /* Rozciąga linki na pełną szerokość */
+    width: 100%;
+    border-bottom: 1px solid #eee; /* Separator między wierszami */
+  }
+  .website_portal li a {
+    flex-grow: 1;
+    padding: 15px 10px; /* Większy margines dla palca */
+    font-size: 16px; /* Czytelniejsza czcionka na telefonie */
+    border: none !important; /* Usuwamy ramki z wersji desktopowej */
+    border-radius: 0;
+    justify-content: space-between; /* Tekst po lewej, ewentualna ikona po prawej */
+  }
+  /* Subtelny efekt kliknięcia zamiast hovera (na mobile hover nie zawsze działa) */
+  .website_portal li a:active {
+    background-color: #fcfcfc;
+    color: #007bff;
+    padding-left: 15px;
+  }
+  /* Obsługa dwóch linków w jednej linii (np. Instagram + Reddit) */
+  .website_portal li a + a {
+    flex-grow: 0;
+    border-left: 1px solid #eee; /* Pionowa kreska oddzielająca ikonę */
+    padding: 15px 20px;
+  }
+  /* Styl nagłówków na mobile */
+  .website_title {
+    margin: 25px 0 10px 0;
+    font-size: 1.1rem;
+    background: transparent;
+  }
+}
  .website_info_page {
      a {
          text-decoration: none;
