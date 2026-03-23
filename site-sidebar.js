@@ -142,7 +142,7 @@ function AudioPlayerEpisode(url) {
     else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
         // Safari lub zwykłe MP3
         audio.src = url;
-        audio..style.display='block';
+        audio.style.display='block';
         audio.play().catch(() => console.log("Wymagana interakcja"));
     }
 }
