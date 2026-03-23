@@ -1,4 +1,3 @@
-let hls;
 // <div id="episode-list">Ładowanie odcinków...</div>
 function SpreakerPodcast(showId) {
     // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
@@ -167,10 +166,7 @@ function AgoraPodcast(brandId, seriesId, mainUrl) {
                 `<ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a> 
-                        <a href="#" onclick="
-                            GetAndPlayAgora(${brandId}, ${episode.podcast_id});
-                            return false;
-                        ">►</a>
+                        <a href="#" onclick="GetAndPlayAgora(${brandId}, ${episode.podcast_id}); return false;">►</a>
                     </li>
                 </ul>`
             ).join('');
