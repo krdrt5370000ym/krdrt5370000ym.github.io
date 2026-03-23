@@ -219,11 +219,45 @@
     h3 {
         font-weight: 600;
     }
-    li {
-        a {
-            text-decoration: none;
-        }
+#episode-list {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+#episode-list ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+#episode-list li a {
+    display: block;
+    padding: 15px 20px;
+    background: #ffffff;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#episode-list li a:hover {
+    background: #f8f9fa;
+    border-color: #007bff;
+    color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Wersja Mobilna */
+@media (max-width: 600px) {
+    #episode-list li a {
+        padding: 12px 15px;
+        font-size: 16px;
     }
+}
 }
  @media screen and (max-width: 600px) {
      .podcast_info_title {
