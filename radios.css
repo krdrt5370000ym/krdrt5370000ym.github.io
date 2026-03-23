@@ -424,7 +424,7 @@
 }
 /* Wersja Mobilna */
 @media (max-width: 600px) {
-    #episode-list li a {
+    .podcast_list_episode_title {
         padding: 12px 15px;
         font-size: 16px;
     }
