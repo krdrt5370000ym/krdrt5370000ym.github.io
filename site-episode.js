@@ -64,8 +64,8 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
                     <li class="podcast_list_episode_title">
                         ${episode.title}
                         <a href="#" onclick="
+                            AudioPlayer(${episode.site_url});
                             const pla = document.getElementById('player');
-                            pla.src='${episode.site_url}';
                             pla.style.display='block';
                             pla.play();
                             return false;
