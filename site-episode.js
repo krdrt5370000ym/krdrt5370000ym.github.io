@@ -1,4 +1,4 @@
-let = hls;
+let hls;
 // <div id="episode-list">Ładowanie odcinków...</div>
 function SpreakerPodcast(showId) {
     // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
