@@ -20,10 +20,7 @@ function SpreakerPodcast(showId) {
                     <li class="podcast_list_episode_title">
                         <a href="${episode.site_url}" target="_blank">${episode.title}</a> 
                         <a href="#" onclick="
-                            const pla = document.getElementById('player');
-                            pla.src='${episode.playback_url}';
-                            pla.style.display='block';
-                            pla.play();
+                            AudioPlayerEpisode('${episode.playback_url}');
                             return false;
                         ">►</a>
                     </li>
@@ -99,10 +96,7 @@ function EurozetPodcast(showId, mainUrl, stationId) {
                     <li class="podcast_list_episode_title">
                         <a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a> 
                         <a href="#" onclick="
-                            const pla = document.getElementById('player');
-                            pla.src='${episode.player.stream}';
-                            pla.style.display='block';
-                            pla.play();
+                            AudioPlayerEpisode('${episode.player.stream}');
                             return false;
                         ">►</a>
                     </li>
