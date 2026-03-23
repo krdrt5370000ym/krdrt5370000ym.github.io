@@ -2,7 +2,7 @@
      border-top: 1px solid #e3e3e3;
 }
 /* Kontener listy */
-.website_portal {
+.website_portal, .website_info_page {
   display: grid;
   /* Trzy równe kolumny na komputerze */
   grid-template-columns: repeat(4, 1fr);
@@ -12,7 +12,7 @@
   margin: 20px 0;
 }
 /* Styl pojedynczego elementu listy */
-.website_portal li {
+.website_portal, .website_info_page li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,27 +21,27 @@
   transition: border-color 0.3s ease;
 }
 /* Link główny (tekst) */
-.website_portal li a:first-child {
+.website_portal, .website_info_page li a:first-child {
   text-decoration: none;
   color: #333;
   font-weight: 500;
   flex-grow: 1;
 }
 /* Ikony społecznościowe obok tekstu */
-.website_portal li a i {
+.website_portal, .website_info_page li a i {
   margin-left: 8px;
   color: #888;
   font-size: 1.1em;
   transition: color 0.2s, transform 0.2s;
 }
 /* Efekty hover */
-.website_portal li:hover {
+.website_portal, .website_info_page li:hover {
   border-bottom-color: #007bff; /* Linia zmienia kolor przy najechaniu */
 }
-.website_portal li a:hover {
+.website_portal, .website_info_page li a:hover {
   color: #007bff;
 }
-.website_portal li a:hover i {
+.website_portal, .website_info_page li a:hover i {
   color: #007bff;
   transform: scale(1.2);
 }
@@ -57,19 +57,19 @@
     grid-template-columns: repeat(3, 1fr);
 }
 @media screen and (max-width: 768px) {
-  .website_portal {
+  .website_portal, .website_info_page {
     /* Dwie kolumny na telefonach */
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
-  .website_portal li {
+  .website_portal, .website_info_page li {
     padding: 12px 5px;
     font-size: 14px;
   }
 }
 /* Opcjonalnie: jedna kolumna na bardzo małych ekranach (poniżej 400px) */
 @media screen and (max-width: 400px) {
-  .website_portal {
+  .website_portal, .website_info_page {
     grid-template-columns: 1fr;
   }
 }
@@ -79,11 +79,6 @@
     font-size: 1.1rem;
     background: transparent;
   }
-}
- .website_info_page {
-     a {
-         text-decoration: none;
-    }
 }
  .phone {
      @media (max-width:600px) {
