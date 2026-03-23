@@ -393,11 +393,11 @@
     h3 {
         font-weight: 600;
     }
-#episode-list {
+/* #episode-list {
     max-width: 800px;
     margin: 20px auto;
     padding: 0 15px;
-}
+} */
 
 #episode-list ul {
     list-style: none;
