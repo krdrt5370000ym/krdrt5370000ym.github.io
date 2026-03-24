@@ -307,6 +307,25 @@ function WPPodcastRVR() {
         });
 }
 
+async function loadAudioForPost(postId, mainUrl) {
+    try {
+        const audioRes = await fetch(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/ogg`);
+        const media = await audioRes.json();
+
+        const li = document.getElementById(`post-${postId}`);
+        const placeholder = li.querySelector('.audio-placeholder');
+
+        if (media && media.length > 0) {
+            const audioUrl = media[0].source_url;
+            placeholder.innerHTML = ` <button onclick="new Audio('${audioUrl}').play()">▶ Graj</button>`;
+        } else {
+            placeholder.remove(); // Usuwamy napis, jeśli nie ma audio
+        }
+    } catch (e) {
+        console.error("Błąd audio dla ID " + postId);
+    }
+}
+
 function GetAndPlayWP(postId, mainUrl) {
     const detailUrl = `${mainUrl}/wp-json/wp/v2/media?parent=${postId}&order=asc&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac`;
     
