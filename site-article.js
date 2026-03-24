@@ -301,25 +301,40 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
 
             // Autor z _embedded
             let authorDisplay = '';
-            if (is_author && embed.author) {
-                const authorName = embed.author[0]?.name || 'Redakcja';
-                authorDisplay = `<i class="fa-solid fa-user"></i> ${authorName} | `;
+            if (embed.author && embed.author[0]) {
+                const author = embed.author[0];
+                const authorName = author.name || 'Redakcja';
+                const authorLink = author.link;
+                // Tworzymy link do profilu autora
+                authorDisplay = `
+                    <i class="fa-solid fa-user"></i> 
+                    <a href="${authorLink}" target="_blank">${authorName}</a> | `;
+            } else {
+                authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
             }
 
             // Kategorie z _embedded (term[0])
             let categoriesDisplay = '';
-            if (is_categories && embed['wp:term']) {
-                const cats = embed['wp:term'][0]
-                    .map(cat => cat.name)
-                    .join(' • ') || 'Aktualności';
-                categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
+            if (embed['wp:term'] && embed['wp:term'][0]) {
+                const catsHtml = embed['wp:term'][0]
+                    .map(cat => `<a href="${cat.link}" target="_blank">${cat.name}</a>`)
+                    .join(' • ');
+                
+                categoriesDisplay = `<div class="article_category_posts">${catsHtml || 'Aktualności'}</div>`;
             }
 
             // Tagi z _embedded (term[1])
             let tagsDisplay = '';
-            if (is_tags && embed['wp:term'] && embed['wp:term'][1]) {
-                const tags = embed['wp:term'][1].map(tag => tag.name).join(', ');
-                tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
+            if (embed['wp:term'] && embed['wp:term'][1] && embed['wp:term'][1].length > 0) {
+                const tagsHtml = embed['wp:term'][1]
+                    .map(t => `<a href="${t.link}" target="_blank">${t.name}</a>`)
+                    .join(', ');
+            
+                tagsDisplay = `
+                    <div class="article_tags_posts">
+                        <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
+                        <div class="article_tagsprefix_list">${tagsHtml}</div>
+                    </div>`;
             }
 
             // Obrazek z _embedded
