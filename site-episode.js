@@ -190,29 +190,42 @@ function GetAndPlayAgora(brandId, podcastId) {
 }
 
 async function WPPodcastRK(SearchId) {
-    const container = document.getElementById('episode-list');
     const apiUrl = 'https://radiokolor.pl/wp-json/wp/v2/podcast?search=' + SearchId + '&per_page=100';
+    const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
-    try {
-        const response = await fetch(apiUrl);
-        const posts = await response.json();
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci');
+            return response.json();
+        })
+        .then(posts => {
+            if (posts.length === 0) {
+                container.innerHTML = "Brak dostępnych odcinków.";
+                return;
+            }
 
-        // Renderujemy szkielet listy
-        container.innerHTML = posts.map(post => `
-            <ul class="podcast_list_episode_content">
-                <li id="post-${post.id}" class="podcast_list_episode_title">
-                    <a href="${post.link}" target="_blank">${post.title.rendered}</a>
-                    <span class="audio-placeholder"></span>
-                </li>
-            </ul>
-        `).join('');
+            const htmlContent = posts.map(post => {
+                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
+                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-        // Dla każdego posta doczytujemy plik audio osobnym zapytaniem
-        posts.forEach(post => loadAudioForPost(post.id, 'https://radiokolor.pl'));
+                return `
+                <ul class="podcast_list_episode_content">
+                    <li class="podcast_list_episode_title">
+                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
+                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
+                    </li>
+                </ul>`;
+            }).join('');
 
-    } catch (error) {
-        container.innerHTML = "Błąd ładowania.";
-    }
+            container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            container.innerHTML = "Błąd podczas ładowania postów.";
+        });
 }
 
 function WPPodcastRVG() {
