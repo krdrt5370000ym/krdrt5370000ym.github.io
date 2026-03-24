@@ -271,9 +271,9 @@ https://waw.ic.smcdn.pl/6240-1.aac
 https://liveradio.timesa.pl/6150-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA FITNESS (IC)
 https://waw.ic.smcdn.pl/6150-1.aac
-#EXTINF:-1, ESKA WINTER PARTY
+#EXTINF:-1, ESKA x White2115
 https://liveradio.timesa.pl/6270-1.aac/playlist.m3u8
-#EXTINF:-1, ESKA WINTER PARTY (IC)
+#EXTINF:-1, ESKA x White2115 (IC)
 https://waw.ic.smcdn.pl/6270-1.aac
 #EXTINF:-1, ESKA2 Gorąca polska 20
 https://liveradio.timesa.pl/6110-1.aac/playlist.m3u8
@@ -359,10 +359,14 @@ https://ml.cdn.eurozet.pl/MELFST.mp3
 https://stream.palneta.pl/app/palneta/playlist.m3u8
 #EXTINF:-1, Stara Planeta FM
 https://pl01.cdn.eurozet.pl/pla-net.mp3
-#EXTINF:-1, RadioRS.pl - Kanał Główny
-https://s.radiors.pl/stream128
-#EXTINF:-1, RadioRS.pl - Kanał EDM
-https://s.radiors.pl/edm
+#EXTINF:-1, Red7.pl - Kanał Główny
+https://s.red7.pl/stream128
+#EXTINF:-1, Red7.pl - Kanał EDM
+https://s.red7.pl/edm
+#EXTINF:-1, Radio.Cmp3.eu - Kanał Główny
+https://s1.cmp3.eu/stream128
+#EXTINF:-1, Radio.Cmp3.eu - Kanał EDM
+https://s1.cmp3.eu/edm
 #EXTINF:-1, Disco Party - Disco Polo
 https://s1.slotex.pl/shoutcast/7432/stream?sid=1
 #EXTINF:-1, Disco Party - Club
