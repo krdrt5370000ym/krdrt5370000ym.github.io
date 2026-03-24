@@ -113,7 +113,7 @@ function EurozetPodcast(showId, mainUrl, stationId) {
 // Wywołanie z Twoim ID
 // EurozetPodcast(12345, "https://player.radiozet.pl/", "radiozet");
 
-function WPPodcast(categoryId,mainUrl) {
+function WPPodcast(categoryId, mainUrl) {
     // WordPress API zwraca tablicę postów bezpośrednio
     const apiUrl = mainUrl + '/wp-json/wp/v2/posts?categories=' + categoryId + '&per_page=100';
     const container = document.getElementById('episode-list');
@@ -340,7 +340,6 @@ function GetAndPlayWP(postId, mainUrl) {
                 AudioPlayerEpisode(streamUrl);
             } else {
                 alert("Nie znaleziono źródła dźwięku.");
-                console.log(data);
             }
         })
         .catch(err => console.error("Błąd pobierania:", err));
