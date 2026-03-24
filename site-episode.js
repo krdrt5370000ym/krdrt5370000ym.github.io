@@ -126,7 +126,7 @@ async function WPPodcast(categoryId, mainUrl) {
             <ul class="podcast_list_episode_content">
                 <li id="post-${post.id}" class="podcast_list_episode_title">
                     <a href="${post.link}" target="_blank">${post.title.rendered}</a>
-                    <span class="audio-placeholder"> (sprawdzam audio...)</span>
+                    <span class="audio-placeholder"></span>
                 </li>
             </ul>
         `).join('');
