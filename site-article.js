@@ -232,7 +232,16 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             container.innerHTML = "Brak dostępnych postów.";
             return;
         }
-
+        
+        const post = posts[0]; // Wybieramy pierwszy post
+        
+        // --- AKTUALIZACJA TYTUŁU STRONY ---
+        // Dekodujemy encje HTML (np. &nbsp; czy &amp;), aby tytuł w karcie przeglądarki wyglądał ładnie
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = post.title.rendered;
+        document.title = tempDiv.textContent || tempDiv.innerText;
+        // ---------------------------------
+        
         const htmlContent = posts.map(post => {
             const embed = post._embedded || {};
 
