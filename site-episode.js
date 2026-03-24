@@ -372,8 +372,8 @@ async function loadAudioForPost(postId, mainUrl) {
 
 function AudioPlayerEpisode(url) {
     const audio = document.getElementById('player');
-    document.scrollingElement.scrollTop = audio.offsetTop - 40;
     audio.style.display = 'block'; // Pokaż player po kliknięciu
+    document.scrollingElement.scrollTop = audio.offsetTop - 40;
     const isM3U8 = url.toLowerCase().includes('.m3u8');
 
     // 1. Czyszczenie poprzedniej instancji HLS
