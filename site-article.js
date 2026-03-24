@@ -238,7 +238,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
         // --- AKTUALIZACJA TYTUŁU STRONY ---
         // Dekodujemy encje HTML (np. &nbsp; czy &amp;), aby tytuł w karcie przeglądarki wyglądał ładnie
         const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = post.title.rendered;
+        tempDiv.innerHTML = post.title.rendered + ' | krdrt537000ym.github.io';
         document.title = tempDiv.textContent || tempDiv.innerText;
         // ---------------------------------
         
