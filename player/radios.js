@@ -96,13 +96,17 @@
         fetch("https://krdrt5370000ym.github.io/player/playlist.json")
             .then(res => res.json())
             .then(json => {
-                const item = json.playlist.find(x => x.stream === streamId);
-                if (item) {
-                    eval(item.value);
-                } else {
-                    document.getElementById('resultTrack').InnerHTML = '';
-                    } catch (err) {
-                console.error(err);
-                document.getElementById('resultTrack').InnerHTML = '';
-            }
+                try {
+                    const item = json.playlist.find(x => x.stream === streamId);
+                    if (item && item.value) {
+                        eval(item.value);
+                    } else {
+                        document.getElementById('resultTrack').innerHTML = '';
+                    }
+                } catch (err) {
+                    console.error("Błąd podczas wykonywania kodu:", err);
+                    document.getElementById('resultTrack').innerHTML = '';
+                }
+            })
+            .catch(err => console.error("Błąd pobierania danych:", err));
     }
