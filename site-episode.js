@@ -372,6 +372,7 @@ async function loadAudioForPost(postId, mainUrl) {
 
 function AudioPlayerEpisode(url) {
     const audio = document.getElementById('player');
+    document.scrollingElement.scrollTop = 0;
     audio.style.display = 'block'; // Pokaż player po kliknięciu
     const isM3U8 = url.toLowerCase().includes('.m3u8');
 
