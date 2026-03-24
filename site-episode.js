@@ -247,8 +247,8 @@ function WPPodcastRVG() {
 
             const htmlContent = posts.map(post => {
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const doc = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = doc.querySelector('audio source') || doc.querySelector('audio');
+                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
                 return `
@@ -286,8 +286,8 @@ function WPPodcastRVR() {
 
             const htmlContent = posts.map(post => {
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const doc = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = doc.querySelector('audio source') || doc.querySelector('audio');
+                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
                 return `
@@ -326,8 +326,8 @@ function WPPodcastRVA(ProgramId) {
 
             const htmlContent = posts.map(post =>
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const doc = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = doc.querySelector('audio source') || doc.querySelector('audio');
+                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
             
                 return `
