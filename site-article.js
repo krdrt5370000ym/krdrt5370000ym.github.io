@@ -195,20 +195,42 @@ async function WPArticlePostRSC(slug) {
             const embed = post._embedded || {};
 
             // Autor
-            const authorName = embed.author?.[0]?.name || 'Redakcja';
-            const authorDisplay = `<i class="fa-solid fa-user"></i> ${authorName} | `;
+            let authorDisplay = '';
+            if (embed.author && embed.author[0]) {
+                const author = embed.author[0];
+                const authorName = author.name || 'Redakcja';
+                const authorLink = author.link;
+                // Tworzymy link do profilu autora
+                authorDisplay = `
+                    <i class="fa-solid fa-user"></i> 
+                    <a href="${authorLink}" target="_blank">${authorName}</a> | `;
+            } else {
+                authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
+            }
 
             // Kategorie
-            const cats = embed['wp:term']?.[0]?.map(c => c.name).join(' • ') || 'Aktualności';
-            const categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
+            let categoriesDisplay = '';
+            if (embed['wp:term'] && embed['wp:term'][0]) {
+                const catsHtml = embed['wp:term'][0]
+                    .map(cat => `<a href="${cat.link}" target="_blank">${cat.name}</a>`)
+                    .join(' • ');
+                
+                categoriesDisplay = `<div class="article_category_posts">${catsHtml || 'Aktualności'}</div>`;
+            }
 
-            // Tagi
-            const tags = embed['wp:term']?.[1]?.map(t => t.name).join(', ');
-            const tagsDisplay = tags ? `
-                <div class="article_tags_posts">
-                    <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
-                    <div class="article_tagsprefix_list">${tags}</div>
-                </div>` : '';
+            // Tagi z linkami z API
+            let tagsDisplay = '';
+            if (embed['wp:term'] && embed['wp:term'][1] && embed['wp:term'][1].length > 0) {
+                const tagsHtml = embed['wp:term'][1]
+                    .map(t => `<a href="${t.link}" target="_blank">${t.name}</a>`)
+                    .join(', ');
+            
+                tagsDisplay = `
+                    <div class="article_tags_posts">
+                        <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
+                        <div class="article_tagsprefix_list">${tagsHtml}</div>
+                    </div>`;
+            }
 
             // Obrazek wyróżniający
             let imageDisplay = '';
@@ -246,7 +268,7 @@ async function WPArticlePostRSC(slug) {
 
     } catch (error) {
         console.error("Błąd WP API:", error);
-        container.innerHTML = "Błąd podczas ładowania postów.";
+        container.innerHTML = `<div class="error-msg">Nie udało się pobrać artykułu. (${error.message})</div>`;
     }
 }
 
