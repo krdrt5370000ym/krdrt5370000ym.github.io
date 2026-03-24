@@ -317,11 +317,17 @@
     color: #444;
     font-size: 0.9em;
     margin-bottom: 4px;
+    a {
+        text-decoration: none;
+   }
 }
 .article_info {
     color: #666;
     font-size: 0.85em;
     margin-top: 5px;
+    a {
+        text-decoration: none;
+   }
 }
 @media screen and (max-width: 600px) {
     .article_cover {
@@ -352,10 +358,16 @@
 }
 .article_category_posts {
     color: #444;
+    a {
+        text-decoration: none;
+   }
 }
 .article_postedon_posts {
     color: #666;
     margin-block: 0.3em;
+    a {
+        text-decoration: none;
+   }
 }
 .article_tags_posts {
     align-self: center;
@@ -367,6 +379,9 @@
 .article_tagsprefix_list {
     display: inline;
     color: #444;
+    a {
+        text-decoration: none;
+   }
 }
 .article_headers_posts {
     margin-bottom: 1em;
