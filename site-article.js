@@ -162,65 +162,65 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
 
 async function WPArticlePostRSC(slug) {
     const container = document.getElementById('article-post');
-    // Dodajemy _embed do URL
-    const connector = slug.includes('?') ? '&' : '?';
-    const postsUrl = slug.slice(0,3) === '?p=' 
+    if (!container) return;
+
+    const postsUrl = slug.slice(0, 3) === '?p=' 
         ? `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(3)}?_embed=true` 
         : `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
 
     try {
         const response = await fetch(postsUrl);
+        
+        // TWOJA POPRAWKA: Sprawdzamy status odpowiedzi
+        if (!response.ok) throw new Error(`Błąd API: ${response.status}`);
+        
         let posts = await response.json();
+        
+        // Standaryzacja: zamień pojedynczy obiekt na tablicę jednoelementową
         if (!Array.isArray(posts)) posts = [posts];
         
+        // Sprawdź, czy mamy dane i czy ID istnieje (ważne przy błędnych slugach)
         if (posts.length === 0 || !posts[0].id) {
             container.innerHTML = "Brak dostępnych postów.";
             return;
         }
         
-        const post = posts[0]; // Wybieramy pierwszy post
-        
-        // --- AKTUALIZACJA TYTUŁU STRONY ---
-        // Dekodujemy encje HTML (np. &nbsp; czy &amp;), aby tytuł w karcie przeglądarki wyglądał ładnie
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = post.title.rendered + ' | krdrt537000ym.github.io';
-        document.title = tempDiv.textContent || tempDiv.innerText;
-        // ---------------------------------
-        
+        const post = posts[0];
+
+        // Tytuł strony (dekodowanie encji HTML)
+        const doc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
+        document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
+
         const htmlContent = posts.map(post => {
             const embed = post._embedded || {};
 
-            // Autor z _embedded
-            let authorDisplay = '';
-            if (embed.author) {
-                const authorName = embed.author[0]?.name || 'Redakcja';
-                authorDisplay = `<i class="fa-solid fa-user"></i> ${authorName} | `;
-            }
+            // Autor
+            const authorName = embed.author?.[0]?.name || 'Redakcja';
+            const authorDisplay = `<i class="fa-solid fa-user"></i> ${authorName} | `;
 
-            // Kategorie z _embedded (term[0])
-            let categoriesDisplay = '';
-            if (embed['wp:term']) {
-                const cats = embed['wp:term'][0]
-                    .map(cat => cat.name)
-                    .join(' • ') || 'Aktualności';
-                categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
-            }
+            // Kategorie
+            const cats = embed['wp:term']?.[0]?.map(c => c.name).join(' • ') || 'Aktualności';
+            const categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
 
-            // Tagi z _embedded (term[1])
-            let tagsDisplay = '';
-            if (embed['wp:term'] && embed['wp:term'][1]) {
-                const tags = embed['wp:term'][1].map(tag => tag.name).join(', ');
-                tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
-            }
+            // Tagi
+            const tags = embed['wp:term']?.[1]?.map(t => t.name).join(', ');
+            const tagsDisplay = tags ? `
+                <div class="article_tags_posts">
+                    <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
+                    <div class="article_tagsprefix_list">${tags}</div>
+                </div>` : '';
 
-            // Obrazek z _embedded
+            // Obrazek wyróżniający
             let imageDisplay = '';
-            if (embed['wp:featuredmedia']) {
+            if (embed['wp:featuredmedia']?.[0]) {
                 const media = embed['wp:featuredmedia'][0];
                 const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-                if (imgUrl) {
-                    imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
-                }
+                imageDisplay = `
+                    <div class="wp-site-blocks">
+                        <div class="post-thumbnail">
+                            <img src="${imgUrl}" alt="${media.alt_text || ''}" style="max-width:100%; height:auto;">
+                        </div>
+                    </div>`;
             }
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
