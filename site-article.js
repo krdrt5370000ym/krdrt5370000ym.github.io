@@ -160,7 +160,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
     }
 }
 
-async function WPArticlePostRSC() {
+async function WPArticlePostRSC(slug) {
     const container = document.getElementById('article-post');
     // Dodajemy _embed do URL
     const connector = slug.includes('?') ? '&' : '?';
