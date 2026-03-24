@@ -2,61 +2,83 @@
 let currentPage = 1; // Licznik aktualnej strony
 const perPage = 10;   // Ile wpisów na jedno kliknięcie
 
-function WPArticleRSC() {
-    // Używamy działającej listy kategorii (z pominięciem ID 16)
-    const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=10';
+async function WPArticleRSC(append = false) {
     const container = document.getElementById('article-list');
+    const button = document.getElementById('load-more-btn');
+    
+    // Jeśli nie dopisujemy, resetujemy stronę do 1
+    if (!append) currentPage = 1;
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
-            return response.json();
-        })
-        .then(posts => {
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych aktualności.";
-                return;
-            }
+    const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=${perPage}&page=${currentPage}&_embed=true`;
 
-            const htmlContent = posts.map(post => {
-                // 1. Formatowanie daty na polski styl
-                const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
+    try {
+        if (button) button.innerText = "Ładowanie...";
+        
+        const response = await fetch(postsUrl);
+        
+        // Sprawdź czy strona istnieje
+        if (!response.ok) {
+            if (button) button.style.display = 'none';
+            return;
+        }
 
-                // 2. Pobieranie nazw kategorii z pola category_info (jeśli istnieje)
-                const categories = post.category_info 
-                    ? post.category_info.map(cat => cat.name).join(' • ') 
-                    : 'Aktualności';
+        const posts = await response.json();
 
-                // 3. Pobieranie wyświetlanej nazwy autora
-                const author = post.author_info ? post.author_info.display_name : 'Redakcja';
+        if (!Array.isArray(posts) || posts.length === 0) {
+            if (!append) container.innerHTML = "Brak aktualności.";
+            if (button) button.style.display = 'none';
+            return;
+        }
 
-                // 4. Pobieranie obrazu
-                const image = post.featured_image_src_large ? '<img src="' + post.featured_image_src_large[0].replace("-1024x768.","-300x225.") + '" width="150" height="150">' : '';
+        const htmlContent = posts.map(post => {
+            const authorName = post._embedded?.author?.[0]?.name || 'Redakcja';
+            const terms = post._embedded?.['wp:term']?.[0] || [];
+            const cats = terms.length > 0 ? terms.map(t => t.name).join(' • ') : 'Aktualności';
+            
+            const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+            const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
+            const imageDisplay = imgUrl ? `<img src="${imgUrl}" width="150" height="150">` : '';
 
-                return `
-                    <div class="articles">
-                        <div class="article_cover">${image}</div>
-                        <div class="article_content">
-                            <div class="article_category">${categories}</div>
-                            <div class="article_title"><a href="${post.link}" target="_blank">
-                                ${post.title.rendered}</a></div>
-                            <div class="article_info">
-                                <i class="fa-solid fa-user"></i> ${author} | ${postDate}
-                            </div>
+            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+
+            return `
+                <div class="articles">
+                    <div class="article_cover">${imageDisplay}</div>
+                    <div class="article_content">
+                        <div class="article_category">${cats}</div>
+                        <div class="article_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                        <div class="article_info">
+                            <i class="fa-solid fa-user"></i> ${authorName} | ${postDate}
                         </div>
-                    </div>`;
-            }).join('');
+                    </div>
+                </div>`;
+        }).join('');
 
+        // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
+        if (append) {
+            container.innerHTML += htmlContent;
+        } else {
             container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania aktualności.";
-        });
+        }
+
+        // Obsługa przycisku "Wczytaj więcej"
+        if (button) {
+            button.innerText = "Wczytaj więcej";
+            button.style.display = posts.length < perPage ? 'none' : 'block';
+            
+            // Jednorazowe przypisanie zdarzenia
+            button.onclick = () => {
+                currentPage++;
+                WPArticleRSC(true);
+            };
+        }
+
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        if (button) button.style.display = 'none';
+    }
 }
 
 async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true, append = false) {
