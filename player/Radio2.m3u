@@ -409,6 +409,8 @@ https://getradio.reconv.pl/openfm?s=radio-krakow-kultura
 https://getradio.reconv.pl/openfm?s=radio-krakow
 #EXTINF:-1, Open FM - Off Radio Kraków
 https://getradio.reconv.pl/openfm?s=off-radio-krakow
+#EXTINF:-1, Open FM - Muzyka na dobry dzień
+https://getradio.reconv.pl/openfm?s=muzyka-na-dobry-dzien
 #EXTINF:-1, RMF ON - RMF FM
 https://getradio.reconv.pl/rmfon?s=rmf-fm
 #EXTINF:-1, RMF ON - RMF Dance
@@ -1095,9 +1097,9 @@ https://waw.ic.smcdn.pl/6240-1.aac
 https://liveradio.timesa.pl/6150-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA FITNESS (IC)
 https://waw.ic.smcdn.pl/6150-1.aac
-#EXTINF:-1, ESKA WINTER PARTY
+#EXTINF:-1, ESKA x White2115
 https://liveradio.timesa.pl/6270-1.aac/playlist.m3u8
-#EXTINF:-1, ESKA WINTER PARTY (IC)
+#EXTINF:-1, ESKA x White2115 (IC)
 https://waw.ic.smcdn.pl/6270-1.aac
 #EXTINF:-1, ESKA2 Najlepsze Polskie Hity
 https://liveradio.timesa.pl/1980-1.aac/playlist.m3u8
