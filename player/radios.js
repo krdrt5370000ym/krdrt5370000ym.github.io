@@ -79,7 +79,6 @@
     
         player.style.display = 'initial';
         document.getElementById('buttons').style.display = 'initial';
-        document.getElementById('resultTrack').InnerHTML = '';
         playlistNowPlaying(streamUrl);
     }
     
@@ -100,7 +99,10 @@
                 const item = json.playlist.find(x => x.stream === streamId);
                 if (item) {
                     eval(item.value);
-                }
-            })
-        .catch(err => console.error(err));
+                } else {
+                    document.getElementById('resultTrack').InnerHTML = '';
+                    } catch (err) {
+                console.error(err);
+                document.getElementById('resultTrack').InnerHTML = '';
+            }
     }
