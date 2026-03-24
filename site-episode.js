@@ -113,37 +113,30 @@ function EurozetPodcast(showId, mainUrl, stationId) {
 // Wywołanie z Twoim ID
 // EurozetPodcast(12345, "https://player.radiozet.pl/", "radiozet");
 
-function WPPodcast(categoryId, mainUrl) {
-    // WordPress API zwraca tablicę postów bezpośrednio
-    const apiUrl = mainUrl + '/wp-json/wp/v2/posts?categories=' + categoryId + '&per_page=100';
+async function WPPodcast(categoryId, mainUrl) {
     const container = document.getElementById('episode-list');
+    const apiUrl = `${mainUrl}/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`;
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
-            return response.json();
-        })
-        .then(posts => {
-            // W WP API 'posts' to już gotowa tablica
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
+    try {
+        const response = await fetch(apiUrl);
+        const posts = await response.json();
 
-            const htmlContent = posts.map(post =>
-                `<ul class="podcast_list_episode_content">
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                    </li>
-                </ul>`
-            ).join('');
+        // Renderujemy szkielet listy
+        container.innerHTML = posts.map(post => `
+            <ul class="podcast_list_episode_content">
+                <li id="post-${post.id}" class="podcast_list_episode_title">
+                    <a href="${post.link}" target="_blank">${post.title.rendered}</a>
+                    <span class="audio-placeholder"> (sprawdzam audio...)</span>
+                </li>
+            </ul>
+        `).join('');
 
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
-        });
+        // Dla każdego posta doczytujemy plik audio osobnym zapytaniem
+        posts.forEach(post => loadAudioForPost(post.id, mainUrl));
+
+    } catch (error) {
+        container.innerHTML = "Błąd ładowania.";
+    }
 }
 // Przykład użycia (podaj ID kategorii z Twojego WordPressa)
 // WPPodcast(5,"https://radiorsc.pl");
@@ -317,30 +310,13 @@ async function loadAudioForPost(postId, mainUrl) {
 
         if (media && media.length > 0) {
             const audioUrl = media[0].source_url;
-            placeholder.innerHTML = ` <button onclick="new Audio('${audioUrl}').play()">▶ Graj</button>`;
+            placeholder.innerHTML = `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}');">▶</a>`;
         } else {
             placeholder.remove(); // Usuwamy napis, jeśli nie ma audio
         }
     } catch (e) {
         console.error("Błąd audio dla ID " + postId);
     }
-}
-
-function GetAndPlayWP(postId, mainUrl) {
-    const detailUrl = `${mainUrl}/wp-json/wp/v2/media?parent=${postId}&order=asc&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac`;
-    
-    fetch(detailUrl)
-        .then(res => res.json())
-        .then(data => {
-            // Sprawdzenie czy tablica nie jest pusta i pobranie source_url z pierwszego elementu
-            if (data && data.length > 0) {
-                const streamUrl = data[0].source_url;
-                AudioPlayerEpisode(streamUrl);
-            } else {
-                alert("Nie znaleziono źródła dźwięku.");
-            }
-        })
-        .catch(err => console.error("Błąd pobierania:", err));
 }
 
 function AudioPlayerEpisode(url) {
