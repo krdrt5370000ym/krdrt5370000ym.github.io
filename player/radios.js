@@ -1,3 +1,5 @@
+    let playlistInterval = null; // Zmienna globalna do przechowywania ID interwału
+
     async function fetchPlaylist(name) {
         const url = "https://krdrt5370000ym.github.io/player/" + name + ".m3u";
         try {
@@ -94,18 +96,37 @@
     }
 
     function playlistNowPlaying(streamId) {
+        // 1. Zatrzymaj poprzedni interwał, jeśli istnieje
+        if (playlistInterval) {
+            clearInterval(playlistInterval);
+        }
+    
         fetch("https://krdrt5370000ym.github.io/player/playlist.json")
             .then(res => res.json())
             .then(json => {
                 try {
                     const item = json.playlist.find(x => x.stream === streamId);
+                    
                     if (item && item.value) {
-                        eval(item.value);
+                        // Funkcja pomocnicza do odświeżania danych
+                        const updateTrack = () => {
+                            try {
+                                // UWAGA: eval() jest ryzykowny. Lepiej zamienić to na konkretną logikę.
+                                eval(item.value); 
+                            } catch (e) {
+                                console.error("Błąd wewnątrz interwału:", e);
+                            }
+                        };
+    
+                        // 2. Wykonaj od razu i ustaw nowy interwał
+                        updateTrack();
+                        playlistInterval = setInterval(updateTrack, 20000); 
+    
                     } else {
                         document.getElementById('resultTrack').innerHTML = '';
                     }
                 } catch (err) {
-                    console.error("Błąd podczas wykonywania kodu:", err);
+                    console.error("Błąd podczas przetwarzania danych:", err);
                     document.getElementById('resultTrack').innerHTML = '';
                 }
             })
