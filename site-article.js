@@ -270,12 +270,9 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
         
         const post = posts[0]; // Wybieramy pierwszy post
         
-        // --- AKTUALIZACJA TYTUŁU STRONY ---
-        // Dekodujemy encje HTML (np. &nbsp; czy &amp;), aby tytuł w karcie przeglądarki wyglądał ładnie
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = post.title.rendered + ' | krdrt537000ym.github.io';
-        document.title = tempDiv.textContent || tempDiv.innerText;
-        // ---------------------------------
+        // Tytuł strony (dekodowanie encji HTML)
+        const doc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
+        document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
         
         const htmlContent = posts.map(post => {
             const embed = post._embedded || {};
