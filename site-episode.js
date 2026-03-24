@@ -121,6 +121,11 @@ async function WPPodcast(categoryId, mainUrl) {
         const response = await fetch(apiUrl);
         const posts = await response.json();
 
+        if (posts.length === 0) {
+            container.innerHTML = "Brak dostępnych odcinków.";
+            return;
+        }
+
         // Renderujemy szkielet listy
         container.innerHTML = posts.map(post => `
             <ul class="podcast_list_episode_content">
