@@ -79,7 +79,7 @@
     
         player.style.display = 'initial';
         document.getElementById('buttons').style.display = 'initial';
-        document.getElementById('resultTrack') = '';
+        document.getElementById('resultTrack').InnerHTML = '';
         playlistNowPlaying(streamUrl);
     }
     
