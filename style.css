@@ -105,6 +105,9 @@ li ul.website_info_page {
   border-bottom: 1px solid #eee;
   position: relative;
   display: block;
+  a {
+      text-decoration: none;
+  }
 }
 
 /* Strzałka tylko dla elementów posiadających podlistę */
