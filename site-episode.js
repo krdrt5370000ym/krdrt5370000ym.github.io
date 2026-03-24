@@ -189,37 +189,30 @@ function GetAndPlayAgora(brandId, podcastId) {
         });
 }
 
-function WPPodcastRK(SearchId) {
-    // WordPress API zwraca tablicę postów bezpośrednio
-    const apiUrl = 'https://radiokolor.pl/wp-json/wp/v2/podcast?search=' + SearchId + '&per_page=100';
+async function WPPodcastRK(SearchId) {
     const container = document.getElementById('episode-list');
+    const apiUrl = 'https://radiokolor.pl/wp-json/wp/v2/podcast?search=' + SearchId + '&per_page=100';
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
-            return response.json();
-        })
-        .then(posts => {
-            // W WP API 'posts' to już gotowa tablica
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
+    try {
+        const response = await fetch(apiUrl);
+        const posts = await response.json();
 
-            const htmlContent = posts.map(post =>
-                `<ul class="podcast_list_episode_content">
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                    </li>
-                </ul>`
-            ).join('');
+        // Renderujemy szkielet listy
+        container.innerHTML = posts.map(post => `
+            <ul class="podcast_list_episode_content">
+                <li id="post-${post.id}" class="podcast_list_episode_title">
+                    <a href="${post.link}" target="_blank">${post.title.rendered}</a>
+                    <span class="audio-placeholder"></span>
+                </li>
+            </ul>
+        `).join('');
 
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
-        });
+        // Dla każdego posta doczytujemy plik audio osobnym zapytaniem
+        posts.forEach(post => loadAudioForPost(post.id, 'https://radiokolor.pl'));
+
+    } catch (error) {
+        container.innerHTML = "Błąd ładowania.";
+    }
 }
 
 function WPPodcastRVG() {
