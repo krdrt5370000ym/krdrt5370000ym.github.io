@@ -328,6 +328,24 @@ function WPPodcastRVA(ProgramId) {
         });
 }
 
+function GetAndPlayWP(postId, mainUrl) {
+    const detailUrl = `${mainUrl}/wp-json/wp/v2/media?parent=${postId}&order=asc&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac`;
+    
+    fetch(detailUrl)
+        .then(res => res.json())
+        .then(data => {
+            // Sprawdzenie czy tablica nie jest pusta i pobranie source_url z pierwszego elementu
+            if (data && data.length > 0) {
+                const streamUrl = data[0].source_url;
+                AudioPlayerEpisode(streamUrl);
+            } else {
+                alert("Nie znaleziono źródła dźwięku.");
+                console.log(data);
+            }
+        })
+        .catch(err => console.error("Błąd pobierania:", err));
+}
+
 function AudioPlayerEpisode(url) {
     const audio = document.getElementById('player');
     audio.style.display = 'block'; // Pokaż player po kliknięciu
