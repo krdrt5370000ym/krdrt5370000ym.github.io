@@ -31,9 +31,14 @@ async function WPArticleRSC(append = false) {
         }
 
         const htmlContent = posts.map(post => {
-            const authorName = post._embedded?.author?.[0]?.name || 'Redakcja';
+            const author = post._embedded?.author?.[0];
+            const authorHTML = author 
+            ? `<a href="${author.link}/">${author.name}</a>` 
+            : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
-            const cats = terms.length > 0 ? terms.map(t => t.name).join(' • ') : 'Aktualności';
+            const catsHTML = terms.length > 0 
+            ? terms.map(t => `<a href="${t.link}/">${t.name}</a>`).join(' • ') 
+            : '<a href="https://radiorsc.pl">Aktualności</a>';
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
             const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
@@ -47,10 +52,10 @@ async function WPArticleRSC(append = false) {
                 <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        <div class="article_category">${cats}</div>
+                        <div class="article_category">${catsHTML}</div>
                         <div class="article_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                         <div class="article_info">
-                            <i class="fa-solid fa-user"></i> ${authorName} | ${postDate}
+                            <i class="fa-solid fa-user"></i> ${authorHTML} | ${postDate}
                         </div>
                     </div>
                 </div>`;
@@ -110,9 +115,14 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
         }
 
         const htmlContent = posts.map(post => {
-            const authorName = post._embedded?.author?.[0]?.name || 'Redakcja';
+            const author = post._embedded?.author?.[0];
+            const authorHTML = author 
+            ? `<a href="${author.link}/">${author.name}</a>` 
+            : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
-            const cats = terms.length > 0 ? terms.map(t => t.name).join(' • ') : 'Aktualności';
+            const catsHTML = terms.length > 0 
+            ? terms.map(t => `<a href="${t.link}/">${t.name}</a>`).join(' • ') 
+            : '<a href="${mainUrl}">Aktualności</a>';
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
             const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
@@ -126,10 +136,10 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                 <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        ${is_categories ? `<div class="article_category">${cats}</div>` : ''}
+                        ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
                         <div class="article_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                         <div class="article_info">
-                            ${is_author ? `<i class="fa-solid fa-user"></i> ${authorName} | ` : ''}${postDate}
+                            ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
                         </div>
                     </div>
                 </div>`;
