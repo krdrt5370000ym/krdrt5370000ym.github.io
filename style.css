@@ -80,56 +80,63 @@
     background: transparent;
   }
 }
-.website_info_page {
-  /* Bazowe style listy */
-  ul {
-    list-style: none;
-    padding-left: 20px; /* Wcięcie dla podlist */
-    margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-  }
-  /* Pierwsza lista (główna) zawsze widoczna */
-  .website_info_page > ul, .container > ul {
-    max-height: none;
-    padding-left: 0;
-  }
-  /* Styl elementu li, który posiada podlistę */
-  li {
-    cursor: pointer;
-    padding: 8px 0;
-    position: relative;
-    a {
-        text-decoration: none;
-    }
-  }
-  /* Strzałka tylko dla LI, które mają w środku UL */
-  li:has(ul)::after {
-    content: '';
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    width: 6px;
-    height: 6px;
-    border-right: 2px solid #555;
-    border-bottom: 2px solid #555;
-    transform: rotate(-45deg); /* Strzałka w prawo */
-    transition: transform 0.3s;
-  }
-  /* Rozwijanie listy po dodaniu klasy .open */
-  li.open > ul {
-    max-height: 500px; /* Wystarczająca wysokość */
-    margin-top: 10px;
-  }
-  /* Obrót strzałki w dół po otwarciu */
-  li.open > ::after {
-    transform: rotate(45deg);
-  }
-  /* Efekt najechania dla czytelności */
-  li:hover > span {
-    color: #007bff;
-  }
+/* Główna lista - musi być zawsze widoczna */
+ul.website_info_page {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: none; /* Główna lista widoczna */
+  overflow: visible;
+}
+
+/* Każda lista z tą klasą, która jest wewnątrz LI, jest traktowana jako podmenu */
+li ul.website_info_page {
+  max-height: 0; /* Ukryta na starcie */
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, margin 0.3s;
+  padding-left: 20px;
+  background: rgba(0, 0, 0, 0.03); /* Lekkie wyróżnienie tła podmenu */
+}
+
+/* Styl elementu listy */
+.website_info_page li {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  display: block;
+}
+
+/* Strzałka tylko dla elementów posiadających podlistę */
+.website_info_page li:has(ul)::after {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 18px;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid #666;
+  border-bottom: 2px solid #666;
+  transform: rotate(-45deg); /* W prawo */
+  transition: transform 0.3s;
+}
+
+/* Rozwinięcie podlisty gdy rodzic ma klasę .open */
+.website_info_page li.open > ul.website_info_page {
+  max-height: 500px; /* Wartość wystarczająca na treść */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Obrót strzałki w dół po otwarciu */
+.website_info_page li.open:has(ul)::after {
+  transform: rotate(45deg);
+  top: 15px;
+}
+
+/* Efekt najechania dla tekstu */
+.website_info_page li:hover > span {
+  color: #007bff;
 }
  .phone {
      @media (max-width:600px) {
