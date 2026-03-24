@@ -160,59 +160,94 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
     }
 }
 
-function WPArticleRSCPost(slug) {
-    // Używamy działającej listy kategorii (z pominięciem ID 16)
-    const apiUrl = slug.slice(0,3) === '?p=' ? 'https://radiorsc.pl/wp-json/wp/v2/posts/' + slug.slice(3) + '?per_page=1' : 'https://radiorsc.pl/wp-json/wp/v2/posts?slug=' + slug + '&per_page=1';
+async function WPArticlePostRSC() {
     const container = document.getElementById('article-post');
+    // Dodajemy _embed do URL
+    const connector = slug.includes('?') ? '&' : '?';
+    const postsUrl = slug.slice(0,3) === '?p=' 
+        ? `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(3)}?_embed=true` 
+        : `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd połączenia');
-            return response.json(); // KLUCZOWE: musisz sparsować dane do JSON
-        })
-        .then(data => {
-            // Standaryzacja: jeśli to obiekt (pojedynczy post), zamień go w tablicę jednoelementową
-            const posts = Array.isArray(data) ? data : (data && data.id ? [data] : []);
-            
-            if (posts.length === 0) {
-                document.getElementById('article-post').innerHTML = "Brak dostępnych postów.";
-                return;
+    try {
+        const response = await fetch(postsUrl);
+        let posts = await response.json();
+        if (!Array.isArray(posts)) posts = [posts];
+        
+        if (posts.length === 0 || !posts[0].id) {
+            container.innerHTML = "Brak dostępnych postów.";
+            return;
+        }
+        
+        const post = posts[0]; // Wybieramy pierwszy post
+        
+        // --- AKTUALIZACJA TYTUŁU STRONY ---
+        // Dekodujemy encje HTML (np. &nbsp; czy &amp;), aby tytuł w karcie przeglądarki wyglądał ładnie
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = post.title.rendered + ' | krdrt537000ym.github.io';
+        document.title = tempDiv.textContent || tempDiv.innerText;
+        // ---------------------------------
+        
+        const htmlContent = posts.map(post => {
+            const embed = post._embedded || {};
+
+            // Autor z _embedded
+            let authorDisplay = '';
+            if (embed.author) {
+                const authorName = embed.author[0]?.name || 'Redakcja';
+                authorDisplay = `<i class="fa-solid fa-user"></i> ${authorName} | `;
             }
-            
-            const htmlContent = posts.map(post => {
-                // ... reszta Twojej logiki formatowania (postDate, author, image itd.) ...
-                const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                    day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
-                });
-                
-                const categories = post.category_info ? post.category_info.map(cat => cat.name).join(' • ') : 'Aktualności';
-                const author = post.author_info ? post.author_info.display_name : 'Redakcja';
-                const image = post.featured_image_src_large ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${post.featured_image_src_large[0]}" width="2560" height="1920"></div></div>` : '';
-                const tags = post.tag_info
-                    ? '<div class=\"article_tags_posts\"><div class=\"article_tagsprefix_posts\"><i class=\"fa-solid fa-tags\"></i> Tagi: </div><div class=\"article_tagsprefix_list\">' + post.tag_info.map(tag => tag.name).join(', ') + '</div></div>'
-                    : '';
-        
-                return `
-                    <div class="articles_posts">
-                        <article id="post-${post.id}">
-                            <header class="article_headers_posts">
-                                <div class="article_category_posts">${categories}</div>
-                                <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
-                                <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${author} | ${postDate}</div>
-                                ${tags}
-                            </header>
-                            ${image}
-                            <div class="article_singlecontent_posts">${post.content.rendered}</div>
-                        </article>
-                    </div>`;
-            }).join('');
-        
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
+
+            // Kategorie z _embedded (term[0])
+            let categoriesDisplay = '';
+            if (embed['wp:term']) {
+                const cats = embed['wp:term'][0]
+                    .map(cat => cat.name)
+                    .join(' • ') || 'Aktualności';
+                categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
+            }
+
+            // Tagi z _embedded (term[1])
+            let tagsDisplay = '';
+            if (embed['wp:term'] && embed['wp:term'][1]) {
+                const tags = embed['wp:term'][1].map(tag => tag.name).join(', ');
+                tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
+            }
+
+            // Obrazek z _embedded
+            let imageDisplay = '';
+            if (embed['wp:featuredmedia']) {
+                const media = embed['wp:featuredmedia'][0];
+                const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
+                if (imgUrl) {
+                    imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
+                }
+            }
+
+            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
+            });
+
+            return `
+                <div class="articles_posts">
+                    <article id="post-${post.id}">
+                        <header class="article_headers_posts">
+                            ${categoriesDisplay}
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                            <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
+                            ${tagsDisplay}
+                        </header>
+                        ${imageDisplay}
+                        <div class="article_singlecontent_posts">${post.content.rendered}</div>
+                    </article>
+                </div>`;
         });
+
+        container.innerHTML = htmlContent.join('');
+
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        container.innerHTML = "Błąd podczas ładowania postów.";
+    }
 }
 
 async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true) {
