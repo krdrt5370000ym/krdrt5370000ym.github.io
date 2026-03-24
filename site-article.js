@@ -217,76 +217,55 @@ function WPArticleRSCPost(slug) {
 
 async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true) {
     const container = document.getElementById('article-post');
-    const postsUrl = slug.slice(0,3) === '?p=' ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(3)}?per_page=1` : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
+    // Dodajemy _embed do URL
+    const connector = slug.includes('?') ? '&' : '?';
+    const postsUrl = slug.slice(0,3) === '?p=' 
+        ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(3)}?_embed=true` 
+        : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
 
     try {
         const response = await fetch(postsUrl);
         let posts = await response.json();
-        if (!Array.isArray(posts)) posts = [posts]; // Zamień pojedynczy obiekt na tablicę jednoelementową
+        if (!Array.isArray(posts)) posts = [posts];
         
-        if (posts.length === 0 || !posts[0].id) { // Dodatkowe sprawdzenie czy post istnieje
+        if (posts.length === 0 || !posts[0].id) {
             container.innerHTML = "Brak dostępnych postów.";
             return;
         }
 
-        const cache = { authors: {}, categories: {}, tags: {}, images: {} };
+        const htmlContent = posts.map(post => {
+            const embed = post._embedded || {};
 
-        const htmlContent = await Promise.all(posts.map(async (post) => {
-            // Logika pobierania autora
+            // Autor z _embedded
             let authorDisplay = '';
-            if (is_author) {
-                if (!cache.authors[post.author]) {
-                    const authorRes = await fetch(`${mainUrl}/wp-json/wp/v2/users/${post.author}`);
-                    const authorData = await authorRes.json();
-                    cache.authors[post.author] = authorData.name || 'Redakcja';
-                }
-                authorDisplay = `<i class="fa-solid fa-user"></i> ${cache.authors[post.author]} | `;
+            if (is_author && embed.author) {
+                const authorName = embed.author[0]?.name || 'Redakcja';
+                authorDisplay = `<i class="fa-solid fa-user"></i> ${authorName} | `;
             }
 
-            // Logika pobierania kategorii
+            // Kategorie z _embedded (term[0])
             let categoriesDisplay = '';
-            if (is_categories) {
-                const categoryNames = [];
-                for (const catId of post.categories) {
-                    if (!cache.categories[catId]) {
-                        const catRes = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${catId}`);
-                        const catData = await catRes.json();
-                        cache.categories[catId] = catData.name;
-                    }
-                    categoryNames.push(cache.categories[catId]);
-                }
-                const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
+            if (is_categories && embed['wp:term']) {
+                const cats = embed['wp:term'][0]
+                    .map(cat => cat.name)
+                    .join(' • ') || 'Aktualności';
                 categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
             }
 
-            // Logika pobierania tagi
+            // Tagi z _embedded (term[1])
             let tagsDisplay = '';
-            if (is_tags) {
-                const tagNames = [];
-                for (const tagId of post.tags) {
-                    if (!cache.tags[tagId]) {
-                        const tagRes = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagId}`);
-                        const tagData = await tagRes.json();
-                        cache.tags[tagId] = tagData.name;
-                    }
-                    tagNames.push(cache.tags[tagId]);
-                }
-                const tags = tagNames.length > 0 ? tagNames.join(', ') : '';
+            if (is_tags && embed['wp:term'] && embed['wp:term'][1]) {
+                const tags = embed['wp:term'][1].map(tag => tag.name).join(', ');
                 tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
             }
 
-            // Logika pobierania obrazu
+            // Obrazek z _embedded
             let imageDisplay = '';
-            if (is_image) {
-                if (post.featured_media !== 0) {
-                    if (!cache.images[post.featured_media]) {
-                        try {
-                            const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
-                            const imagesData = await imagesRes.json();
-                            cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
-                        } catch (e) { cache.images[post.featured_media] = ''; }
-                    }
-                    imageDisplay = cache.images[post.featured_media] ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
+            if (is_image && embed['wp:featuredmedia']) {
+                const media = embed['wp:featuredmedia'][0];
+                const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
+                if (imgUrl) {
+                    imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
                 }
             }
 
@@ -307,107 +286,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                         <div class="article_singlecontent_posts">${post.content.rendered}</div>
                     </article>
                 </div>`;
-        }));
-
-        container.innerHTML = htmlContent.join('');
-
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = "Błąd podczas ładowania postów.";
-    }
-}
-
-async function WPArticleSOSWPost(slug) {
-    const container = document.getElementById('article-post');
-    const postsUrl = slug.slice(0,3) === '?p=' ? `https://soswskierniewice.pl/wp-json/wp/v2/posts/${slug.slice(3)}?per_page=1` : `https://soswskierniewice.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1`;
-
-    // Mapa autorów zgodna z Twoją listą
-    const authorsMap = {
-        2: "Hubert Rosiński",
-        3: "Paweł Jaskuła",
-        4: "Mari Ola",
-        6: "Monika Urbańska",
-        7: "Martyna Pawlewicz",
-        10: "Andrzej Popiński",
-        11: "Agata Sadach"
-    };
-
-    try {
-        const response = await fetch(postsUrl);
-        let posts = await response.json();
-        if (!Array.isArray(posts)) posts = [posts]; // Zamień pojedynczy obiekt na tablicę jednoelementową
-
-        if (posts.length === 0 || !posts[0].id) { // Dodatkowe sprawdzenie czy post istnieje
-            container.innerHTML = "Brak dostępnych postów.";
-            return;
-        }
-
-        const cache = { categories: {}, tags: {}, images: {} };
-
-        const htmlContent = await Promise.all(posts.map(async (post) => {
-            
-            // 1. Pobieranie Autora z mapy
-            const authorName = authorsMap[post.author] || "Autor nieznany";
-
-            // 2. Logika kategorii
-            let categoriesDisplay = '';
-            const categoryNames = [];
-            for (const catId of post.categories) {
-                if (!cache.categories[catId]) {
-                    const catRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/categories/${catId}`);
-                    const catData = await catRes.json();
-                    cache.categories[catId] = catData.name;
-                }
-                categoryNames.push(cache.categories[catId]);
-            }
-            const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
-            categoriesDisplay = `<div class="article_category_posts">${cats}</div>`;
-
-            // 3. Logika tagi
-            let tagsDisplay = '';
-            const tagNames = [];
-            for (const tagId of post.tags) {
-                if (!cache.tags[tagId]) {
-                    const tagRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/tags/${tagId}`);
-                    const tagData = await tagRes.json();
-                    cache.tags[tagId] = tagData.name;
-                }
-                tagNames.push(cache.tags[tagId]);
-            }
-            const tags = tagNames.length > 0 ? tagNames.join(', ') : '';
-            tagsDisplay = tags ? `<div class="article_tags_posts"><div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div><div class="article_tagsprefix_list">${tags}</div></div>` : '';
-
-            // 4. Logika obrazu
-            let imageDisplay = '';
-            if (post.featured_media !== 0) {
-                if (!cache.images[post.featured_media]) {
-                    try {
-                        const imagesRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/media/${post.featured_media}`);
-                        const imagesData = await imagesRes.json();
-                        cache.images[post.featured_media] = imagesData.media_details?.sizes?.large?.source_url || imagesData.source_url;
-                    } catch (e) { cache.images[post.featured_media] = ''; }
-                }
-                imageDisplay = cache.images[post.featured_media] ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${cache.images[post.featured_media]}" width="2560" height="1920"></div></div>` : '';
-            }
-
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
-            });
-
-            return `
-                <div class="articles_posts">
-                    <article id="post-${post.id}">
-                        <header class="article_headers_posts">
-                            ${categoriesDisplay}
-                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
-                            <div class="article_postedon_posts"><i class="fa-solid fa-user"></i> ${authorName} | ${postDate}</div>
-                            ${tagsDisplay}
-                        </header>
-                        ${imageDisplay}
-                        <div class="article_singlecontent_posts">${post.content.rendered}</div>
-                    </article>
-                </div>`;
-        }));
+        });
 
         container.innerHTML = htmlContent.join('');
 
