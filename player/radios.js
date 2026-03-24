@@ -79,6 +79,7 @@
     
         player.style.display = 'initial';
         document.getElementById('buttons').style.display = 'initial';
+        playlistNowPlaying(streamUrl);
     }
     
     function reloadStation() {
@@ -89,4 +90,16 @@
         } else {
             console.warn("Brak wybranej stacji do przeładowania.");
         }
+    }
+
+    function playlistNowPlaying(streamId) {
+        fetch("https://krdrt5370000ym.github.io/player/playlist.json")
+            .then(res => res.json())
+            .then(json => {
+                const item = json.playlist.find(x => x.stream === streamId);
+                if (item) {
+                    eval(item.value);
+                }
+            })
+        .catch(err => console.error(err));
     }
