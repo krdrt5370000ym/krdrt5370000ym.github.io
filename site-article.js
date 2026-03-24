@@ -1,4 +1,7 @@
 // <div id="article-list">Ładowanie aktualności...</div>
+let currentPage = 1; // Licznik aktualnej strony
+const perPage = 10;   // Ile wpisów na jedno kliknięcie
+
 function WPArticleRSC() {
     // Używamy działającej listy kategorii (z pominięciem ID 16)
     const apiUrl = 'https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=10';
@@ -56,149 +59,42 @@ function WPArticleRSC() {
         });
 }
 
-async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true) {
+async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true, append = false) {
     const container = document.getElementById('article-list');
-    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=10`;
+    const button = document.getElementById('load-more-btn');
+    
+    // Jeśli nie dopisujemy, resetujemy stronę do 1
+    if (!append) currentPage = 1;
+
+    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${currentPage}&_embed=true`;
 
     try {
+        if (button) button.innerText = "Ładowanie...";
+        
         const response = await fetch(postsUrl);
-        const posts = await response.json();
-
-        if (!Array.isArray(posts) || posts.length === 0) {
-            container.innerHTML = "Brak dostępnych aktualności.";
+        
+        // Sprawdź czy strona istnieje
+        if (!response.ok) {
+            if (button) button.style.display = 'none';
             return;
         }
 
-        const cache = { authors: {}, categories: {}, images: {} };
-
-        const htmlContent = await Promise.all(posts.map(async (post) => {
-            // Logika pobierania autora
-            let authorDisplay = '';
-            if (is_author) {
-                if (!cache.authors[post.author]) {
-                    const authorRes = await fetch(`${mainUrl}/wp-json/wp/v2/users/${post.author}`);
-                    const authorData = await authorRes.json();
-                    cache.authors[post.author] = authorData.name || 'Redakcja';
-                }
-                authorDisplay = `<i class="fa-solid fa-user"></i> ${cache.authors[post.author]} | `;
-            }
-
-            // Logika pobierania kategorii
-            let categoriesDisplay = '';
-            if (is_categories) {
-                const categoryNames = [];
-                for (const catId of post.categories) {
-                    if (!cache.categories[catId]) {
-                        const catRes = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${catId}`);
-                        const catData = await catRes.json();
-                        cache.categories[catId] = catData.name;
-                    }
-                    categoryNames.push(cache.categories[catId]);
-                }
-                const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
-                categoriesDisplay = `<div class="article_category">${cats}</div>`;
-            }
-
-            // Logika pobierania obrazu
-            let imageDisplay = '';
-            if (is_image) {
-                if (post.featured_media !== 0) {
-                    if (!cache.images[post.featured_media]) {
-                        try {
-                            const imagesRes = await fetch(`${mainUrl}/wp-json/wp/v2/media/${post.featured_media}`);
-                            const imagesData = await imagesRes.json();
-                            cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
-                        } catch (e) { cache.images[post.featured_media] = ''; }
-                    }
-                    imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="150" height="150">` : '';
-                }
-            }
-
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            });
-
-            return `
-                <div class="articles">
-                    <div class="article_cover">${imageDisplay}</div>
-                    <div class="article_content">
-                        ${categoriesDisplay}
-                        <div class="article_title"><a href="${post.link}" target="_blank">
-                            ${post.title.rendered}
-                        </a></div>
-                        <div class="article_info">
-                            ${authorDisplay}${postDate}
-                        </div>
-                    </div>
-                </div>`;
-        }));
-
-        container.innerHTML = htmlContent.join('');
-
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = "Błąd podczas ładowania aktualności.";
-    }
-}
-
-async function WPArticleSOSW() {
-    const container = document.getElementById('article-list');
-    // Dodajemy parametr _embed, aby pobrać kategorie i zdjęcia w jednym zapytaniu (opcjonalnie, ale przyspiesza)
-    const postsUrl = 'https://soswskierniewice.pl/wp-json/wp/v2/posts?per_page=10';
-
-    // Mapa autorów zgodna z Twoją listą
-    const authorsMap = {
-        2: "Hubert Rosiński",
-        3: "Paweł Jaskuła",
-        4: "Mari Ola",
-        6: "Monika Urbańska",
-        7: "Martyna Pawlewicz",
-        10: "Andrzej Popiński",
-        11: "Agata Sadach"
-    };
-
-    try {
-        const response = await fetch(postsUrl);
         const posts = await response.json();
 
         if (!Array.isArray(posts) || posts.length === 0) {
-            container.innerHTML = "Brak dostępnych aktualności.";
+            if (!append) container.innerHTML = "Brak aktualności.";
+            if (button) button.style.display = 'none';
             return;
         }
 
-        const cache = { categories: {}, images: {} };
-
-        const htmlContent = await Promise.all(posts.map(async (post) => {
+        const htmlContent = posts.map(post => {
+            const authorName = post._embedded?.author?.[0]?.name || 'Redakcja';
+            const terms = post._embedded?.['wp:term']?.[0] || [];
+            const cats = terms.length > 0 ? terms.map(t => t.name).join(' • ') : 'Aktualności';
             
-            // 1. Pobieranie Autora z mapy
-            const authorName = authorsMap[post.author] || "Autor nieznany";
-
-            // 2. Logika kategorii
-            let categoriesDisplay = '';
-            const categoryNames = [];
-            for (const catId of post.categories) {
-                if (!cache.categories[catId]) {
-                    const catRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/categories/${catId}`);
-                    const catData = await catRes.json();
-                    cache.categories[catId] = catData.name;
-                }
-                categoryNames.push(cache.categories[catId]);
-            }
-            const cats = categoryNames.length > 0 ? categoryNames.join(' • ') : 'Aktualności';
-            categoriesDisplay = `<div class="article_category">${cats}</div>`;
-
-            // 3. Logika obrazu
-            let imageDisplay = '';
-            if (post.featured_media !== 0) {
-                if (!cache.images[post.featured_media]) {
-                    try {
-                        const imagesRes = await fetch(`https://soswskierniewice.pl/wp-json/wp/v2/media/${post.featured_media}`);
-                        const imagesData = await imagesRes.json();
-                        cache.images[post.featured_media] = imagesData.media_details?.sizes?.medium?.source_url || imagesData.source_url;
-                    } catch (e) { cache.images[post.featured_media] = ''; }
-                }
-                imageDisplay = cache.images[post.featured_media] ? `<img src="${cache.images[post.featured_media]}" width="150" height="150">` : '';
-            }
+            const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+            const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
+            const imageDisplay = is_image && imgUrl ? `<img src="${imgUrl}" width="150" height="150">` : '';
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
                 day: 'numeric', month: 'long', year: 'numeric'
@@ -208,24 +104,37 @@ async function WPArticleSOSW() {
                 <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        ${categoriesDisplay}
-                        <div class="article_title">
-                            <a href="${post.link}" target="_blank">
-                                ${post.title.rendered}
-                            </a>
-                        </div>
+                        ${is_categories ? `<div class="article_category">${cats}</div>` : ''}
+                        <div class="article_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                         <div class="article_info">
-                            <i class="fa-solid fa-user"></i> ${authorName} | ${postDate}
+                            ${is_author ? `<i class="fa-solid fa-user"></i> ${authorName} | ` : ''}${postDate}
                         </div>
                     </div>
                 </div>`;
-        }));
+        }).join('');
 
-        container.innerHTML = htmlContent.join('');
+        // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
+        if (append) {
+            container.innerHTML += htmlContent;
+        } else {
+            container.innerHTML = htmlContent;
+        }
+
+        // Obsługa przycisku "Wczytaj więcej"
+        if (button) {
+            button.innerText = "Wczytaj więcej";
+            button.style.display = posts.length < perPage ? 'none' : 'block';
+            
+            // Jednorazowe przypisanie zdarzenia
+            button.onclick = () => {
+                currentPage++;
+                WPArticle(mainUrl, is_categories, is_author, is_image, true);
+            };
+        }
 
     } catch (error) {
         console.error("Błąd WP API:", error);
-        container.innerHTML = "Błąd podczas ładowania aktualności.";
+        if (button) button.style.display = 'none';
     }
 }
 
