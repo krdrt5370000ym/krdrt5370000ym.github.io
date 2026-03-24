@@ -33,11 +33,11 @@ async function WPArticleRSC(append = false) {
         const htmlContent = posts.map(post => {
             const author = post._embedded?.author?.[0];
             const authorHTML = author 
-            ? `<a href="${author.link}/">${author.name}</a>` 
+            ? `<a href="${author.link}">${author.name}</a>` 
             : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
             const catsHTML = terms.length > 0 
-            ? terms.map(t => `<a href="${t.link}/">${t.name}</a>`).join(' • ') 
+            ? terms.map(t => `<a href="${t.link}">${t.name}</a>`).join(' • ') 
             : '<a href="https://radiorsc.pl">Aktualności</a>';
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
@@ -117,11 +117,11 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
         const htmlContent = posts.map(post => {
             const author = post._embedded?.author?.[0];
             const authorHTML = author 
-            ? `<a href="${author.link}/">${author.name}</a>` 
+            ? `<a href="${author.link}">${author.name}</a>` 
             : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
             const catsHTML = terms.length > 0 
-            ? terms.map(t => `<a href="${t.link}/">${t.name}</a>`).join(' • ') 
+            ? terms.map(t => `<a href="${t.link}">${t.name}</a>`).join(' • ') 
             : '<a href="${mainUrl}">Aktualności</a>';
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
