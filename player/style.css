@@ -41,6 +41,18 @@
      background: #007bff;
      color: white;
 }
+.player-playlist {
+    display: block;
+    text-align: center;
+    padding-top: 10px;
+}
+.player-playlist > small {
+    display: block;
+    padding-bottom: 3px;
+}
+.player-playlist > br {
+    display: none;
+}
  audio {
      width: 100%;
      max-width: 400px;
