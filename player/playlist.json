@@ -1,0 +1,1 @@
+{"playlist":[{"stream":"https://liveradio.timesa.pl/2380-1.aac/playlist.m3u8","value":"getNowPlayingGrupaZPR(2380);setInterval(() => getNowPlayingGrupaZPR(2380), 20000)"},{"stream":"https://waw.ic.smcdn.pl/2380-1.aac","value":"getNowPlayingGrupaZPR(2380);setInterval(() => getNowPlayingGrupaZPR(2380), 20000)"}]}
