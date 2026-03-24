@@ -80,6 +80,54 @@
     background: transparent;
   }
 }
+.website_info_page {
+  /* Bazowe style listy */
+  ul {
+    list-style: none;
+    padding-left: 20px; /* Wcięcie dla podlist */
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  /* Pierwsza lista (główna) zawsze widoczna */
+  body > ul, .container > ul {
+    max-height: none;
+    padding-left: 0;
+  }
+  /* Styl elementu li, który posiada podlistę */
+  li {
+    cursor: pointer;
+    padding: 8px 0;
+    position: relative;
+  }
+  /* Strzałka tylko dla LI, które mają w środku UL */
+  li:has(ul)::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid #555;
+    border-bottom: 2px solid #555;
+    transform: rotate(-45deg); /* Strzałka w prawo */
+    transition: transform 0.3s;
+  }
+  /* Rozwijanie listy po dodaniu klasy .open */
+  li.open > ul {
+    max-height: 500px; /* Wystarczająca wysokość */
+    margin-top: 10px;
+  }
+  /* Obrót strzałki w dół po otwarciu */
+  li.open > ::after {
+    transform: rotate(45deg);
+  }
+  /* Efekt najechania dla czytelności */
+  li:hover > span {
+    color: #007bff;
+  }
+}
  .phone {
      @media (max-width:600px) {
          font-size:24px;
