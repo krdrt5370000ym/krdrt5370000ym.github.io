@@ -230,29 +230,35 @@ function WPPodcastRK(SearchId) {
 }
 
 function WPPodcastRVG() {
-    // WordPress API zwraca tablicę postów bezpośrednio
     const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/gosc?per_page=100';
     const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
     fetch(apiUrl)
         .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
+            if (!response.ok) throw new Error('Błąd sieci');
             return response.json();
         })
         .then(posts => {
-            // W WP API 'posts' to już gotowa tablica
             if (posts.length === 0) {
                 container.innerHTML = "Brak dostępnych odcinków.";
                 return;
             }
 
-            const htmlContent = posts.map(post =>
-                `<ul class="podcast_list_episode_content">
+            const htmlContent = posts.map(post => {
+                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+                const doc = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = doc.querySelector('audio source') || doc.querySelector('audio');
+                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
+
+                return `
+                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
+                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
                     </li>
-                </ul>`
-            ).join('');
+                </ul>`;
+            }).join('');
 
             container.innerHTML = htmlContent;
         })
@@ -263,29 +269,35 @@ function WPPodcastRVG() {
 }
 
 function WPPodcastRVR() {
-    // WordPress API zwraca tablicę postów bezpośrednio
     const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/reporter?per_page=100';
     const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
     fetch(apiUrl)
         .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci/brak kategorii');
+            if (!response.ok) throw new Error('Błąd sieci');
             return response.json();
         })
         .then(posts => {
-            // W WP API 'posts' to już gotowa tablica
             if (posts.length === 0) {
                 container.innerHTML = "Brak dostępnych odcinków.";
                 return;
             }
 
-            const htmlContent = posts.map(post =>
-                `<ul class="podcast_list_episode_content">
+            const htmlContent = posts.map(post => {
+                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+                const doc = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = doc.querySelector('audio source') || doc.querySelector('audio');
+                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
+
+                return `
+                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
+                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
                     </li>
-                </ul>`
-            ).join('');
+                </ul>`;
+            }).join('');
 
             container.innerHTML = htmlContent;
         })
@@ -313,12 +325,19 @@ function WPPodcastRVA(ProgramId) {
             }
 
             const htmlContent = posts.map(post =>
-                `<ul class="podcast_list_episode_content">
+                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+                const doc = parser.parseFromString(post.content.rendered, 'text/html');
+                const audioTag = doc.querySelector('audio source') || doc.querySelector('audio');
+                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
+            
+                return `
+                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
+                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
                     </li>
-                </ul>`
-            ).join('');
+                </ul>`;
+            }).join('');
 
             container.innerHTML = htmlContent;
         })
