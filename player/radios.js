@@ -74,6 +74,7 @@
         } else {
             // Natywna obsługa (Safari/iOS lub MP3)
             player.src = streamUrl;
+            document.getElementById('resultTrack').innerHTML = '';
             player.play().catch(err => console.error("Błąd odtwarzania:", err));
         }
     
