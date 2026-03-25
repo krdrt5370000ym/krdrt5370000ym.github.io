@@ -173,7 +173,7 @@ async function getNowPlayingGrupaRMF(stationId) {
     const container = document.getElementById('resultTrack');
 
     try {
-        const odpowiedz = await fetch(proxyUrl + url);
+        const odpowiedz = await fetch(proxyUrl);
         if (!odpowiedz.ok) throw new Error('Błąd połączenia z API');
 
         const dane = await odpowiedz.json();
