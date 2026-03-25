@@ -15,17 +15,15 @@ function SpreakerPodcast(showId) {
                 return;
             }
 
-            const htmlContent = episodes.map(episode => 
-                `<ul class="podcast_list_episode_content">
-                    <li class="podcast_list_episode_title">
+            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
+                    `<li class="podcast_list_episode_title">
                         <a href="${episode.site_url}" target="_blank">${episode.title}</a> 
                         <a href="#" onclick="
                             AudioPlayerEpisode('${episode.playback_url}');
                             return false;
                         ">►</a>
-                    </li>
-                </ul>`
-            ).join('');
+                    </li>`
+            ).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -64,14 +62,15 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
                 return;
             }
 
-            const htmlContent = episodes.map(episode => `
-                <li class="podcast_list_episode_item">
-                    <span class="podcast_list_episode_title">${episode.title}</span>
-                    ${episode.playback_url ? `
-                        <a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">►</a>
-                    ` : ''}
-                </li>
-            `).join('');
+            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
+                    `<li class="podcast_list_episode_title">
+                        ${episode.title}
+                        <a href="#" onclick="
+                            AudioPlayerEpisode('${episode.playback_url}');
+                            return false;
+                        ">►</a>
+                    </li>`
+            ).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -96,17 +95,15 @@ function EurozetPodcast(showId, mainUrl, stationId) {
                 return;
             }
 
-            const htmlContent = episodes.map(episode => 
-                `<ul class="podcast_list_episode_content">
-                    <li class="podcast_list_episode_title">
+            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
+                    `<li class="podcast_list_episode_title">
                         <a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a> 
                         <a href="#" onclick="
                             AudioPlayerEpisode('${episode.player.stream}');
                             return false;
                         ">►</a>
-                    </li>
-                </ul>`
-            ).join('');
+                    </li>`
+            ).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -132,14 +129,12 @@ async function WPPodcast(categoryId, mainUrl) {
         }
 
         // Renderujemy szkielet listy
-        container.innerHTML = posts.map(post => `
-            <ul class="podcast_list_episode_content">
+        container.innerHTML = `<ul class="podcast_list_episode_content">${posts.map(post => `
                 <li id="post-${post.id}" class="podcast_list_episode_title">
                     <a href="${post.link}" target="_blank">${post.title.rendered}</a>
                     <span class="audio-placeholder"></span>
                 </li>
-            </ul>
-        `).join('');
+        `).join('')}</ul>`;
 
         // Dla każdego posta doczytujemy plik audio osobnym zapytaniem
         posts.forEach(post => loadAudioForPost(post.id, mainUrl));
@@ -165,17 +160,15 @@ function AgoraPodcast(brandId, seriesId, mainUrl) {
                 return;
             }
 
-            const htmlContent = episodes.map(episode => 
-                `<ul class="podcast_list_episode_content">
-                    <li class="podcast_list_episode_title">
+            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
+                    `<li class="podcast_list_episode_title">
                         <a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a> 
                         <a href="#" onclick="
                             GetAndPlayAgora(${brandId}, ${episode.podcast_id});
                             return false;"
                         >►</a>
-                    </li>
-                </ul>`
-            ).join('');
+                    </li>`
+            ).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -215,20 +208,18 @@ async function WPPodcastRK(SearchId) {
                 return;
             }
 
-            const htmlContent = posts.map(post => {
+            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
                 return `
-                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
                         ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>
-                </ul>`;
-            }).join('');
+                    </li>`;
+            }).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -254,20 +245,18 @@ function WPPodcastRVG() {
                 return;
             }
 
-            const htmlContent = posts.map(post => {
+            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
                 return `
-                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
                         ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>
-                </ul>`;
-            }).join('');
+                    </li>`;
+            }).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -293,20 +282,18 @@ function WPPodcastRVR() {
                 return;
             }
 
-            const htmlContent = posts.map(post => {
+            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
                 return `
-                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
                         ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>
-                </ul>`;
-            }).join('');
+                    </li>`;
+            }).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
@@ -333,20 +320,18 @@ function WPPodcastRVA(ProgramId) {
                 return;
             }
 
-            const htmlContent = posts.map(post => {
+            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
                 // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
                 return `
-                <ul class="podcast_list_episode_content">
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
                         ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>
-                </ul>`;
-            }).join('');
+                    </li>`;
+            }).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
