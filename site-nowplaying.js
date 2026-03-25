@@ -168,8 +168,8 @@ async function getNowPlayingAgora(stationId) {
 }
 
 async function getNowPlayingGrupaRMF(stationId) {
-    const proxyUrl = 'https://corsproxy.io/?url=';
     const url = 'https://api.rmfon.pl/stations/' + stationId + '/playlist';
+    const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(url);
     const container = document.getElementById('resultTrack');
 
     try {
@@ -199,12 +199,12 @@ async function getNowPlayingGrupaRMF(stationId) {
 }
 
 async function getNowPlayingRadio(stationId) {
-  const proxyUrl = 'https://corsproxy.io/?url='; // Sprawdź poprawność URL proxy
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
+  const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(targetUrl); // Sprawdź poprawność URL proxy
   const container = document.getElementById('resultTrack');
   
   try {
-    const response = await fetch(proxyUrl + targetUrl);
+    const response = await fetch(proxyUrl);
     
     // Sprawdzenie czy status HTTP jest OK (200-299)
     if (!response.ok) {
@@ -232,13 +232,13 @@ async function getNowPlayingRadio(stationId) {
 }
 
 async function getNowPlayingPlaylist(stationId) {
-  const proxyUrl = 'https://corsproxy.io/?url=';
   const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
+  const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(targetUrl);
   // Poprawiony XPath (uproszczony dla lepszej stabilności)
   const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
   const container = document.getElementById('resultTrack');
       try {
-          const response = await fetch(proxyUrl + targetUrl, {
+          const response = await fetch(proxyUrl, {
               headers: { 'X-Requested-With': 'XMLHttpRequest' }
           });
   
@@ -334,11 +334,11 @@ async function getPlanetaFMSong() {
 async function getNowPlayingRevma(stationId) {
   // Publiczny proxy dodający nagłówki CORS
   const container = document.getElementById('resultTrack');
-  const proxy = 'https://corsproxy.io/?url=';
   const apiUrl = `https://www.revma.com/api/stations/${stationId}/now_playing/`;
+  const proxy = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
 
   try {
-    const response = await fetch(proxy + apiUrl);
+    const response = await fetch(proxy);
     if (!response.ok) throw new Error('Błąd sieci');
     
     const data = await response.json();
