@@ -38,7 +38,7 @@ function SpreakerPodcast(showId) {
 function GrupaZPRPodcast(podcastUid, SiteUid) {
     // Używamy proxy, ponieważ GitHub nie obsługuje PHP do obejścia CORS
     const apiUrl = `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${SiteUid}`;
-    const proxyUrl = 'https://cors-anywhere.com/';
+    const proxyUrl = 'https://corsproxy.io/?url=';
     
     const container = document.getElementById('episode-list');
 
@@ -77,7 +77,7 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
 }
 
 function EurozetPodcast(showId, mainUrl, stationId) {
-    const apiUrl = 'https://player.chillizet.pl/api/podcasts/getPodcastListByProgram/(node)/' + showId + '/(station)/' + stationId;
+    const apiUrl = 'https://player.radiozet.pl/api/podcasts/getPodcastListByProgram/(node)/' + showId + '/(station)/' + stationId;
     const container = document.getElementById('episode-list');
 
     fetch(apiUrl)
