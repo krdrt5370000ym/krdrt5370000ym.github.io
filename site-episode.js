@@ -44,7 +44,15 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
 
     fetch(proxyUrl)
         .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci');
+            if (!response.ok) {
+                // Rzuca błąd z kodem statusu (np. "Błąd sieci: 404")
+                throw new Error(`Błąd sieci: ${response.status}`);
+            }
+            // Sprawdza, czy nagłówek odpowiedzi to faktycznie JSON
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                throw new TypeError("Otrzymano format inny niż JSON!");
+            }
             return response.json();
         })
         .then(data => {
