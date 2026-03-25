@@ -169,7 +169,7 @@ async function getNowPlayingAgora(stationId) {
 
 async function getNowPlayingGrupaRMF(stationId) {
     const url = 'https://api.rmfon.pl/stations/' + stationId + '/playlist';
-    const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(url);
+    const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url);
     const container = document.getElementById('resultTrack');
 
     try {
@@ -200,7 +200,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 
 async function getNowPlayingRadio(stationId) {
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
-  const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(targetUrl); // Sprawdź poprawność URL proxy
+  const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(targetUrl); // Sprawdź poprawność URL proxy
   const container = document.getElementById('resultTrack');
   
   try {
@@ -233,7 +233,7 @@ async function getNowPlayingRadio(stationId) {
 
 async function getNowPlayingPlaylist(stationId) {
   const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
-  const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(targetUrl);
+  const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(targetUrl);
   // Poprawiony XPath (uproszczony dla lepszej stabilności)
   const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
   const container = document.getElementById('resultTrack');
@@ -335,7 +335,7 @@ async function getNowPlayingRevma(stationId) {
   // Publiczny proxy dodający nagłówki CORS
   const container = document.getElementById('resultTrack');
   const apiUrl = `https://www.revma.com/api/stations/${stationId}/now_playing/`;
-  const proxy = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
+  const proxy = `https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(apiUrl)}`;
 
   try {
     const response = await fetch(proxy);
