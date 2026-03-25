@@ -64,14 +64,14 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
                 return;
             }
 
-            const htmlContent = `<ul>${episodes.map(episode => `
+            const htmlContent = episodes.map(episode => `
                 <li class="podcast_list_episode_item">
                     <span class="podcast_list_episode_title">${episode.title}</span>
                     ${episode.playback_url ? `
                         <a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">►</a>
                     ` : ''}
                 </li>
-            `).join('')}</ul>`;
+            `).join('');
 
             container.innerHTML = htmlContent;
         })
