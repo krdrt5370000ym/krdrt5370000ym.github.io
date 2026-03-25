@@ -36,11 +36,11 @@ function SpreakerPodcast(showId) {
 function GrupaZPRPodcast(podcastUid, SiteUid) {
     // Używamy proxy, ponieważ GitHub nie obsługuje PHP do obejścia CORS
     const apiUrl = `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${SiteUid}`;
-    const proxyUrl = 'https://cors-anywhere.com/';
+    const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
     
     const container = document.getElementById('episode-list');
 
-    fetch(proxyUrl + apiUrl)
+    fetch(proxyUrl)
         .then(response => {
             if (!response.ok) {
                 // Rzuca błąd z kodem statusu (np. "Błąd sieci: 404")
