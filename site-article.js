@@ -30,7 +30,7 @@ async function WPArticleRSC(append = false) {
             return;
         }
 
-        const htmlContent = posts.map(post => {
+        const htmlContent = `<div class="articles">${posts.map(post => {
             const author = post._embedded?.author?.[0];
             const authorHTML = author 
             ? `<a href="${author.link}">${author.name}</a>` 
@@ -49,7 +49,6 @@ async function WPArticleRSC(append = false) {
             });
 
             return `
-                <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         <div class="article_category">${catsHTML}</div>
@@ -57,9 +56,8 @@ async function WPArticleRSC(append = false) {
                         <div class="article_info">
                             <i class="fa-solid fa-user"></i> ${authorHTML} | ${postDate}
                         </div>
-                    </div>
-                </div>`;
-        }).join('');
+                    </div>`;
+        }).join('')}</div>`;
 
         // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
         if (append) {
@@ -114,7 +112,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
             return;
         }
 
-        const htmlContent = posts.map(post => {
+        const htmlContent = `<div class="articles">${posts.map(post => {
             const author = post._embedded?.author?.[0];
             const authorHTML = author 
             ? `<a href="${author.link}">${author.name}</a>` 
@@ -133,7 +131,6 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
             });
 
             return `
-                <div class="articles">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
@@ -141,9 +138,8 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                         <div class="article_info">
                             ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
                         </div>
-                    </div>
-                </div>`;
-        }).join('');
+                    </div>`;
+        }).join('')}</div>`;
 
         // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
         if (append) {
