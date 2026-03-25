@@ -235,6 +235,8 @@
     color: #333;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     a {
