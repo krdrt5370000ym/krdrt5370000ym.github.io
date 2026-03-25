@@ -168,7 +168,7 @@ async function getNowPlayingAgora(stationId) {
 }
 
 async function getNowPlayingGrupaRMF(stationId) {
-    const proxyUrl = 'https://cors-anywhere.com/';
+    const proxyUrl = 'https://corsproxy.io/?url=';
     const url = 'https://api.rmfon.pl/stations/' + stationId + '/playlist';
     const container = document.getElementById('resultTrack');
 
@@ -199,7 +199,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 }
 
 async function getNowPlayingRadio(stationId) {
-  const proxyUrl = 'https://cors-anywhere.com/'; // Sprawdź poprawność URL proxy
+  const proxyUrl = 'https://corsproxy.io/?url='; // Sprawdź poprawność URL proxy
   const targetUrl = 'https://api.radio.de/stations/now-playing?stationIds=' + stationId;
   const container = document.getElementById('resultTrack');
   
@@ -232,7 +232,7 @@ async function getNowPlayingRadio(stationId) {
 }
 
 async function getNowPlayingPlaylist(stationId) {
-  const proxyUrl = 'https://cors-anywhere.com/';
+  const proxyUrl = 'https://corsproxy.io/?url=';
   const targetUrl = 'https://www.odsluchane.eu/szukaj.php?r=' + stationId;
   // Poprawiony XPath (uproszczony dla lepszej stabilności)
   const xpath = "//div/div[5]/div/table/tbody/tr[position()=last()]/td[2]/a/text()";
@@ -334,7 +334,7 @@ async function getPlanetaFMSong() {
 async function getNowPlayingRevma(stationId) {
   // Publiczny proxy dodający nagłówki CORS
   const container = document.getElementById('resultTrack');
-  const proxy = 'https://cors-anywhere.com/';
+  const proxy = 'https://corsproxy.io/?url=';
   const apiUrl = `https://www.revma.com/api/stations/${stationId}/now_playing/`;
 
   try {
