@@ -49,6 +49,7 @@ async function WPArticleRSC(append = false) {
             });
 
             return `
+                <div class="article_post">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         <div class="article_category">${catsHTML}</div>
@@ -56,7 +57,8 @@ async function WPArticleRSC(append = false) {
                         <div class="article_info">
                             <i class="fa-solid fa-user"></i> ${authorHTML} | ${postDate}
                         </div>
-                    </div>`;
+                    </div>
+                </div>`;
         }).join('')}</div>`;
 
         // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
@@ -131,6 +133,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
             });
 
             return `
+                <div class="article_post">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
@@ -138,7 +141,8 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                         <div class="article_info">
                             ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
                         </div>
-                    </div>`;
+                    </div>
+                </div>`;
         }).join('')}</div>`;
 
         // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
