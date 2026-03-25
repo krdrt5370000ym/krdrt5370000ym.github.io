@@ -56,17 +56,14 @@ function GrupaZPRPodcast(podcastUid, SiteUid) {
                 return;
             }
 
-            const htmlContent = episodes.map(episode => 
-                `<ul class="podcast_list_episode_content">
-                    <li class="podcast_list_episode_title">
-                        ${episode.title}
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.playback_url}');
-                            return false;
-                        ">►</a>
-                    </li>
-                </ul>`
-            ).join('');
+            const htmlContent = `<ul>${episodes.map(episode => `
+                <li class="podcast_list_episode_item">
+                    <span class="podcast_list_episode_title">${episode.title}</span>
+                    ${episode.playback_url ? `
+                        <a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">►</a>
+                    ` : ''}
+                </li>
+            `).join('')}</ul>`;
 
             container.innerHTML = htmlContent;
         })
