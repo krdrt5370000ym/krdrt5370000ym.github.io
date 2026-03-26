@@ -127,41 +127,34 @@
             console.warn("Brak wybranej stacji do przeładowania.");
         }
     }
-
-    function playlistNowPlaying(streamId) {
-        // 1. Zatrzymaj poprzedni interwał, jeśli istnieje
+    
+    function playlistNowPlaying(streamUrl) {
+        // 1. Czyścimy poprzedni interwał
         if (playlistInterval) {
             clearInterval(playlistInterval);
         }
     
-        fetch("https://krdrt5370000ym.github.io/player/playlist.json")
-            .then(res => res.json())
-            .then(json => {
-                try {
-                    const item = json.playlist.find(x => x.stream === streamId);
+        const updateTrack = () => {
+            fetch("https://krdrt5370000ym.github.io")
+                .then(res => res.json())
+                .then(json => {
+                    // Szukamy stacji po URL strumienia
+                    const item = json.playlist.find(x => x.stream === streamUrl);
                     
                     if (item && item.value) {
-                        // Funkcja pomocnicza do odświeżania danych
-                        const updateTrack = () => {
-                            try {
-                                // UWAGA: eval() jest ryzykowny. Lepiej zamienić to na konkretną logikę.
-                                eval(item.value); 
-                            } catch (e) {
-                                console.error("Błąd wewnątrz interwału:", e);
-                            }
-                        };
-    
-                        // 2. Wykonaj od razu i ustaw nowy interwał
-                        updateTrack();
-                        playlistInterval = setInterval(updateTrack, 20000); 
-    
-                    } else {
-                        document.getElementById('resultTrack').innerHTML = '';
+                        // Sprawdzamy czy funkcja o nazwie podanej w 'value' istnieje
+                        if (typeof window[item.value] === "function") {
+                            window[item.value](); 
+                        } else {
+                            // Jeśli to nie funkcja, a gotowy tekst, wyświetlamy go
+                            document.getElementById('resultTrack').innerText = item.value;
+                        }
                     }
-                } catch (err) {
-                    console.error("Błąd podczas przetwarzania danych:", err);
-                    document.getElementById('resultTrack').innerHTML = '';
-                }
-            })
-            .catch(err => console.error("Błąd pobierania danych:", err));
+                })
+                .catch(err => console.error("Błąd pobierania metadanych:", err));
+        };
+    
+        // 2. Odpal od razu i ustaw powtarzanie co 20 sekund
+        updateTrack();
+        playlistInterval = setInterval(updateTrack, 20000); 
     }
