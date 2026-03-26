@@ -135,7 +135,7 @@
         }
     
         const updateTrack = () => {
-            fetch("https://krdrt5370000ym.github.io")
+            fetch("https://krdrt5370000ym.github.io/player/playlist.json")
                 .then(res => res.json())
                 .then(json => {
                     // Szukamy stacji po URL strumienia
