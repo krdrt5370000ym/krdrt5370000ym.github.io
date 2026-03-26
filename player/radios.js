@@ -22,15 +22,23 @@
         const stations = [];
         let currentName = "";
     
-        for (let line of lines) {
-            line = line.trim();
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            
             if (line.startsWith('#EXTINF:')) {
-                // Szuka tekstu po ostatnim przecinku
-                const commaIndex = line.lastIndexOf(',');
-                currentName = line.substring(commaIndex + 1);
+                // Szukamy ostatniego przecinka w linii, bo nazwa stacji jest zawsze na końcu
+                const lastCommaIndex = line.lastIndexOf(',');
+                if (lastCommaIndex !== -1) {
+                    currentName = line.substring(lastCommaIndex + 1).trim();
+                } else {
+                    currentName = "Nieznana stacja";
+                }
             } else if (line.startsWith('http')) {
-                stations.push({ name: currentName || "Stacja bez nazwy", url: line });
-                currentName = "";
+                stations.push({ 
+                    name: currentName || "Stacja " + (stations.length + 1), 
+                    url: line 
+                });
+                currentName = ""; // Reset dla kolejnej stacji
             }
         }
         return stations;
