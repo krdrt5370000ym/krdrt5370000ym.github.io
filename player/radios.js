@@ -72,16 +72,21 @@
         }
         return stations;
     }
-
+    
     function displayPlaylist(playlist) {
         const container = document.getElementById('playlist-container');
-        container.innerHTML = ""; // Czyścimy listę
+        container.innerHTML = ""; 
     
         playlist.forEach(station => {
             const div = document.createElement('div');
-            div.className = 'station-item'; // KLUCZOWE: ta sama klasa co w filterStations
+            div.className = 'station-item';
             div.textContent = station.name;
-            div.onclick = () => playStation(station.url);
+            
+            // POPRAWKA: Przekazujemy cały obiekt 'station' i sam 'div' (this)
+            div.onclick = function() {
+                playStation(station, div);
+            };
+            
             container.appendChild(div);
         });
     }
