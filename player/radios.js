@@ -2,7 +2,9 @@
     let currentPlaylistName = "Radio"; // Domyślna nazwa listy
 
     async function fetchPlaylist(name) {
+        window.currentPlaylistName = name; // Zapamiętuje nazwę dla funkcji pobierania
         const url = "https://krdrt5370000ym.github.io/player/" + name + ".m3u";
+        // ... reszta kodu fetch
         try {
             const response = await fetch(url);
             const text = await response.text();
