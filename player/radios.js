@@ -87,6 +87,7 @@
     
         const streamUrl = station.url;
         const isM3U8 = streamUrl.toLowerCase().includes('.m3u8');
+        const streamHttpUrl = streamUrl.slice(0,7) === "http://" ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(streamUrl) : streamUrl;
     
         // UI: Aktualizacja klasy active
         document.querySelectorAll('.station-item').forEach(el => el.classList.remove('active'));
@@ -101,12 +102,13 @@
     
         if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
             hlsInstance = new Hls();
-            hlsInstance.loadSource(streamUrl);
+            hlsInstance.loadSource(streamHttpUrl);
             hlsInstance.attachMedia(player);
             hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => player.play());
         } else {
             // Natywna obsługa (Safari/iOS lub MP3)
-            player.src = streamUrl;
+            
+            player.src = streamHttpUrl;
             document.getElementById('resultTrack').innerHTML = '';
             player.play().catch(err => console.error("Błąd odtwarzania:", err));
         }
