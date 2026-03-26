@@ -35,10 +35,16 @@
             const line = lines[i].trim();
             
             if (line.startsWith('#EXTINF:')) {
-                // Szukamy ostatniego przecinka w linii, bo nazwa stacji jest zawsze na końcu
-                const lastCommaIndex = line.lastIndexOf(',');
-                if (lastCommaIndex !== -1) {
-                    currentName = line.substring(lastCommaIndex + 1).trim();
+                // Szukamy pierwszego przecinka po "#EXTINF:-1"
+                // Używamy split(',', 2), aby podzielić linię tylko na dwie części: 
+                // 1. Metadane techniczne (#EXTINF:-1)
+                // 2. Cała reszta (Nazwa stacji z jej własnymi przecinkami)
+                const parts = line.split(',');
+                if (parts.length > 1) {
+                    // Usuwamy pierwszy element (metadane) i łączymy resztę z powrotem, 
+                    // na wypadek gdyby nazwa stacji miała własne przecinki
+                    parts.shift(); 
+                    currentName = parts.join(',').trim();
                 } else {
                     currentName = "Nieznana stacja";
                 }
@@ -47,7 +53,7 @@
                     name: currentName || "Stacja " + (stations.length + 1), 
                     url: line 
                 });
-                currentName = ""; // Reset dla kolejnej stacji
+                currentName = ""; 
             }
         }
         return stations;
