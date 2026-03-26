@@ -1,4 +1,5 @@
     let playlistInterval = null; // Zmienna globalna do przechowywania ID interwału
+    let currentPlaylistName = "Radio"; // Domyślna nazwa listy
 
     async function fetchPlaylist(name) {
         const url = "https://krdrt5370000ym.github.io/player/" + name + ".m3u";
@@ -12,9 +13,17 @@
         }
     }
 
-    function downloadToM3U(name) {
-        const link = "https://krdrt5370000ym.github.io/player/" + name + ".m3u";
-        window.open(link, '_blank');
+    function downloadToM3U() {
+        // Tworzymy pełny adres URL do pliku .m3u
+        const fileUrl = "https://krdrt5370000ym.github.io/player/" + currentPlaylistName + ".m3u";
+        
+        // Tworzymy tymczasowy element <a>, aby wymusić pobieranie
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = currentPlaylistName + ".m3u"; // Sugerowana nazwa pliku
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     function parseM3U(data) {
