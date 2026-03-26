@@ -12,19 +12,25 @@
         }
     }
 
+    function downloadToM3U(name) {
+        const link = "https://krdrt5370000ym.github.io/player/" + name + ".m3u";
+        window.open(link, '_blank');
+    }
+
     function parseM3U(data) {
         const lines = data.split('\n');
         const stations = [];
         let currentName = "";
-
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
+    
+        for (let line of lines) {
+            line = line.trim();
             if (line.startsWith('#EXTINF:')) {
-                // Wyciąganie nazwy stacji po przecinku
-                currentName = line.split('-1,').pop() || "Nieznana stacja";
+                // Szuka tekstu po ostatnim przecinku
+                const commaIndex = line.lastIndexOf(',');
+                currentName = line.substring(commaIndex + 1);
             } else if (line.startsWith('http')) {
-                stations.push({ name: currentName || "Stacja " + (stations.length + 1), url: line });
-                currentName = ""; // Reset dla kolejnej stacji
+                stations.push({ name: currentName || "Stacja bez nazwy", url: line });
+                currentName = "";
             }
         }
         return stations;
