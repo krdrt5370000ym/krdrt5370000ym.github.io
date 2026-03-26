@@ -16,22 +16,15 @@
     }
     
     function filterStations() {
-        // Pobieramy wpisaną frazę
-        const input = document.getElementById('stationSearch');
-        const filter = input.value.toLowerCase();
-        const container = document.getElementById('playlist-container');
-        
-        // Pobieramy wszystkie elementy stacji (zazwyczaj są to divy lub linki wewnątrz kontenera)
-        const items = container.getElementsByTagName('div'); // Jeśli Twoje stacje są w divach
+        const filter = document.getElementById('stationSearch').value.toLowerCase();
+        // Szukamy po klasie, co jest bezpieczniejsze niż szukanie po samym 'div'
+        const items = document.querySelectorAll('.station-item'); 
     
-        for (let i = 0; i < items.length; i++) {
-            const text = items[i].textContent || items[i].innerText;
-            if (text.toLowerCase().indexOf(filter) > -1) {
-                items[i].style.display = "";
-            } else {
-                items[i].style.display = "none";
-            }
-        }
+        items.forEach(item => {
+            const text = item.textContent || item.innerText;
+            // Używamy display: flex lub block, zależnie od Twojego CSS
+            item.style.display = text.toLowerCase().includes(filter) ? "" : "none";
+        });
     }
 
     function downloadToM3U() {
@@ -80,14 +73,15 @@
         return stations;
     }
 
-    function displayPlaylist(stations) {
+    function displayPlaylist(playlist) {
         const container = document.getElementById('playlist-container');
-        container.innerHTML = "";
-        stations.forEach(station => {
+        container.innerHTML = ""; // Czyścimy listę
+    
+        playlist.forEach(station => {
             const div = document.createElement('div');
-            div.className = 'station-item';
-            div.innerText = station.name;
-            div.onclick = () => playStation(station, div);
+            div.className = 'station-item'; // KLUCZOWE: ta sama klasa co w filterStations
+            div.textContent = station.name;
+            div.onclick = () => playStation(station.url);
             container.appendChild(div);
         });
     }
