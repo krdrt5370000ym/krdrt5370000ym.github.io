@@ -14,6 +14,25 @@
             alert("Błąd ładowania listy. Upewnij się, że link jest poprawny i serwer pozwala na CORS.");
         }
     }
+    
+    function filterStations() {
+        // Pobieramy wpisaną frazę
+        const input = document.getElementById('stationSearch');
+        const filter = input.value.toLowerCase();
+        const container = document.getElementById('playlist-container');
+        
+        // Pobieramy wszystkie elementy stacji (zazwyczaj są to divy lub linki wewnątrz kontenera)
+        const items = container.getElementsByTagName('div'); // Jeśli Twoje stacje są w divach
+    
+        for (let i = 0; i < items.length; i++) {
+            const text = items[i].textContent || items[i].innerText;
+            if (text.toLowerCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
 
     function downloadToM3U() {
         // Tworzymy pełny adres URL do pliku .m3u
