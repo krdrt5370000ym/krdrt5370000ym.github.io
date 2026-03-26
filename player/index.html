@@ -37,7 +37,11 @@
       <option value="RadioUSA">RadioUSA</option>
     </select>
     <h3>Stacje Radiowe</h3>
-
+    <div style="margin-bottom: 15px;">
+        <input type="text" id="stationSearch" placeholder="Szukaj stacji..." 
+               onkeyup="filterStations()" 
+               style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+    </div>   
     <div id="playlist-container"></div>
 </div>
 
