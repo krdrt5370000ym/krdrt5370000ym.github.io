@@ -404,6 +404,9 @@
     border-radius: 1rem;
     background: #616161;
     color: white;
+    audio {
+        margin-top: 5px;
+    }
 }
 .article_headers_posts {
     margin-bottom: 1em;
@@ -628,5 +631,6 @@
         margin-left: -1.5rem;
         width: 100vw;
         border-radius: 0; 
+        padding-left: 25px;
     }
 }
