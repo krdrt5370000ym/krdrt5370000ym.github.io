@@ -399,6 +399,12 @@
         text-decoration: none;
    }
 }
+.article_player_posts {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #616161;
+    color: white;
+}
 .article_headers_posts {
     margin-bottom: 1em;
 }
@@ -617,5 +623,10 @@
     }
     .article_tags_posts {
         font-size: 90%
+    }
+    .article_player_posts {
+        margin-left: -1.5rem;
+        width: 100vw;
+        border-radius: 0; 
     }
 }
