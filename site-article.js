@@ -180,61 +180,46 @@ async function WPArticlePostRSC(slug) {
 
     try {
         const response = await fetch(postsUrl);
-        
-        // TWOJA POPRAWKA: Sprawdzamy status odpowiedzi
         if (!response.ok) throw new Error(`Błąd API: ${response.status}`);
         
         let posts = await response.json();
-        
-        // Standaryzacja: zamień pojedynczy obiekt na tablicę jednoelementową
         if (!Array.isArray(posts)) posts = [posts];
         
-        // Sprawdź, czy mamy dane i czy ID istnieje (ważne przy błędnych slugach)
         if (posts.length === 0 || !posts[0].id) {
             container.innerHTML = "Brak dostępnych postów.";
             return;
         }
-        
-        const post = posts[0];
 
-        // Tytuł strony (dekodowanie encji HTML)
-        const doc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
-        document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
-
-        const htmlContent = posts.map(post => {
+        // Mapujemy posty na obietnice HTML (obsługa wielu postów i asynchronicznego playera)
+        const postPromises = posts.map(async (post) => {
             const embed = post._embedded || {};
 
-            // Autor
-            let authorDisplay = '';
-            if (embed.author && embed.author[0]) {
-                const author = embed.author[0];
-                const authorName = author.name || 'Redakcja';
-                const authorLink = author.link;
-                // Tworzymy link do profilu autora
-                authorDisplay = `
-                    <i class="fa-solid fa-user"></i> 
-                    <a href="${authorLink}" target="_blank">${authorName}</a> | `;
-            } else {
-                authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
+            // 1. Tytuł (dekodowanie encji i ustawianie title strony)
+            const titleDoc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
+            const cleanTitle = titleDoc.body.textContent;
+            document.title = `${cleanTitle} | krdrt537000ym.github.io`;
+
+            // 2. Autor
+            let authorDisplay = '<i class="fa-solid fa-user"></i> Redakcja | ';
+            if (embed.author?.[0]) {
+                authorDisplay = `<i class="fa-solid fa-user"></i> <a href="${embed.author[0].link}" target="_blank">${embed.author[0].name}</a> | `;
             }
 
-            // Kategorie
+            // 3. Kategorie
             let categoriesDisplay = '';
-            if (embed['wp:term'] && embed['wp:term'][0]) {
+            if (embed['wp:term']?.[0]) {
                 const catsHtml = embed['wp:term'][0]
                     .map(cat => `<a href="${cat.link}" target="_blank">${cat.name}</a>`)
                     .join(' • ');
-                
-                categoriesDisplay = `<div class="article_category_posts">${catsHtml || 'Aktualności'}</div>`;
+                categoriesDisplay = `<div class="article_category_posts">${catsHtml}</div>`;
             }
 
-            // Tagi z linkami z API
+            // 4. Tagi
             let tagsDisplay = '';
-            if (embed['wp:term'] && embed['wp:term'][1] && embed['wp:term'][1].length > 0) {
+            if (embed['wp:term']?.[1]?.length > 0) {
                 const tagsHtml = embed['wp:term'][1]
                     .map(t => `<a href="${t.link}" target="_blank">${t.name}</a>`)
                     .join(', ');
-            
                 tagsDisplay = `
                     <div class="article_tags_posts">
                         <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
@@ -242,18 +227,16 @@ async function WPArticlePostRSC(slug) {
                     </div>`;
             }
 
-            // Obrazek wyróżniający
+            // 5. Obrazek wyróżniający
             let imageDisplay = '';
             if (embed['wp:featuredmedia']?.[0]) {
                 const media = embed['wp:featuredmedia'][0];
                 const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-                imageDisplay = `
-                    <div class="wp-site-blocks">
-                        <div class="post-thumbnail">
-                            <img src="${imgUrl}" alt="${media.alt_text || ''}" style="max-width:100%; height:auto;">
-                        </div>
-                    </div>`;
+                imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
             }
+
+            // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
+            const playerHtml = await WPArticlePostRSCPlayer(post.link);
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
                 day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
@@ -269,16 +252,19 @@ async function WPArticlePostRSC(slug) {
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
+                        ${playerHtml}
                         <div class="article_singlecontent_posts">${post.content.rendered}</div>
                     </article>
                 </div>`;
         });
 
-        container.innerHTML = htmlContent.join('');
+        // Czekamy na wygenerowanie wszystkich postów (wraz z audio)
+        const results = await Promise.all(postPromises);
+        container.innerHTML = results.join('');
 
     } catch (error) {
         console.error("Błąd WP API:", error);
-        container.innerHTML = `<div class="error-msg">Nie udało się pobrać artykułu. (${error.message})</div>`;
+        container.innerHTML = `<div class="error-msg">Nie udało się pobrać artykułu.</div>`;
     }
 }
 
@@ -381,5 +367,37 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
     } catch (error) {
         console.error("Błąd WP API:", error);
         container.innerHTML = "Błąd podczas ładowania postów.";
+    }
+}
+
+async function WPArticlePostRSCPlayer(targetUrl) {
+    const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev?url=' + encodeURIComponent(targetUrl);
+    // XPath celujący w kontener audio
+    const xpath = "//div[contains(@class, 'custom-audio-block')]//audio/@src";
+    
+    try {
+        const response = await fetch(proxyUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+        if (!response.ok) return '';
+
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        
+        // Szukanie atrybutu src
+        const result = doc.evaluate(xpath, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+        const audioNode = result.singleNodeValue;
+        
+        // .value pobiera treść atrybutu @src
+        const audioSrc = audioNode ? audioNode.value.trim() : null;
+
+        if (audioSrc && audioSrc.endsWith('.mp3')) {
+            return `
+                <div class="article_player_posts">
+                    <small>Posłuchaj tutaj:</small><br>
+                    <audio controls src="${audioSrc}"></audio>
+                </div>`;
+        }
+        return '';
+    } catch (e) {
+        return '';
     }
 }
