@@ -394,20 +394,25 @@ function LoadProgram(id){
 // =====================
 // INIT
 // =====================
-function init(){
-  renderCurrent();
-  renderTabs();
-  renderPrograms();
-  renderStations();
+function init() {
+  renderCurrent();    // Pasek "na żywo" na górze strony
+  renderTabs();       // Generuje zakładki dni tygodnia
+  renderPrograms();   // Lista programów/podcastów
+  renderStations();   // Wybór stacji
+
+  // Dodajemy inicjalizację statusu ramówki zaraz po wyrenderowaniu taba
+  updateOnAirStatus();
 
   document.getElementById("categoryFilter").onchange = renderPrograms;
-  document.addEventListener("DOMContentLoaded", initSchedule);
   
-  setInterval(renderCurrent,60000);
+  // Aktualizacja co minutę obu funkcji naraz
+  setInterval(() => {
+    renderCurrent();
+    updateOnAirStatus(); // Kluczowe dla poprawnego odświeżania klasy .onair
+  }, 60000);
 }
 
-loadData();
-
+loadData().then(init); // Zakładając, że loadData to Twoja funkcja ładująca JSON
 </script>
 
 </body>
