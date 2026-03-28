@@ -266,9 +266,15 @@ function renderTabs() {
     dailyPrograms.forEach(p => {
       const data = getProgramData(p);
       if (!data) return;
-
-      const el = document.createElement("div");
-      el.className = "schedule_program";
+      
+        const el = document.createElement("div");
+        
+        // Logika warunkowa dla klasy CSS
+        if (p.subschedule === true) {
+          el.className = "schedule_program small";
+        } else {
+          el.className = "schedule_program";
+        }
 
       el.dataset.start = p.hour_start; 
       el.dataset.end = p.hour_end;
