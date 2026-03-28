@@ -1,10 +1,10 @@
 [
   {
-    thumbnail_id:"image_001",
-    thumbnail_uri: "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
+    "thumbnail_id": "image_001",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
   },
   {
-    thumbnail_id:"image_002",
-    thumbnail_uri: "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
+    "thumbnail_id": "image_002",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
   }
-];
+]
