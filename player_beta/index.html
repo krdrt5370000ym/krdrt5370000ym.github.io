@@ -110,7 +110,10 @@ async function loadData() {
 function formatHour(h){ return h.slice(0,5); }
 
 function isInTimeRange(start, end, current) {
-  if (start < end) return current >= start && current < end;
+  if (start < end) {
+    return current >= start && current < end;
+  }
+  // Przypadek, gdy program kończy się następnego dnia
   return current >= start || current < end;
 }
 
@@ -134,31 +137,58 @@ function getProgramData(p){
 // =====================
 // ON AIR
 // =====================
-function renderCurrent(){
+function renderCurrent() {
   const now = new Date();
-  const day = now.getDay().toString();
-  const time = now.toTimeString().slice(0,8);
+  const day = now.getDay().toString(); // 0 (Ndz) - 6 (Sob)
+  const time = now.toTimeString().slice(0, 8); // Format "HH:mm"
 
-  const program = SCHEDULE
-    .filter(p => 
-      p.active && 
-      p.days.includes(day) && 
-      (!p.station || p.station.includes(CURRENT_STATION)) &&
-      isInTimeRange(p.hour_start, p.hour_end, time)
-    )
-    .sort((a, b) => (b.station ? 1 : 0) - (a.station ? 1 : 0)) // Stacja ma priorytet nad globalnymi
-    .find(() => true); // Pobierz pierwszy pasujący po posortowaniu
+  // Zakładamy, że SCHEDULE to tablica obiektów z Twojego przykładu
+  const currentProgram = SCHEDULE
+    .filter(p => {
+      const isDayMatch = p.days.includes(day);
+      const isStationMatch = !p.station || p.station.includes(CURRENT_STATION);
+      const isTimeMatch = isInTimeRange(p.hour_start, p.hour_end, time);
+      
+      return p.active && isDayMatch && isStationMatch && isTimeMatch;
+    })
+    .sort((a, b) => {
+      // 1. Priorytet dla programów przypisanych do konkretnej stacji
+      const aHasStation = a.station ? 1 : 0;
+      const bHasStation = b.station ? 1 : 0;
+      if (aHasStation !== bHasStation) return bHasStation - aHasStation;
 
-  const data = getProgramData(program);
-  if(!data) return;
+      // 2. Opcjonalnie: weź program, który zaczął się później (świeższy)
+      return b.hour_start.localeCompare(a.hour_start);
+    })[0]; // Pobierz pierwszy (najlepiej dopasowany)
 
-  document.querySelector(".current_program_hour").textContent =
-    formatHour(program.hour_start)+" - "+formatHour(program.hour_end);
+  if (!currentProgram) {
+    console.log("Brak zaplanowanego programu dla stacji:", CURRENT_STATION);
+    return;
+  }
 
-  document.querySelector(".current_program_title").textContent = data.name || "";
-  document.querySelector(".current_program_host").textContent = data.host || "";
-  document.querySelector(".current_program_photo").src =
-    data.thumbnail_uri || "https://cdn.music.smcloud.net/t/cover/677b175e-35bd-4b9b-a271-629040ccdd98_ER_500x500-2-cover_500x500.png";
+  const data = getProgramData(currentProgram);
+  if (!data) return;
+
+  // Aktualizacja DOM
+  const elements = {
+    hour: document.querySelector(".current_program_hour"),
+    title: document.querySelector(".current_program_title"),
+    host: document.querySelector(".current_program_host"),
+    photo: document.querySelector(".current_program_photo")
+  };
+
+  if (elements.hour) {
+    elements.hour.textContent = `${currentProgram.hour_start} - ${currentProgram.hour_end}`;
+  }
+  if (elements.title) {
+    elements.title.textContent = data.name || "Program muzyczny";
+  }
+  if (elements.host) {
+    elements.host.textContent = data.host || "";
+  }
+  if (elements.photo) {
+    elements.photo.src = data.thumbnail_uri || "https://cdn.music.smcloud.net/t/cover/677b175e-35bd-4b9b-a271-629040ccdd98_ER_500x500-2-cover_500x500.png";
+  }
 }
 
 // =====================
