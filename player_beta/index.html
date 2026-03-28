@@ -72,7 +72,6 @@ img { width:50px; height:50px; }
 <script>
 let CURRENT_STATION = null;
 
-// =====================
 const dayOrder = ["1","2","3","4","5","6","0"];
 
 const dayNames = {
@@ -88,7 +87,7 @@ let STATIONS = [];
 let lastDay = new Date().getDay();
 
 // =====================
-// LOAD DATA
+// LOAD
 // =====================
 async function loadData() {
   const [images, programs, schedule, stations] = await Promise.all([
@@ -110,23 +109,32 @@ async function loadData() {
 function formatHour(h){ return h.slice(0,5); }
 
 function isInTimeRange(start, end, current) {
-  if (start < end) {
-    return current >= start && current < end;
-  }
-  // Przypadek, gdy program kończy się następnego dnia
+  if (start < end) return current >= start && current < end;
   return current >= start || current < end;
 }
 
 function getProgramData(p){
   if(!p) return null;
+  if(p.id) return PROGRAMS.find(x=>x.id===p.id) || p;
+  return p;
+}
 
-  let data = p;
-
-  if(p.id){
-    data = PROGRAMS.find(x=>x.id===p.id) || p;
+// 🔥 NAJWAŻNIEJSZE – OBRAZKI
+function getThumbnail(p, data){
+  // 1. schedule -> thumbnail_id
+  if (p.thumbnail_id) {
+    const img = IMAGES.find(i => i.thumbnail_id === p.thumbnail_id);
+    if (img) return img.thumbnail_uri_id;
   }
 
-  return data;
+  // 2. schedule -> direct
+  if (p.thumbnail_uri) return p.thumbnail_uri;
+
+  // 3. program
+  if (data && data.thumbnail_uri) return data.thumbnail_uri;
+
+  // 4. fallback
+  return "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
 }
 
 // =====================
@@ -134,231 +142,99 @@ function getProgramData(p){
 // =====================
 function renderCurrent() {
   const now = new Date();
-  const currentDay = now.getDay().toString(); // 0-6
-  const yesterday = (currentDay === "0" ? "6" : (parseInt(currentDay) - 1).toString());
-  const currentTime = now.toTimeString().slice(0, 8); // Format "HH:mm"
+  const day = now.getDay().toString();
+  const yesterday = day === "0" ? "6" : (day - 1).toString();
+  const time = now.toTimeString().slice(0,8);
 
-  let currentProgram = null;
-
-  // 1. AKTUALIZACJA WIDOKU HARMONOGRAMU (Klasy .onair)
-  document.querySelectorAll('.schedule_program').forEach(row => {
-    const start = row.dataset.start;
-    const end = row.dataset.end;
-    if (!start || !end) return;
-
-    const dayOfTab = row.closest('.tabcontent').id.replace('tab_', '');
-    let active = false;
-
-    // Logika sprawdzania, czy program trwa (uwzględnia przejście przez północ)
-    if (dayOfTab === currentDay) {
-      if (start < end) {
-        active = currentTime >= start && currentTime < end;
-      } else {
-        // Program zaczął się dzisiaj i trwa po północy (np. start 23:00, teraz 23:30)
-        active = currentTime >= start;
+  const program = SCHEDULE
+    .filter(p =>
+      p.active &&
+      (!p.station || p.station.includes(CURRENT_STATION))
+    )
+    .find(p => {
+      if (p.days.includes(day)) {
+        return isInTimeRange(p.hour_start, p.hour_end, time);
       }
-    } else if (dayOfTab === yesterday) {
-      // Program zaczął się wczoraj i trwa dzisiaj (np. start 23:00, end 20:00, teraz 19:00)
-      if (start > end) {
-        active = currentTime < end;
+      if (p.days.includes(yesterday) && p.hour_start > p.hour_end) {
+        return time < p.hour_end;
       }
-    }
+      return false;
+    });
 
-    row.classList.toggle('onair', active);
-    
-    // Jeśli ten wiersz jest aktywny i pasuje do aktualnej stacji, zapisz go do renderowania góry
-    if (active) {
-      // Tutaj opcjonalnie sprawdź p.station, jeśli masz wiele stacji w jednym widoku
-      currentProgram = row; 
-    }
-  });
+  if (!program) return;
 
-  // 2. AUTO-SCROLL (Tylko jeśli znaleziono aktywny element)
-  const activeEl = document.querySelector('.schedule_program.onair');
-  if (activeEl) {
-    activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
+  const data = {...getProgramData(program)};
+  const thumbnail = getThumbnail(program, data);
 
-  // 3. RENDEROWANIE NAGŁÓWKA "TERAZ NA ANTENIE"
-  // Pobieramy dane z SCHEDULE na podstawie aktywnego wiersza lub filtracji
-  const activeProgramData = SCHEDULE.filter(p => {
-  const isStation = !p.station || p.station.includes(CURRENT_STATION);
-  if (!isStation || !p.active) return false;
-
-  const isToday = p.days.includes(currentDay);
-  const isFromYesterday = p.days.includes(yesterday) && p.hour_start > p.hour_end;
-
-  if (isToday) {
-    return p.hour_start <= p.hour_end 
-      ? (currentTime >= p.hour_start && currentTime < p.hour_end)
-      : (currentTime >= p.hour_start);
-  } 
-  if (isFromYesterday) {
-    return currentTime < p.hour_end;
-  }
-  return false;
-})
-// Kluczowe: Sortujemy tak, aby subschedule (krótsze pasma) miały priorytet nad głównymi
-.sort((a, b) => {
-  if (a.subschedule && !b.subschedule) return -1;
-  if (!a.subschedule && b.subschedule) return 1;
-  return 0;
-})[0]; // Bierzemy pierwszy pasujący (najbardziej szczegółowy)
-
-if (!activeProgramData) return;
-
-const data = getProgramData(activeProgramData);
-if (!data) return;
-
-if (activeProgramData.thumbnail_id) {
-  const imgEntry = IMAGES.find(i => i.thumbnail_id === activeProgramData.thumbnail_id);
-  if (imgEntry) {
-    data.thumbnail_uri = imgEntry.thumbnail_uri;
-  }
-}
-
-// Poprawiona logika pobierania nazw i prowadzących (używamy activeProgramData zamiast p)
-const displayProgramName = (activeProgramData.name && activeProgramData.name !== "null") 
-  ? activeProgramData.name 
-  : data.name;
-
-const displayHost = (activeProgramData.host && activeProgramData.host !== "null") 
-  ? activeProgramData.host 
-  : (data.host || "");
-
-// Mapowanie do DOM z poprawką literówki (iten -> item)
-const ui = {
-  item: document.querySelector(".current_program_item"),
-  hour: document.querySelector(".current_program_hour"),
-  title: document.querySelector(".current_program_title"),
-  host: document.querySelector(".current_program_host"),
-  photo: document.querySelector(".current_program_photo")
-};
-
-if (ui.item) ui.item.textContent = activeProgramData.item || "";
-if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
-if (ui.title) ui.title.textContent = displayProgramName;
-if (ui.host) ui.host.textContent = displayHost;
-if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
+  document.querySelector(".current_program_item").textContent = program.item || "";
+  document.querySelector(".current_program_hour").textContent =
+    `${formatHour(program.hour_start)} - ${formatHour(program.hour_end)}`;
+  document.querySelector(".current_program_title").textContent =
+    program.name || data.name || "";
+  document.querySelector(".current_program_host").textContent =
+    program.host || data.host || "";
+  document.querySelector(".current_program_photo").src = thumbnail;
 }
 
 // =====================
 // TABS
 // =====================
 function renderTabs() {
-  const tabsContainer = document.getElementById("tabs");
-  const contentsContainer = document.getElementById("tab_contents");
+  const tabs = document.getElementById("tabs");
+  const contents = document.getElementById("tab_contents");
 
-  const now = new Date();
-  const currentDay = now.getDay().toString();
+  tabs.innerHTML = "";
+  contents.innerHTML = "";
 
-  tabsContainer.innerHTML = "";
-  contentsContainer.innerHTML = "";
+  const today = new Date().getDay().toString();
 
-  dayOrder.forEach((day) => {
-    const isToday = (day === currentDay);
+  dayOrder.forEach(day => {
 
     const btn = document.createElement("button");
     btn.textContent = dayNames[day];
-    if (isToday) btn.classList.add("active");
+    if(day === today) btn.classList.add("active");
 
-    const tabContent = document.createElement("div");
-    tabContent.className = "tabcontent";
-    tabContent.id = `tab_${day}`;
-    tabContent.style.display = isToday ? "block" : "none";
+    const tab = document.createElement("div");
+    tab.className = "tabcontent";
+    tab.id = "tab_"+day;
+    tab.style.display = day === today ? "block" : "none";
 
     btn.onclick = () => {
-      document.querySelectorAll(".tabcontent").forEach(t => t.style.display = "none");
-      document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
-      tabContent.style.display = "block";
+      document.querySelectorAll(".tabcontent").forEach(t=>t.style.display="none");
+      document.querySelectorAll("#tabs button").forEach(b=>b.classList.remove("active"));
+      tab.style.display="block";
       btn.classList.add("active");
     };
 
-    const dailyPrograms = SCHEDULE.filter(p => 
-      p.active && 
-      p.days.includes(day) && 
-      !p.hide_in_schedule &&
-      (!p.station || p.station.includes(CURRENT_STATION))
-    ).sort((a, b) => a.hour_start.localeCompare(b.hour_start));
+    SCHEDULE
+      .filter(p =>
+        p.active &&
+        p.days.includes(day) &&
+        !p.hide_in_schedule &&
+        (!p.station || p.station.includes(CURRENT_STATION))
+      )
+      .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
+      .forEach(p=>{
+        const data = {...getProgramData(p)};
+        const thumbnail = getThumbnail(p, data);
 
-    dailyPrograms.forEach(p => {
-      const data = getProgramData(p);
-      if (!data) return;
-    
-      // Logika dynamicznego obrazka z SCHEDULE (np. dla sobotniej powtórki)
-      if (p.thumbnail_id) {
-        const imgEntry = IMAGES.find(i => i.thumbnail_id === p.thumbnail_id);
-        if (imgEntry) {
-          data.thumbnail_uri = imgEntry.thumbnail_uri;
-        }
-      }
-    
-      const el = document.createElement("div");
-      el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
-      
-      const programId = data.private === true ? 'null' : `'${data.id}'`;
-      el.dataset.start = p.hour_start; 
-      el.dataset.end = p.hour_end;
-    
-      const displayProgramName = (p.name && p.name !== "null") ? p.name : data.name;
-      const displayHost = (p.host && p.host !== "null") ? p.host : (data.host || "");
-    
-      // Używamy zaktualizowanego data.thumbnail_uri
-      el.innerHTML = `
-        <div class="prog_item">${p.item || ""}</div>
-        <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
-        <div class="prog_name" onclick="LoadProgram(${programId})" style="cursor:pointer">
-          ${displayProgramName}
-        </div>
-        <div class="prog_host">${displayHost}</div>
-        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${displayProgramName}">` : ""}
-      `;
+        const el = document.createElement("div");
+        el.className="schedule_program";
 
-      tabContent.appendChild(el);
-    });
+        el.innerHTML = `
+          <div>${p.item || ""}</div>
+          <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
+          <div onclick="LoadProgram('${data.id}')">${p.name || data.name}</div>
+          <div>${p.host || data.host || ""}</div>
+          <img src="${thumbnail}">
+        `;
 
-    tabsContainer.appendChild(btn);
-    contentsContainer.appendChild(tabContent);
+        tab.appendChild(el);
+      });
+
+    tabs.appendChild(btn);
+    contents.appendChild(tab);
   });
-}
-
-// =====================
-// ON AIR STATUS
-// =====================
-function updateOnAirStatus() {
-  const now = new Date();
-  const currentDay = now.getDay().toString();
-  const currentTime = now.toTimeString().slice(0, 5);
-
-  const yesterday = (currentDay === "0" ? "6" : (parseInt(currentDay) - 1).toString());
-
-  document.querySelectorAll('.schedule_program').forEach(row => {
-    const start = row.dataset.start;
-    const end = row.dataset.end;
-
-    if (!start || !end) return;
-
-    const dayOfTab = row.closest('.tabcontent').id.replace('tab_', '');
-
-    const isTodayTab = dayOfTab === currentDay;
-    const isYesterdayTab = dayOfTab === yesterday;
-
-    let active = false;
-
-    if (isTodayTab) {
-      active = isInTimeRange(start, end, currentTime);
-    } else if (isYesterdayTab && start > end) {
-      active = currentTime < end;
-    }
-
-    row.classList.toggle('onair', active);
-  });
-
-  // auto scroll do aktualnego
-  const activeEl = document.querySelector('.schedule_program.onair');
-  if (activeEl) {
-    activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
 }
 
 // =====================
@@ -374,12 +250,6 @@ function renderPrograms(){
     .filter(p => !p.hide_in_program && !p.private)
     .filter(p => !filter || p.category === filter)
     .filter(p => !p.station || p.station.includes(CURRENT_STATION))
-    .sort((a, b) => {
-      const sortA = a.sorted || "";
-      const sortB = b.sorted || "";
-      const result = sortA.toString().localeCompare(sortB.toString(), undefined, { numeric: true });
-      return result !== 0 ? result : a.name.localeCompare(b.name);
-    })
     .forEach(p=>{
       const el = document.createElement("div");
       el.className="program_list_content";
@@ -403,25 +273,23 @@ function renderStations(){
 
   select.innerHTML = "";
 
-  STATIONS.forEach((s, index)=>{
+  STATIONS.forEach((s,i)=>{
     const opt = document.createElement("option");
     opt.value = s.id;
     opt.textContent = s.name;
     select.appendChild(opt);
 
-    if(index === 0){
+    if(i===0){
       CURRENT_STATION = s.id;
       player.src = s.stream;
     }
   });
 
   select.onchange = ()=>{
-    const selected = STATIONS.find(s => s.id === select.value);
-
-    CURRENT_STATION = selected.id;
-    player.src = selected.stream;
+    const s = STATIONS.find(x=>x.id===select.value);
+    CURRENT_STATION = s.id;
+    player.src = s.stream;
     player.play();
-
     reloadAll();
   };
 }
@@ -435,90 +303,43 @@ function reloadAll(){
 // =====================
 // PROGRAM PAGE
 // =====================
-function getDisplaySchedule(programId) {
-  const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
-  
-  // Filtrujemy wpisy w grafiku dla konkretnego programu
-  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active && s.hide_in_schedule !== true);
-  
-  const groups = occurrences.map(occ => {
-    // Sortujemy dni rosnąco (ważne dla Ndz=0 / Pn=1)
-    const sortedDays = [...occ.days].sort();
-    const dayLabels = sortedDays.map(d => daysMap[d]);
-    
-    let dayString = dayLabels.join(", ");
-    
-    // Logika dla Pn - Pt
-    if (occ.days.length === 5 && occ.days.every(d => ["1","2","3","4","5"].includes(d))) {
-      dayString = "Pn - Pt";
-    }
+function LoadProgram(id){
+  const program = PROGRAMS.find(p=>p.id===id);
+  if(!program || program.private) return;
 
-    return `${dayString}, ${formatHour(occ.hour_start)} - ${formatHour(occ.hour_end)}`;
-  });
+  const scheduleInfo = SCHEDULE
+    .filter(s=>s.id===id && s.active && !s.hide_in_schedule)
+    .map(s=>`${formatHour(s.hour_start)}-${formatHour(s.hour_end)}`)
+    .join(" | ");
 
-  return groups.join(" | ");
-}
-
-function LoadProgram(id) {
-  if (id === null) return;
-
-  const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.private === true) return;
-
-  const scheduleInfo = getDisplaySchedule(id);
+  const thumbnail = getThumbnail({}, program);
 
   const html = `
-    <style>
-      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; line-height: 1.6; color: #333; }
-      img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; }
-      h2 { color: #000; margin-top: 0; }
-      .meta { color: #666; font-size: 0.9em; margin-bottom: 10px; }
-    </style>
-    ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}">` : ""}
     <h2>${program.name}</h2>
-    <div class="meta">
-      <div><b>Prowadzący:</b> ${program.host || "---"}</div>
-      <div><b>Emisja:</b> ${scheduleInfo}</div>
-    </div>
-    <hr>
-    <div>${program.description || "Brak opisu programu."}</div>
+    <img src="${thumbnail}">
+    <div>Prowadzący: ${program.host}</div>
+    <div>Emisja: ${scheduleInfo}</div>
+    <div>${program.description || ""}</div>
   `;
 
-  const win = window.open("", "_blank");
+  const win = window.open("");
   win.document.write(html);
-  win.document.close();
 }
 
 // =====================
 // INIT
 // =====================
-function init() {
+function init(){
   renderStations();
-  renderCurrent();
-  renderTabs();
-  renderPrograms();
-  updateOnAirStatus();
+  reloadAll();
 
   document.getElementById("categoryFilter").onchange = renderPrograms;
 
-  setInterval(() => {
-    const now = new Date();
-    const newDay = now.getDay();
-
+  setInterval(()=>{
     renderCurrent();
-    updateOnAirStatus();
-
-    if (newDay !== lastDay) {
-      renderTabs();
-      lastDay = newDay;
-    }
-
-  }, 60000);
+  },60000);
 }
 
-// =====================
-// START
-// =====================
 loadData().then(init);
 </script>
 
