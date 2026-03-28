@@ -218,7 +218,7 @@ function renderCurrent() {
     photo: document.querySelector(".current_program_photo")
   };
 
-  if (ui.hour) ui.hour.textContent = `${activeProgramData.hour_start} - ${activeProgramData.hour_end}`;
+  if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
   if (ui.title) ui.title.textContent = data.name || "";
   if (ui.host) ui.host.textContent = data.host || "";
   if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.music.smcloud.net";
