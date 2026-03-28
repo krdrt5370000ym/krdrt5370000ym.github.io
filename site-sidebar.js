@@ -141,7 +141,7 @@ document.getElementById('openRadio').addEventListener('click', function(e) {
 
     // Tworzenie Bloba i generowanie tymczasowego adresu URL
     const blob = new Blob([htmlContentRadio], { type: 'text/html;charset=utf-8' });
-    const blobUrl = URL.createObjectURL(blob);
+    const blobUrl = webkitURL.createObjectURL(blob);
     
     // Otwarcie w nowym oknie
     window.open(blobUrl, '_blank');
@@ -185,7 +185,7 @@ document.getElementById('openMedia').addEventListener('click', function(e) {
 
     // Tworzenie Bloba i generowanie tymczasowego adresu URL
     const blob = new Blob([htmlContentRadio], { type: 'text/html;charset=utf-8' });
-    const blobUrl = URL.createObjectURL(blob);
+    const blobUrl = webkitURL.createObjectURL(blob);
     
     // Otwarcie w nowym oknie
     window.open(blobUrl, '_blank');
