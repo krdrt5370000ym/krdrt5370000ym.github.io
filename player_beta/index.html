@@ -139,11 +139,15 @@ function renderCurrent(){
   const day = now.getDay().toString();
   const time = now.toTimeString().slice(0,8);
 
-  const program = SCHEDULE.find(p =>
-    p.active &&
-    p.days.includes(day) &&
-    isInTimeRange(p.hour_start,p.hour_end,time)
-  );
+  const program = SCHEDULE
+    .filter(p => 
+      p.active && 
+      p.days.includes(day) && 
+      (!p.station || p.station.includes(CURRENT_STATION)) &&
+      isInTimeRange(p.hour_start, p.hour_end, time)
+    )
+    .sort((a, b) => (b.station ? 1 : 0) - (a.station ? 1 : 0)) // Stacja ma priorytet nad globalnymi
+    .find(() => true); // Pobierz pierwszy pasujący po posortowaniu
 
   const data = getProgramData(program);
   if(!data) return;
