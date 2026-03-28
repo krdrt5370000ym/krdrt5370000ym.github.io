@@ -12,7 +12,7 @@
       "id": "glowny",
       "name": "Stacja testowa 2",
       "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
-      "playlist": "getNowPlayingEurozet('antbal_new')",
+      "playlist": "getNowPlayingEurozet('antcla_new')",
       "schedule": "test",
       "station_schedule": "glowny"
     }
