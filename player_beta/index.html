@@ -70,7 +70,8 @@ img { width:50px; height:50px; }
 <div class="program_list" id="program_list"></div>
 
 <script>
-
+let CURRENT_STATION = null;
+  
 // =====================
 const dayOrder = ["1","2","3","4","5","6","0"];
 
@@ -164,6 +165,7 @@ function renderTabs(){
   const contents = document.getElementById("tab_contents");
 
   dayOrder.forEach((day,index)=>{
+
     const btn = document.createElement("button");
     btn.textContent = dayNames[day];
 
@@ -185,7 +187,15 @@ function renderTabs(){
     if(index===0) tab.style.display="block";
 
     SCHEDULE
-      .filter(p=>p.active && p.days.includes(day) && !p.hide_in_schedule)
+      .filter(p =>
+        p.active &&
+        p.days.includes(day) &&
+        !p.hide_in_schedule &&
+        (
+          !p.station || // globalne
+          p.station.includes(CURRENT_STATION)
+        )
+      )
       .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
       .forEach(p=>{
         const data = getProgramData(p);
@@ -220,7 +230,11 @@ function renderPrograms(){
 
   PROGRAMS
     .filter(p => !p.hide_in_program && !p.private)
-    .filter(p => !filter || p.category===filter)
+    .filter(p => !filter || p.category === filter)
+    .filter(p =>
+      !p.station || 
+      p.station.includes(CURRENT_STATION)
+    )
     .forEach(p=>{
       const el = document.createElement("div");
       el.className="program_list_content";
@@ -238,24 +252,45 @@ function renderPrograms(){
 // =====================
 // STATIONS
 // =====================
+function reloadAll(){
+  document.getElementById("tabs").innerHTML = "";
+  document.getElementById("tab_contents").innerHTML = "";
+
+  renderTabs();
+  renderPrograms();
+}
+
 function renderStations(){
   const select = document.getElementById("stationSelect");
   const player = document.getElementById("player");
 
-  STATIONS.forEach(s=>{
+  select.innerHTML = "";
+
+  STATIONS.forEach((s, index)=>{
     const opt = document.createElement("option");
-    opt.value = s.stream;
+    opt.value = s.id;
     opt.textContent = s.name;
     select.appendChild(opt);
+
+    if(index === 0){
+      CURRENT_STATION = s.id;
+      player.src = s.stream;
+    }
   });
 
   select.onchange = ()=>{
-    player.src = select.value;
+    const selected = STATIONS.find(s => s.id === select.value);
+
+    CURRENT_STATION = selected.id;
+
+    player.src = selected.stream;
     player.play();
+
+    // 🔥 przeładuj widoki
+    reloadAll();
   };
 
-  // start
-  player.src = STATIONS[0].stream;
+  reloadAll();
 }
 
 // =====================
