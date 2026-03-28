@@ -272,7 +272,7 @@ function renderTabs() {
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
         // Decyzja o ID dla funkcji LoadProgram
-        const programId = data.private === true ? 'null' : `'${data.id}'`;
+        const programId = data.private === true ? 'null' : `${data.id}`;
       
       el.dataset.start = p.hour_start; 
       el.dataset.end = p.hour_end;
