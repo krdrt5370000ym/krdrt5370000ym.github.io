@@ -418,50 +418,58 @@ function reloadAll(){
 // =====================
 // PROGRAM PAGE
 // =====================
-function getDisplaySchedule(programId, scheduleData) {
+function getDisplaySchedule(programId) {
   const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
   
-  // 1. Filtrujemy wszystkie wystąpienia tego programu w grafiku
-  const occurrences = scheduleData.filter(s => s.id === programId && s.active);
+  // Filtrujemy wpisy w grafiku dla konkretnego programu
+  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active);
   
-  // 2. Grupujemy dni według tych samych godzin (np. 06:00-09:00 występuje w dniach 1,2,3,4,5)
   const groups = occurrences.map(occ => {
-    const dayLabels = occ.days.map(d => daysMap[d]);
-    const timeRange = `${occ.hour_start} - ${occ.hour_end}`;
+    // Sortujemy dni rosnąco (ważne dla Ndz=0 / Pn=1)
+    const sortedDays = [...occ.days].sort();
+    const dayLabels = sortedDays.map(d => daysMap[d]);
     
-    // Prosta logika dla zakresów (np. Pn, Wt, Śr, Cz, Pt -> Pn - Pt)
     let dayString = dayLabels.join(", ");
-    if (occ.days.length === 5 && occ.days.includes("1") && occ.days.includes("5")) {
+    
+    // Logika dla Pn - Pt
+    if (occ.days.length === 5 && occ.days.every(d => ["1","2","3","4","5"].includes(d))) {
       dayString = "Pn - Pt";
     }
 
-    return `${dayString}, ${timeRange}`;
+    return `${dayString}, ${formatHour(occ.hour_start)} - ${formatHour(occ.hour_end)}`;
   });
 
   return groups.join(" | ");
 }
 
-// Użycie w LoadProgram:
 function LoadProgram(id) {
-  // Jeśli id to null (program prywatny), nic nie rób
   if (id === null) return;
 
   const program = PROGRAMS.find(p => p.id === id);
-  
-  // Jeśli nie znaleziono programu lub jest on prywatny, przerwij
   if (!program || program.private === true) return;
 
+  const scheduleInfo = getDisplaySchedule(id);
+
   const html = `
+    <style>
+      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; line-height: 1.6; color: #333; }
+      img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; }
+      h2 { color: #000; margin-top: 0; }
+      .meta { color: #666; font-size: 0.9em; margin-bottom: 10px; }
+    </style>
+    ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}">` : ""}
     <h2>${program.name}</h2>
-    <img src="${program.thumbnail_uri}">
-    <p>${program.host}</p>
-    <p>${program.onair || ""}</p>
-    ${program.description || ""}
+    <div class="meta">
+      <div><b>Prowadzący:</b> ${program.host || "---"}</div>
+      <div><b>Emisja:</b> ${scheduleInfo}</div>
+    </div>
+    <hr>
+    <div>${program.description || "Brak opisu programu."}</div>
   `;
 
   const win = window.open("", "_blank");
   win.document.write(html);
-  win.document.close(); // Dobra praktyka przy document.write
+  win.document.close();
 }
 
 // =====================
