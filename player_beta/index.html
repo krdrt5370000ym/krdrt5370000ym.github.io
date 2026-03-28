@@ -431,7 +431,7 @@ function getDisplaySchedule(programId) {
   const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
   
   // Filtrujemy wpisy w grafiku dla konkretnego programu
-  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active);
+  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active && s.hide_in_schedule !== true);
   
   const groups = occurrences.map(occ => {
     // Sortujemy dni rosnąco (ważne dla Ndz=0 / Pn=1)
