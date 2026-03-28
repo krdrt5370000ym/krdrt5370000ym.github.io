@@ -350,6 +350,7 @@ function renderStations() {
             CURRENT_STATION = s.id;
             player.src = s.stream;
             playlistNowPlaying(s.playlist);
+            reloadAll()
         }
     });
 
@@ -360,6 +361,7 @@ function renderStations() {
         player.src = s.stream;
         player.play();
         playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
+        reloadAll()
     };
 }
 
