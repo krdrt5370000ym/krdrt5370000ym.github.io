@@ -224,7 +224,7 @@ function renderTabs() {
 
             el.innerHTML = `
                 <div class="prog_item">${p.item || ""}</div>
-                <div class="prog_time"><b>${p.hour_start} - ${p.hour_end}</b></div>
+                <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
                 <div class="prog_name" onclick="LoadProgram('${data.id}')" style="cursor:pointer">
                     ${data.name}
                 </div>
