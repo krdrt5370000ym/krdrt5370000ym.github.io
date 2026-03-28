@@ -107,39 +107,89 @@ function ReloadAudio() {
 }
 
 document.getElementById('openRadio').addEventListener('click', function(e) {
-    e.preventDefault(); // Zapobiega przewijaniu strony do góry
+    e.preventDefault();
 
-    const htmlContentRadio = `<!DOCTYPE html><html><head><meta name='robots' content='noindex, follow' /><title>Radio | krdrt537000ym.github.io</title><script src="https://krdrt5370000ym.github.io/site-head.js"></script><link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css"></head><body class="w3-light-grey"><script src="https://krdrt5370000ym.github.io/site-topscreen.js"></script><div class="w3-main" style="margin-left:300px;margin-top:43px;"><header class="w3-container" style="padding-top:22px"><h5><b><i class="fa-solid fa-radio"></i> Radio</b></h5></header><div class="w3-row-padding w3-margin-bottom"><script>var cacheBuster = new Date().getTime();var iframeUrl = "https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/radios/radios.xlsb?v=" + cacheBuster + "&AllowTyping=True&wdAllowInteractivity=True";document.write('<iframe src="' + iframeUrl + '" frameborder="0" scrolling="no" style="overflow:hidden; height:500px; width:100%; top: 0; left: 0; bottom: 0; right: 0;" height="500" width="100%"></iframe>');</script><p>Wybierz kategorię stacji radiowej, naciśnij <b>„Wł.”</b>, po czym naciśnij na klawiaturze <b>Ctrl+C</b>, dotknij i wybierz <b>„Kopiuj”</b> lub kliknij prawym przyciskiem myszy <i>(piszą HTML)</i>, a następnie przejdź do przeglądarki i wklej adres URL. Aktualizacja nie zostanie jednak zapisana w przeglądarce.</p></div><script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"></script></div><script src="https://krdrt5370000ym.github.io/site-sidebar.js"></script></body></html>`;
+    // Treść strony radia (zabezpieczona przed błędami parsowania)
+    const htmlContentRadio = `<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex, follow" />
+        <title>Radio | krdrt537000ym.github.io</title>
+        <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+    </head>
+    <body class="w3-light-grey">
+        <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+            <header class="w3-container" style="padding-top:22px">
+                <h5><b><i class="fa-solid fa-radio"></i> Radio</b></h5>
+            </header>
+            <div class="w3-row-padding w3-margin-bottom">
+                <script>
+                    var cacheBuster = new Date().getTime();
+                    var iframeUrl = "https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/radios/radios.xlsb?v=" + cacheBuster + "&AllowTyping=True&wdAllowInteractivity=True";
+                    document.write('<iframe src="' + iframeUrl + '" frameborder="0" scrolling="no" style="overflow:hidden; height:500px; width:100%;" height="500" width="100%"></iframe>');
+                <\/script>
+                <p>Wybierz kategorię stacji radiowej, naciśnij <b>„Wł.”</b>, skopiuj URL i wklej w przeglądarce.</p>
+            </div>
+            <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+        </div>
+        <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+    </body>
+    </html>`;
 
+    // Tworzenie Bloba i generowanie tymczasowego adresu URL
     const blob = new Blob([htmlContentRadio], { type: 'text/html;charset=utf-8' });
-const reader = new FileReader();
-reader.onload = function(e) {
-    const dataUrl = e.target.result;
-    window.open(dataUrl, '_blank');
-};
-reader.readAsDataURL(blob);
+    const blobUrl = URL.createObjectURL(blob);
     
-    window.open(url, '_blank');
+    // Otwarcie w nowym oknie
+    window.open(blobUrl, '_blank');
 
-    // Opcjonalne czyszczenie pamięci po zamknięciu okna (lub po czasie)
-    // setTimeout(() => URL.revokeObjectURL(url), 10000);
+    // Opcjonalne: Zwolnienie pamięci po minucie
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
 });
 
 document.getElementById('openMedia').addEventListener('click', function(e) {
-    e.preventDefault(); // Zapobiega przewijaniu strony do góry
+    e.preventDefault();
 
-    const htmlContentMedia = `<!DOCTYPE html><html><head><meta name='robots' content='noindex, follow' /><title>Media | krdrt537000ym.github.io</title><script src="https://krdrt5370000ym.github.io/site-head.js"></script><link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css"></head><body class="w3-light-grey"><script src="https://krdrt5370000ym.github.io/site-topscreen.js"></script><div class="w3-main" style="margin-left:300px;margin-top:43px;"><header class="w3-container" style="padding-top:22px"><h5><b><i class="fa-solid fa-photo-film"></i> Media</b></h5></header><div class="w3-row-padding w3-margin-bottom"><script>var cacheBuster = new Date().getTime();var iframeUrl = "https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/media/media.xlsb?v=" + cacheBuster + "&AllowTyping=True&wdAllowInteractivity=True";document.write('<iframe src="' + iframeUrl + '" frameborder="0" scrolling="no" style="overflow:hidden; height:500px; width:100%; top: 0; left: 0; bottom: 0; right: 0;" height="500" width="100%"></iframe>');</script><p>Wybierz kategorię stacji radiowej, naciśnij <b>„Wł.”</b>, po czym naciśnij na klawiaturze <b>Ctrl+C</b>, dotknij i wybierz <b>„Kopiuj”</b> lub kliknij prawym przyciskiem myszy <i>(piszą HTML)</i>, a następnie przejdź do przeglądarki i wklej adres URL. Aktualizacja nie zostanie jednak zapisana w przeglądarce.</p></div><script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"></script></div><script src="https://krdrt5370000ym.github.io/site-sidebar.js"></script></body></html>`;
-    
-    const blob = new Blob([htmlContentMedia], { type: 'text/html;charset=utf-8' });
-const reader = new FileReader();
-reader.onload = function(e) {
-    const dataUrl = e.target.result;
-    window.open(dataUrl, '_blank');
-};
-reader.readAsDataURL(blob);
-    
-    window.open(url, '_blank');
+    // Treść strony radia (zabezpieczona przed błędami parsowania)
+    const htmlContentRadio = `<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex, follow" />
+        <title>Media | krdrt537000ym.github.io</title>
+        <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+    </head>
+    <body class="w3-light-grey">
+        <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+            <header class="w3-container" style="padding-top:22px">
+                <h5><b><i class="fa-solid fa-photo-film"></i> Media</b></h5>
+            </header>
+            <div class="w3-row-padding w3-margin-bottom">
+                <script>
+                    var cacheBuster = new Date().getTime();
+                    var iframeUrl = "https://view.officeapps.live.com/op/embed.aspx?src=https://krdrt5370000ym.github.io/media/media.xlsb?v=" + cacheBuster + "&AllowTyping=True&wdAllowInteractivity=True";
+                    document.write('<iframe src="' + iframeUrl + '" frameborder="0" scrolling="no" style="overflow:hidden; height:500px; width:100%;" height="500" width="100%"></iframe>');
+                <\/script>
+                <p>Wybierz kategorię stacji radiowej, naciśnij <b>„Wł.”</b>, skopiuj URL i wklej w przeglądarce.</p>
+            </div>
+            <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+        </div>
+        <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+    </body>
+    </html>`;
 
-    // Opcjonalne czyszczenie pamięci po zamknięciu okna (lub po czasie)
-    // setTimeout(() => URL.revokeObjectURL(url), 10000);
+    // Tworzenie Bloba i generowanie tymczasowego adresu URL
+    const blob = new Blob([htmlContentRadio], { type: 'text/html;charset=utf-8' });
+    const blobUrl = URL.createObjectURL(blob);
+    
+    // Otwarcie w nowym oknie
+    window.open(blobUrl, '_blank');
+
+    // Opcjonalne: Zwolnienie pamięci po minucie
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
 });
