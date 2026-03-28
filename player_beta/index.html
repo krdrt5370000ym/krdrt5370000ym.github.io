@@ -216,8 +216,8 @@ const data = getProgramData(activeProgramData);
 if (!data) return;
 
 // Logika dla HOST: jeśli host to "null", nie wyświetlaj go (lub ustaw pusty string)
-const displayProgramName = (data.name === "null" || !data.name) ? "" : data.name;
-const displayHost = (data.host === "null" || !data.host) ? "" : data.host;
+const displayProgramName = (p.name === "null" || !p.name) ? data.name : p.name;
+const displayHost = (p.host === "null" || !p.host) ? data.host : p.host;
 
 // Mapowanie do DOM z poprawką literówki (iten -> item)
 const ui = {
@@ -288,8 +288,8 @@ function renderTabs() {
       el.dataset.start = p.hour_start; 
       el.dataset.end = p.hour_end;
 
-      const displayProgramName = (data.name === "null" || !data.name) ? "" : data.name;
-      const displayHost = (data.host === "null" || !data.host) ? "" : data.host;
+      const displayProgramName = (p.name === "null" || !p.name) ? data.name : p.name;
+      const displayHost = (p.host === "null" || !p.host) ? data.host : p.host;
 
       el.innerHTML = `
         <div class="prog_item">${p.item || ""}</div>
