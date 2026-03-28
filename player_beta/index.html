@@ -146,20 +146,35 @@ function renderCurrent() {
   const yesterday = day === "0" ? "6" : (day - 1).toString();
   const time = now.toTimeString().slice(0,8);
 
-  const program = SCHEDULE
+  const matchingPrograms = SCHEDULE
     .filter(p =>
       p.active &&
       (!p.station || p.station.includes(CURRENT_STATION))
     )
-    .find(p => {
+    .filter(p => {
+      // Sprawdzanie dzisiaj
       if (p.days.includes(day)) {
         return isInTimeRange(p.hour_start, p.hour_end, time);
       }
+      // Sprawdzanie pasm nocnych z wczoraj
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) {
         return time < p.hour_end;
       }
       return false;
     });
+
+    // Sortowanie: programy z flagą subschedule trafiają na początek
+    const program = matchingPrograms.sort((a, b) => {
+    // 1. Priorytet dla programów przypisanych do konkretnej stacji (lokalne)
+    if (a.station && !b.station) return -1;
+    if (!a.station && b.station) return 1;
+    
+    // 2. Jeśli oba są lokalne (lub oba ogólne), priorytet dla subschedule (krótsze pasma)
+    if (a.subschedule && !b.subschedule) return -1;
+    if (!a.subschedule && b.subschedule) return 1;
+    
+    return 0;
+    })[0];
 
   if (!program) return;
 
@@ -219,12 +234,16 @@ function renderTabs() {
         const thumbnail = getThumbnail(p, data);
 
         const el = document.createElement("div");
-        el.className="schedule_program";
+        el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
+        
+        const programId = data.private === true ? 'null' : `'${data.id}'`;
+        el.dataset.start = p.hour_start; 
+        el.dataset.end = p.hour_end;
 
         el.innerHTML = `
           <div>${p.item || ""}</div>
           <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
-          <div onclick="LoadProgram('${data.id}')">${p.name || data.name}</div>
+          <div onclick="LoadProgram(${programId})">${p.name || data.name}</div>
           <div>${p.host || data.host || ""}</div>
           <img src="${thumbnail}">
         `;
@@ -236,6 +255,45 @@ function renderTabs() {
     contents.appendChild(tab);
   });
 }
+// =====================
+// ON AIR STATUS
+// =====================
+function updateOnAirStatus() {
+  const now = new Date();
+  const currentDay = now.getDay().toString();
+  const currentTime = now.toTimeString().slice(0, 5);
+
+  const yesterday = (currentDay === "0" ? "6" : (parseInt(currentDay) - 1).toString());
+
+  document.querySelectorAll('.schedule_program').forEach(row => {
+    const start = row.dataset.start;
+    const end = row.dataset.end;
+
+    if (!start || !end) return;
+
+    const dayOfTab = row.closest('.tabcontent').id.replace('tab_', '');
+
+    const isTodayTab = dayOfTab === currentDay;
+    const isYesterdayTab = dayOfTab === yesterday;
+
+    let active = false;
+
+    if (isTodayTab) {
+      active = isInTimeRange(start, end, currentTime);
+    } else if (isYesterdayTab && start > end) {
+      active = currentTime < end;
+    }
+
+    row.classList.toggle('onair', active);
+  });
+
+  // auto scroll do aktualnego
+  const activeEl = document.querySelector('.schedule_program.onair');
+  if (activeEl) {
+    activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
 
 // =====================
 // PROGRAM LIST
@@ -250,6 +308,12 @@ function renderPrograms(){
     .filter(p => !p.hide_in_program && !p.private)
     .filter(p => !filter || p.category === filter)
     .filter(p => !p.station || p.station.includes(CURRENT_STATION))
+    .sort((a, b) => {
+      const sortA = a.sorted || "";
+      const sortB = b.sorted || "";
+      const result = sortA.toString().localeCompare(sortB.toString(), undefined, { numeric: true });
+      return result !== 0 ? result : a.name.localeCompare(b.name);
+    })
     .forEach(p=>{
       const el = document.createElement("div");
       el.className="program_list_content";
@@ -303,41 +367,85 @@ function reloadAll(){
 // =====================
 // PROGRAM PAGE
 // =====================
-function LoadProgram(id){
-  const program = PROGRAMS.find(p=>p.id===id);
-  if(!program || program.private) return;
+function getDisplaySchedule(programId) {
+  const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
+  
+  // Filtrujemy wpisy w grafiku dla konkretnego programu
+  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active && s.hide_in_schedule !== true);
+  
+  const groups = occurrences.map(occ => {
+    // Sortujemy dni rosnąco (ważne dla Ndz=0 / Pn=1)
+    const sortedDays = [...occ.days].sort();
+    const dayLabels = sortedDays.map(d => daysMap[d]);
+    
+    let dayString = dayLabels.join(", ");
+    
+    // Logika dla Pn - Pt
+    if (occ.days.length === 5 && occ.days.every(d => ["1","2","3","4","5"].includes(d))) {
+      dayString = "Pn - Pt";
+    }
 
-  const scheduleInfo = SCHEDULE
-    .filter(s=>s.id===id && s.active && !s.hide_in_schedule)
-    .map(s=>`${formatHour(s.hour_start)}-${formatHour(s.hour_end)}`)
-    .join(" | ");
+    return `${dayString}, ${formatHour(occ.hour_start)} - ${formatHour(occ.hour_end)}`;
+  });
 
-  const thumbnail = getThumbnail({}, program);
+  return groups.join(" | ");
+}
+
+function LoadProgram(id) {
+  if (id === null) return;
+
+  const program = PROGRAMS.find(p => p.id === id);
+  if (!program || program.private === true) return;
+
+  const scheduleInfo = getDisplaySchedule(id);
 
   const html = `
+    <style>
+      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; line-height: 1.6; color: #333; }
+      img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; }
+      h2 { color: #000; margin-top: 0; }
+      .meta { color: #666; font-size: 0.9em; margin-bottom: 10px; }
+    </style>
+    ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}">` : ""}
     <h2>${program.name}</h2>
-    <img src="${thumbnail}">
-    <div>Prowadzący: ${program.host}</div>
-    <div>Emisja: ${scheduleInfo}</div>
-    <div>${program.description || ""}</div>
+    <div class="meta">
+      <div><b>Prowadzący:</b> ${program.host || "---"}</div>
+      <div><b>Emisja:</b> ${scheduleInfo}</div>
+    </div>
+    <hr>
+    <div>${program.description || "Brak opisu programu."}</div>
   `;
 
-  const win = window.open("");
+  const win = window.open("", "_blank");
   win.document.write(html);
+  win.document.close();
 }
 
 // =====================
 // INIT
 // =====================
-function init(){
+function init() {
   renderStations();
-  reloadAll();
+  renderCurrent();
+  renderTabs();
+  renderPrograms();
+  updateOnAirStatus();
 
   document.getElementById("categoryFilter").onchange = renderPrograms;
 
-  setInterval(()=>{
+  setInterval(() => {
+    const now = new Date();
+    const newDay = now.getDay();
+
     renderCurrent();
-  },60000);
+    updateOnAirStatus();
+
+    if (newDay !== lastDay) {
+      renderTabs();
+      lastDay = newDay;
+    }
+
+  }, 60000);
 }
 
 loadData().then(init);
