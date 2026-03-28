@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Radio Schedule</title>
+
+<style>
+body { font-family: Arial; margin: 20px; }
+.current { margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; }
+.schedule_days { font-weight: bold; margin-top: 20px; }
+.schedule_program { margin-left: 15px; margin-bottom: 10px; }
+img { width: 50px; height: 50px; }
+</style>
+</head>
+
+<body>
+
+<!-- ON AIR -->
+<div class="current">
+  <h2>Teraz na antenie</h2>
+  <div class="current_program_hour"></div>
+  <div class="current_program_title"></div>
+  <div class="current_program_host"></div>
+  <div class="current_program_photo"><img></div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="schedule"></div>
+
+<script>
+// =====================
+// 📦 STATIONS
+// =====================
+const stations = [
+  {
+    id: "test_1",
+    name: "Test",
+    host: "wersja testowa",
+    thumbnail_uri: "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
+  },
+  {
+    id: "test_2",
+    name: "Test 33",
+    host: "wersja testowa 333",
+    thumbnail_uri: "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
+  }
+];
+
+// =====================
+// 📅 SCHEDULE
+// =====================
+const schedule = [
+  { active:true,id:"test_1",days:["1","2","3","4","5"],hour_start:"00:00:00",hour_end:"06:00:00",hide_in_schedule:false },
+  { active:true,id:"test_2",days:["1","2","3","4","5"],hour_start:"06:00:00",hour_end:"09:00:00",hide_in_schedule:false },
+  { active:true,id:null,days:["1","2","3","4","5"],hour_start:"21:00:00",hour_end:"06:00:00",name:"Test 4",host:"wew",thumbnail_uri:"https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png",hide_in_schedule:false },
+  { active:true,id:"test_2",days:["6"],hour_start:"06:00:00",hour_end:"20:00:00",hide_in_schedule:false },
+  { active:true,id:"test_2",days:["0"],hour_start:"10:00:00",hour_end:"13:00:00",hide_in_schedule:true }
+];
+
+// =====================
+// 🧠 HELPERS
+// =====================
+function formatHour(h) {
+  return h.slice(0,5);
+}
+
+function isInTimeRange(start, end, current) {
+  if (start < end) {
+    return current >= start && current < end;
+  } else {
+    return current >= start || current < end;
+  }
+}
+
+function getProgramData(p) {
+  if (!p) return null;
+
+  if (p.id) {
+    return stations.find(s => s.id === p.id);
+  }
+  return p;
+}
+
+// =====================
+// 🔴 ON AIR
+// =====================
+function renderCurrent() {
+  const now = new Date();
+  const day = now.getDay().toString();
+  const time = now.toTimeString().slice(0,8);
+
+  const program = schedule.find(p =>
+    p.active &&
+    p.days.includes(day) &&
+    isInTimeRange(p.hour_start, p.hour_end, time)
+  );
+
+  const data = getProgramData(program);
+
+  if (!data) return;
+
+  document.querySelector(".current_program_hour").textContent =
+    formatHour(program.hour_start) + " - " + formatHour(program.hour_end);
+
+  document.querySelector(".current_program_title").textContent = data.name;
+  document.querySelector(".current_program_host").textContent = data.host;
+  document.querySelector(".current_program_photo img").src = data.thumbnail_uri || "";
+}
+
+// =====================
+// 📅 SCHEDULE RENDER
+// =====================
+const dayNames = [
+  "Niedziela","Poniedziałek","Wtorek","Środa","Czwartek","Piątek","Sobota"
+];
+
+function renderSchedule() {
+  const container = document.querySelector(".schedule");
+
+  dayNames.forEach((dayName, index) => {
+    const dayBox = document.createElement("div");
+
+    const title = document.createElement("div");
+    title.className = "schedule_days";
+    title.textContent = dayName;
+
+    const dayPrograms = schedule.filter(p =>
+      p.active &&
+      p.days.includes(index.toString()) &&
+      !p.hide_in_schedule
+    );
+
+    const list = document.createElement("div");
+
+    dayPrograms.forEach(p => {
+      const data = getProgramData(p);
+      if (!data) return;
+
+      const el = document.createElement("div");
+      el.className = "schedule_program";
+
+      el.innerHTML = `
+        <div>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
+        <div>${data.name}</div>
+        <div>${data.host}</div>
+        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}">` : ""}
+      `;
+
+      list.appendChild(el);
+    });
+
+    dayBox.appendChild(title);
+    dayBox.appendChild(list);
+    container.appendChild(dayBox);
+  });
+}
+
+// =====================
+// 🚀 INIT
+// =====================
+renderCurrent();
+renderSchedule();
+
+</script>
+
+</body>
+</html>
