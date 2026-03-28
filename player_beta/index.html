@@ -246,32 +246,31 @@ function updateOnAirStatus() {
 
     // Reset wszystkich klas onair w całym dokumencie
     document.querySelectorAll('.schedule_program').forEach(el => el.classList.remove('onair'));
-
+    
     function checkTable(dayIdx, isYesterday) {
         const container = document.getElementById(`tab_${dayIdx}`);
         if (!container) return;
-
+    
         container.querySelectorAll('.schedule_program').forEach(row => {
-            if (!row.dataset.start || !row.dataset.end) return;
-
             const [hStart, mStart] = row.dataset.start.split(':').map(Number);
             const [hEnd, mEnd] = row.dataset.end.split(':').map(Number);
             
             const start = hStart * 60 + mStart;
-            let end = hEnd * 60 + mEnd;
-
-            // Logika dla programów nocnych i zwykłych
-            if (end < start) { 
-                // Program nocny (np. 22:00 - 02:00)
+            const end = hEnd * 60 + mEnd;
+    
+            if (start > end) { 
+                // PROGRAM PRZEKRACZAJĄCY PÓŁNOC (np. 23:00 - 19:00)
                 if (!isYesterday) {
-                    // Dzisiejszy wieczór (po 22:00)
-                    if (currentMinutes >= start) row.classList.add('onair');
+                    // Sprawdzamy, czy TRWA TERAZ (wieczorem po starcie LUB rano przed końcem)
+                    // Dla zakładki dzisiejszej: jeśli teraz jest 17:29, a koniec jest 19:00
+                    if (currentMinutes >= start || currentMinutes < end) row.classList.add('onair');
                 } else {
-                    // Wczorajsza noc (przed 02:00 dzisiaj rano)
+                    // Dla zakładki wczorajszej: program trwał od wczorajszego wieczora
+                    // Jeśli dzisiaj jest 17:29, to wczorajszy program (23:00-19:00) nadal trwa
                     if (currentMinutes < end) row.classList.add('onair');
                 }
             } else {
-                // Program zwykły
+                // PROGRAM ZWYKŁY (np. 06:00 - 12:00)
                 if (!isYesterday && currentMinutes >= start && currentMinutes < end) {
                     row.classList.add('onair');
                 }
