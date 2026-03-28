@@ -6,7 +6,7 @@
       "stream": "https://an.cdn.eurozet.pl/ANTBAL.mp3",
       "playlist": "getNowPlayingEurozet('antbal_new')",
       "schedule": "test",
-      "station_schedule": "test001"
+      "station_schedule": "club"
     },
     {
       "id": "glowny",
@@ -14,7 +14,7 @@
       "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
       "playlist": "getNowPlayingEurozet('antbal_new')",
       "schedule": "test",
-      "station_schedule": "test054"
+      "station_schedule": "glowny"
     }
   ]
 }
