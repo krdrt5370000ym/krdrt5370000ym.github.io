@@ -418,26 +418,53 @@ function reloadAll(){
 // =====================
 // PROGRAM PAGE
 // =====================
-function LoadProgram(id) {
-  // Jeśli id to null (program prywatny), nic nie rób
+function getDisplaySchedule(programId, scheduleData) {
+  const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
+  
+  // 1. Filtrujemy wszystkie wystąpienia tego programu w grafiku
+  const occurrences = scheduleData.filter(s => s.id === programId && s.active);
+  
+  // 2. Grupujemy dni według tych samych godzin (np. 06:00-09:00 występuje w dniach 1,2,3,4,5)
+  const groups = occurrences.map(occ => {
+    const dayLabels = occ.days.map(d => daysMap[d]);
+    const timeRange = `${occ.hour_start} - ${occ.hour_end}`;
+    
+    // Prosta logika dla zakresów (np. Pn, Wt, Śr, Cz, Pt -> Pn - Pt)
+    let dayString = dayLabels.join(", ");
+    if (occ.days.length === 5 && occ.days.includes("1") && occ.days.includes("5")) {
+      dayString = "Pn - Pt";
+    }
+
+    return `${dayString}, ${timeRange}`;
+  });
+
+  return groups.join(" | ");
+}
+
+// Użycie w LoadProgram:
+async function LoadProgram(id) {
   if (id === null) return;
 
   const program = PROGRAMS.find(p => p.id === id);
-  
-  // Jeśli nie znaleziono programu lub jest on prywatny, przerwij
   if (!program || program.private === true) return;
 
+  // Pobieramy świeży grafik z JSONa, żeby wyliczyć "DisplayScheduleOnAir"
+  const response = await fetch('https://krdrt5370000ym.github.io');
+  const scheduleData = await response.json();
+  const scheduleInfo = getDisplaySchedule(id, scheduleData);
+
   const html = `
+    <style>body { font-family: sans-serif; padding: 20px; line-height: 1.6; }</style>
     <h2>${program.name}</h2>
-    <img src="${program.thumbnail_uri}">
-    <p>${program.host}</p>
-    <p>${program.onair || ""}</p>
-    ${program.description || ""}
+    ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" style="max-width:300px">` : ""}
+    <p><b>Prowadzący:</b> ${program.host || "Brak danych"}</p>
+    <p><b>Emisja:</b> ${scheduleInfo}</p>
+    <div>${program.description || ""}</div>
   `;
 
   const win = window.open("", "_blank");
   win.document.write(html);
-  win.document.close(); // Dobra praktyka przy document.write
+  win.document.close();
 }
 
 // =====================
