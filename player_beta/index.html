@@ -2,14 +2,50 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<title>Radio Schedule</title>
+<title>Radio Player Schedule</title>
 
 <style>
-body { font-family: Arial; margin: 20px; }
-.current { margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; }
-.schedule_days { font-weight: bold; margin-top: 20px; }
-.schedule_program { margin-left: 15px; margin-bottom: 10px; }
-img { width: 50px; height: 50px; }
+body { font-family: Arial; margin:20px; }
+
+.current {
+  padding:15px;
+  border:1px solid #ccc;
+  margin-bottom:20px;
+}
+
+.tabs {
+  margin-bottom:10px;
+}
+
+.tabs button {
+  padding:10px;
+  cursor:pointer;
+  border:none;
+  background:#eee;
+  margin-right:5px;
+}
+
+.tabs button.active {
+  background:#333;
+  color:#fff;
+}
+
+.tabcontent {
+  display:none;
+  padding:10px;
+  border:1px solid #ccc;
+}
+
+.schedule_program {
+  margin-bottom:10px;
+  padding:5px;
+  border-bottom:1px solid #eee;
+}
+
+img {
+  width:50px;
+  height:50px;
+}
 </style>
 </head>
 
@@ -21,41 +57,42 @@ img { width: 50px; height: 50px; }
   <div class="current_program_hour"></div>
   <div class="current_program_title"></div>
   <div class="current_program_host"></div>
-  <div class="current_program_photo"><img></div>
+  <img class="current_program_photo">
 </div>
 
-<!-- SCHEDULE -->
-<div class="schedule"></div>
+<!-- TABS -->
+<div class="tabs" id="tabs"></div>
+<div id="tab_contents"></div>
 
 <script>
-// =====================
-// 📦 STATIONS
-// =====================
-const stations = [
-  {
-    id: "test_1",
-    name: "Test",
-    host: "wersja testowa",
-    thumbnail_uri: "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
-  },
-  {
-    id: "test_2",
-    name: "Test 33",
-    host: "wersja testowa 333",
-    thumbnail_uri: "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
-  }
-];
 
 // =====================
-// 📅 SCHEDULE
+// 📅 DNI (Pon → Niedziela)
 // =====================
-const schedule = [
-  { active:true,id:"test_1",days:["1","2","3","4","5"],hour_start:"00:00:00",hour_end:"06:00:00",hide_in_schedule:false },
-  { active:true,id:"test_2",days:["1","2","3","4","5"],hour_start:"06:00:00",hour_end:"09:00:00",hide_in_schedule:false },
-  { active:true,id:null,days:["1","2","3","4","5"],hour_start:"21:00:00",hour_end:"06:00:00",name:"Test 4",host:"wew",thumbnail_uri:"https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png",hide_in_schedule:false },
-  { active:true,id:"test_2",days:["6"],hour_start:"06:00:00",hour_end:"20:00:00",hide_in_schedule:false },
-  { active:true,id:"test_2",days:["0"],hour_start:"10:00:00",hour_end:"13:00:00",hide_in_schedule:true }
-];
+const dayOrder = ["1","2","3","4","5","6","0"];
+
+const dayNames = {
+  "1":"Poniedziałek",
+  "2":"Wtorek",
+  "3":"Środa",
+  "4":"Czwartek",
+  "5":"Piątek",
+  "6":"Sobota",
+  "0":"Niedziela"
+};
+
+// =====================
+// 🌐 LOAD JSON
+// =====================
+async function loadData() {
+  const [images, programs, schedule] = await Promise.all([
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_images.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_programs.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_schedule.json").then(r=>r.json())
+  ]);
+
+  init(images, programs, schedule);
+}
 
 // =====================
 // 🧠 HELPERS
@@ -65,26 +102,32 @@ function formatHour(h) {
 }
 
 function isInTimeRange(start, end, current) {
-  if (start < end) {
-    return current >= start && current < end;
-  } else {
-    return current >= start || current < end;
-  }
+  if (start < end) return current >= start && current < end;
+  return current >= start || current < end;
 }
 
-function getProgramData(p) {
+function getProgramData(p, programs, images) {
   if (!p) return null;
 
+  let data = p;
+
   if (p.id) {
-    return stations.find(s => s.id === p.id);
+    data = programs.find(x => x.id === p.id) || p;
   }
-  return p;
+
+  // override obrazka
+  if (p.thumbnail_id) {
+    const img = images.find(i => i.thumbnail_id === p.thumbnail_id);
+    if (img) data.thumbnail_uri = img.thumbnail_uri;
+  }
+
+  return data;
 }
 
 // =====================
 // 🔴 ON AIR
 // =====================
-function renderCurrent() {
+function renderCurrent(schedule, programs, images) {
   const now = new Date();
   const day = now.getDay().toString();
   const time = now.toTimeString().slice(0,8);
@@ -95,71 +138,92 @@ function renderCurrent() {
     isInTimeRange(p.hour_start, p.hour_end, time)
   );
 
-  const data = getProgramData(program);
-
+  const data = getProgramData(program, programs, images);
   if (!data) return;
 
   document.querySelector(".current_program_hour").textContent =
     formatHour(program.hour_start) + " - " + formatHour(program.hour_end);
 
-  document.querySelector(".current_program_title").textContent = data.name;
-  document.querySelector(".current_program_host").textContent = data.host;
-  document.querySelector(".current_program_photo img").src = data.thumbnail_uri || "";
+  document.querySelector(".current_program_title").textContent = data.name || "";
+  document.querySelector(".current_program_host").textContent = data.host || "";
+  document.querySelector(".current_program_photo").src = data.thumbnail_uri || "";
 }
 
 // =====================
-// 📅 SCHEDULE RENDER
+// 📅 TABS + RAMÓWKA
 // =====================
-const dayNames = [
-  "Niedziela","Poniedziałek","Wtorek","Środa","Czwartek","Piątek","Sobota"
-];
+function renderTabs(schedule, programs, images) {
+  const tabs = document.getElementById("tabs");
+  const contents = document.getElementById("tab_contents");
 
-function renderSchedule() {
-  const container = document.querySelector(".schedule");
+  dayOrder.forEach((day, index) => {
 
-  dayNames.forEach((dayName, index) => {
-    const dayBox = document.createElement("div");
+    // 🔘 BUTTON
+    const btn = document.createElement("button");
+    btn.textContent = dayNames[day];
 
-    const title = document.createElement("div");
-    title.className = "schedule_days";
-    title.textContent = dayName;
+    btn.onclick = () => {
+      document.querySelectorAll(".tabcontent").forEach(t=>t.style.display="none");
+      document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 
-    const dayPrograms = schedule.filter(p =>
-      p.active &&
-      p.days.includes(index.toString()) &&
-      !p.hide_in_schedule
-    );
+      document.getElementById("tab_"+day).style.display = "block";
+      btn.classList.add("active");
+    };
 
-    const list = document.createElement("div");
+    if (index === 0) btn.classList.add("active");
+
+    tabs.appendChild(btn);
+
+    // 📦 CONTENT
+    const tab = document.createElement("div");
+    tab.className = "tabcontent";
+    tab.id = "tab_"+day;
+
+    if (index === 0) tab.style.display = "block";
+
+    const dayPrograms = schedule
+      .filter(p =>
+        p.active &&
+        p.days.includes(day) &&
+        !p.hide_in_schedule
+      )
+      .sort((a,b)=> a.hour_start.localeCompare(b.hour_start));
 
     dayPrograms.forEach(p => {
-      const data = getProgramData(p);
+      const data = getProgramData(p, programs, images);
       if (!data) return;
 
       const el = document.createElement("div");
       el.className = "schedule_program";
 
       el.innerHTML = `
-        <div>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
-        <div>${data.name}</div>
-        <div>${data.host}</div>
+        <div><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
+        <div>${data.name || ""}</div>
+        <div>${data.host || ""}</div>
         ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}">` : ""}
       `;
 
-      list.appendChild(el);
+      tab.appendChild(el);
     });
 
-    dayBox.appendChild(title);
-    dayBox.appendChild(list);
-    container.appendChild(dayBox);
+    contents.appendChild(tab);
   });
 }
 
 // =====================
 // 🚀 INIT
 // =====================
-renderCurrent();
-renderSchedule();
+function init(images, programs, schedule) {
+  renderCurrent(schedule, programs, images);
+  renderTabs(schedule, programs, images);
+
+  // 🔄 auto refresh co 60s
+  setInterval(() => {
+    renderCurrent(schedule, programs, images);
+  }, 60000);
+}
+
+loadData();
 
 </script>
 
