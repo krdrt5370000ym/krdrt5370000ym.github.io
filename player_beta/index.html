@@ -51,10 +51,11 @@ img { width:50px; height:50px; }
 <select id="stationSelect"></select>
 <br><br>
 <audio id="player" controls autoplay></audio>
+<p id="resultTrack"></p>
 
 <hr>
 
-<!-- TABS -->
+<!-- RAMÓWKA -->
 <div class="schedule_tabs" id="tabs"></div>
 <div class="schedule_tab_contents" id="tab_contents"></div>
 
@@ -331,31 +332,34 @@ function renderPrograms(){
 // =====================
 // STATIONS
 // =====================
-function renderStations(){
-  const select = document.getElementById("stationSelect");
-  const player = document.getElementById("player");
+function renderStations() {
+    const select = document.getElementById("stationSelect");
+    const player = document.getElementById("player");
+    if (!select || !STATIONS) return;
 
-  select.innerHTML = "";
+    select.innerHTML = "";
 
-  STATIONS.forEach((s,i)=>{
-    const opt = document.createElement("option");
-    opt.value = s.id;
-    opt.textContent = s.name;
-    select.appendChild(opt);
+    STATIONS.forEach((s, i) => {
+        const opt = document.createElement("option");
+        opt.value = s.id;
+        opt.textContent = s.name;
+        select.appendChild(opt);
 
-    if(i===0){
-      CURRENT_STATION = s.id;
-      player.src = s.stream;
-    }
-  });
+        if (i === 0) {
+            CURRENT_STATION = s.id;
+            player.src = s.stream;
+            playlistNowPlaying(s.playlist);
+        }
+    });
 
-  select.onchange = ()=>{
-    const s = STATIONS.find(x=>x.id===select.value);
-    CURRENT_STATION = s.id;
-    player.src = s.stream;
-    player.play();
-    reloadAll();
-  };
+    select.onchange = () => {
+        const s = STATIONS.find(x => x.id === select.value);
+        if (!s) return;
+        CURRENT_STATION = s.id;
+        player.src = s.stream;
+        player.play();
+        playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
+    };
 }
 
 function reloadAll(){
@@ -421,6 +425,33 @@ function LoadProgram(id) {
   win.document.close();
 }
 
+function playlistNowPlaying(playlistString) {
+    // playlistString to np. "getNowPlayingEurozet('antbal_new')"
+    if (playlistInterval) clearInterval(playlistInterval);
+
+    const updateTrack = () => {
+        if (!playlistString) return;
+
+        // Rozbijamy string na nazwę funkcji i argument
+        const match = playlistString.match(/^(\w+)\(['"]?(.*?)['"]?\)$/);
+
+        if (match) {
+            const functionName = match[1]; // np. getNowPlayingEurozet
+            const argument = match[2];     // np. antbal_new
+
+            if (typeof window[functionName] === "function") {
+                window[functionName](argument);
+            }
+        } else {
+            // Jeśli to nie funkcja, a zwykły tekst, wyświetl go
+            const resultElem = document.getElementById('resultTrack');
+            if (resultElem) resultElem.innerText = playlistString;
+        }
+    };
+
+    updateTrack();
+    playlistInterval = setInterval(updateTrack, 20000); 
+}
 // =====================
 // INIT
 // =====================
@@ -450,6 +481,7 @@ function init() {
 
 loadData().then(init);
 </script>
-
+<script src="https://krdrt5370000ym.github.io/site-episode.js"></script>
+<script src="https://krdrt5370000ym.github.io/site-nowplaying.js"></script>
 </body>
 </html>
