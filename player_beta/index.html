@@ -215,7 +215,15 @@ if (!activeProgramData) return;
 const data = getProgramData(activeProgramData);
 if (!data) return;
 
-// Poprawiona logika pobierania nazw i prowadzących (używamy activeProgramData zamiast p)
+// DODANE: Logika nadpisywania zdjęcia dla nagłówka
+if (activeProgramData.thumbnail_id) {
+  const imgEntry = IMAGES.find(i => i.thumbnail_id === activeProgramData.thumbnail_id);
+  if (imgEntry) {
+    data.thumbnail_uri = imgEntry.thumbnail_uri;
+  }
+}
+
+// Reszta logiki z użyciem poprawionych zmiennych
 const displayProgramName = (activeProgramData.name && activeProgramData.name !== "null") 
   ? activeProgramData.name 
   : data.name;
@@ -224,7 +232,7 @@ const displayHost = (activeProgramData.host && activeProgramData.host !== "null"
   ? activeProgramData.host 
   : (data.host || "");
 
-// Mapowanie do DOM z poprawką literówki (iten -> item)
+// Mapowanie do DOM
 const ui = {
   item: document.querySelector(".current_program_item"),
   hour: document.querySelector(".current_program_hour"),
@@ -237,7 +245,9 @@ if (ui.item) ui.item.textContent = activeProgramData.item || "";
 if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
 if (ui.title) ui.title.textContent = displayProgramName;
 if (ui.host) ui.host.textContent = displayHost;
-if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
+if (ui.photo) {
+  // Teraz użyje poprawionego data.thumbnail_uri (z SCHEDULE lub PROGRAMS)
+  ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
 }
 
 // =====================
@@ -282,20 +292,26 @@ function renderTabs() {
     dailyPrograms.forEach(p => {
       const data = getProgramData(p);
       if (!data) return;
+    
+      // Logika dynamicznego obrazka z SCHEDULE (np. dla sobotniej powtórki)
+      if (p.thumbnail_id) {
+        const imgEntry = IMAGES.find(i => i.thumbnail_id === p.thumbnail_id);
+        if (imgEntry) {
+          data.thumbnail_uri = imgEntry.thumbnail_uri;
+        }
+      }
+    
+      const el = document.createElement("div");
+      el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
       
-        const el = document.createElement("div");
-        
-        el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
-        
-        // Decyzja o ID dla funkcji LoadProgram
-        const programId = data.private === true ? 'null' : `'${data.id}'`;
-      
+      const programId = data.private === true ? 'null' : `'${data.id}'`;
       el.dataset.start = p.hour_start; 
       el.dataset.end = p.hour_end;
-
+    
       const displayProgramName = (p.name && p.name !== "null") ? p.name : data.name;
       const displayHost = (p.host && p.host !== "null") ? p.host : (data.host || "");
-
+    
+      // Używamy zaktualizowanego data.thumbnail_uri
       el.innerHTML = `
         <div class="prog_item">${p.item || ""}</div>
         <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
@@ -303,7 +319,7 @@ function renderTabs() {
           ${displayProgramName}
         </div>
         <div class="prog_host">${displayHost}</div>
-        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${data.name}">` : ""}
+        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${displayProgramName}">` : ""}
       `;
 
       tabContent.appendChild(el);
