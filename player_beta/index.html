@@ -204,21 +204,21 @@ function renderTabs() {
       if (!data) return;
     
       const el = document.createElement("div");
-      
-      // LOGIKA ONAIR z obsługą przejścia przez północ
       let isOnAir = false;
-      
+    
       if (isToday) {
-        const start = p.hour_start;
-        const end = p.hour_end;
-        const now = currentTime;
-
+        const now = currentTime; // np. "17:29:00"
+        const start = p.hour_start; // np. "23:00:00"
+        const end = p.hour_end; // np. "19:00:00"
+    
         if (start < end) {
-          // Standardowa audycja (np. 10:00 - 12:00)
+          // Standard: start 06:00, koniec 19:00 (tego samego dnia)
           isOnAir = now >= start && now < end;
         } else {
-          // Audycja nocna (np. 22:00 - 02:00)
-          // Jest "on air" jeśli jest PO starcie (22-24) LUB PRZED końcem (00-02)
+          // Przejście przez północ: start 23:00, koniec 19:00 (następnego dnia)
+          // JESTEŚMY "ON AIR", jeśli:
+          // 1. Jest już PO godzinie startu (np. 23:30 w piątek)
+          // 2. LUB jest jeszcze PRZED godziną końca (np. 17:29 w sobotę)
           isOnAir = now >= start || now < end;
         }
       }
