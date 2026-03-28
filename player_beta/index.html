@@ -269,20 +269,18 @@ function renderTabs() {
       
         const el = document.createElement("div");
         
-        // Logika warunkowa dla klasy CSS
-        if (p.subschedule === true) {
-          el.className = "schedule_program small";
-        } else {
-          el.className = "schedule_program";
-        }
-
+        el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
+        
+        // Decyzja o ID dla funkcji LoadProgram
+        const programId = data.private === true ? 'null' : `'${data.id}'`;
+      
       el.dataset.start = p.hour_start; 
       el.dataset.end = p.hour_end;
 
       el.innerHTML = `
         <div class="prog_item">${p.item || ""}</div>
         <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
-        <div class="prog_name" onclick="LoadProgram('${data.id}')" style="cursor:pointer">
+        <div class="prog_name" onclick="LoadProgram('${programId}')" style="cursor:pointer">
           ${data.name}
         </div>
         <div class="prog_host">${data.host || ""}</div>
