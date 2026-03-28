@@ -239,6 +239,17 @@ function renderPrograms(){
       !p.station || 
       p.station.includes(CURRENT_STATION)
     )
+    // Dodane sortowanie A-Z według nazwy
+    .sort((a, b) => {
+      // 1. Porównaj wartość "sorted" (jeśli istnieje)
+      const sortA = a.sorted || "";
+      const sortB = b.sorted || "";
+      
+      const result = sortA.toString().localeCompare(sortB.toString(), undefined, { numeric: true });
+    
+      // 2. Jeśli "sorted" są identyczne (wynik 0), sortuj po "name"
+      return result !== 0 ? result : a.name.localeCompare(b.name);
+    })
     .forEach(p=>{
       const el = document.createElement("div");
       el.className="program_list_content";
