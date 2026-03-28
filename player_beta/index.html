@@ -408,9 +408,14 @@ function reloadAll(){
 // =====================
 // PROGRAM PAGE
 // =====================
-function LoadProgram(id){
-  const program = PROGRAMS.find(p=>p.id===id);
-  if(!program) return;
+function LoadProgram(id) {
+  // Jeśli id to null (program prywatny), nic nie rób
+  if (id === null) return;
+
+  const program = PROGRAMS.find(p => p.id === id);
+  
+  // Jeśli nie znaleziono programu lub jest on prywatny, przerwij
+  if (!program || program.private === true) return;
 
   const html = `
     <h2>${program.name}</h2>
@@ -422,6 +427,7 @@ function LoadProgram(id){
 
   const win = window.open("", "_blank");
   win.document.write(html);
+  win.document.close(); // Dobra praktyka przy document.write
 }
 
 // =====================
