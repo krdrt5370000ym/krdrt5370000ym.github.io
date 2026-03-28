@@ -2,6 +2,7 @@
   "station": [
     {
       "id": "main",
+      "name": "Stacja testowa 1",
       "stream": "https://an.cdn.eurozet.pl/ANTBAL.mp3",
       "playlist": "getNowPlayingEurozet('antbal_new')",
       "schedule": "test",
@@ -9,6 +10,7 @@
     },
     {
       "id": "glowny",
+      "name": "Stacja testowa 2",
       "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
       "playlist": "getNowPlayingEurozet('antbal_new')",
       "schedule": "test",
