@@ -109,9 +109,9 @@ async function loadData() {
 // =====================
 function formatHour(h){ return h.slice(0,5); }
 
-function isInTimeRange(start,end,current){
-  if(start<end) return current>=start && current<end;
-  return current>=start || current<end;
+function isInTimeRange(start, end, current) {
+  if (start < end) return current >= start && current < end;
+  return current >= start || current < end; // Obsługa np. 23:00 - 02:00
 }
 
 function getProgramData(p){
@@ -134,31 +134,31 @@ function getProgramData(p){
 // =====================
 // ON AIR
 // =====================
-function renderCurrent(){
+function renderCurrent() {
   const now = new Date();
-  const day = now.getDay().toString();
-  const time = now.toTimeString().slice(0,8);
+  const currentDay = now.getDay().toString();
+  const currentTime = now.toTimeString().slice(0, 5); // Format "HH:MM"
 
-  const program = SCHEDULE
-    .filter(p => 
-      p.active && 
-      p.days.includes(day) && 
-      (!p.station || p.station.includes(CURRENT_STATION)) &&
-      isInTimeRange(p.hour_start, p.hour_end, time)
-    )
-    .sort((a, b) => (b.station ? 1 : 0) - (a.station ? 1 : 0)) // Stacja ma priorytet nad globalnymi
-    .find(() => true); // Pobierz pierwszy pasujący po posortowaniu
+  // Szukamy audycji, która TRWA TERAZ
+  const currentProg = SCHEDULE.find(p => 
+    p.active && 
+    p.days.includes(currentDay) && 
+    (!p.station || p.station.includes(CURRENT_STATION)) &&
+    isInTimeRange(p.hour_start, p.hour_end, currentTime)
+  );
 
-  const data = getProgramData(program);
-  if(!data) return;
+  const container = document.getElementById("current_program_info");
+  if (!currentProg) {
+    container.innerHTML = "Muzyka automatyczna";
+    return;
+  }
 
-  document.querySelector(".current_program_hour").textContent =
-    formatHour(program.hour_start)+" - "+formatHour(program.hour_end);
-
-  document.querySelector(".current_program_title").textContent = data.name || "";
-  document.querySelector(".current_program_host").textContent = data.host || "";
-  document.querySelector(".current_program_photo").src =
-    data.thumbnail_uri || "https://cdn.music.smcloud.net/t/cover/677b175e-35bd-4b9b-a271-629040ccdd98_ER_500x500-2-cover_500x500.png";
+  const data = getProgramData(currentProg);
+  // Tutaj renderujesz pasek Playera (np. nazwa audycji, host, foto)
+  container.innerHTML = `
+    <div class="now_playing">NA ANTENIE: <b>${data.name}</b></div>
+    <div class="now_host">${data.host || ""}</div>
+  `;
 }
 
 // =====================
@@ -240,50 +240,33 @@ function renderTabs() {
 }
 
 function updateOnAirStatus() {
-    const now = new Date();
-    const currentDay = now.getDay(); 
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const now = new Date();
+  const currentDay = now.getDay();
+  const currentTime = now.toTimeString().slice(0, 5);
 
-    // Reset wszystkich klas onair w całym dokumencie
-    document.querySelectorAll('.schedule_program').forEach(el => el.classList.remove('onair'));
+  document.querySelectorAll('.schedule_program').forEach(row => {
+    const start = row.dataset.start;
+    const end = row.dataset.end;
+    const dayOfTab = row.closest('.tabcontent').id.replace('tab_', '');
+
+    // Program jest "on air" tylko jeśli:
+    // 1. Jesteśmy w zakładce DZISIAJ i czas pasuje
+    // 2. LUB jesteśmy w zakładce WCZORAJSZEJ, czas pasuje, a program jest nocny (start > end)
     
-    function checkTable(dayIdx, isYesterday) {
-        const container = document.getElementById(`tab_${dayIdx}`);
-        if (!container) return;
-    
-        container.querySelectorAll('.schedule_program').forEach(row => {
-            const [hStart, mStart] = row.dataset.start.split(':').map(Number);
-            const [hEnd, mEnd] = row.dataset.end.split(':').map(Number);
-            
-            const start = hStart * 60 + mStart;
-            const end = hEnd * 60 + mEnd;
-    
-            if (start > end) { 
-                // PROGRAM PRZEKRACZAJĄCY PÓŁNOC (np. 23:00 - 19:00)
-                if (!isYesterday) {
-                    // Sprawdzamy, czy TRWA TERAZ (wieczorem po starcie LUB rano przed końcem)
-                    // Dla zakładki dzisiejszej: jeśli teraz jest 17:29, a koniec jest 19:00
-                    if (currentMinutes >= start || currentMinutes < end) row.classList.add('onair');
-                } else {
-                    // Dla zakładki wczorajszej: program trwał od wczorajszego wieczora
-                    // Jeśli dzisiaj jest 17:29, to wczorajszy program (23:00-19:00) nadal trwa
-                    if (currentMinutes < end) row.classList.add('onair');
-                }
-            } else {
-                // PROGRAM ZWYKŁY (np. 06:00 - 12:00)
-                if (!isYesterday && currentMinutes >= start && currentMinutes < end) {
-                    row.classList.add('onair');
-                }
-            }
-        });
+    const isTodayTab = dayOfTab === currentDay.toString();
+    const yesterday = (currentDay === 0 ? 6 : currentDay - 1).toString();
+    const isYesterdayTab = dayOfTab === yesterday;
+
+    let active = false;
+    if (isTodayTab) {
+      active = isInTimeRange(start, end, currentTime);
+    } else if (isYesterdayTab && start > end) {
+      // Dla wczorajszego taba sprawdzamy tylko czy "końcówka" trwa dzisiaj
+      active = currentTime < end;
     }
 
-    // Sprawdź dzisiejszą zakładkę
-    checkTable(currentDay, false);
-    
-    // Sprawdź wczorajszą zakładkę (dla kończących się programów nocnych)
-    const yesterday = currentDay === 0 ? 6 : currentDay - 1;
-    checkTable(yesterday, true);
+    row.classList.toggle('onair', active);
+  });
 }
 
 // =====================
