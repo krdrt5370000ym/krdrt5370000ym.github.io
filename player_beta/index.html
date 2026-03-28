@@ -186,42 +186,52 @@ function renderCurrent() {
 
   // 3. RENDEROWANIE NAGŁÓWKA "TERAZ NA ANTENIE"
   // Pobieramy dane z SCHEDULE na podstawie aktywnego wiersza lub filtracji
-  const activeProgramData = SCHEDULE.find(p => {
-    const isStation = !p.station || p.station.includes(CURRENT_STATION);
-    if (!isStation || !p.active) return false;
+  const activeProgramData = SCHEDULE.filter(p => {
+  const isStation = !p.station || p.station.includes(CURRENT_STATION);
+  if (!isStation || !p.active) return false;
 
-    // Sprawdź czy program z SCHEDULE pasuje do czasu (identyczna logika co wyżej)
-    const isToday = p.days.includes(currentDay);
-    const isFromYesterday = p.days.includes(yesterday) && p.hour_start > p.hour_end;
+  const isToday = p.days.includes(currentDay);
+  const isFromYesterday = p.days.includes(yesterday) && p.hour_start > p.hour_end;
 
-    if (isToday) {
-      return p.hour_start < p.hour_end 
-        ? (currentTime >= p.hour_start && currentTime < p.hour_end)
-        : (currentTime >= p.hour_start);
-    } 
-    if (isFromYesterday) {
-      return currentTime < p.hour_end;
-    }
-    return false;
-  });
+  if (isToday) {
+    return p.hour_start <= p.hour_end 
+      ? (currentTime >= p.hour_start && currentTime < p.hour_end)
+      : (currentTime >= p.hour_start);
+  } 
+  if (isFromYesterday) {
+    return currentTime < p.hour_end;
+  }
+  return false;
+})
+// Kluczowe: Sortujemy tak, aby subschedule (krótsze pasma) miały priorytet nad głównymi
+.sort((a, b) => {
+  if (a.subschedule && !b.subschedule) return -1;
+  if (!a.subschedule && b.subschedule) return 1;
+  return 0;
+})[0]; // Bierzemy pierwszy pasujący (najbardziej szczegółowy)
 
-  if (!activeProgramData) return;
+if (!activeProgramData) return;
 
-  const data = getProgramData(activeProgramData);
-  if (!data) return;
+const data = getProgramData(activeProgramData);
+if (!data) return;
 
-  // Mapowanie do DOM
-  const ui = {
-    hour: document.querySelector(".current_program_hour"),
-    title: document.querySelector(".current_program_title"),
-    host: document.querySelector(".current_program_host"),
-    photo: document.querySelector(".current_program_photo")
-  };
+// Logika dla HOST: jeśli host to "null", nie wyświetlaj go (lub ustaw pusty string)
+const displayHost = (data.host === "null" || !data.host) ? "" : data.host;
 
-  if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
-  if (ui.title) ui.title.textContent = data.name || "";
-  if (ui.host) ui.host.textContent = data.host || "";
-  if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.music.smcloud.net";
+// Mapowanie do DOM z poprawką literówki (iten -> item)
+const ui = {
+  item: document.querySelector(".current_program_item"),
+  hour: document.querySelector(".current_program_hour"),
+  title: document.querySelector(".current_program_title"),
+  host: document.querySelector(".current_program_host"),
+  photo: document.querySelector(".current_program_photo")
+};
+
+if (ui.item) ui.item.textContent = activeProgramData.item || "";
+if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
+if (ui.title) ui.title.textContent = data.name || "";
+if (ui.host) ui.host.textContent = displayHost;
+if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
 }
 
 // =====================
