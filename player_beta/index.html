@@ -442,29 +442,26 @@ function getDisplaySchedule(programId, scheduleData) {
 }
 
 // Użycie w LoadProgram:
-async function LoadProgram(id) {
+function LoadProgram(id) {
+  // Jeśli id to null (program prywatny), nic nie rób
   if (id === null) return;
 
   const program = PROGRAMS.find(p => p.id === id);
+  
+  // Jeśli nie znaleziono programu lub jest on prywatny, przerwij
   if (!program || program.private === true) return;
 
-  // Pobieramy świeży grafik z JSONa, żeby wyliczyć "DisplayScheduleOnAir"
-  const response = await fetch('https://krdrt5370000ym.github.io');
-  const scheduleData = await response.json();
-  const scheduleInfo = getDisplaySchedule(id, scheduleData);
-
   const html = `
-    <style>body { font-family: sans-serif; padding: 20px; line-height: 1.6; }</style>
     <h2>${program.name}</h2>
-    ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" style="max-width:300px">` : ""}
-    <p><b>Prowadzący:</b> ${program.host || "Brak danych"}</p>
-    <p><b>Emisja:</b> ${scheduleInfo}</p>
-    <div>${program.description || ""}</div>
+    <img src="${program.thumbnail_uri}">
+    <p>${program.host}</p>
+    <p>${program.onair || ""}</p>
+    ${program.description || ""}
   `;
 
   const win = window.open("", "_blank");
   win.document.write(html);
-  win.document.close();
+  win.document.close(); // Dobra praktyka przy document.write
 }
 
 // =====================
