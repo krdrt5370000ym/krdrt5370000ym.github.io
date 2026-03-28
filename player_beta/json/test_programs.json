@@ -7,8 +7,34 @@
   },
   {
     "id": "test_2",
+    "station": ["glowny"],
     "name": "Test 33",
     "host": "wersja testowa 333",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png",
+    "onair": "wtorek, 12:00-13:00",
+    "label": "Producter: Test Test",
+    "email": ["test@test.pl", "tessdst@tdssdest.pl"],
+    "description": "<p>Testowy</p>",
+    "podcast": "SpreakerPodcast(5179883)"
+  },
+  {
+    "id": "test_3",
+    "name": "sdswewew",
+    "host": "wersja testowa 333",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png",
+    "hide_in_program": true
+  },
+  {
+    "id": "test_4",
+    "name": "dfgrtertyugfgfhgfhf",
+    "host": "wersja testowa 333",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png",
+    "private" true
+  },
+  {
+    "id": "test_5",
+    "name": "Testsadsadasd",
+    "host": "wersja testowasdfsdf",
     "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
   }
 ]
