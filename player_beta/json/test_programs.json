@@ -36,5 +36,24 @@
     "name": "Testsadsadasd",
     "host": "wersja testowasdfsdf",
     "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
+  },
+  {
+    "id": "test_6",
+    "name": "fdgdgdfdgdfg",
+    "host": "fdgfdgdfgdfg",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png",
+    "onair": "wtorek, 12:00-13:00",
+    "label": "Producter: Test Test",
+    "email": ["test@test.pl", "tessdst@tdssdest.pl"],
+    "description": "<p>Testowy</p>",
+    "podcast": "SpreakerPodcast(5179883)",
+    "category": "Audiobooki",
+    "sorted": 23
+  },
+  {
+    "id": "test_7",
+    "name": "Asadsad",
+    "host": "wewew",
+    "thumbnail_uri": "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png"
   }
 ]
