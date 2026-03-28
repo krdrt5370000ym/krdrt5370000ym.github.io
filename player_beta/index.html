@@ -216,6 +216,7 @@ const data = getProgramData(activeProgramData);
 if (!data) return;
 
 // Logika dla HOST: jeśli host to "null", nie wyświetlaj go (lub ustaw pusty string)
+const displayProgramName = (data.name === "null" || !data.name) ? "" : data.name;
 const displayHost = (data.host === "null" || !data.host) ? "" : data.host;
 
 // Mapowanie do DOM z poprawką literówki (iten -> item)
@@ -229,7 +230,7 @@ const ui = {
 
 if (ui.item) ui.item.textContent = activeProgramData.item || "";
 if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
-if (ui.title) ui.title.textContent = data.name || "";
+if (ui.title) ui.title.textContent = displayProgramName;
 if (ui.host) ui.host.textContent = displayHost;
 if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
 }
@@ -287,13 +288,16 @@ function renderTabs() {
       el.dataset.start = p.hour_start; 
       el.dataset.end = p.hour_end;
 
+      const displayProgramName = (data.name === "null" || !data.name) ? "" : data.name;
+      const displayHost = (data.host === "null" || !data.host) ? "" : data.host;
+
       el.innerHTML = `
         <div class="prog_item">${p.item || ""}</div>
         <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
         <div class="prog_name" onclick="LoadProgram(${programId})" style="cursor:pointer">
-          ${data.name}
+          ${displayProgramName}
         </div>
-        <div class="prog_host">${data.host || ""}</div>
+        <div class="prog_host">${displayHost}</div>
         ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${data.name}">` : ""}
       `;
 
