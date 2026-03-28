@@ -71,7 +71,7 @@ img { width:50px; height:50px; }
 
 <script>
 let CURRENT_STATION = null;
-  
+
 // =====================
 const dayOrder = ["1","2","3","4","5","6","0"];
 
@@ -84,6 +84,8 @@ let PROGRAMS = [];
 let IMAGES = [];
 let SCHEDULE = [];
 let STATIONS = [];
+
+let lastDay = new Date().getDay();
 
 // =====================
 // LOAD DATA
@@ -100,8 +102,6 @@ async function loadData() {
   PROGRAMS = programs;
   SCHEDULE = schedule;
   STATIONS = stations.station;
-
-  init();
 }
 
 // =====================
@@ -111,7 +111,7 @@ function formatHour(h){ return h.slice(0,5); }
 
 function isInTimeRange(start, end, current) {
   if (start < end) return current >= start && current < end;
-  return current >= start || current < end; // Obsługa np. 23:00 - 02:00
+  return current >= start || current < end;
 }
 
 function getProgramData(p){
@@ -137,9 +137,8 @@ function getProgramData(p){
 function renderCurrent() {
   const now = new Date();
   const currentDay = now.getDay().toString();
-  const currentTime = now.toTimeString().slice(0, 5); // Format "HH:MM"
+  const currentTime = now.toTimeString().slice(0, 5);
 
-  // Szukamy audycji, która TRWA TERAZ
   const currentProg = SCHEDULE.find(p => 
     p.active && 
     p.days.includes(currentDay) && 
@@ -148,13 +147,14 @@ function renderCurrent() {
   );
 
   const container = document.getElementById("current_program_info");
+
   if (!currentProg) {
     container.innerHTML = "Muzyka automatyczna";
     return;
   }
 
   const data = getProgramData(currentProg);
-  // Tutaj renderujesz pasek Playera (np. nazwa audycji, host, foto)
+
   container.innerHTML = `
     <div class="now_playing">NA ANTENIE: <b>${data.name}</b></div>
     <div class="now_host">${data.host || ""}</div>
@@ -164,109 +164,107 @@ function renderCurrent() {
 // =====================
 // TABS
 // =====================
-function initSchedule() {
-    renderTabs();          // Generuje strukturę HTML
-    updateOnAirStatus();   // Nadaje klasę .onair na starcie
-    
-    // Odświeżaj status co 60 sekund bez przeładowania strony
-    setInterval(updateOnAirStatus, 60000);
-}
-  
 function renderTabs() {
-    const tabsContainer = document.getElementById("tabs");
-    const contentsContainer = document.getElementById("tab_contents");
-    
-    const now = new Date();
-    const currentDay = now.getDay().toString(); // "0"-"6"
+  const tabsContainer = document.getElementById("tabs");
+  const contentsContainer = document.getElementById("tab_contents");
 
-    tabsContainer.innerHTML = "";
-    contentsContainer.innerHTML = "";
+  const now = new Date();
+  const currentDay = now.getDay().toString();
 
-    dayOrder.forEach((day) => {
-        const isToday = (day === currentDay);
+  tabsContainer.innerHTML = "";
+  contentsContainer.innerHTML = "";
 
-        // Tworzenie przycisku
-        const btn = document.createElement("button");
-        btn.textContent = dayNames[day];
-        if (isToday) btn.classList.add("active");
-        
-        // Tworzenie kontenera treści dnia
-        const tabContent = document.createElement("div");
-        tabContent.className = "tabcontent";
-        tabContent.id = `tab_${day}`;
-        tabContent.style.display = isToday ? "block" : "none";
+  dayOrder.forEach((day) => {
+    const isToday = (day === currentDay);
 
-        btn.onclick = () => {
-            document.querySelectorAll(".tabcontent").forEach(t => t.style.display = "none");
-            document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
-            tabContent.style.display = "block";
-            btn.classList.add("active");
-        };
+    const btn = document.createElement("button");
+    btn.textContent = dayNames[day];
+    if (isToday) btn.classList.add("active");
 
-        // Filtrowanie i sortowanie audycji
-        const dailyPrograms = SCHEDULE.filter(p => 
-            p.active && 
-            p.days.includes(day) && 
-            !p.hide_in_schedule &&
-            (!p.station || p.station.includes(CURRENT_STATION))
-        ).sort((a, b) => a.hour_start.localeCompare(b.hour_start));
+    const tabContent = document.createElement("div");
+    tabContent.className = "tabcontent";
+    tabContent.id = `tab_${day}`;
+    tabContent.style.display = isToday ? "block" : "none";
 
-        dailyPrograms.forEach(p => {
-            const data = getProgramData(p);
-            if (!data) return;
+    btn.onclick = () => {
+      document.querySelectorAll(".tabcontent").forEach(t => t.style.display = "none");
+      document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
+      tabContent.style.display = "block";
+      btn.classList.add("active");
+    };
 
-            const el = document.createElement("div");
-            el.className = "schedule_program";
-            
-            // PRZYPISANIE DANYCH DO DATASET (Kluczowe dla logiki onair)
-            el.dataset.start = p.hour_start; 
-            el.dataset.end = p.hour_end;
+    const dailyPrograms = SCHEDULE.filter(p => 
+      p.active && 
+      p.days.includes(day) && 
+      !p.hide_in_schedule &&
+      (!p.station || p.station.includes(CURRENT_STATION))
+    ).sort((a, b) => a.hour_start.localeCompare(b.hour_start));
 
-            el.innerHTML = `
-                <div class="prog_item">${p.item || ""}</div>
-                <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
-                <div class="prog_name" onclick="LoadProgram('${data.id}')" style="cursor:pointer">
-                    ${data.name}
-                </div>
-                <div class="prog_host">${data.host || ""}</div>
-                ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${data.name}">` : ""}
-            `;
-            tabContent.appendChild(el);
-        });
+    dailyPrograms.forEach(p => {
+      const data = getProgramData(p);
+      if (!data) return;
 
-        tabsContainer.appendChild(btn);
-        contentsContainer.appendChild(tabContent);
+      const el = document.createElement("div");
+      el.className = "schedule_program";
+
+      el.dataset.start = p.hour_start; 
+      el.dataset.end = p.hour_end;
+
+      el.innerHTML = `
+        <div class="prog_item">${p.item || ""}</div>
+        <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
+        <div class="prog_name" onclick="LoadProgram('${data.id}')" style="cursor:pointer">
+          ${data.name}
+        </div>
+        <div class="prog_host">${data.host || ""}</div>
+        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${data.name}">` : ""}
+      `;
+
+      tabContent.appendChild(el);
     });
+
+    tabsContainer.appendChild(btn);
+    contentsContainer.appendChild(tabContent);
+  });
 }
 
+// =====================
+// ON AIR STATUS
+// =====================
 function updateOnAirStatus() {
   const now = new Date();
-  const currentDay = now.getDay();
+  const currentDay = now.getDay().toString();
   const currentTime = now.toTimeString().slice(0, 5);
+
+  const yesterday = (currentDay === "0" ? "6" : (parseInt(currentDay) - 1).toString());
 
   document.querySelectorAll('.schedule_program').forEach(row => {
     const start = row.dataset.start;
     const end = row.dataset.end;
+
+    if (!start || !end) return;
+
     const dayOfTab = row.closest('.tabcontent').id.replace('tab_', '');
 
-    // Program jest "on air" tylko jeśli:
-    // 1. Jesteśmy w zakładce DZISIAJ i czas pasuje
-    // 2. LUB jesteśmy w zakładce WCZORAJSZEJ, czas pasuje, a program jest nocny (start > end)
-    
-    const isTodayTab = dayOfTab === currentDay.toString();
-    const yesterday = (currentDay === 0 ? 6 : currentDay - 1).toString();
+    const isTodayTab = dayOfTab === currentDay;
     const isYesterdayTab = dayOfTab === yesterday;
 
     let active = false;
+
     if (isTodayTab) {
       active = isInTimeRange(start, end, currentTime);
     } else if (isYesterdayTab && start > end) {
-      // Dla wczorajszego taba sprawdzamy tylko czy "końcówka" trwa dzisiaj
       active = currentTime < end;
     }
 
     row.classList.toggle('onair', active);
   });
+
+  // auto scroll do aktualnego
+  const activeEl = document.querySelector('.schedule_program.onair');
+  if (activeEl) {
+    activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 }
 
 // =====================
@@ -281,19 +279,11 @@ function renderPrograms(){
   PROGRAMS
     .filter(p => !p.hide_in_program && !p.private)
     .filter(p => !filter || p.category === filter)
-    .filter(p =>
-      !p.station || 
-      p.station.includes(CURRENT_STATION)
-    )
-    // Dodane sortowanie A-Z według nazwy
+    .filter(p => !p.station || p.station.includes(CURRENT_STATION))
     .sort((a, b) => {
-      // 1. Porównaj wartość "sorted" (jeśli istnieje)
       const sortA = a.sorted || "";
       const sortB = b.sorted || "";
-      
       const result = sortA.toString().localeCompare(sortB.toString(), undefined, { numeric: true });
-    
-      // 2. Jeśli "sorted" są identyczne (wynik 0), sortuj po "name"
       return result !== 0 ? result : a.name.localeCompare(b.name);
     })
     .forEach(p=>{
@@ -313,15 +303,6 @@ function renderPrograms(){
 // =====================
 // STATIONS
 // =====================
-function reloadAll(){
-  document.getElementById("tabs").innerHTML = "";
-  document.getElementById("tab_contents").innerHTML = "";
-
-  renderCurrent();
-  renderTabs();
-  renderPrograms();
-}
-
 function renderStations(){
   const select = document.getElementById("stationSelect");
   const player = document.getElementById("player");
@@ -344,19 +325,21 @@ function renderStations(){
     const selected = STATIONS.find(s => s.id === select.value);
 
     CURRENT_STATION = selected.id;
-
     player.src = selected.stream;
     player.play();
 
-    // 🔥 przeładuj widoki
     reloadAll();
   };
+}
 
-  reloadAll();
+function reloadAll(){
+  renderCurrent();
+  renderTabs();
+  renderPrograms();
 }
 
 // =====================
-// LOAD PROGRAM PAGE
+// PROGRAM PAGE
 // =====================
 function LoadProgram(id){
   const program = PROGRAMS.find(p=>p.id===id);
@@ -378,24 +361,33 @@ function LoadProgram(id){
 // INIT
 // =====================
 function init() {
-  renderCurrent();    // Pasek "na żywo" na górze strony
-  renderTabs();       // Generuje zakładki dni tygodnia
-  renderPrograms();   // Lista programów/podcastów
-  renderStations();   // Wybór stacji
-
-  // Dodajemy inicjalizację statusu ramówki zaraz po wyrenderowaniu taba
+  renderStations();
+  renderCurrent();
+  renderTabs();
+  renderPrograms();
   updateOnAirStatus();
 
   document.getElementById("categoryFilter").onchange = renderPrograms;
-  
-  // Aktualizacja co minutę obu funkcji naraz
+
   setInterval(() => {
+    const now = new Date();
+    const newDay = now.getDay();
+
     renderCurrent();
-    updateOnAirStatus(); // Kluczowe dla poprawnego odświeżania klasy .onair
+    updateOnAirStatus();
+
+    if (newDay !== lastDay) {
+      renderTabs();
+      lastDay = newDay;
+    }
+
   }, 60000);
 }
 
-loadData().then(init); // Zakładając, że loadData to Twoja funkcja ładująca JSON
+// =====================
+// START
+// =====================
+loadData().then(init);
 </script>
 
 </body>
