@@ -126,11 +126,6 @@ function getProgramData(p){
     data = PROGRAMS.find(x=>x.id===p.id) || p;
   }
 
-  if(p.thumbnail_id){
-    const img = IMAGES.find(i=>i.thumbnail_id===p.thumbnail_id);
-    if(img) data.thumbnail_uri = img.thumbnail_uri;
-  }
-
   return data;
 }
 
@@ -215,7 +210,6 @@ if (!activeProgramData) return;
 const data = getProgramData(activeProgramData);
 if (!data) return;
 
-// DODANE: Logika nadpisywania zdjęcia dla nagłówka
 if (activeProgramData.thumbnail_id) {
   const imgEntry = IMAGES.find(i => i.thumbnail_id === activeProgramData.thumbnail_id);
   if (imgEntry) {
@@ -223,7 +217,7 @@ if (activeProgramData.thumbnail_id) {
   }
 }
 
-// Reszta logiki z użyciem poprawionych zmiennych
+// Poprawiona logika pobierania nazw i prowadzących (używamy activeProgramData zamiast p)
 const displayProgramName = (activeProgramData.name && activeProgramData.name !== "null") 
   ? activeProgramData.name 
   : data.name;
@@ -232,7 +226,7 @@ const displayHost = (activeProgramData.host && activeProgramData.host !== "null"
   ? activeProgramData.host 
   : (data.host || "");
 
-// Mapowanie do DOM
+// Mapowanie do DOM z poprawką literówki (iten -> item)
 const ui = {
   item: document.querySelector(".current_program_item"),
   hour: document.querySelector(".current_program_hour"),
@@ -245,9 +239,7 @@ if (ui.item) ui.item.textContent = activeProgramData.item || "";
 if (ui.hour) ui.hour.textContent = `${formatHour(activeProgramData.hour_start)} - ${formatHour(activeProgramData.hour_end)}`;
 if (ui.title) ui.title.textContent = displayProgramName;
 if (ui.host) ui.host.textContent = displayHost;
-if (ui.photo) {
-  // Teraz użyje poprawionego data.thumbnail_uri (z SCHEDULE lub PROGRAMS)
-  ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
+if (ui.photo) ui.photo.src = data.thumbnail_uri || "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
 }
 
 // =====================
