@@ -168,41 +168,34 @@ function renderTabs() {
   const tabsContainer = document.getElementById("tabs");
   const contentsContainer = document.getElementById("tab_contents");
   
-  // Czyścimy kontenery przed renderowaniem
-  tabsContainer.innerHTML = "";
-  contentsContainer.innerHTML = "";
+  // Pobieranie aktualnego czasu do porównania
+  const now = new Date();
+  const currentDay = now.getDay().toString(); // np. "6" dla soboty
+  const currentTime = now.toTimeString().slice(0, 8); // format "HH:MM:SS"
 
   dayOrder.forEach((day, index) => {
-    // 1. Tworzenie przycisku zakładki
     const btn = document.createElement("button");
     btn.textContent = dayNames[day];
-    btn.dataset.day = day;
-    if (index === 0) btn.classList.add("active");
+    
+    // Automatyczne aktywowanie zakładki dla dzisiejszego dnia
+    const isToday = day === currentDay;
+    if (isToday) btn.classList.add("active");
 
-    // 2. Tworzenie kontenera treści
     const tabContent = document.createElement("div");
     tabContent.className = "tabcontent";
     tabContent.id = `tab_${day}`;
-    tabContent.style.display = index === 0 ? "block" : "none";
+    tabContent.style.display = isToday ? "block" : "none";
 
-    // 3. Logika przełączania (bardziej wydajna)
+    // Obsługa kliknięcia (przełączanie)
     btn.onclick = () => {
-      // Ukryj wszystkie treści i usuń klasy active z przycisków w tym kontenerze
-      const allTabs = contentsContainer.querySelectorAll(".tabcontent");
-      const allBtns = tabsContainer.querySelectorAll("button");
-      
-      allTabs.forEach(t => t.style.display = "none");
-      allBtns.forEach(b => b.classList.remove("active"));
-
+      document.querySelectorAll(".tabcontent").forEach(t => t.style.display = "none");
+      document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
       tabContent.style.display = "block";
       btn.classList.add("active");
     };
 
-    // 4. Filtrowanie i renderowanie audycji
     const dailyPrograms = SCHEDULE.filter(p => 
-      p.active && 
-      p.days.includes(day) && 
-      !p.hide_in_schedule &&
+      p.active && p.days.includes(day) && !p.hide_in_schedule &&
       (!p.station || p.station.includes(CURRENT_STATION))
     ).sort((a, b) => a.hour_start.localeCompare(b.hour_start));
 
@@ -211,22 +204,24 @@ function renderTabs() {
       if (!data) return;
 
       const el = document.createElement("div");
-      el.className = "schedule_program";
       
-      // Bezpieczniejsze budowanie struktury
+      // LOGIKA ONAIR: Sprawdź czy to dzisiaj i czy godzina mieści się w zakresie
+      const isOnAir = isToday && 
+                      currentTime >= p.hour_start && 
+                      currentTime < p.hour_end;
+
+      el.className = isOnAir ? "schedule_program onair" : "schedule_program";
+
       el.innerHTML = `
         <div class="prog_item">${p.item || ""}</div>
-        <div class="prog_time"><b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b></div>
-        <div class="prog_name" style="cursor:pointer" onclick="LoadProgram('${data.id}')">
-          ${data.name}
-        </div>
-        <div class="prog_host">${data.host || ""}</div>
-        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}" alt="${data.name}">` : ""}
+        <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
+        <div onclick="LoadProgram('${data.id}')" style="cursor:pointer">${data.name}</div>
+        <div>${data.host || ""}</div>
+        ${data.thumbnail_uri ? `<img src="${data.thumbnail_uri}">` : ""}
       `;
       tabContent.appendChild(el);
     });
 
-    // 5. Dodanie do DOM
     tabsContainer.appendChild(btn);
     contentsContainer.appendChild(tabContent);
   });
