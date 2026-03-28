@@ -37,8 +37,8 @@
       "4",
       "5"
     ],
-    "hour_start": "08:10:00",
-    "hour_end": "08:00:00",
+    "hour_start": "08:00:00",
+    "hour_end": "08:10:00",
     "subschedule": true,
     "hide_in_schedule": false
   },
