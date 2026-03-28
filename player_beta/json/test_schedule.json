@@ -105,6 +105,7 @@
     ],
     "hour_start": "10:00:00",
     "hour_end": "13:00:00",
+    "host": "weeqwewaead",
     "hide_in_schedule": false
   }
 ]
