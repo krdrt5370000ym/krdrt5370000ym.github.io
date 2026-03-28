@@ -405,27 +405,50 @@ function LoadProgram(id) {
   if (!program || program.private === true) return;
 
   const scheduleInfo = getDisplaySchedule(id);
-
-  const html = `
-    <style>
-      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; line-height: 1.6; color: #333; }
-      img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; }
-      h2 { color: #000; margin-top: 0; }
-      .meta { color: #666; font-size: 0.9em; margin-bottom: 10px; }
-    </style>
-    ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}">` : ""}
-    <h2>${program.name}</h2>
-    <div class="meta">
-      <div><b>Prowadzący:</b> ${program.host || "---"}</div>
-      <div><b>Emisja:</b> ${scheduleInfo}</div>
-    </div>
-    <hr>
-    <div>${program.description || "Brak opisu programu."}</div>
-  `;
+  
+  // Funkcja pomocnicza do bezpiecznego wstawiania tekstu (zapobiega XSS)
+  const escapeHTML = (str) => 
+    str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
   const win = window.open("", "_blank");
-  win.document.write(html);
+  if (!win) {
+    alert("Zablokowano wyskakujące okno!");
+    return;
+  }
+
+  // Budujemy strukturę dokumentu
+  win.document.write(`
+    <!DOCTYPE html>
+    <html lang="pl">
+    <head>
+      <meta charset="UTF-8">
+      <title>${escapeHTML(program.name)}</title>
+      <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; line-height: 1.6; color: #333; max-width: 800px; margin: auto; }
+        img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { color: #000; margin-top: 0; font-size: 2em; }
+        .meta { color: #666; font-size: 0.95em; margin-bottom: 20px; border-left: 4px solid #eee; padding-left: 15px; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+        #episode-list { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; }
+      </style>
+    </head>
+    <body>
+      ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="Thumbnail">` : ""}
+      <h2>${escapeHTML(program.name)}</h2>
+      <div class="meta">
+        <div><b>Prowadzący:</b> ${escapeHTML(program.host) || "---"}</div>
+        <div><b>Emisja:</b> ${escapeHTML(scheduleInfo)}</div>
+      </div>
+      <hr>
+      <div class="description">${program.description || "Brak opisu programu."}</div>
+      <div id="episode-list">Ładowanie odcinków...</div>
+    </body>
+    </html>
+  `);
   win.document.close();
+
+  // Uruchamiamy pobieranie odcinków po załadowaniu struktury
+  getProgramEpisode(program.podcast, win);
 }
 
 function playlistNowPlaying(playlistString) {
@@ -454,6 +477,36 @@ function playlistNowPlaying(playlistString) {
 
     updateTrack();
     playlistInterval = setInterval(updateTrack, 20000); 
+}
+
+function getProgramEpisode(episodeString, targetWin) {
+  if (!episodeString) {
+    const el = targetWin.document.getElementById('episode-list');
+    if (el) el.innerText = "Brak dostępnych odcinków.";
+    return;
+  }
+
+  const resultElem = targetWin.document.getElementById('episode-list');
+  const match = episodeString.match(/^(\w+)\(['"]?(.*?)['"]?\)$/);
+
+  if (match) {
+    const [_, functionName, argument] = match;
+
+    // Szukamy funkcji w oknie głównym (window), nie w nowym oknie
+    if (typeof window[functionName] === "function") {
+      try {
+        const result = window[functionName](argument);
+        if (result !== undefined && resultElem) {
+          resultElem.innerHTML = result;
+        }
+      } catch (err) {
+        console.error("Błąd podczas wywoływania funkcji odcinków:", err);
+        if (resultElem) resultElem.innerText = "Błąd podczas ładowania listy.";
+      }
+    }
+  } else if (resultElem) {
+    resultElem.innerText = episodeString;
+  }
 }
 // =====================
 // INIT
