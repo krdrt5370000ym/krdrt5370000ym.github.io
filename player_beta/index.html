@@ -146,19 +146,16 @@ function renderCurrent() {
     isInTimeRange(p.hour_start, p.hour_end, currentTime)
   );
 
-  const container = document.getElementById("current_program_info");
+  const data = getProgramData(program);
+  if(!data) return;
 
-  // if (!currentProg) {
-  //  container.innerHTML = "Muzyka automatyczna";
-  //  return;
-  // }
+  document.querySelector(".current_program_hour").textContent =
+    formatHour(program.hour_start)+" - "+formatHour(program.hour_end);
 
-  const data = getProgramData(currentProg);
-
-  container.innerHTML = `
-    <div class="now_playing">NA ANTENIE: <b>${data.name}</b></div>
-    <div class="now_host">${data.host || ""}</div>
-  `;
+  document.querySelector(".current_program_title").textContent = data.name || "";
+  document.querySelector(".current_program_host").textContent = data.host || "";
+  document.querySelector(".current_program_photo").src =
+    data.thumbnail_uri || "https://cdn.music.smcloud.net/t/cover/677b175e-35bd-4b9b-a271-629040ccdd98_ER_500x500-2-cover_500x500.png";
 }
 
 // =====================
