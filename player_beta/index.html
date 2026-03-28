@@ -124,7 +124,7 @@ function getThumbnail(p, data){
   // 1. schedule -> thumbnail_id
   if (p.thumbnail_id) {
     const img = IMAGES.find(i => i.thumbnail_id === p.thumbnail_id);
-    if (img) return img.thumbnail_uri_id;
+    if (img) return img.thumbnail_uri;
   }
 
   // 2. schedule -> direct
