@@ -134,17 +134,20 @@ function getProgramData(p){
 // =====================
 // ON AIR
 // =====================
-function renderCurrent() {
+function renderCurrent(){
   const now = new Date();
-  const currentDay = now.getDay().toString();
-  const currentTime = now.toTimeString().slice(0, 5);
+  const day = now.getDay().toString();
+  const time = now.toTimeString().slice(0,8);
 
-  const currentProg = SCHEDULE.find(p => 
-    p.active && 
-    p.days.includes(currentDay) && 
-    (!p.station || p.station.includes(CURRENT_STATION)) &&
-    isInTimeRange(p.hour_start, p.hour_end, currentTime)
-  );
+  const program = SCHEDULE
+    .filter(p => 
+      p.active && 
+      p.days.includes(day) && 
+      (!p.station || p.station.includes(CURRENT_STATION)) &&
+      isInTimeRange(p.hour_start, p.hour_end, time)
+    )
+    .sort((a, b) => (b.station ? 1 : 0) - (a.station ? 1 : 0)) // Stacja ma priorytet nad globalnymi
+    .find(() => true); // Pobierz pierwszy pasujący po posortowaniu
 
   const data = getProgramData(program);
   if(!data) return;
