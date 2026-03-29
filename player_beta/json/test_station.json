@@ -5,16 +5,25 @@
       "name": "Stacja testowa 1",
       "stream": "https://an.cdn.eurozet.pl/ANTBAL.mp3",
       "playlist": "getNowPlayingEurozet('antbal_new')",
-      "schedule": "test",
-      "station_schedule": "club"
+      "station_schedule": "club",
+      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg"
     },
     {
       "id": "glowny",
       "name": "Stacja testowa 2",
       "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
       "playlist": "getNowPlayingEurozet('antcla_new')",
-      "schedule": "test",
       "station_schedule": "glowny"
-    }
+      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg"
+    },
+    {
+      "id": "dsssds",
+      "name": "HRTRTR",
+      "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
+      "playlist": "getNowPlayingEurozet('antcla_new')",
+      "station_schedule": "glowny"
+      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg",
+      "disable_schedule": true,
+    },
   ]
 }
