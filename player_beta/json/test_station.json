@@ -23,7 +23,7 @@
       "playlist": "getNowPlayingEurozet('antcla_new')",
       "station_schedule": "glowny"
       "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg",
-      "disable_schedule": true
+      "radio_plug": true
     },
   ]
 }
