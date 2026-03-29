@@ -1,394 +1,347 @@
-// <div id="episode-list">Ładowanie odcinków...</div>
-function SpreakerPodcast(showId) {
-    // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
-    const apiUrl = 'https://api.spreaker.com/v2/shows/' + showId + '/episodes?limit=100';
-    const container = document.getElementById('episode-list');
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Radio Player PRO</title>
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Dostęp do tablicy odcinków: response -> items
-            const episodes = data.response.items;
-            
-            if (episodes.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
+<style>
+body { font-family: Arial; margin:20px; }
 
-            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        <a href="${episode.site_url}" target="_blank">${episode.title}</a> 
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.playback_url}');
-                            return false;
-                        ">►</a>
-                    </li>`
-            ).join('')}</ul>`;
+.current { border:1px solid #ccc; padding:15px; margin-bottom:20px; }
 
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd Spreaker API:", error);
-            container.innerHTML = "Błąd podczas ładowania podcastu.";
-        });
+.schedule_tabs button {
+  padding:10px;
+  cursor:pointer;
+  background:#eee;
+  border:none;
 }
 
-function GrupaZPRPodcast(podcastUid, SiteUid) {
-    // Używamy proxy, ponieważ GitHub nie obsługuje PHP do obejścia CORS
-    const apiUrl = `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${SiteUid}`;
-    const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+.schedule_tabs button.active {
+  background:#333;
+  color:#fff;
+}
+
+.tabcontent { display:none; border:1px solid #ccc; padding:10px; }
+
+.schedule_program { margin-bottom:10px; }
+
+.program_list_content {
+  border-bottom:1px solid #eee;
+  margin-bottom:10px;
+  padding:5px;
+}
+
+.onair {
+  background:#ffeeba;
+}
+
+img { width:50px; height:50px; object-fit:cover; }
+</style>
+</head>
+
+<body>
+
+<!-- ON AIR -->
+<div class="current">
+  <h2>Teraz na antenie</h2>
+  <div class="current_program_item"></div>
+  <div class="current_program_hour"></div>
+  <div class="current_program_title"></div>
+  <div class="current_program_host"></div>
+  <img class="current_program_photo">
+</div>
+
+<!-- PLAYER -->
+<select id="stationSelect"></select>
+<br><br>
+<audio id="player" controls autoplay></audio>
+
+<hr>
+
+<!-- RAMÓWKA -->
+<div id="ScheduleDisplay" style="display:block;">
+<div class="schedule_tabs" id="tabs"></div>
+<div id="tab_contents"></div>
+</div>
+
+<hr>
+
+<!-- PROGRAMY -->
+<h3>Programy</h3>
+<input type="text" id="searchInput" placeholder="Szukaj..." oninput="renderPrograms()">
+
+<div id="program_list"></div>
+
+<script>
+let CURRENT_STATION = null;
+let CURRENT_STATION_ID = null;
+
+const dayOrder = ["1","2","3","4","5","6","0"];
+
+const dayNames = {
+  "1":"Poniedziałek","2":"Wtorek","3":"Środa",
+  "4":"Czwartek","5":"Piątek","6":"Sobota","0":"Niedziela"
+};
+
+let PROGRAMS = [];
+let IMAGES = [];
+let SCHEDULE = [];
+let STATIONS = [];
+
+// =====================
+// LOAD
+// =====================
+async function loadData() {
+  const [images, programs, schedule, stations] = await Promise.all([
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_images.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_programs.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_schedule.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_station.json").then(r=>r.json())
+  ]);
+
+  IMAGES = images;
+  PROGRAMS = programs;
+  SCHEDULE = schedule;
+  STATIONS = stations.station;
+}
+
+// =====================
+// HELPERS
+// =====================
+function formatHour(h){ return h.slice(0,5); }
+
+function isInTimeRange(start, end, current) {
+  if (start < end) return current >= start && current < end;
+  return current >= start || current < end;
+}
+
+function getProgramData(p){
+  if(!p) return null;
+  if(p.id) return PROGRAMS.find(x=>x.id===p.id) || p;
+  return p;
+}
+
+// 🔥 POPRAWIONE OBRAZKI
+function getThumbnail(p, data){
+  if (p.thumbnail_id) {
+    const img = IMAGES.find(i => i.thumbnail_id === p.thumbnail_id);
+    if (img) return img.thumbnail_uri;
+  }
+  if (p.thumbnail_uri) return p.thumbnail_uri;
+  if (data && data.thumbnail_uri) return data.thumbnail_uri;
+
+  return "https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png";
+}
+
+// =====================
+// ON AIR
+// =====================
+function renderCurrent() {
+  const now = new Date();
+  const day = now.getDay().toString();
+  const yesterday = day === "0" ? "6" : (day - 1).toString();
+  const time = now.toTimeString().slice(0,8);
+  const stations=STATIONS.find(x=>x.id===CURRENT_STATION_ID);
+
+  const program = SCHEDULE
+    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)))
+    .filter(p => {
+      if (p.days.includes(day)) return isInTimeRange(p.hour_start, p.hour_end, time);
+      if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
+      return false;
+    })
+    .sort((a,b)=>{
+    if (a.station && !b.station) return -1;
+    if (!a.station && b.station) return 1;
     
-    const container = document.getElementById('episode-list');
+    // 2. Jeśli oba są lokalne (lub oba ogólne), priorytet dla subschedule (krótsze pasma)
+    if (a.subschedule && !b.subschedule) return -1;
+    if (!a.subschedule && b.subschedule) return 1;
+    return 0;
+    })[0];
 
-    fetch(proxyUrl)
-        .then(response => {
-            if (!response.ok) {
-                // Rzuca błąd z kodem statusu (np. "Błąd sieci: 404")
-                throw new Error(`Błąd sieci: ${response.status}`);
-            }
-            // Sprawdza, czy nagłówek odpowiedzi to faktycznie JSON
-            const contentType = response.headers.get("content-type");
-            if (!contentType || !contentType.includes("application/json")) {
-                throw new TypeError("Otrzymano format inny niż JSON!");
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Grupa ZPR zwraca dane w polu 'episodes'
-            const episodes = data.episodes || [];
-            
-            if (episodes.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
+  document.querySelector(".current_program_item").textContent = '';
+    document.querySelector(".current_program_hour").textContent = '';
+    document.querySelector(".current_program_title").textContent = stations.name;
+    document.querySelector(".current_program_host").textContent = '';
+    document.querySelector(".current_program_photo").src = stations.cover;
 
-            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        ${episode.title}
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.playback_url}');
-                            return false;
-                        ">►</a>
-                    </li>`
-            ).join('')}</ul>`;
+  if(!program || stations.radio_plug === true) return;
 
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd:", error);
-            container.innerHTML = "Błąd podczas ładowania podcastu.";
-        });
+  const data = getProgramData(program);
+  const thumbnail = getThumbnail(program, data);
+
+  document.querySelector(".current_program_item").textContent = program.item || "";
+  document.querySelector(".current_program_hour").textContent =
+    `${formatHour(program.hour_start)} - ${formatHour(program.hour_end)}`;
+  document.querySelector(".current_program_title").textContent =
+    program.name || data.name || "Brak programu";
+  document.querySelector(".current_program_host").textContent =
+    program.host || data.host || "";
+  document.querySelector(".current_program_photo").src = thumbnail;
 }
 
-function EurozetPodcast(showId, mainUrl, stationId) {
-    const apiUrl = 'https://player.radiozet.pl/api/podcasts/getPodcastListByProgram/(node)/' + showId + '/(station)/' + stationId;
-    const container = document.getElementById('episode-list');
+// =====================
+// TABS
+// =====================
+function renderTabs(){
+  const tabs = document.getElementById("tabs");
+  const contents = document.getElementById("tab_contents");
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Dostęp do tablicy odcinków: response -> items
-            const episodes = data.data;
-            
-            if (episodes.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
+  tabs.innerHTML="";
+  contents.innerHTML="";
 
-            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        <a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a> 
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.player.stream}');
-                            return false;
-                        ">►</a>
-                    </li>`
-            ).join('')}</ul>`;
+  const today = new Date().getDay().toString();
 
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd:", error);
-            container.innerHTML = "Błąd podczas ładowania podcastu.";
-        });
+  dayOrder.forEach(day=>{
+
+    const btn = document.createElement("button");
+    btn.textContent = dayNames[day];
+    if(day===today) btn.classList.add("active");
+
+    const tab = document.createElement("div");
+    tab.className="tabcontent";
+    tab.id="tab_"+day;
+    tab.style.display = day===today ? "block":"none";
+
+    btn.onclick=()=>{
+      document.querySelectorAll(".tabcontent").forEach(t=>t.style.display="none");
+      document.querySelectorAll("#tabs button").forEach(b=>b.classList.remove("active"));
+      tab.style.display="block";
+      btn.classList.add("active");
+    };
+
+    SCHEDULE
+      .filter(p=>p.active && p.days.includes(day) && !p.hide_in_schedule && (!p.station || p.station.includes(CURRENT_STATION)))
+      .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
+      .forEach(p=>{
+        const data = getProgramData(p);
+        const thumbnail = getThumbnail(p,data);
+
+        const el = document.createElement("div");
+        el.className="schedule_program";
+
+        const clickable = (data.id && !data.private)
+          ? `onclick="LoadProgram('${data.id}')" style="cursor:pointer"`
+          : "";
+
+        el.innerHTML = `
+          <div>${p.item || ""}</div>
+          <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
+          <div ${clickable}>${p.name || data.name}</div>
+          <div>${p.host || data.host || ""}</div>
+          <img src="${thumbnail}" onerror="this.src='https://cdn.radios.smcloud.net/t/radios/se_logo_ok_rp-1BPK-Qiy3-esTr_500x500.png'">
+        `;
+
+        tab.appendChild(el);
+      });
+
+    tabs.appendChild(btn);
+    contents.appendChild(tab);
+  });
 }
-// Wywołanie z Twoim ID
-// EurozetPodcast(12345, "https://player.radiozet.pl/", "radiozet");
 
-async function WPPodcast(categoryId, mainUrl) {
-    const container = document.getElementById('episode-list');
-    const apiUrl = `${mainUrl}/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`;
+// =====================
+// PROGRAM LIST
+// =====================
+function renderPrograms(){
+  const container = document.getElementById("program_list");
+  const search = document.getElementById("searchInput").value.toLowerCase();
 
-    try {
-        const response = await fetch(apiUrl);
-        const posts = await response.json();
+  container.innerHTML="";
 
-        if (posts.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
-            return;
-        }
+  PROGRAMS
+    .filter(p=>!p.private)
+    .filter(p=>!p.station || p.station.includes(CURRENT_STATION))
+    .filter(p=>{
+      const name=(p.name||"").toLowerCase();
+      const host=(p.host||"").toLowerCase();
+      return name.includes(search)||host.includes(search);
+    })
+    .forEach(p=>{
+      const el=document.createElement("div");
+      el.className="program_list_content";
 
-        // Renderujemy szkielet listy
-        container.innerHTML = `<ul class="podcast_list_episode_content">${posts.map(post => `
-                <li id="post-${post.id}" class="podcast_list_episode_title">
-                    <a href="${post.link}" target="_blank">${post.title.rendered}</a>
-                    <span class="audio-placeholder"></span>
-                </li>
-        `).join('')}</ul>`;
+      el.innerHTML=`
+        <img src="${p.thumbnail_uri}">
+        <div onclick="LoadProgram('${p.id}')" style="cursor:pointer">${p.name}</div>
+        <div>${p.host}</div>
+      `;
 
-        // Dla każdego posta doczytujemy plik audio osobnym zapytaniem
-        posts.forEach(post => loadAudioForPost(post.id, mainUrl));
+      container.appendChild(el);
+    });
+}
 
-    } catch (error) {
-        container.innerHTML = "Błąd ładowania.";
+// =====================
+// STATIONS
+// =====================
+function renderStations(){
+  const select=document.getElementById("stationSelect");
+  const player=document.getElementById("player");
+
+  STATIONS.forEach((s,i)=>{
+    const opt=document.createElement("option");
+    opt.value=s.id;
+    opt.textContent=s.name;
+    select.appendChild(opt);
+
+    if(i===0){
+      CURRENT_STATION=s.station_schedule;
+      CURRENT_STATION_ID=s.id;
+      player.src=s.stream;
     }
-}
-// Przykład użycia (podaj ID kategorii z Twojego WordPressa)
-// WPPodcast(5,"https://radiorsc.pl");
+  });
 
-function AgoraPodcast(brandId, seriesId, mainUrl) {
-    const apiUrl = 'https://podcasts.radioagora.pl/api/getPodcasts?brand_id=' + brandId + '&limit=100&offset=0&series_id=' + seriesId;
-    const container = document.getElementById('episode-list');
-
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const episodes = data.records || [];
-            
-            if (episodes.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
-
-            const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        <a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a> 
-                        <a href="#" onclick="
-                            GetAndPlayAgora(${brandId}, ${episode.podcast_id});
-                            return false;"
-                        >►</a>
-                    </li>`
-            ).join('')}</ul>`;
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(err => container.innerHTML = "Błąd API.");
+  select.onchange=()=>{
+    const s=STATIONS.find(x=>x.id===select.value);
+    CURRENT_STATION=s.station_schedule;
+    CURRENT_STATION_ID=s.id;
+    player.src=s.stream;
+    const ds = document.getElementById("ScheduleDisplay");
+    s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
+    player.play();
+    reloadAll();
+  };
 }
 
-// Funkcja pomocnicza pobierająca konkretny strumień przed odtworzeniem
-function GetAndPlayAgora(brandId, podcastId) {
-    const detailUrl = `https://podcasts.radioagora.pl/api/universalApigetPodcastAll?brand_id=${brandId}&podcast_id=${podcastId}`;
-    
-    fetch(detailUrl)
-        .then(res => res.json())
-        .then(data => {
-            // Zakładając, że URL strumienia jest w data.podcast_info.player.stream lub podobnej strukturze
-            const streamUrl = data.url;
-            if (streamUrl) {
-                AudioPlayerEpisode(streamUrl);
-            } else {
-                alert("Nie znaleziono źródła dźwięku.");
-            }
-        });
+function reloadAll(){
+  renderCurrent();
+  renderTabs();
+  renderPrograms();
 }
 
-async function WPPodcastRK(SearchId) {
-    const apiUrl = 'https://radiokolor.pl/wp-json/wp/v2/podcast?search=' + SearchId + '&per_page=100';
-    const container = document.getElementById('episode-list');
-    const parser = new DOMParser();
+// =====================
+// PROGRAM PAGE
+// =====================
+function LoadProgram(id){
+  const p = PROGRAMS.find(x=>x.id===id);
+  if(!p) return;
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci');
-            return response.json();
-        })
-        .then(posts => {
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
+  const html = `
+    <h2>${p.name}</h2>
+    <img src="${p.thumbnail_uri}" style="width:200px">
+    <p><b>Prowadzący:</b> ${p.host}</p>
+    <div>${p.description || ""}</div>
+  `;
 
-            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
-                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
-
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
-        });
+  const w = window.open("");
+  w.document.write(html);
 }
 
-function WPPodcastRVG() {
-    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/gosc?per_page=100';
-    const container = document.getElementById('episode-list');
-    const parser = new DOMParser();
+// =====================
+// INIT
+// =====================
+function init(){
+  renderStations();
+  reloadAll();
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci');
-            return response.json();
-        })
-        .then(posts => {
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
-
-            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
-                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
-
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
-        });
+  setInterval(()=>{
+    renderCurrent();
+  },60000);
 }
 
-function WPPodcastRVR() {
-    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/reporter?per_page=100';
-    const container = document.getElementById('episode-list');
-    const parser = new DOMParser();
+loadData().then(init);
+</script>
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci');
-            return response.json();
-        })
-        .then(posts => {
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
-
-            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
-                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
-
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
-        });
-}
-
-function WPPodcastRVA(ProgramId) {
-    // WordPress API zwraca tablicę postów bezpośrednio
-    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/programy?audycje=' + ProgramId + '&per_page=100';
-    const container = document.getElementById('episode-list');
-    const parser = new DOMParser();
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Błąd sieci');
-            return response.json();
-        })
-        .then(posts => {
-            if (posts.length === 0) {
-                container.innerHTML = "Brak dostępnych odcinków.";
-                return;
-            }
-
-            const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
-                const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
-                const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
-                const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
-
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
-
-            container.innerHTML = htmlContent;
-        })
-        .catch(error => {
-            console.error("Błąd WP API:", error);
-            container.innerHTML = "Błąd podczas ładowania postów.";
-        });
-}
-
-async function loadAudioForPost(postId, mainUrl) {
-    try {
-        const audioRes = await fetch(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/ogg`);
-        const media = await audioRes.json();
-
-        const li = document.getElementById(`post-${postId}`);
-        const placeholder = li.querySelector('.audio-placeholder');
-
-        if (media && media.length > 0) {
-            const audioUrl = media[0].source_url;
-            placeholder.innerHTML = `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}');">▶</a>`;
-        } else {
-            placeholder.remove(); // Usuwamy napis, jeśli nie ma audio
-        }
-    } catch (e) {
-        console.error("Błąd audio dla ID " + postId);
-    }
-}
-
-function AudioPlayerEpisode(url) {
-    const audio = document.getElementById('player');
-    audio.style.display = 'block'; // Pokaż player po kliknięciu
-    document.scrollingElement.scrollTop = audio.offsetTop - 50;
-    const isM3U8 = url.toLowerCase().includes('.m3u8');
-
-    // 1. Czyszczenie poprzedniej instancji HLS
-    if (hls) {
-        hls.destroy();
-        hls = null;
-    }
-
-    // 2. Obsługa strumienia M3U8 (HLS)
-    if (isM3U8 && Hls.isSupported()) {
-        hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(audio);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
-        
-        hls.on(Hls.Events.ERROR, (event, data) => {
-            if (data.fatal) {
-                if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
-                else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
-            }
-        });
-    } 
-    // 3. Obsługa Safari (natywne HLS) lub zwykłe MP3
-    else {
-        audio.src = url;
-        audio.play().catch(e => console.error("Błąd autostartu:", e));
-    }
-}
+</body>
+</html>
