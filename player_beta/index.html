@@ -413,9 +413,14 @@ function LoadProgram(id) {
   if (!program || program.private === true) return;
 
   const scheduleInfo = getDisplaySchedule(id);
-  const emailContact = program.email.length > 0 
+  const emailContact = (program.email && program.email.length > 0) 
   ? program.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
   : '';
+  const podcastList = (program.podcast) ? `<audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
+      <div id="episode-list">Ładowanie odcinków...</div>
+      <script src="https://krdrt5370000ym.github.io/site-episode.js"><\/script>
+      <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+      <script>${program.podcast}<\/script>` : '';
   const escapeHTML = (str) => 
     str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
 
@@ -440,16 +445,14 @@ function LoadProgram(id) {
       <h2>${escapeHTML(program.name)}</h2>
       <div class="meta">
         <div><b>Prowadzący:</b> ${escapeHTML(program.host) || "---"}</div>
+        <div>${escapeHTML(program.onair)}</div>
         <div><b>Emisja:</b> ${escapeHTML(scheduleInfo)}</div>
         ${emailContact}
+        <div>${escapeHTML(program.label)}</div>
       </div>
       <hr>
       <div class="description">${program.description || "Brak opisu programu."}</div>
-      <audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
-      <div id="episode-list">Ładowanie odcinków...</div>
-      <script src="https://krdrt5370000ym.github.io/site-episode.js"><\/script>
-      <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-      <script>${program.podcast}<\/script>
+      ${podcastList}
     </body>
     </html>
   `;
