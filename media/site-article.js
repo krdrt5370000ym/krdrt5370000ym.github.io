@@ -53,7 +53,7 @@ async function WPArticleRSC(append = false) {
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         <div class="article_category">${catsHTML}</div>
-                        <div class="article_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                        <div class="article_title"><a href="#" onclick="WPArticlePostRSCLoad('${post.slug}')" target="_blank">${post.title.rendered}</a></div>
                         <div class="article_info">
                             <i class="fa-solid fa-user"></i> ${authorHTML} | ${postDate}
                         </div>
@@ -137,7 +137,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
                         ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
-                        <div class="article_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                        <div class="article_title"><a href="#" onclick="WPArticlePostLoad('${post.slug}','${mainUrl}')" target="_blank">${post.title.rendered}</a></div>
                         <div class="article_info">
                             ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
                         </div>
@@ -247,7 +247,7 @@ async function WPArticlePostRSC(slug) {
                     <article id="post-${post.id}">
                         <header class="article_headers_posts">
                             ${categoriesDisplay}
-                            <div class="article_title_posts"><a href="#" onclick="WPArticlePostRSCLoad('${post.slug}')" target="_blank">${post.title.rendered}</a></div>
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                             <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
                             ${tagsDisplay}
                         </header>
@@ -352,7 +352,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                     <article id="post-${post.id}">
                         <header class="article_headers_posts">
                             ${categoriesDisplay}
-                            <div class="article_title_posts"><a href="#" onclick="WPArticlePostLoad('${post.slug}','${mainUrl}')" target="_blank">${post.title.rendered}</a></div>
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
                             <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
                             ${tagsDisplay}
                         </header>
