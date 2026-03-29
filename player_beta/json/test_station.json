@@ -6,7 +6,8 @@
       "stream": "https://an.cdn.eurozet.pl/ANTBAL.mp3",
       "playlist": "getNowPlayingEurozet('antbal_new')",
       "station_schedule": "club",
-      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg"
+      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg",
+      "radio_plug": false
     },
     {
       "id": "glowny",
@@ -14,7 +15,8 @@
       "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
       "playlist": "getNowPlayingEurozet('antcla_new')",
       "station_schedule": "glowny",
-      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg"
+      "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg",
+      "radio_plug": false
     },
     {
       "id": "dsssds",
