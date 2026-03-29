@@ -162,9 +162,9 @@ function renderCurrent() {
 
   document.querySelector(".current_program_item").textContent = '';
     document.querySelector(".current_program_hour").textContent = '';
-    document.querySelector(".current_program_title").textContent = stations.name;
+    document.querySelector(".current_program_title").textContent = stations.name || 'Radio Online';
     document.querySelector(".current_program_host").textContent = '';
-    document.querySelector(".current_program_photo").src = stations.cover;
+    document.querySelector(".current_program_photo").src = stations.cover || null;
 
   if(!program || stations.radio_plug === true) return;
 
