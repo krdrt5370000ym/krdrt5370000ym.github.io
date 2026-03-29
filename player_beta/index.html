@@ -247,6 +247,7 @@ function renderTabs() {
       .forEach(p=>{
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
+        const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}">` : '';
 
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
@@ -260,7 +261,7 @@ function renderTabs() {
           <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
           <div${programId}>${p.name || data.name}</div>
           <div>${p.host || data.host || ""}</div>
-          <img src="${thumbnail}">
+          ${thumbnailDisplay}
         `;
 
         tab.appendChild(el);
