@@ -59,8 +59,10 @@ img { width:50px; height:50px; object-fit:cover; }
 <hr>
 
 <!-- RAMÓWKA -->
+<div id="ScheduleDisplay" style="display:block;">
 <div class="schedule_tabs" id="tabs"></div>
 <div id="tab_contents"></div>
+</div>
 
 <hr>
 
@@ -72,6 +74,7 @@ img { width:50px; height:50px; object-fit:cover; }
 
 <script>
 let CURRENT_STATION = null;
+let CURRENT_STATION_ID = null;
 
 const dayOrder = ["1","2","3","4","5","6","0"];
 
@@ -138,9 +141,10 @@ function renderCurrent() {
   const day = now.getDay().toString();
   const yesterday = day === "0" ? "6" : (day - 1).toString();
   const time = now.toTimeString().slice(0,8);
+  const stations=STATIONS.find(x=>x.id===CURRENT_STATION);
 
   const program = SCHEDULE
-    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)))
+    .filter(p => p.active && stations.radio_plug !== true && (!p.station || p.station.includes(CURRENT_STATION)))
     .filter(p => {
       if (p.days.includes(day)) return isInTimeRange(p.hour_start, p.hour_end, time);
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
@@ -152,7 +156,7 @@ function renderCurrent() {
       return b.hour_start.localeCompare(a.hour_start);
     })[0];
 
-  if(!program) return;
+  if(!program || stations.radio_plug === true) return;
 
   const data = getProgramData(program);
   const thumbnail = getThumbnail(program, data);
@@ -279,8 +283,11 @@ function renderStations(){
 
   select.onchange=()=>{
     const s=STATIONS.find(x=>x.id===select.value);
-    CURRENT_STATION=s.id;
+    CURRENT_STATION=s.station_schedule;
+    CURRENT_STATION_ID=s.id;
     player.src=s.stream;
+    const ds = document.getElementById("ScheduleDisplay");
+    s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
     player.play();
     reloadAll();
   };
