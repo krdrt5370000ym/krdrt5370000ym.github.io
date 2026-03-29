@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Radio Player PRO</title>
+
+<style>
+body { font-family: Arial; margin:20px; }
+
+.current { border:1px solid #ccc; padding:15px; margin-bottom:20px; }
+
+.schedule_tabs button {
+  padding:10px;
+  cursor:pointer;
+  background:#eee;
+  border:none;
+}
+
+.schedule_tabs button.active {
+  background:#333;
+  color:#fff;
+}
+
+.tabcontent { display:none; border:1px solid #ccc; padding:10px; }
+
+.schedule_program { margin-bottom:10px; }
+
+.program_list_content {
+  border-bottom:1px solid #eee;
+  margin-bottom:10px;
+  padding:5px;
+}
+
+.onair {
+  background:#ffeeba;
+}
+
+.tabcontentA { display: none; padding: 20px; border: 1px solid #ccc; }
+.tabA button.active { background-color: #ccc; } /* Styl aktywnej zakładki */
+
+img { width:50px; height:50px; object-fit:cover; }
+</style>
+</head>
+
+<body>
+
+<!-- ON AIR -->
+<div class="current">
+  <h2>Teraz na antenie</h2>
+  <div class="current_program_item"></div>
+  <div class="current_program_hour"></div>
+  <div class="current_program_title"></div>
+  <div class="current_program_host"></div>
+  <img class="current_program_photo">
+</div>
+
+<!-- PLAYER -->
+<select id="stationSelect"></select>
+<br><br>
+<audio id="player" controls autoplay></audio>
+<p id="resultTrack"></p>
+
+<hr>
+
+<!-- RAMÓWKA -->
+<div id="ScheduleDisplay" style="display:block;">
+<div class="tabA">
+  <button class="tablinksA active" onclick="openTab(event, 'sch_schedule')">Ramówka</button>
+  <button class="tablinksA" onclick="openTab(event, 'sch_detail')">Szczegłówo</button>
+</div>
+<div id="sch_schedule" class="tabcontentA" style="display:block;">
+<div class="schedule_tabs" id="tabs"></div>
+<div id="tab_contents"></div></div>
+<div id="sch_detail" class="tabcontentA"></div>
+</div>
+
+<!-- PROGRAMY -->
+<div id="AllProgramsDisplay" style="display:block;">
+<h3>Programy</h3>
+<input type="text" id="searchInput" placeholder="Szukaj programu lub autora..." oninput="renderPrograms()">
+<select id="categoryFilter" onchange="renderPrograms()">
+  <option value="">Wszystkie kategorie</option>
+  <option value="Audiobooki">Audiobooki</option>
+</select>
+
+<div class="program_list" id="program_list"></div>
+</div>
+<script src="radios.js"></script>
+<script src="https://krdrt5370000ym.github.io/site-nowplaying.js"></script>
+<script>loadData('radiorsc').then(init);</script>
+</body>
+</html>
