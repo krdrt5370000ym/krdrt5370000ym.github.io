@@ -217,7 +217,7 @@ function updateOnAirStatus() {
   });
 
   // auto scroll do aktualnego
-  const activeEl = document.querySelector('.schedule_program.onair');
+ // const activeEl = document.querySelector('.schedule_program.onair');
  //  if (activeEl) {
  //   activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
  //  }
