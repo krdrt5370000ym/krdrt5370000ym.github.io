@@ -63,8 +63,9 @@ img { width:50px; height:50px; }
 
 <!-- PROGRAMY -->
 <h3>Programy</h3>
-<select id="categoryFilter">
-  <option value="">Wszystkie</option>
+<input type="text" id="searchInput" placeholder="Szukaj programu lub autora..." oninput="renderPrograms()">
+<select id="categoryFilter" onchange="renderPrograms()">
+  <option value="">Wszystkie kategorie</option>
   <option value="Audiobooki">Audiobooki</option>
 </select>
 
@@ -238,14 +239,14 @@ function renderTabs() {
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
-        const programId = data.private === true ? 'null' : `'${data.id}'`;
+        const programId = data.private === true ? '' : ` style="cursor:pointer;" onclick="LoadProgram('${data.id}')"`;
         el.dataset.start = p.hour_start; 
         el.dataset.end = p.hour_end;
 
         el.innerHTML = `
           <div>${p.item || ""}</div>
           <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
-          <div onclick="LoadProgram(${programId})">${p.name || data.name}</div>
+          <div${programId}>${p.name || data.name}</div>
           <div>${p.host || data.host || ""}</div>
           <img src="${thumbnail}">
         `;
@@ -303,26 +304,33 @@ function updateOnAirStatus() {
 function renderPrograms(){
   const container = document.getElementById("program_list");
   const filter = document.getElementById("categoryFilter").value;
+  const search = document.getElementById("searchInput").value.toLowerCase(); // Pobieramy frazę
 
-  container.innerHTML="";
+  container.innerHTML = "";
 
   PROGRAMS
     .filter(p => !p.hide_in_program && !p.private)
     .filter(p => !filter || p.category === filter)
     .filter(p => !p.station || p.station.includes(CURRENT_STATION))
+    // NOWY FILTR: Wyszukiwarka tekstowa
+    .filter(p => {
+      const name = (p.name || "").toLowerCase();
+      const host = (p.host || "").toLowerCase();
+      return name.includes(search) || host.includes(search);
+    })
     .sort((a, b) => {
       const sortA = a.sorted || "";
       const sortB = b.sorted || "";
       const result = sortA.toString().localeCompare(sortB.toString(), undefined, { numeric: true });
       return result !== 0 ? result : a.name.localeCompare(b.name);
     })
-    .forEach(p=>{
+    .forEach(p => {
       const el = document.createElement("div");
-      el.className="program_list_content";
+      el.className = "program_list_content";
 
       el.innerHTML = `
         <img src="${p.thumbnail_uri}">
-        <div onclick="LoadProgram('${p.id}')">${p.name}</div>
+        <div onclick="LoadProgram('${p.id}')" style="cursor:pointer; font-weight:bold;">${p.name}</div>
         <div>${p.host}</div>
       `;
 
