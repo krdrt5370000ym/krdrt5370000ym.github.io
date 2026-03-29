@@ -269,6 +269,8 @@ function renderPrograms(){
 function renderStations(){
   const select=document.getElementById("stationSelect");
   const player=document.getElementById("player");
+  const ds = document.getElementById("ScheduleDisplay");
+  const dp = document.getElementById("AllProgramsDisplay");
 
   STATIONS.forEach((s,i)=>{
     const opt=document.createElement("option");
@@ -280,6 +282,8 @@ function renderStations(){
       CURRENT_STATION=s.station_schedule;
       CURRENT_STATION_ID=s.id;
       AudioPlayer(s.stream);
+      s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
+      s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
       reloadAll()
     }
@@ -290,8 +294,6 @@ function renderStations(){
     CURRENT_STATION=s.station_schedule;
     CURRENT_STATION_ID=s.id;
     AudioPlayer(s.stream);
-    const ds = document.getElementById("ScheduleDisplay");
-    const dp = document.getElementById("AllProgramsDisplay");
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
     s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
