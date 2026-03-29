@@ -279,7 +279,7 @@ function renderStations(){
     if(i===0){
       CURRENT_STATION=s.station_schedule;
       CURRENT_STATION_ID=s.id;
-      player.src=s.stream;
+      AudioPlayer(s.stream);
       playlistNowPlaying(s.playlist);
       reloadAll()
     }
@@ -289,7 +289,7 @@ function renderStations(){
     const s=STATIONS.find(x=>x.id===select.value);
     CURRENT_STATION=s.station_schedule;
     CURRENT_STATION_ID=s.id;
-    player.src=s.stream;
+    AudioPlayer(s.stream);
     const ds = document.getElementById("ScheduleDisplay");
     const dp = document.getElementById("AllProgramsDisplay");
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
