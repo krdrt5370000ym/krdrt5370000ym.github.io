@@ -49,7 +49,7 @@ function openTab(evt, tabName) {
 }
 
 function isInTimeRange(start, end, current) {
-  if (start < end) return current >= start && current < end;
+  if (start <= end) return current >= start && current < end;
   return current >= start || current < end;
 }
 
