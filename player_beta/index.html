@@ -137,14 +137,14 @@ function getThumbnail(p, data){
 // ON AIR
 // =====================
 function renderCurrent() {
-  const now = new Date();
+  const now = new Date("2025-07-24 23:23:23");
   const day = now.getDay().toString();
   const yesterday = day === "0" ? "6" : (day - 1).toString();
   const time = now.toTimeString().slice(0,8);
   const stations=STATIONS.find(x=>x.id===CURRENT_STATION);
 
   const program = SCHEDULE
-    .filter(p => p.active && stations.radio_plug !== true && (!p.station || p.station.includes(CURRENT_STATION)))
+    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)))
     .filter(p => {
       if (p.days.includes(day)) return isInTimeRange(p.hour_start, p.hour_end, time);
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
@@ -155,6 +155,12 @@ function renderCurrent() {
       if(!a.subschedule && b.subschedule) return 1;
       return b.hour_start.localeCompare(a.hour_start);
     })[0];
+
+  document.querySelector(".current_program_item").textContent = '';
+    document.querySelector(".current_program_hour").textContent = '';
+    document.querySelector(".current_program_title").textContent = 'sssss';
+    document.querySelector(".current_program_host").textContent = '';
+    document.querySelector(".current_program_photo").textContent = '';
 
   if(!program || stations.radio_plug === true) return;
 
