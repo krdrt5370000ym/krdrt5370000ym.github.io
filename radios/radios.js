@@ -79,7 +79,7 @@ function renderCurrent() {
   const day = now.getDay().toString();
   const yesterday = day === "0" ? "6" : (day - 1).toString();
   const time = now.toTimeString().slice(0,8);
-  const stations=STATIONS.find(x=>x.id===CURRENT_STATION_ID);
+  const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
 
   const program = SCHEDULE
     .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)))
@@ -125,6 +125,7 @@ function renderCurrent() {
 function renderTabs() {
   const tabs = document.getElementById("tabs");
   const contents = document.getElementById("tab_contents");
+  const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
 
   tabs.innerHTML = "";
   contents.innerHTML = "";
@@ -165,7 +166,7 @@ function renderTabs() {
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
-        const programId = data.private === true ? '' : ` style="cursor:pointer;" onclick="LoadProgram('${data.id}')"`;
+        const programId = (data.private === true || stations.disable_programs === true) ? '' : ` style="cursor:pointer;" onclick="LoadProgram('${data.id}')"`;
         el.dataset.start = p.hour_start; 
         el.dataset.end = p.hour_end;
 
