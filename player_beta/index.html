@@ -75,6 +75,7 @@ img { width:50px; height:50px; object-fit:cover; }
 </div>
 
 <!-- PROGRAMY -->
+<div id="AllProgramsDisplay" style="display:block;">
 <h3>Programy</h3>
 <input type="text" id="searchInput" placeholder="Szukaj programu lub autora..." oninput="renderPrograms()">
 <select id="categoryFilter" onchange="renderPrograms()">
@@ -83,6 +84,7 @@ img { width:50px; height:50px; object-fit:cover; }
 </select>
 
 <div class="program_list" id="program_list"></div>
+</div>
 
 <script>
 let CURRENT_STATION = null;
@@ -378,7 +380,9 @@ function renderStations(){
     CURRENT_STATION_ID=s.id;
     player.src=s.stream;
     const ds = document.getElementById("ScheduleDisplay");
+    const dp = document.getElementById("AllProgramsDisplay");
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
+    s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
     playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
     reloadAll()
