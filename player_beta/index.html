@@ -35,6 +35,9 @@ body { font-family: Arial; margin:20px; }
   background:#ffeeba;
 }
 
+.tabcontentA { display: none; padding: 20px; border: 1px solid #ccc; }
+.tabA button.active { background-color: #ccc; } /* Styl aktywnej zakładki */
+
 img { width:50px; height:50px; object-fit:cover; }
 </style>
 </head>
@@ -61,8 +64,14 @@ img { width:50px; height:50px; object-fit:cover; }
 
 <!-- RAMÓWKA -->
 <div id="ScheduleDisplay" style="display:block;">
+<div class="tabA">
+  <button class="tablinksA active" onclick="openTab(event, 'sch_schedule')">Ramówka</button>
+  <button class="tablinksA" onclick="openTab(event, 'sch_detail')">Szczegłówo</button>
+</div>
+<div id="sch_schedule" class="tabcontentA" style="display:block;">
 <div class="schedule_tabs" id="tabs"></div>
-<div id="tab_contents"></div>
+<div id="tab_contents"></div></div>
+<div id="sch_detail" class="tabcontentA"></div>
 </div>
 
 <!-- PROGRAMY -->
@@ -97,12 +106,12 @@ let lastDay = new Date().getDay();
 // =====================
 // LOAD
 // =====================
-async function loadData() {
+async function loadData(siteId) {
   const [images, programs, schedule, stations] = await Promise.all([
-    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_images.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_programs.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_schedule.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/player_beta/json/test_station.json").then(r=>r.json())
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/" + siteId + "_images.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/" + siteId + "_programs.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/" + siteId + "_schedule.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/player_beta/json/" + siteId + "_station.json").then(r=>r.json())
   ]);
 
   IMAGES = images;
@@ -115,6 +124,16 @@ async function loadData() {
 // HELPERS
 // =====================
 function formatHour(h){ return h.slice(0,5); }
+
+function openTab(evt, tabName) {
+  // Ukryj wszystkie i usuń klasę active
+  document.querySelectorAll(".tabcontentA").forEach(el => el.style.display = "none");
+  document.querySelectorAll(".tablinksA").forEach(el => el.classList.remove("active"));
+  
+  // Pokaż wybraną
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.classList.add("active");
+}
 
 function isInTimeRange(start, end, current) {
   if (start < end) return current >= start && current < end;
@@ -517,7 +536,7 @@ function init() {
   }, 60000);
 }
 
-loadData().then(init);
+loadData('test').then(init);
 </script>
 <script src="https://krdrt5370000ym.github.io/site-nowplaying.js"></script>
 </body>
