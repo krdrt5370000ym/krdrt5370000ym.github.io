@@ -1,7 +1,7 @@
 {
   "station": [
     {
-      "id": "main",
+      "id": "radio_rsc",
       "name": "Radio RSC",
       "stream": "https://stream.rcs.revma.com/94fud6a6z72vv",
       "playlist": "getNowPlayingRevma('94fud6a6z72vv')",
