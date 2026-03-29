@@ -21,7 +21,7 @@
     {
       "id": "dsssds",
       "name": "HRTRTR",
-      "stream": "https://an.cdn.eurozet.pl/ANTCLA.mp3",
+      "stream": "https://an.cdn.eurozet.pl/FSSS.mp3",
       "playlist": "getNowPlayingEurozet('antcla_new')",
       "station_schedule": "glowny",
       "cover": "https://cdn.music.smcloud.net/t/logo/2f7b5979-4b66-4586-aefb-ca31e4b8580d_eska_1500x1500_500x500.jpg",
