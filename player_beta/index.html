@@ -167,17 +167,18 @@ function renderCurrent() {
     });
 
     // Sortowanie: programy z flagą subschedule trafiają na początek
-    const program = matchingPrograms.sort((a, b) => {
-    // 1. Priorytet dla programów przypisanych do konkretnej stacji (lokalne)
-    if (a.station && !b.station) return -1;
-    if (!a.station && b.station) return 1;
-    
-    // 2. Jeśli oba są lokalne (lub oba ogólne), priorytet dla subschedule (krótsze pasma)
-    if (a.subschedule && !b.subschedule) return -1;
-    if (!a.subschedule && b.subschedule) return 1;
-    
-    return 0;
-    })[0];
+const program = matchingPrograms.sort((a, b) => {
+  // 1. Najwyższy priorytet dla subschedule (konkretne wejścia w trakcie pasm)
+  if (a.subschedule && !b.subschedule) return -1;
+  if (!a.subschedule && b.subschedule) return 1;
+
+  // 2. Potem stacja (lokalne)
+  if (a.station && !b.station) return -1;
+  if (!a.station && b.station) return 1;
+
+  // 3. Dodatkowo: wybierz ten, który zaczął się później (świeższy start)
+  return b.hour_start.localeCompare(a.hour_start);
+  })[0];
 
   if (!program) return;
 
