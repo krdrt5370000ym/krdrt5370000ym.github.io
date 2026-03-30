@@ -166,16 +166,25 @@ function renderTabs() {
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
-        const programId = (data.private === true || stations.disable_programs === true) ? '' : ` style="cursor:pointer;" onclick="LoadProgram('${data.id}')"`;
+        const displayName = p.name || data.name;
+        const isRestricted = data.private === true || stations.disable_programs === true;
+        
+        const programUrl = data.url_immediately 
+            ? `<div style="cursor:pointer;"><a href="${data.url_immediately}">${displayName}</a></div>` 
+            : `<div style="cursor:pointer;" onclick="LoadProgram('${data.id}')">${displayName}</div>`; // Dodano ' po ${data.id}
+
+        const programId = isRestricted ? `<div>${displayName}</div>` : programUrl;
+
+        // 2. Przypisanie danych i HTML
         el.dataset.start = p.hour_start; 
         el.dataset.end = p.hour_end;
-
+        
         el.innerHTML = `
-          <div>${p.item || ""}</div>
-          <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
-          <div${programId}>${p.name || data.name}</div>
-          <div>${p.host || data.host || ""}</div>
-          ${thumbnailDisplay}
+            <div>${p.item || ""}</div>
+            <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
+            ${programId}
+            <div>${p.host || data.host || ""}</div>
+            ${thumbnailDisplay}
         `;
 
         tab.appendChild(el);
@@ -282,7 +291,7 @@ function renderStations(){
     if(i===0){
       CURRENT_STATION=s.station_schedule;
       CURRENT_STATION_ID=s.id;
-      AudioPlayer(s.stream);
+      AudioPlayerBeta(s.stream);
       s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
       s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
@@ -294,7 +303,7 @@ function renderStations(){
     const s=STATIONS.find(x=>x.id===select.value);
     CURRENT_STATION=s.station_schedule;
     CURRENT_STATION_ID=s.id;
-    AudioPlayer(s.stream);
+    AudioPlayerBeta(s.stream);
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
     s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
@@ -340,7 +349,7 @@ function LoadProgram(id) {
   if (id === null) return;
 
   const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.private === true) return;
+  if (!program || program.url_immediately || program.private === true) return;
 
   const scheduleInfo = getDisplaySchedule(id);
   const emailContact = (program.email && program.email.length > 0) 
@@ -401,7 +410,7 @@ function LoadProgram(id) {
   }
 }
 
-function AudioPlayer(url) {
+function AudioPlayerBeta(url) {
     const audio = document.getElementById('player');
     const isM3U8 = url.toLowerCase().includes('.m3u8');
 
@@ -441,7 +450,7 @@ function AudioPlayer(url) {
     }
 }
 
-function ReloadAudio() {
+function ReloadAudioBeta() {
     const audio = document.getElementById('player');
     // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
     const currentUrl = hls ? hls.url : audio.src;
