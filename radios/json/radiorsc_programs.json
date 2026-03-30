@@ -98,7 +98,8 @@
     "name": "Lista przebojów",
     "host": "",
     "onair": "piątek, 19:00-21:00",
-    "thumbnail_uri": "https://i.ibb.co/bd5yg36/cropped-icon-radio-rsc-skierniewice.png"
+    "thumbnail_uri": "https://i.ibb.co/bd5yg36/cropped-icon-radio-rsc-skierniewice.png",
+    "url_immediately": "https://radiorsc.pl/lista-przebojow/"
   },
   {
     "id": "29u5JQUDBMnA",
