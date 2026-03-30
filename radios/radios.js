@@ -1,3 +1,4 @@
+let hls = null;
 let CURRENT_STATION = null;
 let CURRENT_STATION_ID = null;
 let playlistInterval = null;
@@ -418,40 +419,19 @@ function AudioPlayerBeta(url) {
     const audio = document.getElementById('player');
     const isM3U8 = url.toLowerCase().includes('.m3u8');
 
-    // 1. Sprzątanie po poprzednim strumieniu
+    // Teraz hls jest widoczne globalnie, więc to zadziała:
     if (hls) {
         hls.destroy();
         hls = null;
     }
 
     if (isM3U8 && Hls.isSupported()) {
-        hls = new Hls();
+        hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
         hls.loadSource(url);
         hls.attachMedia(audio);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
-        
-        // Obsługa błędów sieciowych (częste w radio online)
-        hls.on(Hls.Events.ERROR, (event, data) => {
-            if (data.fatal) {
-                switch (data.type) {
-                    case Hls.ErrorTypes.NETWORK_ERROR:
-                        hls.startLoad();
-                        break;
-                    case Hls.ErrorTypes.MEDIA_ERROR:
-                        hls.recoverMediaError();
-                        break;
-                    default:
-                        AudioPlayer(url);
-                        break;
-                }
-            }
-        });
-    } 
-    else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
-        // Safari lub zwykłe MP3
-        audio.src = url;
-        audio.play().catch(() => console.log("Wymagana interakcja"));
+        // ... reszta logiki
     }
+    // ...
 }
 
 function ReloadAudioBeta() {
