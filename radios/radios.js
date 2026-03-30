@@ -170,7 +170,7 @@ function renderTabs() {
         const isRestricted = data.private === true || stations.disable_programs === true;
         
         const programUrl = data.url_immediately 
-            ? `<div style="cursor:pointer;"><a href="${data.url_immediately}">${displayName}</a></div>` 
+            ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
             : `<div style="cursor:pointer;" onclick="LoadProgram('${data.id}')">${displayName}</div>`; // Dodano ' po ${data.id}
 
         const programId = isRestricted ? `<div>${displayName}</div>` : programUrl;
@@ -262,10 +262,14 @@ function renderPrograms(){
     .forEach(p => {
       const el = document.createElement("div");
       el.className = "program_list_content";
+      
+        const programUrl = p.url_immediately 
+            ? `<div style="cursor:pointer; font-weight:bold;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
+            : `<div onclick="LoadProgram('${p.id}')" style="cursor:pointer; font-weight:bold;">${p.name}</div>`;
 
       el.innerHTML = `
         <img src="${p.thumbnail_uri}">
-        <div onclick="LoadProgram('${p.id}')" style="cursor:pointer; font-weight:bold;">${p.name}</div>
+        ${programUrl}
         <div>${p.host}</div>
       `;
 
