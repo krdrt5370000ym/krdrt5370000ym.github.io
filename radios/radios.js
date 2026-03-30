@@ -3,6 +3,36 @@ let CURRENT_STATION = null;
 let CURRENT_STATION_ID = null;
 let playlistInterval = null;
 
+function AudioPlayerBeta(url) {
+    const audio = document.getElementById('player');
+    const isM3U8 = url.toLowerCase().includes('.m3u8');
+
+    // Teraz hls jest widoczne globalnie, więc to zadziała:
+    if (hls) {
+        hls.destroy();
+        hls = null;
+    }
+
+    if (isM3U8 && Hls.isSupported()) {
+        hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
+        hls.loadSource(url);
+        hls.attachMedia(audio);
+        // ... reszta logiki
+    }
+    // ...
+}
+
+function ReloadAudioBeta() {
+    const audio = document.getElementById('player');
+    // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
+    const currentUrl = hls ? hls.url : audio.src;
+    
+    if (currentUrl) {
+        console.log("Przeładowuję strumień...");
+        AudioPlayer(currentUrl);
+    }
+}
+
 const dayOrder = ["1","2","3","4","5","6","0"];
 
 const dayNames = {
@@ -413,36 +443,6 @@ function LoadProgram(id) {
     URL.revokeObjectURL(blobURL); // Sprzątamy, jeśli się nie udało
     return;
   }
-}
-
-function AudioPlayerBeta(url) {
-    const audio = document.getElementById('player');
-    const isM3U8 = url.toLowerCase().includes('.m3u8');
-
-    // Teraz hls jest widoczne globalnie, więc to zadziała:
-    if (hls) {
-        hls.destroy();
-        hls = null;
-    }
-
-    if (isM3U8 && Hls.isSupported()) {
-        hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
-        hls.loadSource(url);
-        hls.attachMedia(audio);
-        // ... reszta logiki
-    }
-    // ...
-}
-
-function ReloadAudioBeta() {
-    const audio = document.getElementById('player');
-    // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
-    const currentUrl = hls ? hls.url : audio.src;
-    
-    if (currentUrl) {
-        console.log("Przeładowuję strumień...");
-        AudioPlayer(currentUrl);
-    }
 }
 
 function playlistNowPlaying(playlistString) {
