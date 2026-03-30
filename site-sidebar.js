@@ -1,3 +1,5 @@
+let hls = null;
+
 var acc = document.getElementsByClassName("accordion");
 var i;
 
