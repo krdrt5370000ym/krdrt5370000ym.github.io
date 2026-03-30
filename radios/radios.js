@@ -3,36 +3,6 @@ let CURRENT_STATION = null;
 let CURRENT_STATION_ID = null;
 let playlistInterval = null;
 
-function AudioPlayerBeta(url) {
-    const audio = document.getElementById('player');
-    const isM3U8 = url.toLowerCase().includes('.m3u8');
-
-    // Teraz hls jest widoczne globalnie, więc to zadziała:
-    if (hls) {
-        hls.destroy();
-        hls = null;
-    }
-
-    if (isM3U8 && Hls.isSupported()) {
-        hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
-        hls.loadSource(url);
-        hls.attachMedia(audio);
-        // ... reszta logiki
-    }
-    // ...
-}
-
-function ReloadAudioBeta() {
-    const audio = document.getElementById('player');
-    // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
-    const currentUrl = hls ? hls.url : audio.src;
-    
-    if (currentUrl) {
-        console.log("Przeładowuję strumień...");
-        AudioPlayer(currentUrl);
-    }
-}
-
 const dayOrder = ["1","2","3","4","5","6","0"];
 
 const dayNames = {
@@ -326,7 +296,7 @@ function renderStations(){
     if(i===0){
       CURRENT_STATION=s.station_schedule;
       CURRENT_STATION_ID=s.id;
-      AudioPlayerBeta(s.stream);
+      AudioPlayer(s.stream);
       s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
       s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
@@ -338,7 +308,7 @@ function renderStations(){
     const s=STATIONS.find(x=>x.id===select.value);
     CURRENT_STATION=s.station_schedule;
     CURRENT_STATION_ID=s.id;
-    AudioPlayerBeta(s.stream);
+    AudioPlayer(s.stream);
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
     s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
@@ -443,6 +413,40 @@ function LoadProgram(id) {
     URL.revokeObjectURL(blobURL); // Sprzątamy, jeśli się nie udało
     return;
   }
+}
+
+function AudioPlayer(url) {
+    const audio = document.getElementById('player');
+    const isM3U8 = url.toLowerCase().includes('.m3u8');
+
+    // Teraz hls jest widoczne globalnie, więc to zadziała:
+    if (hls) {
+        hls.destroy();
+        hls = null;
+    }
+
+    if (isM3U8 && Hls.isSupported()) {
+        hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
+        hls.loadSource(url);
+        hls.attachMedia(audio);
+        // ... reszta logiki
+    }
+    else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
+        // Safari lub zwykłe MP3
+        audio.src = url;
+        audio.play().catch(() => console.log("Wymagana interakcja"));
+    }
+}
+
+function ReloadAudio() {
+    const audio = document.getElementById('player');
+    // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
+    const currentUrl = hls ? hls.url : audio.src;
+    
+    if (currentUrl) {
+        console.log("Przeładowuję strumień...");
+        AudioPlayer(currentUrl);
+    }
 }
 
 function playlistNowPlaying(playlistString) {
