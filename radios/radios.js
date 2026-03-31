@@ -250,7 +250,7 @@ function renderPrograms(){
   container.innerHTML = "";
 
   PROGRAMS
-    .filter(p => !p.hide_in_program && !p.private)
+    .filter(p => !p.hide_in_program && !p.private && !p.archive && !p.hide_only_information_schedule && (!p.category_not_all || p.category))
     .filter(p => !filter || p.category === filter)
     .filter(p => !p.station || p.station.includes(CURRENT_STATION))
     // NOWY FILTR: Wyszukiwarka tekstowa
@@ -276,7 +276,7 @@ function renderPrograms(){
       el.innerHTML = `
         <img src="${p.thumbnail_uri}">
         ${programUrl}
-        <div>${p.host}</div>
+        <div>${p.only_the_schedule_hosts === true ? '' : p.host}</div>
       `;
 
       container.appendChild(el);
@@ -334,25 +334,44 @@ function reloadAll(){
 function getDisplaySchedule(programId) {
   const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
   
-  // Filtrujemy wpisy w grafiku dla konkretnego programu
-  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active && s.hide_in_schedule !== true);
-  
-  const groups = occurrences.map(occ => {
-    // Sortujemy dni rosnąco (ważne dla Ndz=0 / Pn=1)
-    const sortedDays = [...occ.days].sort();
-    const dayLabels = sortedDays.map(d => daysMap[d]);
-    
-    let dayString = dayLabels.join(", ");
-    
-    // Logika dla Pn - Pt
-    if (occ.days.length === 5 && occ.days.every(d => ["1","2","3","4","5"].includes(d))) {
-      dayString = "Pn - Pt";
+  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule);
+
+  const formattedGroups = occurrences.map(occ => {
+    const sortedDays = [...occ.days].sort((a, b) => {
+      const dayA = a === "0" ? 7 : parseInt(a);
+      const dayB = b === "0" ? 7 : parseInt(b);
+      return dayA - dayB;
+    });
+
+    let dayString = "";
+    if (sortedDays.length > 1) {
+      // Jeśli dni są po kolei, np. 1, 2, 3 -> "Pn - Śr"
+      const isSequence = sortedDays.every((d, i) => i === 0 || (parseInt(d) === 0 ? 7 : parseInt(d)) === (parseInt(sortedDays[i-1]) === 0 ? 7 : parseInt(sortedDays[i-1])) + 1);
+      
+      if (isSequence) {
+        dayString = `${daysMap[sortedDays[0]]} - ${daysMap[sortedDays[sortedDays.length - 1]]}`;
+      } else {
+        dayString = sortedDays.map(d => daysMap[d]).join(", ");
+      }
+    } else {
+      dayString = daysMap[sortedDays[0]];
     }
 
-    return `${dayString}, ${formatHour(occ.hour_start)} - ${formatHour(occ.hour_end)}`;
+    return {
+      text: `${dayString}, ${formatHour(occ.hour_start)} - ${formatHour(occ.hour_end)}`,
+      firstDay: sortedDays[0] === "0" ? 7 : parseInt(sortedDays[0]),
+      startTime: occ.hour_start
+    };
   });
 
-  return groups.join(" | ");
+  // Sortowanie końcowe: najpierw po pierwszym dniu zakresu, potem po godzinie
+  return formattedGroups
+    .sort((a, b) => {
+      if (a.firstDay !== b.firstDay) return a.firstDay - b.firstDay;
+      return a.startTime.localeCompare(b.startTime);
+    })
+    .map(g => g.text)
+    .join(" | ");
 }
 
 function LoadProgram(id) {
@@ -360,6 +379,14 @@ function LoadProgram(id) {
 
   const program = PROGRAMS.find(p => p.id === id);
   if (!program || program.url_immediately || program.private === true) return;
+
+  const occurrencesSch = SCHEDULE.filter(osch => osch.id === id && osch.active && osch.hide_in_schedule !== true);
+  const occurrencesHost = [...new Set(occurrencesSch.host)];
+  const occurrencesHostA = program.only_the_schedule_hosts === true 
+  ? occurrencesHost.map(t => `${t}`).join(', ') 
+  : program.host;
+
+  if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) return;
 
   const scheduleInfo = getDisplaySchedule(id);
   const emailContact = (program.email && program.email.length > 0) 
@@ -393,7 +420,7 @@ function LoadProgram(id) {
       ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="Thumbnail">` : ""}
       <h2>${escapeHTML(program.name)}</h2>
       <div class="meta">
-        <div><b>Prowadzący:</b> ${escapeHTML(program.host) || "---"}</div>
+        <div><b>Prowadzący:</b> ${escapeHTML(occurrencesHostA) || "---"}</div>
         <div>${escapeHTML(program.onair)}</div>
         <div><b>Emisja:</b> ${escapeHTML(scheduleInfo)}</div>
         ${emailContact}
