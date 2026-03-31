@@ -83,7 +83,7 @@ function renderCurrent() {
   const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
 
   const program = SCHEDULE
-    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)) && (p.station_exclude || !p.station_exclude.includes(CURRENT_STATION)))
+    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)) && !p.station_exclude?.includes(CURRENT_STATION))
     .filter(p => {
       if (p.days.includes(day)) return isInTimeRange(p.hour_start, p.hour_end, time);
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
@@ -157,7 +157,7 @@ function renderTabs() {
         p.days.includes(day) &&
         !p.hide_in_schedule &&
         (!p.station || p.station.includes(CURRENT_STATION)) &&
-        (p.station_exclude || !p.station_exclude.includes(CURRENT_STATION))
+        !p.station_exclude?.includes(CURRENT_STATION)
       )
       .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
       .forEach(p=>{
