@@ -177,7 +177,7 @@ function renderTabs() {
 
         const programUrlN = data.url_immediately 
             ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
-            : `<div>${displayName}</div>``;
+            : `<div>${displayName}</div>`;
 
         const programId = isRestricted ? programUrlN : programUrl;
 
