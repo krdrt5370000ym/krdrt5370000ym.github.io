@@ -83,7 +83,7 @@ function renderCurrent() {
   const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
 
   const program = SCHEDULE
-    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)))
+    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)) && (p.station_exclude || !p.station_exclude.includes(CURRENT_STATION)))
     .filter(p => {
       if (p.days.includes(day)) return isInTimeRange(p.hour_start, p.hour_end, time);
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
@@ -156,7 +156,8 @@ function renderTabs() {
         p.active &&
         p.days.includes(day) &&
         !p.hide_in_schedule &&
-        (!p.station || p.station.includes(CURRENT_STATION))
+        (!p.station || p.station.includes(CURRENT_STATION)) &&
+        (p.station_exclude || !p.station_exclude.includes(CURRENT_STATION))
       )
       .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
       .forEach(p=>{
@@ -168,13 +169,17 @@ function renderTabs() {
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
         const displayName = p.name || data.name;
-        const isRestricted = data.private === true || stations.disable_programs === true;
+        const isRestricted = data.id === null || data.private === true || stations.disable_programs === true;
         
         const programUrl = data.url_immediately 
             ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
             : `<div style="cursor:pointer;" onclick="LoadProgram('${data.id}')">${displayName}</div>`; // Dodano ' po ${data.id}
 
-        const programId = isRestricted ? `<div>${displayName}</div>` : programUrl;
+        const programUrlN = data.url_immediately 
+            ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
+            : ``<div>${displayName}</div>``;
+
+        const programId = isRestricted ? programUrlN : programUrl;
 
         // 2. Przypisanie danych i HTML
         el.dataset.start = p.hour_start; 
