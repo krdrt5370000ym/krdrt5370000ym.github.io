@@ -334,38 +334,51 @@ function reloadAll(){
 function getDisplaySchedule(programId) {
   const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
   
-  const occurrences = SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule);
+  // 1. Grupujemy dni według godzin (kluczem jest "start-end")
+  const timeGroups = {};
+  
+  SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule)
+    .forEach(occ => {
+      const timeKey = `${occ.hour_start}-${occ.hour_end}`;
+      if (!timeGroups[timeKey]) {
+        timeGroups[timeKey] = new Set();
+      }
+      occ.days.forEach(d => timeGroups[timeKey].add(d));
+    });
 
-  const formattedGroups = occurrences.map(occ => {
-    const sortedDays = [...occ.days].sort((a, b) => {
+  // 2. Przetwarzamy każdą grupę godzinową na tekst
+  const result = Object.entries(timeGroups).map(([timeKey, daysSet]) => {
+    const [start, end] = timeKey.split("-");
+    const sortedDays = Array.from(daysSet).sort((a, b) => {
       const dayA = a === "0" ? 7 : parseInt(a);
       const dayB = b === "0" ? 7 : parseInt(b);
       return dayA - dayB;
     });
 
-    let dayString = "";
-    if (sortedDays.length > 1) {
-      // Jeśli dni są po kolei, np. 1, 2, 3 -> "Pn - Śr"
-      const isSequence = sortedDays.every((d, i) => i === 0 || (parseInt(d) === 0 ? 7 : parseInt(d)) === (parseInt(sortedDays[i-1]) === 0 ? 7 : parseInt(sortedDays[i-1])) + 1);
-      
-      if (isSequence) {
-        dayString = `${daysMap[sortedDays[0]]} - ${daysMap[sortedDays[sortedDays.length - 1]]}`;
-      } else {
-        dayString = sortedDays.map(d => daysMap[d]).join(", ");
-      }
+    // Sprawdzamy czy dni tworzą ciągły zakres (np. 1, 2, 3)
+    const isSequence = sortedDays.every((d, i) => {
+      if (i === 0) return true;
+      const prev = sortedDays[i-1] === "0" ? 7 : parseInt(sortedDays[i-1]);
+      const curr = d === "0" ? 7 : parseInt(d);
+      return curr === prev + 1;
+    });
+
+    let dayString;
+    if (sortedDays.length > 1 && isSequence) {
+      dayString = `${daysMap[sortedDays[0]]} - ${daysMap[sortedDays[sortedDays.length - 1]]}`;
     } else {
-      dayString = daysMap[sortedDays[0]];
+      dayString = sortedDays.map(d => daysMap[d]).join(", ");
     }
 
     return {
-      text: `${dayString}, ${formatHour(occ.hour_start)} - ${formatHour(occ.hour_end)}`,
+      text: `${dayString}, ${formatHour(start)} - ${formatHour(end)}`,
       firstDay: sortedDays[0] === "0" ? 7 : parseInt(sortedDays[0]),
-      startTime: occ.hour_start
+      startTime: start
     };
   });
 
-  // Sortowanie końcowe: najpierw po pierwszym dniu zakresu, potem po godzinie
-  return formattedGroups
+  // 3. Sortujemy finalne grupy chronologicznie
+  return result
     .sort((a, b) => {
       if (a.firstDay !== b.firstDay) return a.firstDay - b.firstDay;
       return a.startTime.localeCompare(b.startTime);
