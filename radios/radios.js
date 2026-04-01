@@ -188,12 +188,14 @@ function renderTabs() {
         el.dataset.end = p.hour_end;
         
         el.innerHTML = `
-            <div class="schedule_program_item">${p.item || ""}</div>
-            <div class="schedule_program_data">${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
-            ${programId}
-            <div class="schedule_program_host">${p.host || data.host || ""}</div>
             <div class="schedule_program_cover">${thumbnailDisplay}</div>
-            ${commentDisplay}
+            <div class="schedule_program_content">
+                <div class="schedule_program_item">${p.item || ""}</div>
+                <div class="schedule_program_data">${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
+                ${programId}
+                <div class="schedule_program_host">${p.host || data.host || ""}</div>
+                ${commentDisplay}
+            </div>
         `;
 
         tab.appendChild(el);
@@ -278,8 +280,10 @@ function renderPrograms(){
 
       el.innerHTML = `
         <div class="program_list_cover"><img src="${p.thumbnail_uri}"></div>
-        ${programUrl}
-        <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
+        <div>
+            ${programUrl}
+            <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
+        </div>
       `;
 
       container.appendChild(el);
