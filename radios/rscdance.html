@@ -4,6 +4,7 @@
       <title>Strona w stronie | Radio Player PRO</title>
       <script src="/site-head.js"></script>
       <link rel="stylesheet" href="/style.css">
+      <link rel="stylesheet" href="radios.css">
       <script src="https://krdrt5370000ym.github.io/player/player-head.js"></script>
    </head>
    <body class="w3-light-grey">
@@ -14,47 +15,6 @@
             <h5><b><i class="fa-solid fa-person-digging"></i> Strona w budowie</b></h5>
          </header>
          <div class="w3-row-padding w3-margin-bottom">
-<style>
-.current { border:1px solid #ccc; padding:15px; margin-bottom:20px; }
-
-.schedule_tabs button {
-  padding:10px;
-  cursor:pointer;
-  background:#eee;
-  border:none;
-}
-
-.schedule_tabs button.active {
-  background:#333;
-  color:#fff;
-}
-
-.schedule_list { display:none; border:1px solid #ccc; padding:10px; }
-
-.schedule_program { margin-bottom:10px; }
-
-.program_list_content {
-  border-bottom:1px solid #eee;
-  margin-bottom:10px;
-  padding:5px;
-}
-
-.onair {
-  background:#ffeeba;
-}
-
-.tabcontentA { display: none; padding: 20px; border: 1px solid #ccc; }
-.tabA button.active { background-color: #ccc; } /* Styl aktywnej zakładki */
-
-img { width:50px; height:50px; object-fit:cover; }
-
-.schedule_program { a { text-decoration: none; } }
-.program_list_content { a { text-decoration: none; } }
-</style>
-</head>
-
-<body>
-
 <!-- ON AIR -->
 <div class="current">
   <h2>Teraz na antenie</h2>
@@ -82,7 +42,7 @@ img { width:50px; height:50px; object-fit:cover; }
 <div id="sch_schedule" class="tabcontentA" style="display:block;">
 <div class="schedule_tabs" id="days"></div>
 <div id="day_contents"></div></div>
-<div id="sch_detail" class="tabcontentA">
+<div id="sch_detail" class="tabcontentA"></div>
 </div>
 
 <!-- PROGRAMY -->
