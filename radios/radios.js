@@ -99,8 +99,9 @@ function renderCurrent() {
     return 0;
     })[0];
 
-  document.querySelector(".current_program_item").textContent = "";
+    document.querySelector(".current_program_item").textContent = "";
     document.querySelector(".current_program_hour").textContent = "";
+    document.querySelector(".current_program_title").style = 'font-weight: 400';
     document.querySelector(".current_program_title").textContent = stations.name || 'Radio Online';
     document.querySelector(".current_program_host").textContent = "";
     document.querySelector(".current_program_photo").src = stations.cover || null;
@@ -113,6 +114,7 @@ function renderCurrent() {
   document.querySelector(".current_program_item").textContent = program.item || "";
   document.querySelector(".current_program_hour").textContent =
     `${formatHour(program.hour_start)} - ${formatHour(program.hour_end)}`;
+  document.querySelector(".current_program_title").style = 'font-weight: 600';
   document.querySelector(".current_program_title").textContent =
     program.name || data.name || "";
   document.querySelector(".current_program_host").textContent =
