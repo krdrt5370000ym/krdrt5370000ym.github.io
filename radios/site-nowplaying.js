@@ -53,7 +53,7 @@ async function getNowPlayingGrupaZPR(stationId) {
 
         if (track) {
             const artists = Array.isArray(track.artists) ? track.artists.join(', ') : track.artists;
-            container.innerHTML = `<h4>Teraz gramy:</h4><br>${artists} - ${track.name}`;
+            container.innerHTML = `<h4>Teraz gramy:</h4>${artists} - ${track.name}`;
         }
     } catch (error) {
         if (error instanceof TypeError) {
@@ -123,7 +123,7 @@ async function getNowPlayingEurozet(stationId) {
     const artist = formatToTitleCase(data.now.artist);
     const title = formatToTitleCase(data.now.title);
 
-    container.innerHTML = `<h4>Teraz gramy:</h4><br>${artist} - ${title}`;
+    container.innerHTML = `<h4>Teraz gramy:</h4>${artist} - ${title}`;
     
   } catch (error) {
     if (error instanceof TypeError) {
@@ -152,7 +152,7 @@ async function getNowPlayingAgora(stationId) {
     }
 
     if (track && track.artist_name && track.song_title) {
-      container.innerHTML = `<h4>Teraz gramy:</h4><br>${track.artist_name} - ${track.song_title}`;
+      container.innerHTML = `<h4>Teraz gramy:</h4>${track.artist_name} - ${track.song_title}`;
     } else {
       container.innerHTML = ''; // Aktualnie brak informacji o utworze
     }
@@ -183,7 +183,7 @@ async function getNowPlayingGrupaRMF(stationId) {
 
         if (utwor) {
             const tekst = `${utwor.author} - ${utwor.title}`;
-            container.innerHTML = `<h4>Teraz gramy:</h4><br>${tekst}`; // Aktualnie w RMF FM
+            container.innerHTML = `<h4>Teraz gramy:</h4>${tekst}`; // Aktualnie w RMF FM
             
             // Jeśli masz w HTML element <div id="radio"></div>, odkomentuj linię poniżej:
             // document.getElementById('radio').innerHTML = tekst;
@@ -216,7 +216,7 @@ async function getNowPlayingRadio(stationId) {
     // radio.de zazwyczaj zwraca tablicę obiektów
     if (data && data.length > 0) {
       const currentTrack = data[0].title || 'Brak informacji o utworze';
-      container.innerHTML = `<h4>Teraz gramy:</h4><br>${currentTrack}`;
+      container.innerHTML = `<h4>Teraz gramy:</h4>${currentTrack}`;
     } else {
       container.innerHTML = ""; // Nie znaleziono danych o utworze.
     }
@@ -255,7 +255,7 @@ async function getNowPlayingPlaylist(stationId) {
           const songTitle = result.stringValue.trim();
   
           if (songTitle) {
-              container.innerHTML = `<h4>Teraz gramy:</h4><br>${songTitle}`; // Ostatnio grany utwór:
+              container.innerHTML = `<h4>Teraz gramy:</h4>${songTitle}`; // Ostatnio grany utwór:
           } else {
               console.warn('Nie znaleziono utworu. Sprawdź, czy struktura strony się nie zmieniła.');
               container.innerHTML = '';
@@ -287,7 +287,7 @@ async function getNowPlayingOpenFm(stationId) {
         const currentSong = station?.currentSong?.string;
 
         if (currentSong) {
-            if (container) container.innerHTML = `<h4>Teraz gramy:</h4><br>${currentSong}`;
+            if (container) container.innerHTML = `<h4>Teraz gramy:</h4>${currentSong}`;
             return currentSong;
         } else {
             if (container) container.innerHTML = ""; // Nie znaleziono utworu.
@@ -319,7 +319,7 @@ async function getPlanetaFMSong() {
         
         // Wyciągnięcie nazwy utworu (zakładając strukturę JSON obiektu)
         // Uwaga: Dokładny klucz (np. data.now_playing) zależy od struktury API
-        container.innerHTML = `<h4>Teraz gramy:</h4><br>${songs}`; // Aktualny utwór:
+        container.innerHTML = `<h4>Teraz gramy:</h4>${songs}`; // Aktualny utwór:
         
     } catch (error) {
         if (error instanceof TypeError) {
@@ -353,7 +353,7 @@ async function getNowPlayingRevma(stationId) {
     if (result === "" || result === null) {
         container.innerHTML = '';
     } else {
-        container.innerHTML = `<h4>Teraz gramy:</h4><br>${formatToTitleCase(result)}`;
+        container.innerHTML = `<h4>Teraz gramy:</h4>${formatToTitleCase(result)}`;
     }
     return result;
   } catch (error) {
@@ -379,7 +379,7 @@ async function getNowPlayingOnlineRadioBox(stationId) {
     if (title === "" || title === null) {
         container.innerHTML = title;
     } else {
-        container.innerHTML = `<h4>Teraz gramy:</h4><br>${formatToTitleCase(title)}`;
+        container.innerHTML = `<h4>Teraz gramy:</h4>${formatToTitleCase(title)}`;
     }
   } catch (error) {
     if (error instanceof TypeError) {
