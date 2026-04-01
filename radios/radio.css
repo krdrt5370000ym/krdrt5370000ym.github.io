@@ -1,0 +1,35 @@
+.current { border:1px solid #ccc; padding:15px; margin-bottom:20px; }
+
+.schedule_tabs button {
+  padding:10px;
+  cursor:pointer;
+  background:#eee;
+  border:none;
+}
+
+.schedule_tabs button.active {
+  background:#333;
+  color:#fff;
+}
+
+.schedule_list { display:none; border:1px solid #ccc; padding:10px; }
+
+.schedule_program { margin-bottom:10px; }
+
+.program_list_content {
+  border-bottom:1px solid #eee;
+  margin-bottom:10px;
+  padding:5px;
+}
+
+.onair {
+  background:#ffeeba;
+}
+
+.tabcontentA { display: none; padding: 20px; border: 1px solid #ccc; }
+.tabA button.active { background-color: #ccc; } /* Styl aktywnej zakładki */
+
+img { width:50px; height:50px; object-fit:cover; }
+
+.schedule_program { a { text-decoration: none; } }
+.program_list_content { a { text-decoration: none; } }
