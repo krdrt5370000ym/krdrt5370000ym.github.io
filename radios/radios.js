@@ -41,8 +41,8 @@ function formatHour(h){ return h.slice(0,5); }
 
 function openTab(evt, tabName) {
   // Ukryj wszystkie i usuń klasę active
-  document.querySelectorAll(".tabcontentA").forEach(el => el.style.display = "none");
-  document.querySelectorAll(".tablinksA").forEach(el => el.classList.remove("active"));
+  document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
+  document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
   
   // Pokaż wybraną
   document.getElementById(tabName).style.display = "block";
