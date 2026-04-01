@@ -15,49 +15,52 @@
             <h5><b><i class="fa-solid fa-person-digging"></i> Strona w budowie</b></h5>
          </header>
          <div class="w3-row-padding w3-margin-bottom">
-<!-- ON AIR -->
-<div class="current">
-  <h2>Teraz na antenie</h2>
-  <div class="current_program_item"></div>
-  <div class="current_program_hour"></div>
-  <div class="current_program_title"></div>
-  <div class="current_program_host"></div>
-  <img class="current_program_photo">
-</div>
-
-<!-- PLAYER -->
-<select id="stationSelect"></select><button><a href="#" onclick="ReloadAudio()" style="text-decoration: none;">▶</a></button>
-<br><br>
-<audio id="player" controls autoplay></audio>
-<p id="resultTrack"></p>
-
-<hr>
-
-<!-- RAMÓWKA -->
-<div id="ScheduleDisplay" style="display:block;">
-<div class="tab">
-  <button class="tablinks active" onclick="openTab(event, 'sch_schedule')">Tydzień</button>
-  <button class="tablinks" onclick="openTab(event, 'sch_detail')">Szczegółowe dni</button>
-</div>
-<div id="sch_schedule" class="tabcontent" style="display:block;">
-<div class="schedule_tabs" id="days"></div>
-<div id="day_contents"></div></div>
-<div id="sch_detail" class="tabcontent"></div>
-</div>
-
-<!-- PROGRAMY -->
-<div id="AllProgramsDisplay" style="display:block;">
-<h3>Programy</h3>
-<input type="text" id="searchInput" placeholder="Szukaj programu lub autora..." oninput="renderPrograms()">
-<select id="categoryFilter" onchange="renderPrograms()">
-  <option value="">Wszystkie kategorie</option>
-</select>
-
-<div class="program_list" id="program_list"></div>
-</div>
-<script src="radios.js"></script>
-<script src="https://krdrt5370000ym.github.io/site-nowplaying.js"></script>
-<script>loadData('rscdance').then(init);</script>
+            <!-- ON AIR -->
+            <div class="current">
+              <h2>Teraz na antenie</h2>
+              <img class="current_program_photo">
+              <div>
+                 <div class="current_program_item"></div>
+                 <div class="current_program_hour"></div>
+                 <div class="current_program_title"></div>
+                 <div class="current_program_host"></div>
+              </div>
+            </div>
+            <p id="resultTrack"></p>
+            <!-- PLAYER -->
+            <select id="stationSelect"></select><button><a href="#" onclick="ReloadAudio()" style="text-decoration: none;">▶</a></button>
+            <br>
+            <audio id="player" controls autoplay></audio>
+            <hr>
+            <!-- RAMÓWKA -->
+            <div id="ScheduleDisplay" style="display:block;">
+              <div class="tab">
+                <button class="tablinks active" onclick="openTab(event, 'sch_schedule')">Tydzień</button>
+                <button class="tablinks" onclick="openTab(event, 'sch_detail')">Szczegółowe dni</button>
+              </div>
+              <div id="sch_schedule" class="tabcontent" style="display:block;">
+                <div class="schedule_tabs" id="days"></div>
+                <div id="day_contents"></div>
+              </div>
+              <div id="sch_detail" class="tabcontent">
+                <h3>📰 Wiadomości Radia RSC z kraju i ze świata</h3>
+                <p>Pn - Pt co godzinę od 06:00 do 22:00 | Sb i Ndz co godzinę od 08:00 do 20:00</p>
+                <h3>☼ Prognozy pogody</h3>
+                <p>Po wiadomościach Radia RSC z kraju i ze świata</p>
+              </div>
+            </div>
+            <!-- PROGRAMY -->
+            <div id="AllProgramsDisplay" style="display:block;">
+              <h3>Programy</h3>
+              <input type="text" id="searchInput" placeholder="Szukaj programu lub autora..." oninput="renderPrograms()">
+              <select id="categoryFilter" onchange="renderPrograms()">
+                <option value="">Wszystkie kategorie</option>
+              </select>
+              <div class="program_list" id="program_list"></div>
+            </div>
+            <script src="radios.js"></script>
+            <script src="https://krdrt5370000ym.github.io/site-nowplaying.js"></script>
+            <script>loadData('radiorsc').then(init);</script>
          </div>
          <script src="/site-bottomscreen.js"></script>
       </div>
