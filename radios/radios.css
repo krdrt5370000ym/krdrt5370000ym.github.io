@@ -107,14 +107,23 @@
 }
 
  .program_list_cover, .small {
-img {
-  width: 90%;
-  height: 90%; /* Zachowuje proporcje */
-}
-}
+    img {
+       width: 90%;
+       height: 90%; /* Zachowuje proporcje */
+    }
+ }
 
 .program_list_name {
   font-weight: 600;
+}
+
+.program_list_item {
+  font-size: 90%;
+  text-transform: uppercase;
+  padding-left: 4px;
+  padding-right: 4px;
+  background: silver;
+  display: inline;
 }
 
 .onair {
