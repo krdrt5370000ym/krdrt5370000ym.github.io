@@ -1,20 +1,10 @@
-/* PLAYER */
- .but1 {
-     a {
-         text-decoration: none;
-    }
+.current {
+  border:1px solid #ccc;
+  padding:15px;
+  margin-bottom:20px;
 }
-.player_song {
-    margin-left: 35px;
-}
- .playerid_dismain {
-     display: block;
-}
- .playerid_distext {
-     font-weight: 600;
-     margin-left: 10px;
-}
- .schedule_onair {
+
+.current_program { 
      width: 100%;
      display: flex;
      align-items: center;
@@ -24,866 +14,194 @@
      */
      list-style: none;
 }
- .schedule_cover {
-     flex: 0 0 8rem;
-     max-width: 8rem;
-     max-height: 8rem;
-     border-radius: 1rem;
-     overflow: hidden;
-     img {
-         display: block;
-         height: auto;
-         max-width: 100%;
-    }
-}
- .schedule_title {
-     font-weight: 600;
-     font-size: 1.5rem;
-     a {
-         text-decoration: none;
-    }
-}
- .schedule_author {
-     font-size: 1rem;
-     a {
-         text-decoration: none;
-    }
-}
- .schedule_hour {
-     font-size: 1rem;
-}
- .schedule_item {
-     font-size: 0.8rem;
-     text-transform: uppercase;
-     padding-left: 4px;
-     padding-right: 4px;
-     background: silver;
-     display: inline;
-}
- .schedule_item:empty {
-     padding-left: 0px;
-     padding-right: 0px;
-}
- .schedule_name_box {
-     background-color: #616161;
-     border-radius: 1rem;
-     color: white;
-     width: 120px;
-     height: 120px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     text-align: center;
-     text-transform: uppercase;
-     font-size: 12.5px;
-     line-height: 1.2em;
-}
- @media screen and (max-width: 600px) {
-     .player_song {
-         margin-left: 15px;
-         font-size: 1em;
-     }
-     .schedule_info {
-         padding:1rem;
-         margin:0rem;
-    }
-     .schedule_onair {
-         gap: 1rem;
-         min-height: 1rem;
-    }
-     .schedule_cover {
-         flex: 0 0 5rem;
-         max-width: 5rem;
-         max-height: 5rem;
-         border-radius: 1rem;
-         overflow: hidden;
-         img {
-             display: block;
-             height: auto;
-             max-width: 100%;
-        }
-    }
-     .schedule_title {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 2;
-         font-size: 1rem;
-    }
-     .schedule_author {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 2;
-         font-size: 0.7rem;
-    }
-     .schedule_hour {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 2;
-         font-size: 0.7rem;
-    }
-     .schedule_item {
-         font-size: 0.6rem;
-    }
-     .schedule_content {
-         line-height: 1.5;
-    }
-     .schedule_name_box {
-         width: 75px;
-         height: 75px;
-         font-size: 7.5px;
-    }
-}
-/* PROGRAMY */
- .title {
-     display: block;
-     font-weight: 700;
-     text-transform: uppercase;
-     font-size: 1.5em;
-     margin-block-start: 0.83em;
-     margin-block-end: 0.83em;
-     color: #777;
-     text-align: center;
-     a {
-         text-decoration: none;
-    }
-}
- .paged_category {
-     font-weight: 600;
-     text-transform: uppercase;
-     background: gray;
-     color: black;
-     display: inline;
-     margin-left: 40px;
-     padding-left: 10px;
-     padding-right: 10px;
-}
- .paged_title {
-     font-weight: 600;
-     text-transform: uppercase;
-     background: silver;
-     display: inline;
-     margin-left: 40px;
-     padding-left: 10px;
-     padding-right: 10px;
-}
- .pro_info {
-     display: flex;
-     align-items: center;
-     gap: 2rem;
-     min-height: 5rem;
-     padding: 1rem 0;
-     list-style: none;
-     border-bottom: 1px solid #e3e3e3;
-}
- .pro_cover {
-     flex: 0 0 6rem;
-     max-width: 6rem;
-     max-height: 6rem;
-     border-radius: 1rem;
-     overflow: hidden;
-     img {
-         display: block;
-         height: auto;
-         max-width: 100%;
-    }
-}
- .pro_name {
-     font-weight: 600;
-     font-size: 1.5rem;
-     a {
-         text-decoration: none;
-    }
-}
- .pro_host {
-     font-size: 1rem;
-}
- .pro_onair {
-     font-size: 0.8rem;
-     font-weight: 600;
-     text-transform: uppercase;
-     margin-top: 15px;
-}
- .pro_onair:empty {
-     margin-top: 0px;
-}
- .programs {
-     width: 100%;
-     p {
-         display: none;
-    }
-}
- .programs_archived {
-     width: 100%;
-     color: grey;
-     img {
-         opacity: 0.6;
-    }
-     p {
-         display: none;
-    }
-}
- .programs_archived > .pro_info > .pro_cover {
-     position: relative;
-     text-align: center;
-     color: white;
-     .program_img_arch {
-         width: 100%;
-         height: 24px;
-         text-align: center;
-         font-size: 12px;
-         position: absolute;
-         top: 0;
-         background: rgba(1, 1, 1, 0.5);
-         text-transform: uppercase;
-         padding-top: 4px;
-         color: white;
-         z-index: 0;
-    }
-}
- .pro_name_box {
-     background-color: #616161;
-     border-radius: 1rem;
-     color: white;
-     width: 90px;
-     height: 90px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     text-align: center;
-     text-transform: uppercase;
-     font-size: 9.4px;
-     line-height: 1.2em;
-}
- @media screen and (max-width: 600px) {
-     .pro_cover {
-         flex: 0 0 6rem;
-         max-width: 4rem;
-         max-height: 4rem;
-         border-radius: 1rem;
-         overflow: hidden;
-         img {
-             display: block;
-             height: auto;
-             max-width: 100%;
-        }
-    }
-     .pro_name {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 3;
-         font-size: 0.98rem;
-    }
-     .pro_host {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 2;
-         font-size: 0.68rem;
-    }
-     .pro_onair {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 2;
-         font-size: 0.48rem;
-         margin-top: 5px;
-    }
-     .pro_content {
-         line-height: 1.8;
-    }
-     .title_days {
-         font-weight: 700;
-         margin-left: 25px;
-    }
-     .programs_archived > .pro_info > .pro_cover {
-         .program_img_arch {
-             height: 18px;
-             font-size: 8px;
-        }
-    }
-     .pro_name_box {
-         width: 60px;
-         height: 60px;
-         font-size: 6.2px;
-    }
-}
- .program_info_title {
-     margin-left: 25px;
-     font-weight: 700;
-     font-size: 1.9rem;
-     margin-top: 20px;
-     margin-bottom: 10px;
-     line-height: 40px;
-}
- .program_info_box {
-     display: flex;
-     margin-left: 25px;
-}
- .program_info_cover {
-     flex: 0 0 10rem;
-     max-width: 10rem;
-     max-height: 10rem;
-     border-radius: 1rem;
-     overflow: hidden;
-     img {
-         display: block;
-         height: auto;
-         max-width: 100%;
-    }
-}
- .program_info_data {
-     align-items: center;
-     margin-left: 10px;
-     padding: 1rem 0;
-     margin-block: auto;
-     margin-left: 25px;
-}
- .program_info_djs {
-     font-size: 16px;
-     font-weight: 400;
-}
- .program_info_airtime {
-     font-weight: 600;
-     text-transform: uppercase;
-}
- .program_info_desc {
-     align-items: center;
-     margin-left: 25px;
-     padding: 1rem 0;
-}
- .program_info_urls {
-     letter-spacing: 5px;
-     margin-left: 25px;
-     font-size: 28px;
-}
- .program_info_email {
-    a {
-         text-decoration: none;
-    }
- }
- .program_info_onairs {
-     font-weight: 600;
-     font-size: 16px;
-     margin-top: 10px;
-     margin-left: 25px;
-}
- .program_info_onairs_list {
-     margin-left: 25px;
-}
- .program_info_name_box {
-     background-color: #616161;
-     border-radius: 1rem;
-     color: white;
-     width: 150px;
-     height: 150px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     text-align: center;
-     text-transform: uppercase;
-     font-size: 16px;
-     line-height: 1.2em;
-}
-.podcast_list_episode {
-    padding-left: 25px;
-    h3 {
-        font-weight: 600;
-    }
-    /*max-width: 800px;
-    margin: 20px auto;
-    padding: 0 15px;*/
-}
-.podcast_list_episode_content {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 10px;
-}
-.podcast_list_episode_title {
-    display: block;
-    padding: 15px 20px;
-    background: #ffffff;
-    color: #333;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    border-top-width: 3px;
-    border-bottom-width: 3px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    a {
-        text-decoration: none;
-    }
-}
-.podcast_list_episode_title:hover {
-    background: #f8f9fa;
-    border-color: #007bff;
-    color: #007bff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-/* Wersja Mobilna */
-@media (max-width: 600px) {
-    .podcast_list_episode_title {
-        padding: 12px 15px;
-        font-size: 16px;
-    }
-}
- @media screen and (max-width: 600px) {
-     .program_info_title {
-         margin-left: 10px;
-    }
-     .program_info_box {
-         display: block;
-         margin-left: 10px;
-    }
-     .program_info_cover {
-         margin: auto;
-    }
-     .program_info_data {
-         margin-left: 0px;
-    }
-     .program_info_desc {
-         margin-left: 10px;
-    }
-     .program_info_urls {
-         margin-left: 10px;
-    }
-     .program_info_onairs {
-         font-size: 14px;
-         margin-left: 10px;
-    }
-     .program_info_onairs_list {
-         font-size: 12px;
-         margin-left: 10px;
-    }
-     .podcast_list_episode {
-         padding-left: 10px;
-     }
-}
-/* RAMÓWKA */
- .title {
-     display: block;
-     font-weight: 700;
-     text-transform: uppercase;
-     font-size: 1.5em;
-     margin-block-start: 0.83em;
-     margin-block-end: 0.83em;
-     color: #777;
-     text-align: center;
-     a {
-         text-decoration: none;
-    }
-}
- .title_days {
-     font-weight: 700;
-     margin-left: 50px;
-}
- .paged_title {
-     font-weight: 600;
-     text-transform: uppercase;
-     background: silver;
-     display: inline;
-     margin-left: 40px;
-     padding-left: 10px;
-     padding-right: 10px;
-}
- .sch_prog {
-     display: flex;
-     align-items: center;
-     gap: 2rem;
-     min-height: 5rem;
-     padding: 1rem 0;
-     list-style: none;
-     border-bottom: 1px solid #e3e3e3;
-}
- .subsch {
-     padding-left: 60px;
-     gap: 1.5rem;
-}
- .prog_hour {
-     width: auto;
-     min-width: 105px;
-}
- .prog_cover {
-     flex: 0 0 6rem;
+
+ .current_program_photo {
+     flex: 0 0 4rem;
      max-width: 4rem;
      max-height: 4rem;
      border-radius: 1rem;
      overflow: hidden;
-     img {
-         display: block;
-         height: auto;
-         max-width: 100%;
+     display: block;
+     height: auto;
+     max-width: 100%;
+     object-fit:cover;
+}
+.current_program_photo[src=null] {
+     display: none; /* Ukrywa obrazek, jeśli src to tekst "null" */
+}
+
+.schedule_tabs button {
+  padding:10px;
+  cursor:pointer;
+  background:#eee;
+  border:none;
+}
+
+.schedule_tabs button.active {
+  background:#333;
+  color:#fff;
+}
+
+.schedule_list {
+  display:none;
+  border:1px solid #ccc;
+  padding:10px;
+}
+
+.schedule_program {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 5rem;
+    padding: 1rem 0;
+    list-style: none;
+    border-bottom: 1px solid #e3e3e3;
+
+    .schedule_program_cover {
+        flex: 0 0 4rem;
+        height: 4rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .schedule_program_name {
+        font-weight: 600;
+    }
+    .schedule_program_item {
+        font-size: 90%;
+        text-transform: uppercase;
+        padding-left: 4px;
+        padding-right: 4px;
+        background: silver;
+        display: inline;
+    }
+    .schedule_program_item:empty {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .schedule_program_comment {
+        font-size: 80%;
+        color: darkgrey;
+    }
+    &.small {
+        padding-left: 60px;
+        gap: 1.5rem;
+        font-size: 90%;
+
+        .schedule_program_cover img {
+            width: 90%;
+            height: 90%;
+        }
     }
 }
- .subsch > .prog_cover {
-     flex: 0 0 2.5rem;
-     max-width: 2.5rem;
-     max-height: 2.5rem;
-     border-radius: 0.5rem;
-     overflow: hidden;
-     img {
-         display: block;
-         height: auto;
-         max-width: 100%;
-    }
-}
- .prog_name {
-     font-weight: 600;
-     font-size: 1.2rem;
-     a {
-         text-decoration: none;
-    }
-}
- .prog_host {
-     font-size: 0.9rem;
-     a {
-         text-decoration: none;
-    }
-}
- .prog_item {
-     font-size: 0.7rem;
-     text-transform: uppercase;
-     padding-left: 4px;
-     padding-right: 4px;
-     background: silver;
-     display: inline;
-}
- .prog_item:empty {
-     padding-left: 0px;
-     padding-right: 0px;
-}
- .prog_desc {
-     font-size: 0.8rem;
-}
- .schedule {
-     width: 100%;
-     p {
-         display: none;
-    }
-     .subsch {
-         color: grey;
-    }
-     .onair {
-         color: red;
-    }
-}
- .subsch > .prog_content > .prog_name {
-     font-weight: 600;
-     font-size: 0.8rem;
-     a {
-         text-decoration: none;
-    }
-}
- .subsch > .prog_content > .prog_host {
-     font-size: 0.6rem;
-     a {
-         text-decoration: none;
-    }
-}
- .subsch > .prog_hour {
-     font-size: 0.8rem;
-     min-width: 75px;
-}
- .subsch > .prog_content > .prog_item {
-     font-size: 0.5rem;
-     text-transform: uppercase;
-     padding-left: 4px;
-     padding-right: 4px;
-     background: silver;
-     display: inline;
-}
- .subsch > .prog_content > .prog_item:empty {
-     padding-left: 0px;
-     padding-right: 0px;
-}
- .subsch > .prog_content > .prog_desc {
-     font-size: 0.6rem;
-}
- .prog_name_box {
-     background-color: #616161;
-     border-radius: 1rem;
-     color: white;
-     width: 60px;
-     height: 60px;
+
+.program_list_content {
      display: flex;
-     justify-content: center;
      align-items: center;
-     text-align: center;
-     text-transform: uppercase;
-     font-size: 6.4px;
-     line-height: 1.2em;
-}
- .subsch > .prog_cover > .prog_name_box {
-     background-color: #616161;
-     border-radius: 0.5rem;
-     color: white;
-     width: 37.5px;
-     height: 37.5px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     text-align: center;
-     text-transform: uppercase;
-     font-size: 3.9px;
-     line-height: 1.2em;
-}
- @media screen and (max-width: 600px) {
-     .subsch > .prog_cover {
-         flex: 0 0 3rem;
-         max-width: 3rem;
-         max-height: 3rem;
-         border-radius: 0.5rem;
-    }
-     .prog_cover {
-         grid-row-start: 1;
-         grid-row-end: 3;
-         width: 250px;
-    }
-     .prog_name {
-         font-size: 0.98em;
-    }
-     .prog_host {
-         font-size: 0.73rem;
-    }
-     .prog_item {
-         font-size: 0.58rem;
-    }
-     .prog_desc {
-         font-size: 0.58rem;
-    }
-     .prog_hour {
-         grid-column: 2;
-         grid-row: 2;
-         font-size: 1.0rem;
-         @media (min-width:576px) {
-             width: 425px;
-        }
-         @media (max-width:575px) and (min-width:551px) {
-             width: 400px;
-        }
-         @media (max-width:550px) and (min-width:526px) {
-             width: 375px;
-        }
-         @media (max-width:525px) and (min-width:501px) {
-             width: 350px;
-        }
-         @media (max-width:500px) and (min-width:476px) {
-             width: 325px;
-        }
-         @media (max-width:475px) and (min-width:451px) {
-             width: 300px;
-        }
-         @media (max-width:450px) and (min-width:426px) {
-             width: 275px;
-        }
-         @media (max-width:425px) and (min-width:401px) {
-             width: 250px;
-        }
-         @media (max-width:400px) and (min-width:376px) {
-             width: 225px;
-        }
-         @media (max-width:375px) and (min-width:351px) {
-             width: 200px;
-        }
-         @media (max-width:350px) {
-             width: 175px;
-        }
-    }
-     .sch_prog {
-         display: grid;
-         line-height: 0.5;
-         column-gap: 20px;
-         justify-self: left;
-    }
-     .prog_content {
-         grid-column: 2;
-         grid-row: 1;
-         line-height: 1.8;
-         @media (min-width:576px) {
-             width: 425px;
-        }
-         @media (max-width:575px) and (min-width:551px) {
-             width: 400px;
-        }
-         @media (max-width:550px) and (min-width:526px) {
-             width: 375px;
-        }
-         @media (max-width:525px) and (min-width:501px) {
-             width: 350px;
-        }
-         @media (max-width:500px) and (min-width:476px) {
-             width: 325px;
-        }
-         @media (max-width:475px) and (min-width:451px) {
-             width: 300px;
-        }
-         @media (max-width:450px) and (min-width:426px) {
-             width: 275px;
-        }
-         @media (max-width:425px) and (min-width:401px) {
-             width: 250px;
-        }
-         @media (max-width:400px) and (min-width:376px) {
-             width: 225px;
-        }
-         @media (max-width:375px) and (min-width:351px) {
-             width: 200px;
-        }
-         @media (max-width:350px) {
-             width: 175px;
-        }
-    }
-     .title_days {
-         font-weight: 700;
-         margin-left: 25px;
-    }
-     .subsch > .prog_hour {
-         font-size: 0.7rem;
-         @media (min-width:576px) {
-             width: 380px;
-        }
-         @media (max-width:575px) and (min-width:551px) {
-             width: 355px;
-        }
-         @media (max-width:550px) and (min-width:526px) {
-             width: 330px;
-        }
-         @media (max-width:525px) and (min-width:501px) {
-             width: 305px;
-        }
-         @media (max-width:500px) and (min-width:476px) {
-             width: 280px;
-        }
-         @media (max-width:475px) and (min-width:451px) {
-             width: 255px;
-        }
-         @media (max-width:450px) and (min-width:426px) {
-             width: 230px;
-        }
-         @media (max-width:425px) and (min-width:401px) {
-             width: 205px;
-        }
-         @media (max-width:400px) and (min-width:376px) {
-             width: 180px;
-        }
-         @media (max-width:375px) and (min-width:351px) {
-             width: 155px;
-        }
-         @media (max-width:350px) {
-             width: 130px;
-        }
-    }
-     .subsch > .prog_content {
-         @media (min-width:576px) {
-             width: 380px;
-        }
-         @media (max-width:575px) and (min-width:551px) {
-             width: 355px;
-        }
-         @media (max-width:550px) and (min-width:526px) {
-             width: 330px;
-        }
-         @media (max-width:525px) and (min-width:501px) {
-             width: 305px;
-        }
-         @media (max-width:500px) and (min-width:476px) {
-             width: 280px;
-        }
-         @media (max-width:475px) and (min-width:451px) {
-             width: 255px;
-        }
-         @media (max-width:450px) and (min-width:426px) {
-             width: 230px;
-        }
-         @media (max-width:425px) and (min-width:401px) {
-             width: 205px;
-        }
-         @media (max-width:400px) and (min-width:376px) {
-             width: 180px;
-        }
-         @media (max-width:375px) and (min-width:351px) {
-             width: 155px;
-        }
-         @media (max-width:350px) {
-             width: 130px;
-        }
-    }
-     .subsch > .prog_content > .prog_name {
-         font-size: 0.53rem;
-    }
-     .subsch > .prog_content > .prog_host {
-         font-size: 0.43rem;
-    }
-     .subsch > .prog_content > .prog_item {
-         font-size: 0.38rem;
-    }
-     .subsch > .prog_content > .prog_desc {
-         font-size: 0.38rem;
-    }
-     .subsch > .prog_cover > .prog_name_box {
-         width: 45px;
-         height: 45px;
-         font-size: 4.7px;
-    }
-}
-/* SZCZEGÓŁOWA RAMÓWKA */
- .dsch_prog {
-     display: flex;
-     flex-direction: column;
-     align-items: left gap: 2rem;
+     gap: 2rem;
      min-height: 5rem;
      padding: 1rem 0;
      list-style: none;
      border-bottom: 1px solid #e3e3e3;
+     .program_list_cover {
+        flex: 0 0 4rem;
+        max-width: 4rem;
+        max-height: 4rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            object-fit:cover;
+        }
+     }
+     .program_list_name {
+        font-weight: 600;
+     }
 }
- .dsch_content {
-     display: flex;
-     font-size: 1.3em;
-     font-weight: 600;
-     a {
-         text-decoration: none;
+
+.onair {
+  background:#fbd9d3;
+}
+
+.tabcontent {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+.tab button.active {
+  background-color: #ccc;
+} /* Styl aktywnej zakładki */
+
+.schedule_program { 
+  a { 
+    text-decoration: none;
+  }
+}
+
+.program_list_content {
+  a {
+    text-decoration: none;
+  }
+}
+@media screen and (max-width: 600px) {
+.schedule_program {
+    font-size: 80%;
+    gap: 1rem;
+    .schedule_program_cover {
+        flex: 0 0 3.5rem;
+        height: 3.5rem;
+        border-radius: 3.5rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &.small {
+        padding-left: 30px;
+        font-size: 80%;
+        gap: 1rem;
+
+        .schedule_program_cover img {
+            width: 80%;
+            height: 80%;
+        }
     }
 }
- .dsch_icon {
-     margin-right: 5px;
+.program_list_content {
+     font-size: 80%;
+     gap: 1rem;
+     .program_list_cover {
+        flex: 0 0 3.5rem;
+        max-width: 3.5rem;
+        max-height: 3.5rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            object-fit:cover;
+        }
+     }
+     .program_list_name {
+        font-weight: 600;
+     }
 }
- .dsch_host {
-     font-size: 0.9em;
-     margin-left: 25px;
-}
- .dsch_hours {
-     font-size: 0.7em;
-     color: #808080;
-     margin-left: 25px;
-}
- .dsch_desc {
-     font-size: 0.9em;
-     margin-left: 25px;
-}
- @media screen and (max-width: 600px) {
-     .dsch_content {
-         font-size: 1.1em;
-    }
-     .dsch_host {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 2;
-    }
-     .dsch_hours {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 4;
-    }
-     .dsch_desc {
-         display: -webkit-box;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-         -webkit-line-clamp: 4;
-    }
 }
