@@ -124,8 +124,8 @@ function renderCurrent() {
 // TABS
 // =====================
 function renderTabs() {
-  const tabs = document.getElementById("tabs");
-  const contents = document.getElementById("tab_contents");
+  const tabs = document.getElementById("days");
+  const contents = document.getElementById("day_contents");
   const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
 
   tabs.innerHTML = "";
@@ -141,12 +141,12 @@ function renderTabs() {
 
     const tab = document.createElement("div");
     tab.className = "schedule_list";
-    tab.id = "tab_"+day;
+    tab.id = "day_"+day;
     tab.style.display = day === today ? "block" : "none";
 
     btn.onclick = () => {
       document.querySelectorAll(".schedule_list").forEach(t=>t.style.display="none");
-      document.querySelectorAll("#tabs button").forEach(b=>b.classList.remove("active"));
+      document.querySelectorAll("#days button").forEach(b=>b.classList.remove("active"));
       tab.style.display="block";
       btn.classList.add("active");
     };
@@ -219,7 +219,7 @@ function updateOnAirStatus() {
 
     if (!start || !end) return;
 
-    const dayOfTab = row.closest('.schedule_list').id.replace('tab_', '');
+    const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
 
     const isTodayTab = dayOfTab === currentDay;
     const isYesterdayTab = dayOfTab === yesterday;
