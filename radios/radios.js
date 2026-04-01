@@ -275,8 +275,8 @@ function renderPrograms(){
       el.className = "program_list_content";
       
         const programUrl = p.url_immediately 
-            ? `<div class="program_list_name" style="cursor:pointer; font-weight:bold;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
-            : `<div class="program_list_name" onclick="LoadProgram('${p.id}')" style="cursor:pointer; font-weight:bold;">${p.name}</div>`;
+            ? `<div class="program_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
+            : `<div class="program_list_name" onclick="LoadProgram('${p.id}')" style="cursor:pointer;">${p.name}</div>`;
 
       el.innerHTML = `
         <div class="program_list_cover"><img src="${p.thumbnail_uri}"></div>
