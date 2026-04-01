@@ -172,8 +172,8 @@ function renderTabs() {
         const isRestricted = data.id === null || data.private === true || stations.disable_programs === true;
         
         const programUrl = data.url_immediately 
-            ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
-            : `<div style="cursor:pointer;" onclick="LoadProgram('${data.id}')">${displayName}</div>`; // Dodano ' po ${data.id}
+            ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
+            : `<div class="schedule_program_name" style="cursor:pointer;" onclick="LoadProgram('${data.id}')">${displayName}</div>`; // Dodano ' po ${data.id}
 
         const programUrlN = data.url_immediately 
             ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
@@ -181,16 +181,19 @@ function renderTabs() {
 
         const programId = isRestricted ? programUrlN : programUrl;
 
+        const commentDisplay = p.comment ? `<div class="schedule_program_comment">${p.comment}</div>` : '';
+
         // 2. Przypisanie danych i HTML
         el.dataset.start = p.hour_start; 
         el.dataset.end = p.hour_end;
         
         el.innerHTML = `
-            <div>${p.item || ""}</div>
-            <b>${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</b>
+            <div class="schedule_program_item">${p.item || ""}</div>
+            <div class="schedule_program_data">${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
             ${programId}
-            <div>${p.host || data.host || ""}</div>
-            ${thumbnailDisplay}
+            <div class="schedule_program_host">${p.host || data.host || ""}</div>
+            <div class="schedule_program_cover">${thumbnailDisplay}</div>
+            ${commentDisplay}
         `;
 
         tab.appendChild(el);
@@ -270,13 +273,13 @@ function renderPrograms(){
       el.className = "program_list_content";
       
         const programUrl = p.url_immediately 
-            ? `<div style="cursor:pointer; font-weight:bold;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
-            : `<div onclick="LoadProgram('${p.id}')" style="cursor:pointer; font-weight:bold;">${p.name}</div>`;
+            ? `<div class="program_list_name" style="cursor:pointer; font-weight:bold;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
+            : `<div class="program_list_name" onclick="LoadProgram('${p.id}')" style="cursor:pointer; font-weight:bold;">${p.name}</div>`;
 
       el.innerHTML = `
-        <img src="${p.thumbnail_uri}">
+        <div class="program_list_cover"><img src="${p.thumbnail_uri}"></div>
         ${programUrl}
-        <div>${p.only_the_schedule_hosts === true ? '' : p.host}</div>
+        <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
       `;
 
       container.appendChild(el);
