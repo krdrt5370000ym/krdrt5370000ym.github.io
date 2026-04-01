@@ -140,12 +140,12 @@ function renderTabs() {
     if(day === today) btn.classList.add("active");
 
     const tab = document.createElement("div");
-    tab.className = "tabcontent";
+    tab.className = "schedule_list";
     tab.id = "tab_"+day;
     tab.style.display = day === today ? "block" : "none";
 
     btn.onclick = () => {
-      document.querySelectorAll(".tabcontent").forEach(t=>t.style.display="none");
+      document.querySelectorAll(".schedule_list").forEach(t=>t.style.display="none");
       document.querySelectorAll("#tabs button").forEach(b=>b.classList.remove("active"));
       tab.style.display="block";
       btn.classList.add("active");
@@ -219,7 +219,7 @@ function updateOnAirStatus() {
 
     if (!start || !end) return;
 
-    const dayOfTab = row.closest('.tabcontent').id.replace('tab_', '');
+    const dayOfTab = row.closest('.schedule_list').id.replace('tab_', '');
 
     const isTodayTab = dayOfTab === currentDay;
     const isYesterdayTab = dayOfTab === yesterday;
