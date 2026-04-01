@@ -72,6 +72,10 @@
     }
 }
 
+.schedule_program_name {
+  font-weight: 600;
+}
+
 .program_list_content {
      display: flex;
      align-items: center;
@@ -80,6 +84,12 @@
      padding: 1rem 0;
      list-style: none;
      border-bottom: 1px solid #e3e3e3;
+}
+
+.program_list_content, .small {
+     padding-left: 60px;
+     gap: 1.5rem;
+     font-size: 90%;
 }
 
  .program_list_cover {
@@ -96,8 +106,19 @@
     }
 }
 
+ .program_list_cover, .small {
+img {
+  width: 90%;
+  height: 90%; /* Zachowuje proporcje */
+}
+}
+
+.program_list_name {
+  font-weight: 600;
+}
+
 .onair {
-  background:#ffeeba;
+  background:#fbd9d3;
 }
 
 .tabcontent {
