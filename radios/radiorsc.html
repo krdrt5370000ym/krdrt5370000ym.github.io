@@ -30,12 +30,14 @@
               <div class="current_playlist" id="resultTrack"></div>
             </div>
             <!-- PLAYER -->
-            <select id="stationSelect"></select><button><a href="#" onclick="ReloadAudio()" style="text-decoration: none;">▶</a></button>
-            <br>
-            <audio id="player" controls autoplay></audio>
+            <div class="player_display">
+              <select id="stationSelect"></select><button><a class="buttons2" href="#" onclick="ReloadAudio()">▶</a></button>
+              <br>
+              <audio id="player" controls autoplay></audio>
+            </div>
             <hr>
             <!-- RAMÓWKA -->
-            <div id="ScheduleDisplay" style="display:block;">
+            <div class="schedule_display" id="ScheduleDisplay" style="display:block;">
               <div class="tab">
                 <button class="tablinks active" onclick="openTab(event, 'sch_schedule')">Tydzień</button>
                 <button class="tablinks" onclick="openTab(event, 'sch_detail')">Szczegółowe dni</button>
@@ -52,7 +54,7 @@
               </div>
             </div>
             <!-- PROGRAMY -->
-            <div id="AllProgramsDisplay" style="display:block;">
+            <div class="programs_display" id="AllProgramsDisplay" style="display:block;">
               <h3>Programy</h3>
               <input type="text" id="searchInput" placeholder="Szukaj programu lub autora..." oninput="renderPrograms()">
               <select id="categoryFilter" onchange="renderPrograms()">
