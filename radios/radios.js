@@ -154,18 +154,24 @@ function renderTabs() {
     };
 
     SCHEDULE
-      .filter(p =>
-        p.active &&
-        p.days.includes(day) &&
-        !p.hide_in_schedule &&
-        (!p.station || p.station.includes(CURRENT_STATION)) &&
-        !p.station_exclude?.includes(CURRENT_STATION)
-      )
+      .filter(p => {
+        // Pobieramy dane wcześniej, aby móc przefiltrować po hide_in_schedule
+        const programData = getProgramData(p);
+        return (
+          p.active &&
+          p.days.includes(day) &&
+          !programData.hide_in_schedule &&
+          (!p.station || p.station.includes(CURRENT_STATION_ID)) && // Upewnij się czy tu ma być ID czy nazwa
+          !p.station_exclude?.includes(CURRENT_STATION_ID)
+        );
+      })
       .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
       .forEach(p=>{
+        const escapeHTML = (str) => 
+        str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
-        const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}">` : '';
+        const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}" alt="${escapeHTML(p.name || data.name)}">` : '';
 
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
