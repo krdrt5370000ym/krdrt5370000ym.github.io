@@ -56,6 +56,7 @@
 .buttons2 {
   height: 22px;
   display: inline;
+  padding-block: inherit;
 }
 
 .buttons2 a {
@@ -64,6 +65,14 @@
 
 .player_display {
   margin-left: 10px;
+}
+
+.player_display_config {
+  display: flex;
+  align-items: center;  /* Środek w pionie */
+  /* justify-content: center; /* Środek w poziomie */
+  gap: 10px; /* Opcjonalny odstęp między selectem a buttonem */
+  height: 50px; /* Przykładowa wysokość rodzica */
 }
 
 .schedule_display {
