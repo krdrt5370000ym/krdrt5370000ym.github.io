@@ -178,8 +178,8 @@ function renderTabs() {
             : `<div class="schedule_program_name" style="cursor:pointer;" onclick="LoadProgram('${data.id}')">${displayName}</div>`; // Dodano ' po ${data.id}
 
         const programUrlN = data.url_immediately 
-            ? `<div style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
-            : `<div>${displayName}</div>`;
+            ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
+            : `<div class="schedule_program_name">${displayName}</div>`;
 
         const programId = isRestricted ? programUrlN : programUrl;
 
