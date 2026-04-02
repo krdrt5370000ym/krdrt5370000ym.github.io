@@ -2,6 +2,7 @@
   border:1px solid #ccc;
   padding:15px;
   margin-bottom:20px;
+  margin-left: 10px;
 }
 
 .current_program_item {
@@ -50,6 +51,20 @@
 }
 .current_program_photo[src=null] {
      display: none; /* Ukrywa obrazek, jeśli src to tekst "null" */
+}
+
+.buttons2 {
+  a {
+    text-decoration: none;
+  }
+}
+
+.player_display {
+  margin-left: 10px;
+}
+
+.schedule_display {
+  margin-left: 10px;
 }
 
 .schedule_tabs button {
@@ -130,6 +145,10 @@
             height: 90%;
         }
     }
+}
+
+.programs_display {
+  margin-left: 10px;
 }
 
 .program_list_content {
