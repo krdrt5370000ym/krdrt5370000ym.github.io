@@ -163,6 +163,10 @@
     }
 }
 
+.schedule_detail {
+    font-size: 80%;
+}
+
 .programs_display {
   margin-left: 10px;
 }
