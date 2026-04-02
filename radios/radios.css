@@ -75,6 +75,10 @@
   height: 50px; /* Przykładowa wysokość rodzica */
 }
 
+.player_display_config > select {
+    width: 150px;
+}
+
 .schedule_display {
   margin-left: 10px;
 }
@@ -161,6 +165,14 @@
 
 .programs_display {
   margin-left: 10px;
+}
+
+.programs_display > input {
+    width: 180px;
+}
+
+.programs_display > select {
+    width: 150px;
 }
 
 .program_list_content {
