@@ -127,9 +127,9 @@ function renderCurrent() {
 }
 
 // =====================
-// TABS
+// SCHEDULES
 // =====================
-function renderTabs() {
+function renderSchedules() {
   const tabs = document.getElementById("days");
   const contents = document.getElementById("day_contents");
   const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
@@ -175,12 +175,12 @@ function renderTabs() {
         str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
-        const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}" alt="${escapeHTML(p.name || data.name)}">` : '';
+        const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}" alt="${escapeHTML(p.name || data.name || "")}">` : '';
 
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
-        const displayName = p.name || data.name;
+        const displayName = p.name || data.name || "";
         const isRestricted = data.id === null || data.private === true || stations.disable_programs === true;
         
         const programUrl = data.url_immediately 
@@ -345,7 +345,7 @@ function renderStations(){
 
 function reloadAll(){
   renderCurrent();
-  renderTabs();
+  renderSchedules();
   renderPrograms();
 }
 
@@ -548,7 +548,7 @@ function playlistNowPlaying(playlistString) {
 function init() {
   renderStations();
   renderCurrent();
-  renderTabs();
+  renderSchedules();
   renderPrograms();
   updateOnAirStatus();
 
@@ -562,7 +562,7 @@ function init() {
     updateOnAirStatus();
 
     if (newDay !== lastDay) {
-      renderTabs();
+      renderSchedules();
       lastDay = newDay;
     }
 
