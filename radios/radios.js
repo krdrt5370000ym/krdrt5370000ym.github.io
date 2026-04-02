@@ -81,6 +81,8 @@ function renderCurrent() {
   const yesterday = day === "0" ? "6" : (day - 1).toString();
   const time = now.toTimeString().slice(0,8);
   const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
+  const escapeHTML = (str) => 
+  str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
 
   const program = SCHEDULE
     .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)) && !p.station_exclude?.includes(CURRENT_STATION))
@@ -105,6 +107,7 @@ function renderCurrent() {
     document.querySelector(".current_program_title").textContent = stations.name || 'Radio Online';
     document.querySelector(".current_program_host").textContent = "";
     document.querySelector(".current_program_photo").src = stations.cover || null;
+    document.querySelector(".current_program_host").alt = "";
 
   if(!program || stations.radio_plug === true) return;
 
@@ -120,6 +123,7 @@ function renderCurrent() {
   document.querySelector(".current_program_host").textContent =
     program.host || data.host || "";
   document.querySelector(".current_program_photo").src = thumbnail;
+    document.querySelector(".current_program_host").alt = escapeHTML(program.name || data.name || "");
 }
 
 // =====================
@@ -259,11 +263,13 @@ function renderPrograms(){
   const container = document.getElementById("program_list");
   const filter = document.getElementById("categoryFilter").value;
   const search = document.getElementById("searchInput").value.toLowerCase(); // Pobieramy frazę
+  const escapeHTML = (str) => 
+  str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
 
   container.innerHTML = "";
 
   PROGRAMS
-    .filter(p => !p.hide_in_program && !p.private && !p.archive && !p.hide_only_information_schedule && (!p.category_not_all || p.category))
+    .filter(p => !p.hide_in_program && !p.hide_in_schedule && !p.private && !p.archive && !p.hide_only_information_schedule && (!p.category_not_all || p.category))
     .filter(p => !filter || p.category === filter)
     .filter(p => !p.station || p.station.includes(CURRENT_STATION))
     // NOWY FILTR: Wyszukiwarka tekstowa
@@ -287,7 +293,7 @@ function renderPrograms(){
             : `<div class="program_list_name" onclick="LoadProgram('${p.id}')" style="cursor:pointer;">${p.name}</div>`;
 
       el.innerHTML = `
-        <div class="program_list_cover"><img src="${p.thumbnail_uri}"></div>
+        <div class="program_list_cover"><img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}"></div>
         <div>
             ${programUrl}
             <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
@@ -406,7 +412,7 @@ function LoadProgram(id) {
   if (id === null) return;
 
   const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.url_immediately || program.private === true) return;
+  if (!program || program.url_immediately || program.hide_in_schedule === true || program.private === true) return;
 
   const occurrencesSch = SCHEDULE.filter(osch => osch.id === id && osch.active && osch.hide_in_schedule !== true);
   const occurrencesHost = [...new Set(occurrencesSch.host)];
@@ -445,7 +451,7 @@ function LoadProgram(id) {
       </style>
     </head>
     <body>
-      ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="Thumbnail">` : ""}
+      ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : ""}
       <h2>${escapeHTML(program.name)}</h2>
       <div class="meta">
         <div><b>Prowadzący:</b> ${escapeHTML(occurrencesHostA) || "---"}</div>
