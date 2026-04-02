@@ -91,7 +91,7 @@
         font-weight: 600;
     }
     .schedule_program_item {
-        font-size: 90%;
+        font-size: 80%;
         text-transform: uppercase;
         padding-left: 4px;
         padding-right: 4px;
@@ -102,8 +102,24 @@
         padding-left: 0px;
         padding-right: 0px;
     }
-    .schedule_program_comment {
+    .schedule_program_data {
         font-size: 80%;
+        text-transform: uppercase;
+        padding-left: 4px;
+        padding-right: 4px;
+        background: silver;
+        display: inline;
+    }
+    .schedule_program_host {
+        font-size: 80%;
+        text-transform: uppercase;
+        padding-left: 4px;
+        padding-right: 4px;
+        background: silver;
+        display: inline;
+    }
+    .schedule_program_comment {
+        font-size: 70%;
         color: darkgrey;
     }
     &.small {
@@ -175,7 +191,7 @@
     .schedule_program_cover {
         flex: 0 0 3.5rem;
         height: 3.5rem;
-        border-radius: 3.5rem;
+        border-radius: 1rem;
         overflow: hidden;
         display: flex;
         align-items: center;
