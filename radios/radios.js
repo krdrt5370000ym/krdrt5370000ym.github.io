@@ -176,12 +176,13 @@ function renderSchedules() {
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
         const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}" alt="${escapeHTML(p.name || data.name || "")}">` : '';
+        const programIdCheck = PROGRAMS.find(x=>x.id===data.id);
 
         const el = document.createElement("div");
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
         const displayName = p.name || data.name || "";
-        const isRestricted = data.id === null || data.private === true || stations.disable_programs === true;
+        const isRestricted = !programIdCheck || data.id === null || data.private === true || stations.disable_programs === true;
         
         const programUrl = data.url_immediately 
             ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
