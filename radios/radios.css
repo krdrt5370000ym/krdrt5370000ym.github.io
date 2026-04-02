@@ -54,9 +54,12 @@
 }
 
 .buttons2 {
-  a {
-    text-decoration: none;
-  }
+  height: 22px;
+  display: inline;
+}
+
+.buttons2 a {
+  text-decoration: none;
 }
 
 .player_display {
