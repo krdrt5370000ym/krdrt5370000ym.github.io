@@ -319,12 +319,22 @@ function renderPrograms(){
       const el = document.createElement("div");
       el.className = "program_list_content";
       
+          const thumb = p.thumbnail_text;
+          const style = thumb ? [
+          thumb.background ? `background:${thumb.background}` : '',
+          thumb.color ? `color:${thumb.color}` : ''
+          ].filter(Boolean).join(';') : '';
+          const name = (thumb && thumb.name) || p.name || "";
+          const thumbnailDisplay = p.thumbnail_uri ? 
+          `<div class="program_list_cover"><img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}"></div>` : "";
+          const thumbnailText = thumb ? `<div class="program_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
+      
         const programUrl = p.url_immediately 
             ? `<div class="program_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
             : `<div class="program_list_name" onclick="LoadProgram('${p.id}')" style="cursor:pointer;">${p.name}</div>`;
 
       el.innerHTML = `
-        <div class="program_list_cover"><img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}"></div>
+        ${thumbnailText}
         <div>
             ${programUrl}
             <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
