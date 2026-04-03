@@ -343,6 +343,9 @@
      margin-left: 25px;
      font-size: 28px;
 }
+.program_info_urls:empty {
+     display:none;
+}
  .program_info_email {
     a {
          text-decoration: none;
