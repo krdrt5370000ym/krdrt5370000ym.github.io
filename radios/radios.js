@@ -50,7 +50,7 @@ function openTab(evt, tabName) {
 }
 
 function isInTimeRange(start, end, current) {
-  if (start < end) {
+  if (start <= end) {
     return current >= start && current < end;
   } else {
     // Logika dla audycji przechodzących przez północ (np. 22:00 - 02:00)
