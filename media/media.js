@@ -111,7 +111,7 @@ function LoadPodcast(id) {
             <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
         </head>
         <body class="w3-light-grey">
-            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/radios.css">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css">
             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
             <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
