@@ -97,6 +97,12 @@ input[type="radio"]:checked + label {
 }
 
 @media screen and (min-width: 1000px) {
+h3 {
+    font-size: 28px;
+}
+h4 {
+    font-size: 28px;
+}
 .podcast_list_content {
      font-size: 120%;
      gap: 1rem;
