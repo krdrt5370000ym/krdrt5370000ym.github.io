@@ -1,36 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name='robots' content='noindex, follow' />
-    <title>Strona w stronie | krdrt537000ym.github.io</title>
-    <!-- /info_pages/ -->
-    <script src="/site-head.js"></script>
-  </head>
-  <body class="w3-light-grey">
-    <link rel="stylesheet" href="media.css">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/site-topscreen.js"></script>
-    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-      <!-- Header -->
-      <header class="w3-container" style="padding-top:22px">
-        <h5>
-          <b>
-            <i class="fa-solid fa-person-digging"></i> Strona w budowie</b>
-        </h5>
-      </header>
-      <div class="w3-row-padding w3-margin-bottom">
-        <div class="list_article">
-          <h3>Aktualności:</h3>
-          <div id="article-list">Ładowanie aktualności...</div>
-          <button id="load-more-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor: pointer;">Wczytaj więcej</button>
-        </div>
+   <head>
+      <title>Strona w stronie | krdrt537000ym.github.io</title>
+      <script src="/site-head.js"></script>
+   </head>
+   <body class="w3-light-grey">
+      <link rel="stylesheet" href="media.css">
+      <link rel="stylesheet" href="/style.css">
+      <script src="/site-topscreen.js"></script>
+      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+         <!-- Header -->
+         <header class="w3-container" style="padding-top:22px">
+            <h5>
+               <b>
+               <i class="fa-solid fa-person-digging"></i> Strona w budowie</b>
+            </h5>
+         </header>
+         <div class="w3-row-padding w3-margin-bottom">
+            <div class="tabs">
+               <!-- Ukryte przyciski sterujące -->
+               <input type="radio" id="tab1" name="my-tabs" checked>
+               <label for="tab1">Główne</label>
+               <input type="radio" id="tab2" name="my-tabs">
+               <label for="tab2">Aktualności</label>
+               <!-- Treść zakładek -->
+               <div class="content tab1-content">
+                  <ul class="website_info_page">
+                  <li onclick="event.stopPropagation(); this.classList.toggle('open');">
+                     <span><a href="https://soswskierniewice.pl/">SOSWSkierniewice.pl</a></span>
+                     <ul class="website_info_page">
+                        <li><span><a href="https://www.facebook.com/sosw.skce/">Facebook</a></span></li>
+                        <li><span><a href="https://www.instagram.com/sosw_w_skierniewicach">Instagram</a></span></li>
+                        <li><span><a href="https://www.youtube.com/@soswim.j.korczaka3935">YouTube</a></span></li>
+                     </ul>
+                  </li>
+                  <li onclick="event.stopPropagation(); this.classList.toggle('open');">
+                     <span><a href="https://wspolnatroska.pl/">WspolnaTroska.pl</a></span>
+                     <ul class="website_info_page">
+                        <li><span><a href="https://www.facebook.com/wspolnatroska/">Facebook</a></span></li>
+                        <li><span><a href="https://www.facebook.com/p/O%C5%9Brodek-Opieku%C5%84czo-Rehabilitacyjny-dla-Dzieci-Niepe%C5%82no-im-Jana-Paw%C5%82a-II-100055211033058/">Facebook (Ośrodek im.Jana Pawła II)</a></span></li>
+                        <li><span><a href="https://www.facebook.com/p/O%C5%9Brodek-Rewalidacyjno-Wychowawczy-100063458592026/">Facebook (Ośrodek Rewalidacyjno - Wychowawczy)</a></span></li>
+                        <li><span><a href="https://www.facebook.com/fundacjatroskagarnizonki/">Facebook (Fundacja Troska TPP „Garnizonki”)</a></span></li>
+                        <li><span><a href="https://www.youtube.com/@Garnizonki">YouTube (Fundacja Troska TPP „Garnizonki”)</a></span></li>
+                     </ul>
+                  </li>
+                  <li onclick="event.stopPropagation(); this.classList.toggle('open');">
+                     <span>Stowarzyszenie JesteśMy</span>
+                     <ul class="website_info_page">
+                        <li><span><a href="https://www.facebook.com/people/Stowarzyszenie-Jeste%C5%9BMy/61564140570279/">Facebook</a></span></li>
+                        <li><span><a href="https://www.instagram.com/jestesmy__stowarzyszenie__skce/">Instagram</a></span></li>
+                     </ul>
+                  </li>
+                  <li onclick="event.stopPropagation(); this.classList.toggle('open');">
+                     <span>Kategorie w SOSW</span>
+                     <ul class="website_info_page">
+                        <li><span><a href="https://soswskierniewice.pl/category/akademia-muzyczna/">Akademia Muzyczna</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/akademia-sportu/">Akademia Sportu</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/aktualnosci/">Aktualności</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/bip/">BIP</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/dla-nauczycieli/">Dla Nauczycieli</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/projekt-ekologiczny/ekopracownia/">EKOPRACOWNIA</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/galeria/foto/">foto</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/galeria/">Galeria</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/galeria_105/">Galeria 105 – Pracownia Plastyczna</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/bez-filtra/">Jestem piękna/piękny bez filtra</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/klub-absolwenta/">Klub Absolwenta</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/projekt-ekologiczny/lesny-zakatek-projekt-ekologiczny/">Leśny zakątek</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/mieszkanie-treningowe/">Mieszkanie treningowe</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/mrm/">Młodzieżowa Rada Miasta</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/projekt-ekologiczny/">Projekt ekologiczny</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/projekt-ekologiczny-czystym-powietrzem-oddychamy-jesli-o-nie-zadbamy/">Projekt Ekologiczny &quot;Czystym powietrzem oddychamy, jeśli o nie zadbamy&quot;</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/przedszkole/">Przedszkole</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/przyklady-dobrej-praktyki/">Przykłady dobrej praktyki</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/projekt-ekologiczny/punkt-dydaktyczny-z-wrzosowiskiem/">Punkt dydaktyczny z wrzosowiskiem</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/dla-rodzicow/">Rodzice</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/samorzad-uczniowski/">Samorząd Uczniowski</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/bip/sprawozdania-finansowe/">Sprawozdania finansowe</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/szkolne-kolo-ligi-ochrony-przyrody/">Szkolne Koło Ligi Ochrony Przyrody</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/szkolne-kolo-wolontariatu/">Szkolne Koło Wolontariatu</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/szkola-branzowa/">Szkoła Branżowa</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/szkola-podstawowa/">Szkoła Podstawowa</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/szkola-przysposabiajaca-do-pracy/">Szkoła Przysposabiająca do Pracy</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/galeria/video/">Video</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/z-zycia-internatu/">Z życia internatu</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/zfss/">ZAKŁADOWY FUNDUSZ ŚWIADCZEŃ SOCJALNYCH</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/zdalne-nauczanie/">Zdalne nauczanie</a></span></li>
+                        <li><span><a href="https://soswskierniewice.pl/category/zespol-wczesnego-wspomagania-rozwoju-dziecka/">Zespół wczesnego wspomagania rozwoju dziecka</a></span></li>
+                     </ul>
+                  </li>
+                  <li onclick="event.stopPropagation(); this.classList.toggle('open');">
+                     <span>Kategorie w Wspólnej Trosce</span>
+                     <ul class="website_info_page">
+                        <li><span><a href="https://wspolnatroska.pl/stowarzyszenie/nasz-zespol">Stowarzyszenie </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/projekty/korpus-solidarnosci">Projekty </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/aktualnosci">Aktualności </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/jednostki-organizacyjne/osrodek-imjana-pawla-ii">Jednostki organizacyjne </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/fundacja/o-fundacji-troska">Fundacja </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/fundacja/kontakt">Kontakt </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/wesprzyj">Wesprzyj </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/stowarzyszenie/statut">Statut </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/stowarzyszenie/regulamin">Regulamin </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/stowarzyszenie/sprawozdania">Sprawozdania </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/jednostki-organizacyjne/zaz-balcerow">ZAZ Balcerów </a></span></li>
+                        <li><span><a href="https://wspolnatroska.pl/jednostki-organizacyjne/nzoz-osrodek-opiekunczo-rehabilitacyjny">NZOZ Ośrodek Opiekuńczo Rehabilitacyjny </a></span></li>
+                     </ul>
+               </div>
+               <div class="content tab2-content">
+               <div class="list_article">
+               <h3>Aktualności:</h3>
+               <div id="article-list">Ładowanie aktualności...</div>
+               <button id="load-more-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor: pointer;">Wczytaj więcej</button>
+               </div>
+               </div>
+            </div>
+         </div>
+         <script src="/site-bottomscreen.js"></script>
       </div>
-      <script src="/site-bottomscreen.js"></script>
-    </div>
-    <script src="/site-sidebar.js"></script>
-    <script src="site-article.js"></script>
-    <script>
-      WPArticle('https://soswskierniewice.pl');
-    </script>
-  </body>
+      <script src="/site-sidebar.js"></script>
+      <script src="site-article.js"></script>
+      <script src="media.js"></script>
+      <script>
+         WPArticle('https://soswskierniewice.pl');
+      </script>
+   </body>
 </html>
