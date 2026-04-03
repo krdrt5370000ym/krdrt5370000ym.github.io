@@ -108,6 +108,9 @@ li ul.website_info_page {
   a {
       text-decoration: none;
   }
+  @media (min-width:1000px) {
+      font-size: 18px;
+  }
 }
 
 /* Strzałka tylko dla elementów posiadających podlistę */
