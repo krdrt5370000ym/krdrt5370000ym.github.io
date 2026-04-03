@@ -91,19 +91,28 @@ function renderCurrent() {
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
       return false;
     })
-.sort((a, b) => {
-    // 1. Priorytet dla konkretnej stacji (zawsze najważniejsze)
-    if (a.station && !b.station) return -1;
-    if (!a.station && b.station) return 1;
-
-    // 2. Priorytet dla subschedule
-    if (a.subschedule && !b.subschedule) return -1;
-    if (!a.subschedule && b.subschedule) return 1;
-
-    // 3. KLUCZ: Późniejsza godzina startu wygrywa (malejąco)
-    // Dzięki temu 08:45 będzie przed 07:00
-    return (b.hour_start || "").localeCompare(a.hour_start || "");
-})[0];
+    .sort((a, b) => {
+        const dataA = getProgramData(a);
+        const dataB = getProgramData(b);
+    
+        // 1. Priorytet dla konkretnej stacji
+        if (a.station && !b.station) return -1;
+        if (!a.station && b.station) return 1;
+    
+        // 2. Priorytet dla subschedule
+        if (a.subschedule && !b.subschedule) return -1;
+        if (!a.subschedule && b.subschedule) return 1;
+      
+        // 3. Główny sort: Późniejsza godzina startu (malejąco)
+        if (a.hour_start !== b.hour_start) {
+            return (b.hour_start || "").localeCompare(a.hour_start || "");
+        }
+    
+        // 4. Jeśli godziny są te same, sortuj alfabetycznie po nazwie
+        const nameA = a.name || dataA.name || "";
+        const nameB = b.name || dataB.name || "";
+        return nameA.localeCompare(nameB);
+    })[0];
 
     document.querySelector(".current_program_item").textContent = "";
     document.querySelector(".current_program_hour").textContent = "";
