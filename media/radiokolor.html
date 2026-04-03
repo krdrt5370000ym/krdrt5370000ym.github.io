@@ -1,36 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name='robots' content='noindex, follow' />
-    <title>Strona w stronie | krdrt537000ym.github.io</title>
-    <!-- /info_pages/ -->
-    <script src="/site-head.js"></script>
-  </head>
-  <body class="w3-light-grey">
-    <link rel="stylesheet" href="media.css">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/site-topscreen.js"></script>
-    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-      <!-- Header -->
-      <header class="w3-container" style="padding-top:22px">
-        <h5>
-          <b>
-            <i class="fa-solid fa-person-digging"></i> Strona w budowie</b>
-        </h5>
-      </header>
-      <div class="w3-row-padding w3-margin-bottom">
-        <div class="list_article">
-          <h3>Aktualności:</h3>
-          <div id="article-list">Ładowanie aktualności...</div>
-          <button id="load-more-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor: pointer;">Wczytaj więcej</button>
-        </div>
+   <head>
+      <title>Strona w stronie | krdrt537000ym.github.io</title>
+      <script src="/site-head.js"></script>
+   </head>
+   <body class="w3-light-grey">
+      <link rel="stylesheet" href="media.css">
+      <link rel="stylesheet" href="/style.css">
+      <script src="/site-topscreen.js"></script>
+      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+         <!-- Header -->
+         <header class="w3-container" style="padding-top:22px">
+            <h5>
+               <b>
+               <i class="fa-solid fa-person-digging"></i> Strona w budowie</b>
+            </h5>
+         </header>
+         <div class="w3-row-padding w3-margin-bottom">
+            <div class="tabs">
+               <!-- Ukryte przyciski sterujące -->
+               <input type="radio" id="tab1" name="my-tabs" checked>
+               <label for="tab1">Główne</label>
+               <input type="radio" id="tab2" name="my-tabs">
+               <label for="tab2">Podcasty</label>
+               <input type="radio" id="tab3" name="my-tabs">
+               <label for="tab3">Aktualności</label>
+               <!-- Treść zakładek -->
+               <div class="content tab1-content">
+                  <span class="phone"><a href="https://m.me/245012180446"><i class="fa-brands fa-facebook-messenger"></i></a><i class="fa-solid fa-phone"></i> 508 999 103</span><br><button class="buttons buttons1"><a href="https://radiokolor.pl/podcasty/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://radiokolor.pl/">🌐 Strona</a></button><br><button class="buttons buttons2"><a href="https://forum.radiopolska.pl/index.php?showtopic=10703">Forum RP</a></button><button class="buttons buttons2"><a href="https://forum.satkurier.pl/topic/22474-radio-kolor/">Forum SK</a></button><button class="buttons buttons2"><a href="https://forum.media2.pl/viewtopic.php?style=9&amp;t=4328">Forum M2</a></button><br><a href="https://www.fb.com/245012180446" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a><a href="https://www.instagram.com/radiokolor/" title="Instagram"><i class="fa-brands fa-instagram" style="font-size:36px"></i></a><a href="https://x.com/radiokolor" title="X"><i class="fa-brands fa-x-twitter" style="font-size:36px"></i></a><a href="https://www.youtube.com/channel/UCsvrq6flMSYGc9aNlF_VtGQ" title="YouTube"><i class="fa-brands fa-youtube" style="font-size:36px"></i></a><a href="https://www.tiktok.com/@radiokolor" title="TikTok"><i class="fa-brands fa-tiktok" style="font-size:36px"></i></a><a href="https://pl.wikipedia.org/wiki/Radio_Kolor" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" style="font-size:36px"></i></a>
+                  <ul class="website_info_page">
+                     <li><span><a href="https://radiokolor.pl/">Start</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/wiadomosci/">Wiadomości</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/kategoria/kultura/">Kultura</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/kategoria/lifestyle/">Lifestyle</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/kategoria/sport/">Sport</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/program/">Ramówka</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/muzyka/">Muzyka</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/na-antenie/">Na antenie</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/podcasty/">Podcasty</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/studio-103/">Studio 103</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/ekipa/">Ekipa</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/kontakt/">Kontakt</a></span></li>
+                     <li><span><a href="https://radiokolor.pl/player/">Posłuchaj</a></span></li>
+                  </ul>
+               </div>
+               <div class="content tab2-content">
+                  <div class="podcasts_display" id="AllProgramsDisplay" style="display:block;">
+                     <h3>Podcasty</h3>
+                     <input type="text" id="searchInput" placeholder="Szukaj podcastu lub autora..." oninput="renderPodcasts()">
+                     <select id="categoryFilter" onchange="renderPodcasts()">
+                        <option value="">Wszystkie kategorie</option>
+                        <option value="Podcasty">Podcasty</option>
+                     </select>
+                     <div class="podcast_list" id="podcast_list"></div>
+                  </div>
+               </div>
+               <div class="content tab3-content">
+                  <div class="list_article">
+                     <h3>Aktualności:</h3>
+                     <div id="article-list">Ładowanie aktualności...</div>
+                     <button id="load-more-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor: pointer;">Wczytaj więcej</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <script src="/site-bottomscreen.js"></script>
       </div>
-      <script src="/site-bottomscreen.js"></script>
-    </div>
-    <script src="/site-sidebar.js"></script>
-    <script src="site-article.js"></script>
-    <script>
-      WPArticle('https://radiokolor.pl');
-    </script>
-  </body>
+      <script src="/site-sidebar.js"></script>
+      <script src="site-article.js"></script>
+      <script src="media.js"></script>
+      <script>
+         WPArticle('https://radiokolor.pl');
+         loadData('radiokolor').then(init);
+      </script>
+   </body>
 </html>
