@@ -128,7 +128,7 @@ function LoadPodcast(id) {
                             ${podcast.onair ? `<div class="podcast_info_airtime">${escapeHTML(podcast.onair)}</div>` : ""}
                             ${podcast.label ? `<div class="podcast_info_producter">Wydawca: ${escapeHTML(podcast.label)}</div>` : ""}
                             ${podcast.email ? `<div class="podcast_info_email">E-mail: ${emailContact}</div>` : ""}
-                            Prowadzący: <div class="podcast_info_djs">${escapeHTML(occurrencesHostA) || "---"}</div>
+                            Prowadzący: <div class="podcast_info_djs">${escapeHTML(podcast.host) || "---"}</div>
                             </div>
                         </div>
                     <div class="podcast_info_desc">${podcast.description || "Brak opisu podcastu."}</div>
