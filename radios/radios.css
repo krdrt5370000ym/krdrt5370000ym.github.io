@@ -55,6 +55,21 @@
      display: none; /* Ukrywa obrazek, jeśli src to tekst "null" */
 }
 
+.current_program_box {
+    background-color: #616161;
+    border-radius: 1rem;
+    color: white;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 6.2px;
+    line-height: 1.2em;
+}
+
 .buttons2 {
   height: 22px;
   display: inline;
@@ -220,6 +235,20 @@
             object-fit:cover;
         }
      }
+     .program_list_box {
+        background-color: #616161;
+        border-radius: 1rem;
+        color: white;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 6.2px;
+        line-height: 1.2em;
+     }
      .program_list_name {
         font-weight: 600;
      }
@@ -306,6 +335,10 @@
             object-fit:cover;
         }
      }
+    .program_list_box {
+        width: 52.5px;
+        height: 52.5px;
+    }
      .program_list_name {
         font-weight: 600;
      }
