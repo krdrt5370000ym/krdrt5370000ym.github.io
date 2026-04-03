@@ -1,3 +1,9 @@
+ .but1 {
+     a {
+         text-decoration: none;
+    }
+}
+
 /* Ukrywamy oryginalne radio buttons */
 input[type="radio"] { display: none; }
 
