@@ -436,6 +436,9 @@ h4 {
         }
     }
 }
+.schedule_detail {
+    font-size: 100%;
+}
 .program_list_content {
      font-size: 120%;
      gap: 1rem;
