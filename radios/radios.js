@@ -91,8 +91,15 @@ function renderCurrent() {
   const program = SCHEDULE
     .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)) && !p.station_exclude?.includes(CURRENT_STATION))
     .filter(p => {
-      if (p.days.includes(day)) return isInTimeRange(p.hour_start, p.hour_end, time);
-      if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
+      if (!p.midnight && p.days.includes(day)) {
+        return isInTimeRange(p.hour_start, p.hour_end, time);
+      }
+      if (!p.midnight && p.days.includes(yesterday) && p.hour_start > p.hour_end) {
+        return time < p.hour_end;
+      }
+      if (p.midnight && p.days.includes(day)) {
+        return time >= p.hour_start && time < p.hour_end;
+      }
       return false;
     })
     .sort((a, b) => {
