@@ -182,11 +182,14 @@ function renderSchedules() {
       .filter(p => {
         // Pobieramy dane wcześniej, aby móc przefiltrować po hide_in_schedule
         const programData = getProgramData(p);
+        const isPreviousDayMidnight = p.midnight && p.days.includes(
+            ((parseInt(day) + 1) % 7).toString()
+        );
         return (
           p.active &&
-          p.days.includes(day) &&
           !programData.hide_in_schedule &&
-          (!p.station || p.station.includes(CURRENT_STATION_ID)) && // Upewnij się czy tu ma być ID czy nazwa
+          (p.days.includes(day) || isPreviousDayMidnight) &&
+          (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
           !p.station_exclude?.includes(CURRENT_STATION_ID)
         );
       })
@@ -254,31 +257,41 @@ function renderSchedules() {
 function updateOnAirStatus() {
   const now = new Date();
   const currentDay = now.getDay().toString();
-  const currentTime = now.toTimeString().slice(0, 5);
+  const currentTime = now.toTimeString().slice(0, 8); // Użyj pełnego formatu HH:MM:SS
 
-  const yesterday = (currentDay === "0" ? "6" : (parseInt(currentDay) - 1).toString());
+  const yesterday = (parseInt(currentDay) === 0 ? "6" : (parseInt(currentDay) - 1).toString());
 
   document.querySelectorAll('.schedule_program').forEach(row => {
     const start = row.dataset.start;
     const end = row.dataset.end;
-
     if (!start || !end) return;
 
     const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
-
-    const isTodayTab = dayOfTab === currentDay;
-    const isYesterdayTab = dayOfTab === yesterday;
-
     let active = false;
 
-    if (isTodayTab) {
+    // 1. Jeśli jesteśmy na tabie DZISIEJSZYM
+    if (dayOfTab === currentDay) {
       active = isInTimeRange(start, end, currentTime);
-    } else if (isYesterdayTab && start > end) {
-      active = currentTime < end;
+    } 
+    // 2. Jeśli jesteśmy na tabie WCZORAJSZYM (logiczna noc)
+    else if (dayOfTab === yesterday) {
+      // Przypadek A: Audycja klasyczna przez północ (np. 22:00 -> 02:00)
+      const isOvernight = start > end;
+      // Przypadek B: Twoja nowa audycja "midnight" (np. 00:00 -> 05:00)
+      // Musimy sprawdzić, czy ten konkretny element w DOM pochodzi z obiektu z flagą midnight
+      // (Warto dodać dataset.midnight w renderSchedules)
+      const isMidnightType = row.dataset.midnight === "true";
+
+      if (isOvernight) {
+        active = currentTime < end;
+      } else if (isMidnightType) {
+        active = currentTime >= start && currentTime < end;
+      }
     }
 
     row.classList.toggle('onair', active);
   });
+}
 
   // auto scroll do aktualnego
  // const activeEl = document.querySelector('.schedule_program.onair');
