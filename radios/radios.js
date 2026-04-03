@@ -89,19 +89,26 @@ function renderCurrent() {
   str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
 
   const program = SCHEDULE
-    .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION)) && !p.station_exclude?.includes(CURRENT_STATION))
-    .filter(p => {
-      if (!p.midnight && p.days.includes(day)) {
-        return isInTimeRange(p.hour_start, p.hour_end, time);
-      }
-      if (!p.midnight && p.days.includes(yesterday) && p.hour_start > p.hour_end) {
-        return time < p.hour_end;
-      }
-      if (p.midnight && p.days.includes(day)) {
+  .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION_ID)) && !p.station_exclude?.includes(CURRENT_STATION_ID))
+  .filter(p => {
+    const isMidnight = p.midnight === true;
+    const startsBeforeMidnight = p.hour_start > p.hour_end;
+    if (p.days.includes(yesterday)) {
+      if (startsBeforeMidnight && time < p.hour_end) return true;
+    }
+    if (p.days.includes(day)) {
+      if (isMidnight) {
         return time >= p.hour_start && time < p.hour_end;
+      } else {
+        if (startsBeforeMidnight) {
+          return time >= p.hour_start; 
+        } else {
+          return time >= p.hour_start && time < p.hour_end;
+        }
       }
-      return false;
-    })
+    }
+    return false;
+  })
     .sort((a, b) => {
         const dataA = getProgramData(a);
         const dataB = getProgramData(b);
@@ -270,50 +277,50 @@ function renderSchedules() {
 // ON AIR STATUS
 // =====================
 function updateOnAirStatus() {
-  const now = new Date();
+  // Używamy daty przekazanej (do testów) lub aktualnej
+  const now = new Date(); 
   const currentDay = now.getDay().toString();
-  
-  // Format HH:MM:SS, aby pasował do danych z dataset
-  const currentTime = now.toTimeString().slice(0, 8); 
+  const currentTime = now.toTimeString().slice(0, 8);
 
-  // Obliczamy ID wczorajszego dnia (0-6)
   const yesterday = (parseInt(currentDay) === 0 ? "6" : (parseInt(currentDay) - 1).toString());
 
   document.querySelectorAll('.schedule_program').forEach(row => {
     const start = row.dataset.start;
     const end = row.dataset.end;
     const isMidnightType = row.dataset.midnight === "true";
+    const crossesMidnight = start > end; // np. 23:00:00 > 01:00:00
 
     if (!start || !end) return;
 
     const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
     let active = false;
 
-    // SCENARIUSZ 1: Jesteśmy w zakładce DZISIEJSZEJ
+    // SCENARIUSZ A: Sprawdzamy program w tabie DZISIEJSZYM
     if (dayOfTab === currentDay) {
-      // Podświetlamy tylko jeśli to NIE jest audycja typu midnight 
-      // (bo te z godziny 00:00 są przypisane do taba wczorajszego)
-      if (!isMidnightType) {
-        // Standardowe sprawdzanie czasu (uwzględniając audycje przechodzące przez północ np. 22-02)
-        active = isInTimeRange(start, end, currentTime);
+      if (isMidnightType) {
+        // Programy midnight (np. 01:00-02:00) w swoim nominalnym tabie są wygaszone,
+        // bo renderSchedules przeniósł je do taba "wczorajszego".
+        active = false;
+      } else if (crossesMidnight) {
+        // Dla 23:00-01:00: w tabie SOBOTA świeci TYLKO wieczorem (od 23:00 do 23:59)
+        active = (currentTime >= start);
+      } else {
+        // Standardowe (np. 14:00-16:00)
+        active = (currentTime >= start && currentTime < end);
       }
     } 
     
-    // SCENARIUSZ 2: Jesteśmy w zakładce WCZORAJSZEJ
+    // SCENARIUSZ B: Sprawdzamy program w tabie WCZORAJSZYM
     else if (dayOfTab === yesterday) {
-      // 1. Obsługa flagi midnight (np. 00:00 - 05:00)
       if (isMidnightType) {
-        // Skoro jest "dzisiaj" godzina 02:00, to audycja 00:00-05:00 z taba "wczoraj" trwa
+        // Program midnight (01:00-02:00) wyświetlony wczoraj – świeci, bo teraz jest dzisiaj rano
         active = (currentTime >= start && currentTime < end);
-      } 
-      // 2. Obsługa audycji klasycznych "przez północ" (np. start: 22:00, end: 02:00)
-      else if (start > end) {
-        // Jeśli godzina startu jest większa niż końca, to po północy audycja trwa do godziny 'end'
+      } else if (crossesMidnight) {
+        // Program 23:00-01:00 z wczoraj – świeci, bo trwa "ogon" audycji (do 01:00)
         active = (currentTime < end);
       }
     }
 
-    // Dodanie/usunięcie klasy CSS
     row.classList.toggle('onair', active);
   });
 }
