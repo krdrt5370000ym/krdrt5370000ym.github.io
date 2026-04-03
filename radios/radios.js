@@ -186,23 +186,21 @@ function renderSchedules() {
       .filter(p => {
         // Pobieramy dane wcześniej, aby móc przefiltrować po hide_in_schedule
         const programData = getProgramData(p);
-        const isPreviousDayMidnight = p.midnight && p.days.includes(
-            ((parseInt(day) + 1) % 7).toString()
+        const tomorrow = ((parseInt(day) + 1) % 7).toString();
+        const isMidnightForThisDay = p.midnight && p.days.includes(tomorrow);
+        const isRegularForThisDay = !p.midnight && p.days.includes(day);
         );
         return (
           p.active &&
           !programData.hide_in_schedule &&
-          (p.days.includes(day) || isPreviousDayMidnight) &&
+          (isRegularForThisDay || isMidnightForThisDay) && // Kluczowa zmiana: albo zwykła dzisiaj, albo nocna z jutra
           (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
           !p.station_exclude?.includes(CURRENT_STATION_ID)
         );
       })
       .sort((a, b) => {
-          // Logika sortowania:
-          // Jeśli audycja ma midnight: true, traktujemy ją jakby zaczynała się "po północy" (np. godzina 24+)
           const hourA = a.midnight ? "24:" + a.hour_start : a.hour_start;
           const hourB = b.midnight ? "24:" + b.hour_start : b.hour_start;
-          
           return hourA.localeCompare(hourB);
       })
       .forEach(p=>{
