@@ -7,6 +7,9 @@ label {
   background: #f1f1f1;
   cursor: pointer;
   display: inline-block;
+  @media (min-width:1000px) {
+      font-size: 18px;
+  }
 }
 
 /* Ukrywamy domyślnie całą treść */
