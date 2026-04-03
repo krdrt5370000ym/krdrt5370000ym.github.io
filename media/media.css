@@ -1,3 +1,30 @@
+/* Ukrywamy oryginalne radio buttons */
+input[type="radio"] { display: none; }
+
+/* Stylizujemy etykiety (wygląd przycisków) */
+label {
+  padding: 10px 20px;
+  background: #f1f1f1;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Ukrywamy domyślnie całą treść */
+.content { display: none; padding: 20px; border: 1px solid #ccc; }
+
+/* Klucz do sukcesu: Pokaż treść, gdy powiązane radio jest zaznaczone */
+#tab1:checked ~ .tab1-content,
+#tab2:checked ~ .tab2-content {
+  display: block;
+}
+
+/* Wyróżnienie aktywnej zakładki */
+input[type="radio"]:checked + label {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+
 .podcast_list_content {
      display: flex;
      align-items: center;
