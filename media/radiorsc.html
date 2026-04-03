@@ -19,6 +19,16 @@
         </h5>
       </header>
       <div class="w3-row-padding w3-margin-bottom">
+            <div class="podcasts_display" id="AllProgramsDisplay" style="display:block;">
+              <h3>Podcasty</h3>
+              <input type="text" id="searchInput" placeholder="Szukaj podcastu lub autora..." oninput="renderPodcasts()">
+              <select id="categoryFilter" onchange="renderPodcasts()">
+                <option value="">Wszystkie kategorie</option>
+                <option value="">Podcasty</option>
+              </select>
+              <div class="podcast_list" id="podcast_list"></div>
+            <script>loadData('radiorsc').then(init);</script>
+            </div>
         <div class="list_article">
           <h3>Aktualności:</h3>
           <div id="article-list">Ładowanie aktualności...</div>
