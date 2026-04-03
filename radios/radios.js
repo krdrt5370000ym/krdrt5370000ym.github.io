@@ -428,45 +428,73 @@ function LoadProgram(id) {
   ? program.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
   : '';
   const podcastList = (program.podcast) ? `<audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
-      <div id="episode-list">Ładowanie odcinków...</div>
-      <script src="https://krdrt5370000ym.github.io/site-episode.js"><\/script>
-      <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-      <script>${program.podcast}<\/script>` : '';
+      <div class="podcast_list_episode">
+          <h3>Lista odcinków podcastu:</h3>
+          <div id="episode-list">Ładowanie odcinków...</div>
+      </div>` : '';
   const escapeHTML = (str) => 
     str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
 
   // 1. Tworzymy treść HTML jako string
   const htmlContent = `
     <!DOCTYPE html>
-    <html lang="pl">
-    <head>
-      <meta charset="UTF-8">
-      <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
-      <title>${escapeHTML(program.name)}</title>
-      <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; line-height: 1.6; color: #333; max-width: 800px; margin: auto; }
-        img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { color: #000; margin-top: 0; font-size: 2em; }
-        .meta { color: #666; font-size: 0.95em; margin-bottom: 20px; border-left: 4px solid #eee; padding-left: 15px; }
-        #episode-list { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; }
-      </style>
-    </head>
-    <body>
-      ${program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : ""}
-      <h2>${escapeHTML(program.name)}</h2>
-      <div class="meta">
-        <div><b>Prowadzący:</b> ${escapeHTML(occurrencesHostA) || "---"}</div>
-        <div>${escapeHTML(program.onair)}</div>
-        <div><b>Emisja:</b> ${escapeHTML(scheduleInfo)}</div>
-        ${emailContact}
-        <div>${escapeHTML(program.label)}</div>
-      </div>
-      <hr>
-      <div class="description">${program.description || "Brak opisu programu."}</div>
-      ${podcastList}
-    </body>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name='robots' content='noindex, follow' />
+            <title>${escapeHTML(program.name)} | krdrt537000ym.github.io</title>
+            <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+        </head>
+        <body class="w3-light-grey">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios.css">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+            <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
+            <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+            <!-- Header -->
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa-solid fa-radio"></i> Programy i audycje</b></h5>
+                </header>
+                <div class="w3-row-padding w3-margin-bottom">
+                    <p class="program_info_title">${escapeHTML(program.name)}</p>
+                    <div class="program_info_box">
+                        <div class="program_info_cover">${program.thumbnail_uri ? `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : ""}</div>
+                        <div class="program_info_data">
+                            ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}<div>` : ""}
+                            ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTMLprogram.label)}<div>` : ""}
+                            ${program.email ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
+                            Prowadzący: <div class="program_info_djs">${escapeHTML(occurrencesHostA) || "---"}</div>
+                            </div>
+                        </div>
+                    <div class="program_info_desc">${program.description || "Brak opisu programu."}</div>
+                    <div class="program_info_urls">
+                        ${program.url ? `<a href="${program.url}"><i class="fa-solid fa-link"></i></a>` : ""}
+                        ${program.url_rss ? `<a href="${program.url_rss}"><i class="fa-solid fa-rss"></i></a>` : ""}
+                        ${program.url_podcast ? `<a href="${program.url_podcast}"><i class="fa-solid fa-podcast"></i></a>` : ""}
+                        ${program.url_spreaker ? `<a href="${program.url_spreaker}"><i class="fa-solid fa-table-list"></i></a>` : ""}
+                        ${program.url_spotify ? `<a href="${program.url_spotify}"><i class="fa-brands fa-spotify"></i></a>` : ""}
+                        ${program.url_kick ? `<a href="${program.url_kick}"><i class="fa-brands fa-kickstarter-k"></i></a>` : ""}
+                        ${program.url_twitch ? `<a href="${program.url_twitch}"><i class="fa-brands fa-twitch"></i></a>` : ""}
+                        ${program.url_youtube ? `<a href="${program.url_youtube}"><i class="fa-brands fa-youtube"></i></a>` : ""}
+                        ${program.url_facebook ? `<a href="${program.url_facebook}"><i class="fa-brands fa-facebook"></i></a>` : ""}
+                        ${program.url_instagram ? `<a href="${program.url_instagram}"><i class="fa-brands fa-instagram"></i></a>` : ""}
+                        ${program.url_tiktok ? `<a href="${program.url_tiktok}"><i class="fa-brands fa-tiktok"></i></a>` : ""}
+                        ${program.url_x ? `<a href="${program.url_x}"><i class="fa-brands fa-x-twitter"></i></a>` : ""}
+                        ${program.url_soundcloud ? `<a href="${program.url_soundcloud}"><i class="fa-brands fa-soundcloud"></i></a>` : ""}
+                        ${program.url_mixcloud ? `<a href="${program.url_mixcloud}"><i class="fa-brands fa-mixcloud"></i></a>` : ""}
+                    </div>
+                    ${scheduleInfo ? `<div class="program_info_onairs">Na antenie:</div>` : ""}
+                    ${scheduleInfo ? `<div class="program_info_onairs_list">${scheduleInfo}</div>` : ""}
+                    ${podcastList}
+                </div>
+                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+            </div>
+            <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+            <script src="https://krdrt5370000ym.github.io/site-episode.js"><\/script>
+            ${program.podcast ? `<script>${program.podcast}<\/script>` : ""}
+        </body>
     </html>
-  `;
+    `;
 
   // 2. Tworzymy Blob i generujemy URL
   const blob = new Blob([htmlContent], { type: 'text/html' });
