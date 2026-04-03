@@ -50,8 +50,12 @@ function openTab(evt, tabName) {
 }
 
 function isInTimeRange(start, end, current) {
-  if (start <= end) return current >= start && current < end;
-  return current >= start || current < end;
+  if (start < end) {
+    return current >= start && current < end;
+  } else {
+    // Logika dla audycji przechodzących przez północ (np. 22:00 - 02:00)
+    return current >= start || current < end;
+  }
 }
 
 function getProgramData(p){
@@ -265,45 +269,50 @@ function renderSchedules() {
 function updateOnAirStatus() {
   const now = new Date();
   const currentDay = now.getDay().toString();
-  const currentTime = now.toTimeString().slice(0, 8); // Użyj pełnego formatu HH:MM:SS
+  
+  // Format HH:MM:SS, aby pasował do danych z dataset
+  const currentTime = now.toTimeString().slice(0, 8); 
 
+  // Obliczamy ID wczorajszego dnia (0-6)
   const yesterday = (parseInt(currentDay) === 0 ? "6" : (parseInt(currentDay) - 1).toString());
 
   document.querySelectorAll('.schedule_program').forEach(row => {
     const start = row.dataset.start;
     const end = row.dataset.end;
+    const isMidnightType = row.dataset.midnight === "true";
+
     if (!start || !end) return;
 
     const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
     let active = false;
 
-    // 1. Jeśli jesteśmy na tabie DZISIEJSZYM
+    // SCENARIUSZ 1: Jesteśmy w zakładce DZISIEJSZEJ
     if (dayOfTab === currentDay) {
-      active = isInTimeRange(start, end, currentTime);
+      // Podświetlamy tylko jeśli to NIE jest audycja typu midnight 
+      // (bo te z godziny 00:00 są przypisane do taba wczorajszego)
+      if (!isMidnightType) {
+        // Standardowe sprawdzanie czasu (uwzględniając audycje przechodzące przez północ np. 22-02)
+        active = isInTimeRange(start, end, currentTime);
+      }
     } 
-    // 2. Jeśli jesteśmy na tabie WCZORAJSZYM (logiczna noc)
+    
+    // SCENARIUSZ 2: Jesteśmy w zakładce WCZORAJSZEJ
     else if (dayOfTab === yesterday) {
-      // Przypadek A: Audycja klasyczna przez północ (np. 22:00 -> 02:00)
-      const isOvernight = start > end;
-      // Przypadek B: Twoja nowa audycja "midnight" (np. 00:00 -> 05:00)
-      // Musimy sprawdzić, czy ten konkretny element w DOM pochodzi z obiektu z flagą midnight
-      // (Warto dodać dataset.midnight w renderSchedules)
-      const isMidnightType = row.dataset.midnight === "true";
-
-      if (isOvernight) {
-        active = currentTime < end;
-      } else if (isMidnightType) {
-        active = currentTime >= start && currentTime < end;
+      // 1. Obsługa flagi midnight (np. 00:00 - 05:00)
+      if (isMidnightType) {
+        // Skoro jest "dzisiaj" godzina 02:00, to audycja 00:00-05:00 z taba "wczoraj" trwa
+        active = (currentTime >= start && currentTime < end);
+      } 
+      // 2. Obsługa audycji klasycznych "przez północ" (np. start: 22:00, end: 02:00)
+      else if (start > end) {
+        // Jeśli godzina startu jest większa niż końca, to po północy audycja trwa do godziny 'end'
+        active = (currentTime < end);
       }
     }
 
+    // Dodanie/usunięcie klasy CSS
     row.classList.toggle('onair', active);
   });
-  // auto scroll do aktualnego
- // const activeEl = document.querySelector('.schedule_program.onair');
- //  if (activeEl) {
- //   activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
- //  }
 }
 
 // =====================
