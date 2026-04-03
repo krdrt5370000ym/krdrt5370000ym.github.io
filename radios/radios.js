@@ -501,6 +501,9 @@ function LoadProgram(id) {
 
   if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) return;
 
+  const escapeHTML = (str) => 
+    str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+  
   const scheduleInfo = getDisplaySchedule(id);
   const thumb = program.thumbnail_text;
   const style = thumb ? [
@@ -519,8 +522,6 @@ function LoadProgram(id) {
           <h3>Lista odcinków podcastu:</h3>
           <div id="episode-list">Ładowanie odcinków...</div>
       </div>` : '';
-  const escapeHTML = (str) => 
-    str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
 
   // 1. Tworzymy treść HTML jako string
   const htmlContent = `
