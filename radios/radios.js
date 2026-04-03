@@ -112,6 +112,16 @@ function renderCurrent() {
 
   const data = getProgramData(program);
   const thumbnail = getThumbnail(program, data);
+  
+  const thumb = program.thumbnail_text || data.thumbnail_text;
+  const style = thumb ? [
+    thumb.background ? `background:${thumb.background}` : '',
+    thumb.color ? `color:${thumb.color}` : ''
+  ].filter(Boolean).join(';') : '';
+  const name = (thumb && thumb.name) || program.name || data.name || "";
+  const thumbnailText = thumb 
+  ? `<div class="current_name_box" style="${style}">${name}</div>` 
+  : `<img src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "")}">` || "";
 
   document.querySelector(".current_program_item").textContent = program.item || "";
   document.querySelector(".current_program_hour").textContent =
@@ -121,7 +131,7 @@ function renderCurrent() {
     program.name || data.name || "";
   document.querySelector(".current_program_host").textContent =
     program.host || data.host || "";
-  document.querySelector(".current_program_photo").innerHTML = `<img src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "")}">` || "";
+  document.querySelector(".current_program_photo").innerHTML = thumbnailText;
 }
 
 // =====================
@@ -174,6 +184,15 @@ function renderSchedules() {
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
         const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}" alt="${escapeHTML(p.name || data.name || "")}">` : '';
+        const thumb = p.thumbnail_text || data.thumbnail_text;
+        const style = thumb ? [
+          thumb.background ? `background:${thumb.background}` : '',
+          thumb.color ? `color:${thumb.color}` : ''
+        ].filter(Boolean).join(';') : '';
+        const name = (thumb && thumb.name) || p.name || data.name || "";
+        const thumbnailText = thumb 
+          ? `<div class="schedule_name_box" style="${style}">${name}</div>` 
+          : thumbnailDisplay;
         const programIdCheck = PROGRAMS.find(x=>x.id===data.id);
 
         const el = document.createElement("div");
@@ -199,7 +218,7 @@ function renderSchedules() {
         el.dataset.end = p.hour_end;
         
         el.innerHTML = `
-            <div class="schedule_program_cover">${thumbnailDisplay}</div>
+            <div class="schedule_program_cover">${thumbnailText}</div>
             <div class="schedule_program_content">
                 <div class="schedule_program_item">${p.item || ""}</div>
                 <div class="schedule_program_data">${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
