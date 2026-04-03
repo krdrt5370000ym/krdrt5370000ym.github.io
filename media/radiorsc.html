@@ -1,47 +1,99 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name='robots' content='noindex, follow' />
-    <title>Strona w stronie | krdrt537000ym.github.io</title>
-    <!-- /info_pages/ -->
-    <script src="/site-head.js"></script>
-  </head>
-  <body class="w3-light-grey">
-    <link rel="stylesheet" href="media.css">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/site-topscreen.js"></script>
-    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-      <!-- Header -->
-      <header class="w3-container" style="padding-top:22px">
-        <h5>
-          <b>
-            <i class="fa-solid fa-person-digging"></i> Strona w budowie</b>
-        </h5>
-      </header>
-      <div class="w3-row-padding w3-margin-bottom">
-            <div class="podcasts_display" id="AllProgramsDisplay" style="display:block;">
-              <h3>Podcasty</h3>
-              <input type="text" id="searchInput" placeholder="Szukaj podcastu lub autora..." oninput="renderPodcasts()">
-              <select id="categoryFilter" onchange="renderPodcasts()">
-                <option value="">Wszystkie kategorie</option>
-                <option value="">Podcasty</option>
-              </select>
-              <div class="podcast_list" id="podcast_list"></div>
+   <head>
+      <meta name='robots' content='noindex, follow' />
+      <title>Strona w stronie | krdrt537000ym.github.io</title>
+      <!-- /info_pages/ -->
+      <script src="/site-head.js"></script>
+   </head>
+   <body class="w3-light-grey">
+      <link rel="stylesheet" href="media.css">
+      <link rel="stylesheet" href="/style.css">
+      <script src="/site-topscreen.js"></script>
+      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+         <!-- Header -->
+         <header class="w3-container" style="padding-top:22px">
+            <h5>
+               <b>
+               <i class="fa-solid fa-person-digging"></i> Strona w budowie</b>
+            </h5>
+         </header>
+         <div class="w3-row-padding w3-margin-bottom">
+            <div class="tabs">
+               <!-- Ukryte przyciski sterujące -->
+               <input type="radio" id="tab1" name="my-tabs" checked>
+               <label for="tab1">Główne</label>
+               <input type="radio" id="tab2" name="my-tabs">
+               <label for="tab2">Podcasty</label>
+               <input type="radio" id="tab3" name="my-tabs">
+               <label for="tab3">Aktualności</label>
+               <!-- Treść zakładek -->
+               <div class="content tab1-content">
+                  <span class="phone"><a href="https://m.me/588614737868360"><i class="fa-brands fa-facebook-messenger"></i></a><i class="fa-solid fa-phone"></i> 46 833 34 43</span><br><button class="buttons buttons1"><a href="https://radiorsc.pl/kategoria/audycje/">▶ Podcasty</a></button><button class="buttons buttons1"><a href="https://radiorsc.pl/">🌐 Strona</a></button><br><button class="buttons buttons2"><a href="https://forum.radiopolska.pl/index.php?showtopic=1872">Forum RP</a></button><button class="buttons buttons2"><a href="https://forum.satkurier.pl/topic/70209-radio-rsc/">Forum SK</a></button><br><a href="https://www.fb.com/588614737868360" title="Facebook"><i class="fa-brands fa-facebook" style="font-size:36px"></i></a><a href="https://www.instagram.com/radio.rsc/" title="Instagram"><i class="fa-brands fa-instagram" style="font-size:36px"></i></a><a href="https://www.youtube.com/@RadioRSC_Skierniewice" title="YouTube"><i class="fa-brands fa-youtube" style="font-size:36px"></i></a><a href="https://www.tiktok.com/@radiorsc" title="TikTok"><i class="fa-brands fa-tiktok" style="font-size:36px"></i></a><a href="https://open.spotify.com/show/6bfEMTN0MIgC3n11FUPGTr?si=4850e403a9974b65" title="Spotify"><i class="fa-brands fa-spotify" style="font-size:36px"></i></a><a href="https://pl.wikipedia.org/wiki/Radio_RSC" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" style="font-size:36px"></i></a>
+                  <ul class="website_info_page">
+                     <li><span><a href="https://www.radiorsc.pl/">Start</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/kategoria/audycje/">Audycje</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/lista-przebojow/">Lista przebojów</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/ramowka/">Ramówka</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/kategoria/konkursy/">Konkursy</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/kategoria/filmy/">Filmy</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/aktualnosci/">Aktualności</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/ogloszenia/">Ogłoszenia</a></span></li>
+                     <li onclick="event.stopPropagation(); this.classList.toggle('open');">
+                        <span><a href="https://radiorsc.pl/kategoria/aktualnosci/">Wiadomości</a></span>
+                        <ul class="website_info_page">
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-powiat-skierniewicki/">Powiat Skierniewicki</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-rawa-mazowiecka/">Rawa Mazowiecka</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-region/">Region</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-skierniewice/">Skierniewice</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-zyrardow/">Żyrardów</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/centrum-kultury-i-sztuki-w-skierniewicach/">CKiS Skierniewice</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/patronat-medialny/">Patronat medialny</a></span></li>
+                           <li><span><a href="https://radiorsc.pl/kategoria/aktualnosci/reklama/">Reklama</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span><a href="https://radiorsc.pl/o-nas/">O nas</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/kontakt/">Kontakt</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/polityka-prywatnosci/">Polityka prywatności</a></span></li>
+                     <li><span><a href="https://radiorsc.pl/rodo/">RODO</a></span></li>
+                     <li><span><a href="https://www.skierniewice.eu/">Skierniewice</a></span></li>
+                     <li><span><a href="https://www.lodzkie.pl/">Województwo łódzkie</a></span></li>
+                     <li><span><a href="https://www.cekis.pl/">CKiS Skierniewice</a></span></li>
+                     <li><span><a href="https://kino.cekis.pl/">Kino Polonez</a></span></li>
+                     <li><span><a href="https://akademia.cekis.pl/">Akademia Twórczości</a></span></li>
+                     <li><span><a href="https://cekis.pl/klub-konstancja/">Klub Konstancja</a></span></li>
+                     <li><span><a href="https://cekis.pl/punkt-informacji-turystycznej/">Stacja Centrum</a></span></li>
+                     <li><span><a href="https://myradioonline.pl/radio-rsc">Radio Online</a></span></li>
+                  </ul>
+               </div>
+               <div class="content tab2-content">
+                  <div class="podcasts_display" id="AllProgramsDisplay" style="display:block;">
+                     <h3>Podcasty</h3>
+                     <input type="text" id="searchInput" placeholder="Szukaj podcastu lub autora..." oninput="renderPodcasts()">
+                     <select id="categoryFilter" onchange="renderPodcasts()">
+                        <option value="">Wszystkie kategorie</option>
+                        <option value="Podcasty">Podcasty</option>
+                     </select>
+                     <div class="podcast_list" id="podcast_list"></div>
+                  </div>
+               </div>
+               <div class="content tab3-content">
+                  <div class="list_article">
+                     <h3>Aktualności:</h3>
+                     <div id="article-list">Ładowanie aktualności...</div>
+                     <button id="load-more-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor: pointer;">Wczytaj więcej</button>
+                  </div>
+               </div>
             </div>
-        <div class="list_article">
-          <h3>Aktualności:</h3>
-          <div id="article-list">Ładowanie aktualności...</div>
-          <button id="load-more-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor: pointer;">Wczytaj więcej</button>
-        </div>
+         </div>
+         <script src="/site-bottomscreen.js"></script>
       </div>
-      <script src="/site-bottomscreen.js"></script>
-    </div>
-    <script src="/site-sidebar.js"></script>
-    <script src="site-article.js"></script>
-    <script src="media.js"></script>
-    <script>
-      WPArticleRSC();
-      loadData('radiorsc').then(init);
-    </script>
-  </body>
+      <script src="/site-sidebar.js"></script>
+      <script src="site-article.js"></script>
+      <script src="media.js"></script>
+      <script>
+         WPArticleRSC();
+         loadData('radiorsc').then(init);
+      </script>
+   </body>
 </html>
