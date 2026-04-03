@@ -339,6 +339,8 @@ input[type="radio"]:checked + label {
 @media screen and (max-width: 600px) {
     .article_post {
         gap: 10px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
     }
     .article_cover img {
         width: 90px; /* Nieco większe niż 70px lepiej wygląda na mobile */
