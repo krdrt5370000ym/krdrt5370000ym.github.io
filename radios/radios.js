@@ -461,7 +461,7 @@ function LoadProgram(id) {
                         <div class="program_info_cover">${program.thumbnail_uri ? `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : ""}</div>
                         <div class="program_info_data">
                             ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}<div>` : ""}
-                            ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTMLprogram.label)}<div>` : ""}
+                            ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}<div>` : ""}
                             ${program.email ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
                             Prowadzący: <div class="program_info_djs">${escapeHTML(occurrencesHostA) || "---"}</div>
                             </div>
