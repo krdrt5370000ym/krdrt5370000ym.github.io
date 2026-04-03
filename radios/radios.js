@@ -464,6 +464,15 @@ function LoadProgram(id) {
   if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) return;
 
   const scheduleInfo = getDisplaySchedule(id);
+  const thumb = program.thumbnail_text;
+  const style = thumb ? [
+  thumb.background ? `background:${thumb.background}` : '',
+  thumb.color ? `color:${thumb.color}` : ''
+  ].filter(Boolean).join(';') : '';
+  const name = (thumb && thumb.name) || program.name || "";
+  const thumbnailDisplay = program.thumbnail_uri ? 
+  `<div class="program_info_cover"><img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}"></div>` : "";
+  const thumbnailText = thumb ? `<div class="program_info_name_box" style="${style}">${name}</div>` : thumbnailDisplay;
   const emailContact = (program.email && program.email.length > 0) 
   ? program.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
   : '';
@@ -498,7 +507,7 @@ function LoadProgram(id) {
                 <div class="w3-row-padding w3-margin-bottom">
                     <p class="program_info_title">${escapeHTML(program.name)}</p>
                     <div class="program_info_box">
-                        <div class="program_info_cover">${program.thumbnail_uri ? `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : ""}</div>
+                        ${thumbnailText}
                         <div class="program_info_data">
                             ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}</div>` : ""}
                             ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}</div>` : ""}
