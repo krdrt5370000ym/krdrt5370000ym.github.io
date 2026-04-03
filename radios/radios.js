@@ -393,7 +393,7 @@ function getDisplaySchedule(programId) {
     }
 
     return {
-      text: `${dayString}, ${formatHour(start)} - ${formatHour(end)}`,
+      text: `${dayString} ${formatHour(start)} - ${formatHour(end)}`,
       firstDay: sortedDays[0] === "0" ? 7 : parseInt(sortedDays[0]),
       startTime: start
     };
