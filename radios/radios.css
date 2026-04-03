@@ -38,18 +38,20 @@
      font-size: 80%;
 }
 
- .current_program_photo {
+.current_program_photo {
      flex: 0 0 4rem;
-     max-width: 4rem;
-     max-height: 4rem;
+     height: 4rem;
      border-radius: 1rem;
      overflow: hidden;
-     display: block;
-     height: auto;
-     max-width: 100%;
-     object-fit:cover;
+     img {
+         display: block;
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+     }
 }
-.current_program_photo[src=null] {
+
+.current_program_photo:has(img[src="null"]) {
      display: none; /* Ukrywa obrazek, jeśli src to tekst "null" */
 }
 
