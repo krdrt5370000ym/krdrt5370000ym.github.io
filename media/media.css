@@ -14,7 +14,8 @@ label {
 
 /* Klucz do sukcesu: Pokaż treść, gdy powiązane radio jest zaznaczone */
 #tab1:checked ~ .tab1-content,
-#tab2:checked ~ .tab2-content {
+#tab2:checked ~ .tab2-content,
+#tab3:checked ~ .tab3-content {
   display: block;
 }
 
