@@ -128,6 +128,20 @@
             object-fit: cover;
         }
     }
+    .schedule_name_box {
+        background-color: #616161;
+        border-radius: 1rem;
+        color: white;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 6.2px;
+        line-height: 1.2em;
+    }
     .schedule_program_name {
         font-weight: 600;
     }
@@ -159,6 +173,10 @@
         font-size: 90%;
 
         .schedule_program_cover img {
+            width: 90%;
+            height: 90%;
+        }
+        .schedule_name_box {
             width: 90%;
             height: 90%;
         }
@@ -253,12 +271,20 @@
             object-fit: cover;
         }
     }
+    .schedule_name_box {
+        width: 52.5px;
+        height: 52.5px;
+    }
     &.small {
         padding-left: 30px;
         font-size: 80%;
         gap: 1rem;
 
         .schedule_program_cover img {
+            width: 80%;
+            height: 80%;
+        }
+        .schedule_name_box {
             width: 80%;
             height: 80%;
         }
