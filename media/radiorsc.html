@@ -27,7 +27,6 @@
                 <option value="">Podcasty</option>
               </select>
               <div class="podcast_list" id="podcast_list"></div>
-            <script>loadData('radiorsc').then(init);</script>
             </div>
         <div class="list_article">
           <h3>Aktualności:</h3>
@@ -39,8 +38,10 @@
     </div>
     <script src="/site-sidebar.js"></script>
     <script src="site-article.js"></script>
+    <script src="media.js"></script>
     <script>
       WPArticleRSC();
+      loadData('radiorsc').then(init);
     </script>
   </body>
 </html>
