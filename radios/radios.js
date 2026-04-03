@@ -91,15 +91,19 @@ function renderCurrent() {
       if (p.days.includes(yesterday) && p.hour_start > p.hour_end) return time < p.hour_end;
       return false;
     })
-    .sort((a,b)=>{
+.sort((a, b) => {
+    // 1. Priorytet dla konkretnej stacji (zawsze najważniejsze)
     if (a.station && !b.station) return -1;
     if (!a.station && b.station) return 1;
-    
-    // 2. Jeśli oba są lokalne (lub oba ogólne), priorytet dla subschedule (krótsze pasma)
+
+    // 2. Priorytet dla subschedule
     if (a.subschedule && !b.subschedule) return -1;
     if (!a.subschedule && b.subschedule) return 1;
-    return 0;
-    })[0];
+
+    // 3. KLUCZ: Późniejsza godzina startu wygrywa (malejąco)
+    // Dzięki temu 08:45 będzie przed 07:00
+    return (b.hour_start || "").localeCompare(a.hour_start || "");
+})[0];
 
     document.querySelector(".current_program_item").textContent = "";
     document.querySelector(".current_program_hour").textContent = "";
