@@ -291,8 +291,6 @@ function updateOnAirStatus() {
 
     row.classList.toggle('onair', active);
   });
-}
-
   // auto scroll do aktualnego
  // const activeEl = document.querySelector('.schedule_program.onair');
  //  if (activeEl) {
