@@ -326,7 +326,7 @@ function renderPrograms(){
           ].filter(Boolean).join(';') : '';
           const name = (thumb && thumb.name) || p.name || "";
           const thumbnailDisplay = p.thumbnail_uri ? 
-          `<div class="program_list_cover"><img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}"></div>` : "";
+          `<img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
           const thumbnailText = thumb ? `<div class="program_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
       
         const programUrl = p.url_immediately 
@@ -334,7 +334,7 @@ function renderPrograms(){
             : `<div class="program_list_name" onclick="LoadProgram('${p.id}')" style="cursor:pointer;">${p.name}</div>`;
 
       el.innerHTML = `
-        ${thumbnailText}
+        <div class="program_list_cover">${thumbnailText}</div>
         <div>
             ${programUrl}
             <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
@@ -471,7 +471,7 @@ function LoadProgram(id) {
   ].filter(Boolean).join(';') : '';
   const name = (thumb && thumb.name) || program.name || "";
   const thumbnailDisplay = program.thumbnail_uri ? 
-  `<div class="program_info_cover"><img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}"></div>` : "";
+  `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "";
   const thumbnailText = thumb ? `<div class="program_info_name_box" style="${style}">${name}</div>` : thumbnailDisplay;
   const emailContact = (program.email && program.email.length > 0) 
   ? program.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
@@ -507,7 +507,7 @@ function LoadProgram(id) {
                 <div class="w3-row-padding w3-margin-bottom">
                     <p class="program_info_title">${escapeHTML(program.name)}</p>
                     <div class="program_info_box">
-                        ${thumbnailText}
+                        <div class="program_info_cover">${thumbnailText}</div>
                         <div class="program_info_data">
                             ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}</div>` : ""}
                             ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}</div>` : ""}
