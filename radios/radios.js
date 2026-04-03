@@ -120,7 +120,7 @@ function renderCurrent() {
   ].filter(Boolean).join(';') : '';
   const name = (thumb && thumb.name) || program.name || data.name || "";
   const thumbnailText = thumb 
-  ? `<div class="current_name_box" style="${style}">${name}</div>` 
+  ? `<div class="current_program_box" style="${style}">${name}</div>` 
   : `<img src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "")}">` || "";
 
   document.querySelector(".current_program_item").textContent = program.item || "";
