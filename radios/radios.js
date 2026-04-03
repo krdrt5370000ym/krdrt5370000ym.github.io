@@ -193,7 +193,14 @@ function renderSchedules() {
           !p.station_exclude?.includes(CURRENT_STATION_ID)
         );
       })
-      .sort((a,b)=>a.hour_start.localeCompare(b.hour_start))
+      .sort((a, b) => {
+          // Logika sortowania:
+          // Jeśli audycja ma midnight: true, traktujemy ją jakby zaczynała się "po północy" (np. godzina 24+)
+          const hourA = a.midnight ? "24:" + a.hour_start : a.hour_start;
+          const hourB = b.midnight ? "24:" + b.hour_start : b.hour_start;
+          
+          return hourA.localeCompare(hourB);
+      })
       .forEach(p=>{
         const escapeHTML = (str) => 
         str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
@@ -232,6 +239,7 @@ function renderSchedules() {
         // 2. Przypisanie danych i HTML
         el.dataset.start = p.hour_start; 
         el.dataset.end = p.hour_end;
+        el.dataset.midnight = p.midnight ? "true" : "false";
         
         el.innerHTML = `
             <div class="schedule_program_cover">${thumbnailText}</div>
