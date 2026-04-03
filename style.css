@@ -129,7 +129,7 @@ li ul.website_info_page {
 
 /* Rozwinięcie podlisty gdy rodzic ma klasę .open */
 .website_info_page li.open > ul.website_info_page {
-  /*max-height: 500px;  Wartość wystarczająca na treść */
+  max-height: 5000px; /* Wartość wystarczająca na treść */
   margin-top: 10px;
   margin-bottom: 10px;
 }
