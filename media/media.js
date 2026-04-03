@@ -26,7 +26,7 @@ function renderPodcasts(){
 
   PODCASTS
     .filter(p => !p.hide_in_podcast && !p.private && !p.archive && (!p.category_not_all || p.category))
-    .filter(p => !filter || p.category === filter)
+    .filter(p => !filter || (p.category && p.category.includes(filter)))
     // NOWY FILTR: Wyszukiwarka tekstowa
     .filter(p => {
       const name = (p.name || "").toLowerCase();
