@@ -339,7 +339,7 @@ function renderPrograms(){
 
   PROGRAMS
     .filter(p => !p.hide_in_program && !p.hide_in_schedule && !p.private && !p.archive && !p.hide_only_information_schedule && (!p.category_not_all || p.category))
-    .filter(p => !filter || p.category === filter)
+    .filter(p => !filter || (p.category && p.category.includes(filter)))
     .filter(p => !p.station || p.station.includes(CURRENT_STATION))
     // NOWY FILTR: Wyszukiwarka tekstowa
     .filter(p => {
