@@ -446,7 +446,7 @@ function LoadProgram(id) {
             <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
         </head>
         <body class="w3-light-grey">
-            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios.css">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios/radios.css">
             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
             <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
@@ -490,7 +490,7 @@ function LoadProgram(id) {
                 <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
             </div>
             <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-            <script src="https://krdrt5370000ym.github.io/site-episode.js"><\/script>
+            <script src="https://krdrt5370000ym.github.io/media/site-episode.js"><\/script>
             ${program.podcast ? `<script>${program.podcast}<\/script>` : ""}
         </body>
     </html>
