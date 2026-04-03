@@ -184,16 +184,14 @@ function renderSchedules() {
 
     SCHEDULE
       .filter(p => {
-        // Pobieramy dane wcześniej, aby móc przefiltrować po hide_in_schedule
         const programData = getProgramData(p);
         const tomorrow = ((parseInt(day) + 1) % 7).toString();
         const isMidnightForThisDay = p.midnight && p.days.includes(tomorrow);
         const isRegularForThisDay = !p.midnight && p.days.includes(day);
-        );
         return (
           p.active &&
           !programData.hide_in_schedule &&
-          (isRegularForThisDay || isMidnightForThisDay) && // Kluczowa zmiana: albo zwykła dzisiaj, albo nocna z jutra
+          (isRegularForThisDay || isMidnightForThisDay) &&
           (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
           !p.station_exclude?.includes(CURRENT_STATION_ID)
         );
