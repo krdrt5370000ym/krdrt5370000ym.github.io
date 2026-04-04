@@ -1,59 +1,306 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Radio internetowe</title>
-    <script src="https://krdrt5370000ym.github.io/site-head.js"></script>
-    <link rel="stylesheet" href="https://krdrt5370000ym.github.io/player/style.css">
-    <script src="https://krdrt5370000ym.github.io/player/player-head.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio internetowe</title>
+
+<script src="https://krdrt5370000ym.github.io/site-head.js"></script>
+<script src="https://krdrt5370000ym.github.io/player/player-head.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+}
+
+/* TOP BAR */
+#topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1f1f1f;
+    padding: 10px;
+}
+
+/* MENU BUTTON */
+#menuBtn {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* SIDEBAR */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #222;
+    padding: 10px;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+#sidebar.active {
+    left: 0;
+}
+
+/* OVERLAY */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+}
+
+#overlay.active {
+    display: block;
+}
+
+/* CONTENT */
+#content {
+    padding: 15px;
+    text-align: center;
+}
+
+/* STATIONS */
+.station-item {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+}
+
+.station-item.active {
+    background: #007bff;
+}
+
+/* INPUT */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #333;
+    border: none;
+    color: white;
+}
+
+/* PLAYER */
+audio {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* BUTTONS */
+button {
+    padding: 12px;
+    margin: 5px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* DESKTOP */
+@media (min-width:768px) {
+    body {
+        display: flex;
+    }
+
+    #sidebar {
+        position: static;
+        width: 300px;
+        left: 0;
+    }
+
+    #overlay, #menuBtn, #topbar {
+        display: none;
+    }
+
+    #content {
+        flex: 1;
+    }
+}
+</style>
 </head>
+
 <body>
 
+<div id="topbar">
+    <span id="menuBtn">☰</span>
+    <span>📻 Radio</span>
+</div>
+
 <div id="sidebar">
-    <a style="text-decoration:none;" href="https://krdrt5370000ym.github.io/">Wstecz</a><br>
-<!-- Dodajemy zmienną globalną currentPlaylistName -->
-    <select onchange="currentPlaylistName = this.value; fetchPlaylist(this.value)">
-      <option value="Radio">Radio</option>
-      <option value="Radio1">Radio1</option>
-      <option value="Radio2">Radio2</option>
-      <option value="RadioPoland">RadioPoland</option>
-      <option value="RadioPoland2">RadioPoland2</option>
-      <option value="RadioAbroad">RadioAbroad</option>
-      <option value="RadioCzech1">RadioCzech1</option>
-      <option value="RadioEnglish1">RadioEnglish1</option>
-      <option value="RadioEnglish2">RadioEnglish2</option>
-      <option value="RadioFrance1">RadioFrance1</option>
-      <option value="RadioFrance2">RadioFrance2</option>
-      <option value="RadioGermany1">RadioGermany1</option>
-      <option value="RadioGermany2">RadioGermany2</option>
-      <option value="RadioGermany3">RadioGermany3</option>
-      <option value="RadioGermany4">RadioGermany4</option>
-      <option value="RadioItaly1">RadioItaly1</option>
-      <option value="RadioItaly2">RadioItaly2</option>
-      <option value="RadioSlovak1">RadioSlovak1</option>
-      <option value="RadioSpain1">RadioSpain1</option>
-      <option value="RadioSpain2">RadioSpain2</option>
-      <option value="RadioUK">RadioUK</option>
-      <option value="RadioUSA">RadioUSA</option>
+    <select id="playlistSelect">
+        <option value="Radio">Radio</option>
+        <option value="Radio1">Radio1</option>
+        <option value="RadioPoland">RadioPoland</option>
+        <option value="RadioUSA">RadioUSA</option>
     </select>
-    <h3>Stacje Radiowe</h3>
-    <div style="margin-bottom: 15px;">
-        <input type="text" id="stationSearch" placeholder="Szukaj stacji..." 
-               onkeyup="filterStations()" 
-               style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
-    </div>   
+
+    <input type="text" id="stationSearch" placeholder="Szukaj...">
+
     <div id="playlist-container"></div>
 </div>
 
+<div id="overlay"></div>
+
 <div id="content">
-    <h2 id="current-station">Wybierz stację z listy</h2>
-    <audio id="player" style="display:none;" controls></audio>
-    <span style="margin-top:10px;"><button id="buttons" style="display:none;"><a href="#" onclick="reloadStation();" style="text-decoration: none;">▶</a></button><button onclick="downloadToM3U()"><i class="fa-solid fa-download"></i> Pobierz listę</button></span><div class="player-playlist" id="resultTrack"></div>
+    <h2 id="currentStation">Wybierz stację</h2>
+
+    <audio id="player" controls style="display:none;"></audio>
+
+    <div>
+        <button id="reloadBtn">▶</button>
+        <button id="downloadBtn">⬇</button>
+    </div>
+
+    <div id="resultTrack"></div>
 </div>
 
 <script src="https://krdrt5370000ym.github.io/site-nowplaying.js"></script>
-<script src="https://krdrt5370000ym.github.io/player/radios.js"></script>
-<script>fetchPlaylist('Radio')</script>
+
+<script>
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuBtn = document.getElementById('menuBtn');
+const playlistSelect = document.getElementById('playlistSelect');
+const stationSearch = document.getElementById('stationSearch');
+const container = document.getElementById('playlist-container');
+const player = document.getElementById('player');
+const currentStationText = document.getElementById('currentStation');
+const reloadBtn = document.getElementById('reloadBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+let currentPlaylist = "Radio";
+let currentStation = null;
+let currentElement = null;
+let hls = null;
+
+/* MENU */
+menuBtn.onclick = () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+};
+
+overlay.onclick = closeMenu;
+
+function closeMenu() {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+}
+
+/* PLAYLIST CHANGE */
+playlistSelect.onchange = e => {
+    currentPlaylist = e.target.value;
+    fetchPlaylist(currentPlaylist);
+};
+
+/* SEARCH */
+stationSearch.oninput = () => {
+    const val = stationSearch.value.toLowerCase();
+    document.querySelectorAll('.station-item').forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(val) ? "" : "none";
+    });
+};
+
+/* FETCH */
+async function fetchPlaylist(name) {
+    try {
+        const res = await fetch(`https://krdrt5370000ym.github.io/player/${name}.m3u`);
+        if (!res.ok) throw new Error();
+
+        const text = await res.text();
+        display(parseM3U(text));
+    } catch (e) {
+        alert("Błąd ładowania playlisty");
+    }
+}
+
+/* PARSE */
+function parseM3U(data) {
+    const lines = data.split('\n');
+    let name = "";
+    const list = [];
+
+    for (let line of lines) {
+        line = line.trim();
+
+        if (line.startsWith("#EXTINF")) {
+            name = line.split(',').slice(1).join(',') || "Nieznana";
+        } else if (line.startsWith("http")) {
+            list.push({ name, url: line });
+        }
+    }
+
+    return list;
+}
+
+/* DISPLAY */
+function display(list) {
+    container.innerHTML = "";
+
+    list.forEach(st => {
+        const div = document.createElement('div');
+        div.className = "station-item";
+        div.textContent = st.name;
+
+        div.onclick = () => play(st, div);
+
+        container.appendChild(div);
+    });
+}
+
+/* PLAY */
+function play(st, el) {
+    currentStation = st;
+    currentElement = el;
+
+    document.querySelectorAll('.station-item').forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+
+    currentStationText.textContent = "Teraz grasz: " + st.name;
+
+    if (hls) {
+        hls.destroy();
+        hls = null;
+    }
+
+    if (st.url.includes(".m3u8") && window.Hls && Hls.isSupported()) {
+        hls = new Hls();
+        hls.loadSource(st.url);
+        hls.attachMedia(player);
+    } else {
+        player.src = st.url;
+    }
+
+    player.style.display = "block";
+    player.play().catch(()=>{});
+
+    closeMenu();
+}
+
+/* RELOAD */
+reloadBtn.onclick = () => {
+    if (currentStation) play(currentStation, currentElement);
+};
+
+/* DOWNLOAD */
+downloadBtn.onclick = () => {
+    window.location.href = `https://krdrt5370000ym.github.io/player/${currentPlaylist}.m3u`;
+};
+
+/* START */
+fetchPlaylist(currentPlaylist);
+</script>
 
 </body>
 </html>
