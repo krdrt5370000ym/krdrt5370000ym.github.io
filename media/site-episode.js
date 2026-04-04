@@ -351,7 +351,7 @@ async function loadAudioForPost(postId, mainUrl) {
 
         if (media && media.length > 0) {
             const audioUrl = media[0].source_url;
-            placeholder.innerHTML = `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}');">▶</a>`;
+            placeholder.innerHTML = `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">▶</a>`;
         } else {
             placeholder.remove(); // Usuwamy napis, jeśli nie ma audio
         }
