@@ -107,7 +107,7 @@ function renderProgramGrupaZPR(program) {
         <div>
         <div class="current_program_item"></div>
         <div class="current_program_hour">${program.hour_start} - ${program.hour_end}</div>
-        <div class="current_program_title">${program.name}</div>
+        <div class="current_program_title" style="font-weight: 600;">${program.name}</div>
         <div class="current_program_host">${program.host}</div>
         </div>
     `;
