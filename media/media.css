@@ -1,5 +1,22 @@
+.fb-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  background-color: #f0f2f5;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.fb-container iframe {
+  width: 100%;
+  max-width: 340px;
+  height: 500px;
+  border: none;
+  overflow: hidden;
+}
+
 :root {
-  --primary-color: #e30613; /* Przykładowy czerwony RSC */
+  --primary-color: #e30613; /* Przykładowy czerwony */
   --secondary-color: #333;
   --bg-light: #f4f4f4;
   --text-dark: #222;
