@@ -73,10 +73,14 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        
-        // Zakładamy, że interesuje nas pierwszy element z listy
-        const program = data; 
-        renderProgramGrupaZPR(program);
+    
+    // Sprawdź, czy tytuł w DOM jest taki sam jak ten z API, żeby uniknąć migotania
+    const currentTitle = document.querySelector(".current_program_title")?.textContent;
+    if (currentTitle === data.name) {
+        return; // Program ten sam, nie renderuj ponownie
+    }
+
+    renderProgramGrupaZPR(data);
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
         // document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
@@ -85,19 +89,18 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
 
 function renderProgramGrupaZPR(program) {
     const container = document.getElementById('resultCP');
+    if (!container) return;
     const escapeHTML = (str) => 
-    str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
     
     // if (!program) {
     //     container.innerHTML = "Brak informacji o programie.";
     //     return;
     // }
 
-    if (program.thumbnail_uri !== null) {
-        imageDisplay = `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">`;
-    } else {
-        imageDisplay = '';
-    }
+    const imageDisplay = program.thumbnail_uri 
+        ? `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` 
+        : '';
 
     container.innerHTML = `
         <div class="current_program_photo">${imageDisplay}</div>
