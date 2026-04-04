@@ -75,15 +75,14 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
         const data = await response.json();
     
     // Sprawdź, czy tytuł w DOM jest taki sam jak ten z API, żeby uniknąć migotania
-    const currentTitle = document.querySelector(".current_program_title")?.textContent;
-    if (currentTitle === data.name) {
-        return; // Program ten sam, nie renderuj ponownie
-    }
+        const currentTitle = document.querySelector(".current_program_title")?.textContent;
+        if (currentTitle === data.name) return;
 
     renderProgramGrupaZPR(data);
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
         // document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
+        SCHEDULE_APP = null; // Reset błędu, aby spróbować ponownie w kolejnym interwale
     }
 }
 
