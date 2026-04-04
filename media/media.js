@@ -50,7 +50,7 @@ function renderPodcasts(){
           ].filter(Boolean).join(';') : '';
           const name = (thumb && thumb.name) || p.name || "";
           const thumbnailDisplay = p.thumbnail_uri ? 
-          `<img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
+          `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
           const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
       
         const podcastUrl = p.url_immediately 
@@ -89,7 +89,7 @@ function LoadPodcast(id) {
   ].filter(Boolean).join(';') : '';
   const name = (thumb && thumb.name) || podcast.name || "";
   const thumbnailDisplay = podcast.thumbnail_uri ? 
-  `<img src="${podcast.thumbnail_uri}" alt="${escapeHTML(podcast.name)}">` : "";
+  `<img decoding="async" src="${podcast.thumbnail_uri}" alt="${escapeHTML(podcast.name)}">` : "";
   const thumbnailText = thumb ? `<div class="podcast_info_name_box" style="${style}">${name}</div>` : thumbnailDisplay;
   const emailContact = (podcast.email && podcast.email.length > 0) 
   ? podcast.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
