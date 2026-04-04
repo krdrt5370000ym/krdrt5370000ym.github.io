@@ -100,36 +100,58 @@
     width: 100%;
   }
 
-  /* Menu zmienia się w pionową listę */
-.submenu {
-  display: none; /* Domyślnie ukryte */
-}
+  /* 1. Resetujemy hover i ustawiamy bazę dla submenu */
+  .has-submenu:hover .submenu {
+    display: none; /* Wyłączamy otwieranie przez najechanie na mobile */
+  }
 
-.has-submenu.open > .submenu {
-  display: block; /* Pokazuje tylko gdy rodzic ma klasę .open */
-}
+  .submenu {
+    display: none; 
+    position: static; /* Submenu pod elementem */
+    box-shadow: none;
+    width: 100%;
+    padding-left: 20px;
+    background: #f9f9f9; /* Delikatne wyróżnienie tła podmenu */
+  }
+
+  /* 2. Wyświetlanie tylko gdy rodzic ma klasę .open (dodawaną przez JS) */
+  .has-submenu.open > .submenu {
+    display: block;
+  }
+
+  /* 3. Stylizacja listy menu */
+  .main-menu {
+    flex-direction: column;
+    gap: 5px;
+  }
 
   .main-menu li {
     width: 100%;
+    position: relative;
   }
 
   .main-menu li a {
     display: block;
-    padding: 12px; /* Większy obszar kliknięcia */
+    padding: 12px;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 8px;
+    text-align: left; /* Tekst do lewej dla lepszej czytelności */
   }
 
-  /* Obsługa submenu na mobile */
-  .has-submenu:hover .submenu {
-    position: static; /* Submenu wyświetla się pod elementem, nie zasłaniając go */
-    box-shadow: none;
-    width: 100%;
-    padding-left: 20px;
+  /* 4. Obsługa strzałki */
+  .has-submenu > a::after {
+    content: ' ▼';
+    font-size: 10px;
+    float: right; /* Strzałka po prawej stronie */
+    transition: transform 0.3s;
   }
 
-  /* Przyciski na całą szerokość */
+  .has-submenu.open > a::after {
+    transform: rotate(180deg);
+  }
+
+  /* 5. Pozostałe elementy */
   .btn {
     display: block;
     margin: 10px 0;
@@ -137,20 +159,9 @@
   }
 
   .media-socials i {
-    font-size: 35px; /* Większe ikony social media */
+    font-size: 35px;
     margin: 0 15px;
   }
-
-.has-submenu > a::after {
-  content: ' ▼';
-  font-size: 10px;
-  transition: transform 0.3s;
-  display: inline-block;
-}
-
-.has-submenu.open > a::after {
-  transform: rotate(180deg);
-}
 }
 
 .but1 {
