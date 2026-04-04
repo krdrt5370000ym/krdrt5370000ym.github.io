@@ -38,7 +38,7 @@ function renderPodcasts(){
   const filter = document.getElementById("categoryFilter").value;
   const search = document.getElementById("searchInput").value.toLowerCase(); // Pobieramy frazę
   const escapeHTML = (str) => 
-  str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
   container.innerHTML = "";
 
@@ -98,7 +98,7 @@ function LoadPodcast(id) {
   if (!podcast || podcast.url_immediately || podcast.private === true) return;
 
   const escapeHTML = (str) => 
-    str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
   
   const thumb = podcast.thumbnail_text;
   const style = thumb ? [
