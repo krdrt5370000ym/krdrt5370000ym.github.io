@@ -101,10 +101,15 @@
   }
 
   /* Menu zmienia się w pionową listę */
-  .main-menu {
-    flex-direction: column;
-    gap: 5px;
-  }
+.submenu {
+  display: none; /* Domyślnie ukryte */
+}
+
+.has-submenu.open > .submenu {
+  display: block; /* Pokazuje tylko gdy rodzic ma klasę .open */
+  position: static;
+  width: 100%;
+}
 
   .main-menu li {
     width: 100%;
