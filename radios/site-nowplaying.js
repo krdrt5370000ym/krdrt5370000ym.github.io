@@ -72,6 +72,7 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
 
     try {
         const response = await fetch(url);
+        if (!response.ok) throw new Error("Błąd API");
         const data = await response.json();
     
     // Sprawdź, czy tytuł w DOM jest taki sam jak ten z API, żeby uniknąć migotania
