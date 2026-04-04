@@ -30,13 +30,23 @@
               <div class="current_playlist" id="resultTrack"></div>
             </div>
             <!-- PLAYER -->
-            <div class="player_display">
-              <div class="player_display_config">
-                <select id="stationSelect"></select><button class="buttons2"><a href="#" onclick="ReloadAudio()">▶</a></button>
-              </div>
-              <audio id="player" controls autoplay></audio><br>
-              <button class="but1"><a href="https://myradioonline.pl/radio-rsc">💡 Online</a></button><button class="but1"><a href="https://radiorsc.pl/">🌐 Strona</a></button><button class="but1"><a href="https://radiorsc.pl/kategoria/audycje/">📻 Strona programów</a></button><button class="but1"><a href="https://radiorsc.pl/ramowka/">📅 Aktualna ramówka</a></button><br>
-              <button class="but1"><a href="https://krdrt5370000ym.github.io/media/radiorsc"><i class="fa-solid fa-photo-film"></i> Media</a></button><button class="but1"><a href="https://krdrt5370000ym.github.io/radios/rscdance"><i class="fa-solid fa-radio"></i> RSC Dance</a></button>
+            <div class="radio-player-container">
+                <div class="player-header">
+                    <select id="stationSelect" class="styled-select">
+                    </select>
+                    <button class="play-btn" onclick="ReloadAudio()" title="Odśwież/Graj">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </div>
+                <audio id="player" controls autoplay class="custom-audio-element"></audio>
+                <div class="button-grid">
+                    <a href="https://myradioonline.pl/radio-rsc" class="btn-link">💡 Online</a>
+                    <a href="https://radiorsc.pl/" class="btn-link">🌐 Strona</a>
+                    <a href="https://radiorsc.pl/kategoria/audycje/" class="btn-link">📻 Programy</a>
+                    <a href="https://radiorsc.pl/ramowka/" class="btn-link">📅 Ramówka</a>
+                    <a href="https://krdrt5370000ym.github.io/media/radiorsc" class="btn-link accent"><i class="fa-solid fa-photo-film"></i> Media</a>
+                    <a href="https://krdrt5370000ym.github.io/radios/rscdance" class="btn-link accent"><i class="fa-solid fa-radio"></i> RSC Dance</a>
+                </div>
             </div>
             <hr>
             <!-- RAMÓWKA -->
