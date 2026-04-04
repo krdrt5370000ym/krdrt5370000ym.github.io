@@ -123,6 +123,9 @@
   .main-menu {
     flex-direction: column;
     gap: 5px;
+    i {
+        display:none;
+    }
   }
 
   .main-menu li {
