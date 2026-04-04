@@ -208,6 +208,10 @@ input[type="radio"]:checked + label {
   border-bottom: none;
 }
 
+.podcasts_display > input {
+    width: 180px;
+}
+
 .podcast_list_content {
      display: flex;
      align-items: center;
