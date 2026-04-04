@@ -107,8 +107,6 @@
 
 .has-submenu.open > .submenu {
   display: block; /* Pokazuje tylko gdy rodzic ma klasę .open */
-  position: static;
-  width: 100%;
 }
 
   .main-menu li {
@@ -142,6 +140,17 @@
     font-size: 35px; /* Większe ikony social media */
     margin: 0 15px;
   }
+
+.has-submenu > a::after {
+  content: ' ▼';
+  font-size: 10px;
+  transition: transform 0.3s;
+  display: inline-block;
+}
+
+.has-submenu.open > a::after {
+  transform: rotate(180deg);
+}
 }
 
 .but1 {
