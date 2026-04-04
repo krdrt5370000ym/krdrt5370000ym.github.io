@@ -52,18 +52,52 @@
             <nav class="media-navigation">
                 <ul class="main-menu">
                     <li><a href="https://www.radiorsc.pl/">Start</a></li>
-                    <li><a href="https://radiorsc.pl/kategoria/audycje/">Audycje</a></li>
-                    <li><a href="https://radiorsc.pl/lista-przebojow/">Lista przebojów</a></li>
                     <li class="has-submenu">
-                        <a href="#">Wiadomości <i class="fa-solid fa-chevron-down"></i></a>
+                        <a href="#">Radio <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="https://radiorsc.pl/kategoria/audycje/">Audycje</a></li>
+                            <li><a href="https://radiorsc.pl/lista-przebojow/">Lista przebojów</a></li>
+                            <li><a href="https://radiorsc.pl/ramowka/">Ramówka</a></li>
+                            <li><a href="https://radiorsc.pl/kategoria/konkursy/">Konkursy</a></li>
+                            <li><a href="https://radiorsc.pl/kategoria/filmy/">Filmy</a></li>
+                            <li><a href="https://radiorsc.pl/aktualnosci/">Aktualności</a></li>
+                            <li><a href="https://radiorsc.pl/ogloszenia/">Ogłoszenia</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="https://radiorsc.pl/kategoria/aktualnosci/">Wiadomości <i class="fa-solid fa-chevron-down"></i></a>
                         <ul class="submenu">
                             <li><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-powiat-skierniewicki/">Powiat Skierniewicki</a></li>
                             <li><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-rawa-mazowiecka/">Rawa Mazowiecka</a></li>
                             <li><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-region/">Region</a></li>
                             <li><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-skierniewice/">Skierniewice</a></li>
+                            <li><a href="https://radiorsc.pl/kategoria/aktualnosci/aktualnosci-zyrardow/">Żyrardów</a></li>
+                            <li><a href="https://radiorsc.pl/kategoria/aktualnosci/centrum-kultury-i-sztuki-w-skierniewicach/">CKiS Skierniewice</a></li>
+                            <li><a href="https://radiorsc.pl/kategoria/aktualnosci/patronat-medialny/">Patronat medialny</a></li>
+                            <li><a href="https://radiorsc.pl/kategoria/aktualnosci/reklama/">Reklama</a></li>
                         </ul>
                     </li>
-                    <li><a href="https://radiorsc.pl/kontakt/">Kontakt</a></li>
+                    <li><a href="https://radiorsc.pl/o-nas/">O nas</a></li>
+                    <li class="has-submenu">
+                        <a href="https://radiorsc.pl/kontakt/">Kontakt <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="https://radiorsc.pl/polityka-prywatnosci/">Polityka prywatności</a></li>
+                            <li><a href="https://radiorsc.pl/rodo/">RODO</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Partnerzy <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="https://www.skierniewice.eu/">Skierniewice</a></li>
+                            <li><a href="https://www.lodzkie.pl/">Województwo łódzkie</a></li>
+                            <li><a href="https://www.cekis.pl/">CKiS Skierniewice</a></li>
+                            <li><a href="https://kino.cekis.pl/">Kino Polonez</a></li>
+                            <li><a href="https://akademia.cekis.pl/">Akademia Twórczości</a></li>
+                            <li><a href="https://cekis.pl/klub-konstancja/">Klub Konstancja</a></li>
+                            <li><a href="https://cekis.pl/punkt-informacji-turystycznej/">Stacja Centrum</a></li>
+                            <li><a href="https://myradioonline.pl/radio-rsc">Radio Online</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             </div>
@@ -117,33 +151,6 @@
          WPArticleRSC();
          loadData('radiorsc').then(init);
       </script>
-<script>
-document.querySelectorAll('.has-submenu > a').forEach(parentLink => {
-  parentLink.addEventListener('click', function(e) {
-    // Działaj tylko na mobile
-    if (window.innerWidth <= 768) {
-      e.preventDefault();
-      const parentLi = this.parentElement;
-      
-      // Przełączanie klasy open na rodzicu (otwórz/zamknij)
-      parentLi.classList.toggle('open');
-      
-      // Zamknij inne otwarte podmenu, jeśli istnieją
-      document.querySelectorAll('.has-submenu').forEach(other => {
-        if (other !== parentLi) other.classList.remove('open');
-      });
-    }
-  });
-});
-
-// DODATKOWO: Zamknij submenu po kliknięciu w konkretny link wewnątrz niego
-document.querySelectorAll('.submenu a').forEach(subLink => {
-  subLink.addEventListener('click', () => {
-    document.querySelectorAll('.has-submenu').forEach(el => {
-      el.classList.remove('open');
-    });
-  });
-});
-</script>
+      <script src="menu.js"></script>
    </body>
 </html>
