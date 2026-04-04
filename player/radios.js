@@ -1,181 +1,172 @@
-    let playlistInterval = null; // Zmienna globalna do przechowywania ID interwału
-    let currentPlaylistName = "Radio"; // Domyślna nazwa listy
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuBtn = document.getElementById('menuBtn');
+const playlistSelect = document.getElementById('playlistSelect');
+const stationSearch = document.getElementById('stationSearch');
+const container = document.getElementById('playlist-container');
+const player = document.getElementById('player');
+const currentStationText = document.getElementById('currentStation');
+const reloadBtn = document.getElementById('reloadBtn');
+const downloadBtn = document.getElementById('downloadBtn');
 
-    async function fetchPlaylist(name) {
-        window.currentPlaylistName = name; // Zapamiętuje nazwę dla funkcji pobierania
-        const url = "https://krdrt5370000ym.github.io/player/" + name + ".m3u";
-        // ... reszta kodu fetch
-        try {
-            const response = await fetch(url);
-            const text = await response.text();
-            const playlist = parseM3U(text);
-            displayPlaylist(playlist);
-        } catch (err) {
-            alert("Błąd ładowania listy. Upewnij się, że link jest poprawny i serwer pozwala na CORS.");
+let currentPlaylist = "Radio";
+let currentStation = null;
+let currentElement = null;
+let playlistInterval = null;
+let hls = null;
+
+/* MENU */
+menuBtn.onclick = () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+};
+
+overlay.onclick = closeMenu;
+
+function closeMenu() {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+}
+
+/* PLAYLIST CHANGE */
+playlistSelect.onchange = e => {
+    currentPlaylist = e.target.value;
+    fetchPlaylist(currentPlaylist);
+};
+
+/* SEARCH */
+stationSearch.oninput = () => {
+    const val = stationSearch.value.toLowerCase();
+    document.querySelectorAll('.station-item').forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(val) ? "" : "none";
+    });
+};
+
+/* FETCH */
+async function fetchPlaylist(name) {
+    try {
+        const res = await fetch(`https://krdrt5370000ym.github.io/player/${name}.m3u`);
+        if (!res.ok) throw new Error();
+
+        const text = await res.text();
+        display(parseM3U(text));
+    } catch (e) {
+        alert("Błąd ładowania playlisty");
+    }
+}
+
+/* PARSE */
+function parseM3U(data) {
+    const lines = data.split('\n');
+    let name = "";
+    const list = [];
+
+    for (let line of lines) {
+        line = line.trim();
+
+        if (line.startsWith("#EXTINF")) {
+            name = line.split(',').slice(1).join(',') || "Nieznana";
+        } else if (line.startsWith("http")) {
+            list.push({ name, url: line });
         }
-    }
-    
-    function filterStations() {
-        const filter = document.getElementById('stationSearch').value.toLowerCase();
-        // Szukamy po klasie, co jest bezpieczniejsze niż szukanie po samym 'div'
-        const items = document.querySelectorAll('.station-item'); 
-    
-        items.forEach(item => {
-            const text = item.textContent || item.innerText;
-            // Używamy display: flex lub block, zależnie od Twojego CSS
-            item.style.display = text.toLowerCase().includes(filter) ? "" : "none";
-        });
-    }
-
-    function downloadToM3U() {
-        // Tworzymy pełny adres URL do pliku .m3u
-        const fileUrl = "https://krdrt5370000ym.github.io/player/" + currentPlaylistName + ".m3u";
-        
-        // Tworzymy tymczasowy element <a>, aby wymusić pobieranie
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = currentPlaylistName + ".m3u"; // Sugerowana nazwa pliku
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    function parseM3U(data) {
-        const lines = data.split('\n');
-        const stations = [];
-        let currentName = "";
-    
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
-            
-            if (line.startsWith('#EXTINF:')) {
-                // Szukamy pierwszego przecinka po "#EXTINF:-1"
-                // Używamy split(',', 2), aby podzielić linię tylko na dwie części: 
-                // 1. Metadane techniczne (#EXTINF:-1)
-                // 2. Cała reszta (Nazwa stacji z jej własnymi przecinkami)
-                const parts = line.split(',');
-                if (parts.length > 1) {
-                    // Usuwamy pierwszy element (metadane) i łączymy resztę z powrotem, 
-                    // na wypadek gdyby nazwa stacji miała własne przecinki
-                    parts.shift(); 
-                    currentName = parts.join(',').trim();
-                } else {
-                    currentName = "Nieznana stacja";
-                }
-            } else if (line.startsWith('http')) {
-                stations.push({ 
-                    name: currentName || "Stacja " + (stations.length + 1), 
-                    url: line 
-                });
-                currentName = ""; 
-            }
-        }
-        return stations;
-    }
-    
-    function displayPlaylist(playlist) {
-        const container = document.getElementById('playlist-container');
-        container.innerHTML = ""; 
-    
-        playlist.forEach(station => {
-            const div = document.createElement('div');
-            div.className = 'station-item';
-            div.textContent = station.name;
-            
-            // POPRAWKA: Przekazujemy cały obiekt 'station' i sam 'div' (this)
-            div.onclick = function() {
-                playStation(station, div);
-            };
-            
-            container.appendChild(div);
-        });
     }
 
-    let hlsInstance = null; // Używamy jednej spójnej zmiennej
-    let currentStationData = null; // Przechowujemy dane aktualnej stacji
-    let currentStationElement = null; // Przechowujemy referencję do elementu listy
+    return list;
+}
 
-    function playStation(station, element) {
-        const player = document.getElementById('player');
-        const title = document.getElementById('current-station');
-        
-        // Zapisujemy aktualny stan dla funkcji reload
-        currentStationData = station;
-        currentStationElement = element;
+/* DISPLAY */
+function display(list) {
+    container.innerHTML = "";
+
+    list.forEach(st => {
+        const div = document.createElement('div');
+        div.className = "station-item";
+        div.textContent = st.name;
+
+        div.onclick = () => play(st, div);
+
+        container.appendChild(div);
+    });
+}
+
+/* PLAY */
+function play(st, el) {
+    currentStation = st;
+    currentElement = el;
+
+    document.querySelectorAll('.station-item').forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
     
-        const streamUrl = station.url;
-        const isM3U8 = streamUrl.toLowerCase().includes('.m3u8');
-        const streamHttpUrl = streamUrl.slice(0,7) === "http://" ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(streamUrl) : streamUrl;
-    
-        // UI: Aktualizacja klasy active
-        document.querySelectorAll('.station-item').forEach(el => el.classList.remove('active'));
-        if (element) element.classList.add('active');
-        title.innerText = "Teraz grasz: " + station.name;
-    
-        // Czyszczenie poprzedniej instancji HLS
-        if (hlsInstance) {
-            hlsInstance.destroy();
-            hlsInstance = null;
-        }
-    
-        if (isM3U8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
-            hlsInstance = new Hls();
-            hlsInstance.loadSource(streamHttpUrl);
-            hlsInstance.attachMedia(player);
-            hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => player.play());
-        } else {
-            // Natywna obsługa (Safari/iOS lub MP3)
-            
-            player.src = streamHttpUrl;
-            document.getElementById('resultTrack').innerHTML = '';
-            player.play().catch(err => console.error("Błąd odtwarzania:", err));
-        }
-    
-        player.style.display = 'initial';
-        document.getElementById('buttons').style.display = 'initial';
-        playlistNowPlaying(streamUrl);
+    const sm = st.url.slice(0,7) === "http://" ?
+     'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' +
+     encodeURIComponent(st.url) : st.url;
+
+    currentStationText.textContent = "Teraz grasz: " + st.name;
+
+    if (hls) {
+        hls.destroy();
+        hls = null;
     }
-    
-    function reloadStation() {
-        if (currentStationData) {
-            console.log("Przeładowuję:", currentStationData.name);
-            // Ponownie wywołujemy playStation z zapisanymi danymi
-            playStation(currentStationData, currentStationElement);
-        } else {
-            console.warn("Brak wybranej stacji do przeładowania.");
-        }
+
+    if (sm.includes(".m3u8") && window.Hls && Hls.isSupported()) {
+        hls = new Hls();
+        hls.loadSource(sm);
+        hls.attachMedia(player);
+        playlistNowPlaying(st.url);
+    } else {
+        player.src = sm;
+        playlistNowPlaying(st.url);
     }
-    
-    function playlistNowPlaying(streamUrl) {
-        if (playlistInterval) {
-            clearInterval(playlistInterval);
-        }
-        const updateTrack = () => {
-            fetch("https://krdrt5370000ym.github.io/player/playlist.json")
-                .then(res => res.json())
-                .then(json => {
-                    const item = json.playlist.find(x => x.stream === streamUrl);
+
+    player.style.display = "block";
+    player.play().catch(()=>{});
+
+    closeMenu();
+}
+
+/* RELOAD */
+reloadBtn.onclick = () => {
+    if (currentStation) play(currentStation, currentElement);
+};
+
+/* DOWNLOAD */
+downloadBtn.onclick = () => {
+    window.location.href = `https://krdrt5370000ym.github.io/player/${currentPlaylist}.m3u`;
+};
+
+function playlistNowPlaying(streamUrl) {
+    if (playlistInterval) {
+        clearInterval(playlistInterval);
+    }
+    const updateTrack = () => {
+        fetch("https://krdrt5370000ym.github.io/player/playlist.json")
+            .then(res => res.json())
+            .then(json => {
+                const item = json.playlist.find(x => x.stream === streamUrl);
+                
+                if (item && item.value) {
+                    // Sprawdzamy, czy value zawiera nawiasy (np. "getNowPlayingOpenFm(57)")
+                    const match = item.value.match(/^(\w+)\((.*)\)$/);
                     
-                    if (item && item.value) {
-                        // Sprawdzamy, czy value zawiera nawiasy (np. "getNowPlayingOpenFm(57)")
-                        const match = item.value.match(/^(\w+)\((.*)\)$/);
-                        
-                        if (match) {
-                            const functionName = match[1]; // np. "getNowPlayingOpenFm"
-                            const argument = match[2].replace(/['"]/g, ""); // np. "57"
-    
-                            if (typeof window[functionName] === "function") {
-                                // Wywołujemy funkcję z przekazanym argumentem
-                                window[functionName](argument);
-                            }
-                        } else {
-                            // Jeśli to zwykły tekst bez nawiasów
-                            document.getElementById('resultTrack').innerText = item.value;
-                       }
-                    }
-                })
-                .catch(err => console.error("Błąd pobierania metadanych:", err));
-        };
-        updateTrack();
-        playlistInterval = setInterval(updateTrack, 20000); 
-    }
+                    if (match) {
+                        const functionName = match[1]; // np. "getNowPlayingOpenFm"
+                        const argument = match[2].replace(/['"]/g, ""); // np. "57"
+
+                        if (typeof window[functionName] === "function") {
+                            // Wywołujemy funkcję z przekazanym argumentem
+                            window[functionName](argument);
+                        }
+                    } else {
+                        // Jeśli to zwykły tekst bez nawiasów
+                        document.getElementById('resultTrack').innerText = item.value;
+                   }
+                }
+            })
+            .catch(err => console.error("Błąd pobierania metadanych:", err));
+    };
+    updateTrack();
+    playlistInterval = setInterval(updateTrack, 20000); 
+}
+
+/* START */
+fetchPlaylist(currentPlaylist);
