@@ -83,15 +83,7 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
     renderProgramGrupaZPR(data);
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
-        document.getElementById('resultCP').container.innerHTML = ` // Błąd ładowania danych.
-        <div class="current_program_photo"></div>
-        <div>
-        <div class="current_program_item"></div>
-        <div class="current_program_hour"></div>
-        <div class="current_program_title"></div>
-        <div class="current_program_host"></div>
-        </div>
-    `;
+        // document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
     }
 }
 
