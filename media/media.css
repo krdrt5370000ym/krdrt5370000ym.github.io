@@ -1,4 +1,82 @@
- .but1 {
+:root {
+  --primary-color: #e30613; /* Przykładowy czerwony RSC */
+  --secondary-color: #333;
+  --bg-light: #f4f4f4;
+  --text-dark: #222;
+}
+
+.media-container {
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Przyciski */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn-primary { background: var(--primary-color); color: white; }
+.btn-secondary { background: var(--secondary-color); color: white; }
+.btn-radio { background: #000; color: #ffd700; border: 2px solid #ffd700; }
+
+.btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* Social Media */
+.media-socials { margin: 20px 0; }
+.media-socials i {
+  font-size: 28px;
+  margin: 0 10px;
+  color: var(--secondary-color);
+  transition: color 0.3s;
+}
+.media-socials i:hover { color: var(--primary-color); }
+
+/* Menu */
+.main-menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.main-menu li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: 14px;
+  padding: 5px 10px;
+  border-bottom: 2px solid transparent;
+}
+
+.main-menu li a:hover {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Submenu - prosty hover */
+.has-submenu { position: relative; }
+.submenu {
+  display: none;
+  position: absolute;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 10px;
+  z-index: 10;
+  min-width: 200px;
+}
+.has-submenu:hover .submenu { display: block; }
+
+.but1 {
      a {
          text-decoration: none;
     }
