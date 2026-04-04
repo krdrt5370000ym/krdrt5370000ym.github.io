@@ -1,18 +1,32 @@
 .fb-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  background-color: #f0f2f5;
-  padding: 10px;
-  border-radius: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 500px;
+    background: #f9f9f9;
 }
 
 .fb-container iframe {
-  width: 100%;
-  max-width: 340px;
-  height: 500px;
-  border: none;
-  overflow: hidden;
+    width: 100%;
+    max-width: 340px;
+    height: 500px;
+    border: none;
+    overflow: hidden;
+}
+
+.fb-viewer {
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.fb-viewer > select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 :root {
