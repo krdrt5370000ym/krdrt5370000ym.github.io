@@ -637,6 +637,7 @@ h4 {
     height: auto !important;
 }
 .article_singlecontent_posts {
+    font-size: 16px;
     word-break: break-word;
     /* 1. Kontener galerii */
     .wp-block-gallery.is-layout-flex {
