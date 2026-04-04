@@ -137,7 +137,7 @@ function renderCurrent() {
     document.querySelector(".current_program_title").style = 'font-weight: 400;';
     document.querySelector(".current_program_title").textContent = stations.name || 'Radio Online';
     document.querySelector(".current_program_host").textContent = "";
-    document.querySelector(".current_program_photo").innerHTML = `<img src="${stations.cover}" alt="">` || null;
+    document.querySelector(".current_program_photo").innerHTML = `<img decoding="async" src="${stations.cover}" alt="">` || null;
 
   if(!program || stations.radio_plug === true) return;
 
@@ -152,7 +152,7 @@ function renderCurrent() {
   const name = (thumb && thumb.name) || program.name || data.name || "";
   const thumbnailText = thumb 
   ? `<div class="current_program_box" style="${style}">${name}</div>` 
-  : `<img src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "")}">` || "";
+  : `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "")}">` || "";
 
   document.querySelector(".current_program_item").textContent = program.item || "";
   document.querySelector(".current_program_hour").textContent =
@@ -220,7 +220,7 @@ function renderSchedules() {
         str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
-        const thumbnailDisplay = thumbnail !== null ? `<img src="${thumbnail}" alt="${escapeHTML(p.name || data.name || "")}">` : '';
+        const thumbnailDisplay = thumbnail !== null ? `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name || data.name || "")}">` : '';
         const thumb = p.thumbnail_text || data.thumbnail_text;
         const style = thumb ? [
           thumb.background ? `background:${thumb.background}` : '',
@@ -364,7 +364,7 @@ function renderPrograms(){
           ].filter(Boolean).join(';') : '';
           const name = (thumb && thumb.name) || p.name || "";
           const thumbnailDisplay = p.thumbnail_uri ? 
-          `<img src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
+          `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
           const thumbnailText = thumb ? `<div class="program_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
       
         const programUrl = p.url_immediately 
@@ -512,7 +512,7 @@ function LoadProgram(id) {
   ].filter(Boolean).join(';') : '';
   const name = (thumb && thumb.name) || program.name || "";
   const thumbnailDisplay = program.thumbnail_uri ? 
-  `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "";
+  `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "";
   const thumbnailText = thumb ? `<div class="program_info_name_box" style="${style}">${name}</div>` : thumbnailDisplay;
   const emailContact = (program.email && program.email.length > 0) 
   ? program.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
