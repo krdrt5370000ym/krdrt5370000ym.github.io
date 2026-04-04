@@ -134,9 +134,12 @@ function renderCurrent() {
     })[0];
 
     if (stations.schedule && stations.radio_plug !== true) {
-      SCHEDULE_APP = null;
-      scheduleCurrent(stations.schedule);
-      if (SCHEDULE_APP === 1) return;
+        if (SCHEDULE_APP === 1) return; 
+        
+        // Ustawiamy od razu, żeby zapobiec wyścigowi (race condition) 
+        // podczas trwania requestu asynchronicznego
+        SCHEDULE_APP = 1; 
+        scheduleCurrent(stations.schedule);
     }
 
     document.querySelector(".current_program_item").textContent = "";
@@ -668,25 +671,25 @@ function playlistNowPlaying(playlistString) {
 }
 
 function scheduleCurrent(scheduleString) {
-    // 1. Regex wyciąga nazwę funkcji i wszystko co jest w nawiasach
     const match = scheduleString.match(/^(\w+)\((.*)\);?$/);
 
     if (match) {
         const functionName = match[1];
-        const rawArgs = match[2]; // np. "'arg1','arg2'"
+        const rawArgs = match[2];
 
         if (typeof window[functionName] === "function") {
-            // 2. Rozbijamy argumenty po przecinku i usuwamy cudzysłowy/spacje
             const args = rawArgs.split(',').map(arg => 
                 arg.trim().replace(/^['"]|['"]$/g, '')
             );
-
-            // 3. Wywołujemy funkcję z dowolną liczbą argumentów
             window[functionName](...args);
+        } else {
+            // Jeśli funkcji nie ma, resetujemy flagę, by pozwolić na inne akcje
+            SCHEDULE_APP = null;
         }
     } else {
         const resultElemS = document.getElementById('resultCP');
         if (resultElemS) resultElemS.innerText = scheduleString;
+        // Tutaj SCHEDULE_APP zostaje 1, bo wyświetliliśmy string statyczny
     }
 }
 // =====================
