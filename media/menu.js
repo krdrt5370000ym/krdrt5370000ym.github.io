@@ -24,3 +24,9 @@ document.querySelectorAll('.submenu a').forEach(subLink => {
     });
   });
 });
+
+function changeFB(pageName) {
+    const iframe = document.getElementById('fb-iframe');
+    const newSrc = `https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/${pageName}/&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&locale=pl_PL`;
+    iframe.src = newSrc;
+}
