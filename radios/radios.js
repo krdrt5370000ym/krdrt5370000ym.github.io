@@ -1,6 +1,7 @@
 let hls = null;
 let CURRENT_STATION = null;
 let CURRENT_STATION_ID = null;
+let SCHEDULE_APP = null;
 let playlistInterval = null;
 
 const dayOrder = ["1","2","3","4","5","6","0"];
@@ -131,6 +132,12 @@ function renderCurrent() {
         const nameB = b.name || dataB.name || "";
         return nameA.localeCompare(nameB);
     })[0];
+
+    if (stations.schedule && stations.radio_plug !== true) {
+      SCHEDULE_APP = null;
+      scheduleCurrent(stations.schedule);
+      if (SCHEDULE_APP === 1) return;
+    }
 
     document.querySelector(".current_program_item").textContent = "";
     document.querySelector(".current_program_hour").textContent = "";
@@ -658,6 +665,29 @@ function playlistNowPlaying(playlistString) {
 
     updateTrack();
     playlistInterval = setInterval(updateTrack, 20000); 
+}
+
+function scheduleCurrent(scheduleString) {
+    // 1. Regex wyciąga nazwę funkcji i wszystko co jest w nawiasach
+    const match = scheduleString.match(/^(\w+)\((.*)\);?$/);
+
+    if (match) {
+        const functionName = match[1];
+        const rawArgs = match[2]; // np. "'arg1','arg2'"
+
+        if (typeof window[functionName] === "function") {
+            // 2. Rozbijamy argumenty po przecinku i usuwamy cudzysłowy/spacje
+            const args = rawArgs.split(',').map(arg => 
+                arg.trim().replace(/^['"]|['"]$/g, '')
+            );
+
+            // 3. Wywołujemy funkcję z dowolną liczbą argumentów
+            window[functionName](...args);
+        }
+    } else {
+        const resultElemS = document.getElementById('resultCP');
+        if (resultElemS) resultElemS.innerText = scheduleString;
+    }
 }
 // =====================
 // INIT
