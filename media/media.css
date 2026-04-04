@@ -93,6 +93,52 @@
 }
 .has-submenu:hover .submenu { display: block; }
 
+/* Media Queries dla urządzeń mobilnych */
+@media (max-width: 768px) {
+  .media-container {
+    padding: 10px;
+    width: 100%;
+  }
+
+  /* Menu zmienia się w pionową listę */
+  .main-menu {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .main-menu li {
+    width: 100%;
+  }
+
+  .main-menu li a {
+    display: block;
+    padding: 12px; /* Większy obszar kliknięcia */
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+
+  /* Obsługa submenu na mobile */
+  .has-submenu:hover .submenu {
+    position: static; /* Submenu wyświetla się pod elementem, nie zasłaniając go */
+    box-shadow: none;
+    width: 100%;
+    padding-left: 20px;
+  }
+
+  /* Przyciski na całą szerokość */
+  .btn {
+    display: block;
+    margin: 10px 0;
+    padding: 15px;
+  }
+
+  .media-socials i {
+    font-size: 35px; /* Większe ikony social media */
+    margin: 0 15px;
+  }
+}
+
 .but1 {
      a {
          text-decoration: none;
