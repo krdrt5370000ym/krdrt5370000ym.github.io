@@ -1,21 +1,3 @@
-document.querySelectorAll('.has-submenu > a').forEach(menuItem => {
-  menuItem.addEventListener('click', function(e) {
-    // Jeśli jesteśmy na mobile (szerokość okna < 768px)
-    if (window.innerWidth <= 768) {
-      e.preventDefault(); // Blokuje przejście do linku przy pierwszym kliknięciu
-      const parent = this.parentElement;
-      
-      // Przełącza klasę .open (otwiera/zamyka)
-      parent.classList.toggle('open');
-      
-      // Opcjonalnie: zamyka inne otwarte submenu
-      document.querySelectorAll('.has-submenu').forEach(other => {
-        if (other !== parent) other.classList.remove('open');
-      });
-    }
-  });
-});
-
 let PODCASTS = [];
 
 // =====================
