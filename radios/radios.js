@@ -609,6 +609,9 @@ function LoadProgram(id) {
 function AudioPlayer(url) {
     const audio = document.getElementById('player');
     const isM3U8 = url.toLowerCase().includes('.m3u8');
+    const sm = url.slice(0,7) === "http://" ?
+      'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' +
+      encodeURIComponent(url) : url;
 
     // Teraz hls jest widoczne globalnie, więc to zadziała:
     if (hls) {
@@ -618,13 +621,13 @@ function AudioPlayer(url) {
 
     if (isM3U8 && Hls.isSupported()) {
         hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
-        hls.loadSource(url);
+        hls.loadSource(sm);
         hls.attachMedia(audio);
         // ... reszta logiki
     }
     else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
         // Safari lub zwykłe MP3
-        audio.src = url;
+        audio.src = sm;
         audio.play().catch(() => console.log("Wymagana interakcja"));
     }
 }
