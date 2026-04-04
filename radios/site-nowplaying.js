@@ -111,6 +111,7 @@ function renderProgramGrupaZPR(program) {
         <div class="current_program_host">${program.host}</div>
         </div>
     `;
+    SCHEDULE_APP = 1;
 }
 // Przykład użycia:
 // getCurrentProgram('sc-giFX-r6Hu-5naE', 'ra-4DgR-BbKY-FG3Z');
