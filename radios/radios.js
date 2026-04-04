@@ -87,7 +87,7 @@ function renderCurrent() {
   const time = now.toTimeString().slice(0,8);
   const stations = STATIONS.find(x=>x.id===CURRENT_STATION_ID);
   const escapeHTML = (str) => 
-  str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
   const program = SCHEDULE
   .filter(p => p.active && (!p.station || p.station.includes(CURRENT_STATION_ID)) && !p.station_exclude?.includes(CURRENT_STATION_ID))
@@ -225,7 +225,7 @@ function renderSchedules() {
       })
       .forEach(p=>{
         const escapeHTML = (str) => 
-        str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+          str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
         const data = {...getProgramData(p)};
         const thumbnail = getThumbnail(p, data);
         const thumbnailDisplay = thumbnail !== null ? `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name || data.name || "")}">` : '';
@@ -341,7 +341,7 @@ function renderPrograms(){
   const filter = document.getElementById("categoryFilter").value;
   const search = document.getElementById("searchInput").value.toLowerCase(); // Pobieramy frazę
   const escapeHTML = (str) => 
-  str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
   container.innerHTML = "";
 
@@ -510,7 +510,7 @@ function LoadProgram(id) {
   if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) return;
 
   const escapeHTML = (str) => 
-    str ? str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"'"}[m])) : "";
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
   
   const scheduleInfo = getDisplaySchedule(id);
   const thumb = program.thumbnail_text;
