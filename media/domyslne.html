@@ -118,46 +118,23 @@
                    </div>
                </div>
                <div class="content tab2-content">
-                  <div class="fb-container">
-                    <iframe 
-                      src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/sosw.skce/&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&locale=pl_PL"
-                      scrolling="no"
-                      frameborder="0"
-                      allowfullscreen="true"
-                      loading="lazy"
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
-                  </div>
-                  <div class="fb-container">
-                    <iframe 
-                      src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/wspolnatroska/&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&locale=pl_PL"
-                      scrolling="no"
-                      frameborder="0"
-                      allowfullscreen="true"
-                      loading="lazy"
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
-                  </div>
-                  <div class="fb-container">
-                    <iframe 
-                      src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/fundacjatroskagarnizonki/&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&locale=pl_PL"
-                      scrolling="no"
-                      frameborder="0"
-                      allowfullscreen="true"
-                      loading="lazy"
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
-                  </div>
-                  <div class="fb-container">
-                    <iframe 
-                      src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/zazbalcerow/&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&locale=pl_PL"
-                      scrolling="no"
-                      frameborder="0"
-                      allowfullscreen="true"
-                      loading="lazy"
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
-                  </div>
+                   <div class="fb-viewer">
+                       <label for="fb-select">Wybierz organizację:</label>
+                       <select id="fb-select" onchange="changeFB(this.value)">
+                           <option value="sosw.skce">SOSW Skierniewice</option>
+                           <option value="wspolnatroska">Wspólna Troska</option>
+                           <option value="fundacjatroskagarnizonki">Fundacja Troska / Garnizonki</option>
+                           <option value="zazbalcerow">ZAZ Balcerów</option>
+                       </select>
+                   
+                       <div class="fb-container" id="fb-box">
+                           <!-- Domyślnie załadowany pierwszy profil -->
+                           <iframe id="fb-iframe"
+                             src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/sosw.skce/&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&locale=pl_PL"
+                             width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                           </iframe>
+                       </div>
+                   </div>
                </div>
             </div>
          </div>
