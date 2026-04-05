@@ -190,35 +190,52 @@
     }
 }
 
-/* Ukrywamy oryginalne radio buttons */
+/* Ukrywamy radio buttons */
 input[type="radio"] { display: none; }
 
-/* Stylizujemy etykiety (wygląd przycisków) */
+/* Kontener na zakładki (opcjonalnie, by wyrównać labelki) */
+.tabs-header {
+  display: flex; /* Układa labelki obok siebie */
+  gap: 5px;      /* Odstęp między zakładkami */
+}
+
+/* Stylizujemy etykiety */
 label {
   padding: 10px 20px;
   background: #f1f1f1;
   cursor: pointer;
   display: inline-block;
-  @media (min-width:1000px) {
-      font-size: 18px;
-  }
+  border: 1px solid #ccc; /* Stała ramka */
+  border-bottom: none;    /* Brak dolnej ramki, by "zlała" się z treścią */
+  transition: background 0.2s;
 }
 
-/* Ukrywamy domyślnie całą treść */
-.content { display: none; padding: 20px; border: 1px solid #ccc; }
+@media (min-width: 1000px) {
+  label { font-size: 18px; }
+}
 
-/* Klucz do sukcesu: Pokaż treść, gdy powiązane radio jest zaznaczone */
+/* Treść zakładek */
+.content { 
+  display: none; 
+  padding: 20px; 
+  border: 1px solid #ccc;
+  background: #fff;
+  margin-top: -1px; /* Przykrywa dolną ramkę nieaktywnych etykiet */
+}
+
+/* Logika przełączania */
 #tab1:checked ~ .tab1-content,
 #tab2:checked ~ .tab2-content,
 #tab3:checked ~ .tab3-content {
   display: block;
 }
 
-/* Wyróżnienie aktywnej zakładki */
+/* Aktywna zakładka */
 input[type="radio"]:checked + label {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-bottom: none;
+  background: #fff; /* Tło takie samo jak .content */
+  font-weight: bold;
+  position: relative;
+  z-index: 2; /* Sprawia, że label "stoi" na ramce kontenera */
 }
 
 .podcasts_display > input {
@@ -561,9 +578,6 @@ h4 {
     }
 }
 @media screen and (min-width: 1000px) {
-    .list_article > h3 {
-        font-size: 1.2em;
-    }
     .article_post {
         gap: 10px;
     }
