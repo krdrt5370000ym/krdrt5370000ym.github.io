@@ -205,7 +205,7 @@ iframe {
 
 .wp-block-embed {
     margin-bottom: 2em;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
@@ -239,9 +239,9 @@ iframe {
 }
 
 /* Specyficzne stylowanie tylko dla YouTube */
-.wp-block-embed.is-provider-youtube {
+/* .wp-block-embed.is-provider-youtube {
     border: 2px solid #ff0000;
-}
+} */
 
 .wp-block-embed-znalezienie {
   width: 100% !important; /* Wymusza dopasowanie do ekranu telefonu */
@@ -439,7 +439,7 @@ blockquote.wp-block-quote cite {
 ===================================================== */
 @media (max-width: 480px) {
     .article_title_posts {
-        font-size: 1.5em;
+        font-size: 1.6em;
     }
 
     .article_singlecontent_posts {
