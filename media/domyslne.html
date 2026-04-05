@@ -104,11 +104,15 @@
             </nav>
             </div>
             <div class="tabs">
-               <!-- Ukryte przyciski sterujące -->
-               <input type="radio" id="tab1" name="my-tabs" checked>
-               <label for="tab1">Aktualności</label>
-               <input type="radio" id="tab2" name="my-tabs">
-               <label for="tab2"><i class="fa-brands fa-facebook"></i></label>
+            <!-- 1. Inputy sterujące (muszą być rodzeństwem dla .content) -->
+            <input type="radio" id="tab1" name="my-tabs" checked>
+            <input type="radio" id="tab2" name="my-tabs">
+            
+            <!-- 2. Kontener na etykiety (tylko do wyglądu/środkowania) -->
+            <div class="tabs-wrapper">
+                <label for="tab1">Aktualności</label>
+                <label for="tab2"><i class="fa-brands fa-facebook"></i></label>
+            </div>
                <!-- Treść zakładek -->
                <div class="content tab1-content">
                    <div class="list_article">
