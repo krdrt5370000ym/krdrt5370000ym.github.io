@@ -286,6 +286,9 @@ label {
      }
      .podcast_list_name {
         font-weight: 600;
+        a {
+            text-decoration: none;
+        }
      }
      .podcast_list_host {
         font-size: 80%;
