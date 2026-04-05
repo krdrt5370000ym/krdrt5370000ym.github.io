@@ -146,7 +146,7 @@
          font-size: 6.2px;
     }
 }
- .podcast_info_title {
+.podcast_info_title {
      margin-left: 25px;
      font-weight: 700;
      font-size: 1.9rem;
@@ -189,17 +189,30 @@
      align-items: center;
      margin-left: 25px;
      padding: 1rem 0;
+     font-size: 16px;
 }
  .podcast_info_urls {
      letter-spacing: 5px;
      margin-left: 25px;
      font-size: 28px;
 }
+.podcast_info_urls:empty {
+     display:none;
+}
  .podcast_info_email {
     a {
          text-decoration: none;
     }
  }
+ .podcast_info_onairs {
+     font-weight: 600;
+     font-size: 16px;
+     margin-top: 10px;
+     margin-left: 25px;
+}
+ .podcast_info_onairs_list {
+     margin-left: 25px;
+}
  .podcast_info_name_box {
      background-color: #616161;
      border-radius: 1rem;
@@ -230,6 +243,7 @@
 }
 .podcast_list_episode_title {
     display: block;
+    font-size: 16px;
     padding: 15px 20px;
     background: #ffffff;
     color: #333;
@@ -250,13 +264,6 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-/* Wersja Mobilna */
-@media (max-width: 600px) {
-    .podcast_list_episode_title {
-        padding: 12px 15px;
-        font-size: 16px;
-    }
-}
  @media screen and (max-width: 600px) {
      .podcast_info_title {
          margin-left: 10px;
@@ -275,6 +282,14 @@
          margin-left: 10px;
     }
      .podcast_info_urls {
+         margin-left: 10px;
+    }
+     .podcast_info_onairs {
+         font-size: 14px;
+         margin-left: 10px;
+    }
+     .podcast_info_onairs_list {
+         font-size: 12px;
          margin-left: 10px;
     }
      .podcast_list_episode {
@@ -324,7 +339,7 @@
 }
 /* Tytuł */
 .article_title {
-    color: #004a99;
+    color: #222;
     font-weight: bold;
     font-size: 1.1em;
     margin: 0 0 5px 0;
@@ -335,8 +350,6 @@
     color: #444;
     font-size: 0.9em;
     margin-bottom: 4px;
-    /*text-transform: uppercase;*/ /* Opcjonalnie: dla lepszego wyglądu */
-    /*letter-spacing: 0.5px;*/
 }
 /* Info (data, autor) */
 .article_info {
@@ -346,6 +359,9 @@
 }
 /* Responsywność */
 @media screen and (max-width: 600px) {
+    .list_article {
+        padding-left: 0px;
+    }
     .article_post {
         gap: 10px;
     }
@@ -361,6 +377,26 @@
     } 
     .article_info {
         font-size: 0.7rem;
+    }
+}
+@media screen and (min-width: 1000px) {
+    .article_post {
+        gap: 10px;
+    }
+    .article_cover img {
+        width: 150px;
+        height: 150px;
+    }
+    .article_title {
+        font-size: 1.4em;
+    }
+    .article_category {
+        font-size: 0.8em;
+        text-transform: uppercase; /* Opcjonalnie: dla lepszego wyglądu */
+        letter-spacing: 0.5px;
+    } 
+    .article_info {
+        font-size: 1em;
     }
 }
 /* AKTUALNOŚCI POSTÓW */
@@ -434,6 +470,7 @@
     height: auto !important;
 }
 .article_singlecontent_posts {
+    font-size: 16px;
     word-break: break-word;
     /* 1. Kontener galerii */
     .wp-block-gallery.is-layout-flex {
@@ -598,6 +635,33 @@
         font-style: italic;
         color: #2c3338;
         margin-bottom: 10px;
+    }
+    /* Styl mobilny (ekrany poniżej 768px) */
+    @media screen and (max-width: 767px) {
+        blockquote.wp-embedded-content {
+            padding: 15px; /* Mniejszy padding, by zaoszczędzić miejsce */
+            margin: 15px 0;
+            border-radius: 8px; /* Nieco mniejszy zaokrąglony róg */
+        }
+    
+        blockquote.wp-embedded-content a {
+            font-size: 1rem; /* Mniejszy tekst linku */
+        }
+    
+        blockquote.wp-block-quote.is-layout-flow {
+            padding: 15px 20px; /* Zwężenie marginesów wewnętrznych */
+            margin: 25px 0;
+            border-left-width: 4px; /* Cieńsza kreska boczna */
+        }
+    
+        blockquote.wp-block-quote p {
+            font-size: 1.1rem; /* Czytelniejsza, ale mniejsza czcionka na telefon */
+            line-height: 1.5;
+        }
+    
+        blockquote.wp-block-quote cite {
+            font-size: 0.8rem; /* Mniejszy podpis */
+        }
     }
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
