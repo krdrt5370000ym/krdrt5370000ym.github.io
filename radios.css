@@ -311,7 +311,7 @@
          font-size: 6.2px;
     }
 }
- .program_info_title {
+.program_info_title {
      margin-left: 25px;
      font-weight: 700;
      font-size: 1.9rem;
@@ -354,11 +354,15 @@
      align-items: center;
      margin-left: 25px;
      padding: 1rem 0;
+     font-size: 16px;
 }
  .program_info_urls {
      letter-spacing: 5px;
      margin-left: 25px;
      font-size: 28px;
+}
+.program_info_urls:empty {
+     display:none;
 }
  .program_info_email {
     a {
@@ -404,6 +408,7 @@
 }
 .podcast_list_episode_title {
     display: block;
+    font-size: 16px;
     padding: 15px 20px;
     background: #ffffff;
     color: #333;
@@ -423,13 +428,6 @@
     color: #007bff;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-/* Wersja Mobilna */
-@media (max-width: 600px) {
-    .podcast_list_episode_title {
-        padding: 12px 15px;
-        font-size: 16px;
-    }
 }
  @media screen and (max-width: 600px) {
      .program_info_title {
