@@ -442,32 +442,26 @@ function reloadAll(){
 /**
  * Generuje sformatowany tekst harmonogramu dla danego programu.
  */
-function getDisplaySchedule(programId, fullNames = false) {
-  const daysMap = fullNames ? 
-    { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" } :
-    { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
-
+function getDisplaySchedule(programId) {
+  const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
+  const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
+  
   const timeGroups = {};
   
-  // SCHEDULE musi być dostępna globalnie
-  const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule);
-  
-  if (filtered.length === 0) return "";
-
-  filtered.forEach(occ => {
-    const timeKey = `${occ.hour_start}-${occ.hour_end}`;
-    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-    // Upewniamy się, że dni są tablicą stringów
-    const days = Array.isArray(occ.days) ? occ.days : [occ.days];
-    days.forEach(d => timeGroups[timeKey].add(d.toString()));
-  });
+  SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule)
+    .forEach(occ => {
+      const timeKey = `${occ.hour_start}-${occ.hour_end}`;
+      if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+      const days = Array.isArray(occ.days) ? occ.days : [occ.days];
+      days.forEach(d => timeGroups[timeKey].add(d.toString()));
+    });
 
   const result = Object.entries(timeGroups).map(([timeKey, daysSet]) => {
     const [start, end] = timeKey.split("-");
     const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
 
-    // Sprawdzenie sekwencji (min. 3 dni dla zapisu z myślnikiem)
-    const isSequence = sortedDays.length > 2 && sortedDays.every((d, i) => {
+    // Sprawdzamy ciągłość dla zakresów (np. Pn-Pt)
+    const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
       if (i === 0) return true;
       const prev = sortedDays[i-1] == "0" ? 7 : parseInt(sortedDays[i-1]);
       const curr = d == "0" ? 7 : parseInt(d);
@@ -475,12 +469,28 @@ function getDisplaySchedule(programId, fullNames = false) {
     });
 
     let dayString;
-    if (isSequence) {
-      dayString = `${daysMap[sortedDays[0]]} - ${daysMap[sortedDays[sortedDays.length - 1]]}`;
+    
+    if (sortedDays.length === 1) {
+      // "id:1" i "id:7" -> Pełna nazwa dla pojedynczego dnia
+      dayString = daysMapFull[sortedDays[0]];
+    } else if (isSequence) {
+      // "id:3" i "id:5" -> Zakres z myślnikiem (krótkie nazwy)
+      dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
     } else if (sortedDays.length === 2) {
-      dayString = `${daysMap[sortedDays[0]]} i ${daysMap[sortedDays[1]]}`;
+      // "id:4" i "id:6" -> Spójnik "i"
+      // Uwaga: Jeśli chcesz "Śr, Pt" (id:2), a "Śr i Cz" (id:4), 
+      // decyduje tu zazwyczaj zasada czy dni są obok siebie.
+      const d1 = sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]);
+      const d2 = sortedDays[1] == "0" ? 7 : parseInt(sortedDays[1]);
+      
+      if (d2 === d1 + 1) {
+        dayString = `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`;
+      } else {
+        dayString = `${daysMapShort[sortedDays[0]]}, ${daysMapShort[sortedDays[1]]}`;
+      }
     } else {
-      dayString = sortedDays.map(d => daysMap[d]).join(", ");
+      // Pozostałe przypadki (lista po przecinku)
+      dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
     }
 
     return {
@@ -592,7 +602,7 @@ function LoadProgram(id) {
                             ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}</div>` : ""}
                             ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}</div>` : ""}
                             ${emailContact ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
-                            <div class="program_info_djs">Prowadzący: ${escapeHTML(occurrencesHostA)}</div>
+                            <div class="program_info_djs"><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
                         </div>
                     </div>
                     <div class="program_info_desc">${program.description || "Brak opisu programu."}</div>
