@@ -74,34 +74,36 @@ function renderPodcasts(){
 // =====================
 
 function LoadPodcast(id) {
-  // 1. Otwieramy okno natychmiast (User Gesture)
+  // 1. Otwieramy okno natychmiast
   const win = window.open("", "_blank");
 
   if (!win) {
-      alert("Zablokowano wyskakujące okienko. Zezwól na pop-upy w ustawieniach przeglądarki.");
+      alert("Zablokowano wyskakujące okienko.");
       return;
   }
-  if (id === null) return;
-
-  // Sprawdzamy dostępność danych
-  if (typeof PODCASTS === 'undefined') {
-      console.error("Tablica PODCASTS nie jest zdefiniowana.");
+  
+  if (!id || typeof PODCASTS === 'undefined') {
+      console.error("Brak ID lub tablicy PODCASTS");
+      win.close();
       return;
   }
 
+  // 2. Szukamy danych
   const podcast = PODCASTS.find(p => p.id === id);
-  if (!podcast || podcast.url_immediately || podcast.private === true) {
-      win.close(); // Zamykamy puste okno, jeśli podcast nie spełnia warunków
+  
+  // Jeśli nie znajdzie podcastu, wpiszemy błąd do okna zamiast zostawiać białą stronę
+  if (!podcast) {
+      win.document.write("Nie znaleziono podcastu o ID: " + id);
+      win.document.close();
       return;
   }
 
-  // Helper do bezpiecznego HTML
   const escapeHTML = (str) => 
     str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
   
-  // --- NOWOŚĆ: Logika prowadzącego (Host) ---
+  // POPRAWKA: Definicja prowadzących (pobieramy z obiektu podcastu)
   const occurrencesHostA = podcast.host || "---";
-
+  
   const thumb = podcast.thumbnail_text;
   const style = thumb ? [
     thumb.background ? `background:${thumb.background}` : '',
@@ -167,8 +169,8 @@ function LoadPodcast(id) {
                 <div class="w3-row-padding w3-margin-bottom">
                     <p class="podcast_info_title">${escapeHTML(podcast.name)}</p>
                     <div class="podcast_info_box">
-                        <div class="podcast_info_cover">${thumbnailText}</div>
-                        <div class="podcast_info_data">
+                        <div class="program_info_cover">${thumbnailText}</div>
+                        <div class="program_info_data">
                             ${podcast.onair ? `<div class="podcast_info_airtime">${escapeHTML(podcast.onair)}</div>` : ""}
                             ${podcast.label ? `<div class="podcast_info_producter">Wydawca: ${escapeHTML(podcast.label)}</div>` : ""}
                             ${emailContact ? `<div class="podcast_info_email">E-mail: ${emailContact}</div>` : ""}
@@ -176,9 +178,7 @@ function LoadPodcast(id) {
                         </div>
                     </div>
                     <div class="podcast_info_desc">${podcast.description || "Brak opisu podcastu."}</div>
-                    <div class="podcast_info_urls">
-                        ${socialUrlsHtml}
-                    </div>
+                    <div class="podcast_info_urls">${socialUrlsHtml}</div>
                     ${podcastList}
                 </div>
                 <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
@@ -190,7 +190,6 @@ function LoadPodcast(id) {
     </html>
     `;
 
-    // 3. Wpisujemy treść do otwartego okna
     win.document.open();
     win.document.write(htmlContent);
     win.document.close();
