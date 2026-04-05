@@ -74,8 +74,16 @@ function renderPodcasts(){
 // =====================
 
 function LoadPodcast(id) {
+  // 1. Otwieramy okno natychmiast (User Gesture)
+  const win = window.open("", "_blank");
+
+  if (!win) {
+      alert("Zablokowano wyskakujące okienko. Zezwól na pop-upy w ustawieniach przeglądarki.");
+      return;
+  }
   if (id === null) return;
 
+  // PODCASTS musi być dostępna globalnie
   const podcast = PODCASTS.find(p => p.id === id);
   if (!podcast || podcast.url_immediately || podcast.private === true) return;
 
@@ -84,26 +92,52 @@ function LoadPodcast(id) {
   
   const thumb = podcast.thumbnail_text;
   const style = thumb ? [
-  thumb.background ? `background:${thumb.background}` : '',
-  thumb.color ? `color:${thumb.color}` : ''
+    thumb.background ? `background:${thumb.background}` : '',
+    thumb.color ? `color:${thumb.color}` : ''
   ].filter(Boolean).join(';') : '';
+  
   const name = (thumb && thumb.name) || podcast.name || "";
   const thumbnailDisplay = podcast.thumbnail_uri ? 
-  `<img decoding="async" src="${podcast.thumbnail_uri}" alt="${escapeHTML(podcast.name)}">` : "";
-  const thumbnailText = thumb ? `<div class="podcast_info_name_box" style="${style}">${name}</div>` : thumbnailDisplay;
-  const emailContact = (podcast.email && podcast.email.length > 0) 
-  ? podcast.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
-  : '';
-  const podcastList = (podcast.podcast) ? `<audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
-      <div class="podcast_list_episode">
-          <h3>Lista odcinków podcastu:</h3>
-          <div id="episode-list">Ładowanie odcinków...</div>
-      </div>` : '';
+    `<img decoding="async" src="${podcast.thumbnail_uri}" alt="${escapeHTML(podcast.name)}">` : "";
+  const thumbnailText = thumb ? `<div class="podcast_info_name_box" style="${style}">${escapeHTML(name)}</div>` : thumbnailDisplay;
+  
+  const emailContact = (Array.isArray(podcast.email) && podcast.email.length > 0) 
+    ? podcast.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') 
+    : '';
 
-  // 1. Tworzymy treść HTML jako string
+  const podcastList = (podcast.podcast) ? `
+    <audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
+    <div class="podcast_list_episode">
+        <h3>Lista odcinków podcastu:</h3>
+        <div id="episode-list">Ładowanie odcinków...</div>
+    </div>` : '';
+
+  // Definicja ikon społecznościowych dla pętli
+  const socialConfig = [
+    { key: 'url', icon: 'fa-link' },
+    { key: 'url_rss', icon: 'fa-rss' },
+    { key: 'url_podcast', icon: 'fa-podcast' },
+    { key: 'url_spreaker', icon: 'fa-table-list' },
+    { key: 'url_spotify', icon: 'fa-brands fa-spotify' },
+    { key: 'url_kick', icon: 'fa-brands fa-kickstarter-k' },
+    { key: 'url_twitch', icon: 'fa-brands fa-twitch' },
+    { key: 'url_youtube', icon: 'fa-brands fa-youtube' },
+    { key: 'url_facebook', icon: 'fa-brands fa-facebook' },
+    { key: 'url_instagram', icon: 'fa-brands fa-instagram' },
+    { key: 'url_tiktok', icon: 'fa-brands fa-tiktok' },
+    { key: 'url_x', icon: 'fa-brands fa-x-twitter' },
+    { key: 'url_soundcloud', icon: 'fa-brands fa-soundcloud' },
+    { key: 'url_mixcloud', icon: 'fa-brands fa-mixcloud' }
+  ];
+
+  const socialUrlsHtml = socialConfig
+    .filter(cfg => podcast[cfg.key])
+    .map(cfg => `<a href="${podcast[cfg.key]}" target="_blank"><i class="${cfg.icon}"></i></a>`)
+    .join('\n');
+
   const htmlContent = `
     <!DOCTYPE html>
-    <html>
+    <html lang="pl">
         <head>
             <meta charset="UTF-8">
             <meta name='robots' content='noindex, follow' />
@@ -116,7 +150,6 @@ function LoadPodcast(id) {
             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
             <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
             <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-            <!-- Header -->
                 <header class="w3-container" style="padding-top:22px">
                     <h5><b><i class="fa-solid fa-podcast"></i> Podcasty</b></h5>
                 </header>
@@ -127,26 +160,13 @@ function LoadPodcast(id) {
                         <div class="podcast_info_data">
                             ${podcast.onair ? `<div class="podcast_info_airtime">${escapeHTML(podcast.onair)}</div>` : ""}
                             ${podcast.label ? `<div class="podcast_info_producter">Wydawca: ${escapeHTML(podcast.label)}</div>` : ""}
-                            ${podcast.email ? `<div class="podcast_info_email">E-mail: ${emailContact}</div>` : ""}
-                            Prowadzący: <div class="podcast_info_djs">${escapeHTML(podcast.host) || "---"}</div>
-                            </div>
+                            ${emailContact ? `<div class="podcast_info_email">E-mail: ${emailContact}</div>` : ""}
+                            <div class="podcast_info_djs"><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
                         </div>
+                    </div>
                     <div class="podcast_info_desc">${podcast.description || "Brak opisu podcastu."}</div>
                     <div class="podcast_info_urls">
-                        ${podcast.url ? `<a href="${podcast.url}"><i class="fa-solid fa-link"></i></a>` : ""}
-                        ${podcast.url_rss ? `<a href="${podcast.url_rss}"><i class="fa-solid fa-rss"></i></a>` : ""}
-                        ${podcast.url_podcast ? `<a href="${podcast.url_podcast}"><i class="fa-solid fa-podcast"></i></a>` : ""}
-                        ${podcast.url_spreaker ? `<a href="${podcast.url_spreaker}"><i class="fa-solid fa-table-list"></i></a>` : ""}
-                        ${podcast.url_spotify ? `<a href="${podcast.url_spotify}"><i class="fa-brands fa-spotify"></i></a>` : ""}
-                        ${podcast.url_kick ? `<a href="${podcast.url_kick}"><i class="fa-brands fa-kickstarter-k"></i></a>` : ""}
-                        ${podcast.url_twitch ? `<a href="${podcast.url_twitch}"><i class="fa-brands fa-twitch"></i></a>` : ""}
-                        ${podcast.url_youtube ? `<a href="${podcast.url_youtube}"><i class="fa-brands fa-youtube"></i></a>` : ""}
-                        ${podcast.url_facebook ? `<a href="${podcast.url_facebook}"><i class="fa-brands fa-facebook"></i></a>` : ""}
-                        ${podcast.url_instagram ? `<a href="${podcast.url_instagram}"><i class="fa-brands fa-instagram"></i></a>` : ""}
-                        ${podcast.url_tiktok ? `<a href="${podcast.url_tiktok}"><i class="fa-brands fa-tiktok"></i></a>` : ""}
-                        ${podcast.url_x ? `<a href="${podcast.url_x}"><i class="fa-brands fa-x-twitter"></i></a>` : ""}
-                        ${podcast.url_soundcloud ? `<a href="${podcast.url_soundcloud}"><i class="fa-brands fa-soundcloud"></i></a>` : ""}
-                        ${podcast.url_mixcloud ? `<a href="${podcast.url_mixcloud}"><i class="fa-brands fa-mixcloud"></i></a>` : ""}
+                        ${socialUrlsHtml}
                     </div>
                     ${podcastList}
                 </div>
@@ -159,18 +179,10 @@ function LoadPodcast(id) {
     </html>
     `;
 
-  // 2. Tworzymy Blob i generujemy URL
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  const blobURL = URL.createObjectURL(blob);
-
-  // 3. Otwieramy nowe okno z adresem Bloba
-  const win = window.open(blobURL, "_blank");
-
-  if (!win) {
-    alert("Zablokowano wyskakujące okno!");
-    URL.revokeObjectURL(blobURL); // Sprzątamy, jeśli się nie udało
-    return;
-  }
+    // 3. Wpisujemy treść do otwartego okna
+    win.document.open();
+    win.document.write(htmlContent);
+    win.document.close();
 }
 
 // =====================
