@@ -411,10 +411,14 @@ blockquote.wp-block-quote cite {
 
     /* Player Audio na całą szerokość (edge-to-edge) */
     .article_player_posts {
-        margin-inline: -20px; /* "Wyjście" poza padding kontenera (jeśli wynosi ok. 20px) */
+        margin-left: -1.5rem;
+        width: 100vw;
+        border-radius: 0; 
+        padding-left: 25px;
+        /*margin-inline: -20px; /* "Wyjście" poza padding kontenera (jeśli wynosi ok. 20px)
         width: calc(100% + 40px);
-        border-radius: 0; /* Kwadratowy na mobile wygląda nowocześniej */
-        padding: 1.2rem;
+        border-radius: 0; /* Kwadratowy na mobile wygląda nowocześniej
+        padding: 1.2rem; */
     }
 
     blockquote.wp-block-quote {
