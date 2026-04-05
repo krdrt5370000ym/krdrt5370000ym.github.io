@@ -450,7 +450,11 @@ function getDisplaySchedule(programId) {
   
   SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule)
     .forEach(occ => {
-      const timeKey = `${occ.hour_start}-${occ.hour_end}`;
+      // Skracamy czas z "20:00:00" do "20:00"
+      const start = occ.hour_start.substring(0, 5);
+      const end = occ.hour_end.substring(0, 5);
+      const timeKey = `${start}-${end}`;
+      
       if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
       const days = Array.isArray(occ.days) ? occ.days : [occ.days];
       days.forEach(d => timeGroups[timeKey].add(d.toString()));
@@ -460,7 +464,7 @@ function getDisplaySchedule(programId) {
     const [start, end] = timeKey.split("-");
     const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
 
-    // Sprawdzamy ciągłość dla zakresów (np. Pn-Pt)
+    // Sprawdzamy ciągłość (min. 3 dni dla zapisu Pn - Pt)
     const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
       if (i === 0) return true;
       const prev = sortedDays[i-1] == "0" ? 7 : parseInt(sortedDays[i-1]);
@@ -469,27 +473,18 @@ function getDisplaySchedule(programId) {
     });
 
     let dayString;
-    
     if (sortedDays.length === 1) {
-      // "id:1" i "id:7" -> Pełna nazwa dla pojedynczego dnia
-      dayString = daysMapFull[sortedDays[0]];
+      dayString = daysMapFull[sortedDays[0]]; // Pełna nazwa dla id:1 i id:7
     } else if (isSequence) {
-      // "id:3" i "id:5" -> Zakres z myślnikiem (krótkie nazwy)
       dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
     } else if (sortedDays.length === 2) {
-      // "id:4" i "id:6" -> Spójnik "i"
-      // Uwaga: Jeśli chcesz "Śr, Pt" (id:2), a "Śr i Cz" (id:4), 
-      // decyduje tu zazwyczaj zasada czy dni są obok siebie.
       const d1 = sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]);
       const d2 = sortedDays[1] == "0" ? 7 : parseInt(sortedDays[1]);
-      
-      if (d2 === d1 + 1) {
-        dayString = `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`;
-      } else {
-        dayString = `${daysMapShort[sortedDays[0]]}, ${daysMapShort[sortedDays[1]]}`;
-      }
+      // Jeśli dni są obok siebie (np. Śr i Cz), dajemy "i", jeśli nie (np. Śr, Pt), przecinek
+      dayString = (d2 === d1 + 1) 
+        ? `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`
+        : `${daysMapShort[sortedDays[0]]}, ${daysMapShort[sortedDays[1]]}`;
     } else {
-      // Pozostałe przypadki (lista po przecinku)
       dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
     }
 
