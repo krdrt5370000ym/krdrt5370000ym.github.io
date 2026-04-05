@@ -403,11 +403,16 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 }
 
 function WPArticlePostRSCLoad(id) {
-  // Używamy bloku try-finally, aby mieć pewność, że wyczyścimy URL
-  let blobURLRSC = null;
+  // 1. Otwieramy okno natychmiast (to rejestruje "gest użytkownika")
+  const win = window.open("", "_blank");
 
-  try {
-    const htmlContent = `<!DOCTYPE html>
+  if (!win) {
+    alert("Przeglądarka zablokowała wyskakujące okno.");
+    return;
+  }
+
+  // 2. Przygotowujemy treść
+  const htmlContent = `<!DOCTYPE html>
                        <html>
                           <head>
                              <meta charset="UTF-8">
@@ -435,31 +440,26 @@ function WPArticlePostRSCLoad(id) {
                           </body>
                        </html>`;
 
-    const articleBlobRSC = new Blob([htmlContent], { type: 'text/html' });
-    blobURLRSC = URL.createObjectURL(articleBlobRSC);
-    
-    const win = window.open(blobURLRSC, "_blank");
-
-    if (!win) {
-      alert("Przeglądarka zablokowała wyskakujące okno. Proszę zezwolić na pop-upy dla tej strony.");
-      if (blobURLRSC) URL.revokeObjectURL(blobURLRSC);
-    } else {
-      // Rejestrujemy czyszczenie po załadowaniu lub zamknięciu
-      win.onload = () => URL.revokeObjectURL(blobURLRSC);
-    }
-
-  } catch (err) {
-    console.error("Błąd podczas otwierania artykułu:", err);
-    if (blobURLRSC) URL.revokeObjectURL(blobURLRSC);
-  }
+  // 3. Wstrzykujemy treść bezpośrednio do otwartego okna
+  win.document.open();
+  win.document.write(htmlContent);
+  win.document.close();
+  
+  // Opcjonalnie: wywołaj funkcję inicjującą w nowym oknie
+  // win.WPArticlePost(id, mainUrl); 
 }
 
 function WPArticlePostLoad(id, mainUrl) {
-  // Używamy bloku try-finally, aby mieć pewność, że wyczyścimy URL
-  let blobURL = null;
+  // 1. Otwieramy okno natychmiast (to rejestruje "gest użytkownika")
+  const win = window.open("", "_blank");
 
-  try {
-    const htmlContent = `<!DOCTYPE html>
+  if (!win) {
+    alert("Przeglądarka zablokowała wyskakujące okno.");
+    return;
+  }
+
+  // 2. Przygotowujemy treść
+  const htmlContent = `<!DOCTYPE html>
                  <html>
                     <head>
                        <meta charset="UTF-8">
@@ -487,21 +487,11 @@ function WPArticlePostLoad(id, mainUrl) {
                     </body>
                  </html>`;
 
-    const articleBlob = new Blob([htmlContent], { type: 'text/html' });
-    blobURL = URL.createObjectURL(articleBlob);
-    
-    const win = window.open(blobURL, "_blank");
-
-    if (!win) {
-      alert("Przeglądarka zablokowała wyskakujące okno. Proszę zezwolić na pop-upy dla tej strony.");
-      if (blobURL) URL.revokeObjectURL(blobURL);
-    } else {
-      // Rejestrujemy czyszczenie po załadowaniu lub zamknięciu
-      win.onload = () => URL.revokeObjectURL(blobURL);
-    }
-
-  } catch (err) {
-    console.error("Błąd podczas otwierania artykułu:", err);
-    if (blobURL) URL.revokeObjectURL(blobURL);
-  }
+  // 3. Wstrzykujemy treść bezpośrednio do otwartego okna
+  win.document.open();
+  win.document.write(htmlContent);
+  win.document.close();
+  
+  // Opcjonalnie: wywołaj funkcję inicjującą w nowym oknie
+  // win.WPArticlePost(id, mainUrl); 
 }
