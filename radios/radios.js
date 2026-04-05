@@ -447,24 +447,29 @@ function getDisplaySchedule(programId) {
   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
   
   const timeGroups = {};
+  const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule);
   
-  SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule)
-    .forEach(occ => {
-      // Skracamy czas z "20:00:00" do "20:00"
-      const start = occ.hour_start.substring(0, 5);
-      const end = occ.hour_end.substring(0, 5);
-      const timeKey = `${start}-${end}`;
-      
-      if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-      const days = Array.isArray(occ.days) ? occ.days : [occ.days];
-      days.forEach(d => timeGroups[timeKey].add(d.toString()));
-    });
+  if (filtered.length === 0) return "";
 
-  const result = Object.entries(timeGroups).map(([timeKey, daysSet]) => {
+  filtered.forEach(occ => {
+    // Formatowanie godziny do HH:MM
+    const start = (occ.hour_start || "").substring(0, 5);
+    const end = (occ.hour_end || "").substring(0, 5);
+    const timeKey = `${start}-${end}`;
+    
+    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+    const days = Array.isArray(occ.days) ? occ.days : [occ.days];
+    days.forEach(d => timeGroups[timeKey].add(d.toString()));
+  });
+
+  const entries = Object.entries(timeGroups);
+  // Sprawdzamy, czy program ma więcej niż jedną grupę godzinową (czy pojawi się "|")
+  const isMultiGroup = entries.length > 1;
+
+  const result = entries.map(([timeKey, daysSet]) => {
     const [start, end] = timeKey.split("-");
     const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
 
-    // Sprawdzamy ciągłość (min. 3 dni dla zapisu Pn - Pt)
     const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
       if (i === 0) return true;
       const prev = sortedDays[i-1] == "0" ? 7 : parseInt(sortedDays[i-1]);
@@ -474,13 +479,14 @@ function getDisplaySchedule(programId) {
 
     let dayString;
     if (sortedDays.length === 1) {
-      dayString = daysMapFull[sortedDays[0]]; // Pełna nazwa dla id:1 i id:7
+      // Jeśli jest wiele grup (isMultiGroup), zawsze używamy skrótu (np. Śr)
+      // Jeśli jest tylko jedna grupa, używamy pełnej nazwy (np. Środa)
+      dayString = isMultiGroup ? daysMapShort[sortedDays[0]] : daysMapFull[sortedDays[0]];
     } else if (isSequence) {
       dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
     } else if (sortedDays.length === 2) {
       const d1 = sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]);
       const d2 = sortedDays[1] == "0" ? 7 : parseInt(sortedDays[1]);
-      // Jeśli dni są obok siebie (np. Śr i Cz), dajemy "i", jeśli nie (np. Śr, Pt), przecinek
       dayString = (d2 === d1 + 1) 
         ? `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`
         : `${daysMapShort[sortedDays[0]]}, ${daysMapShort[sortedDays[1]]}`;
@@ -495,6 +501,7 @@ function getDisplaySchedule(programId) {
     };
   });
 
+  // Sortowanie chronologiczne i łączenie
   return result
     .sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime))
     .map(g => g.text)
