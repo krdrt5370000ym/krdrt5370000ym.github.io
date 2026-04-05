@@ -203,22 +203,44 @@ iframe {
    EMBED (YouTube, Twitter itd.)
 ===================================================== */
 
-/* .wp-block-embed,
-.wp-block-embed iframe {
-    width: 100%;
-} */
-
-.wp-embedded-content {
+.wp-block-embed {
+    margin-bottom: 2em;
     border-radius: 12px;
-    border: 1px solid #e1e8ed;
-    padding: 20px;
-    background: #fff;
-    margin: 20px 0;
-    transition: 0.2s;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+/* Kontener dla osadzonej treści WP */
+.wp-embedded-content {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 30px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    display: block;
+    text-decoration: none;
+}
+
+/* Efekt najechania - karta lekko się unosi */
 .wp-embedded-content:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #007cba; /* Kolor akcentu WP */
+}
+
+/* Stylowanie tytułu wewnątrz karty */
+.wp-embedded-content a {
+    color: #222;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+/* Specyficzne stylowanie tylko dla YouTube */
+.wp-block-embed.is-provider-youtube {
+    border: 2px solid #ff0000;
 }
 
 /* =====================================================
