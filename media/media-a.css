@@ -243,6 +243,23 @@ iframe {
     border: 2px solid #ff0000;
 }
 
+.wp-block-embed-znalezienie {
+  width: 100% !important; /* Wymusza dopasowanie do ekranu telefonu */
+  max-width: 400px;        /* Ogranicza szerokość na komputerach */
+  margin-left: auto;
+  margin-right: auto;      /* Centruje blok */
+  box-sizing: border-box;  /* Zapobiega rozszerzaniu przez padding */
+}
+
+@media only screen and (max-width: 480px) {
+  .wp-block-embed-znalezienie {
+    position: relative !important; /* Czasem lepiej wyłączyć fixed na małych ekranach */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }
+}
+
 /* =====================================================
    CYTATY
 ===================================================== */
@@ -443,3 +460,4 @@ blockquote.wp-block-quote cite {
     .wp-block-image figcaption {
         font-size: 11px;
     }
+}
