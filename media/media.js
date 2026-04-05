@@ -83,13 +83,25 @@ function LoadPodcast(id) {
   }
   if (id === null) return;
 
-  // PODCASTS musi być dostępna globalnie
-  const podcast = PODCASTS.find(p => p.id === id);
-  if (!podcast || podcast.url_immediately || podcast.private === true) return;
+  // Sprawdzamy dostępność danych
+  if (typeof PODCASTS === 'undefined') {
+      console.error("Tablica PODCASTS nie jest zdefiniowana.");
+      return;
+  }
 
+  const podcast = PODCASTS.find(p => p.id === id);
+  if (!podcast || podcast.url_immediately || podcast.private === true) {
+      win.close(); // Zamykamy puste okno, jeśli podcast nie spełnia warunków
+      return;
+  }
+
+  // Helper do bezpiecznego HTML
   const escapeHTML = (str) => 
     str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
   
+  // --- NOWOŚĆ: Logika prowadzącego (Host) ---
+  const occurrencesHostA = podcast.host || "---";
+
   const thumb = podcast.thumbnail_text;
   const style = thumb ? [
     thumb.background ? `background:${thumb.background}` : '',
@@ -112,7 +124,6 @@ function LoadPodcast(id) {
         <div id="episode-list">Ładowanie odcinków...</div>
     </div>` : '';
 
-  // Definicja ikon społecznościowych dla pętli
   const socialConfig = [
     { key: 'url', icon: 'fa-link' },
     { key: 'url_rss', icon: 'fa-rss' },
