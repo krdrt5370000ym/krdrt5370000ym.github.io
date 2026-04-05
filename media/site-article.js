@@ -406,42 +406,42 @@ function WPArticlePostRSCLoad(id) {
     }
 
     // 2. Przygotowujemy szkielet HTML
-    const htmlContent = `<!DOCTYPE html>
-    <html lang="pl">
-       <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <meta name='robots' content='noindex, follow' />
-          <title>Artykuł | krdrt537000ym.github.io</title>
-          <script src="https://github.io"><\/script>
-          <link rel="stylesheet" href="https://github.io">
-          <link rel="stylesheet" href="https://github.io">
-       </head>
-       <body class="w3-light-grey">
-          <script src="https://github.io"><\/script>
-          <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-             <header class="w3-container" style="padding-top:22px">
-                <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
-             </header>
-             <div class="w3-row-padding w3-margin-bottom">
-                <div style="margin-left: 10px;" id="article-post">Ładowanie treści artykułu...</div>
-             </div>
-             <script src="https://github.io"><\/script>
-          </div>
-          <script src="https://github.io"><\/script>
-          <script src="https://github.io"><\/script>
-          <script>
-             // Czekamy na załadowanie skryptów zewnętrznych
-             window.onload = function() {
-                if (typeof WPArticlePostRSC === 'function') {
-                   WPArticlePostRSC('${id}');
-                } else {
-                   document.getElementById('article-post').innerHTML = 'Błąd: Nie można załadować modułu artykułów.';
-                }
-             };
-          <\/script>
-       </body>
-    </html>`;
+  const htmlContent = `<!DOCTYPE html>
+                       <html>
+                          <head>
+                             <meta charset="UTF-8">
+                             <meta name='robots' content='noindex, follow' />
+                             <title> | krdrt537000ym.github.io</title>
+                             <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+                          </head>
+                          <body class="w3-light-grey">
+                             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css">
+                             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+                             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+                             <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                                <!-- Header -->
+                                <header class="w3-container" style="padding-top:22px">
+                                   <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
+                                </header>
+                                <div class="w3-row-padding w3-margin-bottom">
+                                   <div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div>
+                                </div>
+                                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+                             </div>
+                             <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+                             <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
+                             <script>
+                                // Czekamy na załadowanie skryptów zewnętrznych
+                                window.onload = function() {
+                                  if (typeof WPArticlePostRSC === 'function') {
+                                     WPArticlePostRSC('${id}');
+                                  } else {
+                                     document.getElementById('article-post').innerHTML = 'Błąd: Nie można załadować modułu artykułów.';
+                                   }
+                                  };
+                             <\/script>
+                        </body>
+                    </html>`;
 
     // 3. Wstrzykujemy treść do otwartego okna
     win.document.open();
