@@ -27,10 +27,11 @@ async function WPArticleRSC(append = false) {
         }
 
         const htmlContent = `<div class="articles">${posts.map(post => {
-            const author = post._embedded?.author?.[0]?.name || 'Redakcja';
+            const author = post._embedded?.author?.[0];
+            const authorHTML = author ? `<a href="${author.link}">${author.name}</a>` : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
             const catsHTML = terms.length > 0 
-                ? terms.map(t => `<a href="#">${t.name}</a>`).join(' • ') 
+                ? terms.map(t => `<a href="${t.link}">${t.name}</a>`).join(' • ') 
                 : 'Aktualności';
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
@@ -43,17 +44,17 @@ async function WPArticleRSC(append = false) {
 
             // WAŻNE: Wywołujemy WPArticlePostRSCLoad bezpośrednio w onclick
             return `
-                <article class="article_post" style="display:flex; margin-bottom:20px; border-bottom:1px solid #ddd; padding-bottom:10px;">
-                    <div class="article_cover" style="margin-right:15px;">${imageDisplay}</div>
+                <article class="article_post">
+                    <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        <div class="article_category" style="font-size:0.8em; color:gray;">${catsHTML}</div>
+                        <div class="article_category">${catsHTML}</div>
                         <div class="article_title">
-                            <a href="javascript:void(0)" onclick="WPArticlePostRSCLoad('${post.slug}')" style="text-decoration:none; font-weight:bold; font-size:1.2em; color:#222;">
+                            <a href="javascript:void(0)" onclick="WPArticlePostRSCLoad('${post.slug}')">
                                 ${post.title.rendered}
                             </a>
                         </div>
-                        <div class="article_info" style="font-size:0.8em; margin-top:5px;">
-                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
+                        <div class="article_info">
+                            <i class="fa-solid fa-user"></i> ${authorHTML} | ${postDate}
                         </div>
                     </div>
                 </article>`;
@@ -122,16 +123,16 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
             });
 
             return `
-                <article class="article_post" style="display:flex; margin-bottom:20px; border-bottom:1px solid #ddd; padding-bottom:10px;">
+                <article class="article_post">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        ${is_categories ? `<div class="article_category" style="font-size:0.8em;">${catsHTML}</div>` : ''}
+                        ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
                         <div class="article_title">
-                            <a href="javascript:void(0)" onclick="WPArticlePostLoad('${post.slug}','${mainUrl}')" style="text-decoration:none; font-weight:bold; font-size:1.1em; color:#222;">
+                            <a href="javascript:void(0)" onclick="WPArticlePostLoad('${post.slug}','${mainUrl}')">
                                 ${post.title.rendered}
                             </a>
                         </div>
-                        <div class="article_info" style="font-size:0.8em; margin-top:5px;">
+                        <div class="article_info">
                             ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
                         </div>
                     </div>
