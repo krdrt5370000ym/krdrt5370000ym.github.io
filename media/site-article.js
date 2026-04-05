@@ -403,9 +403,11 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 }
 
 function WPArticlePostRSCLoad(id) {
-  // 1. Używamy const/let zamiast zmiennych globalnych
-  // 2. Dodano poprawne ucieczki dla znaków specjalnych wewnątrz template literal
-  const htmlContent = `<!DOCTYPE html>
+  // Używamy bloku try-finally, aby mieć pewność, że wyczyścimy URL
+  let blobURLRSC = null;
+
+  try {
+    const htmlContent = `<!DOCTYPE html>
                        <html>
                           <head>
                              <meta charset="UTF-8">
@@ -433,23 +435,31 @@ function WPArticlePostRSCLoad(id) {
                           </body>
                        </html>`;
 
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  const blobURL = URL.createObjectURL(blob);
-  const win = window.open(blobURL, "_blank");
+    const articleBlobRSC = new Blob([htmlContent], { type: 'text/html' });
+    blobURLRSC = URL.createObjectURL(articleBlobRSC);
+    
+    const win = window.open(blobURLRSC, "_blank");
 
-  if (!win) {
-    alert("Zablokowano wyskakujące okno! Zmień ustawienia przeglądarki.");
-    URL.revokeObjectURL(blobURL); 
-  } else {
-    // Dobra praktyka: zwalniamy URL po krótkim czasie, gdy okno już go wczyta
-    win.onload = () => URL.revokeObjectURL(blobURL);
+    if (!win) {
+      alert("Przeglądarka zablokowała wyskakujące okno. Proszę zezwolić na pop-upy dla tej strony.");
+      if (blobURLRSC) URL.revokeObjectURL(blobURLRSC);
+    } else {
+      // Rejestrujemy czyszczenie po załadowaniu lub zamknięciu
+      win.onload = () => URL.revokeObjectURL(blobURLRSC);
+    }
+
+  } catch (err) {
+    console.error("Błąd podczas otwierania artykułu:", err);
+    if (blobURLRSC) URL.revokeObjectURL(blobURLRSC);
   }
 }
 
 function WPArticlePostLoad(id, mainUrl) {
-  // 1. Używamy const/let zamiast zmiennych globalnych
-  // 2. Dodano poprawne ucieczki dla znaków specjalnych wewnątrz template literal
-  htmlContent = `<!DOCTYPE html>
+  // Używamy bloku try-finally, aby mieć pewność, że wyczyścimy URL
+  let blobURL = null;
+
+  try {
+    const htmlContent = `<!DOCTYPE html>
                  <html>
                     <head>
                        <meta charset="UTF-8">
@@ -476,19 +486,22 @@ function WPArticlePostLoad(id, mainUrl) {
                        <script>WPArticlePost('${id}', '${mainUrl}');<\/script>
                     </body>
                  </html>`;
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  const blobURL = URL.createObjectURL(blob);
-  const win = window.open(blobURL, "_blank");
 
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  const blobURL = URL.createObjectURL(blob);
-  const win = window.open(blobURL, "_blank");
+    const articleBlob = new Blob([htmlContent], { type: 'text/html' });
+    blobURL = URL.createObjectURL(articleBlob);
+    
+    const win = window.open(blobURL, "_blank");
 
-  if (!win) {
-    alert("Zablokowano wyskakujące okno! Zmień ustawienia przeglądarki.");
-    URL.revokeObjectURL(blobURL); 
-  } else {
-    // Dobra praktyka: zwalniamy URL po krótkim czasie, gdy okno już go wczyta
-    win.onload = () => URL.revokeObjectURL(blobURL);
+    if (!win) {
+      alert("Przeglądarka zablokowała wyskakujące okno. Proszę zezwolić na pop-upy dla tej strony.");
+      if (blobURL) URL.revokeObjectURL(blobURL);
+    } else {
+      // Rejestrujemy czyszczenie po załadowaniu lub zamknięciu
+      win.onload = () => URL.revokeObjectURL(blobURL);
+    }
+
+  } catch (err) {
+    console.error("Błąd podczas otwierania artykułu:", err);
+    if (blobURL) URL.revokeObjectURL(blobURL);
   }
 }
