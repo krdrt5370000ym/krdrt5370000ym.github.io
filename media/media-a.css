@@ -326,15 +326,66 @@ blockquote.wp-block-quote cite {
 }
 
 /* =====================================================
-   SMALL MOBILE
+   TABLET (Media Query)
+===================================================== */
+
+@media (max-width: 1024px) {
+    .article_title_posts {
+        font-size: 2.4em;
+    }
+
+    .wp-block-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =====================================================
+   MOBILE (Media Query)
+===================================================== */
+
+@media (max-width: 768px) {
+    .article_title_posts {
+        font-size: 2em;
+    }
+
+    .article_singlecontent_posts {
+        font-size: 17px;
+    }
+
+    .wp-block-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .article_player_posts {
+        margin-inline: -15px; /* Wyciągnięcie poza kontener, jeśli jest padding */
+        border-radius: 0;
+    }
+
+    blockquote.wp-block-quote {
+        padding: 20px;
+        margin: 30px 0;
+    }
+
+    blockquote.wp-block-quote p {
+        font-size: 1.2rem;
+    }
+}
+
+/* =====================================================
+   SMALL MOBILE (Media Query)
 ===================================================== */
 
 @media (max-width: 480px) {
     .article_title_posts {
-        font-size: 1.6em;
+        font-size: 1.7em;
     }
 
     .wp-block-gallery {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Jeden obrazek pod drugim na bardzo małych ekranach */
+    }
+
+    .wp-block-image figcaption {
+        font-size: 12px;
     }
 }
