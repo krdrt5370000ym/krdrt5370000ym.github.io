@@ -169,8 +169,8 @@ function LoadPodcast(id) {
                 <div class="w3-row-padding w3-margin-bottom">
                     <p class="podcast_info_title">${escapeHTML(podcast.name)}</p>
                     <div class="podcast_info_box">
-                        <div class="program_info_cover">${thumbnailText}</div>
-                        <div class="program_info_data">
+                        <div class="podcast_info_cover">${thumbnailText}</div>
+                        <div class="podcast_info_data">
                             ${podcast.onair ? `<div class="podcast_info_airtime">${escapeHTML(podcast.onair)}</div>` : ""}
                             ${podcast.label ? `<div class="podcast_info_producter">Wydawca: ${escapeHTML(podcast.label)}</div>` : ""}
                             ${emailContact ? `<div class="podcast_info_email">E-mail: ${emailContact}</div>` : ""}
