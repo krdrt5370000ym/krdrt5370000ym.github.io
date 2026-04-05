@@ -348,66 +348,98 @@ blockquote.wp-block-quote cite {
 }
 
 /* =====================================================
-   TABLET (Media Query)
+   TABLET (max 1024px)
+   - Optymalizacja dla iPadów i mniejszych laptopów
 ===================================================== */
-
 @media (max-width: 1024px) {
     .article_title_posts {
-        font-size: 2.4em;
-    }
-
-    .wp-block-gallery {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* =====================================================
-   MOBILE (Media Query)
-===================================================== */
-
-@media (max-width: 768px) {
-    .article_title_posts {
-        font-size: 2em;
+        font-size: 2.2em;
+        margin-bottom: 0.8rem;
     }
 
     .article_singlecontent_posts {
-        font-size: 17px;
+        font-size: 17px; /* Nieco mniejszy druk dla wygody */
     }
 
     .wp-block-gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 kolumny zamiast 3 */
+        gap: 12px;
+    }
+
+    .et_pb_gallery_post_type .et_pb_slides {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    .article_player_posts {
-        margin-inline: -15px; /* Wyciągnięcie poza kontener, jeśli jest padding */
-        border-radius: 0;
-    }
-
-    blockquote.wp-block-quote {
-        padding: 20px;
-        margin: 30px 0;
-    }
-
-    blockquote.wp-block-quote p {
-        font-size: 1.2rem;
     }
 }
 
 /* =====================================================
-   SMALL MOBILE (Media Query)
+   MOBILE (max 768px)
+   - Tryb smartfona (pionowo i poziomo)
 ===================================================== */
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .article_title_posts {
-        font-size: 1.7em;
+        font-size: 1.8em;
+        line-height: 1.2;
+    }
+
+    .article_category_posts,
+    .article_postedon_posts,
+    .article_tags_posts {
+        font-size: 0.85em; /* Zmniejszenie metadanych */
     }
 
     .wp-block-gallery {
-        grid-template-columns: 1fr; /* Jeden obrazek pod drugim na bardzo małych ekranach */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    /* Player Audio na całą szerokość (edge-to-edge) */
+    .article_player_posts {
+        margin-inline: -20px; /* "Wyjście" poza padding kontenera (jeśli wynosi ok. 20px) */
+        width: calc(100% + 40px);
+        border-radius: 0; /* Kwadratowy na mobile wygląda nowocześniej */
+        padding: 1.2rem;
+    }
+
+    blockquote.wp-block-quote {
+        padding: 15px 20px;
+        margin: 25px 0;
+        border-left-width: 4px;
+    }
+
+    blockquote.wp-block-quote p {
+        font-size: 1.15rem;
+    }
+
+    /* Wyłączenie hoverów na mobile (opcjonalne, zapobiega "przyklejaniu" się stanu hover) */
+    .wp-embedded-content:hover {
+        transform: none;
+    }
+}
+
+/* =====================================================
+   SMALL MOBILE (max 480px)
+   - Bardzo wąskie ekrany (np. iPhone SE)
+===================================================== */
+@media (max-width: 480px) {
+    .article_title_posts {
+        font-size: 1.5em;
+    }
+
+    .article_singlecontent_posts {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* Galeria w jednej kolumnie - zdjęcia są wtedy duże i wyraźne */
+    .wp-block-gallery,
+    .et_pb_gallery_post_type .et_pb_slides {
+        grid-template-columns: 1fr;
+    }
+
+    .wp-block-gallery img {
+        aspect-ratio: 16 / 9; /* Na małym ekranie panorama wygląda lepiej niż kwadrat */
     }
 
     .wp-block-image figcaption {
-        font-size: 12px;
+        font-size: 11px;
     }
-}
