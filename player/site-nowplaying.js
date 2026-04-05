@@ -72,40 +72,46 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
 
     try {
         const response = await fetch(url);
+        if (!response.ok) throw new Error("Błąd API");
         const data = await response.json();
-        
-        // Zakładamy, że interesuje nas pierwszy element z listy
-        const program = data; 
-        renderProgramGrupaZPR(program);
+    
+    // Sprawdź, czy tytuł w DOM jest taki sam jak ten z API, żeby uniknąć migotania
+        const currentTitle = document.querySelector(".current_program_title")?.textContent;
+        if (currentTitle === data.name) return;
+
+    renderProgramGrupaZPR(data);
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
         // document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
+        SCHEDULE_APP = null; // Reset błędu, aby spróbować ponownie w kolejnym interwale
     }
 }
 
 function renderProgramGrupaZPR(program) {
-    const container = document.getElementById('program-preview');
+    const container = document.getElementById('resultCP');
+    if (!container) return;
+    const escapeHTML = (str) => 
+    str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
     
     // if (!program) {
     //     container.innerHTML = "Brak informacji o programie.";
     //     return;
     // }
 
-    if (program.thumbnail_uri !== null) {
-        imageDisplay = `<img decoding="async" src="${program.thumbnail_uri}" alt="${program.name}">`;
-    } else {
-        imageDisplay = '';
-    }
+    const imageDisplay = program.thumbnail_uri 
+        ? `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` 
+        : '';
 
     container.innerHTML = `
-        <li class="schedule_onair">
-        <div class="schedule_cover">${imageDisplay}</div>
-        <div class="schedule_content">
-        <div class="schedule_item"></div><div class="schedule_hour">${program.hour_start} - ${program.hour_end}</div>
-        <div class="schedule_title">${program.name}</div>
-        <div class="schedule_author">${program.host}</div>
-        </div></li>
+        <div class="current_program_photo">${imageDisplay}</div>
+        <div>
+        <div class="current_program_item"></div>
+        <div class="current_program_hour">${program.hour_start} - ${program.hour_end}</div>
+        <div class="current_program_title" style="font-weight: 600;">${program.name}</div>
+        <div class="current_program_host">${program.host}</div>
+        </div>
     `;
+    SCHEDULE_APP = 1;
 }
 // Przykład użycia:
 // getCurrentProgram('sc-giFX-r6Hu-5naE', 'ra-4DgR-BbKY-FG3Z');
