@@ -254,6 +254,7 @@ label {
      gap: 2rem;
      min-height: 5rem;
      padding: 1rem 0;
+     padding-left: 10px;
      list-style: none;
      border-bottom: 1px solid #e3e3e3;
      .podcast_list_cover {
