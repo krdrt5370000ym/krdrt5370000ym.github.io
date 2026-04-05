@@ -203,10 +203,10 @@ iframe {
    EMBED (YouTube, Twitter itd.)
 ===================================================== */
 
-.wp-block-embed,
+/* .wp-block-embed,
 .wp-block-embed iframe {
     width: 100%;
-}
+} */
 
 .wp-embedded-content {
     border-radius: 12px;
@@ -336,11 +336,6 @@ blockquote.wp-block-quote cite {
 
     .wp-block-gallery {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .wp-block-embed,
-    .wp-block-embed iframe {
-        width: initial;
     }
 }
 
