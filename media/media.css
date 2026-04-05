@@ -842,6 +842,33 @@ h4 {
         color: #2c3338;
         margin-bottom: 10px;
     }
+    /* Styl mobilny (ekrany poniżej 768px) */
+    @media screen and (max-width: 767px) {
+        blockquote.wp-embedded-content {
+            padding: 15px; /* Mniejszy padding, by zaoszczędzić miejsce */
+            margin: 15px 0;
+            border-radius: 8px; /* Nieco mniejszy zaokrąglony róg */
+        }
+    
+        blockquote.wp-embedded-content a {
+            font-size: 1rem; /* Mniejszy tekst linku */
+        }
+    
+        blockquote.wp-block-quote.is-layout-flow {
+            padding: 15px 20px; /* Zwężenie marginesów wewnętrznych */
+            margin: 25px 0;
+            border-left-width: 4px; /* Cieńsza kreska boczna */
+        }
+    
+        blockquote.wp-block-quote p {
+            font-size: 1.1rem; /* Czytelniejsza, ale mniejsza czcionka na telefon */
+            line-height: 1.5;
+        }
+    
+        blockquote.wp-block-quote cite {
+            font-size: 0.8rem; /* Mniejszy podpis */
+        }
+    }
 }
 @media screen and (min-width: 600px) and (max-width: 767px) {
     .article_title_posts {
