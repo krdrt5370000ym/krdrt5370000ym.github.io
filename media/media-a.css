@@ -1,0 +1,340 @@
+/* =====================================================
+   GLOBAL RESET / BASE
+===================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+iframe {
+    width: 100%;
+    border: 0;
+}
+
+/* =====================================================
+   TYPOGRAFIA POSTÓW
+===================================================== */
+
+.article_headers_posts {
+    margin-bottom: 1em;
+}
+
+.article_title_posts {
+    font-weight: 700;
+    font-size: 2.5em;
+    line-height: 1.2;
+}
+.article_title_posts a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.article_category_posts {
+    color: #444;
+}
+.article_category_posts a {
+    text-decoration: none;
+}
+
+.article_postedon_posts {
+    color: #666;
+    margin-block: 0.3em;
+}
+.article_postedon_posts a {
+    text-decoration: none;
+}
+
+.article_tags_posts {
+    margin-block: 0.3em;
+}
+
+.article_tagsprefix_posts,
+.article_tagsprefix_list {
+    display: inline;
+    color: #444;
+}
+.article_tagsprefix_list a {
+    text-decoration: none;
+}
+
+/* =====================================================
+   THUMBNAIL (NAPRAWA WORDPRESS)
+===================================================== */
+
+.wp-site-blocks .post-thumbnail {
+    height: auto !important;
+    padding-bottom: 0 !important;
+    overflow: hidden;
+    margin-bottom: 10px !important;
+}
+
+.wp-site-blocks .post-thumbnail img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    position: static !important;
+}
+
+.wp-site-blocks .post-thumbnail .post-thumbnail-inner {
+    position: static !important;
+    height: auto !important;
+}
+
+/* =====================================================
+   TREŚĆ POSTA
+===================================================== */
+
+.article_singlecontent_posts {
+    font-size: 16px;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+/* =====================================================
+   AUDIO PLAYER
+===================================================== */
+
+.article_player_posts {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #616161;
+    color: #fff;
+    margin: 20px 0;
+}
+
+.article_player_posts small {
+    font-size: 90%;
+}
+
+.article_player_posts audio {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* =====================================================
+   GALERIA (NOWOCZESNA GRID)
+===================================================== */
+
+.wp-block-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0 !important;
+    padding: 0 !important;
+}
+
+.wp-block-gallery figure {
+    margin: 0 !important;
+    position: relative;
+}
+
+.wp-block-gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* podpisy zdjęć */
+.wp-block-gallery figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 13px;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    border-radius: 0 0 8px 8px;
+}
+
+/* =====================================================
+   GUTENBERG MEDIA
+===================================================== */
+
+.wp-block-image {
+    margin: 0 !important;
+}
+
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.wp-block-image.aligncenter {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+/* resized fix */
+.wp-block-image.is-resized img {
+    height: auto;
+}
+
+/* =====================================================
+   VIDEO / AUDIO
+===================================================== */
+
+.wp-block-video,
+.wp-block-audio {
+    margin: 0 !important;
+}
+
+.wp-block-video video {
+    width: 100%;
+    height: auto;
+}
+
+.wp-block-audio audio {
+    width: 100%;
+}
+
+/* =====================================================
+   EMBED (YouTube, Twitter itd.)
+===================================================== */
+
+.wp-block-embed,
+.wp-block-embed iframe {
+    width: 100%;
+}
+
+.wp-embedded-content {
+    border-radius: 12px;
+    border: 1px solid #e1e8ed;
+    padding: 20px;
+    background: #fff;
+    margin: 20px 0;
+    transition: 0.2s;
+}
+
+.wp-embedded-content:hover {
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   CYTATY
+===================================================== */
+
+blockquote.wp-block-quote {
+    border-left: 6px solid #007cba;
+    padding: 20px 30px;
+    margin: 40px 0;
+    background: #f0f7fb;
+    border-radius: 0 8px 8px 0;
+}
+
+blockquote.wp-block-quote p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+blockquote.wp-block-quote cite {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #646970;
+}
+
+/* =====================================================
+   DIVI GALLERY FIX (jeśli używasz)
+===================================================== */
+
+.et_pb_gallery_post_type .et_pb_slides {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.et_pb_gallery_post_type .et_pb_slide {
+    display: block !important;
+    min-height: 250px;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.et_pb_slide_description {
+    display: none !important;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1024px) {
+    .article_title_posts {
+        font-size: 2.2em;
+    }
+
+    .wp-block-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .article_title_posts {
+        font-size: 1.9em;
+    }
+
+    .article_category_posts,
+    .article_postedon_posts,
+    .article_tags_posts {
+        font-size: 90%;
+    }
+
+    .wp-block-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .article_player_posts {
+        margin-left: -1.5rem;
+        width: 100vw;
+        border-radius: 0;
+        padding-left: 20px;
+    }
+
+    blockquote.wp-block-quote {
+        padding: 15px 20px;
+        margin: 25px 0;
+        border-left-width: 4px;
+    }
+
+    blockquote.wp-block-quote p {
+        font-size: 1.1rem;
+    }
+
+    blockquote.wp-block-quote cite {
+        font-size: 0.8rem;
+    }
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+    .article_title_posts {
+        font-size: 1.6em;
+    }
+
+    .wp-block-gallery {
+        grid-template-columns: 1fr;
+    }
+}
