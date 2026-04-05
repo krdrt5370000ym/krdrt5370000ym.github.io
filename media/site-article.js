@@ -411,7 +411,7 @@ function WPArticlePostRSCLoad(id) {
                              <meta charset="UTF-8">
                              <meta name='robots' content='noindex, follow' />
                              <title> | krdrt537000ym.github.io</title>
-                             <!-- /info_pages/ --><script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+                             <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
                           </head>
                           <body class="w3-light-grey">
                              <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css">
@@ -455,7 +455,7 @@ function WPArticlePostLoad(id, mainUrl) {
                        <meta charset="UTF-8">
                        <meta name='robots' content='noindex, follow' />
                        <title> | krdrt537000ym.github.io</title>
-                       <!-- /info_pages/ --><script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+                       <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
                     </head>
                     <body class="w3-light-grey">
                        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css">
@@ -471,7 +471,9 @@ function WPArticlePostLoad(id, mainUrl) {
                           </div>
                           <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
                        </div>
-                       <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script><script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script><script>WPArticlePost('${id}', '${mainUrl}');<\/script>
+                       <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+                       <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
+                       <script>WPArticlePost('${id}', '${mainUrl}');<\/script>
                     </body>
                  </html>`;
   const blob = new Blob([htmlContent], { type: 'text/html' });
