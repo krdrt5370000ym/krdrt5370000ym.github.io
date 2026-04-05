@@ -1,12 +1,10 @@
-// <div id="article-list">Ładowanie aktualności...</div>
-let currentPage = 1; // Licznik aktualnej strony
-const perPage = 10;   // Ile wpisów na jedno kliknięcie
+let currentPage = 1;
+const perPage = 10;
 
 async function WPArticleRSC(append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
     
-    // Jeśli nie dopisujemy, resetujemy stronę do 1
     if (!append) currentPage = 1;
 
     const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=${perPage}&page=${currentPage}&_embed=true`;
@@ -15,8 +13,6 @@ async function WPArticleRSC(append = false) {
         if (button) button.innerText = "Ładowanie...";
         
         const response = await fetch(postsUrl);
-        
-        // Sprawdź czy strona istnieje
         if (!response.ok) {
             if (button) button.style.display = 'none';
             return;
@@ -31,49 +27,47 @@ async function WPArticleRSC(append = false) {
         }
 
         const htmlContent = `<div class="articles">${posts.map(post => {
-            const author = post._embedded?.author?.[0];
-            const authorHTML = author 
-            ? `<a href="${author.link}">${author.name}</a>` 
-            : 'Redakcja';
+            const author = post._embedded?.author?.[0]?.name || 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
             const catsHTML = terms.length > 0 
-            ? terms.map(t => `<a href="${t.link}">${t.name}</a>`).join(' • ') 
-            : '<a href="https://radiorsc.pl">Aktualności</a>';
+                ? terms.map(t => `<a href="#">${t.name}</a>`).join(' • ') 
+                : 'Aktualności';
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
             const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-            const imageDisplay = imgUrl ? `<img src="${imgUrl}" width="150" height="150">` : '';
+            const imageDisplay = imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;">` : '';
 
             const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
 
+            // WAŻNE: Wywołujemy WPArticlePostRSCLoad bezpośrednio w onclick
             return `
-                <article class="article_post">
-                    <div class="article_cover">${imageDisplay}</div>
+                <article class="article_post" style="display:flex; margin-bottom:20px; border-bottom:1px solid #ddd; padding-bottom:10px;">
+                    <div class="article_cover" style="margin-right:15px;">${imageDisplay}</div>
                     <div class="article_content">
-                        <div class="article_category">${catsHTML}</div>
-                        <div class="article_title"><a href="#" onclick="WPArticlePostRSCLoad('${post.slug}')" target="_blank">${post.title.rendered}</a></div>
-                        <div class="article_info">
-                            <i class="fa-solid fa-user"></i> ${authorHTML} | ${postDate}
+                        <div class="article_category" style="font-size:0.8em; color:gray;">${catsHTML}</div>
+                        <div class="article_title">
+                            <a href="javascript:void(0)" onclick="WPArticlePostRSCLoad('${post.slug}')" style="text-decoration:none; font-weight:bold; font-size:1.2em; color:#222;">
+                                ${post.title.rendered}
+                            </a>
+                        </div>
+                        <div class="article_info" style="font-size:0.8em; margin-top:5px;">
+                            <i class="fa-solid fa-user"></i> ${author} | ${postDate}
                         </div>
                     </div>
                 </article>`;
         }).join('')}</div>`;
 
-        // Kluczowa zmiana: += dopisuje treść zamiast ją zastępować
         if (append) {
             container.innerHTML += htmlContent;
         } else {
             container.innerHTML = htmlContent;
         }
 
-        // Obsługa przycisku "Wczytaj więcej"
         if (button) {
             button.innerText = "Wczytaj więcej";
             button.style.display = posts.length < perPage ? 'none' : 'block';
-            
-            // Jednorazowe przypisanie zdarzenia
             button.onclick = () => {
                 currentPage++;
                 WPArticleRSC(true);
@@ -403,63 +397,69 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 }
 
 function WPArticlePostRSCLoad(id) {
-  // 1. Otwieramy okno natychmiast (to rejestruje "gest użytkownika")
-  const win = window.open("", "_blank");
+    // 1. Otwieramy okno NATYCHMIAST (to omija filtry na mobile)
+    const win = window.open("", "_blank");
 
-  if (!win) {
-    alert("Przeglądarka zablokowała wyskakujące okno.");
-    return;
-  }
+    if (!win) {
+        alert("Przeglądarka zablokowała wyskakujące okno. Proszę zezwolić na pop-upy dla tej strony w ustawieniach przeglądarki.");
+        return;
+    }
 
-  // 2. Przygotowujemy treść
-  const htmlContent = `<!DOCTYPE html>
-                       <html>
-                          <head>
-                             <meta charset="UTF-8">
-                             <meta name='robots' content='noindex, follow' />
-                             <title> | krdrt537000ym.github.io</title>
-                             <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
-                          </head>
-                          <body class="w3-light-grey">
-                             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css">
-                             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
-                             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
-                             <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-                                <!-- Header -->
-                                <header class="w3-container" style="padding-top:22px">
-                                   <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
-                                </header>
-                                <div class="w3-row-padding w3-margin-bottom">
-                                   <div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div>
-                                </div>
-                                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
-                             </div>
-                             <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-                             <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
-                             <script>WPArticlePostRSC('${id}');<\/script>
-                          </body>
-                       </html>`;
+    // 2. Przygotowujemy szkielet HTML
+    const htmlContent = `<!DOCTYPE html>
+    <html lang="pl">
+       <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta name='robots' content='noindex, follow' />
+          <title>Artykuł | krdrt537000ym.github.io</title>
+          <script src="https://github.io"><\/script>
+          <link rel="stylesheet" href="https://github.io">
+          <link rel="stylesheet" href="https://github.io">
+       </head>
+       <body class="w3-light-grey">
+          <script src="https://github.io"><\/script>
+          <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+             <header class="w3-container" style="padding-top:22px">
+                <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
+             </header>
+             <div class="w3-row-padding w3-margin-bottom">
+                <div style="margin-left: 10px;" id="article-post">Ładowanie treści artykułu...</div>
+             </div>
+             <script src="https://github.io"><\/script>
+          </div>
+          <script src="https://github.io"><\/script>
+          <script src="https://github.io"><\/script>
+          <script>
+             // Czekamy na załadowanie skryptów zewnętrznych
+             window.onload = function() {
+                if (typeof WPArticlePostRSC === 'function') {
+                   WPArticlePostRSC('${id}');
+                } else {
+                   document.getElementById('article-post').innerHTML = 'Błąd: Nie można załadować modułu artykułów.';
+                }
+             };
+          <\/script>
+       </body>
+    </html>`;
 
-  // 3. Wstrzykujemy treść bezpośrednio do otwartego okna
-  win.document.open();
-  win.document.write(htmlContent);
-  win.document.close();
-  
-  // Opcjonalnie: wywołaj funkcję inicjującą w nowym oknie
-  // win.WPArticlePost(id, mainUrl); 
+    // 3. Wstrzykujemy treść do otwartego okna
+    win.document.open();
+    win.document.write(htmlContent);
+    win.document.close();
 }
 
 function WPArticlePostLoad(id, mainUrl) {
-  // 1. Otwieramy okno natychmiast (to rejestruje "gest użytkownika")
-  const win = window.open("", "_blank");
+    // 1. Otwieramy okno NATYCHMIAST (przed jakimkolwiek kodem asynchronicznym)
+    const win = window.open("", "_blank");
 
-  if (!win) {
-    alert("Przeglądarka zablokowała wyskakujące okno.");
-    return;
-  }
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+        alert("Zablokowano okno. Proszę zezwolić na wyskakujące okienka w ustawieniach przeglądarki.");
+        return;
+    }
 
-  // 2. Przygotowujemy treść
-  const htmlContent = `<!DOCTYPE html>
+    // 2. Budujemy treść HTML
+    const htmlContent = `<!DOCTYPE html>
                  <html>
                     <head>
                        <meta charset="UTF-8">
@@ -487,11 +487,8 @@ function WPArticlePostLoad(id, mainUrl) {
                     </body>
                  </html>`;
 
-  // 3. Wstrzykujemy treść bezpośrednio do otwartego okna
-  win.document.open();
-  win.document.write(htmlContent);
-  win.document.close();
-  
-  // Opcjonalnie: wywołaj funkcję inicjującą w nowym oknie
-  // win.WPArticlePost(id, mainUrl); 
+    // 3. Wpisujemy treść do otwartego okna
+    win.document.open();
+    win.document.write(htmlContent);
+    win.document.close();
 }
