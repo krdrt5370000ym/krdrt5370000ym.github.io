@@ -83,7 +83,6 @@ async function getCurrentProgramGrupaZPR(siteUid, stationUid = "") {
     } catch (error) {
         console.error("Błąd pobierania danych:", error);
         // document.getElementById('program-preview').innerHTML = "Błąd ładowania danych.";
-        SCHEDULE_APP = null; // Reset błędu, aby spróbować ponownie w kolejnym interwale
     }
 }
 
@@ -103,15 +102,14 @@ function renderProgramGrupaZPR(program) {
         : '';
 
     container.innerHTML = `
-        <div class="current_program_photo">${imageDisplay}</div>
-        <div>
-        <div class="current_program_item"></div>
-        <div class="current_program_hour">${program.hour_start} - ${program.hour_end}</div>
-        <div class="current_program_title" style="font-weight: 600;">${program.name}</div>
-        <div class="current_program_host">${program.host}</div>
-        </div>
+        <li class="schedule_onair">
+        <div class="schedule_cover">${imageDisplay}</div>
+        <div class="schedule_content">
+        <div class="schedule_item"></div><div class="schedule_hour">${program.hour_start} - ${program.hour_end}</div>
+        <div class="schedule_title">${program.name}</div>
+        <div class="schedule_author">${program.host}</div>
+        </div></li>
     `;
-    SCHEDULE_APP = 1;
 }
 // Przykład użycia:
 // getCurrentProgram('sc-giFX-r6Hu-5naE', 'ra-4DgR-BbKY-FG3Z');
