@@ -395,7 +395,7 @@ h4 {
      align-items: center;
      margin-left: 25px;
      padding: 1rem 0;
-     font-size: 14px;
+     font-size: 16px;
 }
  .podcast_info_urls {
      letter-spacing: 5px;
@@ -449,6 +449,7 @@ h4 {
 }
 .podcast_list_episode_title {
     display: block;
+    font-size: 16px;
     padding: 15px 20px;
     background: #ffffff;
     color: #333;
