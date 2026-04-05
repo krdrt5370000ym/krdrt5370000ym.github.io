@@ -339,6 +339,9 @@
      }
      .program_list_name {
         font-weight: 600;
+        a {
+            text-decoration: none;
+        }
      }
      .program_list_host {
         font-size: 80%;
