@@ -505,6 +505,13 @@ function getDisplaySchedule(programId) {
  * Ładuje szczegóły programu i otwiera je w nowym oknie (Blob HTML).
  */
 function LoadProgram(id) {
+  // 1. Otwieramy okno natychmiast (User Gesture)
+  const win = window.open("", "_blank");
+
+  if (!win) {
+      alert("Zablokowano wyskakujące okienko. Zezwól na pop-upy w ustawieniach przeglądarki.");
+      return;
+  }
   if (id === null) return;
 
   // PROGRAMS musi być dostępna globalnie
@@ -617,17 +624,10 @@ function LoadProgram(id) {
     </html>
     `;
 
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  const blobURL = URL.createObjectURL(blob);
-  const win = window.open(blobURL, "_blank");
-
-  if (!win) {
-    alert("Zablokowano wyskakujące okno!");
-    URL.revokeObjectURL(blobURL);
-  } else {
-    // Revoke po minucie, aby dać czas na załadowanie zasobów
-    setTimeout(() => URL.revokeObjectURL(blobURL), 60000);
-  }
+    // 3. Wpisujemy treść do otwartego okna
+    win.document.open();
+    win.document.write(htmlContent);
+    win.document.close();
 }
 
 function AudioPlayer(url) {
