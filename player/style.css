@@ -100,12 +100,15 @@ button {
 @media (min-width:768px) {
     body {
         display: flex;
+        min-height: 100vh;
+        margin: 0;
     }
 
     #sidebar {
-        position: static;
-        width: 300px;
-        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        position: sticky; /* Opcjonalnie, zamiast static, by sidebar nie uciekał */
+        top: 0;
     }
 
     #overlay, #menuBtn, #topbar {
@@ -119,6 +122,6 @@ button {
 
 @media (min-width:1000px) {
     #content {
-        font-size: 130%
+        font-size: 130%;
     }
 }
