@@ -402,30 +402,41 @@ async function WPArticlePostRSCPlayer(targetUrl) {
     }
 }
 
-function WPArticlePostRSCLoad(id) {
+function WPArticlePostLoad(id, mainUrl) {
+  // 1. Używamy const/let zamiast zmiennych globalnych
+  // 2. Dodano poprawne ucieczki dla znaków specjalnych wewnątrz template literal
+  const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name='robots' content='noindex, follow' /><title> | krdrt537000ym.github.io</title> <!-- /info_pages/ --><script src="https://krdrt5370000ym.github.io/site-head.js"><\/script></head><body class="w3-light-grey"><link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css"><link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css"><script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script><div class="w3-main" style="margin-left:300px;margin-top:43px;"><!-- Header --><header class="w3-container" style="padding-top:22px"><h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5></header><div class="w3-row-padding w3-margin-bottom"><div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div></div><script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script></div><script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script><script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script><script>WPArticlePostRSC('${id}');<\/script></body></html>`;
 
-  htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name='robots' content='noindex, follow' /><title> | krdrt537000ym.github.io</title> <!-- /info_pages/ --><script src="https://krdrt5370000ym.github.io/site-head.js"><\/script></head><body class="w3-light-grey"><link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css"><link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css"><script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script><div class="w3-main" style="margin-left:300px;margin-top:43px;"><!-- Header --><header class="w3-container" style="padding-top:22px"><h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5></header><div class="w3-row-padding w3-margin-bottom"><div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div></div><script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script></div><script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script><script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script><script>WPArticlePostRSC('${id}');<\/script></body></html>`;
   const blob = new Blob([htmlContent], { type: 'text/html' });
   const blobURL = URL.createObjectURL(blob);
   const win = window.open(blobURL, "_blank");
 
   if (!win) {
-    alert("Zablokowano wyskakujące okno!");
-    URL.revokeObjectURL(blobURL); // Sprzątamy, jeśli się nie udało
-    return;
+    alert("Zablokowano wyskakujące okno! Zmień ustawienia przeglądarki.");
+    URL.revokeObjectURL(blobURL); 
+  } else {
+    // Dobra praktyka: zwalniamy URL po krótkim czasie, gdy okno już go wczyta
+    win.onload = () => URL.revokeObjectURL(blobURL);
   }
 }
 
 function WPArticlePostLoad(id, mainUrl) {
-
+  // 1. Używamy const/let zamiast zmiennych globalnych
+  // 2. Dodano poprawne ucieczki dla znaków specjalnych wewnątrz template literal
   htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name='robots' content='noindex, follow' /><title> | krdrt537000ym.github.io</title> <!-- /info_pages/ --><script src="https://krdrt5370000ym.github.io/site-head.js"><\/script></head><body class="w3-light-grey"><link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css"><link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css"><script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script><div class="w3-main" style="margin-left:300px;margin-top:43px;"><!-- Header --><header class="w3-container" style="padding-top:22px"><h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5></header><div class="w3-row-padding w3-margin-bottom"><div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div></div><script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script></div><script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script><script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script><script>WPArticlePost('${id}', '${mainUrl}');<\/script></body></html>`;
   const blob = new Blob([htmlContent], { type: 'text/html' });
   const blobURL = URL.createObjectURL(blob);
   const win = window.open(blobURL, "_blank");
 
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const blobURL = URL.createObjectURL(blob);
+  const win = window.open(blobURL, "_blank");
+
   if (!win) {
-    alert("Zablokowano wyskakujące okno!");
-    URL.revokeObjectURL(blobURL); // Sprzątamy, jeśli się nie udało
-    return;
+    alert("Zablokowano wyskakujące okno! Zmień ustawienia przeglądarki.");
+    URL.revokeObjectURL(blobURL); 
+  } else {
+    // Dobra praktyka: zwalniamy URL po krótkim czasie, gdy okno już go wczyta
+    win.onload = () => URL.revokeObjectURL(blobURL);
   }
 }
