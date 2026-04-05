@@ -439,73 +439,81 @@ function reloadAll(){
 // =====================
 // PROGRAM PAGE
 // =====================
-function getDisplaySchedule(programId) {
-  const daysMap = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
-  
-  // 1. Grupujemy dni według godzin (kluczem jest "start-end")
+/**
+ * Generuje sformatowany tekst harmonogramu dla danego programu.
+ */
+function getDisplaySchedule(programId, fullNames = false) {
+  const daysMap = fullNames ? 
+    { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" } :
+    { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
+
   const timeGroups = {};
   
-  SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule)
-    .forEach(occ => {
-      const timeKey = `${occ.hour_start}-${occ.hour_end}`;
-      if (!timeGroups[timeKey]) {
-        timeGroups[timeKey] = new Set();
-      }
-      occ.days.forEach(d => timeGroups[timeKey].add(d));
-    });
+  // SCHEDULE musi być dostępna globalnie
+  const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule);
+  
+  if (filtered.length === 0) return "";
 
-  // 2. Przetwarzamy każdą grupę godzinową na tekst
+  filtered.forEach(occ => {
+    const timeKey = `${occ.hour_start}-${occ.hour_end}`;
+    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+    // Upewniamy się, że dni są tablicą stringów
+    const days = Array.isArray(occ.days) ? occ.days : [occ.days];
+    days.forEach(d => timeGroups[timeKey].add(d.toString()));
+  });
+
   const result = Object.entries(timeGroups).map(([timeKey, daysSet]) => {
     const [start, end] = timeKey.split("-");
-    const sortedDays = Array.from(daysSet).sort((a, b) => {
-      const dayA = a === "0" ? 7 : parseInt(a);
-      const dayB = b === "0" ? 7 : parseInt(b);
-      return dayA - dayB;
-    });
+    const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
 
-    // Sprawdzamy czy dni tworzą ciągły zakres (np. 1, 2, 3)
-    const isSequence = sortedDays.every((d, i) => {
+    // Sprawdzenie sekwencji (min. 3 dni dla zapisu z myślnikiem)
+    const isSequence = sortedDays.length > 2 && sortedDays.every((d, i) => {
       if (i === 0) return true;
-      const prev = sortedDays[i-1] === "0" ? 7 : parseInt(sortedDays[i-1]);
-      const curr = d === "0" ? 7 : parseInt(d);
+      const prev = sortedDays[i-1] == "0" ? 7 : parseInt(sortedDays[i-1]);
+      const curr = d == "0" ? 7 : parseInt(d);
       return curr === prev + 1;
     });
 
     let dayString;
-    if (sortedDays.length > 1 && isSequence) {
+    if (isSequence) {
       dayString = `${daysMap[sortedDays[0]]} - ${daysMap[sortedDays[sortedDays.length - 1]]}`;
+    } else if (sortedDays.length === 2) {
+      dayString = `${daysMap[sortedDays[0]]} i ${daysMap[sortedDays[1]]}`;
     } else {
       dayString = sortedDays.map(d => daysMap[d]).join(", ");
     }
 
     return {
-      text: `${dayString} ${formatHour(start)} - ${formatHour(end)}`,
-      firstDay: sortedDays[0] === "0" ? 7 : parseInt(sortedDays[0]),
+      text: `${dayString} ${start} - ${end}`,
+      firstDay: sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]),
       startTime: start
     };
   });
 
-  // 3. Sortujemy finalne grupy chronologicznie
   return result
-    .sort((a, b) => {
-      if (a.firstDay !== b.firstDay) return a.firstDay - b.firstDay;
-      return a.startTime.localeCompare(b.startTime);
-    })
+    .sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime))
     .map(g => g.text)
     .join(" | ");
 }
 
+/**
+ * Ładuje szczegóły programu i otwiera je w nowym oknie (Blob HTML).
+ */
 function LoadProgram(id) {
   if (id === null) return;
 
+  // PROGRAMS musi być dostępna globalnie
   const program = PROGRAMS.find(p => p.id === id);
   if (!program || program.url_immediately || program.hide_in_schedule === true || program.private === true) return;
 
   const occurrencesSch = SCHEDULE.filter(osch => osch.id === id && osch.active && osch.hide_in_schedule !== true);
-  const occurrencesHost = [...new Set(occurrencesSch.host)];
+  
+  // Poprawione wyciąganie unikalnych hostów z grafiku
+  const occurrencesHost = [...new Set(occurrencesSch.flatMap(osch => osch.host || []))];
+  
   const occurrencesHostA = program.only_the_schedule_hosts === true 
-  ? occurrencesHost.map(t => `${t}`).join(', ') 
-  : program.host;
+    ? (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "---") 
+    : (program.host || "---");
 
   if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) return;
 
@@ -515,26 +523,52 @@ function LoadProgram(id) {
   const scheduleInfo = getDisplaySchedule(id);
   const thumb = program.thumbnail_text;
   const style = thumb ? [
-  thumb.background ? `background:${thumb.background}` : '',
-  thumb.color ? `color:${thumb.color}` : ''
+    thumb.background ? `background:${thumb.background}` : '',
+    thumb.color ? `color:${thumb.color}` : ''
   ].filter(Boolean).join(';') : '';
+  
   const name = (thumb && thumb.name) || program.name || "";
   const thumbnailDisplay = program.thumbnail_uri ? 
-  `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "";
-  const thumbnailText = thumb ? `<div class="program_info_name_box" style="${style}">${name}</div>` : thumbnailDisplay;
-  const emailContact = (program.email && program.email.length > 0) 
-  ? program.email.map(t => `<a href="mailto:${t}">${t}</a>`).join(', ') 
-  : '';
-  const podcastList = (program.podcast) ? `<audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
-      <div class="podcast_list_episode">
-          <h3>Lista odcinków podcastu:</h3>
-          <div id="episode-list">Ładowanie odcinków...</div>
-      </div>` : '';
+    `<img decoding="async" src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "";
+  const thumbnailText = thumb ? `<div class="program_info_name_box" style="${style}">${escapeHTML(name)}</div>` : thumbnailDisplay;
+  
+  const emailContact = (Array.isArray(program.email) && program.email.length > 0) 
+    ? program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') 
+    : '';
 
-  // 1. Tworzymy treść HTML jako string
+  const podcastList = (program.podcast) ? `
+    <audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
+    <div class="podcast_list_episode">
+        <h3>Lista odcinków podcastu:</h3>
+        <div id="episode-list">Ładowanie odcinków...</div>
+    </div>` : '';
+
+  // Definicja ikon społecznościowych dla pętli
+  const socialConfig = [
+    { key: 'url', icon: 'fa-link' },
+    { key: 'url_rss', icon: 'fa-rss' },
+    { key: 'url_podcast', icon: 'fa-podcast' },
+    { key: 'url_spreaker', icon: 'fa-table-list' },
+    { key: 'url_spotify', icon: 'fa-brands fa-spotify' },
+    { key: 'url_kick', icon: 'fa-brands fa-kickstarter-k' },
+    { key: 'url_twitch', icon: 'fa-brands fa-twitch' },
+    { key: 'url_youtube', icon: 'fa-brands fa-youtube' },
+    { key: 'url_facebook', icon: 'fa-brands fa-facebook' },
+    { key: 'url_instagram', icon: 'fa-brands fa-instagram' },
+    { key: 'url_tiktok', icon: 'fa-brands fa-tiktok' },
+    { key: 'url_x', icon: 'fa-brands fa-x-twitter' },
+    { key: 'url_soundcloud', icon: 'fa-brands fa-soundcloud' },
+    { key: 'url_mixcloud', icon: 'fa-brands fa-mixcloud' }
+  ];
+
+  const socialUrlsHtml = socialConfig
+    .filter(cfg => program[cfg.key])
+    .map(cfg => `<a href="${program[cfg.key]}" target="_blank"><i class="${cfg.icon}"></i></a>`)
+    .join('\n');
+
   const htmlContent = `
     <!DOCTYPE html>
-    <html>
+    <html lang="pl">
         <head>
             <meta charset="UTF-8">
             <meta name='robots' content='noindex, follow' />
@@ -547,7 +581,6 @@ function LoadProgram(id) {
             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
             <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
             <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-            <!-- Header -->
                 <header class="w3-container" style="padding-top:22px">
                     <h5><b><i class="fa-solid fa-radio"></i> Programy i audycje</b></h5>
                 </header>
@@ -558,26 +591,13 @@ function LoadProgram(id) {
                         <div class="program_info_data">
                             ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}</div>` : ""}
                             ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}</div>` : ""}
-                            ${program.email ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
-                            Prowadzący: <div class="program_info_djs">${escapeHTML(occurrencesHostA) || "---"}</div>
-                            </div>
+                            ${emailContact ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
+                            <div class="program_info_djs">Prowadzący: ${escapeHTML(occurrencesHostA)}</div>
                         </div>
+                    </div>
                     <div class="program_info_desc">${program.description || "Brak opisu programu."}</div>
                     <div class="program_info_urls">
-                        ${program.url ? `<a href="${program.url}"><i class="fa-solid fa-link"></i></a>` : ""}
-                        ${program.url_rss ? `<a href="${program.url_rss}"><i class="fa-solid fa-rss"></i></a>` : ""}
-                        ${program.url_podcast ? `<a href="${program.url_podcast}"><i class="fa-solid fa-podcast"></i></a>` : ""}
-                        ${program.url_spreaker ? `<a href="${program.url_spreaker}"><i class="fa-solid fa-table-list"></i></a>` : ""}
-                        ${program.url_spotify ? `<a href="${program.url_spotify}"><i class="fa-brands fa-spotify"></i></a>` : ""}
-                        ${program.url_kick ? `<a href="${program.url_kick}"><i class="fa-brands fa-kickstarter-k"></i></a>` : ""}
-                        ${program.url_twitch ? `<a href="${program.url_twitch}"><i class="fa-brands fa-twitch"></i></a>` : ""}
-                        ${program.url_youtube ? `<a href="${program.url_youtube}"><i class="fa-brands fa-youtube"></i></a>` : ""}
-                        ${program.url_facebook ? `<a href="${program.url_facebook}"><i class="fa-brands fa-facebook"></i></a>` : ""}
-                        ${program.url_instagram ? `<a href="${program.url_instagram}"><i class="fa-brands fa-instagram"></i></a>` : ""}
-                        ${program.url_tiktok ? `<a href="${program.url_tiktok}"><i class="fa-brands fa-tiktok"></i></a>` : ""}
-                        ${program.url_x ? `<a href="${program.url_x}"><i class="fa-brands fa-x-twitter"></i></a>` : ""}
-                        ${program.url_soundcloud ? `<a href="${program.url_soundcloud}"><i class="fa-brands fa-soundcloud"></i></a>` : ""}
-                        ${program.url_mixcloud ? `<a href="${program.url_mixcloud}"><i class="fa-brands fa-mixcloud"></i></a>` : ""}
+                        ${socialUrlsHtml}
                     </div>
                     ${scheduleInfo ? `<div class="program_info_onairs">Na antenie:</div>` : ""}
                     ${scheduleInfo ? `<div class="program_info_onairs_list">${scheduleInfo}</div>` : ""}
@@ -592,17 +612,16 @@ function LoadProgram(id) {
     </html>
     `;
 
-  // 2. Tworzymy Blob i generujemy URL
   const blob = new Blob([htmlContent], { type: 'text/html' });
   const blobURL = URL.createObjectURL(blob);
-
-  // 3. Otwieramy nowe okno z adresem Bloba
   const win = window.open(blobURL, "_blank");
 
   if (!win) {
     alert("Zablokowano wyskakujące okno!");
-    URL.revokeObjectURL(blobURL); // Sprzątamy, jeśli się nie udało
-    return;
+    URL.revokeObjectURL(blobURL);
+  } else {
+    // Revoke po minucie, aby dać czas na załadowanie zasobów
+    setTimeout(() => URL.revokeObjectURL(blobURL), 60000);
   }
 }
 
