@@ -512,18 +512,27 @@ function getDisplaySchedule(programId) {
  * Ładuje szczegóły programu i otwiera je w nowym oknie (Blob HTML).
  */
 function LoadProgram(id) {
-  // 1. Otwieramy okno natychmiast (User Gesture)
+  // 1. Otwieramy okno natychmiast
   const win = window.open("", "_blank");
 
   if (!win) {
-      alert("Zablokowano wyskakujące okienko. Zezwól na pop-upy w ustawieniach przeglądarki.");
+      alert("Zablokowano wyskakujące okienko.");
       return;
   }
-  if (id === null) return;
+
+  if (!id || typeof PROGRAMS === 'undefined') {
+      console.error("Brak ID lub tablicy PROGRAMS");
+      win.close();
+      return;
+  }
 
   // PROGRAMS musi być dostępna globalnie
   const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.url_immediately || program.hide_in_schedule === true || program.private === true) return;
+  if (!program || program.url_immediately || program.hide_in_schedule === true || program.private === true) {
+      win.document.write("Nie znaleziono programu o ID: " + id);
+      win.document.close();
+      return;
+  }
 
   const occurrencesSch = SCHEDULE.filter(osch => osch.id === id && osch.active && osch.hide_in_schedule !== true);
   
@@ -534,7 +543,11 @@ function LoadProgram(id) {
     ? (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "---") 
     : (program.host || "---");
 
-  if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) return;
+  if (program.hide_only_information_schedule === true && occurrencesSch.length === 0) {
+      win.document.write("Nie znaleziono programu o ID: " + id);
+      win.document.close();
+      return;
+  }
 
   const escapeHTML = (str) => 
     str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
