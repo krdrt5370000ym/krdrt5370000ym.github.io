@@ -647,6 +647,9 @@ h4 {
     border-radius: 1rem;
     background: #616161;
     color: white;
+    small {
+        font-size: 90%;
+    }
     audio {
         margin-top: 5px;
     }
