@@ -261,6 +261,69 @@ iframe {
 }
 
 /* =====================================================
+   PLIKI
+===================================================== */
+
+/* Stylizacja głównego kontenera */
+.wp-block-file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 1.5rem;
+}
+
+/* Stylizacja linku z nazwą pliku */
+.wp-block-file a:not(.wp-block-file__button) {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Stylizacja przycisku pobierania */
+.wp-block-file__button {
+    background-color: #0073aa;
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.wp-block-file__button:hover {
+    background-color: #005177;
+}
+
+/* Style dla telefonów (ekrany poniżej 600px) */
+@media (max-width: 600px) {
+    .wp-block-file {
+        display: flex;
+        flex-direction: column; /* Układ pionowy */
+        align-items: flex-start; /* Wyrównanie do lewej */
+        gap: 10px; /* Odstęp między nazwą a przyciskiem */
+        padding: 12px;
+    }
+
+    /* Rozciągnięcie przycisku na pełną szerokość (opcjonalnie) */
+    .wp-block-file__button {
+        width: 100%;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    /* Usunięcie marginesu pod nazwą pliku, jeśli przycisk jest pod spodem */
+    .wp-block-file a:not(.wp-block-file__button) {
+        margin-right: 0;
+        margin-bottom: 5px;
+        display: block;
+    }
+}
+
+/* =====================================================
    CYTATY
 ===================================================== */
 
