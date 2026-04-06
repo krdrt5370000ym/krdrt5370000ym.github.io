@@ -131,7 +131,15 @@ reloadBtn.onclick = () => {
 
 /* DOWNLOAD */
 downloadBtn.onclick = () => {
-    window.location.href = `https://krdrt5370000ym.github.io/player/${currentPlaylist}.m3u`;
+    const fileName = `${currentPlaylist}.m3u`;
+    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
+    
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName; // Wymusza pobieranie pliku
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 };
 
 function playlistNowPlaying(streamUrl) {
