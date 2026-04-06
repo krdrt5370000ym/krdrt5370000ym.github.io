@@ -205,6 +205,7 @@ function LoadPodcast(id) {
             </div>
             <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
             <script src="https://krdrt5370000ym.github.io/media/site-episode.js"><\/script>
+            <script src="https://krdrt5370000ym.github.io/media/site-audio.js"><\/script>
             ${podcast.podcast ? `<script>${podcast.podcast}<\/script>` : ""}
         </body>
     </html>
