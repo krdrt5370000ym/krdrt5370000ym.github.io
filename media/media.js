@@ -5,11 +5,26 @@ let PODCASTS = [];
 // =====================
 
 async function loadData(siteId) {
-  const [podcasts] = await Promise.all([
-    fetch("https://krdrt5370000ym.github.io/media/json/" + siteId + "_podcasts.json").then(r=>r.json())
-  ]);
+  const baseUrl = `https://krdrt5370000ym.github.io/media/json/${siteId}`;
+  
+  // Helper do bezpiecznego fetchowania
+  const fetchJson = (suffix) => 
+    fetch(`${baseUrl}_${suffix}.json`)
+      .then(r => r.ok ? r.json() : null)
+      .catch(() => null);
 
-  PODCASTS = podcasts || {};
+  try {
+    const [podcasts] = await Promise.all([
+      fetchJson("podcasts")
+    ]);
+
+    // Przypisanie z fallbackiem na puste struktury
+    PODCASTS = podcasts || {};
+
+    console.log("Dane załadowane pomyślnie");
+  } catch (error) {
+    console.error("Błąd podczas ładowania danych:", error);
+  }
 }
 
 // =====================
