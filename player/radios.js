@@ -129,35 +129,18 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* POBIERANIE DO /storage/emulated/0/Download/ */
-downloadBtn.onclick = async () => {
+/* DOWNLOAD */
+// Android czasami automatycznie kategoryzuje pliki .m3u (playlisty) jako pliki muzyczne i przenosi je do folderu Music zamiast Download.
+downloadBtn.onclick = () => {
     const fileName = `${currentPlaylist}.m3u`;
-    const fileUrl = `https://github.io{fileName}`;
-
-    try {
-        const response = await fetch(fileUrl);
-        const text = await response.text();
-        
-        // KLUCZ: Typ 'application/octet-stream' zmusza Androida do zapisu fizycznego pliku
-        const blob = new Blob([text], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName; // Tutaj wymuszamy końcówkę .m3u
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        // Dajemy systemowi czas na proces zapisu w folderze Download
-        setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }, 3000);
-    } catch (e) {
-        // Jeśli fetch zawiedzie, otwiera link bezpośrednio (może dodać .html)
-        window.location.href = fileUrl;
-    }
+    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
+    
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName; // Wymusza pobieranie pliku
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 };
 
 function playlistNowPlaying(streamUrl) {
