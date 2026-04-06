@@ -129,35 +129,26 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* FORCE PHYSICAL FILE IN /DOWNLOAD */
-downloadBtn.onclick = async () => {
+downloadBtn.onclick = () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
 
-    try {
-        const response = await fetch(fileUrl);
-        const text = await response.text();
-        
-        // Używamy 'application/octet-stream' zamiast audio/x-mpegurl
-        // To zmusza Androida do pobrania pliku jako "nieznane dane binarne"
-        const blob = new Blob([text], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        // Ważne: Opóźnienie czyszczenia, aby system zdążył zapisać plik w /Download
-        setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }, 3000);
-    } catch (err) {
-        window.location.href = fileUrl;
-    }
+    // Tworzymy czysty link, który Android rozpozna jako żądanie pobrania pliku zewnętrznego
+    const a = document.createElement('a');
+    a.href = fileUrl;
+    a.download = fileName;
+    
+    // Klucz dla Chrome na Androidzie: 
+    // target="_blank" wymusza otwarcie nowej karty, co system interpretuje jako sygnał do pobrania pliku na dysk
+    a.target = '_blank'; 
+    
+    document.body.appendChild(a);
+    a.click();
+    
+    // Usuwamy element po sekundzie
+    setTimeout(() => {
+        document.body.removeChild(a);
+    }, 1000);
 };
 
 function playlistNowPlaying(streamUrl) {
