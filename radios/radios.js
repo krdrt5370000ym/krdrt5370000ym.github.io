@@ -23,20 +23,34 @@ let lastDay = new Date().getDay();
 // LOAD
 // =====================
 async function loadData(siteId) {
-  const [images, programs, schedule, stations, config] = await Promise.all([
-    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_images.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_programs.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_schedule.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_station.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_config.json").then(r=>r.json())
-  ]);
+  const baseUrl = `https://krdrt5370000ym.github.io/radios/json/${siteId}`;
+  
+  // Helper do bezpiecznego fetchowania
+  const fetchJson = (suffix) => 
+    fetch(`${baseUrl}_${suffix}.json`)
+      .then(r => r.ok ? r.json() : null)
+      .catch(() => null);
 
-  IMAGES = images || {};
-  PROGRAMS = programs || {};
-  SCHEDULE = schedule || {};
-  STATIONS = stations.station;
-  CONFIG = (Array.isArray(config) ? config[0] : config) || {};
+  try {
+    const [images, programs, schedule, stations, config] = await Promise.all([
+      fetchJson("images"),
+      fetchJson("programs"),
+      fetchJson("schedule"),
+      fetchJson("station"),
+      fetchJson("config")
+    ]);
 
+    // Przypisanie z fallbackiem na puste struktury
+    IMAGES = images || {};
+    PROGRAMS = programs || {};
+    SCHEDULE = schedule || {};
+    STATIONS = stations?.station || [];
+    CONFIG = (Array.isArray(config) ? config[0] : config) || {};
+
+    console.log("Dane załadowane pomyślnie");
+  } catch (error) {
+    console.error("Błąd podczas ładowania danych:", error);
+  }
 }
 
 // =====================
