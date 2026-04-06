@@ -129,7 +129,7 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* DOWNLOAD */
+/* DOWNLOAD FIX DLA ANDROID */
 downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
@@ -137,22 +137,25 @@ downloadBtn.onclick = async () => {
     try {
         const response = await fetch(fileUrl);
         const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
+        
+        // KLUCZ: Zmieniamy typ pliku na octet-stream, by Android NIE otwierał go w przeglądarce
+        const b2 = new Blob([blob], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(b2);
         
         const a = document.createElement('a');
-        a.style.display = 'none';
         a.href = url;
         a.download = fileName;
         
         document.body.appendChild(a);
         a.click();
         
-        // Sprzątanie
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+        setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }, 100);
     } catch (err) {
-        // Fallback, jeśli Fetch zostanie zablokowany (CORS)
-        window.open(fileUrl, '_blank');
+        // Jeśli fetch zawiedzie, wymuszamy otwarcie w nowym oknie (zadziała jak klasyczny link)
+        window.location.assign(fileUrl);
     }
 };
 
