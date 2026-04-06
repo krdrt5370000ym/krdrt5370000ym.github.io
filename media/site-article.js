@@ -151,7 +151,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
             button.style.display = posts.length < perPage ? 'none' : 'block';
             button.onclick = () => {
                 currentPage++;
-                WPArticle(mainUrl, is_categories, is_author, is_image, httpUrl, true);
+                WPArticle(mainUrl, is_categories, is_author, is_image, is_http, true);
             };
         }
 
