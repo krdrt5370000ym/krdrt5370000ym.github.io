@@ -532,7 +532,7 @@ function LoadProgram(id) {
 
   // PROGRAMS musi być dostępna globalnie
   const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.hide_in_schedule === true || program.private === true) {
+  if (!program || program.hide_in_schedule === true || program.private === true || CONFIG.disable_programs === true) {
       win.document.write("Nie znaleziono programu o ID: " + id);
       win.document.close();
       return;
