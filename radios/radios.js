@@ -31,11 +31,11 @@ async function loadData(siteId) {
     fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_config.json").then(r=>r.json())
   ]);
 
-  IMAGES = images;
-  PROGRAMS = programs;
-  SCHEDULE = schedule;
+  IMAGES = images || {};
+  PROGRAMS = programs || {};
+  SCHEDULE = schedule || {};
   STATIONS = stations.station;
-  CONFIG = config[0];
+  CONFIG = (Array.isArray(config) ? config[0] : config) || {};
 
 }
 
