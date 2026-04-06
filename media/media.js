@@ -92,10 +92,15 @@ function LoadPodcast(id) {
   const podcast = PODCASTS.find(p => p.id === id);
   
   // Jeśli nie znajdzie podcastu, wpiszemy błąd do okna zamiast zostawiać białą stronę
-  if (!podcast || podcast.url_immediately || podcast.private === true) {
+  if (!podcast || podcast.private === true) {
       win.document.write("Nie znaleziono podcastu o ID: " + id);
       win.document.close();
       return;
+  }
+
+  if (podcast.url_immediately) {
+    win.loadURL(podcast.url_immediately); 
+    return;
   }
 
   const escapeHTML = (str) => 
