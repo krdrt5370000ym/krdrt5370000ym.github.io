@@ -244,7 +244,7 @@ function renderSchedules() {
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
         const displayName = p.name || data.name || "";
-        const isRestricted = !programIdCheck || data.id === null || data.private === true || stations.disable_programs === true;
+        const isRestricted = !programIdCheck || data.id === null || p.private === true || data.private === true || stations.disable_programs === true;
         
         const programUrl = data.url_immediately 
             ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
@@ -447,7 +447,7 @@ function getDisplaySchedule(programId) {
   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
   
   const timeGroups = {};
-  const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.hide_in_schedule);
+  const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
   
   if (filtered.length === 0) return "";
 
@@ -534,7 +534,7 @@ function LoadProgram(id) {
       return;
   }
 
-  const occurrencesSch = SCHEDULE.filter(osch => osch.id === id && osch.active && osch.hide_in_schedule !== true);
+  const occurrencesSch = SCHEDULE.filter(osch => osch.id === id && osch.active && !osch.private && osch.hide_in_schedule !== true);
   
   // Poprawione wyciąganie unikalnych hostów z grafiku
   const occurrencesHost = [...new Set(occurrencesSch.flatMap(osch => osch.host || []))];
