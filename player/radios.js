@@ -129,33 +129,29 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* DOWNLOAD FIX - WYMUSZENIE .M3U */
+/* POBIERANIE - FILTRACJA ROZSZERZENIA .HTML */
 downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
-    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
+    const fileUrl = `https://github.io{fileName}`;
 
     try {
         const response = await fetch(fileUrl);
         const text = await response.text();
         
-        // Tworzymy Blob jako "octet-stream" - to blokuje dopisywanie .html przez Androida
-        const blob = new Blob([text], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(blob);
+        // Konwersja tekstu na format Base64, aby Android nie myślał, że to strona HTML
+        const base64Data = btoa(unescape(encodeURIComponent(text)));
+        const dataUrl = `data:application/x-mpegurl;base64,${base64Data}`;
+
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = fileName; // Wymusza czyste .m3u
         
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName; // Wymusza czystą nazwę Radio.m3u
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         
-        document.body.appendChild(a);
-        a.click();
-        
-        // Czyścimy pamięć
-        setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }, 2000);
     } catch (e) {
-        // Fallback w razie błędu
+        // Jeśli fetch zawiedzie (np. CORS), używamy zwykłego linku
         window.location.href = fileUrl;
     }
 };
