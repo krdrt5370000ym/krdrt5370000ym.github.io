@@ -129,31 +129,25 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* DOWNLOAD FIX DLA ANDROID CHROME */
-downloadBtn.onclick = async () => {
+/* FINAL FIX DLA FIZYCZNEGO ZAPISU W /DOWNLOAD */
+downloadBtn.onclick = () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
 
-    try {
-        const res = await fetch(fileUrl);
-        const text = await res.text();
-        
-        // Konwertujemy tekst playlisty na format danych, który Android MUSI zapisać
-        const base64Data = btoa(unescape(encodeURIComponent(text)));
-        const dataUrl = `data:application/octet-stream;base64,${base64Data}`;
-
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = fileName; // Wymusza nazwę .m3u w folderze Download
-        
-        document.body.appendChild(link);
-        link.click();
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    
+    // Klucz: Nie używamy skomplikowanych Blobów, tylko czysty link z atrybutem download
+    link.setAttribute('download', fileName);
+    link.setAttribute('target', '_blank');
+    
+    document.body.appendChild(link);
+    link.click();
+    
+    // Usuwamy po dłuższej chwili
+    setTimeout(() => {
         document.body.removeChild(link);
-        
-    } catch (e) {
-        // Jeśli fetch zablokuje CORS, otwórz bezpośrednio
-        window.location.href = fileUrl;
-    }
+    }, 1000);
 };
 
 function playlistNowPlaying(streamUrl) {
