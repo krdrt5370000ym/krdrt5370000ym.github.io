@@ -35,7 +35,7 @@ async function loadData(siteId) {
   PROGRAMS = programs;
   SCHEDULE = schedule;
   STATIONS = stations.station;
-  CONFIG = config;
+  CONFIG = config[0];
 
 }
 
