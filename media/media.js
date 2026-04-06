@@ -9,7 +9,7 @@ async function loadData(siteId) {
     fetch("https://krdrt5370000ym.github.io/media/json/" + siteId + "_podcasts.json").then(r=>r.json())
   ]);
 
-  PODCASTS = podcasts;
+  PODCASTS = podcasts || {};
 }
 
 // =====================
