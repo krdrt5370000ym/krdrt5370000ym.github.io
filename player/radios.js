@@ -132,7 +132,7 @@ reloadBtn.onclick = () => {
 /* DOWNLOAD FIX - FORCE REAL FILE SYSTEM SAVE */
 downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
-    const fileUrl = `https://github.io{fileName}`;
+    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
 
     try {
         const response = await fetch(fileUrl);
