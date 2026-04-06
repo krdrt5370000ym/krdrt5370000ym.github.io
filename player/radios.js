@@ -129,39 +129,30 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* FIXED DOWNLOAD DLA ANDROID (NO DOUBLE EXTENSION) */
+/* DOWNLOAD FIX DLA ANDROID CHROME */
 downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
 
     try {
-        const response = await fetch(fileUrl);
-        const blob = await response.blob();
+        const res = await fetch(fileUrl);
+        const text = await res.text();
         
-        // KLUCZ: Ustawiamy typ na audio/x-mpegurl, co Android kojarzy z playlistą, 
-        // a nie z plikiem tekstowym lub wideo (unikamy .m3u8)
-        const cleanBlob = new Blob([blob], { type: 'audio/x-mpegurl' });
-        const url = window.URL.createObjectURL(cleanBlob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName; // Tutaj wymuszamy nazwę Radio.m3u
-        a.rel = "noopener";    // Bezpieczne przekazanie do menedżera pobierania
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        // Zwiększony czas opóźnienia, aby system zdążył "skopiować" plik z pamięci RAM do /Download
-        setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }, 5000); 
-    } catch (e) {
-        // Fallback jeśli fetch zawiedzie
+        // Konwertujemy tekst playlisty na format danych, który Android MUSI zapisać
+        const base64Data = btoa(unescape(encodeURIComponent(text)));
+        const dataUrl = `data:application/octet-stream;base64,${base64Data}`;
+
         const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileName;
+        link.href = dataUrl;
+        link.download = fileName; // Wymusza nazwę .m3u w folderze Download
+        
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
+        
+    } catch (e) {
+        // Jeśli fetch zablokuje CORS, otwórz bezpośrednio
+        window.location.href = fileUrl;
     }
 };
 
