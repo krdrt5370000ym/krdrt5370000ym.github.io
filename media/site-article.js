@@ -392,6 +392,54 @@ async function WPArticlePostRSCPlayer(targetUrl) {
     }
 }
 
+async function WPArticlePage(slug, mainUrl) {
+    const container = document.getElementById('article-post');
+    
+    // Budowanie poprawnego URL (obsługa ID lub sluga)
+    const postsUrl = slug.startsWith('?p=') 
+        ? `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(3)}?_embed=true` 
+        : `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
+
+    try {
+        const response = await fetch(postsUrl);
+        let data = await response.json();
+        
+        // WP API zwraca obiekt dla pojedynczego ID lub tablicę dla sluga
+        const page = Array.isArray(data) ? data[0] : data;
+
+        if (!page || !page.id) {
+            container.innerHTML = "Brak dostępnej strony.";
+            return;
+        }
+        
+        // Dekodowanie tytułu i ustawienie dokumentu
+        const doc = new DOMParser().parseFromString(page.title.rendered, 'text/html');
+        document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
+
+        // Obsługa obrazka wyróżniającego (Featured Media)
+        const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+        const imageHTML = featuredImage ? `<img src="${featuredImage}" class="article-image">` : '';
+
+        // Generowanie HTML
+        container.innerHTML = `
+            <div class="articles_posts">
+                <article id="page-${page.id}">
+                    <header class="article_headers_posts">
+                        <div class="article_title_posts">
+                            <a href="${page.link}" target="_blank">${page.title.rendered}</a>
+                        </div>
+                    </header>
+                    ${imageHTML}
+                    <div class="article_singlecontent_posts">${page.content.rendered}</div>
+                </article>
+            </div>`;
+
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        container.innerHTML = "Błąd podczas ładowania treści.";
+    }
+}
+
 function WPArticlePostRSCLoad(id) {
     // 1. Otwieramy okno NATYCHMIAST (to omija filtry na mobile)
     const win = window.open("", "_blank");
@@ -483,6 +531,56 @@ function WPArticlePostLoad(id, mainUrl) {
              window.onload = function() {
                 if (typeof WPArticlePost === 'function') {
                    WPArticlePost('${id}', '${mainUrl}');
+                }
+             };
+          <\/script>
+       </body>
+    </html>`;
+
+    // 3. Wpisujemy treść do otwartego okna
+    win.document.open();
+    win.document.write(htmlContent);
+    win.document.close();
+}
+
+function WPArticlePageLoad(id, mainUrl) {
+    // 1. Otwieramy okno natychmiast (User Gesture)
+    const win = window.open("", "_blank");
+
+    if (!win) {
+        alert("Zablokowano wyskakujące okienko. Zezwól na pop-upy w ustawieniach przeglądarki.");
+        return;
+    }
+
+    // 2. Budujemy treść dokumentu (bez Bloba)
+    const htmlContent = `<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name='robots' content='noindex, follow' />
+            <title> | krdrt537000ym.github.io</title>
+            <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+        </head>
+        <body class="w3-light-grey">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media-a.css">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+            <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+            <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                <!-- Header -->
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
+                </header>
+                <div class="w3-row-padding w3-margin-bottom">
+                    <div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div>
+                    </div>
+                    <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+                </div>
+          <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+          <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
+          <script>
+             window.onload = function() {
+                if (typeof WPArticlePage === 'function') {
+                   WPArticlePage('${id}', '${mainUrl}');
                 }
              };
           <\/script>
