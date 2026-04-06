@@ -262,7 +262,8 @@ function renderSchedules() {
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
         const displayName = p.name || data.name || "";
-        const isRestricted = !programIdCheck || data.id === null || p.private === true || data.private === true || stations.disable_programs === true || CONFIG.disable_programs === true;
+        const isRestricted = !programIdCheck || data.id === null || p.private === true || data.private === true ||
+          stations.disable_programs === true || CONFIG.disable_programs === true || CONFIG.disable_programs_info === true;
         
         const programUrl = data.url_immediately 
             ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
@@ -430,7 +431,7 @@ function renderStations(){
       CURRENT_STATION_ID=s.id;
       AudioPlayer(s.stream);
       (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;" : ds.style = "display:block;";
-      (s.disable_programs || CONFIG.disable_programs) ? dp.style = "display:none;" : dp.style = "display:block;";
+      (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
       reloadAll()
     }
@@ -442,7 +443,7 @@ function renderStations(){
     CURRENT_STATION_ID=s.id;
     AudioPlayer(s.stream);
     (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;" : ds.style = "display:block;";
-    (s.disable_programs || CONFIG.disable_programs) ? dp.style = "display:none;" : dp.style = "display:block;";
+    (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
     playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
     reloadAll()
@@ -547,7 +548,7 @@ function LoadProgram(id) {
 
   // PROGRAMS musi być dostępna globalnie
   const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.hide_in_schedule === true || program.private === true || CONFIG.disable_programs === true) {
+  if (!program || program.hide_in_schedule === true || program.private === true || CONFIG.disable_programs_info === true) {
       win.document.write("Nie znaleziono programu o ID: " + id);
       win.document.close();
       return;
