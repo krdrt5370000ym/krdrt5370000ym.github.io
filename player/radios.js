@@ -129,34 +129,23 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* DOWNLOAD FIX DLA ANDROID */
-downloadBtn.onclick = async () => {
+/* NAJBARDZIEJ NIEZAWODNY DOWNLOAD DLA CHROME ANDROID */
+downloadBtn.onclick = () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
 
-    try {
-        const response = await fetch(fileUrl);
-        const blob = await response.blob();
-        
-        // KLUCZ: Zmieniamy typ pliku na octet-stream, by Android NIE otwierał go w przeglądarce
-        const b2 = new Blob([blob], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(b2);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }, 100);
-    } catch (err) {
-        // Jeśli fetch zawiedzie, wymuszamy otwarcie w nowym oknie (zadziała jak klasyczny link)
-        window.location.assign(fileUrl);
-    }
+    const a = document.createElement('a');
+    a.href = fileUrl;
+    a.download = fileName;
+    a.target = '_blank'; // Otwiera w nowym oknie, co na Androidzie wymusza pobranie
+    
+    // Kluczowe dla Chrome: dodanie do DOM przed kliknięciem
+    document.body.appendChild(a);
+    a.click();
+    
+    setTimeout(() => {
+        document.body.removeChild(a);
+    }, 200);
 };
 
 function playlistNowPlaying(streamUrl) {
