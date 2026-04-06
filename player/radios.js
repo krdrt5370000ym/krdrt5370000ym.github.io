@@ -129,27 +129,15 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-downloadBtn.onclick = () => {
-    const fileName = `${currentPlaylist}.m3u`;
-    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
-
-    // Tworzymy czysty link, który Android rozpozna jako żądanie pobrania pliku zewnętrznego
-    const a = document.createElement('a');
-    a.href = fileUrl;
-    a.download = fileName;
-    
-    // Klucz dla Chrome na Androidzie: 
-    // target="_blank" wymusza otwarcie nowej karty, co system interpretuje jako sygnał do pobrania pliku na dysk
-    a.target = '_blank'; 
-    
-    document.body.appendChild(a);
-    a.click();
-    
-    // Usuwamy element po sekundzie
-    setTimeout(() => {
-        document.body.removeChild(a);
-    }, 1000);
-};
+/* AKTUALIZACJA LINKU DO POBRANIA */
+playlistSelect.addEventListener('change', (e) => {
+    const name = e.target.value;
+    const link = document.getElementById('downloadLink');
+    if (link) {
+        link.href = `https://krdrt5370000ym.github.io/player/${name}.m3u`;
+        link.setAttribute('download', `${name}.m3u`);
+    }
+});
 
 function playlistNowPlaying(streamUrl) {
     if (playlistInterval) {
