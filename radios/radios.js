@@ -528,7 +528,7 @@ function LoadProgram(id) {
 
   // PROGRAMS musi być dostępna globalnie
   const program = PROGRAMS.find(p => p.id === id);
-  if (!program || program.url_immediately || program.hide_in_schedule === true || program.private === true) {
+  if (!program || program.hide_in_schedule === true || program.private === true) {
       win.document.write("Nie znaleziono programu o ID: " + id);
       win.document.close();
       return;
@@ -547,6 +547,11 @@ function LoadProgram(id) {
       win.document.write("Nie znaleziono programu o ID: " + id);
       win.document.close();
       return;
+  }
+
+  if (program.url_immediately) {
+    win.loadURL(program.url_immediately); 
+    return;
   }
 
   const escapeHTML = (str) => 
