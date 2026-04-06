@@ -550,7 +550,7 @@ function LoadProgram(id) {
   }
 
   if (program.url_immediately) {
-    win.loadURL(program.url_immediately); 
+    win.location.href = program.url_immediately;
     return;
   }
 
