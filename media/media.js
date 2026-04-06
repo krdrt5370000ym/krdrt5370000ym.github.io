@@ -99,7 +99,7 @@ function LoadPodcast(id) {
   }
 
   if (podcast.url_immediately) {
-    win.loadURL(podcast.url_immediately); 
+    win.location.href = podcast.url_immediately; 
     return;
   }
 
