@@ -15,6 +15,7 @@ let PROGRAMS = [];
 let IMAGES = [];
 let SCHEDULE = [];
 let STATIONS = [];
+let CONFIG = [];
 
 let lastDay = new Date().getDay();
 
@@ -22,17 +23,20 @@ let lastDay = new Date().getDay();
 // LOAD
 // =====================
 async function loadData(siteId) {
-  const [images, programs, schedule, stations] = await Promise.all([
+  const [images, programs, schedule, stations, config] = await Promise.all([
     fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_images.json").then(r=>r.json()),
     fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_programs.json").then(r=>r.json()),
     fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_schedule.json").then(r=>r.json()),
-    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_station.json").then(r=>r.json())
+    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_station.json").then(r=>r.json()),
+    fetch("https://krdrt5370000ym.github.io/radios/json/" + siteId + "_config.json").then(r=>r.json())
   ]);
 
   IMAGES = images;
   PROGRAMS = programs;
   SCHEDULE = schedule;
   STATIONS = stations.station;
+  CONFIG = config;
+
 }
 
 // =====================
@@ -244,7 +248,7 @@ function renderSchedules() {
         el.className = p.subschedule === true ? "schedule_program small" : "schedule_program";
         
         const displayName = p.name || data.name || "";
-        const isRestricted = !programIdCheck || data.id === null || p.private === true || data.private === true || stations.disable_programs === true;
+        const isRestricted = !programIdCheck || data.id === null || p.private === true || data.private === true || stations.disable_programs === true || CONFIG.disable_programs === true;
         
         const programUrl = data.url_immediately 
             ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
@@ -411,7 +415,7 @@ function renderStations(){
       CURRENT_STATION_ID=s.id;
       AudioPlayer(s.stream);
       s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
-      s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
+      s.disable_programs === true || CONFIG.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
       reloadAll()
     }
@@ -423,7 +427,7 @@ function renderStations(){
     CURRENT_STATION_ID=s.id;
     AudioPlayer(s.stream);
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
-    s.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
+    s.disable_programs === true || CONFIG.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
     playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
     reloadAll()
