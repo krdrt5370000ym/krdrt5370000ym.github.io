@@ -137,7 +137,7 @@ function renderCurrent() {
         return nameA.localeCompare(nameB);
     })[0];
 
-    if (stations.schedule && stations.radio_plug !== true) {
+    if (stations.schedule && stations.radio_plug !== true && CONFIG.radio_plug !== true) {
         scheduleCurrent(stations.schedule);
         if (SCHEDULE_APP === 1) return;
     }
@@ -151,7 +151,7 @@ function renderCurrent() {
     document.querySelector(".current_program_host").textContent = "";
     document.querySelector(".current_program_photo").innerHTML = `<img decoding="async" src="${stations.cover}" alt="">` || null;
 
-  if(!program || stations.radio_plug === true) return;
+  if(!program || stations.radio_plug === true || CONFIG.radio_plug === true) return;
 
   const data = getProgramData(program);
   const thumbnail = getThumbnail(program, data);
@@ -289,46 +289,47 @@ function renderSchedules() {
 // ON AIR STATUS
 // =====================
 function updateOnAirStatus() {
-  // Używamy daty przekazanej (do testów) lub aktualnej
-  const now = new Date(); 
+  const now = new Date();
   const currentDay = now.getDay().toString();
   const currentTime = now.toTimeString().slice(0, 8);
-
-  const yesterday = (parseInt(currentDay) === 0 ? "6" : (parseInt(currentDay) - 1).toString());
+  const station = STATIONS.find(x => x.id === CURRENT_STATION_ID);
+  
+  // Szybkie wyjście, jeśli radio plug jest aktywne
+  const isRadioPlugActive = station?.radio_plug && CONFIG.radio_plug;
+  const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString();
 
   document.querySelectorAll('.schedule_program').forEach(row => {
-    const start = row.dataset.start;
-    const end = row.dataset.end;
-    const isMidnightType = row.dataset.midnight === "true";
-    const crossesMidnight = start > end; // np. 23:00:00 > 01:00:00
+    if (isRadioPlugActive) {
+      row.classList.remove('onair');
+      return;
+    }
 
+    const { start, end, midnight } = row.dataset;
     if (!start || !end) return;
 
+    const isMidnightType = midnight === "true";
+    const crossesMidnight = start > end;
     const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
+    
     let active = false;
 
-    // SCENARIUSZ A: Sprawdzamy program w tabie DZISIEJSZYM
     if (dayOfTab === currentDay) {
       if (isMidnightType) {
-        // Programy midnight (np. 01:00-02:00) w swoim nominalnym tabie są wygaszone,
-        // bo renderSchedules przeniósł je do taba "wczorajszego".
+        // Ignorujemy w dzisiejszym tabie, bo "fizycznie" są wczorajsze
         active = false;
       } else if (crossesMidnight) {
-        // Dla 23:00-01:00: w tabie SOBOTA świeci TYLKO wieczorem (od 23:00 do 23:59)
+        // Startuje dzisiaj wieczorem i trwa do jutra
         active = (currentTime >= start);
       } else {
-        // Standardowe (np. 14:00-16:00)
+        // Standardowy czas w ciągu dnia
         active = (currentTime >= start && currentTime < end);
       }
-    } 
-    
-    // SCENARIUSZ B: Sprawdzamy program w tabie WCZORAJSZYM
-    else if (dayOfTab === yesterday) {
+    } else if (dayOfTab === yesterday) {
       if (isMidnightType) {
-        // Program midnight (01:00-02:00) wyświetlony wczoraj – świeci, bo teraz jest dzisiaj rano
+        // Np. 01:00-02:00 rano dnia dzisiejszego (wyświetlane w tabie wczoraj)
         active = (currentTime >= start && currentTime < end);
       } else if (crossesMidnight) {
-        // Program 23:00-01:00 z wczoraj – świeci, bo trwa "ogon" audycji (do 01:00)
+        // "Ogon" audycji 23:00-01:00, sprawdzamy czy jeszcze trwa po północy
         active = (currentTime < end);
       }
     }
@@ -414,7 +415,7 @@ function renderStations(){
       CURRENT_STATION=s.station_schedule;
       CURRENT_STATION_ID=s.id;
       AudioPlayer(s.stream);
-      s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
+      (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;" : ds.style = "display:block;";
       (s.disable_programs || CONFIG.disable_programs) ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
       reloadAll()
@@ -426,7 +427,7 @@ function renderStations(){
     CURRENT_STATION=s.station_schedule;
     CURRENT_STATION_ID=s.id;
     AudioPlayer(s.stream);
-    s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
+    (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;" : ds.style = "display:block;";
     (s.disable_programs || CONFIG.disable_programs) ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
     playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
