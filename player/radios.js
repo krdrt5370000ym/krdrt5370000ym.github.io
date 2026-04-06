@@ -129,7 +129,7 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* DOWNLOAD FIX - FORCE REAL FILE SYSTEM SAVE */
+/* FIXED DOWNLOAD DLA ANDROID (NO DOUBLE EXTENSION) */
 downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
@@ -138,24 +138,30 @@ downloadBtn.onclick = async () => {
         const response = await fetch(fileUrl);
         const blob = await response.blob();
         
-        // Zmieniamy typ na 'application/x-mpegurl', co Android rozpoznaje jako plik zewnętrzny
-        const newBlob = new Blob([blob], { type: 'application/x-mpegurl' });
-        const url = window.URL.createObjectURL(newBlob);
+        // KLUCZ: Ustawiamy typ na audio/x-mpegurl, co Android kojarzy z playlistą, 
+        // a nie z plikiem tekstowym lub wideo (unikamy .m3u8)
+        const cleanBlob = new Blob([blob], { type: 'audio/x-mpegurl' });
+        const url = window.URL.createObjectURL(cleanBlob);
         
         const a = document.createElement('a');
         a.href = url;
-        a.download = fileName;
+        a.download = fileName; // Tutaj wymuszamy nazwę Radio.m3u
+        a.rel = "noopener";    // Bezpieczne przekazanie do menedżera pobierania
         
         document.body.appendChild(a);
         a.click();
         
-        // Dajemy systemowi czas na przejęcie pliku zanim usuniemy obiekt
+        // Zwiększony czas opóźnienia, aby system zdążył "skopiować" plik z pamięci RAM do /Download
         setTimeout(() => {
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
-        }, 2000); 
+        }, 5000); 
     } catch (e) {
-        window.location.href = fileUrl;
+        // Fallback jeśli fetch zawiedzie
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = fileName;
+        link.click();
     }
 };
 
