@@ -129,15 +129,36 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* AKTUALIZACJA LINKU DO POBRANIA */
-playlistSelect.addEventListener('change', (e) => {
-    const name = e.target.value;
-    const link = document.getElementById('downloadLink');
-    if (link) {
-        link.href = `https://krdrt5370000ym.github.io/player/${name}.m3u`;
-        link.setAttribute('download', `${name}.m3u`);
+/* DOWNLOAD FIX - WYMUSZENIE .M3U */
+downloadBtn.onclick = async () => {
+    const fileName = `${currentPlaylist}.m3u`;
+    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
+
+    try {
+        const response = await fetch(fileUrl);
+        const text = await response.text();
+        
+        // Tworzymy Blob jako "octet-stream" - to blokuje dopisywanie .html przez Androida
+        const blob = new Blob([text], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName; // Wymusza czystą nazwę Radio.m3u
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        // Czyścimy pamięć
+        setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }, 2000);
+    } catch (e) {
+        // Fallback w razie błędu
+        window.location.href = fileUrl;
     }
-});
+};
 
 function playlistNowPlaying(streamUrl) {
     if (playlistInterval) {
