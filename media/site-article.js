@@ -81,17 +81,18 @@ async function WPArticleRSC(append = false) {
     }
 }
 
-async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true, append = false) {
+async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
     
     if (!append) currentPage = 1;
 
     const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${currentPage}&_embed=true`;
+    const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
     try {
         if (button) button.innerText = "Ładowanie...";
-        const response = await fetch(postsUrl);
+        const response = await fetch(httpUrl);
         
         if (!response.ok) {
             if (button) button.style.display = 'none';
@@ -258,16 +259,17 @@ async function WPArticlePostRSC(slug) {
     }
 }
 
-async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true) {
+async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false) {
     const container = document.getElementById('article-post');
     // Dodajemy _embed do URL
     const connector = slug.includes('?') ? '&' : '?';
     const postsUrl = slug.slice(0,3) === '?p=' 
         ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(3)}?_embed=true` 
         : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
+    const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
     try {
-        const response = await fetch(postsUrl);
+        const response = await fetch(httpUrl);
         let posts = await response.json();
         if (!Array.isArray(posts)) posts = [posts];
         
@@ -392,16 +394,17 @@ async function WPArticlePostRSCPlayer(targetUrl) {
     }
 }
 
-async function WPArticlePage(slug, mainUrl) {
+async function WPArticlePage(slug, mainUrl, is_http = false) {
     const container = document.getElementById('article-post');
     
     // Budowanie poprawnego URL (obsługa ID lub sluga)
     const postsUrl = slug.startsWith('?p=') 
         ? `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(3)}?_embed=true` 
         : `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
+    const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
     try {
-        const response = await fetch(postsUrl);
+        const response = await fetch(httpUrl);
         let data = await response.json();
         
         // WP API zwraca obiekt dla pojedynczego ID lub tablicę dla sluga
@@ -493,7 +496,7 @@ function WPArticlePostRSCLoad(id) {
     win.document.close();
 }
 
-function WPArticlePostLoad(id, mainUrl) {
+function WPArticlePostLoad(id, mainUrl, is_http = false) {
     // 1. Otwieramy okno natychmiast (User Gesture)
     const win = window.open("", "_blank");
 
@@ -530,7 +533,7 @@ function WPArticlePostLoad(id, mainUrl) {
           <script>
              window.onload = function() {
                 if (typeof WPArticlePost === 'function') {
-                   WPArticlePost('${id}', '${mainUrl}');
+                   WPArticlePost(${is_http ? `'${id}', '${mainUrl}', ${is_http}` : `'${id}', '${mainUrl}'`});
                 }
              };
           <\/script>
@@ -543,7 +546,7 @@ function WPArticlePostLoad(id, mainUrl) {
     win.document.close();
 }
 
-function WPArticlePageLoad(id, mainUrl) {
+function WPArticlePageLoad(id, mainUrl, is_http = false) {
     // 1. Otwieramy okno natychmiast (User Gesture)
     const win = window.open("", "_blank");
 
@@ -580,7 +583,7 @@ function WPArticlePageLoad(id, mainUrl) {
           <script>
              window.onload = function() {
                 if (typeof WPArticlePage === 'function') {
-                   WPArticlePage('${id}', '${mainUrl}');
+                   WPArticlePage(${is_http ? `'${id}', '${mainUrl}', ${is_http}` : `'${id}', '${mainUrl}'`});
                 }
              };
           <\/script>
