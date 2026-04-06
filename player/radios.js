@@ -130,16 +130,30 @@ reloadBtn.onclick = () => {
 };
 
 /* DOWNLOAD */
-downloadBtn.onclick = () => {
+downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
     const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
-    
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = fileName; // Wymusza pobieranie pliku
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+    try {
+        const response = await fetch(fileUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = fileName;
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        // Sprzątanie
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    } catch (err) {
+        // Fallback, jeśli Fetch zostanie zablokowany (CORS)
+        window.open(fileUrl, '_blank');
+    }
 };
 
 function playlistNowPlaying(streamUrl) {
