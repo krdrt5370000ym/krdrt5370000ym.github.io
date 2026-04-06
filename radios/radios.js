@@ -415,7 +415,7 @@ function renderStations(){
       CURRENT_STATION_ID=s.id;
       AudioPlayer(s.stream);
       s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
-      s.disable_programs === true || CONFIG.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
+      (s.disable_programs || CONFIG.disable_programs) ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
       reloadAll()
     }
@@ -427,7 +427,7 @@ function renderStations(){
     CURRENT_STATION_ID=s.id;
     AudioPlayer(s.stream);
     s.radio_plug === true ? ds.style = "display:none;" : ds.style = "display:block;";
-    s.disable_programs === true || CONFIG.disable_programs === true ? dp.style = "display:none;" : dp.style = "display:block;";
+    (s.disable_programs || CONFIG.disable_programs) ? dp.style = "display:none;" : dp.style = "display:block;";
     player.play();
     playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
     reloadAll()
