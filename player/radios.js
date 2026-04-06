@@ -140,7 +140,7 @@ downloadBtn.onclick = async () => {
         
         // Konwersja tekstu na format Base64, aby Android nie myślał, że to strona HTML
         const base64Data = btoa(unescape(encodeURIComponent(text)));
-        const dataUrl = `data:application/x-mpegurl;base64,${base64Data}`;
+        const dataUrl = `data:application/text/html,${base64Data}`;
 
         const link = document.createElement('a');
         link.href = dataUrl;
