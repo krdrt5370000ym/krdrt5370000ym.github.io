@@ -129,23 +129,34 @@ reloadBtn.onclick = () => {
     if (currentStation) play(currentStation, currentElement);
 };
 
-/* NAJBARDZIEJ NIEZAWODNY DOWNLOAD DLA CHROME ANDROID */
-downloadBtn.onclick = () => {
+/* DOWNLOAD FIX - FORCE REAL FILE SYSTEM SAVE */
+downloadBtn.onclick = async () => {
     const fileName = `${currentPlaylist}.m3u`;
-    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
+    const fileUrl = `https://github.io{fileName}`;
 
-    const a = document.createElement('a');
-    a.href = fileUrl;
-    a.download = fileName;
-    a.target = '_blank'; // Otwiera w nowym oknie, co na Androidzie wymusza pobranie
-    
-    // Kluczowe dla Chrome: dodanie do DOM przed kliknięciem
-    document.body.appendChild(a);
-    a.click();
-    
-    setTimeout(() => {
-        document.body.removeChild(a);
-    }, 200);
+    try {
+        const response = await fetch(fileUrl);
+        const blob = await response.blob();
+        
+        // Zmieniamy typ na 'application/x-mpegurl', co Android rozpoznaje jako plik zewnętrzny
+        const newBlob = new Blob([blob], { type: 'application/x-mpegurl' });
+        const url = window.URL.createObjectURL(newBlob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        // Dajemy systemowi czas na przejęcie pliku zanim usuniemy obiekt
+        setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }, 2000); 
+    } catch (e) {
+        window.location.href = fileUrl;
+    }
 };
 
 function playlistNowPlaying(streamUrl) {
