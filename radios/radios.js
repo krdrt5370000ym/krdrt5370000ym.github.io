@@ -664,6 +664,7 @@ function LoadProgram(id) {
             </div>
             <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
             <script src="https://krdrt5370000ym.github.io/media/site-episode.js"><\/script>
+            <script src="https://krdrt5370000ym.github.io/media/site-audio.js"><\/script>
             ${program.podcast ? `<script>${program.podcast}<\/script>` : ""}
         </body>
     </html>
