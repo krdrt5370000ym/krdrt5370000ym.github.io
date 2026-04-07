@@ -533,7 +533,7 @@ function WPArticlePostLoad(id, mainUrl, is_http = false) {
           <script>
              window.onload = function() {
                 if (typeof WPArticlePost === 'function') {
-                   WPArticlePost(${is_http ? `'${id}', '${mainUrl}', ${is_http}` : `'${id}', '${mainUrl}'`});
+                   WPArticlePost(${is_http ? `'${id}', '${mainUrl}', undefined, undefined, undefined, undefined, ${is_http}` : `'${id}', '${mainUrl}'`});
                 }
              };
           <\/script>
