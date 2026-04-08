@@ -343,7 +343,7 @@ function WPPodcastRVA(ProgramId) {
 
 async function loadAudioForPost(postId, mainUrl) {
     try {
-        const audioRes = await fetch(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf`);
+        const audioRes = await fetch(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf,audio/x-aac,audio/vnd.dolby.dd-raw,application/octet-stream,audio/x-flac,audio/x-m4a,audio/x-mpeg-3,application/ogg,audio/x-wav,audio/wma`);
         const media = await audioRes.json();
 
         const li = document.getElementById(`post-${postId}`);
