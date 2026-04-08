@@ -61,7 +61,8 @@ async function uruchomProgram() {
     const station = params.get('st'); 
 
     if (!uid || !station) {
-        document.body.innerHTML = "<title></title>Błąd: Brak parametrów 'uid' lub 'st'.";
+        document.body.innerHTML = "Błąd: Brak parametrów 'uid' lub 'st'.";
+        document.title = null;
         return;
     }
 
@@ -98,7 +99,8 @@ async function uruchomProgram() {
         const program = PROGRAMS.find(p => p.id === uid);
 
         if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info) {
-            document.body.innerHTML = `<title></title>Nie znaleziono programu o ID: ${uid}`;
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`;
+            document.title = null;
             return;
         }
 
@@ -112,7 +114,8 @@ async function uruchomProgram() {
         const scheduleInfo = getDisplaySchedule(uid, SCHEDULE);
 
         if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
-            document.body.innerHTML = "<title></title>Nie znaleziono programu o ID: ${uid}"; // Brak planowanych emisji
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Brak planowanych emisji
+            document.title = null;
             return;
         }
 
