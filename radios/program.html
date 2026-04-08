@@ -68,7 +68,7 @@ async function uruchomProgram() {
     try {
         // Funkcja pomocnicza z POPRAWIONĄ ŚCIEŻKĄ: /radios/json/
         const fetchJSON = async (fileName) => {
-            const url = `https://github.io{station}_${fileName}.json`;
+            const url = `https://krdrt5370000ym.github.io/radios/json/${station}_${fileName}.json`;
             const res = await fetch(url);
             if (!res.ok) {
                 console.warn(`Plik ${fileName} nie istnieje, używam pustej tablicy.`);
