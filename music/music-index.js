@@ -1,8 +1,12 @@
 // --- KONFIGURACJA I ZMIENNE ---
+// --- KONFIGURACJA I ZMIENNE ---
 let currentOffset = 0;
 let currentTerm = "";
 const limit = 5;
-const AUD = new Audio(); // BRAKUJĄCA LINIA - inicjalizacja odtwarzacza
+const AUD = new Audio(); 
+
+const params = new URLSearchParams(window.location.search);
+const searchURL = params.get('s');
 
 const inputKeywords = document.getElementById("input-keywords");
 const submitButton = document.getElementById("submit");
@@ -13,17 +17,17 @@ const loadMoreBtn = document.createElement("button");
 loadMoreBtn.innerText = "Pokaż więcej wyników";
 loadMoreBtn.id = "load-more";
 loadMoreBtn.style.display = "none"; 
-loadMoreBtn.style.margin = "20px auto"; // Wyśrodkowanie
-loadMoreBtn.style.display = "none";
+loadMoreBtn.style.margin = "20px auto"; 
 musicContainer.after(loadMoreBtn);
 
-// --- 1. OBSŁUGA WYSZUKIWANIA (Kliknięcie i Enter) ---
+// --- 1. OBSŁUGA WYSZUKIWANIA ---
 
-// Wspólna funkcja uruchamiająca szukanie
 function startSearch() {
     const query = inputKeywords.value.trim();
-    if (query !== "") {
-        currentTerm = query;
+    const termToSearch = query || searchURL;
+
+    if (termToSearch) {
+        currentTerm = termToSearch;
         currentOffset = 0;
         musicContainer.innerHTML = ""; 
         getSongData(currentTerm, currentOffset);
@@ -32,16 +36,20 @@ function startSearch() {
     }
 }
 
-// Obsługa kliknięcia przycisku myszką
 submitButton.addEventListener("click", startSearch);
 
-// Obsługa klawisza Enter
 inputKeywords.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-        event.preventDefault(); // Zapobiega ewentualnemu odświeżeniu strony
+        event.preventDefault();
         startSearch();
     }
 });
+
+// Autostart jeśli URL zawiera parametr ?s=...
+if (searchURL) {
+    inputKeywords.value = searchURL;
+    startSearch();
+}
 
 // --- 2. OBSŁUGA "POKAŻ WIĘCEJ" ---
 loadMoreBtn.addEventListener("click", () => {
@@ -82,7 +90,8 @@ async function getSongData(searchTerm, offset) {
         }
     } catch (error) {
         console.error("Błąd API:", error);
-        loadMoreBtn.style.display = "none";
+        loadMoreBtn.innerText = "Błąd pobierania danych";
+        loadMoreBtn.disabled = false;
     }
 }
 
@@ -90,9 +99,10 @@ async function getSongData(searchTerm, offset) {
 function appendSongsToDisplay(songs) {
     songs.forEach(song => {
         const attr = song.attributes;
-        const artworkUrl = attr.artwork.url.replace('{w}', '500').replace('{h}', '500');
+        const artworkUrl = attr.artwork?.url?.replace('{w}', '500').replace('{h}', '500') || 'https://placeholder.com';
         const audioUrl = attr.previews?.[0]?.url || "";
         const fullName = `${attr.artistName} - ${attr.name}`;
+        const shazamId = song.id || "";
 
         const songElement = document.createElement("div");
         songElement.className = "song-item";
@@ -120,32 +130,30 @@ function appendSongsToDisplay(songs) {
     });
 }
 
-// --- 4. LOGIKA ODTWARZACZA (DELEGACJA) ---
+// --- 4. LOGIKA ODTWARZACZA ---
 musicContainer.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-audio]");
     if (!btn) return;
 
     const src = btn.dataset.audio;
     if (!src) {
-        alert("Podgląd niedostępny");
+        alert("Podgląd niedostępny dla tego utworu.");
         return;
     }
 
     if (AUD.src !== src) {
         AUD.src = src;
+        // Resetujemy ikony przy zmianie utworu
+        document.querySelectorAll("[data-audio]").forEach(el => el.classList.remove("pause"));
     }
 
     if (AUD.paused) {
         AUD.play();
+        btn.classList.add("pause");
     } else {
         AUD.pause();
+        btn.classList.remove("pause");
     }
-
-    // Ikony wizualne
-    document.querySelectorAll("[data-audio]").forEach(el => {
-        if (el !== btn) el.classList.remove("pause");
-    });
-    btn.classList.toggle("pause", !AUD.paused);
 });
 
 AUD.addEventListener("ended", () => {
