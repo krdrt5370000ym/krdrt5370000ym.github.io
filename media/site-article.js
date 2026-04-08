@@ -1,6 +1,7 @@
 async function WPArticleRSC(append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
+    const perPage = 10; // Zdefiniuj lokalnie lub pobierz z zewnątrz
     
     if (!append) window.currentPage = 1;
     else window.currentPage++;
