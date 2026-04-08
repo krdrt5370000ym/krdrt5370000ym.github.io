@@ -1,4 +1,5 @@
 let PODCASTS = [];
+let SITE_ID = null;
 
 // =====================
 // LOAD
@@ -6,6 +7,7 @@ let PODCASTS = [];
 
 async function loadData(siteId) {
   const baseUrl = `https://krdrt5370000ym.github.io/media/json/${siteId}`;
+  SITE_ID = siteId;
   
   // Helper do bezpiecznego fetchowania
   const fetchJson = (suffix) => 
@@ -70,7 +72,7 @@ function renderPodcasts(){
       
         const podcastUrl = p.url_immediately 
             ? `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
-            : `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${siteId}" target="_blank">${p.name}</a></div>`;
+            : `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name}</a></div>`;
 
       el.innerHTML = `
         <div class="podcast_list_cover">${thumbnailText}</div>
