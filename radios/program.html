@@ -69,15 +69,26 @@ async function uruchomProgram() {
         // Funkcja pomocnicza z POPRAWIONĄ ŚCIEŻKĄ: /radios/json/
         const fetchJSON = async (fileName) => {
             const url = `https://krdrt5370000ym.github.io/radios/json/${station}_${fileName}.json`;
-            const res = await fetch(url);
-            if (!res.ok) {
-                console.warn(`Plik ${fileName} nie istnieje, używam pustej tablicy.`);
-                return fileName === 'config' ? {} : []; // Zwraca pusty obiekt/tablicę zamiast błędu
+            try {
+                const res = await fetch(url);
+                if (!res.ok) return fileName === 'config' ? {} : []; 
+                
+                const data = await res.json();
+        
+                // Twoja poprawka: standaryzacja CONFIG i SCHEDULE
+                if (fileName === 'config') {
+                    return (Array.isArray(data) ? data[0] : data) || {};
+                }
+                
+                // Dla schedule i programs upewniamy się, że to zawsze tablica (do .filter i .find)
+                return Array.isArray(data) ? data : [];
+                
+            } catch (e) {
+                return (fileName === 'config' || fileName === 'schedule') ? {} : [];
             }
-            return res.json();
         };
-
-        // Pobieramy dane bezpiecznie
+        
+        // Wywołanie w Promise.all pozostaje bez zmian:
         const [PROGRAMS, SCHEDULE, CONFIG] = await Promise.all([
             fetchJSON('programs'),
             fetchJSON('schedule'),
@@ -86,8 +97,8 @@ async function uruchomProgram() {
 
         const program = PROGRAMS.find(p => p.id === uid);
 
-        if (!program) {
-            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid} w pliku ${station}_programs.json`;
+        if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info) {
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`;
             return;
         }
 
@@ -98,10 +109,10 @@ async function uruchomProgram() {
 
         // 2. Logika emisji i prowadzących
         const occurrencesSch = SCHEDULE.filter(osch => osch.id === uid && osch.active && !osch.private && !osch.hide_in_schedule);
-        const airtimeStr = getDisplaySchedule(uid, SCHEDULE);
+        const scheduleInfo = getDisplaySchedule(uid, SCHEDULE);
 
         if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
-            document.body.innerHTML = "Brak planowanych emisji.";
+            document.body.innerHTML = "Nie znaleziono programu o ID: ${uid}"; // Brak planowanych emisji
             return;
         }
 
@@ -122,37 +133,82 @@ async function uruchomProgram() {
         const emailContact = (Array.isArray(program.email) && program.email.length > 0) 
             ? program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') : '';
 
+        const podcastList = (program.podcast) ? `
+          <audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
+          <div class="podcast_list_episode">
+          <h3>Lista odcinków podcastu:</h3>
+          <div id="episode-list">Ładowanie odcinków...</div>
+          </div>` : '';
+
+        // Definicja ikon społecznościowych dla pętli
+        const socialConfig = [
+          { key: 'url', icon: 'fa-link' },
+          { key: 'url_rss', icon: 'fa-rss' },
+          { key: 'url_podcast', icon: 'fa-podcast' },
+          { key: 'url_spreaker', icon: 'fa-table-list' },
+          { key: 'url_spotify', icon: 'fa-brands fa-spotify' },
+          { key: 'url_kick', icon: 'fa-brands fa-kickstarter-k' },
+          { key: 'url_twitch', icon: 'fa-brands fa-twitch' },
+          { key: 'url_youtube', icon: 'fa-brands fa-youtube' },
+          { key: 'url_facebook', icon: 'fa-brands fa-facebook' },
+          { key: 'url_instagram', icon: 'fa-brands fa-instagram' },
+          { key: 'url_tiktok', icon: 'fa-brands fa-tiktok' },
+          { key: 'url_x', icon: 'fa-brands fa-x-twitter' },
+          { key: 'url_soundcloud', icon: 'fa-brands fa-soundcloud' },
+          { key: 'url_mixcloud', icon: 'fa-brands fa-mixcloud' }
+        ];
+
+        const socialUrlsHtml = socialConfig
+          .filter(cfg => program[cfg.key])
+          .map(cfg => `<a href="${program[cfg.key]}" target="_blank"><i class="${cfg.icon}"></i></a>`)
+          .join('\n');
+
         const fullHTML = `
             <!DOCTYPE html>
             <html lang="pl">
-            <head>
-                <meta charset="UTF-8">
-                <title>${escapeHTML(program.name)}</title>
-                <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
-                <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios/radios.css">
-                <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
-            </head>
-            <body class="w3-light-grey">
-                <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
-                <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-                    <div class="w3-row-padding">
-                        <h2 class="podcast_info_title">${escapeHTML(program.name)}</h2>
-                        <div class="podcast_info_box">
-                            <div class="podcast_info_cover">${thumbnailText}</div>
-                            <div class="podcast_info_data">
-                                <div class="podcast_info_airtime"><b>Emisja:</b> ${airtimeStr || "Brak stałych godzin"}</div>
-                                ${program.label ? `<div>Wydawca: ${escapeHTML(program.label)}</div>` : ""}
-                                ${emailContact ? `<div>E-mail: ${emailContact}</div>` : ""}
-                                <div><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name='robots' content='noindex, follow' />
+                    <title>${escapeHTML(program.name)} | krdrt537000ym.github.io</title>
+                    <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+                </head>
+                <body class="w3-light-grey">
+                    <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios/radios.css">
+                    <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+                    <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+                    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
+                    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                        <header class="w3-container" style="padding-top:22px">
+                            <h5><b><i class="fa-solid fa-radio"></i> Programy i audycje</b></h5>
+                        </header>
+                        <div class="w3-row-padding w3-margin-bottom">
+                            <p class="program_info_title">${escapeHTML(program.name)}</p>
+                            <div class="program_info_box">
+                                <div class="program_info_cover">${thumbnailText}</div>
+                                <div class="program_info_data">
+                                    ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}</div>` : ""}
+                                    ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}</div>` : ""}
+                                    ${emailContact ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
+                                    <div class="program_info_djs"><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
+                                </div>
                             </div>
+                            <div class="program_info_desc">${program.description || "Brak opisu programu."}</div>
+                            <div class="program_info_urls">
+                                ${socialUrlsHtml}
+                            </div>
+                            ${scheduleInfo ? `<div class="program_info_onairs">Na antenie:</div>` : ""}
+                            ${scheduleInfo ? `<div class="program_info_onairs_list">${scheduleInfo}</div>` : ""}
+                            ${podcastList}
                         </div>
-                        <div class="podcast_info_desc" style="margin-top:20px">${program.description || ""}</div>
+                        <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
                     </div>
-                </div>
-                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
-                <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-            </body>
-            </html>`;
+                    <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+                    <script src="https://krdrt5370000ym.github.io/media/site-episode.js"><\/script>
+                    <script src="https://krdrt5370000ym.github.io/media/site-audio.js"><\/script>
+                    ${program.podcast ? `<script>${program.podcast}<\/script>` : ""}
+                </body>
+            </html>
+            `;
 
         document.open();
         document.write(fullHTML);
