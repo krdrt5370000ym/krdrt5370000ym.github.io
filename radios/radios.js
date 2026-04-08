@@ -1,4 +1,5 @@
 let hls = null;
+let SITE_ID = null;
 let CURRENT_STATION = null;
 let CURRENT_STATION_ID = null;
 let SCHEDULE_APP = null;
@@ -24,6 +25,7 @@ let lastDay = new Date().getDay();
 // =====================
 async function loadData(siteId) {
   const baseUrl = `https://krdrt5370000ym.github.io/radios/json/${siteId}`;
+  SITE_ID = siteId;
   
   // Helper do bezpiecznego fetchowania
   const fetchJson = (suffix) => 
@@ -267,7 +269,7 @@ function renderSchedules() {
         
         const programUrl = data.url_immediately 
             ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
-            : `<div class="schedule_program_name" style="cursor:pointer;"><a href="program?uid=${data.id}&st=${siteId}" target="_blank">${displayName}</a></div>`; // Dodano ' po ${data.id}
+            : `<div class="schedule_program_name" style="cursor:pointer;"><a href="program?uid=${data.id}&st=${SITE_ID}" target="_blank">${displayName}</a></div>`; // Dodano ' po ${data.id}
 
         const programUrlN = data.url_immediately 
             ? `<div class="schedule_program_name" style="cursor:pointer;"><a href="${data.url_immediately}" target="_blank">${displayName}</a></div>` 
@@ -397,7 +399,7 @@ function renderPrograms(){
       
         const programUrl = p.url_immediately 
             ? `<div class="program_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
-            : `<div class="program_list_name" style="cursor:pointer;"><a href="program?uid=${p.id}&st=${siteId}" target="_blank">${p.name}</a></div>`;
+            : `<div class="program_list_name" style="cursor:pointer;"><a href="program?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name}</a></div>`;
 
       el.innerHTML = `
         <div class="program_list_cover">${thumbnailText}</div>
