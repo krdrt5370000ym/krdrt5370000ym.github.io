@@ -1,92 +1,72 @@
 <!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <title>Ładowanie... | krdrt537000ym.github.io</title>
-    <!-- Ładowanie głównego skryptu head od razu -->
-    <script src="https://krdrt5370000ym.github.io/site-head.js"></script>
-</head>
-<body class="w3-light-grey">
-    <div id="loader" style="padding: 20px;">Ładowanie danych...</div>
-
-<script>
-async function uruchomArticle() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    const site = params.get('si');
-    const type = params.get('tp'); 
-
-    const siteMap = {
-        "radiorsc": {"url": "https://radiorsc.pl", "is_http": false},
-        "radiovictoria": {"url": "https://radiovictoria.pl", "is_http": false},
-        "radiokolor": {"url": "https://radiokolor.pl", "is_http": false},
-        "sosw": {"url": "https://soswskierniewice.pl", "is_http": false},
-        "ckis": {"url": "https://cekis.pl", "is_http": true},
-    };
-
-    if (!id || !site || !type) {
-        document.body.innerHTML = "<b>Błąd:</b> Brak parametrów w adresie URL.";
-        return;
-    }
-
-    const siteData = siteMap[site];
-    if (!siteData) {
-        document.body.innerHTML = "<b>Błąd:</b> Nieznany serwis źródłowy.";
-        return;
-    }
-
-    const mainUrl = siteData.url;
-    const is_http = siteData.is_http;
-
-    // Przygotowanie logiki funkcji
-    let functionCall;
-    let functionName;
-
-    if (type === 'post') {
-        if (site === 'radiorsc') {
-            functionName = 'WPArticlePostRSC';
-            functionCall = () => WPArticlePostRSC(id);
-        } else {
-            functionName = 'WPArticlePost';
-            functionCall = () => WPArticlePost(id, mainUrl, undefined, undefined, undefined, undefined, is_http);
-        }
-    } else {
-        functionName = 'WPArticlePage';
-        functionCall = () => WPArticlePage(id, mainUrl, is_http);
-    }
-
-    // 1. Aktualizacja struktury BODY
-    document.body.innerHTML = `
-        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media-a.css">
-        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
-        <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
-        
-        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-            <header class="w3-container" style="padding-top:22px">
-                <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
-            </header>
-            <div class="w3-row-padding w3-margin-bottom">
-                <div style="margin-left: 10px;" id="article-post">Ładowanie treści...</div>
-            </div>
-            <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+<html>
+   <head>
+      <title>Artykuł | krdrt537000ym.github.io</title>
+      <script src="/site-head.js"></script>
+      <link rel="stylesheet" href="media-a.css">
+      <link rel="stylesheet" href="/style.css">
+   </head>
+   <body class="w3-light-grey">
+      <script src="/site-topscreen.js"></script>
+      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+         <!-- Header -->
+         <header class="w3-container" style="padding-top:22px">
+            <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
+         </header>
+         <div class="w3-row-padding w3-margin-bottom">
+            <!-- To ID musi istnieć w momencie wywołania funkcji -->
+            <div style="margin-left: 10px;" id="article-post">Ładowanie treści...</div>
         </div>
-        
-        <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-        <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
-    `;
+         <script src="/site-bottomscreen.js"></script>
+    </div>
+    <!-- Skrypt silnika artykułów na końcu -->
+    <script src="site-article.js"></script>
+    <script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const site = params.get('si');
+        const type = params.get('tp');
 
-    // 2. Oczekiwanie na załadowanie skryptów i uruchomienie funkcji
-    const checkFunction = setInterval(() => {
-        if (typeof window[functionName] === 'function') {
-            clearInterval(checkFunction);
-            functionCall();
+        const siteMap = {
+            "radiorsc": {"url": "https://radiorsc.pl", "is_http": false},
+            "radiovictoria": {"url": "https://radiovictoria.pl", "is_http": false},
+            "radiokolor": {"url": "https://radiokolor.pl", "is_http": false},
+            "sosw": {"url": "https://soswskierniewice.pl", "is_http": false},
+            "ckis": {"url": "https://cekis.pl", "is_http": true},
+        };
+
+        if (!id || !site || !siteMap[site]) {
+            document.getElementById('article-post').innerHTML = "Błąd: Nieprawidłowe parametry URL.";
+            return;
         }
-    }, 100);
-}
 
-uruchomArticle();
-</script>
-</body>
+        const { url: mainUrl, is_http } = siteMap[site];
+
+        // Funkcja uruchamiająca odpowiedni moduł
+        function inicjuj() {
+            try {
+                if (type === 'post') {
+                    if (site === 'radiorsc' && typeof WPArticlePostRSC === 'function') {
+                        WPArticlePostRSC(id);
+                    } else if (typeof WPArticlePost === 'function') {
+                        WPArticlePost(id, mainUrl, undefined, undefined, undefined, undefined, is_http);
+                    }
+                } else if (type === 'page' && typeof WPArticlePage === 'function') {
+                    WPArticlePage(id, mainUrl, is_http);
+                } else {
+                    throw new Error("Nie znaleziono funkcji ładującej.");
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById('article-post').innerHTML = "Błąd podczas ładowania modułu.";
+            }
+        }
+
+        // Czekamy na pełne załadowanie DOM i skryptów zewnętrznych
+        window.addEventListener('load', inicjuj);
+    })();
+    </script>
+      <script src="/site-sidebar.js"></script>
+   </body>
 </html>
