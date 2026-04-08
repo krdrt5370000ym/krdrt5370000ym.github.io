@@ -167,8 +167,8 @@ async function WPArticlePostRSC(slug) {
     const container = document.getElementById('article-post');
     if (!container) return;
 
-    const postsUrl = slug.slice(0, 3) === '?p=' 
-        ? `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(3)}?_embed=true` 
+    const postsUrl = slug.startsWith('post-')
+        ? `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` 
         : `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
 
     try {
@@ -264,9 +264,8 @@ async function WPArticlePostRSC(slug) {
 async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false) {
     const container = document.getElementById('article-post');
     // Dodajemy _embed do URL
-    const connector = slug.includes('?') ? '&' : '?';
-    const postsUrl = slug.slice(0,3) === '?p=' 
-        ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(3)}?_embed=true` 
+    const postsUrl = slug.startsWith('post-')
+        ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` 
         : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
     const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
@@ -400,8 +399,8 @@ async function WPArticlePage(slug, mainUrl, is_http = false) {
     const container = document.getElementById('article-post');
     
     // Budowanie poprawnego URL (obsługa ID lub sluga)
-    const postsUrl = slug.startsWith('?p=') 
-        ? `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(3)}?_embed=true` 
+    const postsUrl = slug.startsWith('page-') 
+        ? `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` 
         : `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
     const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
