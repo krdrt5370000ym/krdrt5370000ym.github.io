@@ -34,7 +34,7 @@ async function uruchomPodcast() {
 
     try {
         // 2. Pobieramy dane z Twojego GitHub Pages
-        const url = `https://github.io{station}_podcasts.json`;
+        const url = `https://krdrt5370000ym.github.io/media/json/{station}_podcasts.json`;
         const response = await fetch(url);
         
         if (!response.ok) throw new Error("Nie znaleziono pliku stacji.");
