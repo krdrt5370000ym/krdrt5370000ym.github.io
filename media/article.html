@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ładowanie postu...</title>
+    <meta name="robots" content="noindex, follow" />
+    <title>Ładowanie... | krdrt537000ym.github.io</title>
+    <!-- Ładowanie głównego skryptu head od razu -->
+    <script src="https://krdrt5370000ym.github.io/site-head.js"></script>
 </head>
-<body>
-    <div id="loader">Ładowanie danych postu...</div>
+<body class="w3-light-grey">
+    <div id="loader" style="padding: 20px;">Ładowanie danych...</div>
 
 <script>
 async function uruchomArticle() {
@@ -24,7 +27,7 @@ async function uruchomArticle() {
     };
 
     if (!id || !site || !type) {
-        document.body.innerHTML = "<b>Błąd:</b> Brak parametrów 'id', 'si' lub 'tp' w adresie URL.";
+        document.body.innerHTML = "<b>Błąd:</b> Brak parametrów w adresie URL.";
         return;
     }
 
@@ -37,62 +40,50 @@ async function uruchomArticle() {
     const mainUrl = siteData.url;
     const is_http = siteData.is_http;
 
-    // Logika wyboru funkcji i jej argumentów
-    let functionName = "";
-    let functionCall = "";
+    // Przygotowanie logiki funkcji
+    let functionCall;
+    let functionName;
 
     if (type === 'post') {
         if (site === 'radiorsc') {
             functionName = 'WPArticlePostRSC';
-            functionCall = `WPArticlePostRSC('${id}');`;
+            functionCall = () => WPArticlePostRSC(id);
         } else {
             functionName = 'WPArticlePost';
-            functionCall = `WPArticlePost('${id}', '${mainUrl}', undefined, undefined, undefined, undefined, ${is_http});`;
+            functionCall = () => WPArticlePost(id, mainUrl, undefined, undefined, undefined, undefined, is_http);
         }
     } else {
         functionName = 'WPArticlePage';
-        functionCall = `WPArticlePage('${id}', '${mainUrl}', ${is_http});`;
+        functionCall = () => WPArticlePage(id, mainUrl, is_http);
     }
 
-    const fullhtml = `<!DOCTYPE html>
-    <html lang="pl">
-        <head>
-            <meta charset="UTF-8">
-            <meta name='robots' content='noindex, follow' />
-            <title>Artykuł | krdrt537000ym.github.io</title>
-            <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
-        </head>
-        <body class="w3-light-grey">
-            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media-a.css">
-            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
-            <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
-            <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-                <header class="w3-container" style="padding-top:22px">
-                    <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
-                </header>
-                <div class="w3-row-padding w3-margin-bottom">
-                    <div style="margin-left: 10px;" id="article-post">Ładowanie treści...</div>
-                </div>
-                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+    // 1. Aktualizacja struktury BODY
+    document.body.innerHTML = `
+        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media-a.css">
+        <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+        <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+        
+        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+            <header class="w3-container" style="padding-top:22px">
+                <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
+            </header>
+            <div class="w3-row-padding w3-margin-bottom">
+                <div style="margin-left: 10px;" id="article-post">Ładowanie treści...</div>
             </div>
-            <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-            <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
-            <script>
-                window.onload = function() {
-                    if (typeof ${functionName} === 'function') {
-                        ${functionCall}
-                    } else {
-                        console.error("Błąd: Funkcja ${functionName} nie została załadowana.");
-                        document.getElementById('article-post').innerHTML = "Błąd krytyczny: Nie można załadować modułu artykułów.";
-                    }
-                };
-            <\/script>
-        </body>
-    </html>`;
+            <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+        </div>
+        
+        <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+        <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
+    `;
 
-    document.open();
-    document.write(fullhtml);
-    document.close();
+    // 2. Oczekiwanie na załadowanie skryptów i uruchomienie funkcji
+    const checkFunction = setInterval(() => {
+        if (typeof window[functionName] === 'function') {
+            clearInterval(checkFunction);
+            functionCall();
+        }
+    }, 100);
 }
 
 uruchomArticle();
