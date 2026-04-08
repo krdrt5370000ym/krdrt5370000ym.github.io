@@ -26,17 +26,25 @@ async function uruchomArticle() {
     // Walidacja parametrów
     if (!id || !site || !type) {
         document.body.innerHTML = "<b>Błąd:</b> Brak parametrów 'id', 'si' lub 'tp' w adresie URL.";
+        document.title = window.location.href;
         return;
     }
 
     const siteData = siteMap[site];
     if (!siteData) {
         document.body.innerHTML = "<b>Błąd:</b> Nieznany serwis źródłowy.";
+        document.title = window.location.href;
         return;
     }
 
     const mainUrl = siteData.url;
     const is_http = siteData.is_http;
+
+    const postRSC = site === 'radiorsc' ? `WPArticlePostRSC('${id}');` : `WPArticlePost('${id}', '${mainUrl}', undefined, undefined, undefined, undefined, ${is_http});`;
+    const typeData = type === 'post' ? postRSC : `WPArticlePage('${id}', '${mainUrl}', ${is_http});`;
+
+    const postRSCF = site === 'radiorsc' ? 'WPArticlePostRSC' : 'WPArticlePost';
+    const typeDataF = type === 'post' ? postRSC : 'WPArticlePage';
 
     // Generowanie nowego dokumentu
     const fullhtml = `<!DOCTYPE html>
@@ -65,9 +73,9 @@ async function uruchomArticle() {
             <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
             <script>
                 window.onload = function() {
-                    if (typeof WPArticlePost === 'function') {
+                    if (typeof ${typeDataF} === 'function') {
                         // Przekazanie parametrów do funkcji zewnętrznej
-                        WPArticlePost('${id}', '${mainUrl}', undefined, undefined, undefined, undefined, ${is_http});
+                        ${typeData}
                     } else {
                         console.error("Błąd: Funkcja WPArticlePost nie została załadowana.");
                     }
