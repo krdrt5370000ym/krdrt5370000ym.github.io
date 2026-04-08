@@ -5,7 +5,8 @@ async function WPArticleRSC(append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
     
-    if (!append) currentPage = 1;
+    if (!append) window.currentPage = 1;
+    else window.currentPage++;
 
     const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=${perPage}&page=${currentPage}&_embed=true`;
 
