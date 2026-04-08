@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ładowanie postu...</title>
-    <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f4f4f4; }
-        #loader { padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    </style>
+    <title>Ładowanie programu...</title>
 </head>
 <body>
-    <div id="loader">Ładowanie danych postu...</div>
+    <div id="loader">Ładowanie danych programu...</div>
 
 <script>
 async function uruchomArticle() {
@@ -44,23 +40,24 @@ async function uruchomArticle() {
 
     // Generowanie nowego dokumentu
     const fullhtml = `<!DOCTYPE html>
-    <html lang="pl">
+    <html>
         <head>
             <meta charset="UTF-8">
             <meta name='robots' content='noindex, follow' />
             <title>Artykuł | krdrt537000ym.github.io</title>
-            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media-a.css">
-            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
             <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
         </head>
         <body class="w3-light-grey">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media-a.css">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
             <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                <!-- Header -->
                 <header class="w3-container" style="padding-top:22px">
                     <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
                 </header>
                 <div class="w3-row-padding w3-margin-bottom">
-                    <div style="margin-left: 10px;" id="article-post">Ładowanie treści...</div>
+                    <div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div>
                 </div>
                 <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
             </div>
