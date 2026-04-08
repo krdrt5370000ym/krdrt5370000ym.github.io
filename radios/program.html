@@ -66,16 +66,20 @@ async function uruchomProgram() {
     }
 
     try {
-        // 1. Pobieranie wszystkich potrzebnych danych JSON równolegle
-        const [resProg, resSch, resConf] = await Promise.all([
-            fetch(`https://krdrt5370000ym.github.io/media/json/${station}_programs.json`),
-            fetch(`https://krdrt5370000ym.github.io/media/json/${station}_schedule.json`),
-            fetch(`https://krdrt5370000ym.github.io/media/json/${station}_config.json`)
-        ]);
+        // Funkcja pomocnicza do bezpiecznego pobierania JSON
+        const fetchJSON = async (fileName) => {
+            const url = `https://krdrt5370000ym.github.io/radios/json/${station}_${fileName}.json`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Nie znaleziono pliku: ${station}_${fileName}.json (Błąd ${res.status})`);
+            return res.json();
+        };
 
-        const PROGRAMS = await resProg.json();
-        const SCHEDULE = await resSch.json();
-        const CONFIG = await resConf.json();
+        // Pobieramy dane – jeśli któregoś pliku brakuje, skrypt przejdzie do catch
+        const [PROGRAMS, SCHEDULE, CONFIG] = await Promise.all([
+            fetchJSON('programs'),
+            fetchJSON('schedule'),
+            fetchJSON('config')
+        ]);
 
         const program = PROGRAMS.find(p => p.id === uid);
 
@@ -153,8 +157,12 @@ async function uruchomProgram() {
         document.close();
 
     } catch (err) {
-        console.error(err);
-        document.body.innerHTML = "Błąd ładowania danych stacji.";
+        console.error("Szczegóły błędu:", err);
+        document.body.innerHTML = `<div style="color:red; padding:20px;">
+            <h3>Błąd ładowania danych</h3>
+            <p>${err.message}</p>
+            <small>Upewnij się, że pliki .json znajdują się w folderze /media/json/ na GitHubie.</small>
+        </div>`;
     }
 }
 uruchomProgram();
