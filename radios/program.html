@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ładowanie programu...</title>
+</head>
+<body>
+    <div id="loader">Ładowanie danych programu...</div>
+
+<script>
+// Funkcja formatująca dni i godziny emisji
+function getDisplaySchedule(programId, SCHEDULE) {
+    const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
+    const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
+    
+    const timeGroups = {};
+    const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
+    
+    if (filtered.length === 0) return "";
+
+    filtered.forEach(occ => {
+        const start = (occ.hour_start || "").substring(0, 5);
+        const end = (occ.hour_end || "").substring(0, 5);
+        const timeKey = `${start}-${end}`;
+        if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+        const days = Array.isArray(occ.days) ? occ.days : [occ.days];
+        days.forEach(d => timeGroups[timeKey].add(d.toString()));
+    });
+
+    const entries = Object.entries(timeGroups);
+    const isMultiGroup = entries.length > 1;
+
+    const result = entries.map(([timeKey, daysSet]) => {
+        const [start, end] = timeKey.split("-");
+        const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
+        const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
+            if (i === 0) return true;
+            const prev = sortedDays[i-1] == "0" ? 7 : parseInt(sortedDays[i-1]);
+            const curr = d == "0" ? 7 : parseInt(d);
+            return curr === prev + 1;
+        });
+
+        let dayString;
+        if (sortedDays.length === 1) {
+            dayString = isMultiGroup ? daysMapShort[sortedDays[0]] : daysMapFull[sortedDays[0]];
+        } else if (isSequence) {
+            dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
+        } else {
+            dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
+        }
+        return { text: `${dayString} ${start} - ${end}`, firstDay: sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]), startTime: start };
+    });
+
+    return result.sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime)).map(g => g.text).join(" | ");
+}
+
+async function uruchomProgram() {
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid');
+    const station = params.get('st'); 
+
+    if (!uid || !station) {
+        document.body.innerHTML = "Błąd: Brak parametrów 'uid' lub 'st'.";
+        return;
+    }
+
+    try {
+        // 1. Pobieranie wszystkich potrzebnych danych JSON równolegle
+        const [resProg, resSch, resConf] = await Promise.all([
+            fetch(`https://krdrt5370000ym.github.io/media/json/${station}_programs.json`),
+            fetch(`https://krdrt5370000ym.github.io/media/json/${station}_schedule.json`),
+            fetch(`https://krdrt5370000ym.github.io/media/json/${station}_config.json`)
+        ]);
+
+        const PROGRAMS = await resProg.json();
+        const SCHEDULE = await resSch.json();
+        const CONFIG = await resConf.json();
+
+        const program = PROGRAMS.find(p => p.id === uid);
+
+        // Walidacja widoczności
+        if (!program || program.private || (CONFIG && CONFIG.disable_programs_info)) {
+            document.body.innerHTML = "Program niedostępny.";
+            return;
+        }
+
+        if (program.url_immediately) {
+            window.location.href = program.url_immediately;
+            return;
+        }
+
+        // 2. Logika emisji i prowadzących
+        const occurrencesSch = SCHEDULE.filter(osch => osch.id === uid && osch.active && !osch.private && !osch.hide_in_schedule);
+        const airtimeStr = getDisplaySchedule(uid, SCHEDULE);
+
+        if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
+            document.body.innerHTML = "Brak planowanych emisji.";
+            return;
+        }
+
+        const occurrencesHost = [...new Set(occurrencesSch.flatMap(osch => osch.host || []))];
+        const occurrencesHostA = program.only_the_schedule_hosts 
+            ? (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "---") 
+            : (program.host || "---");
+
+        // 3. Renderowanie HTML
+        const escapeHTML = (str) => str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+
+        const thumb = program.thumbnail_text;
+        const style = thumb ? `background:${thumb.background || ''};color:${thumb.color || ''}` : '';
+        const thumbnailText = thumb 
+            ? `<div class="podcast_info_name_box" style="${style}">${escapeHTML(thumb.name || program.name)}</div>` 
+            : (program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "");
+
+        const emailContact = (Array.isArray(program.email) && program.email.length > 0) 
+            ? program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') : '';
+
+        const fullHTML = `
+            <!DOCTYPE html>
+            <html lang="pl">
+            <head>
+                <meta charset="UTF-8">
+                <title>${escapeHTML(program.name)}</title>
+                <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+                <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios/radios.css">
+                <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+            </head>
+            <body class="w3-light-grey">
+                <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+                <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                    <div class="w3-row-padding">
+                        <h2 class="podcast_info_title">${escapeHTML(program.name)}</h2>
+                        <div class="podcast_info_box">
+                            <div class="podcast_info_cover">${thumbnailText}</div>
+                            <div class="podcast_info_data">
+                                <div class="podcast_info_airtime"><b>Emisja:</b> ${airtimeStr || "Brak stałych godzin"}</div>
+                                ${program.label ? `<div>Wydawca: ${escapeHTML(program.label)}</div>` : ""}
+                                ${emailContact ? `<div>E-mail: ${emailContact}</div>` : ""}
+                                <div><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
+                            </div>
+                        </div>
+                        <div class="podcast_info_desc" style="margin-top:20px">${program.description || ""}</div>
+                    </div>
+                </div>
+                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+                <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+            </body>
+            </html>`;
+
+        document.open();
+        document.write(fullHTML);
+        document.close();
+
+    } catch (err) {
+        console.error(err);
+        document.body.innerHTML = "Błąd ładowania danych stacji.";
+    }
+}
+uruchomProgram();
+</script>
+</body>
+</html>
