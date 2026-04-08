@@ -7,6 +7,7 @@
 </head>
 <body>
     <div id="loader">Ładowanie danych postu...</div>
+
 <script>
 async function uruchomArticle() {
     const params = new URLSearchParams(window.location.search);
@@ -22,32 +23,39 @@ async function uruchomArticle() {
         "ckis": {"url": "https://cekis.pl", "is_http": true},
     };
 
-    // Walidacja parametrów
     if (!id || !site || !type) {
         document.body.innerHTML = "<b>Błąd:</b> Brak parametrów 'id', 'si' lub 'tp' w adresie URL.";
-        document.title = window.location.href;
         return;
     }
 
     const siteData = siteMap[site];
     if (!siteData) {
         document.body.innerHTML = "<b>Błąd:</b> Nieznany serwis źródłowy.";
-        document.title = window.location.href;
         return;
     }
 
     const mainUrl = siteData.url;
     const is_http = siteData.is_http;
 
-    const postRSC = site === 'radiorsc' ? `WPArticlePostRSC('${id}');` : `WPArticlePost('${id}', '${mainUrl}', undefined, undefined, undefined, undefined, ${is_http});`;
-    const typeData = type === 'post' ? postRSC : `WPArticlePage('${id}', '${mainUrl}', ${is_http});`;
+    // Logika wyboru funkcji i jej argumentów
+    let functionName = "";
+    let functionCall = "";
 
-    const postRSCF = site === 'radiorsc' ? 'WPArticlePostRSC' : 'WPArticlePost';
-    const typeDataF = type === 'post' ? postRSCF : 'WPArticlePage';
+    if (type === 'post') {
+        if (site === 'radiorsc') {
+            functionName = 'WPArticlePostRSC';
+            functionCall = `WPArticlePostRSC('${id}');`;
+        } else {
+            functionName = 'WPArticlePost';
+            functionCall = `WPArticlePost('${id}', '${mainUrl}', undefined, undefined, undefined, undefined, ${is_http});`;
+        }
+    } else {
+        functionName = 'WPArticlePage';
+        functionCall = `WPArticlePage('${id}', '${mainUrl}', ${is_http});`;
+    }
 
-    // Generowanie nowego dokumentu
     const fullhtml = `<!DOCTYPE html>
-    <html>
+    <html lang="pl">
         <head>
             <meta charset="UTF-8">
             <meta name='robots' content='noindex, follow' />
@@ -59,12 +67,11 @@ async function uruchomArticle() {
             <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
             <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
             <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-                <!-- Header -->
                 <header class="w3-container" style="padding-top:22px">
                     <h5><b><i class="fa-solid fa-newspaper"></i> Artykuł</b></h5>
                 </header>
                 <div class="w3-row-padding w3-margin-bottom">
-                    <div style="margin-left: 10px;" id="article-post">Ładowanie postów...</div>
+                    <div style="margin-left: 10px;" id="article-post">Ładowanie treści...</div>
                 </div>
                 <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
             </div>
@@ -72,24 +79,22 @@ async function uruchomArticle() {
             <script src="https://krdrt5370000ym.github.io/media/site-article.js"><\/script>
             <script>
                 window.onload = function() {
-                    if (typeof ${typeDataF} === 'function') {
-                        // Przekazanie parametrów do funkcji zewnętrznej
-                        ${typeData}
+                    if (typeof ${functionName} === 'function') {
+                        ${functionCall}
                     } else {
-                        console.error("Błąd: Funkcja WPArticlePost nie została załadowana.");
+                        console.error("Błąd: Funkcja ${functionName} nie została załadowana.");
+                        document.getElementById('article-post').innerHTML = "Błąd krytyczny: Nie można załadować modułu artykułów.";
                     }
                 };
             <\/script>
         </body>
     </html>`;
 
-    // Zastąpienie zawartości bieżącej strony nowym kodem
     document.open();
     document.write(fullhtml);
     document.close();
 }
 
-// Uruchomienie funkcji po załadowaniu skryptu
 uruchomArticle();
 </script>
 </body>
