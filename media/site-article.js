@@ -381,8 +381,9 @@ async function WPArticlePostRSCPlayer(targetUrl) {
         
         // .value pobiera treść atrybutu @src
         const audioSrc = audioNode ? audioNode.value.trim() : null;
+        const extensions = [".mp3", ".wav", ".wma", ".ogg", ".m4a", ".flac", ".aiff", ".aac", ".ac3", ".caf", ".mpga", ".mpeg", ".mp4", ".oga", ".opus", ".aif", ".aifc"];
 
-        if (audioSrc && audioSrc.endsWith('.mp3') && audioSrc.endsWith('.m4a') && audioSrc.endsWith('.wav') && audioSrc.endsWith('.ogg')) {
+        if (audioSrc && extensions.some(ext => audioSrc.endsWith(ext))) {
             return `
                 <div class="article_player_posts">
                     <small>Posłuchaj tutaj:</small><br>
