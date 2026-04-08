@@ -70,7 +70,7 @@ function renderPodcasts(){
       
         const podcastUrl = p.url_immediately 
             ? `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` 
-            : `<div class="podcast_list_name" style="cursor:pointer;"><a href="javascript:void(0)" onclick="LoadPodcast('${p.id}')">${p.name}</a></div>`;
+            : `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${siteId}" target="_blank">${p.name}</a></div>`;
 
       el.innerHTML = `
         <div class="podcast_list_cover">${thumbnailText}</div>
