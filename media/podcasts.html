@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Karty Podcastu</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; }
+        .btn { padding: 15px 25px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <button class="btn" onclick="uruchomPodcast()">Otwórz kartę podcastu</button>
+
+<script>
+async function uruchomPodcast() {
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid');
+    const station = params.get('st'); // np. radiokolor, radiovictoria
+
+    if (!uid || !station) {
+        alert("Błąd: Brak parametrów 'uid' lub 'st' w adresie URL.");
+        return;
+    }
+
+    // 1. Otwieramy okno natychmiast (ważne dla blokad pop-up)
+    const win = window.open("", "_blank");
+    if (!win) {
+        alert("Zablokowano wyskakujące okienko. Zezwól na pop-upy w przeglądarce.");
+        return;
+    }
+    win.document.write("Ładowanie danych podcastu...");
+
+    try {
+        // 2. Pobieramy dane z Twojego GitHub Pages
+        const url = `https://github.io{station}_podcasts.json`;
+        const response = await fetch(url);
+        
+        if (!response.ok) throw new Error("Nie znaleziono pliku stacji.");
+        
+        const PODCASTS = await response.json();
+        const podcast = PODCASTS.find(p => p.id === uid);
+
+        if (!podcast || podcast.private === true) {
+            win.document.body.innerHTML = "Nie znaleziono podcastu o ID: " + uid;
+            return;
+        }
+
+        // 3. Obsługa natychmiastowego przekierowania
+        if (podcast.url_immediately) {
+            win.location.href = podcast.url_immediately;
+            return;
+        }
+
+        // 4. Przygotowanie treści HTML
+        const escapeHTML = (str) => 
+            str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+
+        const thumb = podcast.thumbnail_text;
+        const style = thumb ? [
+            thumb.background ? `background:${thumb.background}` : '',
+            thumb.color ? `color:${thumb.color}` : ''
+        ].filter(Boolean).join(';') : '';
+        
+        const thumbnailDisplay = podcast.thumbnail_uri ? 
+            `<img src="${podcast.thumbnail_uri}" alt="${escapeHTML(podcast.name)}" style="max-width:300px; border-radius:8px;">` : "";
+        
+        const thumbnailText = thumb ? 
+            `<div class="podcast_info_name_box" style="${style}; padding:20px; font-weight:bold;">${escapeHTML(thumb.name || podcast.name)}</div>` : thumbnailDisplay;
+
+        const emailContact = (Array.isArray(podcast.email) && podcast.email.length > 0) 
+            ? podcast.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') : '';
+
+  const socialConfig = [
+    { key: 'url', icon: 'fa-link' },
+    { key: 'url_rss', icon: 'fa-rss' },
+    { key: 'url_podcast', icon: 'fa-podcast' },
+    { key: 'url_spreaker', icon: 'fa-table-list' },
+    { key: 'url_spotify', icon: 'fa-brands fa-spotify' },
+    { key: 'url_kick', icon: 'fa-brands fa-kickstarter-k' },
+    { key: 'url_twitch', icon: 'fa-brands fa-twitch' },
+    { key: 'url_youtube', icon: 'fa-brands fa-youtube' },
+    { key: 'url_facebook', icon: 'fa-brands fa-facebook' },
+    { key: 'url_instagram', icon: 'fa-brands fa-instagram' },
+    { key: 'url_tiktok', icon: 'fa-brands fa-tiktok' },
+    { key: 'url_x', icon: 'fa-brands fa-x-twitter' },
+    { key: 'url_soundcloud', icon: 'fa-brands fa-soundcloud' },
+    { key: 'url_mixcloud', icon: 'fa-brands fa-mixcloud' }
+  ];
+
+        const socialUrlsHtml = socialConfig
+            .filter(cfg => podcast[cfg.key])
+            .map(cfg => `<a href="${podcast[cfg.key]}" target="_blank" style="margin-right:15px; font-size:24px; color:#333;"><i class="${cfg.icon}"></i></a>`)
+            .join('');
+
+        // 5. Budowanie pełnego dokumentu
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="pl">
+        <head>
+            <meta charset="UTF-8">
+            <meta name='robots' content='noindex, follow' />
+            <title>${escapeHTML(podcast.name)} | krdrt537000ym.github.io</title>
+            <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+        </head>
+        <body class="w3-light-grey">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/media/media.css">
+            <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
+            <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
+            <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa-solid fa-podcast"></i> Podcasty</b></h5>
+                </header>
+                <div class="w3-row-padding w3-margin-bottom">
+                    <p class="podcast_info_title">${escapeHTML(podcast.name)}</p>
+                    <div class="podcast_info_box">
+                        <div class="podcast_info_cover">${thumbnailText}</div>
+                        <div class="podcast_info_data">
+                            ${podcast.onair ? `<div class="podcast_info_airtime">${escapeHTML(podcast.onair)}</div>` : ""}
+                            ${podcast.label ? `<div class="podcast_info_producter">Wydawca: ${escapeHTML(podcast.label)}</div>` : ""}
+                            ${emailContact ? `<div class="podcast_info_email">E-mail: ${emailContact}</div>` : ""}
+                            <div class="podcast_info_djs"><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
+                        </div>
+                    </div>
+                    <div class="podcast_info_desc">${podcast.description || "Brak opisu podcastu."}</div>
+                    <div class="podcast_info_urls">${socialUrlsHtml}</div>
+                    ${podcastList}
+                </div>
+                <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+            </div>
+            <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
+            <script src="https://krdrt5370000ym.github.io/media/site-episode.js"><\/script>
+            <script src="https://krdrt5370000ym.github.io/media/site-audio.js"><\/script>
+            ${podcast.podcast ? `<script>${podcast.podcast}<\/script>` : ""}
+        </body>
+    </html>
+    `;
+
+        win.document.open();
+        win.document.write(htmlContent);
+        win.document.close();
+
+    } catch (err) {
+        console.error(err);
+        win.document.body.innerHTML = "Błąd krytyczny: " + err.message;
+    }
+}
+</script>
+</body>
+</html>
