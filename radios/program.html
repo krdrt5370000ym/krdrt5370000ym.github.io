@@ -66,15 +66,18 @@ async function uruchomProgram() {
     }
 
     try {
-        // Funkcja pomocnicza do bezpiecznego pobierania JSON
+        // Funkcja pomocnicza z POPRAWIONĄ ŚCIEŻKĄ: /radios/json/
         const fetchJSON = async (fileName) => {
-            const url = `https://krdrt5370000ym.github.io/radios/json/${station}_${fileName}.json`;
+            const url = `https://github.io{station}_${fileName}.json`;
             const res = await fetch(url);
-            if (!res.ok) throw new Error(`Nie znaleziono pliku: ${station}_${fileName}.json (Błąd ${res.status})`);
+            if (!res.ok) {
+                console.warn(`Plik ${fileName} nie istnieje, używam pustej tablicy.`);
+                return fileName === 'config' ? {} : []; // Zwraca pusty obiekt/tablicę zamiast błędu
+            }
             return res.json();
         };
 
-        // Pobieramy dane – jeśli któregoś pliku brakuje, skrypt przejdzie do catch
+        // Pobieramy dane bezpiecznie
         const [PROGRAMS, SCHEDULE, CONFIG] = await Promise.all([
             fetchJSON('programs'),
             fetchJSON('schedule'),
@@ -83,9 +86,8 @@ async function uruchomProgram() {
 
         const program = PROGRAMS.find(p => p.id === uid);
 
-        // Walidacja widoczności
-        if (!program || program.private || (CONFIG && CONFIG.disable_programs_info)) {
-            document.body.innerHTML = "Program niedostępny.";
+        if (!program) {
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid} w pliku ${station}_programs.json`;
             return;
         }
 
@@ -157,12 +159,8 @@ async function uruchomProgram() {
         document.close();
 
     } catch (err) {
-        console.error("Szczegóły błędu:", err);
-        document.body.innerHTML = `<div style="color:red; padding:20px;">
-            <h3>Błąd ładowania danych</h3>
-            <p>${err.message}</p>
-            <small>Upewnij się, że pliki .json znajdują się w folderze /media/json/ na GitHubie.</small>
-        </div>`;
+        console.error("Błąd krytyczny:", err);
+        document.body.innerHTML = "Wystąpił błąd podczas ładowania strony.";
     }
 }
 uruchomProgram();
