@@ -72,7 +72,7 @@ async function WPArticleRSC(append = false) {
             button.innerText = "Wczytaj więcej";
             button.disabled = false;
             button.style.display = posts.length < perPage ? 'none' : 'block';
-            button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
+            button.onclick = () => WPArticleRSC(true);
         }
 
     } catch (error) {
