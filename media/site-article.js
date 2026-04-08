@@ -10,13 +10,13 @@ async function WPArticleRSC(append = false) {
     const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=${perPage}&page=${currentPage}&_embed=true`;
 
     try {
-        if (button) button.innerText = "Ładowanie...";
-        
-        const response = await fetch(postsUrl);
-        if (!response.ok) {
-            if (button) button.style.display = 'none';
-            return;
+        if (button) {
+            button.innerText = "Ładowanie...";
+            button.disabled = true;
         }
+
+        const response = await fetch(httpUrl);
+        if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
         const posts = await response.json();
 
@@ -49,7 +49,7 @@ async function WPArticleRSC(append = false) {
                     <div class="article_content">
                         <div class="article_category">${catsHTML}</div>
                         <div class="article_title">
-                            <a href="javascript:void(0)" onclick="WPArticlePostRSCLoad('${post.slug}')">
+                            <a href="article?id=${post.slug}&si=radiorsc&tp=post" target="_blank">
                                 ${post.title.rendered}
                             </a>
                         </div>
@@ -61,18 +61,18 @@ async function WPArticleRSC(append = false) {
         }).join('')}</div>`;
 
         if (append) {
-            container.innerHTML += htmlContent;
+            // Dodajemy do istniejącego elementu .articles lub bezpośrednio do kontenera
+            const articlesWrapper = container.querySelector('.articles') || container;
+            articlesWrapper.insertAdjacentHTML('beforeend', htmlContent);
         } else {
-            container.innerHTML = htmlContent;
+            container.innerHTML = `<div class="articles">${htmlContent}</div>`;
         }
 
         if (button) {
             button.innerText = "Wczytaj więcej";
+            button.disabled = false;
             button.style.display = posts.length < perPage ? 'none' : 'block';
-            button.onclick = () => {
-                currentPage++;
-                WPArticleRSC(true);
-            };
+            button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
         }
 
     } catch (error) {
@@ -81,23 +81,25 @@ async function WPArticleRSC(append = false) {
     }
 }
 
-async function WPArticle(mainUrl, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
+async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
-    
-    if (!append) currentPage = 1;
+    const perPage = 10; // Zdefiniuj lokalnie lub pobierz z zewnątrz
 
-    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${currentPage}&_embed=true`;
+    if (!append) window.currentPage = 1;
+    else window.currentPage++;
+
+    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
     const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
     try {
-        if (button) button.innerText = "Ładowanie...";
-        const response = await fetch(httpUrl);
-        
-        if (!response.ok) {
-            if (button) button.style.display = 'none';
-            return;
+        if (button) {
+            button.innerText = "Ładowanie...";
+            button.disabled = true;
         }
+
+        const response = await fetch(httpUrl);
+        if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
         const posts = await response.json();
 
@@ -129,7 +131,7 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
                     <div class="article_content">
                         ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
                         <div class="article_title">
-                            <a href="javascript:void(0)" onclick="WPArticlePostLoad('${post.slug}','${mainUrl}')">
+                            <a href="article?id=${post.slug}&si=${siteKey}&tp=post" target="_blank">
                                 ${post.title.rendered}
                             </a>
                         </div>
@@ -141,18 +143,18 @@ async function WPArticle(mainUrl, is_categories = true, is_author = true, is_ima
         }).join('')}</div>`;
 
         if (append) {
-            container.innerHTML += htmlContent;
+            // Dodajemy do istniejącego elementu .articles lub bezpośrednio do kontenera
+            const articlesWrapper = container.querySelector('.articles') || container;
+            articlesWrapper.insertAdjacentHTML('beforeend', htmlContent);
         } else {
-            container.innerHTML = htmlContent;
+            container.innerHTML = `<div class="articles">${htmlContent}</div>`;
         }
 
         if (button) {
             button.innerText = "Wczytaj więcej";
+            button.disabled = false;
             button.style.display = posts.length < perPage ? 'none' : 'block';
-            button.onclick = () => {
-                currentPage++;
-                WPArticle(mainUrl, is_categories, is_author, is_image, is_http, true);
-            };
+            button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
         }
 
     } catch (error) {
