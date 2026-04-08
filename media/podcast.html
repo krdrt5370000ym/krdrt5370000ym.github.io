@@ -16,6 +16,7 @@ async function uruchomPodcast() {
 
     if (!uid || !station) {
         document.body.innerHTML = "Błąd: Brak parametrów 'uid' lub 'st' w adresie URL.";
+        document.title = window.location.href;
         return;
     }
 
