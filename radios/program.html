@@ -166,8 +166,7 @@ async function uruchomProgram() {
           .map(cfg => `<a href="${program[cfg.key]}" target="_blank"><i class="${cfg.icon}"></i></a>`)
           .join('\n');
 
-        const fullHTML = `
-            <!DOCTYPE html>
+        const fullHTML = `<!DOCTYPE html>
             <html lang="pl">
                 <head>
                     <meta charset="UTF-8">
@@ -210,8 +209,7 @@ async function uruchomProgram() {
                     <script src="https://krdrt5370000ym.github.io/media/site-audio.js"><\/script>
                     ${program.podcast ? `<script>${program.podcast}<\/script>` : ""}
                 </body>
-            </html>
-            `;
+            </html>`;
 
         document.open();
         document.write(fullHTML);
