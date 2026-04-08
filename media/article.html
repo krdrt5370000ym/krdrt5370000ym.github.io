@@ -44,7 +44,7 @@ async function uruchomArticle() {
     const typeData = type === 'post' ? postRSC : `WPArticlePage('${id}', '${mainUrl}', ${is_http});`;
 
     const postRSCF = site === 'radiorsc' ? 'WPArticlePostRSC' : 'WPArticlePost';
-    const typeDataF = type === 'post' ? postRSC : 'WPArticlePage';
+    const typeDataF = type === 'post' ? postRSCF : 'WPArticlePage';
 
     // Generowanie nowego dokumentu
     const fullhtml = `<!DOCTYPE html>
