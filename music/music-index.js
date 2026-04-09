@@ -67,7 +67,7 @@ async function getSongData(searchTerm, offset) {
     const options = {
         method: "GET",
         headers: {
-            "X-RapidAPI-Key": "688268f4d0msh69176cddbc5ed7bp1008d5jsn1f63b7d6afe9",  // key api: ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e
+            "X-RapidAPI-Key": "ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e",
             "X-RapidAPI-Host": "shazam.p.rapidapi.com"
         }
     };
