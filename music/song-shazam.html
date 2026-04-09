@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Tytuł muzyki | krdrt537000ym.github.io</title>
+      <script src="/site-head.js"></script>
+      <link rel="stylesheet" href="music-g.css">
+      <link rel="stylesheet" href="/style.css">
+   </head>
+   <body class="w3-light-grey">
+      <script src="/site-topscreen.js"></script>
+      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+         <!-- Header -->
+         <header class="w3-container" style="padding-top:22px">
+            <h5><b><i class="fa-solid fa-music"></i> Muzyka</b></h5>
+         </header>
+         <div class="w3-row-padding w3-margin-bottom">
+<!-- Zmieniłem ID na article-post, ponieważ tego szukasz w JS -->
+<div id="song-id">Ładowanie utworu...</div>
+<script>
+const params = new URLSearchParams(window.location.search);
+const SongID = params.get('id');
+
+const getTrackShazamDetails = async () => {
+  const container = document.getElementById('song-id');
+  
+  if (!SongID) {
+    container.innerHTML = "Brak ID utworu w adresie URL.";
+    return;
+  }
+
+  const url = `https://shazam.p.rapidapi.com/shazam-songs/get-details?id=${SongID}&l=pl-PL`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '688268f4d0msh69176cddbc5ed7bp1008d5jsn1f63b7d6afe9',
+      'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
+
+    const result = await response.json();
+    
+    // Shazam API zwraca dane w specyficzny sposób: result.data[0].attributes
+    const trackData = result.data?.[0];
+    if (!trackData) {
+      container.innerHTML = "Nie znaleziono utworu.";
+      return;
+    }
+
+    const attr = trackData.attributes;
+    const fullName = `${attr.artistName} - ${attr.name}`;
+    
+    // Aktualizacja tytułu strony
+    document.title = `${fullName} | krdrt537000ym.github.io`;
+
+    // Pomocnicze zmienne
+    const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak daty';
+    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
+    const genres = attr.genreNames ? attr.genreNames.join(', ') : 'Muzyka';
+
+    const escapeHTML = (str) => 
+      str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+
+    container.innerHTML = `
+    <div class="getSongs_content">
+        <p class="podcast_info_title">${escapeHTML(attr.name)}</p>
+        <p class="podcast_info_artist">${escapeHTML(attr.artistName)}</p>
+        
+        <div class="getSongs_box">
+            <div class="getSongs_cover">
+                <img src="${artwork}" alt="${escapeHTML(attr.artistName)}">
+            </div>
+            
+            <div class="getSongs_data">
+                <div class="getSongs_year">Premiera: ${releaseYear}</div>
+                <div class="getSongs_genare">Gatunek: ${escapeHTML(genres)}</div>
+                
+                <div class="social_links">
+                    <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
+                    <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i> YT Music</a>
+                    <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                    <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
+                    <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i> Deezer</a>
+                    <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i> Tidal</a></div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+  } catch (error) {
+    console.error('Wystąpił błąd:', error);
+    container.innerHTML = "Błąd podczas ładowania danych.";
+  }
+};
+getTrackShazamDetails();
+</script>
+         </div>
+         <script src="/site-bottomscreen.js"></script>
+      </div>
+      <script src="/site-sidebar.js"></script>
+   </body>
+</html>
