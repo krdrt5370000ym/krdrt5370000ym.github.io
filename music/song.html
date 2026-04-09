@@ -69,7 +69,7 @@ const getTrackDetails = async () => {
                 <div class="getSongs_genare">${attr.genreNames ? attr.genreNames.map(gen => escapeHTML(gen)).join(', ') : 'Muzyka'}</div>
                 
                 <div class="getSongs_teaser">
-                    ${attr.previews?.[0]?.url ? `<a class="fa fa-play-a" data-audio="${attr.previews[0].url}" title="Słuchaj próbki"></a>` : ''}
+                    ${attr.previews?.[0]?.url ? `<a class="fa fa-play" data-audio="${attr.previews[0].url}" title="Słuchaj próbki"></a>` : ''}
                     
                     <div class="social_links">
                         <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
