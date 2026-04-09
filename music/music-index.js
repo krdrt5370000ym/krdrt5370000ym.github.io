@@ -112,7 +112,7 @@ function appendSongsToDisplay(songs) {
                 <div class="song_content">
                     <div class="song_data">
                         <div class="song_track">
-                            <a target="_blank" href="https://www.shazam.com/song/${attr.playParams.id}">${attr.name}</a>
+                            <a target="_blank" href="song?id=${attr.playParams.id}">${attr.name}</a>
                         </div>
                         <div class="song_artist">${attr.artistName}</div>
                         <div class="song_teaser">
