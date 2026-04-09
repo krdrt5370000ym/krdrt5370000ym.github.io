@@ -19,7 +19,7 @@
 <script>
 const params = new URLSearchParams(window.location.search);
 const SongID = params.get('id');
-const getTrackDetails = async () => {
+const getTrackShazamDetails = async () => {
   const container = document.getElementById('song-id');
   
   if (!SongID) {
@@ -42,32 +42,41 @@ const getTrackDetails = async () => {
 
     const result = await response.json();
     
-    // Shazam API zwraca dane w specyficzny sposób: result.data[0].attributes
-    const trackData = result.data?.[0];
-    if (!trackData) {
+    // Pobieramy dane z resources, używając Object.values, aby ominąć dynamiczny klucz ID
+    const songResource = result.resources?.["shazam-songs"];
+    if (!songResource) {
       container.innerHTML = "Nie znaleziono utworu.";
       return;
     }
 
-    const attr = result.resources["shazam-songs"][SongID].attributes;
-    const relat = result.resources["shazam-songs"][SongID].relationships;
-    console.log(attr.genres);
+    // Wyciągamy pierwszy (i zazwyczaj jedyny) obiekt z tej listy
+    const trackData = Object.values(songResource)[0];
+    const attr = trackData.attributes;
+    const relat = trackData.relationships;
+
     const fullName = `${attr.artist} - ${attr.title}`;
-    const genreName = attr.genres.primary;
-    
-    // Aktualizacja tytułu strony
     document.title = `${fullName} | krdrt537000ym.github.io`;
 
-    // Pomocnicze zmienne
-    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
+    // Funkcja zabezpieczająca przed XSS
     const escapeHTML = (str) => 
       str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
-    const genres = genreName ? genreName : 'Muzyka';
-    const titleName = relat.songs.data[0].id ? `<p class="podcast_info_title"><a href="song?id=${relat.songs.data[0].id}">${escapeHTML(attr.title)}</a></p>` : `<p class="podcast_info_title">${escapeHTML(attr.title)}</p>`;
+
+    // Logika dla okładki i gatunków
+    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://ibb.co';
+    
+    // Sprawdzanie gatunków (primary może być tablicą lub stringiem)
+    const genreNames = Array.isArray(attr.genres?.primary) ? attr.genres.primary : [attr.genres?.primary];
+    const genresText = genreNames.filter(Boolean).map(gen => escapeHTML(gen)).join(', ') || 'Muzyka';
+
+    // Logika dla linku w tytule (jeśli istnieje relacja do innej wersji/utworu)
+    const relatedSongId = relat?.songs?.data?.[0]?.id;
+    const titleHtml = relatedSongId 
+      ? `<p class="podcast_info_title"><a href="song?id=${relatedSongId}">${escapeHTML(attr.title)}</a></p>` 
+      : `<p class="podcast_info_title">${escapeHTML(attr.title)}</p>`;
 
     container.innerHTML = `
     <div class="getSongs_content">
-        ${titleName}
+        ${titleHtml}
         <p class="podcast_info_artist">${escapeHTML(attr.artist)}</p>
         
         <div class="getSongs_box">
@@ -76,7 +85,7 @@ const getTrackDetails = async () => {
             </div>
             
             <div class="getSongs_data">
-                <div class="getSongs_genare">Gatunek: ${escapeHTML(genres)}</div>
+                <div class="getSongs_genare">Gatunek: ${genresText}</div>
                 
                 <div class="social_links">
                     <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
@@ -95,7 +104,7 @@ const getTrackDetails = async () => {
     container.innerHTML = "Błąd podczas ładowania danych.";
   }
 };
-getTrackDetails();
+getTrackShazamDetails();
 </script>
          </div>
          <script src="/site-bottomscreen.js"></script>
