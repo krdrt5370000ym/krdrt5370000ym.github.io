@@ -46,7 +46,7 @@ const getTrackDetails = async () => {
     const attr = track.attributes;
     const fullName = `${attr.artistName} - ${attr.name}`;
     const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
-    document.title = `${attr.name} - ${attr.artistName}`;
+    document.title = `${attr.name} - ${attr.artistName} | krdrt537000ym.github.io`;
     
     // Funkcja zabezpieczająca przed XSS
     const escapeHTML = (str) => 
@@ -75,7 +75,9 @@ const getTrackDetails = async () => {
                         <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
                         <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i> YT Music</a>
                         <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i> Spotify</a>
-                        <a target="_blank" href="https://apple.com{encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
+                        <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
+                        <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i> Deezer</a>
+                        <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i></a> Tidal</div>
                     </div>
                 </div>
             </div>
@@ -118,6 +120,5 @@ getTrackDetails();
          <script src="/site-bottomscreen.js"></script>
       </div>
       <script src="/site-sidebar.js"></script>
-      <script src="music-index.js"></script>
    </body>
 </html>
