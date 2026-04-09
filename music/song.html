@@ -75,7 +75,7 @@ const getTrackDetails = async () => {
     // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
-        <p class="podcast_info_title"><a href="https://www.shazam.com/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
+        <p class="podcast_info_title"><a href="https://www.shazam.com/pl-pl/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
         <p class="podcast_info_artist">${escapeHTML(attr.artistName) || 'Nieznany wykonawca'}</p>
         
         <div class="getSongs_box">
