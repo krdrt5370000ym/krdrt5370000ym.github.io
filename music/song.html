@@ -20,14 +20,7 @@
 const params = new URLSearchParams(window.location.search);
 const SongID = params.get('id');
 const getTrackDetails = async () => {
-  const container = document.getElementById('song-id');
-  
-  if (!SongID) {
-    container.innerHTML = "Brak ID utworu w adresie URL.";
-    return;
-  }
-
-  const url = `https://shazam.p.rapidapi.com/shazam-songs/get-details?id=${SongID}&l=pl-PL`;
+  const url = `https://shazam.p.rapidapi.com/songs/v2/get-details?id=${SongID}&l=pl-PL`;
   const options = {
     method: 'GET',
     headers: {
@@ -37,62 +30,88 @@ const getTrackDetails = async () => {
   };
 
   try {
+    const container = document.getElementById('song-id');
     const response = await fetch(url, options);
+    
     if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
 
     const result = await response.json();
-    
-    // Shazam API zwraca dane w specyficzny sposób: result.data[0].attributes
-    const trackData = result.data?.[0];
-    if (!trackData) {
-      container.innerHTML = "Nie znaleziono utworu.";
-      return;
+    const track = result.data?.[0];
+
+    if (!track) {
+        container.innerHTML = "Nie znaleziono utworu.";
+        return;
     }
 
-    const attr = result.resources["shazam-songs"][SongID].attributes;
-    const relat = result.resources["shazam-songs"][SongID].relationships;
-    console.log(attr.genres);
-    const fullName = `${attr.artist} - ${attr.title}`;
-    const genreName = attr.genres.primary;
+    const attr = track.attributes;
+    const fullName = `${attr.artistName} - ${attr.name}`;
+    const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
+    document.title = `${attr.name} - ${attr.artistName} | krdrt537000ym.github.io`;
     
-    // Aktualizacja tytułu strony
-    document.title = `${fullName} | krdrt537000ym.github.io`;
-
-    // Pomocnicze zmienne
-    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
+    // Funkcja zabezpieczająca przed XSS
     const escapeHTML = (str) => 
-      str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
-    const genres = genreName ? genreName : 'Muzyka';
-    const titleName = relat.songs.data[0].id ? `<p class="podcast_info_title"><a href="song?id=${relat.songs.data[0].id}">${escapeHTML(attr.title)}</a></p>` : `<p class="podcast_info_title">${escapeHTML(attr.title)}</p>`;
+     str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
+    // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
-        ${titleName}
-        <p class="podcast_info_artist">${escapeHTML(attr.artist)}</p>
+        <p class="podcast_info_title">${escapeHTML(attr.name) || 'Brak tytułu'}</p>
+        <p class="podcast_info_artist">${escapeHTML(attr.artistName) || 'Nieznany wykonawca'}</p>
         
         <div class="getSongs_box">
             <div class="getSongs_cover">
-                <img src="${artwork}" alt="${escapeHTML(attr.artist)}">
+                <img src="${attr.artwork?.url?.replace('{w}', '400').replace('{h}', '400') || 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png'}" 
+                     alt="${escapeHTML(attr.artistName)}">
             </div>
             
             <div class="getSongs_data">
-                <div class="getSongs_genare">Gatunek: ${escapeHTML(genres)}</div>
+                <div class="getSongs_year">Premiera: ${escapeHTML(releaseYear) || 'Brak daty'}</div>
+                <div class="getSongs_genare">${attr.genreNames ? attr.genreNames.map(gen => escapeHTML(gen)).join(', ') : 'Muzyka'}</div>
                 
-                <div class="social_links">
-                    <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
-                    <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i> YT Music</a>
-                    <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i> Spotify</a>
-                    <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
-                    <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i> Deezer</a>
-                    <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i> Tidal</a></div>
+                <div class="getSongs_teaser">
+                    ${attr.previews?.[0]?.url ? `<a class="fa-play-a" data-audio="${attr.previews[0].url}" title="Słuchaj próbki"></a>` : ''}
+                    
+                    <div class="social_links">
+                        <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
+                        <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i> YT Music</a>
+                        <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                        <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
+                        <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i> Deezer</a>
+                        <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i> Tidal</a></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>`;
 
+if (!window.audioPlayer) {
+    window.audioPlayer = new Audio();
+}
+
+// 2. Znajdujemy nowo dodany przycisk w kontenerze
+const playBtn = container.querySelector(".fa-play-a");
+if (playBtn) {
+    playBtn.onclick = function() {
+        if (!window.AUD) window.AUD = new Audio();
+        
+        const src = this.dataset.audio;
+        if (window.AUD.src !== src) window.AUD.src = src;
+
+        if (window.AUD.paused) {
+            window.AUD.play();
+            this.classList.add("pause");
+        } else {
+            window.AUD.pause();
+            this.classList.remove("pause");
+        }
+
+        window.AUD.onended = () => this.classList.remove("pause");
+    };
+}
+
   } catch (error) {
-    console.error('Wystąpił błąd:', error);
-    container.innerHTML = "Błąd podczas ładowania danych.";
+    console.error('Wystąpił błąd:', error.message);
+    document.getElementById('article-post').innerHTML = "Błąd podczas ładowania danych.";
   }
 };
 getTrackDetails();
