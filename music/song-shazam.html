@@ -72,13 +72,13 @@ const getTrackShazamDetails = async () => {
     // Logika dla linku w tytule (jeśli istnieje relacja do innej wersji/utworu)
     const relatedSongId = relat?.songs?.data?.[0]?.id;
     const titleHtml = relatedSongId 
-      ? `<p class="podcast_info_title"><a href="song?id=${relatedSongId}">${escapeHTML(attr.title)}</a></p>` 
-      : `<p class="podcast_info_title">${escapeHTML(attr.title)}</p>`;
+      ? `<p class="getSongs_info_title"><a href="song?id=${relatedSongId}">${escapeHTML(attr.title)}</a></p>` 
+      : `<p class="getSongs_info_title">${escapeHTML(attr.title)}</p>`;
 
     container.innerHTML = `
     <div class="getSongs_content">
         ${titleHtml}
-        <p class="podcast_info_artist">${escapeHTML(attr.artist)}</p>
+        <p class="getSongs_info_artist">${escapeHTML(attr.artist)}</p>
         
         <div class="getSongs_box">
             <div class="getSongs_cover">
