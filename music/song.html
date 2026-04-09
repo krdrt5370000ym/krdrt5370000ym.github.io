@@ -19,6 +19,25 @@
 <script>
 const params = new URLSearchParams(window.location.search);
 const SongID = params.get('id');
+
+function customSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[()?,!.]/g, "") // Usuwamy interpunkcję i nawiasy
+    .trim()
+    .split(/\s+/)             // Dzielimy na słowa
+    .map(word => {
+      // Jeśli słowo zawiera cyrylicę (zakres \u0400-\u04FF)
+      if (/[\u0400-\u04FF]/.test(word)) {
+        return encodeURIComponent(word)
+          .replace(/%/g, "")  // Usuwamy % (zostaje czysty hex)
+          .toLowerCase();
+      }
+      return word;            // Polskie znaki i łacińskie zostają
+    })
+    .join("-");               // Łączymy myślnikiem
+}
+
 const getTrackDetails = async () => {
   const url = `https://shazam.p.rapidapi.com/songs/v2/get-details?id=${SongID}&l=pl-PL`;
   const options = {
@@ -46,7 +65,6 @@ const getTrackDetails = async () => {
     const attr = track.attributes;
     const fullName = `${attr.artistName} - ${attr.name}`;
     const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
-    const slug = encodeURIComponent(encodeURIComponent(attr.name.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim().replace(/\s+/g, "-")));
     document.title = `${attr.name} - ${attr.artistName} | krdrt537000ym.github.io`;
     
     // Funkcja zabezpieczająca przed XSS
@@ -56,7 +74,7 @@ const getTrackDetails = async () => {
     // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
-        <p class="podcast_info_title"><a href="https://www.shazam.com/song/${SongID}/${slug}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
+        <p class="podcast_info_title"><a href="https://www.shazam.com/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
         <p class="podcast_info_artist">${escapeHTML(attr.artistName) || 'Nieznany wykonawca'}</p>
         
         <div class="getSongs_box">
