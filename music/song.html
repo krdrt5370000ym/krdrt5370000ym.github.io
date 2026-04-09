@@ -82,6 +82,35 @@ const getTrackDetails = async () => {
         </div>
     </div>`;
 
+if (!window.audioPlayer) {
+    window.audioPlayer = new Audio();
+}
+
+// 2. Znajdujemy nowo dodany przycisk w kontenerze
+const playBtn = container.querySelector("[data-audio]");
+
+if (playBtn) {
+    playBtn.addEventListener("click", function() {
+        const src = this.dataset.audio;
+        const AUD = window.audioPlayer;
+
+        if (AUD.src !== src) {
+            AUD.src = src;
+        }
+
+        if (AUD.paused) {
+            AUD.play();
+            this.classList.add("pause"); // Dodaje klasę do zmiany ikony na pauzę
+        } else {
+            AUD.pause();
+            this.classList.remove("pause");
+        }
+
+        // Resetowanie ikony, gdy muzyka się skończy
+        AUD.onended = () => this.classList.remove("pause");
+    });
+}
+
   } catch (error) {
     console.error('Wystąpił błąd:', error.message);
     document.getElementById('article-post').innerHTML = "Błąd podczas ładowania danych.";
