@@ -43,7 +43,11 @@ const getTrackDetails = async () => {
         return;
     }
 
-    const slug = encodeURIComponent(encodeURIComponent(title.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim().replace(/\s+/g, "-")));
+    const slug = attr.name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "") // Usuwa znaki specjalne (zostawia litery, cyfry i spacje)
+    .trim()
+    .replace(/\s+/g, "-");
     const attr = track.attributes;
     const fullName = `${attr.artistName} - ${attr.name}`;
     const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
@@ -112,7 +116,7 @@ if (playBtn) {
 
   } catch (error) {
     console.error('Wystąpił błąd:', error.message);
-    document.getElementById('article-post').innerHTML = "Błąd podczas ładowania danych.";
+    document.getElementById('song-id').innerHTML = "Błąd podczas ładowania danych.";
   }
 };
 getTrackDetails();
