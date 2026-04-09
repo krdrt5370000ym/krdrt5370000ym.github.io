@@ -62,7 +62,7 @@ const getTrackShazamDetails = async () => {
       str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
     // Logika dla okładki i gatunków
-    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://ibb.co';
+    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
     
     // Sprawdzanie gatunków (primary może być tablicą lub stringiem)
     const genreNames = Array.isArray(attr.genres?.primary) ? attr.genres.primary : [attr.genres?.primary];
