@@ -43,6 +43,7 @@ const getTrackDetails = async () => {
         return;
     }
 
+    const slug = encodeURIComponent(encodeURIComponent(title.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim().replace(/\s+/g, "-")));
     const attr = track.attributes;
     const fullName = `${attr.artistName} - ${attr.name}`;
     const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
@@ -55,7 +56,7 @@ const getTrackDetails = async () => {
     // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
-        <p class="podcast_info_title">${escapeHTML(attr.name) || 'Brak tytułu'}</p>
+        <p class="podcast_info_title"><a href="https://www.shazam.com/song/${SongID}/${slug}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
         <p class="podcast_info_artist">${escapeHTML(attr.artistName) || 'Nieznany wykonawca'}</p>
         
         <div class="getSongs_box">
