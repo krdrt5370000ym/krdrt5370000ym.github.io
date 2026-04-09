@@ -94,8 +94,8 @@ if (artistsList.length > 0) {
     // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
-        <p class="podcast_info_title"><a href="https://www.shazam.com/pl-pl/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
-        <p class="podcast_info_artist">${artistsLinks}</p>
+        <p class="getSongs_info_title"><a href="https://www.shazam.com/pl-pl/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
+        <p class="getSongs_info_artist">${artistsLinks}</p>
         
         <div class="getSongs_box">
             <div class="getSongs_cover">
