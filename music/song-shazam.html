@@ -46,6 +46,7 @@ const getTrackShazamDetails = async () => {
     const songResource = result.resources?.["shazam-songs"];
     if (!songResource) {
       container.innerHTML = "Nie znaleziono utworu.";
+      document.title = 'Nie znaleziono utworu. | krdrt537000ym.github.io';
       return;
     }
 
@@ -102,6 +103,7 @@ const getTrackShazamDetails = async () => {
   } catch (error) {
     console.error('Wystąpił błąd:', error);
     container.innerHTML = "Błąd podczas ładowania danych.";
+    document.title = 'Błąd podczas ładowania danych. | krdrt537000ym.github.io';
   }
 };
 getTrackShazamDetails();
