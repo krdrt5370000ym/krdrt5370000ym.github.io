@@ -43,14 +43,10 @@ const getTrackDetails = async () => {
         return;
     }
 
-    const slug = attr.name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, "") // Usuwa znaki specjalne (zostawia litery, cyfry i spacje)
-    .trim()
-    .replace(/\s+/g, "-");
     const attr = track.attributes;
     const fullName = `${attr.artistName} - ${attr.name}`;
     const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
+    const slug = encodeURIComponent(encodeURIComponent(attr.artistName.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim().replace(/\s+/g, "-")));
     document.title = `${attr.name} - ${attr.artistName} | krdrt537000ym.github.io`;
     
     // Funkcja zabezpieczająca przed XSS
