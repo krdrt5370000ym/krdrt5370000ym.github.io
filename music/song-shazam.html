@@ -87,15 +87,17 @@ const getTrackShazamDetails = async () => {
             
             <div class="getSongs_data">
                 <div class="getSongs_genare">Gatunek: ${genresText}</div>
-                
-                <div class="social_links">
-                    <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
-                    <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i> YT Music</a>
-                    <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i> Spotify</a>
-                    <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
-                    <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i> Deezer</a>
-                    <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i> Tidal</a></div>
-                </div>
+
+                <div class="getSongs_teaser">
+                   <div class="social_links">
+                       <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
+                       <a target="_blank" href="https://music.youtube.com/search?q=${encodeURIComponent(fullName)}"><i class="fa-solid fa-music"></i> YT Music</a>
+                       <a target="_blank" href="https://open.spotify.com/search/${encodeURIComponent(fullName)}"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                       <a target="_blank" href="https://music.apple.com/pl/search?l=pl&term=${encodeURIComponent(fullName)}"><i class="fa-brands fa-apple"></i> Apple</a>
+                       <a target="_blank" href="https://www.deezer.com/search/${encodeURIComponent(fullName)}/track"><i class="fa-brands fa-deezer"></i> Deezer</a>
+                       <a target="_blank" href="https://tidal.com/search/tracks?q=${encodeURIComponent(fullName)}"><i class="fa-brands fa-tidal"></i> Tidal</a></div>
+                   </div>
+               </div>
             </div>
         </div>
     </div>`;
