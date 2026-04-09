@@ -39,7 +39,7 @@ function customSlug(title) {
 }
 
 const getTrackDetails = async () => {
-  const url = `https://shazam.p.rapidapi.com/songs/v2/get-details?id=${SongID}&l=pl-PL&extend=artists`;
+  const url = `https://shazam.p.rapidapi.com/songs/v2/get-details?id=${SongID}&l=pl-PL`;
   const options = {
     method: 'GET',
     headers: {
