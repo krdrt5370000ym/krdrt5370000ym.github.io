@@ -72,11 +72,25 @@ const getTrackDetails = async () => {
     const escapeHTML = (str) => 
      str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
+     const artistsData = track.relationships?.artists?.data || [];
+     let artistsHTML = "";
+
+     if (artistsData.length > 0) {
+         // Mapujemy każdego artystę na link <a>
+         artistsHTML = artistsData.map(artist => {
+             // Zakładam, że Twoje podstrony artystów są w formacie: /artist?id=NUMER
+             return `<a href="artist.html?id=${artist.id}">${escapeHTML(artist.attributes?.name || 'Artysta')}</a>`;
+         }).join(", "); // Łączymy przecinkiem
+     } else {
+         // Fallback do zwykłego tekstu, jeśli brak relacji
+         artistsHTML = escapeHTML(attr.artistName) || 'Nieznany wykonawca';
+     }
+
     // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
         <p class="podcast_info_title"><a href="https://www.shazam.com/pl-pl/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
-        <p class="podcast_info_artist">${escapeHTML(attr.artistName) || 'Nieznany wykonawca'}</p>
+        <p class="podcast_info_artist">${artistsHTML}</p>
         
         <div class="getSongs_box">
             <div class="getSongs_cover">
