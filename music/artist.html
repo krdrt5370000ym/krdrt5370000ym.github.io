@@ -81,7 +81,7 @@ const getArtistDetails = async () => {
     // 4. Renderowanie HTML z danymi artysty
     container.innerHTML = `
     <div class="getSongs_content">
-        <p class="podcast_info_title">
+        <p class="getSongs_info_title">
             <a href="https://www.shazam.com/pl-pl/artist/${customSlug(attr.name)}/${ArtistID}" target="_blank">
                 ${escapeHTML(attr.name) || 'Nieznany wykonawca'}
             </a>
