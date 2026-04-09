@@ -69,7 +69,7 @@ const getTrackDetails = async () => {
                 <div class="getSongs_genare">${attr.genreNames ? attr.genreNames.map(gen => escapeHTML(gen)).join(', ') : 'Muzyka'}</div>
                 
                 <div class="getSongs_teaser">
-                    ${attr.previews?.[0]?.url ? `<a class="fa fa-play-a" data-audio="${attr.previews[0].url}" title="Słuchaj próbki"></a>` : ''}
+                    ${attr.previews?.[0]?.url ? `<a class="fa-play-a" data-audio="${attr.previews[0].url}" title="Słuchaj próbki"></a>` : ''}
                     
                     <div class="social_links">
                         <a target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(fullName)}"><i class="fa-brands fa-youtube"></i> YT</a>
@@ -87,28 +87,24 @@ if (!window.audioPlayer) {
 }
 
 // 2. Znajdujemy nowo dodany przycisk w kontenerze
-const playBtn = container.querySelector("[data-audio]");
-
+const playBtn = container.querySelector(".fa-play-a");
 if (playBtn) {
-    playBtn.addEventListener("click", function() {
+    playBtn.onclick = function() {
+        if (!window.AUD) window.AUD = new Audio();
+        
         const src = this.dataset.audio;
-        const AUD = window.audioPlayer;
+        if (window.AUD.src !== src) window.AUD.src = src;
 
-        if (AUD.src !== src) {
-            AUD.src = src;
-        }
-
-        if (AUD.paused) {
-            AUD.play();
-            this.classList.add("pause"); // Dodaje klasę do zmiany ikony na pauzę
+        if (window.AUD.paused) {
+            window.AUD.play();
+            this.classList.add("pause");
         } else {
-            AUD.pause();
+            window.AUD.pause();
             this.classList.remove("pause");
         }
 
-        // Resetowanie ikony, gdy muzyka się skończy
-        AUD.onended = () => this.classList.remove("pause");
-    });
+        window.AUD.onended = () => this.classList.remove("pause");
+    };
 }
 
   } catch (error) {
