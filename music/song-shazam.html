@@ -55,7 +55,7 @@ const getTrackShazamDetails = async () => {
     const relat = trackData.relationships;
 
     const fullName = `${attr.artist} - ${attr.title}`;
-    document.title = `${fullName} | krdrt537000ym.github.io`;
+    document.title = `${attr.title} - ${attr.artist} | krdrt537000ym.github.io`;
 
     // Funkcja zabezpieczająca przed XSS
     const escapeHTML = (str) => 
