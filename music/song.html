@@ -72,25 +72,30 @@ const getTrackDetails = async () => {
     const escapeHTML = (str) => 
      str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
-     const artistsData = track.relationships?.artists?.data || [];
-     let artistsHTML = "";
+const artistsUrl = `https://shazam.p.rapidapi.com/songs/get-related-artist?id=${SongID}&l=pl-PL`;
+const artistsRes = await fetch(artistsUrl, options);
+const artistsResult = await artistsRes.json();
+const artistsList = artistsResult.data || [];
 
-     if (artistsData.length > 0) {
-         // Mapujemy każdego artystę na link <a>
-         artistsHTML = artistsData.map(artist => {
-             // Zakładam, że Twoje podstrony artystów są w formacie: /artist?id=NUMER
-             return `<a href="artist.html?id=${artist.id}">${escapeHTML(artist.attributes?.name || 'Artysta')}</a>`;
-         }).join(", "); // Łączymy przecinkiem
-     } else {
-         // Fallback do zwykłego tekstu, jeśli brak relacji
-         artistsHTML = escapeHTML(attr.artistName) || 'Nieznany wykonawca';
-     }
+// Tworzymy listę linków oddzielonych przecinkami
+let artistsLinks = "";
+if (artistsList.length > 0) {
+    artistsLinks = artistsList.map(art => {
+        // Czyścimy ID z prefiksu "artist?id=", jeśli API go zwraca, 
+        // lub zostawiamy, jeśli tak ma wyglądać Twój link
+        const cleanId = art.id.replace('artist?id=', ''); 
+        return `<a href="artist?id=${cleanId}">${escapeHTML(art.attributes.name)}</a>`;
+    }).join(", ");
+} else {
+    // Fallback do nazwy głównej, jeśli brak powiązań
+    artistsLinks = escapeHTML(attr.artistName);
+}
 
     // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
     container.innerHTML = `
     <div class="getSongs_content">
         <p class="podcast_info_title"><a href="https://www.shazam.com/pl-pl/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
-        <p class="podcast_info_artist">${artistsHTML}</p>
+        <p class="podcast_info_artist">${artistsLinks}</p>
         
         <div class="getSongs_box">
             <div class="getSongs_cover">
