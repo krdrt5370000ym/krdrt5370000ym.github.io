@@ -15,17 +15,23 @@
     gap: 5px;
 }
 
-.podcast_info_title {
+.getSongs_info_title {
     font-size: 24px;
     font-weight: bold;
     margin: 0;
     color: #1DB954; /* Zielony kolor w stylu Spotify */
+    a {
+        text-decoration: none;
+    }
 }
 
-.podcast_info_artist {
+.getSongs_info_artist {
     font-size: 18px;
     color: #b3b3b3;
     margin: 0 0 15px 0;
+    a {
+        text-decoration: none;
+    }
 }
 
 .getSongs_box {
