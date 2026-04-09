@@ -59,6 +59,7 @@ const getTrackDetails = async () => {
 
     if (!track) {
         container.innerHTML = "Nie znaleziono utworu.";
+        document.title = 'Nie znaleziono utworu. | krdrt537000ym.github.io';
         return;
     }
 
@@ -131,6 +132,7 @@ if (playBtn) {
   } catch (error) {
     console.error('Wystąpił błąd:', error.message);
     document.getElementById('song-id').innerHTML = "Błąd podczas ładowania danych.";
+    document.title = 'Błąd podczas ładowania danych. | krdrt537000ym.github.io';
   }
 };
 getTrackDetails();
