@@ -19,8 +19,7 @@
 <script>
 const params = new URLSearchParams(window.location.search);
 const SongID = params.get('id');
-
-const getTrackShazamDetails = async () => {
+const getTrackDetails = async () => {
   const container = document.getElementById('song-id');
   
   if (!SongID) {
@@ -50,32 +49,33 @@ const getTrackShazamDetails = async () => {
       return;
     }
 
-    const attr = trackData.attributes;
-    const fullName = `${attr.artistName} - ${attr.name}`;
+    const attr = result.resources["shazam-songs"][SongID].attributes;
+    const relat = result.resources["shazam-songs"][SongID].relationships;
+    console.log(attr.genres);
+    const fullName = `${attr.artist} - ${attr.title}`;
+    const genreName = attr.genres.primary;
     
     // Aktualizacja tytułu strony
     document.title = `${fullName} | krdrt537000ym.github.io`;
 
     // Pomocnicze zmienne
-    const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak daty';
     const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
-    const genres = attr.genreNames ? attr.genreNames.join(', ') : 'Muzyka';
-
     const escapeHTML = (str) => 
       str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+    const genres = genreName ? genreName : 'Muzyka';
+    const titleName = relat.songs.data[0].id ? `<p class="podcast_info_title"><a href="song?id=${relat.songs.data[0].id}">${escapeHTML(attr.title)}</a></p>` : `<p class="podcast_info_title">${escapeHTML(attr.title)}</p>`;
 
     container.innerHTML = `
     <div class="getSongs_content">
-        <p class="podcast_info_title">${escapeHTML(attr.name)}</p>
-        <p class="podcast_info_artist">${escapeHTML(attr.artistName)}</p>
+        ${titleName}
+        <p class="podcast_info_artist">${escapeHTML(attr.artist)}</p>
         
         <div class="getSongs_box">
             <div class="getSongs_cover">
-                <img src="${artwork}" alt="${escapeHTML(attr.artistName)}">
+                <img src="${artwork}" alt="${escapeHTML(attr.artist)}">
             </div>
             
             <div class="getSongs_data">
-                <div class="getSongs_year">Premiera: ${releaseYear}</div>
                 <div class="getSongs_genare">Gatunek: ${escapeHTML(genres)}</div>
                 
                 <div class="social_links">
@@ -95,7 +95,7 @@ const getTrackShazamDetails = async () => {
     container.innerHTML = "Błąd podczas ładowania danych.";
   }
 };
-getTrackShazamDetails();
+getTrackDetails();
 </script>
          </div>
          <script src="/site-bottomscreen.js"></script>
