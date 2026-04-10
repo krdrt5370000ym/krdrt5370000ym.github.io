@@ -76,6 +76,7 @@ async function WPArticleRSC(append = false) {
 
     } catch (error) {
         console.error("Błąd WP API:", error);
+        container.innerHTML = 'Nie udało się pobrać artykułu.';
         if (button) button.style.display = 'none';
     }
 }
@@ -354,6 +355,7 @@ async function WPArticleList(
 
     } catch (error) {
         console.error("Błąd WP API:", error);
+        container.innerHTML = 'Nie udało się pobrać artykułu.';
         if (button) button.style.display = 'none';
     }
 }
