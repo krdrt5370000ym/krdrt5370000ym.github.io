@@ -162,6 +162,191 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
     }
 }
 
+async function WPArticleList(
+    mainUrl,
+    siteKey,
+    is_http = false,
+    type = 'post',
+    search = null,
+    categoryID = null,
+    tagID = null,
+    authorID = null,
+    is_categories = true,
+    is_author = true,
+    is_image = true,
+    append = false
+) {
+    const container = document.getElementById('article-list');
+    const containerS = document.getElementById('article-s-result');
+    const containerC = document.getElementById('article-c-result');
+    const containerT = document.getElementById('article-t-result');
+    const containerA = document.getElementById('article-a-result');
+    const button = document.getElementById('load-more-btn');
+
+    const perPage = 10;
+
+    if (!append) window.currentPage = 1;
+    else window.currentPage++;
+
+    const is_include_search = search ? `search=${search}&` : '';
+    const is_include_category = categoryID ? `categories=${categoryID}&` : '';
+    const is_include_tag = tagID ? `tags=${tagID}&` : '';
+    const is_include_author = authorID ? `author=${authorID}&` : '';
+
+    const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+
+    const typesUrl = type === 'post' ? postsUrl : pagesUrl;
+    const httpUrl = is_http
+        ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl)
+        : typesUrl;
+
+    try {
+        if (button) {
+            button.innerText = "Ładowanie...";
+            button.disabled = true;
+        }
+
+        const response = await fetch(httpUrl);
+        if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
+
+        const posts = await response.json();
+
+        if (!Array.isArray(posts) || posts.length === 0) {
+            if (!append) container.innerHTML = "Brak aktualności.";
+            if (button) button.style.display = 'none';
+            return;
+        }
+
+        // 🔹 Pobieranie nazw
+        let categoryName = '';
+        let tagName = '';
+        let authorName = '';
+
+        if (categoryID) {
+            const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}`);
+            const data = await res.json();
+            categoryName = data.name;
+        }
+
+        if (tagID) {
+            const res = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagID}`);
+            const data = await res.json();
+            tagName = data.name;
+        }
+
+        if (authorID) {
+            const res = await fetch(`${mainUrl}/wp-json/wp/v2/users/${authorID}`);
+            const data = await res.json();
+            authorName = data.name;
+        }
+
+        // 🔹 Wyniki nagłówków
+        containerS.innerHTML = search ? `Wyniki dla: ${search}` : '';
+        containerC.innerHTML = categoryName ? `Kategoria: ${categoryName}` : '';
+        containerT.innerHTML = tagName ? `Tag: ${tagName}` : '';
+        containerA.innerHTML = authorName ? `Autor: ${authorName}` : '';
+
+        // 🔹 Tytuł strony
+        document.title = [
+            search,
+            categoryName,
+            tagName,
+            authorName
+        ].filter(Boolean).join(' | ') || 'Artykuły';
+
+        // 🔹 Generowanie HTML
+        const postsHTML = posts.map(post => {
+            const title = post.title.rendered.replace(/<[^>]+>/g, '');
+
+            const author = post._embedded?.author?.[0];
+            const authorHTML = author
+                ? `<a href="${author.link}">${author.name}</a>`
+                : 'Redakcja';
+
+            const terms = post._embedded?.['wp:term']?.[0] || [];
+            const catsHTML = terms.length > 0
+                ? terms.map(t => `<a href="${t.link}">${t.name}</a>`).join(' • ')
+                : `<a href="${mainUrl}">Aktualności</a>`;
+
+            const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+            const imgUrl =
+                featuredMedia?.media_details?.sizes?.medium?.source_url ||
+                featuredMedia?.source_url ||
+                '';
+
+            const imageDisplay = is_image && imgUrl
+                ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">`
+                : '';
+
+            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            return `
+            <article class="article_post">
+                <div class="article_cover">${imageDisplay}</div>
+                <div class="article_content">
+                    ${is_categories && type === 'post'
+                        ? `<div class="article_category">${catsHTML}</div>`
+                        : ''}
+
+                    <div class="article_title">
+                        <a href="${post.link}" target="_blank">
+                            ${title}
+                        </a>
+                    </div>
+
+                    <div class="article_info">
+                        ${is_author
+                            ? `<i class="fa-solid fa-user"></i> ${authorHTML} | `
+                            : ''}
+                        ${postDate}
+                    </div>
+                </div>
+            </article>`;
+        }).join('');
+
+        // 🔹 Render
+        if (append) {
+            const wrapper = container.querySelector('.articles');
+            if (wrapper) {
+                wrapper.insertAdjacentHTML('beforeend', postsHTML);
+            }
+        } else {
+            container.innerHTML = `<div class="articles">${postsHTML}</div>`;
+        }
+
+        // 🔹 Przycisk "więcej"
+        if (button) {
+            button.innerText = "Wczytaj więcej";
+            button.disabled = false;
+            button.style.display = posts.length < perPage ? 'none' : 'block';
+
+            button.onclick = () => WPArticleList(
+                mainUrl,
+                siteKey,
+                is_http,
+                type,
+                search,
+                categoryID,
+                tagID,
+                authorID,
+                is_categories,
+                is_author,
+                is_image,
+                true
+            );
+        }
+
+    } catch (error) {
+        console.error("Błąd WP API:", error);
+        if (button) button.style.display = 'none';
+    }
+}
+
 async function WPArticlePostRSC(slug) {
     const container = document.getElementById('article-post');
     if (!container) return;
