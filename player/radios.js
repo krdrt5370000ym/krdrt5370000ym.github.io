@@ -178,4 +178,12 @@ function playlistNowPlaying(streamUrl) {
 }
 
 /* START */
+const params = new URLSearchParams(window.location.search);
+const playlistParam = params.get('r');
+
+if (playlistParam) {
+    currentPlaylist = playlistParam;
+    // Aktualizacja wizualna selecta, jeśli istnieje taka opcja
+    if (playlistSelect) playlistSelect.value = playlistParam;
+}
 fetchPlaylist(currentPlaylist);
