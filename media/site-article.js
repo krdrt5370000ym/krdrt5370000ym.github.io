@@ -253,9 +253,11 @@ async function WPArticleList(
         if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
         if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
 
+        const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
+
         // 🔹 Tytuł strony
         document.title = [
-            'Wyniki wyszukiwania: ' + search,
+            searchTitle,
             categoryName,
             tagName,
             authorName
