@@ -242,10 +242,10 @@ async function WPArticleList(
         }
 
         // 🔹 Wyniki nagłówków
-        containerS.innerHTML = search ? `Wyniki dla: ${search}` : '';
-        containerC.innerHTML = categoryName ? `Kategoria: ${categoryName}` : '';
-        containerT.innerHTML = tagName ? `Tag: ${tagName}` : '';
-        containerA.innerHTML = authorName ? `Autor: ${authorName}` : '';
+        if (containerS) containerS.innerHTML = search ? `Wyniki dla: ${search}` : '';
+        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: ${categoryName}` : '';
+        if (containerT) containerT.innerHTML = tagName ? `Tag: ${tagName}` : '';
+        if (containerA) containerA.innerHTML = authorName ? `Autor: ${authorName}` : '';
 
         // 🔹 Tytuł strony
         document.title = [
