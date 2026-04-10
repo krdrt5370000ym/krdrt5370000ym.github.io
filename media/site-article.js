@@ -255,11 +255,11 @@ async function WPArticleList(
 
         // 🔹 Tytuł strony
         document.title = [
-            search,
+            'Wyniki wyszukiwania: ' + search,
             categoryName,
             tagName,
             authorName
-        ].filter(Boolean).join(' | ') || 'Artykuły';
+        ].filter(Boolean).join(' | ') + ' | krdrt5370000ym.github.io' || 'Artykuły | krdrt5370000ym.github.io';
 
         // 🔹 Generowanie HTML
         const postsHTML = posts.map(post => {
