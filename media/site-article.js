@@ -300,7 +300,7 @@ async function WPArticleList(
                         : ''}
 
                     <div class="article_title">
-                        <a href="${post.link}" target="_blank">
+                        <a href="article?id=${post.slug}&si=${siteKey}&tp=${type}" target="_blank">
                             ${title}
                         </a>
                     </div>
