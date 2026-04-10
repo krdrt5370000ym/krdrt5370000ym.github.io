@@ -49,7 +49,7 @@ async function WPArticleRSC(append = false) {
                         <div class="article_category">${catsHTML}</div>
                         <div class="article_title">
                             <a href="article?id=${post.slug}&si=radiorsc&tp=post" target="_blank">
-                                ${post.title.rendered}
+                                ${post.title.rendered || '{Brak tytułu}'}
                             </a>
                         </div>
                         <div class="article_info">
@@ -437,7 +437,7 @@ async function WPArticlePostRSC(slug) {
                     <article id="post-${post.id}">
                         <header class="article_headers_posts">
                             ${categoriesDisplay}
-                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered || '{Brak tytułu}'}</a></div>
                             <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
                             ${tagsDisplay}
                         </header>
@@ -552,7 +552,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                     <article id="post-${post.id}">
                         <header class="article_headers_posts">
                             ${categoriesDisplay}
-                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered}</a></div>
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered || '{Brak tytułu}'}</a></div>
                             <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
                             ${tagsDisplay}
                         </header>
@@ -638,7 +638,7 @@ async function WPArticlePage(slug, mainUrl, is_http = false) {
                 <article id="page-${page.id}">
                     <header class="article_headers_posts">
                         <div class="article_title_posts">
-                            <a href="${page.link}" target="_blank">${page.title.rendered}</a>
+                            <a href="${page.link}" target="_blank">${page.title.rendered || '{Brak tytułu}'}</a>
                         </div>
                     </header>
                     ${imageHTML}
