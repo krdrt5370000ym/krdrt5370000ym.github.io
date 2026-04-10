@@ -248,10 +248,10 @@ async function WPArticleList(
         }
 
         // 🔹 Wyniki nagłówków
-        if (containerS) containerS.innerHTML = search ? `Wyniki dla: ${search}` : '';
-        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: <a href="${categoryLink}">${categoryName}</a>` : '';
-        if (containerT) containerT.innerHTML = tagName ? `Tag: <a href="${tagLink}">${tagName}</a>` : '';
-        if (containerA) containerA.innerHTML = authorName ? `Autor: <a href="${authorLink}">${authorName}</a>` : '';
+        if (containerS) containerS.innerHTML = search ? `Wyniki dla: <b>${search}</b>` : '';
+        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: <b><a href="${categoryLink}">${categoryName}</a></b>` : '';
+        if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
+        if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
 
         // 🔹 Tytuł strony
         document.title = [
