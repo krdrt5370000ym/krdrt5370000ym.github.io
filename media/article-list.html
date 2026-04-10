@@ -23,6 +23,7 @@
         </div>
          <script src="/site-bottomscreen.js"></script>
     </div>
+    <script src="site-article.js"></script>
     <!-- Skrypt silnika artykułów na końcu -->
     <script>
 (function () {
@@ -61,8 +62,8 @@
 
     function init() {
         try {
-            if (typeof WPArticleList === "function") {
-                WPArticleList(
+            if (typeof window.WPArticleList === "function") {
+                window.WPArticleList(
                     mainUrl,
                     site,
                     is_http,
@@ -84,7 +85,6 @@
     window.addEventListener("DOMContentLoaded", init);
 })();
     </script>
-    <script src="article-index.js"></script>
       <script src="/site-sidebar.js"></script>
    </body>
 </html>
