@@ -110,10 +110,10 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
         const htmlContent = `<div class="articles">${posts.map(post => {
             const author = post._embedded?.author?.[0];
-            const authorHTML = author ? `<a href="${author.link}">${author.name}</a>` : 'Redakcja';
+            const authorHTML = author ? `<a href="article-list?si=${siteKey}&c=${author.id}">${author.name}</a>` : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
             const catsHTML = terms.length > 0 
-                ? terms.map(t => `<a href="${t.link}">${t.name}</a>`).join(' • ') 
+                ? terms.map(t => `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`).join(' • ') 
                 : `<a href="${mainUrl}">Aktualności</a>`;
             
             const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
@@ -131,7 +131,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
                         ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
                         <div class="article_title">
                             <a href="article?id=${post.slug}&si=${siteKey}&tp=post" target="_blank">
-                                ${post.title.rendered}
+                                ${post.title.rendered || '{Brak tytułu}'}
                             </a>
                         </div>
                         <div class="article_info">
