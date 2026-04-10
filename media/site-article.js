@@ -392,14 +392,14 @@ async function WPArticlePostRSC(slug) {
             // 2. Autor
             let authorDisplay = '<i class="fa-solid fa-user"></i> Redakcja | ';
             if (embed.author?.[0]) {
-                authorDisplay = `<i class="fa-solid fa-user"></i> <a href="${embed.author[0].link}" target="_blank">${embed.author[0].name}</a> | `;
+                authorDisplay = `<i class="fa-solid fa-user"></i> <a href="article-list?si=radiorsc&a=${embed.author[0].id}" target="_blank">${embed.author[0].name}</a> | `;
             }
 
             // 3. Kategorie
             let categoriesDisplay = '';
             if (embed['wp:term']?.[0]) {
                 const catsHtml = embed['wp:term'][0]
-                    .map(cat => `<a href="${cat.link}" target="_blank">${cat.name}</a>`)
+                    .map(cat => `<a href="article-list?si=radiorsc&c=${cat.id}" target="_blank">${cat.name}</a>`)
                     .join(' • ');
                 categoriesDisplay = `<div class="article_category_posts">${catsHtml}</div>`;
             }
@@ -408,7 +408,7 @@ async function WPArticlePostRSC(slug) {
             let tagsDisplay = '';
             if (embed['wp:term']?.[1]?.length > 0) {
                 const tagsHtml = embed['wp:term'][1]
-                    .map(t => `<a href="${t.link}" target="_blank">${t.name}</a>`)
+                    .map(t => `<a href="article-list?si=radiorsc&t=${t.id}" target="_blank">${t.name}</a>`)
                     .join(', ');
                 tagsDisplay = `
                     <div class="article_tags_posts">
@@ -460,6 +460,16 @@ async function WPArticlePostRSC(slug) {
 
 async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false) {
     const container = document.getElementById('article-post');
+
+    // Mapowanie URL na klucz strony (używane w linkach do list)
+    const siteKeys = {
+        'https://radiorsc.pl': 'radiorsc',
+        'https://radiovictoria.pl': 'radiovictoria',
+        'https://radiokolor.pl': 'radiokolor',
+        'https://soswskierniewice.pl': 'sosw',
+        'https://cekis.pl': 'ckis'
+    };
+    const currentSiteKey = siteKeys[mainUrl] || 'default';
     // Dodajemy _embed do URL
     const postsUrl = slug.startsWith('post-')
         ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` 
@@ -490,11 +500,11 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             if (embed.author && embed.author[0]) {
                 const author = embed.author[0];
                 const authorName = author.name || 'Redakcja';
-                const authorLink = author.link;
+                const authorId = author.id;
                 // Tworzymy link do profilu autora
                 authorDisplay = `
                     <i class="fa-solid fa-user"></i> 
-                    <a href="${authorLink}" target="_blank">${authorName}</a> | `;
+                    <a href="article-list?si=${currentSiteKey}&a=${authorId}" target="_blank">${authorName}</a> | `;
             } else {
                 authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
             }
@@ -503,7 +513,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             let categoriesDisplay = '';
             if (embed['wp:term'] && embed['wp:term'][0]) {
                 const catsHtml = embed['wp:term'][0]
-                    .map(cat => `<a href="${cat.link}" target="_blank">${cat.name}</a>`)
+                    .map(cat => `<a href="article-list?si=${currentSiteKey}&c=${cat.id}" target="_blank">${cat.name}</a>`)
                     .join(' • ');
                 
                 categoriesDisplay = `<div class="article_category_posts">${catsHtml || 'Aktualności'}</div>`;
@@ -513,7 +523,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             let tagsDisplay = '';
             if (embed['wp:term'] && embed['wp:term'][1] && embed['wp:term'][1].length > 0) {
                 const tagsHtml = embed['wp:term'][1]
-                    .map(t => `<a href="${t.link}" target="_blank">${t.name}</a>`)
+                    .map(t => `<a href="article-list?si=${currentSiteKey}&t=${t.id}" target="_blank">${t.name}</a>`)
                     .join(', ');
             
                 tagsDisplay = `
