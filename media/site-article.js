@@ -253,15 +253,17 @@ async function WPArticleList(
         if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
         if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
 
-        const searchTitle = search ? 'Wyniki wyszukiwania: ' + search;
+        const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
 
         // 🔹 Tytuł strony
-        document.title = [
+        docTitle = [
             searchTitle,
             categoryName,
             tagName,
             authorName
-        ].filter(Boolean).join(' | ') + ' | krdrt5370000ym.github.io' || 'Artykuły | krdrt5370000ym.github.io';
+        ].filter(Boolean).join(' | ') || 'Artykuły';
+
+        document.title = docTitle + ' | krdrt5370000ym.github.io';
 
         // 🔹 Generowanie HTML
         const postsHTML = posts.map(post => {
