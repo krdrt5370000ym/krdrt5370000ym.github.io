@@ -220,32 +220,38 @@ async function WPArticleList(
 
         // 🔹 Pobieranie nazw
         let categoryName = '';
+        let categoryLink = '';
         let tagName = '';
+        let tagLink = '';
         let authorName = '';
+        let authorLink = '';
 
         if (categoryID) {
             const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}`);
             const data = await res.json();
             categoryName = data.name;
+            categoryLink = data.link;
         }
 
         if (tagID) {
             const res = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagID}`);
             const data = await res.json();
             tagName = data.name;
+            tagLink = data.link;
         }
 
         if (authorID) {
             const res = await fetch(`${mainUrl}/wp-json/wp/v2/users/${authorID}`);
             const data = await res.json();
             authorName = data.name;
+            authorLink = data.link;
         }
 
         // 🔹 Wyniki nagłówków
         if (containerS) containerS.innerHTML = search ? `Wyniki dla: ${search}` : '';
-        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: ${categoryName}` : '';
-        if (containerT) containerT.innerHTML = tagName ? `Tag: ${tagName}` : '';
-        if (containerA) containerA.innerHTML = authorName ? `Autor: ${authorName}` : '';
+        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: <a href="${categoryLink}">${categoryName}</a>` : '';
+        if (containerT) containerT.innerHTML = tagName ? `Tag: <a href="${tagLink}">${tagName}</a>` : '';
+        if (containerA) containerA.innerHTML = authorName ? `Autor: <a href="${authorLink}">${authorName}</a>` : '';
 
         // 🔹 Tytuł strony
         document.title = [
