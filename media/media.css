@@ -508,6 +508,13 @@ h4 {
 }
 
 /* AKTUALNOŚCI */
+.article_result {
+    font-size: large;
+    margin-block: 10px;
+    a {
+        text-decoration: none;
+    }
+}
 .list_article {
     padding-left: 10px;
     h3 {
