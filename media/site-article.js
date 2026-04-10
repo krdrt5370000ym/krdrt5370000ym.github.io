@@ -158,6 +158,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
     } catch (error) {
         console.error("Błąd WP API:", error);
+        container.innerHTML = 'Nie udało się pobrać artykułu.';
         if (button) button.style.display = 'none';
     }
 }
