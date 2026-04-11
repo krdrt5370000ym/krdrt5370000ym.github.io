@@ -6,7 +6,7 @@ async function WPArticleRSC(append = false) {
     if (!append) window.currentPage = 1;
     else window.currentPage++;
 
-    siteUrl = 'httos://radiorsc.pl';
+    siteUrl = 'https://radiorsc.pl';
 
     const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${fetchParentCategories(18,siteUrl)},${fetchParentCategories(19,siteUrl)},${fetchParentCategories(75,siteUrl)}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
