@@ -19,7 +19,7 @@ async function WPArticleRSC(append = false) {
         const include19 = await fetchParentCategoriesIn(19);
         const include65 = await fetchParentCategoriesIn(65);
 
-        const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${exclude18},${exclude19},${exclude65}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+        const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${include18},${include19},${include65}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
         const response = await fetch(postsUrl);
         if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
