@@ -2,78 +2,84 @@ const params = new URLSearchParams(window.location.search);
 const SongID = params.get('id');
 
 function customSlug(title) {
-  return title
-    .toLowerCase()
-    .replace(/[()?,!.]/g, "") // Usuwamy interpunkcję i nawiasy
-    .trim()
-    .split(/\s+/)             // Dzielimy na słowa
-    .map(word => {
-      // Jeśli słowo zawiera cyrylicę (zakres \u0400-\u04FF)
-      if (/[\u0400-\u04FF]/.test(word)) {
-        return encodeURIComponent(word)
-          .replace(/%/g, "")  // Usuwamy % (zostaje czysty hex)
-          .toLowerCase();
-      }
-      return word;            // Polskie znaki i łacińskie zostają
-    })
-    .join("-");               // Łączymy myślnikiem
+   return title
+      .toLowerCase()
+      .replace(/[()?,!.]/g, "") // Usuwamy interpunkcję i nawiasy
+      .trim()
+      .split(/\s+/) // Dzielimy na słowa
+      .map(word => {
+         // Jeśli słowo zawiera cyrylicę (zakres \u0400-\u04FF)
+         if (/[\u0400-\u04FF]/.test(word)) {
+            return encodeURIComponent(word)
+               .replace(/%/g, "") // Usuwamy % (zostaje czysty hex)
+               .toLowerCase();
+         }
+         return word; // Polskie znaki i łacińskie zostają
+      })
+      .join("-"); // Łączymy myślnikiem
 }
 
 const getTrackDetails = async () => {
-  const url = `https://shazam.p.rapidapi.com/songs/v2/get-details?id=${SongID}&l=pl-PL`;
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e',
-      'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
-    }
-  };
+   const url = `https://shazam.p.rapidapi.com/songs/v2/get-details?id=${SongID}&l=pl-PL`;
+   const options = {
+      method: 'GET',
+      headers: {
+         'X-RapidAPI-Key': 'ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e',
+         'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
+      }
+   };
 
-  try {
-    const container = document.getElementById('song-id');
-    const response = await fetch(url, options);
-    
-    if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
+   try {
+      const container = document.getElementById('song-id');
+      const response = await fetch(url, options);
 
-    const result = await response.json();
-    const track = result.data?.[0];
+      if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
 
-    if (!track) {
-        container.innerHTML = "Nie znaleziono utworu.";
-        document.title = 'Nie znaleziono utworu. | krdrt537000ym.github.io';
-        return;
-    }
+      const result = await response.json();
+      const track = result.data?.[0];
 
-    const attr = track.attributes;
-    const fullName = `${attr.artistName} - ${attr.name}`;
-    const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
-    document.title = `${attr.name} - ${attr.artistName} | krdrt537000ym.github.io`;
-    
-    // Funkcja zabezpieczająca przed XSS
-    const escapeHTML = (str) => 
-     str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+      if (!track) {
+         container.innerHTML = "Nie znaleziono utworu.";
+         document.title = 'Nie znaleziono utworu. | krdrt537000ym.github.io';
+         return;
+      }
 
-const artistsUrl = `https://shazam.p.rapidapi.com/songs/get-related-artist?id=${SongID}&l=pl-PL`;
-const artistsRes = await fetch(artistsUrl, options);
-const artistsResult = await artistsRes.json();
-const artistsList = artistsResult.data || [];
+      const attr = track.attributes;
+      const fullName = `${attr.artistName} - ${attr.name}`;
+      const releaseYear = attr.releaseDate ? attr.releaseDate.split('-')[0] : 'Brak roku';
+      document.title = `${attr.name} - ${attr.artistName} | krdrt537000ym.github.io`;
 
-// Tworzymy listę linków oddzielonych przecinkami
-let artistsLinks = "";
-if (artistsList.length > 0) {
-    artistsLinks = artistsList.map(art => {
-        // Czyścimy ID z prefiksu "artist?id=", jeśli API go zwraca, 
-        // lub zostawiamy, jeśli tak ma wyglądać Twój link
-        const cleanId = art.id.replace('artist?id=', ''); 
-        return `<a href="artist?id=${cleanId}">${escapeHTML(art.attributes.name)}</a>`;
-    }).join(", ");
-} else {
-    // Fallback do nazwy głównej, jeśli brak powiązań
-    artistsLinks = escapeHTML(attr.artistName);
-}
+      // Funkcja zabezpieczająca przed XSS
+      const escapeHTML = (str) =>
+         str ? String(str).replace(/[&<>"']/g, m => ({
+            '&': '&',
+            '<': '<',
+            '>': '>',
+            '"': '"',
+            "'": "'"
+         } [m])) : "";
 
-    // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
-    container.innerHTML = `
+      const artistsUrl = `https://shazam.p.rapidapi.com/songs/get-related-artist?id=${SongID}&l=pl-PL`;
+      const artistsRes = await fetch(artistsUrl, options);
+      const artistsResult = await artistsRes.json();
+      const artistsList = artistsResult.data || [];
+
+      // Tworzymy listę linków oddzielonych przecinkami
+      let artistsLinks = "";
+      if (artistsList.length > 0) {
+         artistsLinks = artistsList.map(art => {
+            // Czyścimy ID z prefiksu "artist?id=", jeśli API go zwraca, 
+            // lub zostawiamy, jeśli tak ma wyglądać Twój link
+            const cleanId = art.id.replace('artist?id=', '');
+            return `<a href="artist?id=${cleanId}">${escapeHTML(art.attributes.name)}</a>`;
+         }).join(", ");
+      } else {
+         // Fallback do nazwy głównej, jeśli brak powiązań
+         artistsLinks = escapeHTML(attr.artistName);
+      }
+
+      // Poprawiona struktura HTML (usunięte błędne nawiasy i poprawione ścieżki)
+      container.innerHTML = `
     <div class="getSongs_content">
         <p class="getSongs_info_title"><a href="https://www.shazam.com/pl-pl/song/${SongID}/${customSlug(attr.name)}" target="_blank">${escapeHTML(attr.name) || 'Brak tytułu'}</a></p>
         <p class="getSongs_info_artist">${artistsLinks}</p>
@@ -104,35 +110,35 @@ if (artistsList.length > 0) {
         </div>
     </div>`;
 
-if (!window.audioPlayer) {
-    window.audioPlayer = new Audio();
-}
+      if (!window.audioPlayer) {
+         window.audioPlayer = new Audio();
+      }
 
-// 2. Znajdujemy nowo dodany przycisk w kontenerze
-const playBtn = container.querySelector(".fa-play-a");
-if (playBtn) {
-    playBtn.onclick = function() {
-        if (!window.AUD) window.AUD = new Audio();
-        
-        const src = this.dataset.audio;
-        if (window.AUD.src !== src) window.AUD.src = src;
+      // 2. Znajdujemy nowo dodany przycisk w kontenerze
+      const playBtn = container.querySelector(".fa-play-a");
+      if (playBtn) {
+         playBtn.onclick = function () {
+            if (!window.AUD) window.AUD = new Audio();
 
-        if (window.AUD.paused) {
-            window.AUD.play();
-            this.classList.add("pause");
-        } else {
-            window.AUD.pause();
-            this.classList.remove("pause");
-        }
+            const src = this.dataset.audio;
+            if (window.AUD.src !== src) window.AUD.src = src;
 
-        window.AUD.onended = () => this.classList.remove("pause");
-    };
-}
+            if (window.AUD.paused) {
+               window.AUD.play();
+               this.classList.add("pause");
+            } else {
+               window.AUD.pause();
+               this.classList.remove("pause");
+            }
 
-  } catch (error) {
-    console.error('Wystąpił błąd:', error.message);
-    document.getElementById('song-id').innerHTML = "Błąd podczas ładowania danych.";
-    document.title = 'Błąd podczas ładowania danych. | krdrt537000ym.github.io';
-  }
+            window.AUD.onended = () => this.classList.remove("pause");
+         };
+      }
+
+   } catch (error) {
+      console.error('Wystąpił błąd:', error.message);
+      document.getElementById('song-id').innerHTML = "Błąd podczas ładowania danych.";
+      document.title = 'Błąd podczas ładowania danych. | krdrt537000ym.github.io';
+   }
 };
 getTrackDetails();
