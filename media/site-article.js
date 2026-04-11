@@ -501,10 +501,11 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                 const author = embed.author[0];
                 const authorName = author.name || 'Redakcja';
                 const authorId = author.id;
+                const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : article-list?si=${currentSiteKey}&a=${authorId};
                 // Tworzymy link do profilu autora
                 authorDisplay = `
                     <i class="fa-solid fa-user"></i> 
-                    <a href="article-list?si=${currentSiteKey}&a=${authorId}" target="_blank">${authorName}</a> | `;
+                    <a href="article-list?si=${authorSite}" target="_blank">${authorName}</a> | `;
             } else {
                 authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
             }
