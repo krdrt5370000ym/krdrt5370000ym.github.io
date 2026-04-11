@@ -12,7 +12,7 @@ input[type="radio"] {
 /* 2. UKRYJ TREŚĆ WSZYSTKICH ZAKŁADEK DOMYŚLNIE */
 .content {
     display: none;
-    padding: 20px;
+    padding: 20px 0px;
     border: 1px solid #ccc;
     background: #fff;
 }
@@ -400,7 +400,7 @@ label {
 
 .tabcontent {
   display: none;
-  padding: 20px;
+  padding: 20px 10px;
   border: 1px solid #ccc;
 }
 .tab button.active {
