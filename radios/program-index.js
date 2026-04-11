@@ -1,161 +1,228 @@
 // Funkcja formatująca dni i godziny emisji
 function getDisplaySchedule(programId, SCHEDULE) {
-    const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Cz", "5": "Pt", "6": "Sob", "0": "Ndz" };
-    const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
-    
-    const timeGroups = {};
-    const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
-    
-    if (filtered.length === 0) return "";
+   const daysMapShort = {
+      "1": "Pn",
+      "2": "Wt",
+      "3": "Śr",
+      "4": "Cz",
+      "5": "Pt",
+      "6": "Sob",
+      "0": "Ndz"
+   };
+   const daysMapFull = {
+      "1": "Poniedziałek",
+      "2": "Wtorek",
+      "3": "Środa",
+      "4": "Czwartek",
+      "5": "Piątek",
+      "6": "Sobota",
+      "0": "Niedziela"
+   };
 
-    filtered.forEach(occ => {
-        const start = (occ.hour_start || "").substring(0, 5);
-        const end = (occ.hour_end || "").substring(0, 5);
-        const timeKey = `${start}-${end}`;
-        if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-        const days = Array.isArray(occ.days) ? occ.days : [occ.days];
-        days.forEach(d => timeGroups[timeKey].add(d.toString()));
-    });
+   const timeGroups = {};
+   const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
 
-    const entries = Object.entries(timeGroups);
-    const isMultiGroup = entries.length > 1;
+   if (filtered.length === 0) return "";
 
-    const result = entries.map(([timeKey, daysSet]) => {
-        const [start, end] = timeKey.split("-");
-        const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
-        const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
-            if (i === 0) return true;
-            const prev = sortedDays[i-1] == "0" ? 7 : parseInt(sortedDays[i-1]);
-            const curr = d == "0" ? 7 : parseInt(d);
-            return curr === prev + 1;
-        });
+   filtered.forEach(occ => {
+      const start = (occ.hour_start || "").substring(0, 5);
+      const end = (occ.hour_end || "").substring(0, 5);
+      const timeKey = `${start}-${end}`;
+      if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+      const days = Array.isArray(occ.days) ? occ.days : [occ.days];
+      days.forEach(d => timeGroups[timeKey].add(d.toString()));
+   });
 
-        let dayString;
-        if (sortedDays.length === 1) {
-            dayString = isMultiGroup ? daysMapShort[sortedDays[0]] : daysMapFull[sortedDays[0]];
-        } else if (isSequence) {
-            dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
-        } else {
-            dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
-        }
-        return { text: `${dayString} ${start} - ${end}`, firstDay: sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]), startTime: start };
-    });
+   const entries = Object.entries(timeGroups);
+   const isMultiGroup = entries.length > 1;
 
-    return result.sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime)).map(g => g.text).join(" | ");
+   const result = entries.map(([timeKey, daysSet]) => {
+      const [start, end] = timeKey.split("-");
+      const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
+      const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
+         if (i === 0) return true;
+         const prev = sortedDays[i - 1] == "0" ? 7 : parseInt(sortedDays[i - 1]);
+         const curr = d == "0" ? 7 : parseInt(d);
+         return curr === prev + 1;
+      });
+
+      let dayString;
+      if (sortedDays.length === 1) {
+         dayString = isMultiGroup ? daysMapShort[sortedDays[0]] : daysMapFull[sortedDays[0]];
+      } else if (isSequence) {
+         dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
+      } else {
+         dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
+      }
+      return {
+         text: `${dayString} ${start} - ${end}`,
+         firstDay: sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]),
+         startTime: start
+      };
+   });
+
+   return result.sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime)).map(g => g.text).join(" | ");
 }
 
 async function uruchomProgram() {
-    const params = new URLSearchParams(window.location.search);
-    const uid = params.get('uid');
-    const station = params.get('st'); 
+   const params = new URLSearchParams(window.location.search);
+   const uid = params.get('uid');
+   const station = params.get('st');
 
-    if (!uid || !station) {
-        document.body.innerHTML = "Błąd: Brak parametrów 'uid' lub 'st'.";
-        document.title = window.location.href;
-        return;
-    }
+   if (!uid || !station) {
+      document.body.innerHTML = "Błąd: Brak parametrów 'uid' lub 'st'.";
+      document.title = window.location.href;
+      return;
+   }
 
-    try {
-        // Funkcja pomocnicza z POPRAWIONĄ ŚCIEŻKĄ: /radios/json/
-        const fetchJSON = async (fileName) => {
-            const url = `https://krdrt5370000ym.github.io/radios/json/${station}_${fileName}.json`;
-            try {
-                const res = await fetch(url);
-                if (!res.ok) return fileName === 'config' ? {} : []; 
-                
-                const data = await res.json();
-        
-                // Twoja poprawka: standaryzacja CONFIG i SCHEDULE
-                if (fileName === 'config') {
-                    return (Array.isArray(data) ? data[0] : data) || {};
-                }
-                
-                // Dla schedule i programs upewniamy się, że to zawsze tablica (do .filter i .find)
-                return Array.isArray(data) ? data : [];
-                
-            } catch (e) {
-                return (fileName === 'config' || fileName === 'schedule') ? {} : [];
+   try {
+      // Funkcja pomocnicza z POPRAWIONĄ ŚCIEŻKĄ: /radios/json/
+      const fetchJSON = async (fileName) => {
+         const url = `https://krdrt5370000ym.github.io/radios/json/${station}_${fileName}.json`;
+         try {
+            const res = await fetch(url);
+            if (!res.ok) return fileName === 'config' ? {} : [];
+
+            const data = await res.json();
+
+            // Twoja poprawka: standaryzacja CONFIG i SCHEDULE
+            if (fileName === 'config') {
+               return (Array.isArray(data) ? data[0] : data) || {};
             }
-        };
-        
-        // Wywołanie w Promise.all pozostaje bez zmian:
-        const [PROGRAMS, SCHEDULE, CONFIG] = await Promise.all([
-            fetchJSON('programs'),
-            fetchJSON('schedule'),
-            fetchJSON('config')
-        ]);
 
-        const program = PROGRAMS.find(p => p.id === uid);
+            // Dla schedule i programs upewniamy się, że to zawsze tablica (do .filter i .find)
+            return Array.isArray(data) ? data : [];
 
-        if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info) {
-            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`;
-            document.title = window.location.href;
-            return;
-        }
+         } catch (e) {
+            return (fileName === 'config' || fileName === 'schedule') ? {} : [];
+         }
+      };
 
-        if (program.url_immediately) {
-            window.location.href = program.url_immediately;
-            return;
-        }
+      // Wywołanie w Promise.all pozostaje bez zmian:
+      const [PROGRAMS, SCHEDULE, CONFIG] = await Promise.all([
+         fetchJSON('programs'),
+         fetchJSON('schedule'),
+         fetchJSON('config')
+      ]);
 
-        // 2. Logika emisji i prowadzących
-        const occurrencesSch = SCHEDULE.filter(osch => osch.id === uid && osch.active && !osch.private && !osch.hide_in_schedule);
-        const scheduleInfo = getDisplaySchedule(uid, SCHEDULE);
+      const program = PROGRAMS.find(p => p.id === uid);
 
-        if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
-            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Brak planowanych emisji
-            document.title = window.location.href;
-            return;
-        }
+      if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info) {
+         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`;
+         document.title = window.location.href;
+         return;
+      }
 
-        const occurrencesHost = [...new Set(occurrencesSch.flatMap(osch => osch.host || []))];
-        const occurrencesHostA = program.only_the_schedule_hosts 
-            ? (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "---") 
-            : (program.host || "---");
+      if (program.url_immediately) {
+         window.location.href = program.url_immediately;
+         return;
+      }
 
-        // 3. Renderowanie HTML
-        const escapeHTML = (str) => str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+      // 2. Logika emisji i prowadzących
+      const occurrencesSch = SCHEDULE.filter(osch => osch.id === uid && osch.active && !osch.private && !osch.hide_in_schedule);
+      const scheduleInfo = getDisplaySchedule(uid, SCHEDULE);
 
-        const thumb = program.thumbnail_text;
-        const style = thumb ? `background:${thumb.background || ''};color:${thumb.color || ''}` : '';
-        const thumbnailText = thumb 
-            ? `<div class="podcast_info_name_box" style="${style}">${escapeHTML(thumb.name || program.name)}</div>` 
-            : (program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "");
+      if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
+         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Brak planowanych emisji
+         document.title = window.location.href;
+         return;
+      }
 
-        const emailContact = (Array.isArray(program.email) && program.email.length > 0) 
-            ? program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') : '';
+      const occurrencesHost = [...new Set(occurrencesSch.flatMap(osch => osch.host || []))];
+      const occurrencesHostA = program.only_the_schedule_hosts ?
+         (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "---") :
+         (program.host || "---");
 
-        const podcastList = (program.podcast) ? `
+      // 3. Renderowanie HTML
+      const escapeHTML = (str) => str ? String(str).replace(/[&<>"']/g, m => ({
+         '&': '&',
+         '<': '<',
+         '>': '>',
+         '"': '"',
+         "'": "'"
+      } [m])) : "";
+
+      const thumb = program.thumbnail_text;
+      const style = thumb ? `background:${thumb.background || ''};color:${thumb.color || ''}` : '';
+      const thumbnailText = thumb ?
+         `<div class="podcast_info_name_box" style="${style}">${escapeHTML(thumb.name || program.name)}</div>` :
+         (program.thumbnail_uri ? `<img src="${program.thumbnail_uri}" alt="${escapeHTML(program.name)}">` : "");
+
+      const emailContact = (Array.isArray(program.email) && program.email.length > 0) ?
+         program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') : '';
+
+      const podcastList = (program.podcast) ? `
           <audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
           <div class="podcast_list_episode">
           <h3>Lista odcinków podcastu:</h3>
           <div id="episode-list">Ładowanie odcinków...</div>
           </div>` : '';
 
-        // Definicja ikon społecznościowych dla pętli
-        const socialConfig = [
-          { key: 'url', icon: 'fa-link' },
-          { key: 'url_rss', icon: 'fa-rss' },
-          { key: 'url_podcast', icon: 'fa-podcast' },
-          { key: 'url_spreaker', icon: 'fa-table-list' },
-          { key: 'url_spotify', icon: 'fa-brands fa-spotify' },
-          { key: 'url_kick', icon: 'fa-brands fa-kickstarter-k' },
-          { key: 'url_twitch', icon: 'fa-brands fa-twitch' },
-          { key: 'url_youtube', icon: 'fa-brands fa-youtube' },
-          { key: 'url_facebook', icon: 'fa-brands fa-facebook' },
-          { key: 'url_instagram', icon: 'fa-brands fa-instagram' },
-          { key: 'url_tiktok', icon: 'fa-brands fa-tiktok' },
-          { key: 'url_x', icon: 'fa-brands fa-x-twitter' },
-          { key: 'url_soundcloud', icon: 'fa-brands fa-soundcloud' },
-          { key: 'url_mixcloud', icon: 'fa-brands fa-mixcloud' }
-        ];
+      // Definicja ikon społecznościowych dla pętli
+      const socialConfig = [{
+            key: 'url',
+            icon: 'fa-link'
+         },
+         {
+            key: 'url_rss',
+            icon: 'fa-rss'
+         },
+         {
+            key: 'url_podcast',
+            icon: 'fa-podcast'
+         },
+         {
+            key: 'url_spreaker',
+            icon: 'fa-table-list'
+         },
+         {
+            key: 'url_spotify',
+            icon: 'fa-brands fa-spotify'
+         },
+         {
+            key: 'url_kick',
+            icon: 'fa-brands fa-kickstarter-k'
+         },
+         {
+            key: 'url_twitch',
+            icon: 'fa-brands fa-twitch'
+         },
+         {
+            key: 'url_youtube',
+            icon: 'fa-brands fa-youtube'
+         },
+         {
+            key: 'url_facebook',
+            icon: 'fa-brands fa-facebook'
+         },
+         {
+            key: 'url_instagram',
+            icon: 'fa-brands fa-instagram'
+         },
+         {
+            key: 'url_tiktok',
+            icon: 'fa-brands fa-tiktok'
+         },
+         {
+            key: 'url_x',
+            icon: 'fa-brands fa-x-twitter'
+         },
+         {
+            key: 'url_soundcloud',
+            icon: 'fa-brands fa-soundcloud'
+         },
+         {
+            key: 'url_mixcloud',
+            icon: 'fa-brands fa-mixcloud'
+         }
+      ];
 
-        const socialUrlsHtml = socialConfig
-          .filter(cfg => program[cfg.key])
-          .map(cfg => `<a href="${program[cfg.key]}" target="_blank"><i class="${cfg.icon}"></i></a>`)
-          .join('\n');
+      const socialUrlsHtml = socialConfig
+         .filter(cfg => program[cfg.key])
+         .map(cfg => `<a href="${program[cfg.key]}" target="_blank"><i class="${cfg.icon}"></i></a>`)
+         .join('\n');
 
-        const fullHTML = `<!DOCTYPE html>
+      const fullHTML = `<!DOCTYPE html>
             <html lang="pl">
                 <head>
                     <meta charset="UTF-8">
@@ -200,13 +267,13 @@ async function uruchomProgram() {
                 </body>
             </html>`;
 
-        document.open();
-        document.write(fullHTML);
-        document.close();
+      document.open();
+      document.write(fullHTML);
+      document.close();
 
-    } catch (err) {
-        console.error("Błąd krytyczny:", err);
-        document.body.innerHTML = "Wystąpił błąd podczas ładowania strony.";
-    }
+   } catch (err) {
+      console.error("Błąd krytyczny:", err);
+      document.body.innerHTML = "Wystąpił błąd podczas ładowania strony.";
+   }
 }
 uruchomProgram();
