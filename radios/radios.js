@@ -422,6 +422,7 @@ function renderStations(){
   const ds = document.getElementById("ScheduleDisplay");
   const dp = document.getElementById("AllProgramsDisplay");
   const dd = document.getElementById("DetailSchDisplay");
+  const dc = document.getElementById("AllContentDisplay");
 
   STATIONS.forEach((s,i)=>{
     const opt=document.createElement("option");
@@ -433,6 +434,8 @@ function renderStations(){
       CURRENT_STATION=s.station_schedule;
       CURRENT_STATION_ID=s.id;
       AudioPlayer(s.stream);
+      ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule)) ? dc.style = "display:none;" : dc.style = "display:block;";
+      (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;" : dd.style = "display:block;";
       (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;" : ds.style = "display:block;";
       (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;" : dp.style = "display:block;";
       playlistNowPlaying(s.playlist);
@@ -445,6 +448,7 @@ function renderStations(){
     CURRENT_STATION=s.station_schedule;
     CURRENT_STATION_ID=s.id;
     AudioPlayer(s.stream);
+    ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule)) ? dc.style = "display:none;" : dc.style = "display:block;";
     (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;" : dd.style = "display:block;";
     (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;" : ds.style = "display:block;";
     (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;" : dp.style = "display:block;";
