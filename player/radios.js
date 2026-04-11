@@ -17,164 +17,167 @@ let hls = null;
 
 /* MENU */
 menuBtn.onclick = () => {
-    sidebar.classList.add("active");
-    overlay.classList.add("active");
+   sidebar.classList.add("active");
+   overlay.classList.add("active");
 };
 
 overlay.onclick = closeMenu;
 
 function closeMenu() {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
+   sidebar.classList.remove("active");
+   overlay.classList.remove("active");
 }
 
 /* PLAYLIST CHANGE */
 playlistSelect.onchange = e => {
-    currentPlaylist = e.target.value;
-    fetchPlaylist(currentPlaylist);
+   currentPlaylist = e.target.value;
+   fetchPlaylist(currentPlaylist);
 };
 
 /* SEARCH */
 stationSearch.oninput = () => {
-    const val = stationSearch.value.toLowerCase();
-    document.querySelectorAll('.station-item').forEach(el => {
-        el.style.display = el.textContent.toLowerCase().includes(val) ? "" : "none";
-    });
+   const val = stationSearch.value.toLowerCase();
+   document.querySelectorAll('.station-item').forEach(el => {
+      el.style.display = el.textContent.toLowerCase().includes(val) ? "" : "none";
+   });
 };
 
 /* FETCH */
 async function fetchPlaylist(name) {
-    try {
-        const res = await fetch(`https://krdrt5370000ym.github.io/player/${name}.m3u`);
-        if (!res.ok) throw new Error();
+   try {
+      const res = await fetch(`https://krdrt5370000ym.github.io/player/${name}.m3u`);
+      if (!res.ok) throw new Error();
 
-        const text = await res.text();
-        display(parseM3U(text));
-    } catch (e) {
-        alert("Błąd ładowania playlisty");
-    }
+      const text = await res.text();
+      display(parseM3U(text));
+   } catch (e) {
+      alert("Błąd ładowania playlisty");
+   }
 }
 
 /* PARSE */
 function parseM3U(data) {
-    const lines = data.split('\n');
-    let name = "";
-    const list = [];
+   const lines = data.split('\n');
+   let name = "";
+   const list = [];
 
-    for (let line of lines) {
-        line = line.trim();
+   for (let line of lines) {
+      line = line.trim();
 
-        if (line.startsWith("#EXTINF")) {
-            name = line.split(',').slice(1).join(',') || "Nieznana";
-        } else if (line.startsWith("http")) {
-            list.push({ name, url: line });
-        }
-    }
+      if (line.startsWith("#EXTINF")) {
+         name = line.split(',').slice(1).join(',') || "Nieznana";
+      } else if (line.startsWith("http")) {
+         list.push({
+            name,
+            url: line
+         });
+      }
+   }
 
-    return list;
+   return list;
 }
 
 /* DISPLAY */
 function display(list) {
-    container.innerHTML = "";
+   container.innerHTML = "";
 
-    list.forEach(st => {
-        const div = document.createElement('div');
-        div.className = "station-item";
-        div.textContent = st.name;
+   list.forEach(st => {
+      const div = document.createElement('div');
+      div.className = "station-item";
+      div.textContent = st.name;
 
-        div.onclick = () => play(st, div);
+      div.onclick = () => play(st, div);
 
-        container.appendChild(div);
-    });
+      container.appendChild(div);
+   });
 }
 
 /* PLAY */
 function play(st, el) {
-    currentStation = st;
-    currentElement = el;
+   currentStation = st;
+   currentElement = el;
 
-    document.querySelectorAll('.station-item').forEach(x => x.classList.remove('active'));
-    el.classList.add('active');
-    
-    const sm = st.url.slice(0,7) === "http://" ?
-     'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' +
-     encodeURIComponent(st.url) : st.url;
+   document.querySelectorAll('.station-item').forEach(x => x.classList.remove('active'));
+   el.classList.add('active');
 
-    currentStationText.textContent = "Teraz grasz: " + st.name;
+   const sm = st.url.slice(0, 7) === "http://" ?
+      'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' +
+      encodeURIComponent(st.url) : st.url;
 
-    if (hls) {
-        hls.destroy();
-        hls = null;
-    }
+   currentStationText.textContent = "Teraz grasz: " + st.name;
 
-    if (sm.includes(".m3u8") && window.Hls && Hls.isSupported()) {
-        hls = new Hls();
-        hls.loadSource(sm);
-        hls.attachMedia(player);
-        playlistNowPlaying(st.url);
-    } else {
-        player.src = sm;
-        playlistNowPlaying(st.url);
-    }
+   if (hls) {
+      hls.destroy();
+      hls = null;
+   }
 
-    player.style.display = "block";
-    player.play().catch(()=>{});
+   if (sm.includes(".m3u8") && window.Hls && Hls.isSupported()) {
+      hls = new Hls();
+      hls.loadSource(sm);
+      hls.attachMedia(player);
+      playlistNowPlaying(st.url);
+   } else {
+      player.src = sm;
+      playlistNowPlaying(st.url);
+   }
 
-    closeMenu();
+   player.style.display = "block";
+   player.play().catch(() => {});
+
+   closeMenu();
 }
 
 /* RELOAD */
 reloadBtn.onclick = () => {
-    if (currentStation) play(currentStation, currentElement);
+   if (currentStation) play(currentStation, currentElement);
 };
 
 /* DOWNLOAD */
 // Android czasami automatycznie kategoryzuje pliki .m3u (playlisty) jako pliki muzyczne i przenosi je do folderu Music zamiast Download.
 downloadBtn.onclick = () => {
-    const fileName = `${currentPlaylist}.m3u`;
-    const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
-    
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = fileName; // Wymusza pobieranie pliku
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+   const fileName = `${currentPlaylist}.m3u`;
+   const fileUrl = `https://krdrt5370000ym.github.io/player/${fileName}`;
+
+   const link = document.createElement('a');
+   link.href = fileUrl;
+   link.download = fileName; // Wymusza pobieranie pliku
+   document.body.appendChild(link);
+   link.click();
+   document.body.removeChild(link);
 };
 
 function playlistNowPlaying(streamUrl) {
-    if (playlistInterval) {
-        clearInterval(playlistInterval);
-    }
-    const updateTrack = () => {
-        fetch("https://krdrt5370000ym.github.io/player/playlist.json")
-            .then(res => res.json())
-            .then(json => {
-                const item = json.playlist.find(x => x.stream === streamUrl);
-                
-                if (item && item.value) {
-                    // Sprawdzamy, czy value zawiera nawiasy (np. "getNowPlayingOpenFm(57)")
-                    const match = item.value.match(/^(\w+)\((.*)\)$/);
-                    
-                    if (match) {
-                        const functionName = match[1]; // np. "getNowPlayingOpenFm"
-                        const argument = match[2].replace(/['"]/g, ""); // np. "57"
+   if (playlistInterval) {
+      clearInterval(playlistInterval);
+   }
+   const updateTrack = () => {
+      fetch("https://krdrt5370000ym.github.io/player/playlist.json")
+         .then(res => res.json())
+         .then(json => {
+            const item = json.playlist.find(x => x.stream === streamUrl);
 
-                        if (typeof window[functionName] === "function") {
-                            // Wywołujemy funkcję z przekazanym argumentem
-                            window[functionName](argument);
-                        }
-                    } else {
-                        // Jeśli to zwykły tekst bez nawiasów
-                        document.getElementById('resultTrack').innerText = item.value;
-                   }
-                }
-            })
-            .catch(err => console.error("Błąd pobierania metadanych:", err));
-    };
-    updateTrack();
-    playlistInterval = setInterval(updateTrack, 20000); 
+            if (item && item.value) {
+               // Sprawdzamy, czy value zawiera nawiasy (np. "getNowPlayingOpenFm(57)")
+               const match = item.value.match(/^(\w+)\((.*)\)$/);
+
+               if (match) {
+                  const functionName = match[1]; // np. "getNowPlayingOpenFm"
+                  const argument = match[2].replace(/['"]/g, ""); // np. "57"
+
+                  if (typeof window[functionName] === "function") {
+                     // Wywołujemy funkcję z przekazanym argumentem
+                     window[functionName](argument);
+                  }
+               } else {
+                  // Jeśli to zwykły tekst bez nawiasów
+                  document.getElementById('resultTrack').innerText = item.value;
+               }
+            }
+         })
+         .catch(err => console.error("Błąd pobierania metadanych:", err));
+   };
+   updateTrack();
+   playlistInterval = setInterval(updateTrack, 20000);
 }
 
 /* START */
@@ -182,8 +185,8 @@ const params = new URLSearchParams(window.location.search);
 const playlistParam = params.get('r');
 
 if (playlistParam) {
-    currentPlaylist = playlistParam;
-    // Aktualizacja wizualna selecta, jeśli istnieje taka opcja
-    if (playlistSelect) playlistSelect.value = playlistParam;
+   currentPlaylist = playlistParam;
+   // Aktualizacja wizualna selecta, jeśli istnieje taka opcja
+   if (playlistSelect) playlistSelect.value = playlistParam;
 }
 fetchPlaylist(currentPlaylist);
