@@ -15,10 +15,11 @@ async function WPArticleRSC(append = false) {
         }
 
         // 1. Czekamy na wykluczone kategorie (można to zoptymalizować wynosząc poza funkcję)
-        const exclude16 = await fetchParentCategoriesEx(16);
-        const exclude62 = await fetchParentCategoriesEx(62);
+        const include18 = await fetchParentCategoriesIn(18);
+        const include19 = await fetchParentCategoriesIn(19);
+        const include65 = await fetchParentCategoriesIn(65);
 
-        const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories_exclude=${exclude16},${exclude62}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+        const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${exclude18},${exclude19},${exclude65}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
         const response = await fetch(postsUrl);
         if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
@@ -661,7 +662,7 @@ async function fetchParentCategories(parentId, mainUrl) {
     }
 }
 
-async function fetchParentCategoriesEx(parentId) {
+async function fetchParentCategoriesIn(parentId) {
     const baseUrl = `https://radiorsc.pl/wp-json/wp/v2/categories`;
     try {
         // Pobieramy listę kategorii raz (max 100)
