@@ -6,9 +6,7 @@ async function WPArticleRSC(append = false) {
     if (!append) window.currentPage = 1;
     else window.currentPage++;
 
-    siteUrl = 'https://radiorsc.pl';
-
-    const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${fetchParentCategories(18,siteUrl)},${fetchParentCategories(19,siteUrl)},${fetchParentCategories(75,siteUrl)}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+    const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
     try {
         if (button) {
@@ -233,16 +231,24 @@ async function WPArticleList(
         // 🔹 Pobieranie nazw
         let categoryName = '';
         let categoryLink = '';
+        let categoryParent = '';
+        let subcategoryID = '';
+        let subcategoryName = '';
         let tagName = '';
         let tagLink = '';
         let authorName = '';
         let authorLink = '';
 
         if (categoryID) {
-            const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}`);
+            const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
             const data = await res.json();
             categoryName = data.name;
             categoryLink = data.link;
+            categoryParent = data.parent !== 0;
+            if (categoryParent) {
+                subcategoryID = data._embedded.up[0].id;
+                subcategoryName = data._embedded.up[0].name;
+            }
         }
 
         if (tagID) {
@@ -261,7 +267,7 @@ async function WPArticleList(
 
         // 🔹 Wyniki nagłówków
         if (containerS) containerS.innerHTML = search ? `Wyniki dla: <b>${search}</b>` : '';
-        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: <b><a href="${categoryLink}">${categoryName}</a></b>` : '';
+        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: ${categoryParent ? `<a href="https://krdrt5370000ym.github.io/media/article-list?si=${siteKey}&c=${subcategoryID}">${subcategoryName}</a> / ` : ''}<b><a href="${categoryLink}">${categoryName}</a></b>` : '';
         if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
         if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
 
