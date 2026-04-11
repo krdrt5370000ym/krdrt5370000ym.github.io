@@ -48,7 +48,7 @@ async function WPArticleRSC(append = false) {
                     <div class="article_content">
                         <div class="article_category">${catsHTML}</div>
                         <div class="article_title">
-                            <a href="article?id=${post.slug}&si=radiorsc&tp=post" target="_blank">
+                            <a href="article?id=${post.slug}&si=radiorsc" target="_blank">
                                 ${post.title.rendered || '{Brak tytułu}'}
                             </a>
                         </div>
@@ -132,7 +132,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
                     <div class="article_content">
                         ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
                         <div class="article_title">
-                            <a href="article?id=${post.slug}&si=${siteKey}&tp=post" target="_blank">
+                            <a href="article?id=${post.slug}&si=${siteKey}" target="_blank">
                                 ${post.title.rendered || '{Brak tytułu}'}
                             </a>
                         </div>
@@ -323,7 +323,7 @@ async function WPArticleList(
                         : ''}
 
                     <div class="article_title">
-                        <a href="article?id=${post.slug}&si=${siteKey}&tp=${type}" target="_blank">
+                        <a href="article?id=${post.slug}&si=${siteKey}${type === 'post' ? '' : `&tp=${type}`}" target="_blank">
                             ${title || '{Brak tytułu}'}
                         </a>
                     </div>
