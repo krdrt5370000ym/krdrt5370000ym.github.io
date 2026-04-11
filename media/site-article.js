@@ -621,38 +621,29 @@ async function WPArticlePostRSCPlayer(targetUrl) {
     }
 }
 
-async function fetchParentCategories(parentId,mainUrl) {
+async function fetchParentCategories(parentId, mainUrl) {
     const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
-    const resultIds = [parentId]; // Zaczynamy od 19
-
+    
     try {
-        // 1. Pobierz dzieci dla głównego ID (np. 19)
+        // Pobieramy WSZYSTKIE kategorie (do 100 sztuk - jeśli masz więcej, dodaj pętlę stron)
         const response = await fetch(`${baseUrl}?parent=${parentId}&per_page=100`);
-        const children = await response.json();
-        
-        // Wyciągamy ID dzieci (np. 44, 50, 46 itd.)
-        const childrenIds = children.map(cat => cat.id);
-        resultIds.push(...childrenIds);
+        const allCategories = await response.json();
 
-        // 2. Dla każdego dziecka pobieramy jego własne podkategorie (wnuki)
-        const grandChildrenPromises = childrenIds.map(id => 
-            fetch(`${baseUrl}?parent=${id}&per_page=100`).then(res => res.json())
-        );
-
-        const grandChildrenResults = await Promise.all(grandChildrenPromises);
+        const resultIds = new Set([parentId]);
         
-        // Dodajemy ID wnuków do końcowej listy
-        grandChildrenResults.forEach(subCats => {
-            const ids = subCats.map(c => c.id);
-            resultIds.push(...ids);
-        });
+        // 1. Znajdź dzieci (parent == parentId)
+        const children = allCategories.filter(cat => cat.parent === parentId);
+        children.forEach(cat => resultIds.add(cat.id));
 
-        // Usuwamy duplikaty i sortujemy (opcjonalnie)
-        const finalUniqueIds = [...new Set(resultIds)];
+        // 2. Znajdź wnuki (parent pasuje do ID któregoś z dzieci)
+        const childrenIds = children.map(c => c.id);
+        const grandChildren = allCategories.filter(cat => childrenIds.includes(cat.parent));
+        grandChildren.forEach(cat => resultIds.add(cat.id));
+
+        const finalString = Array.from(resultIds).join(',');
         
-        // console.log("Wynikowa lista ID:", finalUniqueIds.join(','));
-        finalUniqueIds.join(',');
-        return;
+        // Zwracamy gotowy ciąg ID do użycia w URL postów
+        return finalString;
 
     } catch (error) {
         console.error("Błąd podczas pobierania kategorii:", error);
