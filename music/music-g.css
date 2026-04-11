@@ -5,8 +5,11 @@
     max-width: 500px;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    @media (max-width: 480px) {margin: 20px auto;}
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 480px) {
+        margin: 20px auto;
+    }
 }
 
 .getSongs_content {
@@ -19,7 +22,9 @@
     font-size: 24px;
     font-weight: bold;
     margin: 0;
-    color: #1DB954; /* Zielony kolor w stylu Spotify */
+    color: #1DB954;
+
+    /* Zielony kolor w stylu Spotify */
     a {
         text-decoration: none;
     }
@@ -29,6 +34,7 @@
     font-size: 18px;
     color: #b3b3b3;
     margin: 0 0 15px 0;
+
     a {
         text-decoration: none;
     }
@@ -45,7 +51,7 @@
     height: 150px;
     border-radius: 8px;
     object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .getSongs_data {
@@ -54,7 +60,8 @@
     gap: 8px;
 }
 
-.getSongs_year, .getSongs_genare {
+.getSongs_year,
+.getSongs_genare {
     font-size: 14px;
     color: #a7a7a7;
 }
@@ -84,25 +91,27 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    display: inline-flex; /* Zmienione na inline-flex, by pasowało do linków */
+    display: inline-flex;
+    /* Zmienione na inline-flex, by pasowało do linków */
     align-items: center;
     justify-content: center;
     font-size: 16px !important;
     cursor: pointer;
     color: white !important;
     text-decoration: none;
-    font-family: "Font Awesome 7 Free"; /* Upewnij się, że masz FontAwesome 6 */
+    font-family: "Font Awesome 7 Free";
+    /* Upewnij się, że masz FontAwesome 6 */
     font-weight: 900;
 }
 
 /* Domyślna ikona PLAY */
 .fa-play-a::before {
-    content: "\f04b"; 
+    content: "\f04b";
 }
 
 /* Ikona PAUSE po kliknięciu */
 .fa-play-a.pause::before {
-    content: "\f04c"; 
+    content: "\f04c";
 }
 
 /* Responsywność */
@@ -111,6 +120,7 @@
         flex-direction: column;
         text-align: center;
     }
+
     .getSongs_teaser {
         justify-content: center;
     }
