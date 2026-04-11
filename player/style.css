@@ -44,7 +44,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: none;
 }
 
@@ -70,7 +70,8 @@ body {
 }
 
 /* INPUT */
-input, select {
+input,
+select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -108,11 +109,14 @@ button {
         width: 300px;
         height: 100vh;
         overflow-y: auto;
-        position: sticky; /* Opcjonalnie, zamiast static, by sidebar nie uciekał */
+        position: sticky;
+        /* Opcjonalnie, zamiast static, by sidebar nie uciekał */
         top: 0;
     }
 
-    #overlay, #menuBtn, #topbar {
+    #overlay,
+    #menuBtn,
+    #topbar {
         display: none;
     }
 
