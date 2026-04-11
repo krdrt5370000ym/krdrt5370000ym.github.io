@@ -17,9 +17,9 @@ async function WPArticleRSC(append = false) {
       // 1. Czekamy na wykluczone kategorie (można to zoptymalizować wynosząc poza funkcję)
       const include18 = await fetchParentCategoriesIn(18);
       const include19 = await fetchParentCategoriesIn(19);
-      const include65 = await fetchParentCategoriesIn(65);
+      const include75 = await fetchParentCategoriesIn(75);
 
-      const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${include18},${include19},${include65}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${include18},${include19},${include75}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
       const response = await fetch(postsUrl);
       if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
@@ -146,7 +146,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          div class = "article_cover" > $ {
             imageDisplay
          } < /div> <
-         div class = "article_content" >
+      div class = "article_content" >
          $ {
             is_categories ? `<div class="article_category">${catsHTML}</div>` : ''
          } <
@@ -157,8 +157,8 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          $ {
             post.title.rendered || '{Brak tytułu}'
          } <
-         /a> <
-         /div> <
+         /a> < /
+         div > <
          div class = "article_info" >
          $ {
             is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''
@@ -166,9 +166,9 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
       $ {
          postDate
       } <
-      /div> <
-      /div> <
-      /article>`;
+      /div> < /
+      div > <
+         /article>`;
    }).join('')
 } < /div>`;
 
