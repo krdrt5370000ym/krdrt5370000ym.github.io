@@ -111,7 +111,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
         const htmlContent = `<div class="articles">${posts.map(post => {
             const author = post._embedded?.author?.[0];
-            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : article-list?si=${siteKey}&a=${author.id};
+            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
             const authorHTML = author ? `<a href="${authorSite}">${author.name}</a>` : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
             const catsHTML = terms.length > 0 
@@ -273,7 +273,7 @@ async function WPArticleList(
             const title = post.title.rendered.replace(/<[^>]+>/g, '');
 
             const author = post._embedded?.author?.[0];
-            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : article-list?si=${siteKey}&a=${author.id};
+            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
             const authorHTML = author
                 ? `<a href="${authorSite}">${author.name}</a>`
                 : 'Redakcja';
@@ -503,7 +503,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                 const author = embed.author[0];
                 const authorName = author.name || 'Redakcja';
                 const authorId = author.id;
-                const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : article-list?si=${currentSiteKey}&a=${authorId};
+                const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${currentSiteKey}&a=${authorId}`;
                 // Tworzymy link do profilu autora
                 authorDisplay = `
                     <i class="fa-solid fa-user"></i> 
