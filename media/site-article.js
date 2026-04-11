@@ -651,7 +651,8 @@ async function fetchParentCategories(parentId,mainUrl) {
         const finalUniqueIds = [...new Set(resultIds)];
         
         // console.log("Wynikowa lista ID:", finalUniqueIds.join(','));
-        return finalUniqueIds.join(',');
+        finalUniqueIds.join(',');
+        return;
 
     } catch (error) {
         console.error("Błąd podczas pobierania kategorii:", error);
