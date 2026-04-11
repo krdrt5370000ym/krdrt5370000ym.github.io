@@ -247,7 +247,7 @@ async function WPArticleList(
         let authorName = '';
         let authorLink = '';
 
-        if (!append && categoryID) {
+        if (categoryID) {
             const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
             const data = await res.json();
             categoryName = data.name;
