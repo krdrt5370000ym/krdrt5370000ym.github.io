@@ -4,6 +4,49 @@
     }
 }
 
+input[type="radio"] { 
+    display: none; 
+}
+
+/* Środkowanie zakładek */
+.tabs-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 0; /* Odstępy reguluj paddingiem w label */
+    width: 100%;
+}
+
+label {
+    padding: 10px 20px;
+    background: #f1f1f1;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    transition: 0.2s;
+    margin: 0 -0.5px; /* Zapobiega podwójnym ramkom między labelami */
+}
+
+@media (min-width: 1000px) {
+  label { font-size: 18px; }
+}
+
+/* Logika przełączania - teraz szukamy .content pośród rodzeństwa inputa */
+#tab1:checked ~ .tab1-content,
+#tab2:checked ~ .tab2-content,
+#tab3:checked ~ .tab3-content {
+    display: block;
+}
+
+/* Stylizacja aktywnej etykiety */
+#tab1:checked ~ .tabs-wrapper label[for="tab1"],
+#tab2:checked ~ .tabs-wrapper label[for="tab2"] {
+    background: #fff;
+    font-weight: bold;
+    border-bottom: 1px solid #fff; /* "Otwiera" zakładkę na dół */
+    position: relative;
+    z-index: 2;
+}
+
 .radio-player-container {
     background: #1a1a1a;
     padding: 20px;
