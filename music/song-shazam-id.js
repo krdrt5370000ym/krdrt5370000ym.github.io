@@ -1,62 +1,68 @@
 const params = new URLSearchParams(window.location.search);
 const SongID = params.get('id');
 const getTrackShazamDetails = async () => {
-  const container = document.getElementById('song-id');
-  
-  if (!SongID) {
-    container.innerHTML = "Brak ID utworu w adresie URL.";
-    return;
-  }
+   const container = document.getElementById('song-id');
 
-  const url = `https://shazam.p.rapidapi.com/shazam-songs/get-details?id=${SongID}&l=pl-PL`;
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e',
-      'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
-    }
-  };
-
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
-
-    const result = await response.json();
-    
-    // Pobieramy dane z resources, używając Object.values, aby ominąć dynamiczny klucz ID
-    const songResource = result.resources?.["shazam-songs"];
-    if (!songResource) {
-      container.innerHTML = "Nie znaleziono utworu.";
-      document.title = 'Nie znaleziono utworu. | krdrt537000ym.github.io';
+   if (!SongID) {
+      container.innerHTML = "Brak ID utworu w adresie URL.";
       return;
-    }
+   }
 
-    // Wyciągamy pierwszy (i zazwyczaj jedyny) obiekt z tej listy
-    const trackData = Object.values(songResource)[0];
-    const attr = trackData.attributes;
-    const relat = trackData.relationships;
+   const url = `https://shazam.p.rapidapi.com/shazam-songs/get-details?id=${SongID}&l=pl-PL`;
+   const options = {
+      method: 'GET',
+      headers: {
+         'X-RapidAPI-Key': 'ea4a4a09c7msh91f54f4cc2e9531p160042jsn3a91d4fdbb5e',
+         'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
+      }
+   };
 
-    const fullName = `${attr.artist} - ${attr.title}`;
-    document.title = `${attr.title} - ${attr.artist} | krdrt537000ym.github.io`;
+   try {
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
 
-    // Funkcja zabezpieczająca przed XSS
-    const escapeHTML = (str) => 
-      str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
+      const result = await response.json();
 
-    // Logika dla okładki i gatunków
-    const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
-    
-    // Sprawdzanie gatunków (primary może być tablicą lub stringiem)
-    const genreNames = Array.isArray(attr.genres?.primary) ? attr.genres.primary : [attr.genres?.primary];
-    const genresText = genreNames.filter(Boolean).map(gen => escapeHTML(gen)).join(', ') || 'Muzyka';
+      // Pobieramy dane z resources, używając Object.values, aby ominąć dynamiczny klucz ID
+      const songResource = result.resources?.["shazam-songs"];
+      if (!songResource) {
+         container.innerHTML = "Nie znaleziono utworu.";
+         document.title = 'Nie znaleziono utworu. | krdrt537000ym.github.io';
+         return;
+      }
 
-    // Logika dla linku w tytule (jeśli istnieje relacja do innej wersji/utworu)
-    const relatedSongId = relat?.songs?.data?.[0]?.id;
-    const titleHtml = relatedSongId 
-      ? `<p class="getSongs_info_title"><a href="song?id=${relatedSongId}">${escapeHTML(attr.title)}</a></p>` 
-      : `<p class="getSongs_info_title">${escapeHTML(attr.title)}</p>`;
+      // Wyciągamy pierwszy (i zazwyczaj jedyny) obiekt z tej listy
+      const trackData = Object.values(songResource)[0];
+      const attr = trackData.attributes;
+      const relat = trackData.relationships;
 
-    container.innerHTML = `
+      const fullName = `${attr.artist} - ${attr.title}`;
+      document.title = `${attr.title} - ${attr.artist} | krdrt537000ym.github.io`;
+
+      // Funkcja zabezpieczająca przed XSS
+      const escapeHTML = (str) =>
+         str ? String(str).replace(/[&<>"']/g, m => ({
+            '&': '&',
+            '<': '<',
+            '>': '>',
+            '"': '"',
+            "'": "'"
+         } [m])) : "";
+
+      // Logika dla okładki i gatunków
+      const artwork = attr.artwork?.url ? attr.artwork.url.replace('{w}', '400').replace('{h}', '400') : 'https://i.ibb.co/NBz6BLZ/hit_default_plug.png';
+
+      // Sprawdzanie gatunków (primary może być tablicą lub stringiem)
+      const genreNames = Array.isArray(attr.genres?.primary) ? attr.genres.primary : [attr.genres?.primary];
+      const genresText = genreNames.filter(Boolean).map(gen => escapeHTML(gen)).join(', ') || 'Muzyka';
+
+      // Logika dla linku w tytule (jeśli istnieje relacja do innej wersji/utworu)
+      const relatedSongId = relat?.songs?.data?.[0]?.id;
+      const titleHtml = relatedSongId ?
+         `<p class="getSongs_info_title"><a href="song?id=${relatedSongId}">${escapeHTML(attr.title)}</a></p>` :
+         `<p class="getSongs_info_title">${escapeHTML(attr.title)}</p>`;
+
+      container.innerHTML = `
     <div class="getSongs_content">
         ${titleHtml}
         <p class="getSongs_info_artist">${escapeHTML(attr.artist)}</p>
@@ -83,10 +89,10 @@ const getTrackShazamDetails = async () => {
         </div>
     </div>`;
 
-  } catch (error) {
-    console.error('Wystąpił błąd:', error);
-    container.innerHTML = "Błąd podczas ładowania danych.";
-    document.title = 'Błąd podczas ładowania danych. | krdrt537000ym.github.io';
-  }
+   } catch (error) {
+      console.error('Wystąpił błąd:', error);
+      container.innerHTML = "Błąd podczas ładowania danych.";
+      document.title = 'Błąd podczas ładowania danych. | krdrt537000ym.github.io';
+   }
 };
 getTrackShazamDetails();
