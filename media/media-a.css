@@ -33,6 +33,7 @@ iframe {
     font-size: 2.5em;
     line-height: 1.2;
 }
+
 .article_title_posts a {
     text-decoration: none;
     color: inherit;
@@ -41,6 +42,7 @@ iframe {
 .article_category_posts {
     color: #444;
 }
+
 .article_category_posts a {
     text-decoration: none;
 }
@@ -49,6 +51,7 @@ iframe {
     color: #666;
     margin-block: 0.3em;
 }
+
 .article_postedon_posts a {
     text-decoration: none;
 }
@@ -62,6 +65,7 @@ iframe {
     display: inline;
     color: #444;
 }
+
 .article_tagsprefix_list a {
     text-decoration: none;
 }
@@ -153,7 +157,7 @@ iframe {
     padding: 10px;
     font-size: 13px;
     color: #fff;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
     border-radius: 0 0 8px 8px;
 }
 
@@ -207,7 +211,7 @@ iframe {
     margin-bottom: 2em;
     /* border-radius: 12px; */
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Kontener dla osadzonej treści WP */
@@ -217,7 +221,7 @@ iframe {
     border-radius: 12px;
     padding: 25px;
     margin: 30px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     display: block;
     text-decoration: none;
@@ -226,8 +230,9 @@ iframe {
 /* Efekt najechania - karta lekko się unosi */
 .wp-embedded-content:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    border-color: #007cba; /* Kolor akcentu WP */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: #007cba;
+    /* Kolor akcentu WP */
 }
 
 /* Stylowanie tytułu wewnątrz karty */
@@ -244,20 +249,25 @@ iframe {
 } */
 
 .wp-block-embed-znalezienie {
-  width: 100% !important; /* Wymusza dopasowanie do ekranu telefonu */
-  max-width: 400px;        /* Ogranicza szerokość na komputerach */
-  margin-left: auto;
-  margin-right: auto;      /* Centruje blok */
-  box-sizing: border-box;  /* Zapobiega rozszerzaniu przez padding */
+    width: 100% !important;
+    /* Wymusza dopasowanie do ekranu telefonu */
+    max-width: 400px;
+    /* Ogranicza szerokość na komputerach */
+    margin-left: auto;
+    margin-right: auto;
+    /* Centruje blok */
+    box-sizing: border-box;
+    /* Zapobiega rozszerzaniu przez padding */
 }
 
 @media only screen and (max-width: 480px) {
-  .wp-block-embed-znalezienie {
-    position: relative !important; /* Czasem lepiej wyłączyć fixed na małych ekranach */
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-  }
+    .wp-block-embed-znalezienie {
+        position: relative !important;
+        /* Czasem lepiej wyłączyć fixed na małych ekranach */
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+    }
 }
 
 /* =====================================================
@@ -301,9 +311,12 @@ iframe {
 @media (max-width: 600px) {
     .wp-block-file {
         display: flex;
-        flex-direction: column; /* Układ pionowy */
-        align-items: flex-start; /* Wyrównanie do lewej */
-        gap: 10px; /* Odstęp między nazwą a przyciskiem */
+        flex-direction: column;
+        /* Układ pionowy */
+        align-items: flex-start;
+        /* Wyrównanie do lewej */
+        gap: 10px;
+        /* Odstęp między nazwą a przyciskiem */
         padding: 12px;
     }
 
@@ -438,11 +451,13 @@ blockquote.wp-block-quote cite {
     }
 
     .article_singlecontent_posts {
-        font-size: 17px; /* Nieco mniejszy druk dla wygody */
+        font-size: 17px;
+        /* Nieco mniejszy druk dla wygody */
     }
 
     .wp-block-gallery {
-        grid-template-columns: repeat(2, 1fr); /* 2 kolumny zamiast 3 */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 kolumny zamiast 3 */
         gap: 12px;
     }
 
@@ -464,7 +479,8 @@ blockquote.wp-block-quote cite {
     .article_category_posts,
     .article_postedon_posts,
     .article_tags_posts {
-        font-size: 0.85em; /* Zmniejszenie metadanych */
+        font-size: 0.85em;
+        /* Zmniejszenie metadanych */
     }
 
     .wp-block-gallery {
@@ -476,7 +492,7 @@ blockquote.wp-block-quote cite {
     .article_player_posts {
         margin-left: -1.5rem;
         width: 100vw;
-        border-radius: 0; 
+        border-radius: 0;
         padding-left: 25px;
         /*margin-inline: -20px; /* "Wyjście" poza padding kontenera (jeśli wynosi ok. 20px)
         width: calc(100% + 40px);
@@ -521,7 +537,8 @@ blockquote.wp-block-quote cite {
     }
 
     .wp-block-gallery img {
-        aspect-ratio: 16 / 9; /* Na małym ekranie panorama wygląda lepiej niż kwadrat */
+        aspect-ratio: 16 / 9;
+        /* Na małym ekranie panorama wygląda lepiej niż kwadrat */
     }
 
     .wp-block-image figcaption {
