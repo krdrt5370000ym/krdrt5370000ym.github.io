@@ -1,4 +1,66 @@
- .but1 {
+            /* Kontener główny - układ siatki */
+.radio-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  /* font-family: 'Segoe UI', sans-serif; */
+}
+
+/* Karta grupy */
+.radio-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+/* Nagłówki grup */
+.card-header {
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Kolory dla poszczególnych grup */
+.time-sa { background: #e67e22; } /* Pomarańczowy */
+.agora   { background: #e74c3c; } /* Czerwony */
+.rmf     { background: #f1c40f; color: #333; } /* Żółty */
+.inne    { background: #34495e; } /* Granatowy */
+
+/* Lista stacji */
+.station-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+   a {
+     text-decoration: none;
+   }
+}
+
+.station-list li {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+  transition: background 0.3s;
+}
+
+.station-list li:last-child {
+  border-bottom: none;
+}
+
+/* Efekt najechania myszką */
+.station-list li:hover {
+  background: #f8f9fa;
+  cursor: pointer;
+  padding-left: 20px; /* Delikatne przesunięcie */
+}
+
+.but1 {
      a {
          text-decoration: none;
     }
