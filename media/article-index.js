@@ -2,7 +2,7 @@
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         const site = params.get('si');
-        const type = params.get('tp');
+        const type = params.get('tp') || "post";
 
         const siteMap = {
             "radiorsc": {"url": "https://radiorsc.pl", "is_http": false},
