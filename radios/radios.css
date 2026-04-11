@@ -30,19 +30,18 @@ label {
   label { font-size: 18px; }
 }
 
-/* Logika przełączania - teraz szukamy .content pośród rodzeństwa inputa */
-#tab1:checked ~ .tab1-content,
-#tab2:checked ~ .tab2-content,
-#tab3:checked ~ .tab3-content {
+#r-tab1:checked ~ .r-tab1-content,
+#r-tab2:checked ~ .r-tab2-content {
     display: block;
 }
 
-/* Stylizacja aktywnej etykiety */
-#tab1:checked ~ .tabs-wrapper label[for="tab1"],
-#tab2:checked ~ .tabs-wrapper label[for="tab2"] {
+/* Poprawiona stylizacja aktywnej etykiety */
+#r-tab1:checked ~ .tabs-wrapper label[for="r-tab1"],
+#r-tab2:checked ~ .r-tab2-content ~ .tabs-wrapper label[for="r-tab2"], /* Alternatywa dla specyficznej struktury */
+#r-tab2:checked ~ .tabs-wrapper label[for="r-tab2"] {
     background: #fff;
     font-weight: bold;
-    border-bottom: 1px solid #fff; /* "Otwiera" zakładkę na dół */
+    border-bottom: 1px solid #fff;
     position: relative;
     z-index: 2;
 }
