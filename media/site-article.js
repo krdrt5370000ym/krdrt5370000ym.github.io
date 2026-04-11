@@ -1,55 +1,57 @@
 let cachedCategoryIds = null;
 
 async function WPArticleRSC(append = false) {
-    const container = document.getElementById('article-list');
-    const button = document.getElementById('load-more-btn');
-    const perPage = 10;
-    
-    if (!append) window.currentPage = 1;
-    else window.currentPage++;
+   const container = document.getElementById('article-list');
+   const button = document.getElementById('load-more-btn');
+   const perPage = 10;
 
-    try {
-        if (button) {
-            button.innerText = "Ładowanie...";
-            button.disabled = true;
-        }
+   if (!append) window.currentPage = 1;
+   else window.currentPage++;
 
-        // 1. Czekamy na wykluczone kategorie (można to zoptymalizować wynosząc poza funkcję)
-        const include18 = await fetchParentCategoriesIn(18);
-        const include19 = await fetchParentCategoriesIn(19);
-        const include65 = await fetchParentCategoriesIn(65);
+   try {
+      if (button) {
+         button.innerText = "Ładowanie...";
+         button.disabled = true;
+      }
 
-        const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${include18},${include19},${include65}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      // 1. Czekamy na wykluczone kategorie (można to zoptymalizować wynosząc poza funkcję)
+      const include18 = await fetchParentCategoriesIn(18);
+      const include19 = await fetchParentCategoriesIn(19);
+      const include65 = await fetchParentCategoriesIn(65);
 
-        const response = await fetch(postsUrl);
-        if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
+      const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${include18},${include19},${include65}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
-        const posts = await response.json();
+      const response = await fetch(postsUrl);
+      if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
-        if (!Array.isArray(posts) || posts.length === 0) {
-            if (!append) container.innerHTML = "Brak aktualności.";
-            if (button) button.style.display = 'none';
-            return;
-        }
+      const posts = await response.json();
 
-        // Mapujemy same artykuły (bez kontenera .articles wewnątrz map)
-        const articlesHTML = posts.map(post => {
-            const author = post._embedded?.author?.[0];
-            const authorHTML = author ? `<a href="article-list?si=radiorsc&a=${author.id}">${author.name}</a>` : 'Redakcja';
-            const terms = post._embedded?.['wp:term']?.[0] || [];
-            const catsHTML = terms.length > 0 
-                ? terms.map(t => `<a href="article-list?si=radiorsc&c=${t.id}">${t.name}</a>`).join(' • ') 
-                : 'Aktualności';
-            
-            const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-            const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-            const imageDisplay = imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;">` : '';
+      if (!Array.isArray(posts) || posts.length === 0) {
+         if (!append) container.innerHTML = "Brak aktualności.";
+         if (button) button.style.display = 'none';
+         return;
+      }
 
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            });
+      // Mapujemy same artykuły (bez kontenera .articles wewnątrz map)
+      const articlesHTML = posts.map(post => {
+         const author = post._embedded?.author?.[0];
+         const authorHTML = author ? `<a href="article-list?si=radiorsc&a=${author.id}">${author.name}</a>` : 'Redakcja';
+         const terms = post._embedded?.['wp:term']?.[0] || [];
+         const catsHTML = terms.length > 0 ?
+            terms.map(t => `<a href="article-list?si=radiorsc&c=${t.id}">${t.name}</a>`).join(' • ') :
+            'Aktualności';
 
-            return `
+         const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+         const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
+         const imageDisplay = imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;">` : '';
+
+         const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+         });
+
+         return `
                 <article class="article_post">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
@@ -64,64 +66,64 @@ async function WPArticleRSC(append = false) {
                         </div>
                     </div>
                 </article>`;
-        }).join('');
+      }).join('');
 
-        if (append) {
-            const articlesWrapper = container.querySelector('.articles');
-            if (articlesWrapper) {
-                articlesWrapper.insertAdjacentHTML('beforeend', articlesHTML);
-            } else {
-                container.insertAdjacentHTML('beforeend', articlesHTML);
-            }
-        } else {
-            // Pierwsze ładowanie: tworzymy główny kontener
-            container.innerHTML = `<div class="articles">${articlesHTML}</div>`;
-        }
+      if (append) {
+         const articlesWrapper = container.querySelector('.articles');
+         if (articlesWrapper) {
+            articlesWrapper.insertAdjacentHTML('beforeend', articlesHTML);
+         } else {
+            container.insertAdjacentHTML('beforeend', articlesHTML);
+         }
+      } else {
+         // Pierwsze ładowanie: tworzymy główny kontener
+         container.innerHTML = `<div class="articles">${articlesHTML}</div>`;
+      }
 
-        if (button) {
-            button.innerText = "Wczytaj więcej";
-            button.disabled = false;
-            button.style.display = posts.length < perPage ? 'none' : 'block';
-            // Ważne: przypisujemy funkcję, nie wynik funkcji
-            button.onclick = () => WPArticleRSC(true);
-        }
+      if (button) {
+         button.innerText = "Wczytaj więcej";
+         button.disabled = false;
+         button.style.display = posts.length < perPage ? 'none' : 'block';
+         // Ważne: przypisujemy funkcję, nie wynik funkcji
+         button.onclick = () => WPArticleRSC(true);
+      }
 
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        if (!append) container.innerHTML = 'Nie udało się pobrać artykułów.';
-        if (button) button.style.display = 'none';
-    }
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      if (!append) container.innerHTML = 'Nie udało się pobrać artykułów.';
+      if (button) button.style.display = 'none';
+   }
 }
 
 async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
-    const container = document.getElementById('article-list');
-    const button = document.getElementById('load-more-btn');
-    const perPage = 10; // Zdefiniuj lokalnie lub pobierz z zewnątrz
+   const container = document.getElementById('article-list');
+   const button = document.getElementById('load-more-btn');
+   const perPage = 10; // Zdefiniuj lokalnie lub pobierz z zewnątrz
 
-    if (!append) window.currentPage = 1;
-    else window.currentPage++;
+   if (!append) window.currentPage = 1;
+   else window.currentPage++;
 
-    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-    const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+   const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
-    try {
-        if (button) {
-            button.innerText = "Ładowanie...";
-            button.disabled = true;
-        }
+   try {
+      if (button) {
+         button.innerText = "Ładowanie...";
+         button.disabled = true;
+      }
 
-        const response = await fetch(httpUrl);
-        if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
+      const response = await fetch(httpUrl);
+      if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
-        const posts = await response.json();
+      const posts = await response.json();
 
-        if (!Array.isArray(posts) || posts.length === 0) {
-            if (!append) container.innerHTML = "Brak aktualności.";
-            if (button) button.style.display = 'none';
-            return;
-        }
+      if (!Array.isArray(posts) || posts.length === 0) {
+         if (!append) container.innerHTML = "Brak aktualności.";
+         if (button) button.style.display = 'none';
+         return;
+      }
 
-        const htmlContent = `<div class="articles">${posts.map(post => {
+      const htmlContent = `<div class="articles">${posts.map(post => {
             const author = post._embedded?.author?.[0];
             const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
             const authorHTML = author ? `<a href="${authorSite}">${author.name}</a>` : 'Redakcja';
@@ -138,201 +140,216 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
                 day: 'numeric', month: 'long', year: 'numeric'
             });
 
-            return `
-                <article class="article_post">
-                    <div class="article_cover">${imageDisplay}</div>
-                    <div class="article_content">
-                        ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
-                        <div class="article_title">
-                            <a href="article?id=${post.slug}&si=${siteKey}" target="_blank">
-                                ${post.title.rendered || '{Brak tytułu}'}
-                            </a>
-                        </div>
-                        <div class="article_info">
-                            ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
-                        </div>
-                    </div>
-                </article>`;
-        }).join('')}</div>`;
+            return ` <
+         article class = "article_post" >
+         <
+         div class = "article_cover" > $ {
+            imageDisplay
+         } < /div> <
+         div class = "article_content" >
+         $ {
+            is_categories ? `<div class="article_category">${catsHTML}</div>` : ''
+         } <
+         div class = "article_title" >
+         <
+         a href = "article?id=${post.slug}&si=${siteKey}"
+      target = "_blank" >
+         $ {
+            post.title.rendered || '{Brak tytułu}'
+         } <
+         /a> <
+         /div> <
+         div class = "article_info" >
+         $ {
+            is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''
+         }
+      $ {
+         postDate
+      } <
+      /div> <
+      /div> <
+      /article>`;
+   }).join('')
+} < /div>`;
 
-        if (append) {
-            // Dodajemy do istniejącego elementu .articles lub bezpośrednio do kontenera
-            const articlesWrapper = container.querySelector('.articles') || container;
-            articlesWrapper.insertAdjacentHTML('beforeend', htmlContent);
-        } else {
-            container.innerHTML = `<div class="articles">${htmlContent}</div>`;
-        }
+if (append) {
+   // Dodajemy do istniejącego elementu .articles lub bezpośrednio do kontenera
+   const articlesWrapper = container.querySelector('.articles') || container;
+   articlesWrapper.insertAdjacentHTML('beforeend', htmlContent);
+} else {
+   container.innerHTML = `<div class="articles">${htmlContent}</div>`;
+}
 
-        if (button) {
-            button.innerText = "Wczytaj więcej";
-            button.disabled = false;
-            button.style.display = posts.length < perPage ? 'none' : 'block';
-            button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
-        }
+if (button) {
+   button.innerText = "Wczytaj więcej";
+   button.disabled = false;
+   button.style.display = posts.length < perPage ? 'none' : 'block';
+   button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
+}
 
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = 'Nie udało się pobrać artykułu.';
-        if (button) button.style.display = 'none';
-    }
+} catch (error) {
+   console.error("Błąd WP API:", error);
+   container.innerHTML = 'Nie udało się pobrać artykułu.';
+   if (button) button.style.display = 'none';
+}
 }
 
 async function WPArticleList(
-    mainUrl,
-    siteKey,
-    is_http = false,
-    type = 'post',
-    search = null,
-    categoryID = null,
-    tagID = null,
-    authorID = null,
-    is_categories = true,
-    is_author = true,
-    is_image = true,
-    append = false
+   mainUrl,
+   siteKey,
+   is_http = false,
+   type = 'post',
+   search = null,
+   categoryID = null,
+   tagID = null,
+   authorID = null,
+   is_categories = true,
+   is_author = true,
+   is_image = true,
+   append = false
 ) {
-    const container = document.getElementById('article-list');
-    const containerS = document.getElementById('article-s-result');
-    const containerC = document.getElementById('article-c-result');
-    const containerT = document.getElementById('article-t-result');
-    const containerA = document.getElementById('article-a-result');
-    const button = document.getElementById('load-more-btn');
+   const container = document.getElementById('article-list');
+   const containerS = document.getElementById('article-s-result');
+   const containerC = document.getElementById('article-c-result');
+   const containerT = document.getElementById('article-t-result');
+   const containerA = document.getElementById('article-a-result');
+   const button = document.getElementById('load-more-btn');
 
-    const perPage = 10;
+   const perPage = 10;
 
-    if (!append) {
-        window.currentPage = 1;
-        cachedCategoryIds = null; // Resetuj przy nowym wyszukiwaniu/kategorii
-    } else {
-        window.currentPage++;
-    }
-    
-    try {
-        if (button) {
-            button.innerText = "Ładowanie...";
-            button.disabled = true;
-        }
+   if (!append) {
+      window.currentPage = 1;
+      cachedCategoryIds = null; // Resetuj przy nowym wyszukiwaniu/kategorii
+   } else {
+      window.currentPage++;
+   }
 
-        // 🔹 1. Pobieramy listę ID (rodzic + dzieci), jeśli categoryID istnieje
-        let finalCategoryIds = categoryID;
-        if (categoryID) {
-            if (!cachedCategoryIds) {
-                cachedCategoryIds = await fetchParentCategories(categoryID, mainUrl);
-            }
-            finalCategoryIds = cachedCategoryIds;
-        }
+   try {
+      if (button) {
+         button.innerText = "Ładowanie...";
+         button.disabled = true;
+      }
 
-        const is_include_search = search ? `search=${search}&` : '';
-        const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
-        const is_include_tag = tagID ? `tags=${tagID}&` : '';
-        const is_include_author = authorID ? `author=${authorID}&` : '';
+      // 🔹 1. Pobieramy listę ID (rodzic + dzieci), jeśli categoryID istnieje
+      let finalCategoryIds = categoryID;
+      if (categoryID) {
+         if (!cachedCategoryIds) {
+            cachedCategoryIds = await fetchParentCategories(categoryID, mainUrl);
+         }
+         finalCategoryIds = cachedCategoryIds;
+      }
 
-        const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-        const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      const is_include_search = search ? `search=${search}&` : '';
+      const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
+      const is_include_tag = tagID ? `tags=${tagID}&` : '';
+      const is_include_author = authorID ? `author=${authorID}&` : '';
 
-        const typesUrl = type === 'post' ? postsUrl : pagesUrl;
-        const httpUrl = is_http
-            ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl)
-            : typesUrl;
+      const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
-        const response = await fetch(httpUrl);
-        if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
+      const typesUrl = type === 'post' ? postsUrl : pagesUrl;
+      const httpUrl = is_http ?
+         'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl) :
+         typesUrl;
 
-        const posts = await response.json();
+      const response = await fetch(httpUrl);
+      if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
-        if (!Array.isArray(posts) || posts.length === 0) {
-            if (!append) container.innerHTML = "Brak aktualności.";
-            if (button) button.style.display = 'none';
-            return;
-        }
+      const posts = await response.json();
 
-        // 🔹 Pobieranie nazw
-        let categoryName = '';
-        let categoryLink = '';
-        let categoryParent = '';
-        let subcategoryID = '';
-        let subcategoryName = '';
-        let tagName = '';
-        let tagLink = '';
-        let authorName = '';
-        let authorLink = '';
+      if (!Array.isArray(posts) || posts.length === 0) {
+         if (!append) container.innerHTML = "Brak aktualności.";
+         if (button) button.style.display = 'none';
+         return;
+      }
 
-        if (categoryID) {
-            const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
-            const data = await res.json();
-            categoryName = data.name;
-            categoryLink = data.link;
-            categoryParent = data.parent !== 0;
-            if (categoryParent) {
-                subcategoryID = data._embedded.up[0].id;
-                subcategoryName = data._embedded.up[0].name;
-            }
-        }
+      // 🔹 Pobieranie nazw
+      let categoryName = '';
+      let categoryLink = '';
+      let categoryParent = '';
+      let subcategoryID = '';
+      let subcategoryName = '';
+      let tagName = '';
+      let tagLink = '';
+      let authorName = '';
+      let authorLink = '';
 
-        if (tagID) {
-            const res = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagID}`);
-            const data = await res.json();
-            tagName = data.name;
-            tagLink = data.link;
-        }
+      if (categoryID) {
+         const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
+         const data = await res.json();
+         categoryName = data.name;
+         categoryLink = data.link;
+         categoryParent = data.parent !== 0;
+         if (categoryParent) {
+            subcategoryID = data._embedded.up[0].id;
+            subcategoryName = data._embedded.up[0].name;
+         }
+      }
 
-        if (authorID) {
-            const res = await fetch(`${mainUrl}/wp-json/wp/v2/users/${authorID}`);
-            const data = await res.json();
-            authorName = data.name;
-            authorLink = data.link;
-        }
+      if (tagID) {
+         const res = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagID}`);
+         const data = await res.json();
+         tagName = data.name;
+         tagLink = data.link;
+      }
 
-        // 🔹 Wyniki nagłówków
-        if (containerS) containerS.innerHTML = search ? `Wyniki dla: <b>${search}</b>` : '';
-        if (containerC) containerC.innerHTML = categoryName ? `Kategoria: ${categoryParent ? `<a href="https://krdrt5370000ym.github.io/media/article-list?si=${siteKey}&c=${subcategoryID}">${subcategoryName}</a> / ` : ''}<b><a href="${categoryLink}">${categoryName}</a></b>` : '';
-        if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
-        if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
+      if (authorID) {
+         const res = await fetch(`${mainUrl}/wp-json/wp/v2/users/${authorID}`);
+         const data = await res.json();
+         authorName = data.name;
+         authorLink = data.link;
+      }
 
-        const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
+      // 🔹 Wyniki nagłówków
+      if (containerS) containerS.innerHTML = search ? `Wyniki dla: <b>${search}</b>` : '';
+      if (containerC) containerC.innerHTML = categoryName ? `Kategoria: ${categoryParent ? `<a href="https://krdrt5370000ym.github.io/media/article-list?si=${siteKey}&c=${subcategoryID}">${subcategoryName}</a> / ` : ''}<b><a href="${categoryLink}">${categoryName}</a></b>` : '';
+      if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
+      if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
 
-        // 🔹 Tytuł strony
-        docTitle = [
-            searchTitle,
-            categoryName,
-            tagName,
-            authorName
-        ].filter(Boolean).join(' | ') || 'Artykuły';
+      const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
 
-        document.title = docTitle + ' | krdrt5370000ym.github.io';
+      // 🔹 Tytuł strony
+      docTitle = [
+         searchTitle,
+         categoryName,
+         tagName,
+         authorName
+      ].filter(Boolean).join(' | ') || 'Artykuły';
 
-        // 🔹 Generowanie HTML
-        const postsHTML = posts.map(post => {
-            const title = post.title.rendered.replace(/<[^>]+>/g, '');
+      document.title = docTitle + ' | krdrt5370000ym.github.io';
 
-            const author = post._embedded?.author?.[0];
-            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
-            const authorHTML = author
-                ? `<a href="${authorSite}">${author.name}</a>`
-                : 'Redakcja';
+      // 🔹 Generowanie HTML
+      const postsHTML = posts.map(post => {
+         const title = post.title.rendered.replace(/<[^>]+>/g, '');
 
-            const terms = post._embedded?.['wp:term']?.[0] || [];
-            const catsHTML = terms.length > 0
-                ? terms.map(t => `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`).join(' • ')
-                : `<a href="${mainUrl}">Aktualności</a>`;
+         const author = post._embedded?.author?.[0];
+         const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
+         const authorHTML = author ?
+            `<a href="${authorSite}">${author.name}</a>` :
+            'Redakcja';
 
-            const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-            const imgUrl =
-                featuredMedia?.media_details?.sizes?.medium?.source_url ||
-                featuredMedia?.source_url ||
-                '';
+         const terms = post._embedded?.['wp:term']?.[0] || [];
+         const catsHTML = terms.length > 0 ?
+            terms.map(t => `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`).join(' • ') :
+            `<a href="${mainUrl}">Aktualności</a>`;
 
-            const imageDisplay = is_image && imgUrl
-                ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">`
-                : '';
+         const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+         const imgUrl =
+            featuredMedia?.media_details?.sizes?.medium?.source_url ||
+            featuredMedia?.source_url ||
+            '';
 
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
+         const imageDisplay = is_image && imgUrl ?
+            `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
+            '';
 
-            return `
+         const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+         });
+
+         return `
             <article class="article_post">
                 <div class="article_cover">${imageDisplay}</div>
                 <div class="article_content">
@@ -354,120 +371,124 @@ async function WPArticleList(
                     </div>
                 </div>
             </article>`;
-        }).join('');
+      }).join('');
 
-        // 🔹 Render
-        if (append) {
-            const wrapper = container.querySelector('.articles');
-            if (wrapper) {
-                wrapper.insertAdjacentHTML('beforeend', postsHTML);
-            }
-        } else {
-            container.innerHTML = `<div class="articles">${postsHTML}</div>`;
-        }
+      // 🔹 Render
+      if (append) {
+         const wrapper = container.querySelector('.articles');
+         if (wrapper) {
+            wrapper.insertAdjacentHTML('beforeend', postsHTML);
+         }
+      } else {
+         container.innerHTML = `<div class="articles">${postsHTML}</div>`;
+      }
 
-        // 🔹 Przycisk "więcej"
-        if (button) {
-            button.innerText = "Wczytaj więcej";
-            button.disabled = false;
-            button.style.display = posts.length < perPage ? 'none' : 'block';
+      // 🔹 Przycisk "więcej"
+      if (button) {
+         button.innerText = "Wczytaj więcej";
+         button.disabled = false;
+         button.style.display = posts.length < perPage ? 'none' : 'block';
 
-            button.onclick = () => WPArticleList(
-                mainUrl,
-                siteKey,
-                is_http,
-                type,
-                search,
-                categoryID,
-                tagID,
-                authorID,
-                is_categories,
-                is_author,
-                is_image,
-                true
-            );
-        }
+         button.onclick = () => WPArticleList(
+            mainUrl,
+            siteKey,
+            is_http,
+            type,
+            search,
+            categoryID,
+            tagID,
+            authorID,
+            is_categories,
+            is_author,
+            is_image,
+            true
+         );
+      }
 
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = 'Nie udało się pobrać artykułu.';
-        if (button) button.style.display = 'none';
-    }
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      container.innerHTML = 'Nie udało się pobrać artykułu.';
+      if (button) button.style.display = 'none';
+   }
 }
 
 async function WPArticlePostRSC(slug) {
-    const container = document.getElementById('article-post');
-    if (!container) return;
+   const container = document.getElementById('article-post');
+   if (!container) return;
 
-    const postsUrl = slug.startsWith('post-')
-        ? `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` 
-        : `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
+   const postsUrl = slug.startsWith('post-') ?
+      `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
+      `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
 
-    try {
-        const response = await fetch(postsUrl);
-        if (!response.ok) throw new Error(`Błąd API: ${response.status}`);
-        
-        let posts = await response.json();
-        if (!Array.isArray(posts)) posts = [posts];
-        
-        if (posts.length === 0 || !posts[0].id) {
-            container.innerHTML = "Brak dostępnych postów.";
-            return;
-        }
+   try {
+      const response = await fetch(postsUrl);
+      if (!response.ok) throw new Error(`Błąd API: ${response.status}`);
 
-        // Mapujemy posty na obietnice HTML (obsługa wielu postów i asynchronicznego playera)
-        const postPromises = posts.map(async (post) => {
-            const embed = post._embedded || {};
+      let posts = await response.json();
+      if (!Array.isArray(posts)) posts = [posts];
 
-            // 1. Tytuł (dekodowanie encji i ustawianie title strony)
-            const titleDoc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
-            const cleanTitle = titleDoc.body.textContent;
-            document.title = `${cleanTitle} | krdrt537000ym.github.io`;
+      if (posts.length === 0 || !posts[0].id) {
+         container.innerHTML = "Brak dostępnych postów.";
+         return;
+      }
 
-            // 2. Autor
-            let authorDisplay = '<i class="fa-solid fa-user"></i> Redakcja | ';
-            if (embed.author?.[0]) {
-                authorDisplay = `<i class="fa-solid fa-user"></i> <a href="article-list?si=radiorsc&a=${embed.author[0].id}" target="_blank">${embed.author[0].name}</a> | `;
-            }
+      // Mapujemy posty na obietnice HTML (obsługa wielu postów i asynchronicznego playera)
+      const postPromises = posts.map(async (post) => {
+         const embed = post._embedded || {};
 
-            // 3. Kategorie
-            let categoriesDisplay = '';
-            if (embed['wp:term']?.[0]) {
-                const catsHtml = embed['wp:term'][0]
-                    .map(cat => `<a href="article-list?si=radiorsc&c=${cat.id}" target="_blank">${cat.name}</a>`)
-                    .join(' • ');
-                categoriesDisplay = `<div class="article_category_posts">${catsHtml}</div>`;
-            }
+         // 1. Tytuł (dekodowanie encji i ustawianie title strony)
+         const titleDoc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
+         const cleanTitle = titleDoc.body.textContent;
+         document.title = `${cleanTitle} | krdrt537000ym.github.io`;
 
-            // 4. Tagi
-            let tagsDisplay = '';
-            if (embed['wp:term']?.[1]?.length > 0) {
-                const tagsHtml = embed['wp:term'][1]
-                    .map(t => `<a href="article-list?si=radiorsc&t=${t.id}" target="_blank">${t.name}</a>`)
-                    .join(', ');
-                tagsDisplay = `
+         // 2. Autor
+         let authorDisplay = '<i class="fa-solid fa-user"></i> Redakcja | ';
+         if (embed.author?.[0]) {
+            authorDisplay = `<i class="fa-solid fa-user"></i> <a href="article-list?si=radiorsc&a=${embed.author[0].id}" target="_blank">${embed.author[0].name}</a> | `;
+         }
+
+         // 3. Kategorie
+         let categoriesDisplay = '';
+         if (embed['wp:term']?.[0]) {
+            const catsHtml = embed['wp:term'][0]
+               .map(cat => `<a href="article-list?si=radiorsc&c=${cat.id}" target="_blank">${cat.name}</a>`)
+               .join(' • ');
+            categoriesDisplay = `<div class="article_category_posts">${catsHtml}</div>`;
+         }
+
+         // 4. Tagi
+         let tagsDisplay = '';
+         if (embed['wp:term']?.[1]?.length > 0) {
+            const tagsHtml = embed['wp:term'][1]
+               .map(t => `<a href="article-list?si=radiorsc&t=${t.id}" target="_blank">${t.name}</a>`)
+               .join(', ');
+            tagsDisplay = `
                     <div class="article_tags_posts">
                         <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
                         <div class="article_tagsprefix_list">${tagsHtml}</div>
                     </div>`;
-            }
+         }
 
-            // 5. Obrazek wyróżniający
-            let imageDisplay = '';
-            if (embed['wp:featuredmedia']?.[0]) {
-                const media = embed['wp:featuredmedia'][0];
-                const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-                imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
-            }
+         // 5. Obrazek wyróżniający
+         let imageDisplay = '';
+         if (embed['wp:featuredmedia']?.[0]) {
+            const media = embed['wp:featuredmedia'][0];
+            const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
+            imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
+         }
 
-            // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
-            const playerHtml = await WPArticlePostRSCPlayer(post.link);
+         // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
+         const playerHtml = await WPArticlePostRSCPlayer(post.link);
 
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
-            });
+         const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+         });
 
-            return `
+         return `
                 <div class="articles_posts">
                     <article id="post-${post.id}">
                         <header class="article_headers_posts">
@@ -481,109 +502,113 @@ async function WPArticlePostRSC(slug) {
                         <div class="article_singlecontent_posts">${post.content.rendered}</div>
                     </article>
                 </div>`;
-        });
+      });
 
-        // Czekamy na wygenerowanie wszystkich postów (wraz z audio)
-        const results = await Promise.all(postPromises);
-        container.innerHTML = results.join('');
+      // Czekamy na wygenerowanie wszystkich postów (wraz z audio)
+      const results = await Promise.all(postPromises);
+      container.innerHTML = results.join('');
 
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = `<div class="error-msg">Nie udało się pobrać artykułu.</div>`;
-    }
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      container.innerHTML = `<div class="error-msg">Nie udało się pobrać artykułu.</div>`;
+   }
 }
 
 async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false) {
-    const container = document.getElementById('article-post');
+   const container = document.getElementById('article-post');
 
-    // Mapowanie URL na klucz strony (używane w linkach do list)
-    const siteKeys = {
-        'https://radiorsc.pl': 'radiorsc',
-        'https://radiovictoria.pl': 'radiovictoria',
-        'https://radiokolor.pl': 'radiokolor',
-        'https://soswskierniewice.pl': 'sosw',
-        'https://cekis.pl': 'ckis'
-    };
-    const currentSiteKey = siteKeys[mainUrl] || 'default';
-    // Dodajemy _embed do URL
-    const postsUrl = slug.startsWith('post-')
-        ? `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` 
-        : `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-    const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   // Mapowanie URL na klucz strony (używane w linkach do list)
+   const siteKeys = {
+      'https://radiorsc.pl': 'radiorsc',
+      'https://radiovictoria.pl': 'radiovictoria',
+      'https://radiokolor.pl': 'radiokolor',
+      'https://soswskierniewice.pl': 'sosw',
+      'https://cekis.pl': 'ckis'
+   };
+   const currentSiteKey = siteKeys[mainUrl] || 'default';
+   // Dodajemy _embed do URL
+   const postsUrl = slug.startsWith('post-') ?
+      `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
+      `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
+   const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
-    try {
-        const response = await fetch(httpUrl);
-        let posts = await response.json();
-        if (!Array.isArray(posts)) posts = [posts];
-        
-        if (posts.length === 0 || !posts[0].id) {
-            container.innerHTML = "Brak dostępnych postów.";
-            return;
-        }
-        
-        const post = posts[0]; // Wybieramy pierwszy post
-        
-        // Tytuł strony (dekodowanie encji HTML)
-        const doc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
-        document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
-        
-        const htmlContent = posts.map(post => {
-            const embed = post._embedded || {};
+   try {
+      const response = await fetch(httpUrl);
+      let posts = await response.json();
+      if (!Array.isArray(posts)) posts = [posts];
 
-            // Autor z _embedded
-            let authorDisplay = '';
-            if (embed.author && embed.author[0]) {
-                const author = embed.author[0];
-                const authorName = author.name || 'Redakcja';
-                const authorId = author.id;
-                const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${currentSiteKey}&a=${authorId}`;
-                // Tworzymy link do profilu autora
-                authorDisplay = `
+      if (posts.length === 0 || !posts[0].id) {
+         container.innerHTML = "Brak dostępnych postów.";
+         return;
+      }
+
+      const post = posts[0]; // Wybieramy pierwszy post
+
+      // Tytuł strony (dekodowanie encji HTML)
+      const doc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
+      document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
+
+      const htmlContent = posts.map(post => {
+         const embed = post._embedded || {};
+
+         // Autor z _embedded
+         let authorDisplay = '';
+         if (embed.author && embed.author[0]) {
+            const author = embed.author[0];
+            const authorName = author.name || 'Redakcja';
+            const authorId = author.id;
+            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${currentSiteKey}&a=${authorId}`;
+            // Tworzymy link do profilu autora
+            authorDisplay = `
                     <i class="fa-solid fa-user"></i> 
                     <a href="${authorSite}" target="_blank">${authorName}</a> | `;
-            } else {
-                authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
-            }
+         } else {
+            authorDisplay = `<i class="fa-solid fa-user"></i> Redakcja | `;
+         }
 
-            // Kategorie z _embedded (term[0])
-            let categoriesDisplay = '';
-            if (embed['wp:term'] && embed['wp:term'][0]) {
-                const catsHtml = embed['wp:term'][0]
-                    .map(cat => `<a href="article-list?si=${currentSiteKey}&c=${cat.id}" target="_blank">${cat.name}</a>`)
-                    .join(' • ');
-                
-                categoriesDisplay = `<div class="article_category_posts">${catsHtml || 'Aktualności'}</div>`;
-            }
+         // Kategorie z _embedded (term[0])
+         let categoriesDisplay = '';
+         if (embed['wp:term'] && embed['wp:term'][0]) {
+            const catsHtml = embed['wp:term'][0]
+               .map(cat => `<a href="article-list?si=${currentSiteKey}&c=${cat.id}" target="_blank">${cat.name}</a>`)
+               .join(' • ');
 
-            // Tagi z _embedded (term[1])
-            let tagsDisplay = '';
-            if (embed['wp:term'] && embed['wp:term'][1] && embed['wp:term'][1].length > 0) {
-                const tagsHtml = embed['wp:term'][1]
-                    .map(t => `<a href="article-list?si=${currentSiteKey}&t=${t.id}" target="_blank">${t.name}</a>`)
-                    .join(', ');
-            
-                tagsDisplay = `
+            categoriesDisplay = `<div class="article_category_posts">${catsHtml || 'Aktualności'}</div>`;
+         }
+
+         // Tagi z _embedded (term[1])
+         let tagsDisplay = '';
+         if (embed['wp:term'] && embed['wp:term'][1] && embed['wp:term'][1].length > 0) {
+            const tagsHtml = embed['wp:term'][1]
+               .map(t => `<a href="article-list?si=${currentSiteKey}&t=${t.id}" target="_blank">${t.name}</a>`)
+               .join(', ');
+
+            tagsDisplay = `
                     <div class="article_tags_posts">
                         <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
                         <div class="article_tagsprefix_list">${tagsHtml}</div>
                     </div>`;
+         }
+
+         // Obrazek z _embedded
+         let imageDisplay = '';
+         if (is_image && embed['wp:featuredmedia']) {
+            const media = embed['wp:featuredmedia'][0];
+            const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
+            if (imgUrl) {
+               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
             }
+         }
 
-            // Obrazek z _embedded
-            let imageDisplay = '';
-            if (is_image && embed['wp:featuredmedia']) {
-                const media = embed['wp:featuredmedia'][0];
-                const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-                if (imgUrl) {
-                    imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
-                }
-            }
+         const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+         });
 
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'
-            });
-
-            return `
+         return `
                 <div class="articles_posts">
                     <article id="post-${post.id}">
                         <header class="article_headers_posts">
@@ -596,126 +621,130 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                         <div class="article_singlecontent_posts">${post.content.rendered}</div>
                     </article>
                 </div>`;
-        });
+      });
 
-        container.innerHTML = htmlContent.join('');
+      container.innerHTML = htmlContent.join('');
 
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = "Błąd podczas ładowania postów.";
-    }
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      container.innerHTML = "Błąd podczas ładowania postów.";
+   }
 }
 
 async function WPArticlePostRSCPlayer(targetUrl) {
-    const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev?url=' + encodeURIComponent(targetUrl);
-    // XPath celujący w kontener audio
-    const xpath = "//div[contains(@class, 'custom-audio-block')]//audio/@src";
-    
-    try {
-        const response = await fetch(proxyUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-        if (!response.ok) return '';
+   const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev?url=' + encodeURIComponent(targetUrl);
+   // XPath celujący w kontener audio
+   const xpath = "//div[contains(@class, 'custom-audio-block')]//audio/@src";
 
-        const html = await response.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        
-        // Szukanie atrybutu src
-        const result = doc.evaluate(xpath, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-        const audioNode = result.singleNodeValue;
-        
-        // .value pobiera treść atrybutu @src
-        const audioSrc = audioNode ? audioNode.value.trim() : null;
-        const extensions = [".mp3", ".wav", ".wma", ".ogg", ".m4a", ".flac", ".aiff", ".aac", ".ac3", ".caf", ".mpga", ".mpeg", ".mp4", ".oga", ".opus", ".aif", ".aifc"];
+   try {
+      const response = await fetch(proxyUrl, {
+         headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+         }
+      });
+      if (!response.ok) return '';
 
-        if (audioSrc && extensions.some(ext => audioSrc.endsWith(ext))) {
-            return `
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      // Szukanie atrybutu src
+      const result = doc.evaluate(xpath, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+      const audioNode = result.singleNodeValue;
+
+      // .value pobiera treść atrybutu @src
+      const audioSrc = audioNode ? audioNode.value.trim() : null;
+      const extensions = [".mp3", ".wav", ".wma", ".ogg", ".m4a", ".flac", ".aiff", ".aac", ".ac3", ".caf", ".mpga", ".mpeg", ".mp4", ".oga", ".opus", ".aif", ".aifc"];
+
+      if (audioSrc && extensions.some(ext => audioSrc.endsWith(ext))) {
+         return `
                 <div class="article_player_posts">
                     <small>Posłuchaj tutaj:</small><br>
                     <audio controls src="${audioSrc}"></audio>
                 </div>`;
-        }
-        return '';
-    } catch (e) {
-        return '';
-    }
+      }
+      return '';
+   } catch (e) {
+      return '';
+   }
 }
 
 async function fetchParentCategories(parentId, mainUrl) {
-    const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
-    try {
-        // Pobieramy listę kategorii raz (max 100)
-        const response = await fetch(`${baseUrl}?per_page=100`);
-        const allCats = await response.json();
+   const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
+   try {
+      // Pobieramy listę kategorii raz (max 100)
+      const response = await fetch(`${baseUrl}?per_page=100`);
+      const allCats = await response.json();
 
-        const resultIds = new Set([parseInt(parentId)]);
-        
-        // Znajdź dzieci
-        const children = allCats.filter(c => c.parent === parseInt(parentId));
-        children.forEach(c => {
-            resultIds.add(c.id);
-            // Znajdź wnuki dla każdego dziecka
-            allCats.filter(gc => gc.parent === c.id).forEach(gc => resultIds.add(gc.id));
-        });
+      const resultIds = new Set([parseInt(parentId)]);
 
-        return Array.from(resultIds).join(',');
-    } catch (e) {
-        return parentId; // W razie błędu wróć do samego ID rodzica
-    }
+      // Znajdź dzieci
+      const children = allCats.filter(c => c.parent === parseInt(parentId));
+      children.forEach(c => {
+         resultIds.add(c.id);
+         // Znajdź wnuki dla każdego dziecka
+         allCats.filter(gc => gc.parent === c.id).forEach(gc => resultIds.add(gc.id));
+      });
+
+      return Array.from(resultIds).join(',');
+   } catch (e) {
+      return parentId; // W razie błędu wróć do samego ID rodzica
+   }
 }
 
 async function fetchParentCategoriesIn(parentId) {
-    const baseUrl = `https://radiorsc.pl/wp-json/wp/v2/categories`;
-    try {
-        // Pobieramy listę kategorii raz (max 100)
-        const response = await fetch(`${baseUrl}?per_page=100`);
-        const allCats = await response.json();
+   const baseUrl = `https://radiorsc.pl/wp-json/wp/v2/categories`;
+   try {
+      // Pobieramy listę kategorii raz (max 100)
+      const response = await fetch(`${baseUrl}?per_page=100`);
+      const allCats = await response.json();
 
-        const resultIds = new Set([parseInt(parentId)]);
-        
-        // Znajdź dzieci
-        const children = allCats.filter(c => c.parent === parseInt(parentId));
-        children.forEach(c => {
-            resultIds.add(c.id);
-            // Znajdź wnuki dla każdego dziecka
-            allCats.filter(gc => gc.parent === c.id).forEach(gc => resultIds.add(gc.id));
-        });
+      const resultIds = new Set([parseInt(parentId)]);
 
-        return Array.from(resultIds).join(',');
-    } catch (e) {
-        return parentId; // W razie błędu wróć do samego ID rodzica
-    }
+      // Znajdź dzieci
+      const children = allCats.filter(c => c.parent === parseInt(parentId));
+      children.forEach(c => {
+         resultIds.add(c.id);
+         // Znajdź wnuki dla każdego dziecka
+         allCats.filter(gc => gc.parent === c.id).forEach(gc => resultIds.add(gc.id));
+      });
+
+      return Array.from(resultIds).join(',');
+   } catch (e) {
+      return parentId; // W razie błędu wróć do samego ID rodzica
+   }
 }
 
 async function WPArticlePage(slug, mainUrl, is_http = false) {
-    const container = document.getElementById('article-post');
-    
-    // Budowanie poprawnego URL (obsługa ID lub sluga)
-    const postsUrl = slug.startsWith('page-') 
-        ? `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` 
-        : `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
-    const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const container = document.getElementById('article-post');
 
-    try {
-        const response = await fetch(httpUrl);
-        let data = await response.json();
-        
-        // WP API zwraca obiekt dla pojedynczego ID lub tablicę dla sluga
-        const page = Array.isArray(data) ? data[0] : data;
+   // Budowanie poprawnego URL (obsługa ID lub sluga)
+   const postsUrl = slug.startsWith('page-') ?
+      `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` :
+      `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
+   const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
-        if (!page || !page.id) {
-            container.innerHTML = "Brak dostępnej strony.";
-            return;
-        }
-        
-        // Dekodowanie tytułu i ustawienie dokumentu
-        const doc = new DOMParser().parseFromString(page.title.rendered, 'text/html');
-        document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
+   try {
+      const response = await fetch(httpUrl);
+      let data = await response.json();
 
-        // Obsługa obrazka wyróżniającego (Featured Media)
-        const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-        const imageHTML = featuredImage ? `<img src="${featuredImage}" class="article-image">` : '';
+      // WP API zwraca obiekt dla pojedynczego ID lub tablicę dla sluga
+      const page = Array.isArray(data) ? data[0] : data;
 
-        // Generowanie HTML
-        container.innerHTML = `
+      if (!page || !page.id) {
+         container.innerHTML = "Brak dostępnej strony.";
+         return;
+      }
+
+      // Dekodowanie tytułu i ustawienie dokumentu
+      const doc = new DOMParser().parseFromString(page.title.rendered, 'text/html');
+      document.title = `${doc.body.textContent} | krdrt537000ym.github.io`;
+
+      // Obsługa obrazka wyróżniającego (Featured Media)
+      const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+      const imageHTML = featuredImage ? `<img src="${featuredImage}" class="article-image">` : '';
+
+      // Generowanie HTML
+      container.innerHTML = `
             <div class="articles_posts">
                 <article id="page-${page.id}">
                     <header class="article_headers_posts">
@@ -728,8 +757,8 @@ async function WPArticlePage(slug, mainUrl, is_http = false) {
                 </article>
             </div>`;
 
-    } catch (error) {
-        console.error("Błąd WP API:", error);
-        container.innerHTML = "Błąd podczas ładowania treści.";
-    }
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      container.innerHTML = "Błąd podczas ładowania treści.";
+   }
 }
