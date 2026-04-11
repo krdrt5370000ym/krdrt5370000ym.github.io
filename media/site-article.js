@@ -188,34 +188,34 @@ async function WPArticleList(
 
     const perPage = 10;
 
-if (!append) window.currentPage = 1;
-else window.currentPage++;
+    if (!append) window.currentPage = 1;
+    else window.currentPage++;
+    
+    try {
+        if (button) {
+            button.innerText = "Ładowanie...";
+            button.disabled = true;
+        }
 
-try {
-    if (button) {
-        button.innerText = "Ładowanie...";
-        button.disabled = true;
-    }
+        // 🔹 1. Pobieramy listę ID (rodzic + dzieci), jeśli categoryID istnieje
+        let finalCategoryIds = categoryID;
+        if (categoryID) {
+            // Czekamy na wynik funkcji fetchParentCategories
+            finalCategoryIds = await fetchParentCategories(categoryID, mainUrl);
+        }
 
-    // 🔹 POBIERANIE WSZYSTKICH ID KATEGORII (Rodzic + Dzieci)
-    let finalCategoryIds = categoryID;
-    if (categoryID) {
-        const allIds = await fetchParentCategories(categoryID,mainUrl); // Czekamy na listę ID
-        finalCategoryIds = allIds.join(','); // Tworzymy string "19,44,50..."
-    }
+        const is_include_search = search ? `search=${search}&` : '';
+        const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
+        const is_include_tag = tagID ? `tags=${tagID}&` : '';
+        const is_include_author = authorID ? `author=${authorID}&` : '';
 
-    const is_include_search = search ? `search=${search}&` : '';
-    const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
-    const is_include_tag = tagID ? `tags=${tagID}&` : '';
-    const is_include_author = authorID ? `author=${authorID}&` : '';
+        const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+        const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
-    const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-
-    const typesUrl = type === 'post' ? postsUrl : pagesUrl;
-    const httpUrl = is_http
-        ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl)
-        : typesUrl;
+        const typesUrl = type === 'post' ? postsUrl : pagesUrl;
+        const httpUrl = is_http
+            ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl)
+            : typesUrl;
 
         const response = await fetch(httpUrl);
         if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
