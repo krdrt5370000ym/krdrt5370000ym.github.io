@@ -39,6 +39,10 @@ label {
     transition: 0.2s;
 }
 
+@media (min-width: 1000px) {
+  label { font-size: 18px; }
+}
+
 /* 5. Styl aktywnej etykiety (białe tło i pogrubienie) */
 #r-tab1:checked ~ .tabs-wrapper label[for="r-tab1"],
 #r-tab2:checked ~ .tabs-wrapper label[for="r-tab2"] {
