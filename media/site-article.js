@@ -3,18 +3,22 @@ let cachedCategoryIds = null;
 async function WPArticleRSC(append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
-    const perPage = 10; // Zdefiniuj lokalnie lub pobierz z zewnątrz
+    const perPage = 10;
     
     if (!append) window.currentPage = 1;
     else window.currentPage++;
-
-    const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,18,19,20,44,46,47,50,63,73,74,75&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
     try {
         if (button) {
             button.innerText = "Ładowanie...";
             button.disabled = true;
         }
+
+        // 1. Czekamy na wykluczone kategorie (można to zoptymalizować wynosząc poza funkcję)
+        const exclude16 = await fetchParentCategoriesEx(16);
+        const exclude62 = await fetchParentCategoriesEx(62);
+
+        const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories_exclude=${exclude16},${exclude62}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
         const response = await fetch(postsUrl);
         if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
@@ -27,7 +31,8 @@ async function WPArticleRSC(append = false) {
             return;
         }
 
-        const htmlContent = `<div class="articles">${posts.map(post => {
+        // Mapujemy same artykuły (bez kontenera .articles wewnątrz map)
+        const articlesHTML = posts.map(post => {
             const author = post._embedded?.author?.[0];
             const authorHTML = author ? `<a href="article-list?si=radiorsc&a=${author.id}">${author.name}</a>` : 'Redakcja';
             const terms = post._embedded?.['wp:term']?.[0] || [];
@@ -43,7 +48,6 @@ async function WPArticleRSC(append = false) {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
 
-            // WAŻNE: Wywołujemy WPArticlePostRSCLoad bezpośrednio w onclick
             return `
                 <article class="article_post">
                     <div class="article_cover">${imageDisplay}</div>
@@ -59,26 +63,31 @@ async function WPArticleRSC(append = false) {
                         </div>
                     </div>
                 </article>`;
-        }).join('')}</div>`;
+        }).join('');
 
         if (append) {
-            // Dodajemy do istniejącego elementu .articles lub bezpośrednio do kontenera
-            const articlesWrapper = container.querySelector('.articles') || container;
-            articlesWrapper.insertAdjacentHTML('beforeend', htmlContent);
+            const articlesWrapper = container.querySelector('.articles');
+            if (articlesWrapper) {
+                articlesWrapper.insertAdjacentHTML('beforeend', articlesHTML);
+            } else {
+                container.insertAdjacentHTML('beforeend', articlesHTML);
+            }
         } else {
-            container.innerHTML = `<div class="articles">${htmlContent}</div>`;
+            // Pierwsze ładowanie: tworzymy główny kontener
+            container.innerHTML = `<div class="articles">${articlesHTML}</div>`;
         }
 
         if (button) {
             button.innerText = "Wczytaj więcej";
             button.disabled = false;
             button.style.display = posts.length < perPage ? 'none' : 'block';
+            // Ważne: przypisujemy funkcję, nie wynik funkcji
             button.onclick = () => WPArticleRSC(true);
         }
 
     } catch (error) {
         console.error("Błąd WP API:", error);
-        container.innerHTML = 'Nie udało się pobrać artykułu.';
+        if (!append) container.innerHTML = 'Nie udało się pobrać artykułów.';
         if (button) button.style.display = 'none';
     }
 }
@@ -631,6 +640,29 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 
 async function fetchParentCategories(parentId, mainUrl) {
     const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
+    try {
+        // Pobieramy listę kategorii raz (max 100)
+        const response = await fetch(`${baseUrl}?per_page=100`);
+        const allCats = await response.json();
+
+        const resultIds = new Set([parseInt(parentId)]);
+        
+        // Znajdź dzieci
+        const children = allCats.filter(c => c.parent === parseInt(parentId));
+        children.forEach(c => {
+            resultIds.add(c.id);
+            // Znajdź wnuki dla każdego dziecka
+            allCats.filter(gc => gc.parent === c.id).forEach(gc => resultIds.add(gc.id));
+        });
+
+        return Array.from(resultIds).join(',');
+    } catch (e) {
+        return parentId; // W razie błędu wróć do samego ID rodzica
+    }
+}
+
+async function fetchParentCategoriesEx(parentId) {
+    const baseUrl = `https://radiorsc.pl/wp-json/wp/v2/categories`;
     try {
         // Pobieramy listę kategorii raz (max 100)
         const response = await fetch(`${baseUrl}?per_page=100`);
