@@ -188,11 +188,24 @@ async function WPArticleList(
 
     const perPage = 10;
 
-    if (!append) window.currentPage = 1;
-    else window.currentPage++;
+if (!append) window.currentPage = 1;
+else window.currentPage++;
+
+try {
+    if (button) {
+        button.innerText = "Ładowanie...";
+        button.disabled = true;
+    }
+
+    // 🔹 POBIERANIE WSZYSTKICH ID KATEGORII (Rodzic + Dzieci)
+    let finalCategoryIds = categoryID;
+    if (categoryID) {
+        const allIds = await fetchParentCategories(categoryID,mainUrl); // Czekamy na listę ID
+        finalCategoryIds = allIds.join(','); // Tworzymy string "19,44,50..."
+    }
 
     const is_include_search = search ? `search=${search}&` : '';
-    const is_include_category = categoryID ? `categories=${categoryID}&` : '';
+    const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
     const is_include_tag = tagID ? `tags=${tagID}&` : '';
     const is_include_author = authorID ? `author=${authorID}&` : '';
 
@@ -203,12 +216,6 @@ async function WPArticleList(
     const httpUrl = is_http
         ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl)
         : typesUrl;
-
-    try {
-        if (button) {
-            button.innerText = "Ładowanie...";
-            button.disabled = true;
-        }
 
         const response = await fetch(httpUrl);
         if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
@@ -603,6 +610,43 @@ async function WPArticlePostRSCPlayer(targetUrl) {
         return '';
     } catch (e) {
         return '';
+    }
+}
+
+async function fetchParentCategories(parentId,mainUrl) {
+    const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
+    const resultIds = [parentId]; // Zaczynamy od 19
+
+    try {
+        // 1. Pobierz dzieci dla głównego ID (np. 19)
+        const response = await fetch(`${baseUrl}?parent=${parentId}&per_page=100`);
+        const children = await response.json();
+        
+        // Wyciągamy ID dzieci (np. 44, 50, 46 itd.)
+        const childrenIds = children.map(cat => cat.id);
+        resultIds.push(...childrenIds);
+
+        // 2. Dla każdego dziecka pobieramy jego własne podkategorie (wnuki)
+        const grandChildrenPromises = childrenIds.map(id => 
+            fetch(`${baseUrl}?parent=${id}&per_page=100`).then(res => res.json())
+        );
+
+        const grandChildrenResults = await Promise.all(grandChildrenPromises);
+        
+        // Dodajemy ID wnuków do końcowej listy
+        grandChildrenResults.forEach(subCats => {
+            const ids = subCats.map(c => c.id);
+            resultIds.push(...ids);
+        });
+
+        // Usuwamy duplikaty i sortujemy (opcjonalnie)
+        const finalUniqueIds = [...new Set(resultIds)];
+        
+        console.log("Wynikowa lista ID:", finalUniqueIds.join(','));
+        return finalUniqueIds;
+
+    } catch (error) {
+        console.error("Błąd podczas pobierania kategorii:", error);
     }
 }
 
