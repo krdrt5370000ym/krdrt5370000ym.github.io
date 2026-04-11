@@ -1,3 +1,5 @@
+let cachedCategoryIds = null;
+
 async function WPArticleRSC(append = false) {
     const container = document.getElementById('article-list');
     const button = document.getElementById('load-more-btn');
@@ -188,8 +190,12 @@ async function WPArticleList(
 
     const perPage = 10;
 
-    if (!append) window.currentPage = 1;
-    else window.currentPage++;
+    if (!append) {
+        window.currentPage = 1;
+        cachedCategoryIds = null; // Resetuj przy nowym wyszukiwaniu/kategorii
+    } else {
+        window.currentPage++;
+    }
     
     try {
         if (button) {
@@ -200,8 +206,10 @@ async function WPArticleList(
         // 🔹 1. Pobieramy listę ID (rodzic + dzieci), jeśli categoryID istnieje
         let finalCategoryIds = categoryID;
         if (categoryID) {
-            // Czekamy na wynik funkcji fetchParentCategories
-            finalCategoryIds = await fetchParentCategories(categoryID, mainUrl);
+            if (!cachedCategoryIds) {
+                cachedCategoryIds = await fetchParentCategories(categoryID, mainUrl);
+            }
+            finalCategoryIds = cachedCategoryIds;
         }
 
         const is_include_search = search ? `search=${search}&` : '';
@@ -239,7 +247,7 @@ async function WPArticleList(
         let authorName = '';
         let authorLink = '';
 
-        if (categoryID) {
+        if (!append && categoryID) {
             const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
             const data = await res.json();
             categoryName = data.name;
@@ -623,30 +631,24 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 
 async function fetchParentCategories(parentId, mainUrl) {
     const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
-    
     try {
-        // Pobieramy WSZYSTKIE kategorie (do 100 sztuk - jeśli masz więcej, dodaj pętlę stron)
-        const response = await fetch(`${baseUrl}?parent=${parentId}&per_page=100`);
-        const allCategories = await response.json();
+        // Pobieramy listę kategorii raz (max 100)
+        const response = await fetch(`${baseUrl}?per_page=100`);
+        const allCats = await response.json();
 
-        const resultIds = new Set([parentId]);
+        const resultIds = new Set([parseInt(parentId)]);
         
-        // 1. Znajdź dzieci (parent == parentId)
-        const children = allCategories.filter(cat => cat.parent === parentId);
-        children.forEach(cat => resultIds.add(cat.id));
+        // Znajdź dzieci
+        const children = allCats.filter(c => c.parent === parseInt(parentId));
+        children.forEach(c => {
+            resultIds.add(c.id);
+            // Znajdź wnuki dla każdego dziecka
+            allCats.filter(gc => gc.parent === c.id).forEach(gc => resultIds.add(gc.id));
+        });
 
-        // 2. Znajdź wnuki (parent pasuje do ID któregoś z dzieci)
-        const childrenIds = children.map(c => c.id);
-        const grandChildren = allCategories.filter(cat => childrenIds.includes(cat.parent));
-        grandChildren.forEach(cat => resultIds.add(cat.id));
-
-        const finalString = Array.from(resultIds).join(',');
-        
-        // Zwracamy gotowy ciąg ID do użycia w URL postów
-        return finalString;
-
-    } catch (error) {
-        console.error("Błąd podczas pobierania kategorii:", error);
+        return Array.from(resultIds).join(',');
+    } catch (e) {
+        return parentId; // W razie błędu wróć do samego ID rodzica
     }
 }
 
