@@ -103,12 +103,14 @@ function appendSongsToDisplay(songs) {
         const audioUrl = attr.previews?.[0]?.url || "";
         const fullName = `${attr.artistName} - ${attr.name}`;
         const shazamId = song.id || "";
+        const escapeHTML = (str) => 
+          str ? String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])) : "";
 
         const songElement = document.createElement("div");
         songElement.className = "song-item";
         songElement.innerHTML = `
             <li class="hits_list_songs">
-                <div class="song_cover"><img src="${artworkUrl}" alt="cover"></div>
+                <div class="song_cover"><img src="${artworkUrl}" alt="${escapeHTML(attr.artistName)"></div>
                 <div class="song_content">
                     <div class="song_data">
                         <div class="song_track">
