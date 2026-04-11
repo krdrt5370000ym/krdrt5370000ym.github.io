@@ -59,11 +59,14 @@
             <div class="schedule_display" id="ScheduleDisplay" style="display:block;">
               <div class="tab">
                 <button class="tablinks active" onclick="openTab(event, 'sch_schedule')">Tydzień</button>
+                <button class="tablinks" onclick="openTab(event, 'sch_detail')">Szczegółowe dni</button>
               </div>
               <div id="sch_schedule" class="tabcontent" style="display:block;">
                 <div class="schedule_tabs" id="days"></div>
                 <div id="day_contents"></div>
               </div>
+            <div id="sch_detail" class="tabcontent schedule_detail">
+            </div>
             </div>
             </div>
             <!-- PROGRAMY -->
