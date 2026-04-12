@@ -501,7 +501,7 @@ function AudioPlayer(url) {
    const audio = document.getElementById('player');
    const isM3U8 = url.toLowerCase().includes('.m3u8');
    const sm = url.slice(0, 7) === "http://" ?
-      'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' +
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
       encodeURIComponent(url) : url;
 
    // Teraz hls jest widoczne globalnie, więc to zadziała:
