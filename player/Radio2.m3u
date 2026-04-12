@@ -1332,7 +1332,7 @@ https://getradio.reconv.pl/other?s=radioparty-energy2000
 #EXTINF:-1, Pozostałe - Coolradio
 https://getradio.reconv.pl/other?s=coolradio
 #EXTINF:-1, Pozostałe - Pinkradio
-https://getradio.reconv.pl/other?s=pinkradio
+http://pink.exyuserver.com/;?type=http
 #EXTINF:-1, Pozostałe - Radio ZET
 https://getradio.reconv.pl/other?s=radiozet
 #EXTINF:-1, Pozostałe - Antyradio
