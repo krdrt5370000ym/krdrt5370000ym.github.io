@@ -345,6 +345,40 @@ async function getPlanetaFMSong() {
    }
 }
 
+async function getTomorrowlandSong(stationId = 'main') {
+   const container = document.getElementById('resultTrack');
+
+   try {
+      // 1. Pobranie danych z API Tomorrowland
+      const response = await fetch(`https://playout-metadata.tomorrowland.com/metadata?tag=${stationId}`);
+
+      if (!response.ok) {
+         throw new Error(`Błąd sieci: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // 2. Wyciągnięcie artysty oraz tytułu
+      const artist = data.artist;
+      const title = data.title;
+      const formattedTrack = `${artist} - ${title}`;
+
+      // 3. Wstawienie wyniku do HTML
+      if (container) {
+         container.innerHTML = `<h4>Teraz gramy:</h4>${formatToTitleCase(formattedTrack)}`;
+      }
+
+      return formattedTrack;
+
+   } catch (error) {
+      console.error('Nie udało się pobrać utworu:', error);
+      if (container) {
+         container.innerHTML = ''; // Nie udało się załadować utworu.
+      }
+      return null;
+   }
+}
+
 async function getNowPlayingRevma(stationId) {
    // Publiczny proxy dodający nagłówki CORS
    const container = document.getElementById('resultTrack');
