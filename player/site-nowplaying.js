@@ -480,29 +480,44 @@ async function getmetadataICY(streamUrl) {
    const encodedUrl = encodeURIComponent(streamUrl);
    const apiUrl = `https://now-playing.krdrt5370000ym2.workers.dev/?url=${encodedUrl}`;
 
+   // Funkcja pomocnicza do czyszczenia kontenera
+   const clearContainer = () => {
+      if (container) container.textContent = '';
+   };
+
    try {
       const response = await fetch(apiUrl);
 
       if (!response.ok) {
-         container.innerText = ''; // Czyszczenie przy błędzie HTTP
+         clearContainer();
          return "";
       }
 
       const data = await response.json();
 
-      // Jeśli status to success, wpisujemy i zwracamy tytuł
-      if (data && data.status === "success" && data.playlist_format) {
-         container.innerHTML = `<small>Teraz gramy:</small><br>${formatToTitleCase(data.playlist_format)}`; // Bezpieczniejsze niż innerHTML
+      // Przypadek 1: Brak danych lub status błędu
+      if (!data || data.status !== "success" || !data.playlist_format) {
+         clearContainer();
+         return "";
+      }
+
+      // Przypadek 2: Rozpoznany brak tagów (nieznany autor/tytuł)
+      if (data.playlist_format === "Nieznany wykonawca - Nieznany tytuł") {
+         clearContainer();
          return data.playlist_format;
       }
 
-      // Czyszczenie kontenera w przypadku statusu "error"
-      container.innerHTML = '';
-      return "";
+      // Przypadek 3: Sukces - bezpieczne wstrzykiwanie tekstu
+      if (container) {
+         container.innerHTML = `<small>Teraz gramy:</small><br><span></span>`;
+         // Bezpieczne wstrzyknięcie tekstu po wcześniejszym sformatowaniu
+         container.querySelector('span').textContent = formatToTitleCase(data.playlist_format);
+      }
+
+      return data.playlist_format;
 
    } catch (error) {
-      // Czyszczenie kontenera w przypadku awarii sieci
-      container.innerHTML = '';
+      clearContainer();
       return "";
    }
 }
