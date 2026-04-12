@@ -10,13 +10,34 @@ async function uruchomPodcast() {
    }
 
    try {
-      // 1. Pobieramy dane (Naprawiony URL z backtickami)
-      const url = `https://krdrt5370000ym.github.io/media/json/${station}_podcasts.json`;
-      const response = await fetch(url);
+      // Funkcja pomocnicza z POPRAWIONĄ ŚCIEŻKĄ: /media/json/
+      const fetchJSON = async (fileName) => {
+         const url = `https://krdrt5370000ym.github.io/media/json/${station}_${fileName}.json`;
+         try {
+            const res = await fetch(url);
+            if (!res.ok) return fileName === 'config' ? {} : [];
 
-      if (!response.ok) throw new Error("Nie znaleziono pliku stacji.");
+            const data = await res.json();
 
-      const PODCASTS = await response.json();
+            // Twoja poprawka: standaryzacja CONFIG i SCHEDULE
+            if (fileName === 'config') {
+               return (Array.isArray(data) ? data[0] : data) || {};
+            }
+
+            // Dla schedule i programs upewniamy się, że to zawsze tablica (do .filter i .find)
+            return Array.isArray(data) ? data : [];
+
+         } catch (e) {
+            return (fileName === 'config') ? {} : [];
+         }
+      };
+
+      // Wywołanie w Promise.all pozostaje bez zmian:
+      const [PODCASTS, CONFIG] = await Promise.all([
+         fetchJSON('podcasts'),
+         fetchJSON('config')
+      ]);
+      
       const podcast = PODCASTS.find(p => p.id === uid);
 
       if (!podcast || podcast.private === true) {
