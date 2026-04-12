@@ -26,6 +26,21 @@ function formatToTitleCase(str) {
    return formatted;
 }
 
+function formatTitle(str) {
+   if (!str) return '';
+
+   // 1. Usuwa niewidoczny znak BOM (częsty błąd z API Shoutcast/Icecast)
+   let cleanStr = str.replace(/^\uFEFF/, '');
+
+   // 2. Dzieli na słowa, zamienia pierwszą literę na wielką, resztę na małe
+   return cleanStr.split(' ').map(word => {
+      // Jeśli słowo to myślnik, zostawiamy go bez zmian
+      if (word === '-') return word;
+
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+   }).join(' ');
+}
+
 async function getNowPlayingGrupaZPR(stationId) {
    const container = document.getElementById('resultTrack');
    const url = `https://front-api.grupazprmedia.pl/music/v1/now_playing/${stationId}/`;
@@ -480,7 +495,6 @@ async function getmetadataICY(streamUrl) {
    const encodedUrl = encodeURIComponent(streamUrl);
    const apiUrl = `https://now-playing.krdrt5370000ym2.workers.dev/?url=${encodedUrl}`;
 
-   // Funkcja pomocnicza do czyszczenia kontenera
    const clearContainer = () => {
       if (container) container.textContent = '';
    };
@@ -495,23 +509,20 @@ async function getmetadataICY(streamUrl) {
 
       const data = await response.json();
 
-      // Przypadek 1: Brak danych lub status błędu
       if (!data || data.status !== "success" || !data.playlist_format) {
          clearContainer();
          return "";
       }
 
-      // Przypadek 2: Rozpoznany brak tagów (nieznany autor/tytuł)
       if (data.playlist_format === "Nieznany wykonawca - Nieznany tytuł") {
          clearContainer();
          return data.playlist_format;
       }
 
-      // Przypadek 3: Sukces - bezpieczne wstrzykiwanie tekstu
       if (container) {
          container.innerHTML = `<h4>Teraz gramy:</h4><span></span>`;
-         // Bezpieczne wstrzyknięcie tekstu po wcześniejszym sformatowaniu
-         container.querySelector('span').textContent = formatToTitleCase(data.playlist_format);
+         // Bezpieczne wstrzyknięcie poprawionego tekstu
+         container.querySelector('span').textContent = formatTitle(data.playlist_format);
       }
 
       return data.playlist_format;
