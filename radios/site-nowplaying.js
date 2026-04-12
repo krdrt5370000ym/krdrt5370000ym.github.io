@@ -492,17 +492,17 @@ async function getmetadataICY(streamUrl) {
 
       // Jeśli status to success, wpisujemy i zwracamy tytuł
       if (data && data.status === "success" && data.playlist_format) {
-         container.innerText = `<h4>Teraz gramy:</h4>${formatToTitleCase(data.playlist_format)}`; // Bezpieczniejsze niż innerHTML
+         container.innerHTML = `<h4>Teraz gramy:</h4>${formatToTitleCase(data.playlist_format)}`; // Bezpieczniejsze niż innerHTML
          return data.playlist_format;
       }
 
       // Czyszczenie kontenera w przypadku statusu "error"
-      container.innerText = '';
+      container.innerHTML = '';
       return "";
 
    } catch (error) {
       // Czyszczenie kontenera w przypadku awarii sieci
-      container.innerText = '';
+      container.innerHTML = '';
       return "";
    }
 }
