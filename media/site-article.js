@@ -104,7 +104,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
    else window.currentPage++;
 
    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-   const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const httpUrl = is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       if (button) {
@@ -234,7 +234,7 @@ async function WPArticleList(
 
       const typesUrl = type === 'post' ? postsUrl : pagesUrl;
       const httpUrl = is_http ?
-         'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl) :
+         'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl) :
          typesUrl;
 
       const response = await fetch(httpUrl);
@@ -515,7 +515,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
    const postsUrl = slug.startsWith('post-') ?
       `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const httpUrl = is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       const response = await fetch(httpUrl);
@@ -706,7 +706,7 @@ async function WPArticlePage(slug, mainUrl, is_http = false) {
    const postsUrl = slug.startsWith('page-') ?
       `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = is_http ? 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const httpUrl = is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       const response = await fetch(httpUrl);
