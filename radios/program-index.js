@@ -161,19 +161,19 @@ async function uruchomProgram() {
       // Definicja ikon społecznościowych dla pętli
       const socialConfig = [{
             key: 'url',
-            icon: 'fa-link'
+            icon: 'fa-solid fa-link'
          },
          {
             key: 'url_rss',
-            icon: 'fa-rss'
+            icon: 'fa-solid fa-rss'
          },
          {
             key: 'url_podcast',
-            icon: 'fa-podcast'
+            icon: 'fa-solid fa-podcast'
          },
          {
             key: 'url_spreaker',
-            icon: 'fa-table-list'
+            icon: 'fa-solid fa-table-list'
          },
          {
             key: 'url_spotify',
