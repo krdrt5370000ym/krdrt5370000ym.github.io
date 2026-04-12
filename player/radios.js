@@ -150,32 +150,40 @@ function playlistNowPlaying(streamUrl) {
    if (playlistInterval) {
       clearInterval(playlistInterval);
    }
+
    const updateTrack = () => {
       fetch("https://krdrt5370000ym.github.io/player/playlist.json")
          .then(res => res.json())
          .then(json => {
             const item = json.playlist.find(x => x.stream === streamUrl);
+            const resultTrackEl = document.getElementById('resultTrack');
 
+            // Sprawdzamy czy znaleziono strumień i czy ma przypisaną wartość
             if (item && item.value) {
-               // Sprawdzamy, czy value zawiera nawiasy (np. "getNowPlayingOpenFm(57)")
                const match = item.value.match(/^(\w+)\((.*)\)$/);
 
                if (match) {
-                  const functionName = match[1]; // np. "getNowPlayingOpenFm"
-                  const argument = match[2].replace(/['"]/g, ""); // np. "57"
+                  const functionName = match[1];
+                  const argument = match[2].replace(/['"]/g, "");
 
                   if (typeof window[functionName] === "function") {
-                     // Wywołujemy funkcję z przekazanym argumentem
                      window[functionName](argument);
                   }
                } else {
-                  // Jeśli to zwykły tekst bez nawiasów
-                  document.getElementById('resultTrack').innerText = item.value;
+                  resultTrackEl.innerText = item.value;
                }
+            } else {
+               // WARTOŚĆ DOMYŚLNA: Brak danych o utworze w JSON lub brak strumienia
+               resultTrackEl.innerText = ""; // Brak informacji o utworze
             }
          })
-         .catch(err => console.error("Błąd pobierania metadanych:", err));
+         .catch(err => {
+            console.error("Błąd pobierania metadanych:", err);
+            // Wyświetlenie błędu użytkownikowi (opcjonalnie)
+            document.getElementById('resultTrack').innerText = ""; // Nie udało się pobrać tytułu
+         });
    };
+
    updateTrack();
    playlistInterval = setInterval(updateTrack, 20000);
 }
