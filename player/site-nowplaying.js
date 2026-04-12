@@ -474,3 +474,35 @@ async function getNowPlayingOnlineRadioBox(stationId) {
       }
    }
 }
+
+async function getmetadataICY(streamUrl) {
+   const container = document.getElementById('resultTrack');
+   const encodedUrl = encodeURIComponent(streamUrl);
+   const apiUrl = `https://now-playing.krdrt5370000ym2.workers.dev/?url=${encodedUrl}`;
+
+   try {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+         container.innerText = ''; // Czyszczenie przy błędzie HTTP
+         return "";
+      }
+
+      const data = await response.json();
+
+      // Jeśli status to success, wpisujemy i zwracamy tytuł
+      if (data && data.status === "success" && data.playlist_format) {
+         container.innerText = `<small>Teraz gramy:</small><br>${formatToTitleCase(data.playlist_format)}`; // Bezpieczniejsze niż innerHTML
+         return data.playlist_format;
+      }
+
+      // Czyszczenie kontenera w przypadku statusu "error"
+      container.innerText = '';
+      return "";
+
+   } catch (error) {
+      // Czyszczenie kontenera w przypadku awarii sieci
+      container.innerText = '';
+      return "";
+   }
+}
