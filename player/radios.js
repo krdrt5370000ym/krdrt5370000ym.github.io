@@ -101,7 +101,7 @@ function play(st, el) {
    el.classList.add('active');
 
    const sm = st.url.slice(0, 7) === "http://" ?
-      'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev/?url=' +
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
       encodeURIComponent(st.url) : st.url;
 
    currentStationText.textContent = "Teraz grasz: " + st.name;
