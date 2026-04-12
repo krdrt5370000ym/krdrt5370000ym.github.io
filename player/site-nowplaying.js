@@ -374,8 +374,8 @@ async function getTomorrowlandSong(stationId = 'main') {
       const data = await response.json();
 
       // 2. Wyciągnięcie artysty oraz tytułu
-      const artist = data.artist;
-      const title = data.title;
+      const artist = data.artist || '';
+      const title = data.title || '';
       const formattedTrack = `${artist} - ${title}`;
 
       // 3. Wstawienie wyniku do HTML
