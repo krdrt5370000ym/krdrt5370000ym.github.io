@@ -383,6 +383,39 @@ async function getNowPlayingRevma(stationId) {
    }
 }
 
+async function getNowPlayingZenoFM(stationId) {
+   return new Promise((resolve, reject) => {
+      const container = document.getElementById('resultTrack');
+      const url = `https://api.zeno.fm/mounts/metadata/subscribe/${stationId}`;
+      const eventSource = new EventSource(url);
+
+      // Nasłuchiwanie na pierwszą wiadomość z serwera
+      eventSource.onmessage = (event) => {
+         try {
+            const data = JSON.parse(event.data);
+
+            // Zamykamy połączenie, ponieważ pobraliśmy już aktualny tytuł
+            eventSource.close();
+
+            // Zwracamy tytuł utworu
+            resolve(data.streamTitle);
+            container.innerHTML = `<small>Teraz gramy:</small><br>${formatToTitleCase(data.streamTitle)}`;
+         } catch (error) {
+            eventSource.close();
+            reject("Błąd podczas parsowania danych JSON.");
+            container.innerHTML = '';
+         }
+      };
+
+      // Obsługa błędu połączenia (np. błędny stationId lub brak sieci)
+      eventSource.onerror = (error) => {
+         eventSource.close();
+         reject("Nie udało się połączyć ze strumieniem Zeno.fm.");
+         container.innerHTML = '';
+      };
+   });
+}
+
 async function getNowPlayingOnlineRadioBox(stationId) {
    try {
       const container = document.getElementById('resultTrack');
