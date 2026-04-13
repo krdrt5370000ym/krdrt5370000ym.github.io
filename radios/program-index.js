@@ -1,7 +1,7 @@
 // Funkcja formatująca dni i godziny emisji
-function getDisplaySchedule(uid, SCHEDULE) {
+function getDisplaySchedule(programUid, SCHEDULE) {
    const occurrences = SCHEDULE.filter(osch => 
-      osch.id === uid && osch.active && !osch.private && !osch.hide_in_schedule
+      osch.id === programUid && osch.active && !osch.private && !osch.hide_in_schedule
    );
 
    if (!occurrences.length) return "";
