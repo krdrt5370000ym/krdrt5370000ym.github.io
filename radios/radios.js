@@ -67,12 +67,16 @@ function formatHour(h) {
    return h.slice(0, 5);
 }
 
-function openTab(tabName, element = null) {
+function openTab(evt, tabName) {
    document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
    document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
 
-   document.getElementById(tabName).style.display = "block";
-   if (element) element.classList.add("active");
+   const targetTab = document.getElementById(tabName);
+   if (targetTab) targetTab.style.display = "block";
+   
+   if (evt && evt.currentTarget) {
+      evt.currentTarget.classList.add("active");
+   }
 }
 
 function isInTimeRange(start, end, current) {
@@ -448,37 +452,55 @@ function renderPrograms() {
 // STATIONS
 // =====================
 function updateStationUI(s) {
-    const ds = document.getElementById("ScheduleDisplay");
-    const dp = document.getElementById("AllProgramsDisplay");
-    const dd = document.getElementById("DetailSchDisplay");
-    const dc = document.getElementById("AllContentDisplay");
+    // 1. Pobranie elementów (upewnij się, że ID w HTML są unikalne!)
+    const dc = document.getElementById("AllContentDisplay"); // Label ramówki
+    const dp = document.getElementById("AllProgramsDisplay"); // Label programów
+    const dsContainer = document.getElementById("ScheduleDisplay"); // Div kontenera harmonogramu
+    const btnDetail = document.getElementById("DetailSchBtn"); // Przycisk "Szczegółowe"
+    const radioTab1 = document.getElementById("r-tab1");
+    const radioTab2 = document.getElementById("r-tab2");
 
-    // Definicja warunków
-    const isContentHidden = (s.disable_detail_schedule && s.disable_schedule) || 
-                            (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || 
-                            s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule;
-    
-    const isDetailHidden = s.disable_detail_schedule || CONFIG.disable_detail_schedule;
-    const isScheduleHidden = s.disable_schedule || CONFIG.disable_schedule;
-    const areProgramsHidden = s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen;
+    // 2. Warunki logiczne
+    const disableAllSchedule = (s.disable_detail_schedule && s.disable_schedule) || 
+                               (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || 
+                               s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule;
 
-    // Aplikowanie widoczności
-    dc.style.display = isContentHidden ? "none" : "block";
-    dd.style.display = isDetailHidden ? "none" : "block";
-    ds.style.display = isScheduleHidden ? "none" : "block";
-    dp.style.display = areProgramsHidden ? "none" : "block";
+    const disablePrograms = s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen;
+    const disableMainSch = s.disable_schedule || CONFIG.disable_schedule;
+    const disableDetailSch = s.disable_detail_schedule || CONFIG.disable_detail_schedule;
 
-    // Zarządzanie zakładkami bez obiektu event
-    if (isContentHidden) {
+    // 3. Zarządzanie widocznością głównych zakładek (Labels)
+    dc.style.display = disableAllSchedule ? "none" : "inline-block";
+    dp.style.display = disablePrograms ? "none" : "inline-block";
+
+    // 4. Jeśli ramówka jest wyłączona, a programy włączone -> przełącz na programy
+    if (disableAllSchedule && !disablePrograms) {
+        radioTab2.checked = true;
+    } else {
+        radioTab1.checked = true;
+    }
+
+    // 5. Zarządzanie podzakładkami wewnątrz Ramówki
+    if (dsContainer) {
+        dsContainer.style.display = disableAllSchedule ? "none" : "block";
+    }
+
+    if (btnDetail) {
+        btnDetail.style.display = disableDetailSch ? "none" : "inline-block";
+    }
+
+    // 6. Obsługa specyficznego przypadku: jeśli główny tydzień jest wyłączony, wymuś widok szczegółowy
+    if (disableMainSch && !disableDetailSch) {
+        // Ukrywamy wszystko i pokazujemy tylko sch_detail
         document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
         document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
-    }
-    
-    if (isScheduleHidden) {
-        // Zamiast openTab, wywołujemy logikę bezpośrednio
-        document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
+        
         const detailTab = document.getElementById('sch_detail');
         if (detailTab) detailTab.style.display = "block";
+        if (btnDetail) btnDetail.classList.add("active");
+    } else {
+        // Domyślnie pokaż sch_schedule (Tydzień)
+        openTab(null, 'sch_schedule');
     }
 }
 
