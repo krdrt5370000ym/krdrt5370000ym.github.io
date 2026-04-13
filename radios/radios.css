@@ -439,6 +439,11 @@ label {
 
 .schedule_detail {
     font-size: 80%;
+    h3 {
+        a {
+            text-decoration: none;
+        }
+    }
 }
 
 .programs_display {
