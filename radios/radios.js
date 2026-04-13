@@ -166,7 +166,7 @@ function renderCurrent() {
          return nameA.localeCompare(nameB);
       })[0];
 
-   if (stations.schedule && stations.radio_plug !== true && CONFIG.radio_plug !== true) {
+   if (stations.schedule && stations.radio_plug !== true && stations.radio_listen !== true &&  CONFIG.radio_plug !== true) {
       scheduleCurrent(stations.schedule);
       if (SCHEDULE_APP === 1) return;
    }
@@ -180,7 +180,7 @@ function renderCurrent() {
    document.querySelector(".current_program_host").textContent = "";
    document.querySelector(".current_program_photo").innerHTML = `<img decoding="async" src="${stations.cover}" alt="">` || null;
 
-   if (!program || stations.radio_plug === true || CONFIG.radio_plug === true) return;
+   if (!program || stations.radio_plug === true || stations.radio_listen === true || CONFIG.radio_plug === true) return;
 
    const data = getProgramData(program);
    const thumbnail = getThumbnail(program, data);
@@ -467,7 +467,7 @@ function renderStations() {
          CURRENT_STATION = s.station_schedule;
          CURRENT_STATION_ID = s.id;
          AudioPlayer(s.stream);
-         ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
+         ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
          (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;": dd.style = "display:block;";
          (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;": ds.style = "display:block;";
          (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;": dp.style = "display:block;";
