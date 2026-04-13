@@ -1,59 +1,75 @@
 // Funkcja formatująca dni i godziny emisji
-function getDisplaySchedule(programUid, SCHEDULE) {
-   // 1. Filtrowanie
-   const occurrences = SCHEDULE.filter(osch => 
-      osch.id === programUid && osch.active && !osch.private && !osch.hide_in_schedule
-   );
+function getDisplaySchedule(programId, SCHEDULE) {
+   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
+   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
 
-   if (!occurrences || occurrences.length === 0) return "";
+   const timeGroups = {};
+   const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
 
-   const daysMapShort = { 1: "Pn", 2: "Wt", 3: "Śr", 4: "Czw", 5: "Pt", 6: "Sob", 0: "Ndz" };
-   const daysMapFull = { 1: "Poniedziałek", 2: "Wtorek", 3: "Środa", 4: "Czwartek", 5: "Piątek", 6: "Sobota", 0: "Niedziela" };
+   if (filtered.length === 0) return "";
 
-   // 2. Grupowanie dni według godzin
-   const groups = {};
-   occurrences.forEach(occ => {
-      // SPRAWDŹ TUTAJ: Czy Twoje pola w JSON na pewno nazywają się 'start' i 'end'?
-      // Jeśli nazywają się np. 'godzina', zmień poniższe linie:
-      const s = occ.start || ""; 
-      const e = occ.end || "";
+   filtered.forEach(occ => {
+      // Zabezpieczenie przed undefined i błędnym formatem czasu
+      const startRaw = occ.hour_start || occ.start || "00:00";
+      const endRaw = occ.hour_end || occ.end || "00:00";
       
-      // Jeśli godziny są puste, nie twórz stringa "undefined - undefined"
-      if (!s && !e) return;
-
-      const timeKey = `${s} - ${e}`;
+      const start = startRaw.toString().substring(0, 5);
+      const end = endRaw.toString().substring(0, 5);
       
-      if (!groups[timeKey]) groups[timeKey] = [];
-      if (occ.day !== undefined) {
-         groups[timeKey].push(parseInt(occ.day));
-      }
+      const timeKey = `${start}-${end}`;
+      if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+      
+      // Obsługa pola 'day' lub 'days'
+      const rawDays = occ.days !== undefined ? occ.days : occ.day;
+      const days = Array.isArray(rawDays) ? rawDays : [rawDays];
+      
+      days.forEach(d => {
+         if (d !== undefined && d !== null) timeGroups[timeKey].add(d.toString());
+      });
    });
 
-   const timeKeys = Object.keys(groups);
-   if (timeKeys.length === 0) return ""; // Zabezpieczenie przed pustymi godzinami
+   const entries = Object.entries(timeGroups);
+   const isMultiGroup = entries.length > 1;
 
-   const listFormatter = new Intl.ListFormat('pl', { style: 'short', type: 'conjunction' });
-
-   const formattedGroups = timeKeys.map(time => {
-      const days = groups[time];
-      // Sortowanie: Pn(1) -> Ndz(0 traktowane jako 7)
-      const sortedDays = days.sort((a, b) => (a === 0 ? 7 : a) - (b === 0 ? 7 : b));
+   const result = entries.map(([timeKey, daysSet]) => {
+      const [start, end] = timeKey.split("-");
+      const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
       
+      const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
+         if (i === 0) return true;
+         const prev = sortedDays[i - 1] == "0" ? 7 : parseInt(sortedDays[i - 1]);
+         const curr = d == "0" ? 7 : parseInt(d);
+         return curr === prev + 1;
+      });
+
       let dayString;
       if (sortedDays.length === 1) {
-         const d = sortedDays[0];
-         // Jeśli jest więcej niż jedna grupa godzin, używamy skrótów (Pn, Wt...)
-         dayString = timeKeys.length > 1 ? daysMapShort[d] : daysMapFull[d];
+         // Pojedynczy dzień: "Poniedziałek" lub "Pn"
+         dayString = isMultiGroup ? daysMapShort[sortedDays[0]] : daysMapFull[sortedDays[0]];
+      } else if (isSequence) {
+         // Zakres: "Pn - Pt"
+         dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
+      } else if (sortedDays.length === 2) {
+         // Dwa dni: "Sob i Ndz"
+         dayString = `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`;
       } else {
-         const names = sortedDays.map(d => daysMapShort[d]);
-         dayString = listFormatter.format(names);
+         // Lista: "Pn, Śr, Pt"
+         const lastDay = sortedDays.pop();
+         dayString = sortedDays.map(d => daysMapShort[d]).join(", ") + ` i ${daysMapShort[lastDay]}`;
       }
 
-      return `${dayString} ${time}`;
+      return {
+         text: `${dayString} ${start} - ${end}`,
+         firstDay: sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]),
+         startTime: start
+      };
    });
 
-   // 3. Łączenie grup: "Pn 10:00 | Wt 12:00"
-   return formattedGroups.join(" | ");
+   // Sortowanie końcowe i łączenie grup kreską |
+   return result
+      .sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime))
+      .map(g => g.text)
+      .join(" | ");
 }
 
 async function uruchomProgram() {
