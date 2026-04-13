@@ -508,34 +508,58 @@ function updateStationUI(s) {
 function renderStations() {
     const select = document.getElementById("stationSelect");
     const player = document.getElementById("player");
+    
+    // 1. Pobierz parametr z adresu URL
+    const params = new URLSearchParams(window.location.search);
+    const stationSlug = params.get('st'); // np. "warszawa"
 
+    // 2. Znajdź stację pasującą do parametru (porównujemy z ID lub inną właściwością)
+    let initialStationIndex = 0; // Domyślnie pierwsza
+    if (stationSlug) {
+        const foundIndex = STATIONS.findIndex(s => s.id === stationSlug || s.slug === stationSlug);
+        if (foundIndex !== -1) {
+            initialStationIndex = foundIndex;
+        }
+    }
+
+    // 3. Renderuj opcje w select
     STATIONS.forEach((s, i) => {
         const opt = document.createElement("option");
         opt.value = s.id;
         opt.textContent = s.name;
+        
+        // Zaznacz stację w select, jeśli pasuje do startowej
+        if (i === initialStationIndex) {
+            opt.selected = true;
+        }
+        
         select.appendChild(opt);
 
-        if (i === 0) {
-            CURRENT_STATION = s.station_schedule;
-            CURRENT_STATION_ID = s.id;
-            AudioPlayer(s.stream);
-            updateStationUI(s); // Użycie nowej funkcji
-            playlistNowPlaying(s.playlist);
-            reloadAll();
+        // Inicjalizacja startowej stacji
+        if (i === initialStationIndex) {
+            setupStation(s);
         }
     });
 
-    select.onchange = () => {
-        const s = STATIONS.find(x => x.id === select.value);
-        if (!s) return;
-        
+    // Funkcja pomocnicza, aby nie powtarzać kodu przy zmianie stacji
+    function setupStation(s, shouldPlay = false) {
         CURRENT_STATION = s.station_schedule;
         CURRENT_STATION_ID = s.id;
         AudioPlayer(s.stream);
-        updateStationUI(s); // Użycie nowej funkcji
-        player.play();
+        updateStationUI(s); 
         playlistNowPlaying(s.playlist);
+        
+        if (shouldPlay) {
+            player.play().catch(e => console.log("Autoplay zablokowany przez przeglądarkę"));
+        }
+        
         reloadAll();
+    }
+
+    // Obsługa zmiany ręcznej
+    select.onchange = () => {
+        const s = STATIONS.find(x => x.id === select.value);
+        if (s) setupStation(s, true);
     };
 }
 
