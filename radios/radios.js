@@ -67,14 +67,12 @@ function formatHour(h) {
    return h.slice(0, 5);
 }
 
-function openTab(evt, tabName) {
-   // Ukryj wszystkie i usuń klasę active
+function openTab(tabName, element = null) {
    document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
    document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
 
-   // Pokaż wybraną
    document.getElementById(tabName).style.display = "block";
-   evt.currentTarget.classList.add("active");
+   if (element) element.classList.add("active");
 }
 
 function isInTimeRange(start, end, current) {
@@ -449,46 +447,73 @@ function renderPrograms() {
 // =====================
 // STATIONS
 // =====================
+function updateStationUI(s) {
+    const ds = document.getElementById("ScheduleDisplay");
+    const dp = document.getElementById("AllProgramsDisplay");
+    const dd = document.getElementById("DetailSchDisplay");
+    const dc = document.getElementById("AllContentDisplay");
+
+    // Definicja warunków
+    const isContentHidden = (s.disable_detail_schedule && s.disable_schedule) || 
+                            (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || 
+                            s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule;
+    
+    const isDetailHidden = s.disable_detail_schedule || CONFIG.disable_detail_schedule;
+    const isScheduleHidden = s.disable_schedule || CONFIG.disable_schedule;
+    const areProgramsHidden = s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen;
+
+    // Aplikowanie widoczności
+    dc.style.display = isContentHidden ? "none" : "block";
+    dd.style.display = isDetailHidden ? "none" : "block";
+    ds.style.display = isScheduleHidden ? "none" : "block";
+    dp.style.display = areProgramsHidden ? "none" : "block";
+
+    // Zarządzanie zakładkami bez obiektu event
+    if (isContentHidden) {
+        document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
+        document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
+    }
+    
+    if (isScheduleHidden) {
+        // Zamiast openTab, wywołujemy logikę bezpośrednio
+        document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
+        const detailTab = document.getElementById('sch_detail');
+        if (detailTab) detailTab.style.display = "block";
+    }
+}
+
 function renderStations() {
-   const select = document.getElementById("stationSelect");
-   const player = document.getElementById("player");
-   const ds = document.getElementById("ScheduleDisplay");
-   const dp = document.getElementById("AllProgramsDisplay");
-   const dd = document.getElementById("DetailSchDisplay");
-   const dc = document.getElementById("AllContentDisplay");
+    const select = document.getElementById("stationSelect");
+    const player = document.getElementById("player");
 
-   STATIONS.forEach((s, i) => {
-      const opt = document.createElement("option");
-      opt.value = s.id;
-      opt.textContent = s.name;
-      select.appendChild(opt);
+    STATIONS.forEach((s, i) => {
+        const opt = document.createElement("option");
+        opt.value = s.id;
+        opt.textContent = s.name;
+        select.appendChild(opt);
 
-      if (i === 0) {
-         CURRENT_STATION = s.station_schedule;
-         CURRENT_STATION_ID = s.id;
-         AudioPlayer(s.stream);
-         ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
-         (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;": dd.style = "display:block;";
-         (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;": ds.style = "display:block;";
-         (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen) ? dp.style = "display:none;": dp.style = "display:block;";
-         playlistNowPlaying(s.playlist);
-         reloadAll()
-      }
-   });
+        if (i === 0) {
+            CURRENT_STATION = s.station_schedule;
+            CURRENT_STATION_ID = s.id;
+            AudioPlayer(s.stream);
+            updateStationUI(s); // Użycie nowej funkcji
+            playlistNowPlaying(s.playlist);
+            reloadAll();
+        }
+    });
 
-   select.onchange = () => {
-      const s = STATIONS.find(x => x.id === select.value);
-      CURRENT_STATION = s.station_schedule;
-      CURRENT_STATION_ID = s.id;
-      AudioPlayer(s.stream);
-      ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
-      (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;": dd.style = "display:block;";
-      (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;": ds.style = "display:block;";
-      (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen) ? dp.style = "display:none;": dp.style = "display:block;";
-      player.play();
-      playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
-      reloadAll()
-   };
+    select.onchange = () => {
+        const s = STATIONS.find(x => x.id === select.value);
+        if (!s) return;
+        
+        CURRENT_STATION = s.station_schedule;
+        CURRENT_STATION_ID = s.id;
+        AudioPlayer(s.stream);
+        updateStationUI(s); // Użycie nowej funkcji
+        player.play();
+        playlistNowPlaying(s.playlist);
+        reloadAll();
+    };
 }
 
 function reloadAll() {
