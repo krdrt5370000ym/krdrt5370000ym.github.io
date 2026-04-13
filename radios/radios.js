@@ -47,10 +47,11 @@ async function loadData(siteId) {
          fetchJson("config")
       ]);
 
-      // Przypisanie z fallbackiem na puste struktury
-      IMAGES = images || {};
-      PROGRAMS = programs || {};
-      SCHEDULE = schedule || {};
+      // ✅ POPRAWKA: SCHEDULE musi być tablicą [], by działał .filter()
+      // ✅ POPRAWKA: PROGRAMS i IMAGES zazwyczaj są listami, więc [] jest bezpieczniejsze
+      IMAGES = images || [];
+      PROGRAMS = programs || [];
+      SCHEDULE = schedule || []; // Zmieniono z {} na []
       STATIONS = stations?.station || [];
       CONFIG = (Array.isArray(config) ? config[0] : config) || {};
 
