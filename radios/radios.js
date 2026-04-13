@@ -543,6 +543,7 @@ function reloadAll() {
    renderCurrent();
    renderSchedules();
    renderPrograms();
+   updateOnAirStatus();
 }
 
 function AudioPlayer(url) {
