@@ -176,7 +176,7 @@ function renderCurrent() {
    document.querySelector(".current_program_item").textContent = "";
    document.querySelector(".current_program_hour").textContent = "";
    document.querySelector(".current_program_title").style = 'font-weight: 400;';
-   document.querySelector(".current_program_title").textContent = stations.name || 'Radio Online';
+   document.querySelector(".current_program_title").textContent = stations.plug_name || stations.name || 'Radio Online';
    document.querySelector(".current_program_host").textContent = "";
    document.querySelector(".current_program_photo").innerHTML = `<img decoding="async" src="${stations.cover}" alt="">` || null;
 
