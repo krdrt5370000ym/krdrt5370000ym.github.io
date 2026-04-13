@@ -470,7 +470,7 @@ function renderStations() {
          ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
          (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;": dd.style = "display:block;";
          (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;": ds.style = "display:block;";
-         (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;": dp.style = "display:block;";
+         (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen) ? dp.style = "display:none;": dp.style = "display:block;";
          playlistNowPlaying(s.playlist);
          reloadAll()
       }
@@ -481,10 +481,10 @@ function renderStations() {
       CURRENT_STATION = s.station_schedule;
       CURRENT_STATION_ID = s.id;
       AudioPlayer(s.stream);
-      ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
+      ((s.disable_detail_schedule && s.disable_schedule) || (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule) ? dc.style = "display:none;": dc.style = "display:block;";
       (s.disable_detail_schedule || CONFIG.disable_detail_schedule) ? dd.style = "display:none;": dd.style = "display:block;";
       (s.disable_schedule || CONFIG.disable_schedule) ? ds.style = "display:none;": ds.style = "display:block;";
-      (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info) ? dp.style = "display:none;": dp.style = "display:block;";
+      (s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen) ? dp.style = "display:none;": dp.style = "display:block;";
       player.play();
       playlistNowPlaying(s.playlist); // Wywołujemy przy zmianie stacji
       reloadAll()
