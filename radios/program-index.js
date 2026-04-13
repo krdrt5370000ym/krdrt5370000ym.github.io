@@ -12,9 +12,17 @@ function getDisplaySchedule(programUid, SCHEDULE) {
    // 1. Grupujemy dni według tych samych godzin
    const groups = {};
    occurrences.forEach(occ => {
-      const timeKey = `${occ.start} - ${occ.end}`;
+      // Upewnij się, że używasz nazw pól dokładnie takich, jakie są w Twoim JSONie
+      const start = occ.start || "00:00";
+      const end = occ.end || "00:00";
+      const timeKey = `${start} - ${end}`;
+      
       if (!groups[timeKey]) groups[timeKey] = [];
-      groups[timeKey].push(parseInt(occ.day));
+      
+      // Sprawdź, czy pole 'day' istnieje
+      if (occ.day !== undefined) {
+         groups[timeKey].push(parseInt(occ.day));
+      }
    });
 
    const listFormatter = new Intl.ListFormat('pl', { style: 'short', type: 'conjunction' });
