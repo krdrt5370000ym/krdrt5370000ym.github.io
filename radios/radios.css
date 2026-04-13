@@ -444,6 +444,9 @@ label {
             text-decoration: none;
         }
     }
+    h5 {
+        font-size: 1.3em;
+    }
 }
 
 .programs_display {
@@ -633,6 +636,9 @@ label {
         overflow-x: auto;
         /* Przewijanie tylko jeśli treść się nie mieści */
     }
+    h5 {
+        font-size: 1.3em;
+    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -727,6 +733,9 @@ label {
 
     .schedule_detail {
         font-size: 100%;
+        h5 {
+            font-size: 1.2em;
+        }
     }
 
     .program_list_content {
