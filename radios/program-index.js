@@ -1,62 +1,58 @@
 // Funkcja formatująca dni i godziny emisji
 function getDisplaySchedule(programUid, SCHEDULE) {
-   // 1. Filtrowanie wystąpień programu
+   // 1. Filtrowanie
    const occurrences = SCHEDULE.filter(osch => 
-      osch.id === programUid && 
-      osch.active && 
-      !osch.private && 
-      !osch.hide_in_schedule
+      osch.id === programUid && osch.active && !osch.private && !osch.hide_in_schedule
    );
 
-   if (!occurrences.length) return "";
+   if (!occurrences || occurrences.length === 0) return "";
 
    const daysMapShort = { 1: "Pn", 2: "Wt", 3: "Śr", 4: "Czw", 5: "Pt", 6: "Sob", 0: "Ndz" };
    const daysMapFull = { 1: "Poniedziałek", 2: "Wtorek", 3: "Środa", 4: "Czwartek", 5: "Piątek", 6: "Sobota", 0: "Niedziela" };
 
-   // 2. Grupowanie dni o tych samych godzinach
+   // 2. Grupowanie dni według godzin
    const groups = {};
    occurrences.forEach(occ => {
-      // Pobieramy godziny z JSONa (upewnij się, że klucze to 'start' i 'end')
-      const start = occ.start || "00:00";
-      const end = occ.end || "00:00";
-      const timeKey = `${start} - ${end}`;
+      // SPRAWDŹ TUTAJ: Czy Twoje pola w JSON na pewno nazywają się 'start' i 'end'?
+      // Jeśli nazywają się np. 'godzina', zmień poniższe linie:
+      const s = occ.start || ""; 
+      const e = occ.end || "";
+      
+      // Jeśli godziny są puste, nie twórz stringa "undefined - undefined"
+      if (!s && !e) return;
+
+      const timeKey = `${s} - ${e}`;
       
       if (!groups[timeKey]) groups[timeKey] = [];
-      
-      if (occ.day !== undefined && occ.day !== null) {
+      if (occ.day !== undefined) {
          groups[timeKey].push(parseInt(occ.day));
       }
    });
 
    const timeKeys = Object.keys(groups);
-   // Formater dla list: "Pn, Śr i Pt" lub "Sob i Ndz"
+   if (timeKeys.length === 0) return ""; // Zabezpieczenie przed pustymi godzinami
+
    const listFormatter = new Intl.ListFormat('pl', { style: 'short', type: 'conjunction' });
 
    const formattedGroups = timeKeys.map(time => {
-      // Sortowanie dni: Pn (1) -> Ndz (0 traktowane jako 7)
-      const sortedDays = groups[time].sort((a, b) => {
-         const dayA = a === 0 ? 7 : a;
-         const dayB = b === 0 ? 7 : b;
-         return dayA - dayB;
-      });
-
+      const days = groups[time];
+      // Sortowanie: Pn(1) -> Ndz(0 traktowane jako 7)
+      const sortedDays = days.sort((a, b) => (a === 0 ? 7 : a) - (b === 0 ? 7 : b));
+      
       let dayString;
-
       if (sortedDays.length === 1) {
-         const dayIndex = sortedDays[0];
-         // Jeśli jest tylko jedna grupa godzin (np. tylko we wtorki) -> pełna nazwa "Wtorek"
-         // Jeśli jest więcej grup godzin (np. Pn 00:00 | Wt 02:00) -> skrót "Pn"
-         dayString = timeKeys.length > 1 ? daysMapShort[dayIndex] : daysMapFull[dayIndex];
+         const d = sortedDays[0];
+         // Jeśli jest więcej niż jedna grupa godzin, używamy skrótów (Pn, Wt...)
+         dayString = timeKeys.length > 1 ? daysMapShort[d] : daysMapFull[d];
       } else {
-         // Generowanie listy: "Pn, Śr i Pt"
-         const dayNames = sortedDays.map(d => daysMapShort[d]);
-         dayString = listFormatter.format(dayNames);
+         const names = sortedDays.map(d => daysMapShort[d]);
+         dayString = listFormatter.format(names);
       }
 
       return `${dayString} ${time}`;
    });
 
-   // 3. Łączenie grup znakiem |
+   // 3. Łączenie grup: "Pn 10:00 | Wt 12:00"
    return formattedGroups.join(" | ");
 }
 
