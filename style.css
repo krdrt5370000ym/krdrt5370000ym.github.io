@@ -313,7 +313,7 @@ li ul.website_info_page {
     }
 
     @media screen and (max-width: 600px) {
-        padding: 6px 6px;
+        padding: 8px 12px;
         transition: 0.3s;
         font-size: 10px;
     }
