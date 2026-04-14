@@ -3,8 +3,8 @@ function getDisplaySchedule(programId, schedule) {
   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
-  // 1. Filtrowanie i mapowanie do płaskiej listy wystąpień
-  let occurrences = [];
+  // 1. Zbieramy wszystkie wystąpienia
+  let occs = [];
   schedule
     .filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule)
     .forEach(occ => {
@@ -15,9 +15,9 @@ function getDisplaySchedule(programId, schedule) {
       
       days.forEach(d => {
         if (d !== null && d !== undefined) {
-          occurrences.push({
-            day: parseInt(d),
-            sortDay: d == "0" ? 7 : parseInt(d),
+          occs.push({
+            dayNum: parseInt(d),
+            sortVal: d == "0" ? 7 : parseInt(d),
             time: `${start} - ${end}`,
             start
           });
@@ -25,36 +25,46 @@ function getDisplaySchedule(programId, schedule) {
       });
     });
 
-  if (occurrences.length === 0) return "";
+  if (occs.length === 0) return "";
 
-  // 2. Sortowanie chronologiczne: dzień, potem godzina
-  occurrences.sort((a, b) => a.sortDay - b.sortDay || a.start.localeCompare(b.start));
+  // 2. Sortujemy chronologicznie (dzień i godzina)
+  occs.sort((a, b) => a.sortVal - b.sortVal || a.start.localeCompare(b.start));
 
-  // 3. Grupowanie sąsiadujących dni o tej samej godzinie
-  let groupedEntries = [];
-  let currentGroup = null;
-
-  occurrences.forEach(occ => {
-    if (currentGroup && currentGroup.time === occ.time && occ.sortDay === currentGroup.days[currentGroup.days.length - 1] + 1) {
-      currentGroup.days.push(occ.sortDay);
+  // 3. Grupowanie: łączymy dni o tej samej godzinie, zachowując kolejność pierwszego wystąpienia
+  let groups = [];
+  occs.forEach(occ => {
+    // Szukamy istniejącej grupy o tej samej godzinie, która "czeka" na dopisanie dnia
+    // Sprawdzamy tylko ostatnią grupę, aby zachować chronologię bloków
+    let lastGroup = groups[groups.length - 1];
+    
+    if (lastGroup && lastGroup.time === occ.time) {
+      lastGroup.days.push(occ.sortVal);
     } else {
-      if (currentGroup) groupedEntries.push(currentGroup);
-      currentGroup = { time: occ.time, days: [occ.sortDay] };
+      groups.push({ time: occ.time, days: [occ.sortVal] });
     }
   });
-  if (currentGroup) groupedEntries.push(currentGroup);
 
-  // 4. Formatowanie na tekst
-  const result = groupedEntries.map(group => {
-    const days = group.days.map(d => d === 7 ? "0" : d.toString());
+  // 4. Formatowanie grup
+  const result = groups.map(group => {
+    const sortedDays = group.days;
     let dayString;
 
-    if (days.length === 1) {
-      dayString = groupedEntries.length === 1 ? daysMapFull[days[0]] : daysMapShort[days[0]];
-    } else if (days.length === 2) {
-      dayString = `${daysMapShort[days[0]]} i ${daysMapShort[days[1]]}`;
-    } else if (days.length >= 3) {
-      dayString = `${daysMapShort[days[0]]} - ${daysMapShort[days[days.length - 1]]}`;
+    // Logika tworzenia zakresów (np. Pn - Pt)
+    const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => i === 0 || d === sortedDays[i-1] + 1);
+
+    if (isSequence) {
+      const first = sortedDays[0] === 7 ? "0" : sortedDays[0].toString();
+      const last = sortedDays[sortedDays.length - 1] === 7 ? "0" : sortedDays[sortedDays.length - 1].toString();
+      dayString = `${daysMapShort[first]} - ${daysMapShort[last]}`;
+    } else if (sortedDays.length === 2) {
+      const d1 = sortedDays[0] === 7 ? "0" : sortedDays[0].toString();
+      const d2 = sortedDays[1] === 7 ? "0" : sortedDays[1].toString();
+      dayString = `${daysMapShort[d1]} i ${daysMapShort[d2]}`;
+    } else if (sortedDays.length === 1) {
+      const d = sortedDays[0] === 7 ? "0" : sortedDays[0].toString();
+      dayString = groups.length === 1 ? daysMapFull[d] : daysMapShort[d];
+    } else {
+      dayString = sortedDays.map(d => daysMapShort[d === 7 ? "0" : d]).join(", ");
     }
 
     return `${dayString} ${group.time}`;
