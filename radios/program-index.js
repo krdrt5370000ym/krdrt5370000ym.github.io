@@ -3,57 +3,61 @@ function getDisplaySchedule(programId, schedule) {
   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
-  const timeGroups = {};
-  const filtered = schedule.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
-
-  if (filtered.length === 0) return "";
-
-  filtered.forEach(occ => {
-    const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
-    const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
-    const timeKey = `${start} - ${end}`;
-
-    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-    const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
-    const days = Array.isArray(rawDays) ? rawDays : [rawDays];
-    days.forEach(d => d !== null && timeGroups[timeKey].add(d.toString()));
-  });
-
-  const entries = Object.entries(timeGroups);
-
-  const result = entries.map(([time, daysSet]) => {
-    const sorted = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
-    
-    // Logika grupowania dni (szukanie sekwencji)
-    let dayGroups = [];
-    let currentSeq = [sorted[0]];
-
-    for (let i = 1; i <= sorted.length; i++) {
-      const prev = sorted[i - 1] == "0" ? 7 : parseInt(sorted[i - 1]);
-      const curr = sorted[i] == "0" ? 7 : parseInt(sorted[i]);
-
-      if (curr === prev + 1) {
-        currentSeq.push(sorted[i]);
-      } else {
-        if (currentSeq.length >= 3) {
-          dayGroups.push(`${daysMapShort[currentSeq[0]]} - ${daysMapShort[currentSeq[currentSeq.length - 1]]}`);
-        } else {
-          currentSeq.forEach(d => dayGroups.push(daysMapShort[d]));
+  // 1. Filtrowanie i mapowanie do płaskiej listy wystąpień
+  let occurrences = [];
+  schedule
+    .filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule)
+    .forEach(occ => {
+      const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
+      const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
+      const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
+      const days = Array.isArray(rawDays) ? rawDays : [rawDays];
+      
+      days.forEach(d => {
+        if (d !== null && d !== undefined) {
+          occurrences.push({
+            day: parseInt(d),
+            sortDay: d == "0" ? 7 : parseInt(d),
+            time: `${start} - ${end}`,
+            start
+          });
         }
-        currentSeq = [sorted[i]];
-      }
-    }
+      });
+    });
 
-    let dayString;
-    if (sorted.length === 1 && entries.length === 1) {
-      dayString = daysMapFull[sorted[0]]; // Pełna nazwa dla pojedynczego wpisu
-    } else if (dayGroups.length === 2 && !dayGroups[0].includes("-")) {
-      dayString = dayGroups.join(" i "); // "Śr i Czw"
+  if (occurrences.length === 0) return "";
+
+  // 2. Sortowanie chronologiczne: dzień, potem godzina
+  occurrences.sort((a, b) => a.sortDay - b.sortDay || a.start.localeCompare(b.start));
+
+  // 3. Grupowanie sąsiadujących dni o tej samej godzinie
+  let groupedEntries = [];
+  let currentGroup = null;
+
+  occurrences.forEach(occ => {
+    if (currentGroup && currentGroup.time === occ.time && occ.sortDay === currentGroup.days[currentGroup.days.length - 1] + 1) {
+      currentGroup.days.push(occ.sortDay);
     } else {
-      dayString = dayGroups.join(", "); // "Pn - Czw, Ndz"
+      if (currentGroup) groupedEntries.push(currentGroup);
+      currentGroup = { time: occ.time, days: [occ.sortDay] };
+    }
+  });
+  if (currentGroup) groupedEntries.push(currentGroup);
+
+  // 4. Formatowanie na tekst
+  const result = groupedEntries.map(group => {
+    const days = group.days.map(d => d === 7 ? "0" : d.toString());
+    let dayString;
+
+    if (days.length === 1) {
+      dayString = groupedEntries.length === 1 ? daysMapFull[days[0]] : daysMapShort[days[0]];
+    } else if (days.length === 2) {
+      dayString = `${daysMapShort[days[0]]} i ${daysMapShort[days[1]]}`;
+    } else if (days.length >= 3) {
+      dayString = `${daysMapShort[days[0]]} - ${daysMapShort[days[days.length - 1]]}`;
     }
 
-    return `${dayString} ${time}`;
+    return `${dayString} ${group.time}`;
   });
 
   return result.join(" | ");
