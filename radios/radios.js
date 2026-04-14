@@ -402,14 +402,26 @@ function renderPrograms() {
    container.innerHTML = "";
 
    PROGRAMS
-      .filter(p => !p.hide_in_program && !p.hide_in_schedule && !p.private && !p.archive && !p.hide_only_information_schedule && (!p.category_not_all || p.category))
-      .filter(p => !filter || (p.category && p.category.includes(filter)))
-      .filter(p => !p.station || p.station.includes(CURRENT_STATION))
-      // NOWY FILTR: Wyszukiwarka tekstowa
-      .filter(p => {
-         const name = (p.name || "").toLowerCase();
-         const host = (p.host || "").toLowerCase();
-         return name.includes(search) || host.includes(search);
+.filter(p => {
+          // 1. Podstawowe filtry widoczności
+          if (p.hide_in_program || p.hide_in_schedule || p.private || p.archive || p.hide_only_information_schedule) return false;
+      
+          // 2. Filtr stacji (poprawiony - bezpieczne sprawdzanie)
+          // Jeśli podcast ma przypisane stacje, musi zawierać CURRENT_STATION
+          if (p.station && !p.station.includes(CURRENT_STATION)) return false;
+      
+          // 3. Logika category_not_all: 
+          // Jeśli true, podcast jest ukryty na liście głównej (filter === "")
+          if (p.category_not_all && filter === "") return false;
+      
+          // 4. Filtr konkretnej kategorii (jeśli wybrana w select)
+          if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
+      
+          // 5. Wyszukiwarka tekstowa
+          const searchLower = search.toLowerCase();
+          const name = (p.name || "").toLowerCase();
+          const host = (p.host || "").toLowerCase();
+          return name.includes(searchLower) || host.includes(searchLower);
       })
       .sort((a, b) => {
          const sortA = a.sorted || "";
