@@ -48,14 +48,23 @@ function renderPodcasts() {
    container.innerHTML = "";
 
    PODCASTS
-      .filter(p => !p.hide_in_podcast && !p.private && !p.archive && (!p.category_not_all || p.category))
-      .filter(p => !filter || (p.category && p.category.includes(filter)))
-      // NOWY FILTR: Wyszukiwarka tekstowa
-      .filter(p => {
+     .filter(p => {
+         // Podstawowe warunki widoczności
+         if (p.hide_in_podcast || p.private || p.archive) return false;
+   
+         // Logika kategorii: jeśli p.category_not_all jest true, 
+         // podcast musi mieć p.category, chyba że użytkownik aktywnie filtruje.
+         const categoryMatch = !p.category_not_all || p.category || filter !== "";
+         if (!categoryMatch) return false;
+   
+         // Wybrana konkretna kategoria z listy rozwijanej
+         if (filter && !(p.category && p.category.includes(filter))) return false;
+   
+         // Twoja nowa wyszukiwarka tekstowa
          const name = (p.name || "").toLowerCase();
          const host = (p.host || "").toLowerCase();
          return name.includes(search) || host.includes(search);
-      })
+     })
       .sort((a, b) => {
          const sortA = a.sorted || "";
          const sortB = b.sorted || "";
