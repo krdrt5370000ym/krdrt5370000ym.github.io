@@ -3,71 +3,63 @@ function getDisplaySchedule(programId, schedule) {
   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
-  // 1. Zbieramy wszystkie wystąpienia
-  let occs = [];
-  schedule
-    .filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule)
-    .forEach(occ => {
-      const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
-      const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
-      const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
-      const days = Array.isArray(rawDays) ? rawDays : [rawDays];
-      
-      days.forEach(d => {
-        if (d !== null && d !== undefined) {
-          occs.push({
-            dayNum: parseInt(d),
-            sortVal: d == "0" ? 7 : parseInt(d),
-            time: `${start} - ${end}`,
-            start
-          });
-        }
-      });
-    });
+  const timeGroups = {};
+  const firstAppearance = {}; // Do zachowania kolejności chronologicznej bloków
 
-  if (occs.length === 0) return "";
+  const filtered = schedule.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
+  if (filtered.length === 0) return "";
 
-  // 2. Sortujemy chronologicznie (dzień i godzina)
-  occs.sort((a, b) => a.sortVal - b.sortVal || a.start.localeCompare(b.start));
+  filtered.forEach(occ => {
+    const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
+    const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
+    const timeKey = `${start} - ${end}`;
 
-  // 3. Grupowanie: łączymy dni o tej samej godzinie, zachowując kolejność pierwszego wystąpienia
-  let groups = [];
-  occs.forEach(occ => {
-    // Szukamy istniejącej grupy o tej samej godzinie, która "czeka" na dopisanie dnia
-    // Sprawdzamy tylko ostatnią grupę, aby zachować chronologię bloków
-    let lastGroup = groups[groups.length - 1];
+    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
     
-    if (lastGroup && lastGroup.time === occ.time) {
-      lastGroup.days.push(occ.sortVal);
-    } else {
-      groups.push({ time: occ.time, days: [occ.sortVal] });
-    }
+    const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
+    const days = Array.isArray(rawDays) ? rawDays : [rawDays];
+    
+    days.forEach(d => {
+      if (d !== null && d !== undefined) {
+        const dStr = d.toString();
+        timeGroups[timeKey].add(dStr);
+        
+        // Zapisujemy, kiedy ta godzina pojawia się pierwszy raz w tygodniu (Pn=1, Ndz=7)
+        const sortVal = dStr === "0" ? 7 : parseInt(dStr);
+        const weight = sortVal * 10000 + parseInt(start.replace(":", "")); 
+        if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) {
+          firstAppearance[timeKey] = weight;
+        }
+      }
+    });
   });
 
-  // 4. Formatowanie grup
-  const result = groups.map(group => {
-    const sortedDays = group.days;
-    let dayString;
+  // Sortujemy klucze (godziny) według ich pierwszego wystąpienia w tygodniu
+  const sortedTimeKeys = Object.keys(timeGroups).sort((a, b) => firstAppearance[a] - firstAppearance[b]);
 
-    // Logika tworzenia zakresów (np. Pn - Pt)
-    const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => i === 0 || d === sortedDays[i-1] + 1);
+  const result = sortedTimeKeys.map(timeKey => {
+    const daysSet = timeGroups[timeKey];
+    const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
+    
+    let dayString;
+    const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
+      if (i === 0) return true;
+      const prev = sortedDays[i - 1] == "0" ? 7 : parseInt(sortedDays[i - 1]);
+      const curr = d == "0" ? 7 : parseInt(d);
+      return curr === prev + 1;
+    });
 
     if (isSequence) {
-      const first = sortedDays[0] === 7 ? "0" : sortedDays[0].toString();
-      const last = sortedDays[sortedDays.length - 1] === 7 ? "0" : sortedDays[sortedDays.length - 1].toString();
-      dayString = `${daysMapShort[first]} - ${daysMapShort[last]}`;
+      dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
     } else if (sortedDays.length === 2) {
-      const d1 = sortedDays[0] === 7 ? "0" : sortedDays[0].toString();
-      const d2 = sortedDays[1] === 7 ? "0" : sortedDays[1].toString();
-      dayString = `${daysMapShort[d1]} i ${daysMapShort[d2]}`;
+      dayString = `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`;
     } else if (sortedDays.length === 1) {
-      const d = sortedDays[0] === 7 ? "0" : sortedDays[0].toString();
-      dayString = groups.length === 1 ? daysMapFull[d] : daysMapShort[d];
+      dayString = sortedTimeKeys.length === 1 ? daysMapFull[sortedDays[0]] : daysMapShort[sortedDays[0]];
     } else {
-      dayString = sortedDays.map(d => daysMapShort[d === 7 ? "0" : d]).join(", ");
+      dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
     }
 
-    return `${dayString} ${group.time}`;
+    return `${dayString} ${timeKey}`;
   });
 
   return result.join(" | ");
