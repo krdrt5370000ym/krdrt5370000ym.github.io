@@ -4,7 +4,7 @@ function getDisplaySchedule(programId, schedule) {
   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
   const timeGroups = {};
-  const firstAppearance = {}; // Do zachowania kolejności chronologicznej bloków
+  const firstAppearance = {};
 
   const filtered = schedule.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
   if (filtered.length === 0) return "";
@@ -15,48 +15,53 @@ function getDisplaySchedule(programId, schedule) {
     const timeKey = `${start} - ${end}`;
 
     if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-    
     const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
     const days = Array.isArray(rawDays) ? rawDays : [rawDays];
-    
+
     days.forEach(d => {
       if (d !== null && d !== undefined) {
         const dStr = d.toString();
         timeGroups[timeKey].add(dStr);
-        
-        // Zapisujemy, kiedy ta godzina pojawia się pierwszy raz w tygodniu (Pn=1, Ndz=7)
         const sortVal = dStr === "0" ? 7 : parseInt(dStr);
-        const weight = sortVal * 10000 + parseInt(start.replace(":", "")); 
-        if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) {
-          firstAppearance[timeKey] = weight;
-        }
+        const weight = sortVal * 10000 + parseInt(start.replace(":", ""));
+        if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) firstAppearance[timeKey] = weight;
       }
     });
   });
 
-  // Sortujemy klucze (godziny) według ich pierwszego wystąpienia w tygodniu
   const sortedTimeKeys = Object.keys(timeGroups).sort((a, b) => firstAppearance[a] - firstAppearance[b]);
 
   const result = sortedTimeKeys.map(timeKey => {
-    const daysSet = timeGroups[timeKey];
-    const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
+    const sortedDays = Array.from(timeGroups[timeKey]).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
     
-    let dayString;
-    const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
-      if (i === 0) return true;
-      const prev = sortedDays[i - 1] == "0" ? 7 : parseInt(sortedDays[i - 1]);
-      const curr = d == "0" ? 7 : parseInt(d);
-      return curr === prev + 1;
-    });
+    // Algorytm szukania sekwencji (np. zamiana [1,2,3,4,0] na ["Pn - Czw", "Ndz"])
+    let parts = [];
+    let i = 0;
+    while (i < sortedDays.length) {
+      let j = i;
+      while (j < sortedDays.length - 1) {
+        const curr = sortedDays[j] == "0" ? 7 : parseInt(sortedDays[j]);
+        const next = sortedDays[j + 1] == "0" ? 7 : parseInt(sortedDays[j + 1]);
+        if (next === curr + 1) j++;
+        else break;
+      }
 
-    if (isSequence) {
-      dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
-    } else if (sortedDays.length === 2) {
-      dayString = `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`;
-    } else if (sortedDays.length === 1) {
-      dayString = sortedTimeKeys.length === 1 ? daysMapFull[sortedDays[0]] : daysMapShort[sortedDays[0]];
+      if (j - i >= 2) { // Sekwencja minimum 3 dni
+        parts.push(`${daysMapShort[sortedDays[i]]} - ${daysMapShort[sortedDays[j]]}`);
+        i = j + 1;
+      } else {
+        parts.push(daysMapShort[sortedDays[i]]);
+        i++;
+      }
+    }
+
+    let dayString;
+    if (sortedDays.length === 1 && sortedTimeKeys.length === 1) {
+      dayString = daysMapFull[sortedDays[0]];
+    } else if (parts.length === 2 && !parts[0].includes("-") && !parts[1].includes("-")) {
+      dayString = `${parts[0]} i ${parts[1]}`; // Obsługa "Sob i Ndz"
     } else {
-      dayString = sortedDays.map(d => daysMapShort[d]).join(", ");
+      dayString = parts.join(", "); // Obsługa "Pn - Czw, Ndz"
     }
 
     return `${dayString} ${timeKey}`;
