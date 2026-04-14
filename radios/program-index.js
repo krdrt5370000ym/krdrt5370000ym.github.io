@@ -1,75 +1,62 @@
 // Funkcja formatująca dni i godziny emisji
-function getDisplaySchedule(programId, SCHEDULE) {
-   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
-   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
+function getDisplaySchedule(programId, schedule) {
+  const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
+  const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
-   const timeGroups = {};
-   const filtered = SCHEDULE.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
+  const timeGroups = {};
+  const filtered = schedule.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
 
-   if (filtered.length === 0) return "";
+  if (filtered.length === 0) return "";
 
-   filtered.forEach(occ => {
-      // Zabezpieczenie przed undefined i błędnym formatem czasu
-      const startRaw = occ.hour_start || occ.start || "00:00";
-      const endRaw = occ.hour_end || occ.end || "00:00";
-      
-      const start = startRaw.toString().substring(0, 5);
-      const end = endRaw.toString().substring(0, 5);
-      
-      const timeKey = `${start}-${end}`;
-      if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-      
-      // Obsługa pola 'day' lub 'days'
-      const rawDays = occ.days !== undefined ? occ.days : occ.day;
-      const days = Array.isArray(rawDays) ? rawDays : [rawDays];
-      
-      days.forEach(d => {
-         if (d !== undefined && d !== null) timeGroups[timeKey].add(d.toString());
-      });
-   });
+  filtered.forEach(occ => {
+    const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
+    const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
+    const timeKey = `${start} - ${end}`;
 
-   const entries = Object.entries(timeGroups);
-   const isMultiGroup = entries.length > 1;
+    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+    const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
+    const days = Array.isArray(rawDays) ? rawDays : [rawDays];
+    days.forEach(d => d !== null && timeGroups[timeKey].add(d.toString()));
+  });
 
-   const result = entries.map(([timeKey, daysSet]) => {
-      const [start, end] = timeKey.split("-");
-      const sortedDays = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
-      
-      const isSequence = sortedDays.length >= 3 && sortedDays.every((d, i) => {
-         if (i === 0) return true;
-         const prev = sortedDays[i - 1] == "0" ? 7 : parseInt(sortedDays[i - 1]);
-         const curr = d == "0" ? 7 : parseInt(d);
-         return curr === prev + 1;
-      });
+  const entries = Object.entries(timeGroups);
 
-      let dayString;
-      if (sortedDays.length === 1) {
-         // Pojedynczy dzień: "Poniedziałek" lub "Pn"
-         dayString = isMultiGroup ? daysMapShort[sortedDays[0]] : daysMapFull[sortedDays[0]];
-      } else if (isSequence) {
-         // Zakres: "Pn - Pt"
-         dayString = `${daysMapShort[sortedDays[0]]} - ${daysMapShort[sortedDays[sortedDays.length - 1]]}`;
-      } else if (sortedDays.length === 2) {
-         // Dwa dni: "Sob i Ndz"
-         dayString = `${daysMapShort[sortedDays[0]]} i ${daysMapShort[sortedDays[1]]}`;
+  const result = entries.map(([time, daysSet]) => {
+    const sorted = Array.from(daysSet).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
+    
+    // Logika grupowania dni (szukanie sekwencji)
+    let dayGroups = [];
+    let currentSeq = [sorted[0]];
+
+    for (let i = 1; i <= sorted.length; i++) {
+      const prev = sorted[i - 1] == "0" ? 7 : parseInt(sorted[i - 1]);
+      const curr = sorted[i] == "0" ? 7 : parseInt(sorted[i]);
+
+      if (curr === prev + 1) {
+        currentSeq.push(sorted[i]);
       } else {
-         // Lista: "Pn, Śr, Pt"
-         const lastDay = sortedDays.pop();
-         dayString = sortedDays.map(d => daysMapShort[d]).join(", ") + ` i ${daysMapShort[lastDay]}`;
+        if (currentSeq.length >= 3) {
+          dayGroups.push(`${daysMapShort[currentSeq[0]]} - ${daysMapShort[currentSeq[currentSeq.length - 1]]}`);
+        } else {
+          currentSeq.forEach(d => dayGroups.push(daysMapShort[d]));
+        }
+        currentSeq = [sorted[i]];
       }
+    }
 
-      return {
-         text: `${dayString} ${start} - ${end}`,
-         firstDay: sortedDays[0] == "0" ? 7 : parseInt(sortedDays[0]),
-         startTime: start
-      };
-   });
+    let dayString;
+    if (sorted.length === 1 && entries.length === 1) {
+      dayString = daysMapFull[sorted[0]]; // Pełna nazwa dla pojedynczego wpisu
+    } else if (dayGroups.length === 2 && !dayGroups[0].includes("-")) {
+      dayString = dayGroups.join(" i "); // "Śr i Czw"
+    } else {
+      dayString = dayGroups.join(", "); // "Pn - Czw, Ndz"
+    }
 
-   // Sortowanie końcowe i łączenie grup kreską |
-   return result
-      .sort((a, b) => a.firstDay - b.firstDay || a.startTime.localeCompare(b.startTime))
-      .map(g => g.text)
-      .join(" | ");
+    return `${dayString} ${time}`;
+  });
+
+  return result.join(" | ");
 }
 
 async function uruchomProgram() {
