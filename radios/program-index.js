@@ -34,7 +34,6 @@ function getDisplaySchedule(programId, schedule) {
   const result = sortedTimeKeys.map(timeKey => {
     const sortedDays = Array.from(timeGroups[timeKey]).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
     
-    // Algorytm szukania sekwencji (np. zamiana [1,2,3,4,0] na ["Pn - Czw", "Ndz"])
     let parts = [];
     let i = 0;
     while (i < sortedDays.length) {
@@ -46,22 +45,25 @@ function getDisplaySchedule(programId, schedule) {
         else break;
       }
 
-      if (j - i >= 2) { // Sekwencja minimum 3 dni
+      const diff = j - i;
+      if (diff >= 2) { 
+        // Zakres: Pn - Śr
         parts.push(`${daysMapShort[sortedDays[i]]} - ${daysMapShort[sortedDays[j]]}`);
-        i = j + 1;
+      } else if (diff === 1) {
+        // Para: Pn i Wt
+        parts.push(`${daysMapShort[sortedDays[i]]} i ${daysMapShort[sortedDays[j]]}`);
       } else {
+        // Pojedynczy: Pn
         parts.push(daysMapShort[sortedDays[i]]);
-        i++;
       }
+      i = j + 1;
     }
 
     let dayString;
     if (sortedDays.length === 1 && sortedTimeKeys.length === 1) {
       dayString = daysMapFull[sortedDays[0]];
-    } else if (parts.length === 2 && !parts[0].includes("-") && !parts[1].includes("-")) {
-      dayString = `${parts[0]} i ${parts[1]}`; // Obsługa "Sob i Ndz"
     } else {
-      dayString = parts.join(", "); // Obsługa "Pn - Czw, Ndz"
+      dayString = parts.join(", ");
     }
 
     return `${dayString} ${timeKey}`;
