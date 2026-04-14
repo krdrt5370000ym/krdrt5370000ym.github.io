@@ -35,40 +35,42 @@ async function loadData(siteId) {
 function renderPodcasts() {
    const container = document.getElementById("podcast_list");
    const filter = document.getElementById("categoryFilter").value;
-   const search = document.getElementById("searchInput").value.toLowerCase();
-
+   const search = document.getElementById("searchInput").value.toLowerCase(); // Pobieramy frazę
    const escapeHTML = (str) =>
       str ? String(str).replace(/[&<>"']/g, m => ({
-         '&': '&amp;',
-         '<': '&lt;',
-         '>': '&gt;',
-         '"': '&quot;',
-         "'": '&#39;'
-      }[m])) : "";
+         '&': '&',
+         '<': '<',
+         '>': '>',
+         '"': '"',
+         "'": "'"
+      } [m])) : "";
 
    container.innerHTML = "";
 
    PODCASTS
       .filter(p => {
-         // 1. Podstawowe filtry widoczności
-         if (p.hide_in_podcast || p.private || p.archive) return false;
-
-         // 2. Twój warunek: Pokaż jeśli brak blokady "not_all" LUB ma kategorię LUB filtr jest aktywny
-         const baseVisibility = !p.category_not_all || p.category || filter !== "";
-         if (!baseVisibility) return false;
-
-         // 3. Filtr wybranej kategorii z selecta
-         if (filter && (!p.category || !p.category.includes(filter))) return false;
-
-         // 4. Wyszukiwarka tekstowa (Twoja nowość)
-         const name = (p.name || "").toLowerCase();
-         const host = (p.host || "").toLowerCase();
-         return name.includes(search) || host.includes(search);
+          // 1. Podstawowe filtry (ukryte/prywatne/archiwalne)
+          if (p.hide_in_podcast || p.private || p.archive) return false;
+      
+          // 2. Logika category_not_all: 
+          // Jeśli flaga jest true, pokazuj TYLKO gdy wybrany jest filtr kategorii.
+          // Jeśli flaga jest false/brak, pokazuj zawsze.
+          if (p.category_not_all && filter === "") return false;
+      
+          // 3. Filtr konkretnej kategorii (jeśli wybrana)
+          if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
+      
+          // 4. Wyszukiwarka tekstowa
+          const name = (p.name || "").toLowerCase();
+          const host = (p.host || "").toLowerCase();
+          return name.includes(search) || host.includes(search);
       })
       .sort((a, b) => {
          const sortA = a.sorted || "";
          const sortB = b.sorted || "";
-         const result = sortA.toString().localeCompare(sortB.toString(), undefined, { numeric: true });
+         const result = sortA.toString().localeCompare(sortB.toString(), undefined, {
+            numeric: true
+         });
          return result !== 0 ? result : a.name.localeCompare(b.name);
       })
       .forEach(p => {
@@ -80,26 +82,22 @@ function renderPodcasts() {
             thumb.background ? `background:${thumb.background}` : '',
             thumb.color ? `color:${thumb.color}` : ''
          ].filter(Boolean).join(';') : '';
-         
-         const thumbName = (thumb && thumb.name) || p.name || "";
+         const name = (thumb && thumb.name) || p.name || "";
          const thumbnailDisplay = p.thumbnail_uri ?
             `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
-         const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${escapeHTML(thumbName)}</div>` : thumbnailDisplay;
+         const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
 
-         // Bezpieczne generowanie linku
-         const safeName = escapeHTML(p.name);
-         const safeHost = p.only_the_schedule_hosts === true ? '' : escapeHTML(p.host);
-         const url = p.url_immediately ? p.url_immediately : `podcast?uid=${p.id}&st=${SITE_ID}`;
+         const podcastUrl = p.url_immediately ?
+            `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
+            `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name}</a></div>`;
 
          el.innerHTML = `
-            <div class="podcast_list_cover">${thumbnailText}</div>
-            <div>
-               <div class="podcast_list_name" style="cursor:pointer;">
-                  <a href="${url}" target="_blank">${safeName}</a>
-               </div>
-               <div class="podcast_list_host">${safeHost}</div>
-            </div>
-         `;
+        <div class="podcast_list_cover">${thumbnailText}</div>
+        <div>
+            ${podcastUrl}
+            <div class="podcast_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
+        </div>
+      `;
 
          container.appendChild(el);
       });
@@ -109,15 +107,6 @@ function renderPodcasts() {
 // INIT
 // =====================
 function init() {
-   // 1. Podpięcie zdarzeń (Event Listeners)
-   const searchInput = document.getElementById("searchInput");
-   const categoryFilter = document.getElementById("categoryFilter");
-
-   if (searchInput) searchInput.addEventListener("input", renderPodcasts);
-   if (categoryFilter) categoryFilter.addEventListener("change", renderPodcasts);
-
-   // 2. Pierwsze renderowanie po załadowaniu
    renderPodcasts();
+   document.getElementById("categoryFilter").onchange = renderPodcasts;
 }
-
-document.addEventListener("DOMContentLoaded", init);
