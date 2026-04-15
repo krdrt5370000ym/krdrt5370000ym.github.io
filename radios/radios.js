@@ -454,7 +454,7 @@ function renderPrograms() {
         <div>
             ${programUrl}
             <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
-            <div class="program_list_host">${p.onair}</div>
+            <div class="program_list_onair">${p.onair}</div>
         </div>
       `;
 
