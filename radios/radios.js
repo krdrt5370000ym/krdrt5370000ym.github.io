@@ -447,14 +447,14 @@ function renderPrograms() {
 
          const programUrl = p.url_immediately ?
             `<div class="program_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
-            `<div class="program_list_name" style="cursor:pointer;"><a href="program?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name}</a></div>`;
+            `<div class="program_list_name" style="cursor:pointer;"><a href="program?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
 
          el.innerHTML = `
         <div class="program_list_cover">${thumbnailText}</div>
         <div>
             ${programUrl}
-            <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
-            <div class="program_list_onair">${p.onair}</div>
+            <div class="program_list_host">${p.only_the_schedule_hosts === true ? '' : p.host || ""}</div>
+            <div class="program_list_onair">${p.onair || ""}</div>
         </div>
       `;
 
