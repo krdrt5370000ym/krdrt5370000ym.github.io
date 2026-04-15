@@ -74,7 +74,7 @@ function openTab(evt, tabName) {
 
    const targetTab = document.getElementById(tabName);
    if (targetTab) targetTab.style.display = "block";
-   
+
    if (evt && evt.currentTarget) {
       evt.currentTarget.classList.add("active");
    }
@@ -153,7 +153,7 @@ function renderCurrent() {
          // Funkcja pomocnicza do obliczania priorytetu (im wyższa liczba, tym ważniejszy obiekt)
          const getPriority = (item) => {
             let score = 0;
-            if (item.station) score += 2;    // Konkretna stacja jest najważniejsza
+            if (item.station) score += 2; // Konkretna stacja jest najważniejsza
             if (item.subschedule) score += 1; // Subschedule to dodatkowy atut
             return score;
          };
@@ -177,7 +177,7 @@ function renderCurrent() {
          return nameA.localeCompare(nameB);
       })[0];
 
-   if (stations.schedule && stations.radio_plug !== true && stations.radio_listen !== true &&  CONFIG.radio_plug !== true) {
+   if (stations.schedule && stations.radio_plug !== true && stations.radio_listen !== true && CONFIG.radio_plug !== true) {
       scheduleCurrent(stations.schedule);
       if (SCHEDULE_APP === 1) return;
    }
@@ -410,26 +410,26 @@ function renderPrograms() {
    container.innerHTML = "";
 
    PROGRAMS
-.filter(p => {
-          // 1. Podstawowe filtry widoczności
-          if (p.hide_in_program || p.hide_in_schedule || p.private || p.archive || p.hide_only_information_schedule) return false;
-      
-          // 2. Filtr stacji (poprawiony - bezpieczne sprawdzanie)
-          // Jeśli podcast ma przypisane stacje, musi zawierać CURRENT_STATION
-          if (p.station && !p.station.includes(CURRENT_STATION)) return false;
-      
-          // 3. Logika category_not_all: 
-          // Jeśli true, podcast jest ukryty na liście głównej (filter === "")
-          if (p.category_not_all && filter === "") return false;
-      
-          // 4. Filtr konkretnej kategorii (jeśli wybrana w select)
-          if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
-      
-          // 5. Wyszukiwarka tekstowa
-          const searchLower = search.toLowerCase();
-          const name = (p.name || "").toLowerCase();
-          const host = (p.host || "").toLowerCase();
-          return name.includes(searchLower) || host.includes(searchLower);
+      .filter(p => {
+         // 1. Podstawowe filtry widoczności
+         if (p.hide_in_program || p.hide_in_schedule || p.private || p.archive || p.hide_only_information_schedule) return false;
+
+         // 2. Filtr stacji (poprawiony - bezpieczne sprawdzanie)
+         // Jeśli podcast ma przypisane stacje, musi zawierać CURRENT_STATION
+         if (p.station && !p.station.includes(CURRENT_STATION)) return false;
+
+         // 3. Logika category_not_all: 
+         // Jeśli true, podcast jest ukryty na liście głównej (filter === "")
+         if (p.category_not_all && filter === "") return false;
+
+         // 4. Filtr konkretnej kategorii (jeśli wybrana w select)
+         if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
+
+         // 5. Wyszukiwarka tekstowa
+         const searchLower = search.toLowerCase();
+         const name = (p.name || "").toLowerCase();
+         const host = (p.host || "").toLowerCase();
+         return name.includes(searchLower) || host.includes(searchLower);
       })
       .sort((a, b) => {
          const sortA = a.sorted || "";
@@ -474,115 +474,115 @@ function renderPrograms() {
 // STATIONS
 // =====================
 function updateStationUI(s) {
-    // 1. Pobranie elementów (upewnij się, że ID w HTML są unikalne!)
-    const dc = document.getElementById("AllContentDisplay"); // Label ramówki
-    const dp = document.getElementById("AllProgramsDisplay"); // Label programów
-    const dsContainer = document.getElementById("ScheduleDisplay"); // Div kontenera harmonogramu
-    const btnDetail = document.getElementById("DetailSchBtn"); // Przycisk "Szczegółowe"
-    const radioTab1 = document.getElementById("r-tab1");
-    const radioTab2 = document.getElementById("r-tab2");
+   // 1. Pobranie elementów (upewnij się, że ID w HTML są unikalne!)
+   const dc = document.getElementById("AllContentDisplay"); // Label ramówki
+   const dp = document.getElementById("AllProgramsDisplay"); // Label programów
+   const dsContainer = document.getElementById("ScheduleDisplay"); // Div kontenera harmonogramu
+   const btnDetail = document.getElementById("DetailSchBtn"); // Przycisk "Szczegółowe"
+   const radioTab1 = document.getElementById("r-tab1");
+   const radioTab2 = document.getElementById("r-tab2");
 
-    // 2. Warunki logiczne
-    const disableAllSchedule = (s.disable_detail_schedule && s.disable_schedule) || 
-                               (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) || 
-                               s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule;
+   // 2. Warunki logiczne
+   const disableAllSchedule = (s.disable_detail_schedule && s.disable_schedule) ||
+      (CONFIG.disable_detail_schedule && CONFIG.disable_schedule) ||
+      s.disable_content_schedule || s.radio_listen || CONFIG.disable_content_schedule;
 
-    const disablePrograms = s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen;
-    const disableMainSch = s.disable_schedule || CONFIG.disable_schedule;
-    const disableDetailSch = s.disable_detail_schedule || CONFIG.disable_detail_schedule;
+   const disablePrograms = s.disable_programs || CONFIG.disable_programs || CONFIG.disable_programs_info || s.radio_listen;
+   const disableMainSch = s.disable_schedule || CONFIG.disable_schedule;
+   const disableDetailSch = s.disable_detail_schedule || CONFIG.disable_detail_schedule;
 
-    // 3. Zarządzanie widocznością głównych zakładek (Labels)
-    dc.style.display = disableAllSchedule ? "none" : "inline-block";
-    dp.style.display = disablePrograms ? "none" : "inline-block";
+   // 3. Zarządzanie widocznością głównych zakładek (Labels)
+   dc.style.display = disableAllSchedule ? "none" : "inline-block";
+   dp.style.display = disablePrograms ? "none" : "inline-block";
 
-    // 4. Jeśli ramówka jest wyłączona, a programy włączone -> przełącz na programy
-    if (disableAllSchedule && !disablePrograms) {
-        radioTab2.checked = true;
-    } else {
-        radioTab1.checked = true;
-    }
+   // 4. Jeśli ramówka jest wyłączona, a programy włączone -> przełącz na programy
+   if (disableAllSchedule && !disablePrograms) {
+      radioTab2.checked = true;
+   } else {
+      radioTab1.checked = true;
+   }
 
-    // 5. Zarządzanie podzakładkami wewnątrz Ramówki
-    if (dsContainer) {
-        dsContainer.style.display = disableAllSchedule ? "none" : "block";
-    }
+   // 5. Zarządzanie podzakładkami wewnątrz Ramówki
+   if (dsContainer) {
+      dsContainer.style.display = disableAllSchedule ? "none" : "block";
+   }
 
-    if (btnDetail) {
-        btnDetail.style.display = disableDetailSch ? "none" : "inline-block";
-    }
+   if (btnDetail) {
+      btnDetail.style.display = disableDetailSch ? "none" : "inline-block";
+   }
 
-    // 6. Obsługa specyficznego przypadku: jeśli główny tydzień jest wyłączony, wymuś widok szczegółowy
-    if (disableMainSch && !disableDetailSch) {
-        // Ukrywamy wszystko i pokazujemy tylko sch_detail
-        document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
-        document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
-        
-        const detailTab = document.getElementById('sch_detail');
-        if (detailTab) detailTab.style.display = "block";
-        if (btnDetail) btnDetail.classList.add("active");
-    } else {
-        // Domyślnie pokaż sch_schedule (Tydzień)
-        openTab(null, 'sch_schedule');
-    }
+   // 6. Obsługa specyficznego przypadku: jeśli główny tydzień jest wyłączony, wymuś widok szczegółowy
+   if (disableMainSch && !disableDetailSch) {
+      // Ukrywamy wszystko i pokazujemy tylko sch_detail
+      document.querySelectorAll(".tabcontent").forEach(el => el.style.display = "none");
+      document.querySelectorAll(".tablinks").forEach(el => el.classList.remove("active"));
+
+      const detailTab = document.getElementById('sch_detail');
+      if (detailTab) detailTab.style.display = "block";
+      if (btnDetail) btnDetail.classList.add("active");
+   } else {
+      // Domyślnie pokaż sch_schedule (Tydzień)
+      openTab(null, 'sch_schedule');
+   }
 }
 
 function renderStations() {
-    const select = document.getElementById("stationSelect");
-    const player = document.getElementById("player");
-    
-    // 1. Pobierz parametr z adresu URL
-    const params = new URLSearchParams(window.location.search);
-    const stationSlug = params.get('st'); // np. "warszawa"
+   const select = document.getElementById("stationSelect");
+   const player = document.getElementById("player");
 
-    // 2. Znajdź stację pasującą do parametru (porównujemy z ID lub inną właściwością)
-    let initialStationIndex = 0; // Domyślnie pierwsza
-    if (stationSlug) {
-        const foundIndex = STATIONS.findIndex(s => s.id === stationSlug || s.slug === stationSlug);
-        if (foundIndex !== -1) {
-            initialStationIndex = foundIndex;
-        }
-    }
+   // 1. Pobierz parametr z adresu URL
+   const params = new URLSearchParams(window.location.search);
+   const stationSlug = params.get('st'); // np. "warszawa"
 
-    // 3. Renderuj opcje w select
-    STATIONS.forEach((s, i) => {
-        if (!s.no_on_player) {
-            const opt = document.createElement("option");
-            opt.value = s.id;
-            opt.textContent = s.name;
-            
-            if (i === initialStationIndex) {
-                opt.selected = true;
-            }
-            
-            select.appendChild(opt);
-        }
+   // 2. Znajdź stację pasującą do parametru (porównujemy z ID lub inną właściwością)
+   let initialStationIndex = 0; // Domyślnie pierwsza
+   if (stationSlug) {
+      const foundIndex = STATIONS.findIndex(s => s.id === stationSlug || s.slug === stationSlug);
+      if (foundIndex !== -1) {
+         initialStationIndex = foundIndex;
+      }
+   }
 
-        // Inicjalizacja startowej stacji
-        if (i === initialStationIndex) {
-            setupStation(s);
-        }
-    });
+   // 3. Renderuj opcje w select
+   STATIONS.forEach((s, i) => {
+      if (!s.no_on_player) {
+         const opt = document.createElement("option");
+         opt.value = s.id;
+         opt.textContent = s.name;
 
-    // Funkcja pomocnicza, aby nie powtarzać kodu przy zmianie stacji
-    function setupStation(s, shouldPlay = false) {
-        CURRENT_STATION = s.station_schedule;
-        CURRENT_STATION_ID = s.id;
-        AudioPlayer(s.stream);
-        updateStationUI(s); 
-        playlistNowPlaying(s.playlist);
-        
-        if (shouldPlay) {
-            player.play().catch(e => console.log("Autoplay zablokowany przez przeglądarkę"));
-        }
-        
-        reloadAll();
-    }
+         if (i === initialStationIndex) {
+            opt.selected = true;
+         }
 
-    // Obsługa zmiany ręcznej
-    select.onchange = () => {
-        const s = STATIONS.find(x => x.id === select.value);
-        if (s) setupStation(s, true);
-    };
+         select.appendChild(opt);
+      }
+
+      // Inicjalizacja startowej stacji
+      if (i === initialStationIndex) {
+         setupStation(s);
+      }
+   });
+
+   // Funkcja pomocnicza, aby nie powtarzać kodu przy zmianie stacji
+   function setupStation(s, shouldPlay = false) {
+      CURRENT_STATION = s.station_schedule;
+      CURRENT_STATION_ID = s.id;
+      AudioPlayer(s.stream);
+      updateStationUI(s);
+      playlistNowPlaying(s.playlist);
+
+      if (shouldPlay) {
+         player.play().catch(e => console.log("Autoplay zablokowany przez przeglądarkę"));
+      }
+
+      reloadAll();
+   }
+
+   // Obsługa zmiany ręcznej
+   select.onchange = () => {
+      const s = STATIONS.find(x => x.id === select.value);
+      if (s) setupStation(s, true);
+   };
 }
 
 function reloadAll() {
