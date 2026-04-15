@@ -149,24 +149,24 @@ downloadBtn.onclick = () => {
 };
 
 function siteRadio(streamUrl) {
-    const resultSite = document.getElementById('resultSite');
+   const resultSite = document.getElementById('resultSite');
 
-    fetch("https://krdrt5370000ym.github.io/player/site.json")
-        .then(res => res.json())
-        .then(json => {
-            // Zmiana na json.site zgodnie z Twoją sugestią
-            const item = json.site.find(x => x.stream === streamUrl);
+   fetch("https://krdrt5370000ym.github.io/player/site.json")
+      .then(res => res.json())
+      .then(json => {
+         // Zmiana na json.site zgodnie z Twoją sugestią
+         const item = json.site.find(x => x.stream === streamUrl);
 
-            if (item && item.value) {
-                resultSite.innerHTML = `<a href="${item.value}" target="_blank">Przejdź na witrynę</a>`;
-            } else {
-                resultSite.innerHTML = "";
-            }
-        })
-        .catch(err => {
-            console.error("Błąd:", err);
+         if (item && item.value) {
+            resultSite.innerHTML = `<a href="${item.value}" target="_blank">Przejdź na witrynę</a>`;
+         } else {
             resultSite.innerHTML = "";
-        });
+         }
+      })
+      .catch(err => {
+         console.error("Błąd:", err);
+         resultSite.innerHTML = "";
+      });
 }
 
 function playlistNowPlaying(streamUrl) {
