@@ -88,14 +88,14 @@
 
 .fb-container iframe {
     width: 100%;
-    max-width: 340px;
+    max-width: 500px;
     height: 500px;
     border: none;
     overflow: hidden;
 }
 
 .fb-viewer {
-    max-width: 400px;
+    max-width: 500px;
     margin: 20px auto;
     text-align: center;
 }
