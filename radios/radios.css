@@ -512,6 +512,11 @@ label {
     .program_list_host {
         font-size: 80%;
     }
+    .program_list_onair {
+        font-size: 70%;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
 }
 
 .onair {
