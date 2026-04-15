@@ -150,20 +150,28 @@ function renderCurrent() {
          const dataA = getProgramData(a);
          const dataB = getProgramData(b);
 
-         // 1. Priorytet dla konkretnej stacji
-         if (a.station && !b.station) return -1;
-         if (!a.station && b.station) return 1;
+         // Funkcja pomocnicza do obliczania priorytetu (im wyższa liczba, tym ważniejszy obiekt)
+         const getPriority = (item) => {
+            let score = 0;
+            if (item.station) score += 2;    // Konkretna stacja jest najważniejsza
+            if (item.subschedule) score += 1; // Subschedule to dodatkowy atut
+            return score;
+         };
 
-         // 2. Priorytet dla subschedule
-         if (a.subschedule && !b.subschedule) return -1;
-         if (!a.subschedule && b.subschedule) return 1;
+         const priorityA = getPriority(a);
+         const priorityB = getPriority(b);
 
-         // 3. Główny sort: Późniejsza godzina startu (malejąco)
+         // 1. Sortowanie po priorytecie (malejąco: 3, 2, 1, 0)
+         if (priorityA !== priorityB) {
+            return priorityB - priorityA;
+         }
+
+         // 2. Jeśli priorytety są równe: Późniejsza godzina startu (malejąco)
          if (a.hour_start !== b.hour_start) {
             return (b.hour_start || "").localeCompare(a.hour_start || "");
          }
 
-         // 4. Jeśli godziny są te same, sortuj alfabetycznie po nazwie
+         // 3. Jeśli godziny są te same: Alfabetycznie po nazwie (rosnąco)
          const nameA = a.name || dataA.name || "";
          const nameB = b.name || dataB.name || "";
          return nameA.localeCompare(nameB);
