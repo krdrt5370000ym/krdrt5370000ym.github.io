@@ -516,6 +516,10 @@ label {
         font-size: 70%;
         font-weight: 600;
         text-transform: uppercase;
+        margin: 5px 0;
+    }
+    .program_list_onair:empty {
+        margin: 0px 0;
     }
 }
 
