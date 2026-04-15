@@ -89,13 +89,13 @@ function renderPodcasts() {
 
          const podcastUrl = p.url_immediately ?
             `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
-            `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name}</a></div>`;
+            `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
 
          el.innerHTML = `
         <div class="podcast_list_cover">${thumbnailText}</div>
         <div>
             ${podcastUrl}
-            <div class="podcast_list_host">${p.only_the_schedule_hosts === true ? '' : p.host}</div>
+            <div class="podcast_list_host">${p.only_the_schedule_hosts === true ? '' : p.host || ""}</div>
         </div>
       `;
 
