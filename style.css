@@ -297,6 +297,7 @@ li ul.website_info_page {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+
     @media screen and (max-width: 600px) {
         display: flex;
         justify-content: center;
