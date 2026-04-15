@@ -1,75 +1,91 @@
 // Funkcja formatująca dni i godziny emisji
 function getDisplaySchedule(programId, schedule) {
-  const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
-  const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
+   const daysMapFull = {
+      "1": "Poniedziałek",
+      "2": "Wtorek",
+      "3": "Środa",
+      "4": "Czwartek",
+      "5": "Piątek",
+      "6": "Sobota",
+      "0": "Niedziela"
+   };
+   const daysMapShort = {
+      "1": "Pn",
+      "2": "Wt",
+      "3": "Śr",
+      "4": "Czw",
+      "5": "Pt",
+      "6": "Sob",
+      "0": "Ndz"
+   };
 
-  const timeGroups = {};
-  const firstAppearance = {};
+   const timeGroups = {};
+   const firstAppearance = {};
 
-  const filtered = schedule.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
-  if (filtered.length === 0) return "";
+   const filtered = schedule.filter(s => s.id === programId && s.active && !s.private && !s.hide_in_schedule);
+   if (filtered.length === 0) return "";
 
-  filtered.forEach(occ => {
-    const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
-    const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
-    const timeKey = `${start} - ${end}`;
+   filtered.forEach(occ => {
+      const start = (occ.hour_start || occ.start || "00:00").toString().substring(0, 5);
+      const end = (occ.hour_end || occ.end || "00:00").toString().substring(0, 5);
+      const timeKey = `${start} - ${end}`;
 
-    if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
-    const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
-    const days = Array.isArray(rawDays) ? rawDays : [rawDays];
+      if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
+      const rawDays = occ.days !== undefined ? occ.days : (occ.day !== undefined ? occ.day : []);
+      const days = Array.isArray(rawDays) ? rawDays : [rawDays];
 
-    days.forEach(d => {
-      if (d !== null && d !== undefined) {
-        const dStr = d.toString();
-        timeGroups[timeKey].add(dStr);
-        const sortVal = dStr === "0" ? 7 : parseInt(dStr);
-        const weight = sortVal * 10000 + parseInt(start.replace(":", ""));
-        if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) firstAppearance[timeKey] = weight;
+      days.forEach(d => {
+         if (d !== null && d !== undefined) {
+            const dStr = d.toString();
+            timeGroups[timeKey].add(dStr);
+            const sortVal = dStr === "0" ? 7 : parseInt(dStr);
+            const weight = sortVal * 10000 + parseInt(start.replace(":", ""));
+            if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) firstAppearance[timeKey] = weight;
+         }
+      });
+   });
+
+   const sortedTimeKeys = Object.keys(timeGroups).sort((a, b) => firstAppearance[a] - firstAppearance[b]);
+
+   const result = sortedTimeKeys.map(timeKey => {
+      const sortedDays = Array.from(timeGroups[timeKey]).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
+
+      let parts = [];
+      let i = 0;
+      while (i < sortedDays.length) {
+         let j = i;
+         while (j < sortedDays.length - 1) {
+            const curr = sortedDays[j] == "0" ? 7 : parseInt(sortedDays[j]);
+            const next = sortedDays[j + 1] == "0" ? 7 : parseInt(sortedDays[j + 1]);
+            if (next === curr + 1) j++;
+            else break;
+         }
+
+         const diff = j - i;
+         if (diff >= 2) {
+            // Zakres: Pn - Śr
+            parts.push(`${daysMapShort[sortedDays[i]]} - ${daysMapShort[sortedDays[j]]}`);
+         } else if (diff === 1) {
+            // Para: Pn i Wt
+            parts.push(`${daysMapShort[sortedDays[i]]} i ${daysMapShort[sortedDays[j]]}`);
+         } else {
+            // Pojedynczy: Pn
+            parts.push(daysMapShort[sortedDays[i]]);
+         }
+         i = j + 1;
       }
-    });
-  });
 
-  const sortedTimeKeys = Object.keys(timeGroups).sort((a, b) => firstAppearance[a] - firstAppearance[b]);
-
-  const result = sortedTimeKeys.map(timeKey => {
-    const sortedDays = Array.from(timeGroups[timeKey]).sort((a, b) => (a == "0" ? 7 : a) - (b == "0" ? 7 : b));
-    
-    let parts = [];
-    let i = 0;
-    while (i < sortedDays.length) {
-      let j = i;
-      while (j < sortedDays.length - 1) {
-        const curr = sortedDays[j] == "0" ? 7 : parseInt(sortedDays[j]);
-        const next = sortedDays[j + 1] == "0" ? 7 : parseInt(sortedDays[j + 1]);
-        if (next === curr + 1) j++;
-        else break;
-      }
-
-      const diff = j - i;
-      if (diff >= 2) { 
-        // Zakres: Pn - Śr
-        parts.push(`${daysMapShort[sortedDays[i]]} - ${daysMapShort[sortedDays[j]]}`);
-      } else if (diff === 1) {
-        // Para: Pn i Wt
-        parts.push(`${daysMapShort[sortedDays[i]]} i ${daysMapShort[sortedDays[j]]}`);
+      let dayString;
+      if (sortedDays.length === 1 && sortedTimeKeys.length === 1) {
+         dayString = daysMapFull[sortedDays[0]];
       } else {
-        // Pojedynczy: Pn
-        parts.push(daysMapShort[sortedDays[i]]);
+         dayString = parts.join(", ");
       }
-      i = j + 1;
-    }
 
-    let dayString;
-    if (sortedDays.length === 1 && sortedTimeKeys.length === 1) {
-      dayString = daysMapFull[sortedDays[0]];
-    } else {
-      dayString = parts.join(", ");
-    }
+      return `${dayString} ${timeKey}`;
+   });
 
-    return `${dayString} ${timeKey}`;
-  });
-
-  return result.join(" | ");
+   return result.join(" | ");
 }
 
 async function uruchomProgram() {
