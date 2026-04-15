@@ -108,65 +108,80 @@
     border: 1px solid #ccc;
 }
 
-  #fb-iframe {
+#fb-iframe {
     border: none;
     overflow: hidden;
-  }
+}
 
-  /* Skalowanie dla ekranów poniżej 600px */
-  @media only screen and (max-width: 600px) {
+/* Skalowanie dla ekranów poniżej 600px */
+@media only screen and (max-width: 600px) {
     #fb-iframe {
-      transform: scale(0.7);
-      transform-origin: top left; /* Skaluje względem lewego górnego rogu */
-      width: calc(100% / 0.7);    /* Opcjonalnie: wyrównuje szerokość kontenera */
+        transform: scale(0.7);
+        transform-origin: top left;
+        /* Skaluje względem lewego górnego rogu */
+        width: calc(100% / 0.7);
+        /* Opcjonalnie: wyrównuje szerokość kontenera */
     }
+
     .fb-container {
         width: calc(500px * 0.7);
         height: calc(500px * 0.7);
     }
+
     .fb-viewer {
         max-width: calc(500px * 0.7);
     }
+
     .fb-viewer>select {
         width: calc(500px * 0.7);
     }
-  }
+}
 
-  @media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px) {
     #fb-iframe {
-      transform: scale(0.6);
-      transform-origin: top left; /* Skaluje względem lewego górnego rogu */
-      width: calc(100% / 0.6);    /* Opcjonalnie: wyrównuje szerokość kontenera */
+        transform: scale(0.6);
+        transform-origin: top left;
+        /* Skaluje względem lewego górnego rogu */
+        width: calc(100% / 0.6);
+        /* Opcjonalnie: wyrównuje szerokość kontenera */
     }
+
     .fb-container {
         width: calc(500px * 0.6);
         height: calc(500px * 0.6);
     }
+
     .fb-viewer {
         max-width: calc(500px * 0.6);
     }
+
     .fb-viewer>select {
         width: calc(500px * 0.6);
     }
-  }
+}
 
-  @media only screen and (max-width: 350px) {
+@media only screen and (max-width: 350px) {
     #fb-iframe {
-      transform: scale(0.5);
-      transform-origin: top left; /* Skaluje względem lewego górnego rogu */
-      width: calc(100% / 0.5);    /* Opcjonalnie: wyrównuje szerokość kontenera */
+        transform: scale(0.5);
+        transform-origin: top left;
+        /* Skaluje względem lewego górnego rogu */
+        width: calc(100% / 0.5);
+        /* Opcjonalnie: wyrównuje szerokość kontenera */
     }
+
     .fb-container {
         width: calc(500px * 0.5);
         height: calc(500px * 0.5);
     }
+
     .fb-viewer {
         max-width: calc(500px * 0.5);
     }
+
     .fb-viewer>select {
         width: calc(500px * 0.5);
     }
-  }
+}
 
 :root {
     --primary-color: #e30613;
