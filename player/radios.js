@@ -115,9 +115,11 @@ function play(st, el) {
       hls = new Hls();
       hls.loadSource(sm);
       hls.attachMedia(player);
+      siteRadio(st.url);
       playlistNowPlaying(st.url);
    } else {
       player.src = sm;
+      siteRadio(st.url);
       playlistNowPlaying(st.url);
    }
 
@@ -145,6 +147,28 @@ downloadBtn.onclick = () => {
    link.click();
    document.body.removeChild(link);
 };
+
+function siteRadio(streamUrl) {
+    const resultSite = document.getElementById('resultSite');
+
+    fetch("https://krdrt5370000ym.github.io/player/site.json")
+        .then(res => res.json())
+        .then(json => {
+            // Szukamy elementu w liście playlist
+            const item = json.playlist.find(x => x.stream === streamUrl);
+
+            // Sprawdzamy czy element istnieje i czy ma przypisaną wartość
+            if (item && item.value) {
+                resultSite.innerHTML = `<a href="${item.value}" target="_blank">Przejdź na witrynę</a>`;
+            } else {
+                resultSite.innerHTML = "";
+            }
+        })
+        .catch(err => {
+            console.error("Błąd pobierania metadanych:", err);
+            resultSite.innerHTML = "";
+        });
+}
 
 function playlistNowPlaying(streamUrl) {
    if (playlistInterval) {
