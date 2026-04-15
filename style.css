@@ -297,6 +297,10 @@ li ul.website_info_page {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+    @media screen and (max-width: 600px) {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -317,6 +321,13 @@ li ul.website_info_page {
         transition: 0.3s;
         font-size: 10px;
     }
+}
+
+.tabfre {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    display: block;
 }
 
 .tabfre button {
