@@ -124,6 +124,12 @@
         width: calc(500px * 0.7);
         height: calc(500px * 0.7);
     }
+    .fb-viewer {
+        max-width: calc(500px * 0.7);
+    }
+    .fb-viewer>select {
+        width: calc(500px * 0.7);
+    }
   }
 
   @media only screen and (max-width: 400px) {
@@ -136,6 +142,12 @@
         width: calc(500px * 0.6);
         height: calc(500px * 0.6);
     }
+    .fb-viewer {
+        max-width: calc(500px * 0.6);
+    }
+    .fb-viewer>select {
+        width: calc(500px * 0.6);
+    }
   }
 
   @media only screen and (max-width: 350px) {
@@ -147,6 +159,12 @@
     .fb-container {
         width: calc(500px * 0.5);
         height: calc(500px * 0.5);
+    }
+    .fb-viewer {
+        max-width: calc(500px * 0.5);
+    }
+    .fb-viewer>select {
+        width: calc(500px * 0.5);
     }
   }
 
