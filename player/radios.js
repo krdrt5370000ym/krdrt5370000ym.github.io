@@ -155,7 +155,7 @@ function siteRadio(streamUrl) {
         .then(res => res.json())
         .then(json => {
             // Szukamy elementu w liście playlist
-            const item = json.playlist.find(x => x.stream === streamUrl);
+            const item = json.site.find(x => x.stream === streamUrl);
 
             // Sprawdzamy czy element istnieje i czy ma przypisaną wartość
             if (item && item.value) {
