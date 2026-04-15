@@ -537,16 +537,17 @@ function renderStations() {
 
     // 3. Renderuj opcje w select
     STATIONS.forEach((s, i) => {
-        const opt = document.createElement("option");
-        opt.value = s.id;
-        opt.textContent = s.name;
-        
-        // Zaznacz stację w select, jeśli pasuje do startowej
-        if (i === initialStationIndex) {
-            opt.selected = true;
+        if (!s.no_on_player) {
+            const opt = document.createElement("option");
+            opt.value = s.id;
+            opt.textContent = s.name;
+            
+            if (i === initialStationIndex) {
+                opt.selected = true;
+            }
+            
+            select.appendChild(opt);
         }
-        
-        select.appendChild(opt);
 
         // Inicjalizacja startowej stacji
         if (i === initialStationIndex) {
