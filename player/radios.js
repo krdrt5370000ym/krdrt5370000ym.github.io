@@ -154,10 +154,9 @@ function siteRadio(streamUrl) {
     fetch("https://krdrt5370000ym.github.io/player/site.json")
         .then(res => res.json())
         .then(json => {
-            // Szukamy elementu w liście playlist
+            // Zmiana na json.site zgodnie z Twoją sugestią
             const item = json.site.find(x => x.stream === streamUrl);
 
-            // Sprawdzamy czy element istnieje i czy ma przypisaną wartość
             if (item && item.value) {
                 resultSite.innerHTML = `<a href="${item.value}" target="_blank">Przejdź na witrynę</a>`;
             } else {
@@ -165,7 +164,7 @@ function siteRadio(streamUrl) {
             }
         })
         .catch(err => {
-            console.error("Błąd pobierania metadanych:", err);
+            console.error("Błąd:", err);
             resultSite.innerHTML = "";
         });
 }
