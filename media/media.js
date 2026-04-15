@@ -49,21 +49,21 @@ function renderPodcasts() {
 
    PODCASTS
       .filter(p => {
-          // 1. Podstawowe filtry (ukryte/prywatne/archiwalne)
-          if (p.hide_in_podcast || p.private || p.archive) return false;
-      
-          // 2. Logika category_not_all: 
-          // Jeśli flaga jest true, pokazuj TYLKO gdy wybrany jest filtr kategorii.
-          // Jeśli flaga jest false/brak, pokazuj zawsze.
-          if (p.category_not_all && filter === "") return false;
-      
-          // 3. Filtr konkretnej kategorii (jeśli wybrana)
-          if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
-      
-          // 4. Wyszukiwarka tekstowa
-          const name = (p.name || "").toLowerCase();
-          const host = (p.host || "").toLowerCase();
-          return name.includes(search) || host.includes(search);
+         // 1. Podstawowe filtry (ukryte/prywatne/archiwalne)
+         if (p.hide_in_podcast || p.private || p.archive) return false;
+
+         // 2. Logika category_not_all: 
+         // Jeśli flaga jest true, pokazuj TYLKO gdy wybrany jest filtr kategorii.
+         // Jeśli flaga jest false/brak, pokazuj zawsze.
+         if (p.category_not_all && filter === "") return false;
+
+         // 3. Filtr konkretnej kategorii (jeśli wybrana)
+         if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
+
+         // 4. Wyszukiwarka tekstowa
+         const name = (p.name || "").toLowerCase();
+         const host = (p.host || "").toLowerCase();
+         return name.includes(search) || host.includes(search);
       })
       .sort((a, b) => {
          const sortA = a.sorted || "";
