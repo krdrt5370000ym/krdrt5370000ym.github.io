@@ -646,7 +646,7 @@ label {
     /* KONTENER (rodzic zakładek) */
     .schedule_tabs {
         display: flex;
-        justify-content: center;
+        justify-content: safe center;
         overflow-x: auto;
         /* Przewijanie tylko jeśli treść się nie mieści */
     }
@@ -793,6 +793,7 @@ label {
     /* KONTENER (rodzic zakładek) */
     .schedule_tabs {
         display: flex;
+        justify-content: safe center;
         overflow-x: auto;
         /* Przewijanie tylko jeśli treść się nie mieści */
     }
