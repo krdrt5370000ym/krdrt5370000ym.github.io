@@ -37,7 +37,7 @@ async function uruchomPodcast() {
          fetchJSON('podcasts'),
          fetchJSON('config')
       ]);
-      
+
       const podcast = PODCASTS.find(p => p.id === uid);
 
       if (!podcast || podcast.private === true || CONFIG.disable_podcasts_info) {

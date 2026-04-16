@@ -95,16 +95,20 @@ async function WPArticleRSC(append = false) {
    }
 }
 
-async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
+async function wpArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
    const container = document.getElementById('article-list');
    const button = document.getElementById('load-more-btn');
-   const perPage = 10; // Zdefiniuj lokalnie lub pobierz z zewnątrz
+   const perPage = 10;
 
-   if (!append) window.currentPage = 1;
-   else window.currentPage++;
+   if (!append) {
+      window.currentPage = 1;
+   } else {
+      window.currentPage++;
+   }
 
    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-   const httpUrl = is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+   const finalUrl = is_http ? proxyUrl + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       if (button) {
@@ -112,7 +116,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          button.disabled = true;
       }
 
-      const response = await fetch(httpUrl);
+      const response = await fetch(finalUrl);
       if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
       const posts = await response.json();
@@ -123,60 +127,66 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          return;
       }
 
-      const htmlContent = `<div class="articles">${posts.map(post => {
-            const author = post._embedded?.author?.[0];
-            const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
-            const authorHTML = author ? `<a href="${authorSite}">${author.name}</a>` : 'Redakcja';
-            const terms = post._embedded?.['wp:term']?.[0] || [];
-            const catsHTML = terms.length > 0 
-                ? terms.map(t => `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`).join(' • ') 
-                : `<a href="${mainUrl}">Aktualności</a>`;
-            
-            const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-            const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-            const imageDisplay = is_image && imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;">` : '';
+      // Mapujemy tylko pojedyncze artykuły do stringa
+      const articlesHtml = posts.map(post => {
+         const author = post._embedded?.author?.[0];
+         const authorSite = mainUrl === "https://radiovictoria.pl" ? author?.link : `article-list?si=${siteKey}&a=${author?.id}`;
+         const authorHtml = author ? `<a href="${authorSite}">${author.name}</a>` : 'Redakcja';
 
-            const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            });
+         const terms = post._embedded?.['wp:term']?.[0] || [];
+         const catsHtml = terms.length > 0 ?
+            terms.map(t => `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`).join(' • ') :
+            `<a href="${mainUrl}">Aktualności</a>`;
 
-            return `
+         const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+         const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
+         const imageDisplay = is_image && imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" alt="">` : '';
+
+         const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+         });
+
+         return `
                 <article class="article_post">
                     <div class="article_cover">${imageDisplay}</div>
                     <div class="article_content">
-                        ${is_categories ? `<div class="article_category">${catsHTML}</div>` : ''}
+                        ${is_categories ? `<div class="article_category">${catsHtml}</div>` : ''}
                         <div class="article_title">
                             <a href="article?id=${post.slug}&si=${siteKey}" target="_blank">
                                 ${post.title.rendered || '{Brak tytułu}'}
                             </a>
                         </div>
                         <div class="article_info">
-                            ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}${postDate}
+                            ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHtml} | ` : ''}${postDate}
                         </div>
                     </div>
                 </article>`;
-        }).join('')}</div>`;
+      }).join('');
 
-if (append) {
-   // Dodajemy do istniejącego elementu .articles lub bezpośrednio do kontenera
-   const articlesWrapper = container.querySelector('.articles') || container;
-   articlesWrapper.insertAdjacentHTML('beforeend', htmlContent);
-} else {
-   container.innerHTML = `<div class="articles">${htmlContent}</div>`;
-}
+      if (append) {
+         // Szukamy istniejącego wrappera .articles, jeśli nie ma, dodajemy do container
+         const wrapper = container.querySelector('.articles') || container;
+         wrapper.insertAdjacentHTML('beforeend', articlesHtml);
+      } else {
+         // Przy pierwszym ładowaniu tworzymy strukturę z wrapperem
+         container.innerHTML = `<div class="articles">${articlesHtml}</div>`;
+      }
 
-if (button) {
-   button.innerText = "Wczytaj więcej";
-   button.disabled = false;
-   button.style.display = posts.length < perPage ? 'none' : 'block';
-   button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
-}
+      if (button) {
+         button.innerText = "Wczytaj więcej";
+         button.disabled = false;
+         // Ukryj przycisk, jeśli pobrano mniej postów niż limit perPage (koniec listy)
+         button.style.display = posts.length < perPage ? 'none' : 'block';
+         button.onclick = () => wpArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
+      }
 
-} catch (error) {
-   console.error("Błąd WP API:", error);
-   container.innerHTML = 'Nie udało się pobrać artykułu.';
-   if (button) button.style.display = 'none';
-}
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      if (!append) container.innerHTML = 'Nie udało się pobrać artykułów.';
+      if (button) button.style.display = 'none';
+   }
 }
 
 async function WPArticleList(
