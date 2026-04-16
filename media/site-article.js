@@ -617,7 +617,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
 }
 
 async function WPArticlePostRSCPlayer(targetUrl) {
-   const proxyUrl = 'https://tiny-pond-4c8d.krdrt5370000ym2.workers.dev?url=' + encodeURIComponent(targetUrl);
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev?url=' + encodeURIComponent(targetUrl);
    // XPath celujący w kontener audio
    const xpath = "//div[contains(@class, 'custom-audio-block')]//audio/@src";
 
