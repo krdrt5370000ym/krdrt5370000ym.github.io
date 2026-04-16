@@ -613,7 +613,7 @@ function AudioPlayer(url) {
    } else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
       // Safari lub zwykłe MP3
       audio.src = sm;
-      audio.play().catch(() => console.log("Wymagana interakcja"));
+      // audio.play().catch(() => console.log("Wymagana interakcja"));
    }
 }
 
