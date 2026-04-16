@@ -95,7 +95,7 @@ async function WPArticleRSC(append = false) {
    }
 }
 
-async function wpArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
+async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
    const container = document.getElementById('article-list');
    const button = document.getElementById('load-more-btn');
    const perPage = 10;
@@ -179,7 +179,7 @@ async function wpArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          button.disabled = false;
          // Ukryj przycisk, jeśli pobrano mniej postów niż limit perPage (koniec listy)
          button.style.display = posts.length < perPage ? 'none' : 'block';
-         button.onclick = () => wpArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
+         button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
       }
 
    } catch (error) {
