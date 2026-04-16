@@ -577,7 +577,7 @@ function renderStations() {
 
 function AudioPlayer(url) {
    const audio = document.getElementById('player');
-   const sm = url.slice(0, 7) === 'http://' ?
+   const sm = url.slice(0, 7) === "http://" ?
       'https://cors.krdrt5370000ym2.workers.dev/?url=' +
       encodeURIComponent(url) : url;
 
