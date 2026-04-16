@@ -530,90 +530,69 @@ function renderStations() {
    const select = document.getElementById("stationSelect");
    const player = document.getElementById("player");
 
-   // 1. Pobierz parametr z adresu URL
    const params = new URLSearchParams(window.location.search);
-   const stationSlug = params.get('st'); // np. "warszawa"
+   const stationSlug = params.get('st');
 
-   // 2. Znajdź stację pasującą do parametru (porównujemy z ID lub inną właściwością)
-   let initialStationIndex = 0; // Domyślnie pierwsza
+   // 1. Ustalenie stacji startowej
+   let initialStationIndex = 0;
    if (stationSlug) {
       const foundIndex = STATIONS.findIndex(s => s.id === stationSlug || s.slug === stationSlug);
-      if (foundIndex !== -1) {
-         initialStationIndex = foundIndex;
-      }
+      if (foundIndex !== -1) initialStationIndex = foundIndex;
    }
 
-   // 3. Renderuj opcje w select
+   // 2. Renderowanie listy i inicjalizacja
    STATIONS.forEach((s, i) => {
       if (!s.no_on_player) {
          const opt = document.createElement("option");
          opt.value = s.id;
          opt.textContent = s.name;
-
-         if (i === initialStationIndex) {
-            opt.selected = true;
-         }
-
+         if (i === initialStationIndex) opt.selected = true;
          select.appendChild(opt);
       }
 
-      // Inicjalizacja startowej stacji
       if (i === initialStationIndex) {
-         setupStation(s);
+         setupStation(s, false);
       }
    });
 
-   // Funkcja pomocnicza, aby nie powtarzać kodu przy zmianie stacji
    function setupStation(s, shouldPlay = false) {
       CURRENT_STATION = s.station_schedule;
       CURRENT_STATION_ID = s.id;
-      AudioPlayer(s.stream);
+
+      AudioPlayer(s.stream); // Uruchamia logikę odtwarzacza
       updateStationUI(s);
       playlistNowPlaying(s.playlist);
 
       if (shouldPlay) {
-         player.play().catch(e => console.log("Autoplay zablokowany przez przeglądarkę"));
+         player.play().catch(() => console.log("Wymagana interakcja użytkownika do startu audio"));
       }
-
       reloadAll();
    }
 
-   // Obsługa zmiany ręcznej
    select.onchange = () => {
       const s = STATIONS.find(x => x.id === select.value);
       if (s) setupStation(s, true);
    };
 }
 
-function reloadAll() {
-   renderCurrent();
-   renderSchedules();
-   renderPrograms();
-   updateOnAirStatus();
-}
-
 function AudioPlayer(url) {
    const audio = document.getElementById('player');
-   const isM3U8 = url.toLowerCase().includes('.m3u8');
    const sm = url.slice(0, 7) === "http://" ?
       'https://cors.krdrt5370000ym2.workers.dev/?url=' +
       encodeURIComponent(url) : url;
 
-   // Teraz hls jest widoczne globalnie, więc to zadziała:
-   if (hls) {
-      hls.destroy();
-      hls = null;
-   }
-
-   if (isM3U8 && Hls.isSupported()) {
-      hls = new Hls(); // Przypisujemy nową instancję do zmiennej globalnej
-      hls.loadSource(sm);
-      hls.attachMedia(audio);
-      // ... reszta logiki
-   } else if (audio.canPlayType('application/vnd.apple.mpegurl') || !isM3U8) {
-      // Safari lub zwykłe MP3
+   // Obsługa HLS (m3u8) - wymaga biblioteki hls.js dla przeglądarek innych niż Safari
+   if (url.includes('.m3u8')) {
+      if (Hls.isSupported()) {
+         const hls = new Hls();
+         hls.loadSource(sm);
+         hls.attachMedia(audio);
+      } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+         audio.src = sm;
+      }
+   } else {
+      // Standardowy stream (mp3/aac)
       audio.src = sm;
-      // audio.play().catch(() => console.log("Wymagana interakcja"));
    }
 }
 
@@ -626,6 +605,13 @@ function ReloadAudio() {
       console.log("Przeładowuję strumień...");
       AudioPlayer(currentUrl);
    }
+}
+
+function reloadAll() {
+   if (typeof renderCurrent === "function") renderCurrent();
+   if (typeof renderSchedules === "function") renderSchedules();
+   if (typeof renderPrograms === "function") renderPrograms();
+   if (typeof updateOnAirStatus === "function") updateOnAirStatus();
 }
 
 function playlistNowPlaying(playlistString) {
