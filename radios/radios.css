@@ -228,6 +228,20 @@ label {
     margin-left: 10px;
 }
 
+.current>h4 {
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
+
+.current_playlist>h4 {
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
 .current_program_item {
     font-size: 70%;
     text-transform: uppercase;
@@ -663,6 +677,18 @@ label {
 
     h4 {
         font-size: 28px;
+    }
+
+    .current>h4 {
+        font-size: 17px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .current_playlist>h4 {
+        font-size: 17px;
+        margin-top: 10px;
+        margin-bottom: 0px;
     }
 
     .schedule_tabs {
