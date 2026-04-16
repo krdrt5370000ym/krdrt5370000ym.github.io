@@ -1,4 +1,4 @@
-let hls = null;
+let hlsInstance = null;
 let SITE_ID = null;
 let CURRENT_STATION = null;
 let CURRENT_STATION_ID = null;
@@ -577,33 +577,41 @@ function renderStations() {
 
 function AudioPlayer(url) {
    const audio = document.getElementById('player');
-   const sm = url.slice(0, 7) === 'http://' ?
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
-      encodeURIComponent(url) : url;
 
-   // Obsługa HLS (m3u8) - wymaga biblioteki hls.js dla przeglądarek innych niż Safari
+   // Czyszczenie poprzedniej instancji HLS
+   if (hlsInstance) {
+      hlsInstance.destroy();
+      hlsInstance = null;
+   }
+
+   const sm = url.slice(0, 7) === 'http://' ?
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url) : url;
+
    if (url.includes('.m3u8')) {
       if (Hls.isSupported()) {
-         const hls = new Hls();
-         hls.loadSource(sm);
-         hls.attachMedia(audio);
+         hlsInstance = new Hls();
+         hlsInstance.loadSource(sm);
+         hlsInstance.attachMedia(audio);
       } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
          audio.src = sm;
       }
    } else {
-      // Standardowy stream (mp3/aac)
       audio.src = sm;
    }
 }
 
 function ReloadAudio() {
    const audio = document.getElementById('player');
-   // Pobieramy aktualny URL (z HLS lub bezpośrednio z audio.src)
-   const currentUrl = hls ? hls.url : audio.src;
+   // Jeśli używamy HLS, bierzemy URL z instancji, w przeciwnym razie z src audio
+   const currentUrl = hlsInstance ? hlsInstance.url : audio.src;
 
    if (currentUrl) {
       console.log("Przeładowuję strumień...");
+      // Ważne: przy przeładowaniu warto zapamiętać, czy grało, 
+      // bo zmiana src zatrzyma odtwarzanie.
+      const wasPlaying = !audio.paused;
       AudioPlayer(currentUrl);
+      if (wasPlaying) audio.play();
    }
 }
 
