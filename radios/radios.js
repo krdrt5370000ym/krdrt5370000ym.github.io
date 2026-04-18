@@ -402,13 +402,14 @@ function renderSDetails() {
    if (!container) return; // Zabezpieczenie przed brakiem kontenera
 
    // Poprawiony escapeHTML
-   const escapeHTML = (str) => str ? String(str).replace(/[&<>"']/g, m => ({
-      '&': '&',
-      '<': '<',
-      '>': '>',
-      '"': '"',
-      "'": '''
-   } [m])) : "";
+   const escapeHTML = (str) =>
+      str ? String(str).replace(/[&<>"']/g, m => ({
+         '&': '&',
+         '<': '<',
+         '>': '>',
+         '"': '"',
+         "'": "'"
+      } [m])) : "";
 
    container.innerHTML = "";
 
