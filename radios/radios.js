@@ -20,6 +20,7 @@ const dayNames = {
 let PROGRAMS = [];
 let IMAGES = [];
 let SCHEDULE = [];
+let SCHEDULEDETAIL = [];
 let STATIONS = [];
 let CONFIG = [];
 
@@ -39,10 +40,11 @@ async function loadData(siteId) {
       .catch(() => null);
 
    try {
-      const [images, programs, schedule, stations, config] = await Promise.all([
+      const [images, programs, schedule, scheduledetail, stations, config] = await Promise.all([
          fetchJson("images"),
          fetchJson("programs"),
          fetchJson("schedule"),
+         fetchJson("scheduledetail"),
          fetchJson("station"),
          fetchJson("config")
       ]);
@@ -52,6 +54,7 @@ async function loadData(siteId) {
       IMAGES = images || [];
       PROGRAMS = programs || [];
       SCHEDULE = schedule || []; // Zmieniono z {} na []
+      SCHEDULEDETAIL = scheduledetail || [];
       STATIONS = stations?.station || [];
       CONFIG = (Array.isArray(config) ? config[0] : config) || {};
 
@@ -392,6 +395,60 @@ function updateOnAirStatus() {
 }
 
 // =====================
+// SCHEDULE DETAIL LIST
+// =====================
+function renderSDetails() {
+   const container = document.getElementById("sdetail_list");
+   if (!container) return; // Zabezpieczenie przed brakiem kontenera
+
+   // Poprawiony escapeHTML
+   const escapeHTML = (str) => str ? String(str).replace(/[&<>"']/g, m => ({
+      '&': '&',
+      '<': '<',
+      '>': '>',
+      '"': '"',
+      "'": '''
+   } [m])) : "";
+
+   container.innerHTML = "";
+
+   // Zakładamy, że scheduledetail i current_station są dostępne w zasięgu wyżej
+   SCHEDULEDETAIL
+      .filter(p => {
+         if (p.active === false) return false;
+
+         // Bezpieczne sprawdzenie stacji
+         if (p.station && Array.isArray(p.station)) {
+            if (!p.station.includes(CURRENT_STATION_ID)) return false;
+         }
+         return true;
+      })
+      .forEach(p => {
+         const els = document.createElement("div");
+         els.className = "sdetail_list_content";
+
+         // Używamy escapeHTML dla bezpieczeństwa danych
+         const name = p.name;
+         const host = escapeHTML(p.host);
+         const onair = escapeHTML(p.onair);
+         const url = p.url ? p.url : null; // URL nie escapujemy w href, ale warto go zwalidować
+
+         const sdetailname = url ?
+            `<div class="schedule_detail_name" style="cursor:pointer;"><a href="${url}" target="_blank">${name}</a></div>` :
+            `<div class="schedule_detail_name">${name}</div>`;
+
+         els.innerHTML = `
+                <div>
+                    ${sdetailname}
+                    <div class="schedule_detail_host">${host}</div>
+                    <div class="schedule_detail_onair">${onair}</div>
+                </div>
+            `;
+         container.appendChild(els);
+      });
+}
+
+// =====================
 // PROGRAM LIST
 // =====================
 function renderPrograms() {
@@ -473,6 +530,57 @@ function renderPrograms() {
 // =====================
 // STATIONS
 // =====================
+function ButtonsSites(s) {
+   const container = document.getElementById("site_buttons_list");
+   if (!container) return;
+
+   // Pomocnicza funkcja, aby nie powtarzać logiki sprawdzania linku
+   const getBtn = (link, html) => link ? html : '';
+
+   const butWebLive = getBtn(s.button_web_live || CONFIG.button_web_live,
+      `<a target="_blank" href="${s.button_web_live || CONFIG.button_web_live}" class="btn-link"><i class="fa-solid fa-tower-broadcast"></i> Słuchaj na YT</a>`);
+
+   const butWebRadioOnline = getBtn(s.button_web_radioonline || CONFIG.button_web_radioonline,
+      `<a target="_blank" href="${s.button_web_radioonline || CONFIG.button_web_radioonline}" class="btn-link">💡 Online</a>`);
+
+   const butWebSite = getBtn(s.button_web_site || CONFIG.button_web_site,
+      `<a target="_blank" href="${s.button_web_site || CONFIG.button_web_site}/" class="btn-link">🌐 Strona</a>`);
+
+   const butWebOtherSite = getBtn(s.button_web_othersite_url || CONFIG.button_web_othersite_url,
+      `<a target="_blank" href="${s.button_web_othersite_url || CONFIG.button_web_othersite_url}/" class="btn-link">🌐 Strona (${s.button_web_othersite_name || CONFIG.button_web_othersite_name})</a>`);
+
+   const butWebPrograms = getBtn(s.button_web_programs || CONFIG.button_web_programs,
+      `<a target="_blank" href="${s.button_web_programs || CONFIG.button_web_programs}" class="btn-link">📻 Programy</a>`);
+
+   const butWebPodcasts = getBtn(s.button_web_podcast || CONFIG.button_web_podcast,
+      `<a target="_blank" href="${s.button_web_podcast || CONFIG.button_web_podcast}" class="btn-link"><i class="fa-solid fa-podcast"></i> Podcasty</a>`);
+
+   const butWebPlayer = getBtn(s.button_web_player || CONFIG.button_web_player,
+      `<a target="_blank" href="${s.button_web_player || CONFIG.button_web_player}" class="btn-link">► Player</a>`);
+
+   const butWebSchedule = getBtn(s.button_web_schedule || CONFIG.button_web_schedule,
+      `<a target="_blank" href="${s.button_web_schedule || CONFIG.button_web_schedule}" class="btn-link">📅 Ramówka</a>`);
+
+   const butMediaSite = getBtn(s.button_media_site || CONFIG.button_media_site,
+      `<a target="_blank" href="${s.button_media_site || CONFIG.button_media_site}" class="btn-link accent"><i class="fa-solid fa-photo-film"></i> Media</a>`);
+
+   const butMediaOtherRadio = getBtn(s.button_media_otherradio_url || CONFIG.button_media_otherradio_url,
+      `<a target="_blank" href="${s.button_media_otherradio_url || CONFIG.button_media_otherradio_url}/" class="btn-link accent"><i class="fa-solid fa-radio"></i> ${s.button_media_otherradio_name || CONFIG.button_media_otherradio_name}</a>`);
+
+   container.innerHTML = `
+        ${butWebLive}
+        ${butWebRadioOnline}
+        ${butWebSite}
+        ${butWebOtherSite}
+        ${butWebPrograms}
+        ${butWebPodcasts}
+        ${butWebPlayer}
+        ${butWebSchedule}
+        ${butMediaSite}
+        ${butMediaOtherRadio}
+    `;
+}
+
 function updateStationUI(s) {
    // 1. Pobranie elementów (upewnij się, że ID w HTML są unikalne!)
    const dc = document.getElementById("AllContentDisplay"); // Label ramówki
@@ -560,6 +668,7 @@ function renderStations() {
       CURRENT_STATION_ID = s.id;
 
       AudioPlayer(s.stream); // Uruchamia logikę odtwarzacza
+      ButtonsSites(s);
       updateStationUI(s);
       playlistNowPlaying(s.playlist);
 
@@ -618,6 +727,7 @@ function ReloadAudio() {
 function reloadAll() {
    if (typeof renderCurrent === "function") renderCurrent();
    if (typeof renderSchedules === "function") renderSchedules();
+   if (typeof renderSDetails === "function") renderSDetails();
    if (typeof renderPrograms === "function") renderPrograms();
    if (typeof updateOnAirStatus === "function") updateOnAirStatus();
 }
@@ -671,6 +781,7 @@ function init() {
    renderStations();
    renderCurrent();
    renderSchedules();
+   renderSDetails();
    renderPrograms();
    updateOnAirStatus();
 
