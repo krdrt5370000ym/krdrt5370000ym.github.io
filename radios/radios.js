@@ -546,7 +546,7 @@ function ButtonsSites(s) {
       `<a target="_blank" href="${s.button_web_site || CONFIG.button_web_site}/" class="btn-link">🌐 Strona</a>`);
 
    const butWebOtherSite = getBtn(s.button_web_othersite_url || CONFIG.button_web_othersite_url,
-      `<a target="_blank" href="${s.button_web_othersite_url || CONFIG.button_web_othersite_url}/" class="btn-link">🌐 Strona (${s.button_web_othersite_name || CONFIG.button_web_othersite_name})</a>`);
+      `<a target="_blank" href="${s.button_web_othersite_url || CONFIG.button_web_othersite_url}" class="btn-link">🌐 Strona (${s.button_web_othersite_name || CONFIG.button_web_othersite_name})</a>`);
 
    const butWebPrograms = getBtn(s.button_web_programs || CONFIG.button_web_programs,
       `<a target="_blank" href="${s.button_web_programs || CONFIG.button_web_programs}" class="btn-link">📻 Programy</a>`);
@@ -564,7 +564,7 @@ function ButtonsSites(s) {
       `<a target="_blank" href="${s.button_media_site || CONFIG.button_media_site}" class="btn-link accent"><i class="fa-solid fa-photo-film"></i> Media</a>`);
 
    const butMediaOtherRadio = getBtn(s.button_media_otherradio_url || CONFIG.button_media_otherradio_url,
-      `<a target="_blank" href="${s.button_media_otherradio_url || CONFIG.button_media_otherradio_url}/" class="btn-link accent"><i class="fa-solid fa-radio"></i> ${s.button_media_otherradio_name || CONFIG.button_media_otherradio_name}</a>`);
+      `<a target="_blank" href="${s.button_media_otherradio_url || CONFIG.button_media_otherradio_url}" class="btn-link accent"><i class="fa-solid fa-radio"></i> ${s.button_media_otherradio_name || CONFIG.button_media_otherradio_name}</a>`);
 
    container.innerHTML = `
         ${butWebLive}
