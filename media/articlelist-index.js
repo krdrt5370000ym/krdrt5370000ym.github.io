@@ -30,10 +30,6 @@
       ckis: {
          url: "https://cekis.pl",
          is_http: true
-      },
-      radiolodz: {
-         url: "https://radiolodz.pl",
-         is_http: false
       }
    };
 
