@@ -39,10 +39,7 @@
                   </button>
                </div>
                <audio id="player" controls class="custom-audio-element"></audio>
-               <div class="button-grid">
-                  <a target="_blank" href="https://myradioonline.pl/radio-rsc" class="btn-link">💡 Online</a>
-                  <a target="_blank" href="https://krdrt5370000ym.github.io/media/radiorsc" class="btn-link accent"><i class="fa-solid fa-photo-film"></i> Media</a>
-                  <a target="_blank" href="https://krdrt5370000ym.github.io/radios/radiorsc" class="btn-link accent"><i class="fa-solid fa-radio"></i> Radio RSC</a>
+               <div class="button-grid" id="site_buttons_list">
                </div>
             </div>
             <hr>
@@ -65,10 +62,12 @@
                         <div id="day_contents"></div>
                      </div>
                      <div id="sch_detail" class="tabcontent schedule_detail">
+                        <div class="sdetail_list" id="sdetail_list"></div>
                      </div>
                   </div>
                </div>
-               <!-- PROGRAMY -->
+               <div class="content r-tab2-content">
+                  <!-- PROGRAMY -->
                <div class="content r-tab2-content">
                   <div class="programs_display" id="AllProgramsDisplay" style="display:block;">
                      <h3>Programy</h3>
