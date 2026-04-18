@@ -439,11 +439,9 @@ function renderSDetails() {
             `<div class="schedule_detail_name">${name}</div>`;
 
          els.innerHTML = `
-                <div>
                     ${sdetailname}
                     <div class="schedule_detail_host">${host}</div>
                     <div class="schedule_detail_onair">${onair}</div>
-                </div>
             `;
          container.appendChild(els);
       });
