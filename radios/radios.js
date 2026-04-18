@@ -543,7 +543,7 @@ function ButtonsSites(s) {
       `<a target="_blank" href="${s.button_web_radioonline || CONFIG.button_web_radioonline}" class="btn-link">💡 Online</a>`);
 
    const butWebSite = getBtn(s.button_web_site || CONFIG.button_web_site,
-      `<a target="_blank" href="${s.button_web_site || CONFIG.button_web_site}/" class="btn-link">🌐 Strona</a>`);
+      `<a target="_blank" href="${s.button_web_site || CONFIG.button_web_site}" class="btn-link">🌐 Strona</a>`);
 
    const butWebOtherSite = getBtn(s.button_web_othersite_url || CONFIG.button_web_othersite_url,
       `<a target="_blank" href="${s.button_web_othersite_url || CONFIG.button_web_othersite_url}" class="btn-link">🌐 Strona (${s.button_web_othersite_name || CONFIG.button_web_othersite_name})</a>`);
