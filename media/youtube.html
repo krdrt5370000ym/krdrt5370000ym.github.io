@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YT Audio Player</title>
+
+<style>
+body {
+    font-family: sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+.player {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+    <h3>🎵 YouTube Audio</h3>
+    <button onclick="togglePlay()">▶ Play</button>
+    <div id="yt-player"></div>
+</div>
+
+<script>
+// 🔹 Pobierz ID z URL (?id=...)
+const params = new URLSearchParams(window.location.search);
+let youtubeId = params.get("id");
+
+// fallback jeśli brak ID
+if (!youtubeId) youtubeId = "UPgIy-peHFI";
+
+// 🔹 Załaduj API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
+
+let player;
+let isPlaying = false;
+
+// 🔹 INIT
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-player', {
+        height: '0',
+        width: '0',
+        videoId: youtubeId,
+        playerVars: {
+            controls: 0,
+            disablekb: 1,
+            modestbranding: 1
+        },
+        events: {
+            onStateChange: onStateChange
+        }
+    });
+}
+
+// 🔹 PLAY / PAUSE
+function togglePlay() {
+    if (!player) return;
+
+    if (isPlaying) {
+        player.pauseVideo();
+    } else {
+        player.playVideo();
+    }
+}
+
+// 🔹 STATE (tylko play/pause, bez "stop")
+function onStateChange(e) {
+    const btn = document.querySelector("button");
+
+    if (e.data === YT.PlayerState.PLAYING) {
+        isPlaying = true;
+        btn.textContent = "⏸ Pause";
+    } else if (e.data === YT.PlayerState.PAUSED) {
+        isPlaying = false;
+        btn.textContent = "▶ Play";
+    }
+    // ignorujemy ENDED i inne → brak "Stop"
+}
+</script>
+
+</body>
+</html>
