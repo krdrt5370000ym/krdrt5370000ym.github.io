@@ -45,7 +45,7 @@ const params = new URLSearchParams(window.location.search);
 let youtubeId = params.get("id");
 
 // fallback jeśli brak ID
-if (!youtubeId) youtubeId = "UPgIy-peHFI";
+if (!youtubeId) youtubeId = null;
 
 // 🔹 Załaduj API
 var tag = document.createElement('script');
