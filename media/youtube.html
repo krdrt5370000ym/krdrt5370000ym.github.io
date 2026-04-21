@@ -79,7 +79,13 @@ function onYouTubeIframeAPIReady() {
     if (!activeId) return;
     player = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: activeId,
-        playerVars: { controls: 0, disablekb: 1, modestbranding: 1 },
+        playerVars: { 
+            controls: 0, 
+            disablekb: 1, 
+            modestbranding: 1,
+            playsinline: 1, // Pozwala na odtwarzanie wewnątrz strony zamiast pełnego ekranu
+            origin: window.location.origin
+        },
         events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
     });
 }
