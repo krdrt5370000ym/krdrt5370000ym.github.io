@@ -124,31 +124,37 @@ function updateMuteButton() {
 
 function toggleMute() {
     if (!player) return;
+    const muteBtn = document.getElementById("muteBtn");
     
     if (player.isMuted()) {
         player.unMute();
-        // Po odciszeniu:
-        showStatus("Dźwięk włączony (" + player.getVolume() + "%)");
-        document.getElementById("muteBtn").textContent = "🔊 Unmuted";
+        const vol = player.getVolume();
+        showStatus("Dźwięk włączony (" + vol + "%)");
+        muteBtn.textContent = "🔊 Unmuted";
+        muteBtn.style.background = "#fff";
     } else {
         player.mute();
-        // Po wyciszeniu:
         showStatus("Wyciszono (Mute)");
-        document.getElementById("muteBtn").textContent = "🔇 Muted";
+        muteBtn.textContent = "🔇 Muted";
+        muteBtn.style.background = "#ffcccc";
     }
 }
 
 function changeVolume(delta) {
     if (!player) return;
+    const muteBtn = document.getElementById("muteBtn");
     let currentVol = player.getVolume();
     let newVol = Math.min(Math.max(currentVol + delta, 0), 100);
+    
     player.setVolume(newVol);
     
+    // Automatyczne odciszenie przy zwiększaniu głośności przyciskami + / -
     if (newVol > 0 && player.isMuted()) {
         player.unMute();
-        document.getElementById("muteBtn").textContent = "🔊 Unmuted";
+        muteBtn.textContent = "🔊 Unmuted";
+        muteBtn.style.background = "#fff";
     }
-    
+
     showStatus("Głośność: " + newVol + "%");
 }
 
