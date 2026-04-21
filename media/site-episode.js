@@ -371,7 +371,7 @@ async function loadAudioForPost(postId, mainUrl) {
             if (ytMatch) {
                // UWAGA: Standardowy tag <audio> nie odtworzy YouTube. 
                // Link kieruje do filmu, by zachować ciągłość listy.
-               placeholder.innerHTML = `<a href="https://youtube.com/watch?v=${ytMatch[1]}" target="_blank">📺 YT</a>`;
+               placeholder.innerHTML = `<a href="https://krdrt5370000ym.github.io/media/youtube?v=${ytMatch[1]}" target="_blank"><i class="fa-brands fa-youtube"></i></a>`;
                return;
             }
          }
