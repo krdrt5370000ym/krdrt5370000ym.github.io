@@ -78,15 +78,22 @@ const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200, 1500, 1800];
 function onYouTubeIframeAPIReady() {
     if (!activeId) return;
     player = new YT.Player('yt-player', {
-        height: '0', width: '0', videoId: activeId,
+        height: '0', 
+        width: '0', 
+        videoId: activeId,
         playerVars: { 
             controls: 0, 
             disablekb: 1, 
             modestbranding: 1,
-            playsinline: 1, // Pozwala na odtwarzanie wewnątrz strony zamiast pełnego ekranu
-            origin: window.location.origin
+            // To jest kluczowe dla urządzeń mobilnych:
+            playsinline: 1, 
+            origin: window.location.origin,
+            autoplay: 0
         },
-        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
+        events: { 
+            'onStateChange': onStateChange, 
+            'onReady': onPlayerReady 
+        }
     });
 }
 
