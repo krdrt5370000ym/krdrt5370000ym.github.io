@@ -86,7 +86,9 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady() {
     const videoData = player.getVideoData();
-    document.getElementById("song-title").textContent = videoData.title || "Nieznany utwór";
+    const titleName = videoData.title || "Nieznany utwór";
+    document.getElementById("song-title").textContent = titleName;
+    document.title = videoData.title || titleName + ' | YT Audio Player Pro';
     updateTimer();
 }
 
