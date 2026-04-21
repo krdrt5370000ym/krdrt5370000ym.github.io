@@ -10,12 +10,10 @@
         #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 5px; height: 14px; }
         #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; }
         #time-display { font-family: monospace; font-size: 20px; margin: 15px 0; font-weight: bold; }
-        #jump-status { font-size: 14px; color: #007bff; height: 20px; margin-bottom: 5px; font-weight: bold; }
-        
+        #status-info { font-size: 14px; color: #007bff; height: 20px; margin-bottom: 5px; font-weight: bold; }
         .controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
         button { padding: 10px 12px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; }
         button.active { background: #007bff; color: white; border-color: #0056b3; }
-        
         .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
         input { width: 80px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
     </style>
@@ -25,9 +23,8 @@
 <div class="player" id="article-post">
     <span id="info-id"></span>
     <span id="song-title">Wczytywanie...</span>
-    
     <div id="time-display">0:00 / 0:00</div>
-    <div id="jump-status"></div>
+    <div id="status-info"></div>
 
     <div class="controls">
         <button id="playBtn" onclick="togglePlay()">▶ Play</button>
@@ -61,47 +58,94 @@ document.head.appendChild(tag);
 
 let player, isPlaying = false, isLooping = false, timeUpdater;
 let jumpClickCount = 0, jumpTimer = null;
-
-// Twoja nowa lista skoków
 const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200, 1500, 1800];
 
 function onYouTubeIframeAPIReady() {
     if (!activeId) return;
     player = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: activeId,
-        playerVars: { controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1 },
-        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
+        playerVars: { 
+            controls: 0, 
+            disablekb: 1, 
+            modestbranding: 1, 
+            playsinline: 1,
+            vq: 'tiny' // Próba wymuszenia najniższej jakości (144p)
+        },
+        events: { 
+            'onStateChange': onStateChange, 
+            'onReady': onPlayerReady 
+        }
     });
 }
 
 function onPlayerReady() {
-    const title = player.getVideoData().title || "Nieznany utwór";
+    const title = player.getVideoData().title;
     document.getElementById("song-title").textContent = title;
-    document.getElementById("info-id").textContent = "ID: " + (youtubeId || "");
-    // Dynamiczna zmiana tytułu karty
+    document.getElementById("info-id").textContent = "ID: " + youtubeId;
     document.title = title + ' || YT Audio Player Pro';
+    
+    // Wymuszenie 144p po załadowaniu
+    if(player.setPlaybackQuality) player.setPlaybackQuality('tiny');
     updateTimer();
 }
 
-// Inteligentny skok z formatowaniem s/m
+function showStatus(text) {
+    const statusDiv = document.getElementById("status-info");
+    statusDiv.textContent = text;
+    // Czyść status po 2 sekundach, jeśli nie trwa akumulacja skoku
+    if (jumpClickCount === 0) {
+        setTimeout(() => { if(jumpClickCount === 0) statusDiv.textContent = ""; }, 2000);
+    }
+}
+
+function changeVolume(delta) {
+    if (!player) return;
+    let currentVol = player.getVolume();
+    let newVol = Math.min(Math.max(currentVol + delta, 0), 100);
+    player.setVolume(newVol);
+    showStatus("Głośność: " + newVol + "%");
+}
+
+function toggleMute() {
+    if (!player) return;
+    if (player.isMuted()) {
+        player.unMute();
+        showStatus("Głośność: " + player.getVolume() + "%");
+    } else {
+        player.mute();
+        showStatus("Wyciszono (Mute)");
+    }
+}
+
 function smartJump(direction) {
     jumpClickCount++;
-    const statusDiv = document.getElementById("jump-status");
     const index = Math.min(jumpClickCount, jumpMap.length) - 1;
     const val = jumpMap[index];
-    
-    // Formatowanie wyświetlania: jeśli >= 60s, pokazuj minuty
     let displayVal = val >= 60 ? (val / 60) + "m" : val + "s";
-    statusDiv.textContent = (direction > 0 ? '+' : '-') + displayVal;
+    showStatus((direction > 0 ? '+' : '-') + displayVal);
 
     if (jumpTimer) clearTimeout(jumpTimer);
     jumpTimer = setTimeout(() => {
         player.seekTo(player.getCurrentTime() + (val * direction), true);
         jumpClickCount = 0;
-        statusDiv.textContent = "";
+        setTimeout(() => { document.getElementById("status-info").textContent = ""; }, 1000);
     }, 500);
 }
 
+document.addEventListener('keydown', (e) => {
+    if (document.activeElement.id === 'time') return;
+
+    if (e.key === "ArrowLeft") { e.preventDefault(); smartJump(-1); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); smartJump(1); }
+    else if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+    else if (e.key === "Escape" || e.key === "s") { e.preventDefault(); stopVideo(); }
+    else if (e.key === "l") { e.preventDefault(); toggleLoop(); }
+    else if (e.key === "-") { e.preventDefault(); changeVolume(-10); }
+    else if (e.key === "=") { e.preventDefault(); changeVolume(10); } // Klawisz "=" jest obok "-"
+    else if (e.key === "m") { e.preventDefault(); toggleMute(); }
+});
+
+// Pozostałe funkcje pomocnicze
 function toggleLoop() {
     isLooping = !isLooping;
     const btn = document.getElementById("loopBtn");
@@ -114,13 +158,12 @@ function onStateChange(e) {
     if (e.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         btn.textContent = "⏸ Pause";
+        if(player.setPlaybackQuality) player.setPlaybackQuality('tiny');
         timeUpdater = setInterval(updateTimer, 500);
     } else {
         isPlaying = false;
         btn.textContent = "▶ Play";
         clearInterval(timeUpdater);
-        
-        // Logika Pętli
         if (e.data === YT.PlayerState.ENDED && isLooping) {
             player.seekTo(0);
             player.playVideo();
@@ -151,32 +194,6 @@ function seekTo() {
     player.playVideo();
 }
 function handleEnter(e) { if (e.key === "Enter") seekTo(); }
-
-document.addEventListener('keydown', (e) => {
-    // Blokada skrótów podczas pisania w polu "Czas"
-    if (document.activeElement.id === 'time') return;
-
-    if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        smartJump(-1);
-    } 
-    else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        smartJump(1);
-    } 
-    else if (e.code === "Space") {
-        e.preventDefault();
-        togglePlay();
-    } 
-    else if (e.key === "Escape" || e.key === "s") {
-        e.preventDefault();
-        stopVideo();
-    } 
-    else if (e.key === "l") {
-        e.preventDefault();
-        toggleLoop();
-    }
-});
 </script>
 </body>
 </html>
