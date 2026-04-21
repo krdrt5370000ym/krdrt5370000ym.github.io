@@ -26,6 +26,12 @@
     <div id="time-display">0:00 / 0:00</div>
     <div id="status-info"></div>
 
+    <div class="volume-controls" style="margin-bottom: 10px;">
+        <button onclick="changeVolume(-10)">- 10%</button>
+        <button id="muteBtn" onclick="toggleMute()">M (Mute)</button>
+        <button onclick="changeVolume(10)">+ 10%</button>
+    </div>
+
     <div class="controls">
         <button id="playBtn" onclick="togglePlay()">▶ Play</button>
         <button onclick="stopVideo()">■ Stop</button>
@@ -84,9 +90,9 @@ function onPlayerReady() {
     document.getElementById("info-id").textContent = "ID: " + youtubeId;
     document.title = title + ' || YT Audio Player Pro';
     
-    // Wymuszenie 144p po załadowaniu
-    if(player.setPlaybackQuality) player.setPlaybackQuality('tiny');
+    player.setPlaybackQuality('tiny');
     updateTimer();
+    updateMuteButton(); // Inicjalizacja stanu przycisku M
 }
 
 function showStatus(text) {
@@ -103,18 +109,31 @@ function changeVolume(delta) {
     let currentVol = player.getVolume();
     let newVol = Math.min(Math.max(currentVol + delta, 0), 100);
     player.setVolume(newVol);
+    
+    // Jeśli był wyciszony, odciszamy przy zmianie głośności
+    if (player.isMuted()) player.unMute();
+    
     showStatus("Głośność: " + newVol + "%");
+    updateMuteButton();
 }
 
 function toggleMute() {
     if (!player) return;
     if (player.isMuted()) {
         player.unMute();
-        showStatus("Głośność: " + player.getVolume() + "%");
+        showStatus("Dźwięk włączony (" + player.getVolume() + "%)");
     } else {
         player.mute();
         showStatus("Wyciszono (Mute)");
     }
+    updateMuteButton();
+}
+
+function updateMuteButton() {
+    const btn = document.getElementById("muteBtn");
+    if (!player) return;
+    btn.textContent = player.isMuted() ? "🔇 Unmute" : "M (Mute)";
+    btn.classList.toggle("active", player.isMuted());
 }
 
 function smartJump(direction) {
