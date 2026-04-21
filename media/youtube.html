@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Audio Player Pro</title>
+<html>
+   <head>
+      <title>YT Audio Player Pro | krdrt537000ym.github.io</title>
+      <script src="/site-head.js"></script>
+      <link rel="stylesheet" href="/style.css">
+   </head>
+   <body class="w3-light-grey">
+      <script src="/site-topscreen.js"></script>
+      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+         <!-- Header -->
+         <header class="w3-container" style="padding-top:22px">
+            <h5><b><i class="fa-solid fa-photo-film"></i> Media</b></h5>
+         </header>
+         <div class="w3-row-padding w3-margin-bottom">
     <style>
-        body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
+        .main-player { background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
         .player { background: white; padding: 20px; border-radius: 15px; width: 360px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: none; }
         #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 5px; height: 14px; }
         #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; min-height: 1.2em; }
@@ -18,9 +27,7 @@
         .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
         input { width: 80px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
     </style>
-</head>
-<body>
-
+<div class="main-player">
 <div class="player" id="article-post">
     <span id="info-id"></span>
     <span id="song-title">Wczytywanie...</span>
@@ -51,6 +58,7 @@
     </div>
 
     <div id="yt-player"></div>
+</div>
 </div>
 
 <script>
@@ -205,5 +213,9 @@ function updateTimer() {
     }
 }
 </script>
-</body>
+         </div>
+         <script src="/site-bottomscreen.js"></script>
+      </div>
+      <script src="/site-sidebar.js"></script>
+   </body>
 </html>
