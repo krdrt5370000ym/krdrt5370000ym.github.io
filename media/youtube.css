@@ -21,6 +21,9 @@
     display: block;
     margin-bottom: 5px;
     height: 14px;
+    a {
+        text-decoration: none;
+    }
 }
 
 #song-title {
@@ -54,7 +57,17 @@
     flex-wrap: wrap;
 }
 
-button {
+.controls > button {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.input-group > button {
     padding: 10px 12px;
     cursor: pointer;
     border-radius: 5px;
