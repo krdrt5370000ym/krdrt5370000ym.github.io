@@ -106,17 +106,19 @@ function showStatus(text) {
     }
 }
 
-function changeVolume(delta) {
+function updateMuteButton() {
+    const btn = document.getElementById("muteBtn");
     if (!player) return;
-    let currentVol = player.getVolume();
-    let newVol = Math.min(Math.max(currentVol + delta, 0), 100);
-    player.setVolume(newVol);
-    
-    // Jeśli był wyciszony, odciszamy przy zmianie głośności
-    if (player.isMuted()) player.unMute();
-    
-    showStatus("Głośność: " + newVol + "%");
-    updateMuteButton();
+
+    if (player.isMuted()) {
+        // STAN: Wyciszono -> AKCJA: Kliknij, aby włączyć
+        btn.textContent = "🔊 Unmute";
+        btn.style.background = "#ffcccc"; // tło ostrzegawcze
+    } else {
+        // STAN: Gra -> AKCJA: Kliknij, aby wyciszyć
+        btn.textContent = "🔇 Mute";
+        btn.style.background = "#fff";
+    }
 }
 
 function toggleMute() {
@@ -128,20 +130,21 @@ function toggleMute() {
         player.mute();
         showStatus("Wyciszono (Mute)");
     }
-    updateMuteButton();
+    updateMuteButton(); // Aktualizacja napisu na przycisku
 }
 
-function updateMuteButton() {
-    const btn = document.getElementById("muteBtn");
+function changeVolume(delta) {
     if (!player) return;
-
-    if (player.isMuted()) {
-        btn.textContent = "🔇 Unmute";
-        btn.style.background = "#ffcccc"; // Delikatny czerwony gdy wyciszony
-    } else {
-        btn.textContent = "M (Mute)";
-        btn.style.background = "#fff";
+    let currentVol = player.getVolume();
+    let newVol = Math.min(Math.max(currentVol + delta, 0), 100);
+    player.setVolume(newVol);
+    
+    if (newVol > 0 && player.isMuted()) {
+        player.unMute();
     }
+    
+    showStatus("Głośność: " + newVol + "%");
+    updateMuteButton(); // Aktualizacja, gdyby zmiana głośności odciszyła player
 }
 
 function smartJump(direction) {
