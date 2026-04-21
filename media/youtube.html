@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Audio Player</title>
+    <title>YT Audio Player Pro</title>
     <style>
         body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
         .player { background: white; padding: 20px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        #song-title { font-weight: bold; margin-bottom: 5px; color: #333; display: block; min-height: 1.2em; }
-        #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 10px; }
-        #time-display { font-family: monospace; font-size: 18px; margin: 15px 0; }
+        #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 5px; height: 14px; }
+        #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; min-height: 1.2em; }
+        #time-display { font-family: monospace; font-size: 20px; margin: 15px 0; font-weight: bold; }
+        #jump-status { font-size: 14px; color: #007bff; height: 20px; margin-bottom: 5px; font-weight: bold; }
+        
         .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
         .jump-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        button { padding: 10px 12px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; }
-        button:hover { background: #f0f0f0; }
-        .jump-info { font-size: 12px; color: #007bff; height: 15px; margin-bottom: 5px; font-weight: bold; }
+        
+        button { padding: 10px 15px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; transition: 0.2s; }
+        button:hover { background: #f0f0f0; border-color: #bbb; }
+        
         .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
-        input { width: 60px; padding: 8px; text-align: center; }
+        input { width: 80px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
+        label { font-size: 14px; color: #555; }
     </style>
 </head>
 <body>
@@ -24,8 +28,9 @@
 <div class="player">
     <span id="info-id"></span>
     <span id="song-title">Wczytywanie...</span>
+    
     <div id="time-display">0:00 / 0:00</div>
-    <div id="jump-status" class="jump-info"></div>
+    <div id="jump-status"></div>
 
     <div class="controls">
         <button id="playBtn" onclick="togglePlay()">▶ Play</button>
@@ -39,19 +44,25 @@
 
     <div class="input-group">
         <label for="time">Time: </label>
-        <input type="text" id="time" placeholder="0:48" onkeypress="handleEnter(event)">
+        <input type="text" id="time" placeholder="np. 0:48" onkeypress="handleEnter(event)">
         <button onclick="seekTo()">⏩ Time</button>
     </div>
 
+    <!-- Ukryty element dla API YouTube -->
     <div id="yt-player"></div>
 </div>
 
 <script>
+// 1. OBSŁUGA URL I ID
 const params = new URLSearchParams(window.location.search);
 const youtubeId = params.get("id");
-document.getElementById("info-id").textContent = youtubeId ? `ID: ${youtubeId}` : "";
-const activeId = youtubeId || "UPgIy-peHFI";
+const infoDisplay = document.getElementById("info-id");
 
+// Wyświetl ID tylko jeśli istnieje w URL
+infoDisplay.textContent = youtubeId ? `ID: ${youtubeId}` : "";
+const activeId = youtubeId || "UPgIy-peHFI"; // Fallback jeśli brak ID
+
+// 2. ŁADOWANIE API YOUTUBE
 var tag = document.createElement('script');
 tag.src = "https://youtube.com/iframe_api";
 document.head.appendChild(tag);
@@ -59,29 +70,38 @@ document.head.appendChild(tag);
 let player, isPlaying = false, timeUpdater;
 let jumpClickCount = 0;
 let jumpTimer = null;
-const jumpMap = [10, 20, 40, 60, 120, 300]; // Mapowanie kliknięć na sekundy
+const jumpMap = [10, 20, 40, 60, 120, 300]; // Progi skoku
 
+// 3. INICJALIZACJA ODTWARZACZA
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: activeId,
         playerVars: { controls: 0, disablekb: 1, modestbranding: 1 },
-        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
+        events: { 
+            'onStateChange': onStateChange,
+            'onReady': onPlayerReady 
+        }
     });
 }
 
 function onPlayerReady() {
-    document.getElementById("song-title").textContent = player.getVideoData().title || "Nieznany utwór";
+    // Pobierz tytuł filmu z YouTube
+    const videoData = player.getVideoData();
+    document.getElementById("song-title").textContent = videoData.title || "Nieznany utwór";
     updateTimer();
 }
 
+// 4. LOGIKA SKOKÓW (SMART JUMP)
 function smartJump(direction) {
     jumpClickCount++;
     const statusDiv = document.getElementById("jump-status");
     
-    // Pokazuj aktualny poziom skoku
+    // Oblicz aktualny krok skoku
     const index = Math.min(jumpClickCount, jumpMap.length) - 1;
-    const seconds = jumpMap[index];
-    statusDiv.textContent = `${direction > 0 ? '+' : '-'}${seconds}s`;
+    const secondsToJump = jumpMap[index];
+    
+    // Wyświetl info o skoku (np +40s)
+    statusDiv.textContent = `${direction > 0 ? '+' : '-'}${secondsToJump}s`;
 
     if (jumpTimer) clearTimeout(jumpTimer);
 
@@ -89,12 +109,48 @@ function smartJump(direction) {
         const finalSeconds = jumpMap[Math.min(jumpClickCount, jumpMap.length) - 1] * direction;
         player.seekTo(player.getCurrentTime() + finalSeconds, true);
         
-        // Reset po skoku
         jumpClickCount = 0;
         statusDiv.textContent = "";
-    }, 500); // 500ms na kolejne kliknięcie
+    }, 500); 
 }
 
+// 5. OBSŁUGA CZASU (SEEK TO)
+function seekTo() {
+    if (!player) return;
+    const val = document.getElementById("time").value.trim();
+    if (!val) return;
+
+    let seconds = 0;
+    if (val.includes(':')) {
+        const parts = val.split(':');
+        seconds = parseInt(parts[0], 10) * 60 + (parseInt(parts[1], 10) || 0);
+    } else {
+        seconds = parseInt(val, 10);
+    }
+
+    if (!isNaN(seconds)) {
+        player.seekTo(seconds, true);
+        player.playVideo();
+    }
+}
+
+// 6. KLAWIATURA (ENTER I STRZAŁKI)
+function handleEnter(e) { if (e.key === "Enter") seekTo(); }
+
+document.addEventListener('keydown', function(e) {
+    // Nie reaguj, jeśli użytkownik pisze w polu tekstowym
+    if (document.activeElement.id === 'time') return;
+
+    if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        smartJump(-1);
+    } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        smartJump(1);
+    }
+});
+
+// 7. FUNKCJE POMOCNICZE
 function formatTime(s) {
     if (isNaN(s)) return "0:00";
     const m = Math.floor(s / 60);
@@ -122,24 +178,6 @@ function stopVideo() {
     updateTimer();
 }
 
-function seekTo() {
-    const val = document.getElementById("time").value.trim();
-    if (!val) return;
-    let seconds = 0;
-    if (val.includes(':')) {
-        const parts = val.split(':');
-        seconds = parseInt(parts[0], 10) * 60 + (parseInt(parts[1], 10) || 0);
-    } else {
-        seconds = parseInt(val, 10);
-    }
-    if (!isNaN(seconds)) {
-        player.seekTo(seconds, true);
-        player.playVideo();
-    }
-}
-
-function handleEnter(e) { if (e.key === "Enter") seekTo(); }
-
 function onStateChange(e) {
     const btn = document.getElementById("playBtn");
     if (e.data === YT.PlayerState.PLAYING) {
@@ -153,5 +191,6 @@ function onStateChange(e) {
     }
 }
 </script>
+
 </body>
 </html>
