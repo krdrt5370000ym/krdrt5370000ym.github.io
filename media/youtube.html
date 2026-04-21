@@ -1,102 +1,143 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YT Audio Player</title>
-
-<style>
-body {
-    font-family: sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    padding-top: 60px;
-}
-
-.player {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Audio Player Pro</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
+        .player { background: white; padding: 20px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .jump-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        button { padding: 10px; font-size: 13px; cursor: pointer; border: 1px solid #ddd; border-radius: 5px; background: #fff; }
+        button:hover { background: #f9f9f9; }
+        #time-display { font-family: monospace; font-size: 18px; font-weight: bold; margin: 10px 0; color: #333; }
+        .id-badge { font-size: 11px; color: #888; margin-bottom: 10px; display: block; }
+    </style>
 </head>
-
 <body>
 
 <div class="player">
-    <h3>🎵 YouTube Audio</h3>
-    <button onclick="togglePlay()">▶ Play</button>
+    <span class="id-badge" id="info-id"></span>
+    <h3 id="title-display">🎵 YouTube Audio</h3>
+    
+    <div id="time-display">0:00 / 0:00</div>
+
+    <div class="controls">
+        <button onclick="togglePlay()" id="playBtn">▶ Play</button>
+        <button onclick="stopVideo()">■ Stop</button>
+        <button onclick="seekTo()">⏩ Time</button>
+    </div>
+
+    <div class="jump-controls">
+        <button onclick="handleJump(-1)">⏪ Cofnij</button>
+        <button onclick="handleJump(1)">Szybciej ⏩</button>
+    </div>
+    
     <div id="yt-player"></div>
 </div>
 
 <script>
-// 🔹 Pobierz ID z URL (?id=...)
 const params = new URLSearchParams(window.location.search);
-let youtubeId = params.get("id");
+const youtubeId = params.get("id");
 
-// fallback jeśli brak ID
-if (!youtubeId) youtubeId = null;
+// Logika wyświetlania ID
+const infoDisplay = document.getElementById("info-id");
+infoDisplay.textContent = youtubeId ? `ID: ${youtubeId}` : "";
 
-// 🔹 Załaduj API
+// Fallback dla playera
+const activeId = youtubeId || "HLLMMRX2RpU";
+
 var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
+tag.src = "https://youtube.com/iframe_api";
 document.head.appendChild(tag);
 
-let player;
-let isPlaying = false;
+let player, isPlaying = false, timeUpdater;
+let clickCount = 0, clickTimer = null;
 
-// 🔹 INIT
+// Progi czasowe dla kliknięć
+const jumpSteps = [10, 20, 40, 60, 120, 300];
+
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('yt-player', {
-        height: '0',
-        width: '0',
-        videoId: youtubeId,
-        playerVars: {
-            controls: 0,
-            disablekb: 1,
-            modestbranding: 1
-        },
-        events: {
-            onStateChange: onStateChange
-        }
+        height: '0', width: '0', videoId: activeId,
+        playerVars: { controls: 0, disablekb: 1, modestbranding: 1 },
+        events: { 'onStateChange': onStateChange }
     });
 }
 
-// 🔹 PLAY / PAUSE
-function togglePlay() {
+function handleJump(direction) {
+    clickCount++;
+    if (clickTimer) clearTimeout(clickTimer);
+
+    // Czekamy chwilę na kolejne kliknięcie
+    clickTimer = setTimeout(() => {
+        const stepIndex = Math.min(clickCount, jumpSteps.length) - 1;
+        const seconds = jumpSteps[stepIndex] * direction;
+        
+        const currentTime = player.getCurrentTime();
+        player.seekTo(currentTime + seconds, true);
+        
+        clickCount = 0; // Reset po wykonaniu skoku
+    }, 300); 
+}
+
+function seekTo() {
     if (!player) return;
 
-    if (isPlaying) {
-        player.pauseVideo();
+    const input = document.getElementById("targetTime").value;
+    let seconds = 0;
+
+    // Obsługa formatu MM:SS lub samych sekund
+    if (input.includes(':')) {
+        const parts = input.split(':');
+        seconds = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
     } else {
-        player.playVideo();
+        seconds = parseInt(input, 10);
+    }
+
+    if (!isNaN(seconds)) {
+        player.seekTo(seconds, true);
+    } else {
+        alert("Wpisz poprawny czas (np. 48 lub 1:20)");
     }
 }
 
-// 🔹 STATE (tylko play/pause, bez "stop")
-function onStateChange(e) {
-    const btn = document.querySelector("button");
+function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const secs = Math.floor(s % 60);
+    return `${m}:${secs < 10 ? '0' : ''}${secs}`;
+}
 
+function updateTimer() {
+    if (player && player.getCurrentTime) {
+        document.getElementById("time-display").textContent = 
+            `${formatTime(player.getCurrentTime())} / ${formatTime(player.getDuration())}`;
+    }
+}
+
+function togglePlay() {
+    if (!player) return;
+    isPlaying ? player.pauseVideo() : player.playVideo();
+}
+
+function stopVideo() {
+    if (!player) return;
+    player.stopVideo();
+}
+
+function onStateChange(e) {
+    const btn = document.getElementById("playBtn");
     if (e.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         btn.textContent = "⏸ Pause";
-    } else if (e.data === YT.PlayerState.PAUSED) {
+        timeUpdater = setInterval(updateTimer, 500);
+    } else {
         isPlaying = false;
         btn.textContent = "▶ Play";
+        clearInterval(timeUpdater);
     }
-    // ignorujemy ENDED i inne → brak "Stop"
 }
 </script>
-
 </body>
 </html>
