@@ -26,15 +26,17 @@
     <div id="time-display">0:00 / 0:00</div>
     <div id="status-info"></div>
 
+    <!-- Przyciski głośności - każdy ma unikalną funkcję -->
     <div class="volume-controls" style="margin-bottom: 10px;">
         <button onclick="changeVolume(-10)">- 10%</button>
         <button id="muteBtn" onclick="toggleMute()">M (Mute)</button>
         <button onclick="changeVolume(10)">+ 10%</button>
     </div>
 
+    <!-- Główne sterowanie - ID playBtn tylko tutaj -->
     <div class="controls">
         <button id="playBtn" onclick="togglePlay()">▶ Play</button>
-        <button onclick="stopVideo()">■ Stop</button>
+        <button id="stopBtn" onclick="stopVideo()">■ Stop</button>
         <button id="loopBtn" onclick="toggleLoop()">🔁 Pętla: WYŁ</button>
     </div>
 
@@ -132,8 +134,14 @@ function toggleMute() {
 function updateMuteButton() {
     const btn = document.getElementById("muteBtn");
     if (!player) return;
-    btn.textContent = player.isMuted() ? "🔇 Unmute" : "M (Mute)";
-    btn.classList.toggle("active", player.isMuted());
+
+    if (player.isMuted()) {
+        btn.textContent = "🔇 Unmute";
+        btn.style.background = "#ffcccc"; // Delikatny czerwony gdy wyciszony
+    } else {
+        btn.textContent = "M (Mute)";
+        btn.style.background = "#fff";
+    }
 }
 
 function smartJump(direction) {
