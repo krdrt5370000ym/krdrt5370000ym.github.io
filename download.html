@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>JS YouTube to MP3</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding-top: 50px; }
+        input { width: 300px; padding: 10px; margin-bottom: 10px; }
+        button { padding: 10px 20px; cursor: pointer; background: #cc0000; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h2>Tester Konwertera MP3</h2>
+    <input type="text" id="urlInput" placeholder="Wklej link YouTube..." value="https://www.youtube.com/watch?v=BSeOE5fZacQ">
+    <button onclick="convert()">Konwertuj do MP3</button>
+    <p id="status"></p>
+
+    <script>
+        function convert() {
+            const url = document.getElementById('urlInput').value;
+            const status = document.getElementById('status');
+            
+            if(!url) return alert('Wklej link!');
+            
+            status.innerText = "Trwa przetwarzanie... plik zacznie się pobierać automatycznie.";
+            
+            // Wysyłamy żądanie do naszego serwera Node.js
+            window.location.href = `https://krdrt5370000ym.github.io/download?url=${encodeURIComponent(url)}`;
+        }
+    </script>
+</body>
+</html>
