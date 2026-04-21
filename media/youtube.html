@@ -63,7 +63,7 @@ let player, isPlaying = false, isLooping = false, timeUpdater;
 let jumpClickCount = 0, jumpTimer = null;
 
 // Twoja nowa lista skoków
-const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200];
+const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200, 1500, 1800];
 
 function onYouTubeIframeAPIReady() {
     if (!activeId) return;
@@ -77,6 +77,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady() {
     document.getElementById("song-title").textContent = player.getVideoData().title;
     document.getElementById("info-id").textContent = "ID: " + youtubeId;
+    document.title = player.getVideoData().title;
     updateTimer();
 }
 
@@ -153,7 +154,9 @@ document.addEventListener('keydown', (e) => {
     if (document.activeElement.id === 'time') return;
     if (e.key === "ArrowLeft") smartJump(-1);
     if (e.key === "ArrowRight") smartJump(1);
-    if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+    if (e.code === "Space") { e.preventDefault(); togglePlay();
+    if (e.key === "Escape" || e.key === "s") { e.preventDefault(); stopVideo();
+    if (e.key === "l") { e.preventDefault(); toggleLoop(); }
 });
 </script>
 </body>
