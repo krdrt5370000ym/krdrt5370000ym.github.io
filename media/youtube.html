@@ -6,13 +6,14 @@
     <title>YT Audio Player Pro</title>
     <style>
         body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
-        .player { background: white; padding: 20px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .player { background: white; padding: 20px; border-radius: 15px; width: 360px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: none; }
         #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 5px; height: 14px; }
-        #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; }
+        #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; min-height: 1.2em; }
         #time-display { font-family: monospace; font-size: 20px; margin: 15px 0; font-weight: bold; }
         #status-info { font-size: 14px; color: #007bff; height: 20px; margin-bottom: 5px; font-weight: bold; }
         .controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-        button { padding: 10px 12px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; }
+        button { padding: 10px 12px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; transition: 0.2s; }
+        button:hover { background: #f0f0f0; }
         button.active { background: #007bff; color: white; border-color: #0056b3; }
         .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
         input { width: 80px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
@@ -26,17 +27,15 @@
     <div id="time-display">0:00 / 0:00</div>
     <div id="status-info"></div>
 
-    <!-- Przyciski głośności - każdy ma unikalną funkcję -->
-    <div class="volume-controls" style="margin-bottom: 10px;">
+    <div class="controls">
         <button onclick="changeVolume(-10)">- 10%</button>
-        <button id="muteBtn" onclick="toggleMute()">M (Mute)</button>
+        <button id="muteBtn" onclick="toggleMute()">🔊 Unmuted</button>
         <button onclick="changeVolume(10)">+ 10%</button>
     </div>
 
-    <!-- Główne sterowanie - ID playBtn tylko tutaj -->
     <div class="controls">
         <button id="playBtn" onclick="togglePlay()">▶ Play</button>
-        <button id="stopBtn" onclick="stopVideo()">■ Stop</button>
+        <button onclick="stopVideo()">■ Stop</button>
         <button id="loopBtn" onclick="toggleLoop()">🔁 Pętla: WYŁ</button>
     </div>
 
@@ -46,6 +45,7 @@
     </div>
 
     <div class="input-group">
+        <label for="time">Czas: </label>
         <input type="text" id="time" placeholder="np. 0:48" onkeypress="handleEnter(event)">
         <button onclick="seekTo()">⏩ Czas</button>
     </div>
@@ -58,7 +58,9 @@ const params = new URLSearchParams(window.location.search);
 const youtubeId = params.get("id");
 const activeId = youtubeId || null;
 
-if (!youtubeId) document.getElementById('article-post').style.display = 'none';
+if (activeId) {
+    document.getElementById('article-post').style.display = 'block';
+}
 
 var tag = document.createElement('script');
 tag.src = "https://youtube.com/iframe_api";
@@ -72,64 +74,51 @@ function onYouTubeIframeAPIReady() {
     if (!activeId) return;
     player = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: activeId,
-        playerVars: { 
-            controls: 0, 
-            disablekb: 1, 
-            modestbranding: 1, 
-            playsinline: 1,
-            vq: 'tiny' // Próba wymuszenia najniższej jakości (144p)
-        },
-        events: { 
-            'onStateChange': onStateChange, 
-            'onReady': onPlayerReady 
-        }
+        playerVars: { controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1, vq: 'tiny' },
+        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
     });
 }
 
 function onPlayerReady() {
-    const title = player.getVideoData().title;
+    const title = player.getVideoData().title || "Nieznany utwór";
     document.getElementById("song-title").textContent = title;
-    document.getElementById("info-id").textContent = "ID: " + youtubeId;
+    document.getElementById("info-id").textContent = "ID: " + activeId;
     document.title = title + ' || YT Audio Player Pro';
-    
-    player.setPlaybackQuality('tiny');
+    if(player.setPlaybackQuality) player.setPlaybackQuality('tiny');
     updateTimer();
-    updateMuteButton(); // Inicjalizacja stanu przycisku M
-    document.getElementById("muteBtn").textContent = player.isMuted() ? "🔇 Muted" : "🔊 Unmuted";
 }
 
 function showStatus(text) {
     const statusDiv = document.getElementById("status-info");
     statusDiv.textContent = text;
-    // Czyść status po 2 sekundach, jeśli nie trwa akumulacja skoku
     if (jumpClickCount === 0) {
         setTimeout(() => { if(jumpClickCount === 0) statusDiv.textContent = ""; }, 2000);
     }
 }
 
-function updateMuteButton() {
-    const btn = document.getElementById("muteBtn");
+function togglePlay() {
     if (!player) return;
+    isPlaying ? player.pauseVideo() : player.playVideo();
+}
 
-    if (player.isMuted()) {
-        // STAN: Wyciszono -> AKCJA: Kliknij, aby włączyć
-        btn.textContent = "🔊 Unmute";
-        btn.style.background = "#ffcccc"; // tło ostrzegawcze
-    } else {
-        // STAN: Gra -> AKCJA: Kliknij, aby wyciszyć
-        btn.textContent = "🔇 Mute";
-        btn.style.background = "#fff";
-    }
+function stopVideo() {
+    if (!player) return;
+    player.stopVideo();
+}
+
+function toggleLoop() {
+    isLooping = !isLooping;
+    const btn = document.getElementById("loopBtn");
+    btn.textContent = isLooping ? "🔁 Pętla: WŁ" : "🔁 Pętla: WYŁ";
+    btn.classList.toggle("active", isLooping);
 }
 
 function toggleMute() {
     if (!player) return;
     const muteBtn = document.getElementById("muteBtn");
-    
     if (player.isMuted()) {
         player.unMute();
-        const vol = player.getVolume();
-        showStatus("Dźwięk włączony (" + vol + "%)");
+        showStatus("Dźwięk włączony (" + player.getVolume() + "%)");
         muteBtn.textContent = "🔊 Unmuted";
         muteBtn.style.background = "#fff";
     } else {
@@ -142,19 +131,9 @@ function toggleMute() {
 
 function changeVolume(delta) {
     if (!player) return;
-    const muteBtn = document.getElementById("muteBtn");
-    let currentVol = player.getVolume();
-    let newVol = Math.min(Math.max(currentVol + delta, 0), 100);
-    
+    let newVol = Math.min(Math.max(player.getVolume() + delta, 0), 100);
     player.setVolume(newVol);
-    
-    // Automatyczne odciszenie przy zwiększaniu głośności przyciskami + / -
-    if (newVol > 0 && player.isMuted()) {
-        player.unMute();
-        muteBtn.textContent = "🔊 Unmuted";
-        muteBtn.style.background = "#fff";
-    }
-
+    if (newVol > 0 && player.isMuted()) toggleMute();
     showStatus("Głośność: " + newVol + "%");
 }
 
@@ -169,37 +148,37 @@ function smartJump(direction) {
     jumpTimer = setTimeout(() => {
         player.seekTo(player.getCurrentTime() + (val * direction), true);
         jumpClickCount = 0;
-        setTimeout(() => { document.getElementById("status-info").textContent = ""; }, 1000);
+        setTimeout(() => { if(jumpClickCount === 0) document.getElementById("status-info").textContent = ""; }, 1000);
     }, 500);
 }
 
+function seekTo() {
+    const val = document.getElementById("time").value.trim();
+    if (!val) return;
+    let s = val.includes(':') ? (val.split(':')[0]*60 + val.split(':')[1]*1) : val*1;
+    player.seekTo(s, true);
+    player.playVideo();
+}
+
+function handleEnter(e) { if (e.key === "Enter") seekTo(); }
+
 document.addEventListener('keydown', (e) => {
     if (document.activeElement.id === 'time') return;
-
     if (e.key === "ArrowLeft") { e.preventDefault(); smartJump(-1); }
     else if (e.key === "ArrowRight") { e.preventDefault(); smartJump(1); }
     else if (e.code === "Space") { e.preventDefault(); togglePlay(); }
     else if (e.key === "Escape" || e.key === "s") { e.preventDefault(); stopVideo(); }
     else if (e.key === "l") { e.preventDefault(); toggleLoop(); }
-    else if (e.key === "-") { e.preventDefault(); changeVolume(-10); }
-    else if (e.key === "=") { e.preventDefault(); changeVolume(10); } // Klawisz "=" jest obok "-"
     else if (e.key === "m") { e.preventDefault(); toggleMute(); }
+    else if (e.key === "-") { e.preventDefault(); changeVolume(-10); }
+    else if (e.key === "=") { e.preventDefault(); changeVolume(10); }
 });
-
-// Pozostałe funkcje pomocnicze
-function toggleLoop() {
-    isLooping = !isLooping;
-    const btn = document.getElementById("loopBtn");
-    btn.textContent = isLooping ? "🔁 Pętla: WŁ" : "🔁 Pętla: WYŁ";
-    btn.classList.toggle("active", isLooping);
-}
 
 function onStateChange(e) {
     const btn = document.getElementById("playBtn");
     if (e.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         btn.textContent = "⏸ Pause";
-        if(player.setPlaybackQuality) player.setPlaybackQuality('tiny');
         timeUpdater = setInterval(updateTimer, 500);
     } else {
         isPlaying = false;
@@ -225,16 +204,6 @@ function updateTimer() {
             formatTime(player.getCurrentTime()) + " / " + formatTime(player.getDuration());
     }
 }
-
-function togglePlay() { isPlaying ? player.pauseVideo() : player.playVideo(); }
-function stopVideo() { player.stopVideo(); }
-function seekTo() {
-    const val = document.getElementById("time").value;
-    let s = val.includes(':') ? (val.split(':')[0]*60 + val.split(':')[1]*1) : val*1;
-    player.seekTo(s, true);
-    player.playVideo();
-}
-function handleEnter(e) { if (e.key === "Enter") seekTo(); }
 </script>
 </body>
 </html>
