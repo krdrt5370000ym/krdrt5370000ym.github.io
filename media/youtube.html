@@ -3,107 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Audio Player Pro</title>
+    <title>YT Audio Player</title>
     <style>
         body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
         .player { background: white; padding: 20px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        #song-title { font-weight: bold; margin-bottom: 5px; color: #333; display: block; min-height: 1.2em; }
+        #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 10px; }
+        #time-display { font-family: monospace; font-size: 18px; margin: 15px 0; }
+        .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
         .jump-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        button { padding: 10px; font-size: 13px; cursor: pointer; border: 1px solid #ddd; border-radius: 5px; background: #fff; }
-        button:hover { background: #f9f9f9; }
-        #time-display { font-family: monospace; font-size: 18px; font-weight: bold; margin: 10px 0; color: #333; }
-        .id-badge { font-size: 11px; color: #888; margin-bottom: 10px; display: block; }
+        button { padding: 10px 12px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; }
+        button:hover { background: #f0f0f0; }
+        .jump-info { font-size: 12px; color: #007bff; height: 15px; margin-bottom: 5px; font-weight: bold; }
+        .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
+        input { width: 60px; padding: 8px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="player">
-    <span class="id-badge" id="info-id"></span>
-    <h3 id="title-display">🎵 YouTube Audio</h3>
-    
+    <span id="info-id"></span>
+    <span id="song-title">Wczytywanie...</span>
     <div id="time-display">0:00 / 0:00</div>
+    <div id="jump-status" class="jump-info"></div>
 
     <div class="controls">
-        <button onclick="togglePlay()" id="playBtn">▶ Play</button>
+        <button id="playBtn" onclick="togglePlay()">▶ Play</button>
         <button onclick="stopVideo()">■ Stop</button>
-        <button onclick="seekTo()">⏩ Time</button>
     </div>
 
     <div class="jump-controls">
-        <button onclick="handleJump(-1)">⏪ Cofnij</button>
-        <button onclick="handleJump(1)">Szybciej ⏩</button>
+        <button onclick="smartJump(-1)">⏪ Cofnij</button>
+        <button onclick="smartJump(1)">Szybciej ⏩</button>
     </div>
-    
+
+    <div class="input-group">
+        <label for="time">Time: </label>
+        <input type="text" id="time" placeholder="0:48" onkeypress="handleEnter(event)">
+        <button onclick="seekTo()">⏩ Time</button>
+    </div>
+
     <div id="yt-player"></div>
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const youtubeId = params.get("id");
-
-// Logika wyświetlania ID
-const infoDisplay = document.getElementById("info-id");
-infoDisplay.textContent = youtubeId ? `ID: ${youtubeId}` : "";
-
-// Fallback dla playera
-const activeId = youtubeId || "HLLMMRX2RpU";
+document.getElementById("info-id").textContent = youtubeId ? `ID: ${youtubeId}` : "";
+const activeId = youtubeId || "UPgIy-peHFI";
 
 var tag = document.createElement('script');
 tag.src = "https://youtube.com/iframe_api";
 document.head.appendChild(tag);
 
 let player, isPlaying = false, timeUpdater;
-let clickCount = 0, clickTimer = null;
-
-// Progi czasowe dla kliknięć
-const jumpSteps = [10, 20, 40, 60, 120, 300];
+let jumpClickCount = 0;
+let jumpTimer = null;
+const jumpMap = [10, 20, 40, 60, 120, 300]; // Mapowanie kliknięć na sekundy
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: activeId,
         playerVars: { controls: 0, disablekb: 1, modestbranding: 1 },
-        events: { 'onStateChange': onStateChange }
+        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
     });
 }
 
-function handleJump(direction) {
-    clickCount++;
-    if (clickTimer) clearTimeout(clickTimer);
-
-    // Czekamy chwilę na kolejne kliknięcie
-    clickTimer = setTimeout(() => {
-        const stepIndex = Math.min(clickCount, jumpSteps.length) - 1;
-        const seconds = jumpSteps[stepIndex] * direction;
-        
-        const currentTime = player.getCurrentTime();
-        player.seekTo(currentTime + seconds, true);
-        
-        clickCount = 0; // Reset po wykonaniu skoku
-    }, 300); 
+function onPlayerReady() {
+    document.getElementById("song-title").textContent = player.getVideoData().title || "Nieznany utwór";
+    updateTimer();
 }
 
-function seekTo() {
-    if (!player) return;
+function smartJump(direction) {
+    jumpClickCount++;
+    const statusDiv = document.getElementById("jump-status");
+    
+    // Pokazuj aktualny poziom skoku
+    const index = Math.min(jumpClickCount, jumpMap.length) - 1;
+    const seconds = jumpMap[index];
+    statusDiv.textContent = `${direction > 0 ? '+' : '-'}${seconds}s`;
 
-    const input = document.getElementById("targetTime").value;
-    let seconds = 0;
+    if (jumpTimer) clearTimeout(jumpTimer);
 
-    // Obsługa formatu MM:SS lub samych sekund
-    if (input.includes(':')) {
-        const parts = input.split(':');
-        seconds = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
-    } else {
-        seconds = parseInt(input, 10);
-    }
-
-    if (!isNaN(seconds)) {
-        player.seekTo(seconds, true);
-    } else {
-        alert("Wpisz poprawny czas (np. 48 lub 1:20)");
-    }
+    jumpTimer = setTimeout(() => {
+        const finalSeconds = jumpMap[Math.min(jumpClickCount, jumpMap.length) - 1] * direction;
+        player.seekTo(player.getCurrentTime() + finalSeconds, true);
+        
+        // Reset po skoku
+        jumpClickCount = 0;
+        statusDiv.textContent = "";
+    }, 500); // 500ms na kolejne kliknięcie
 }
 
 function formatTime(s) {
+    if (isNaN(s)) return "0:00";
     const m = Math.floor(s / 60);
     const secs = Math.floor(s % 60);
     return `${m}:${secs < 10 ? '0' : ''}${secs}`;
@@ -124,7 +117,28 @@ function togglePlay() {
 function stopVideo() {
     if (!player) return;
     player.stopVideo();
+    document.getElementById("playBtn").textContent = "▶ Play";
+    isPlaying = false;
+    updateTimer();
 }
+
+function seekTo() {
+    const val = document.getElementById("time").value.trim();
+    if (!val) return;
+    let seconds = 0;
+    if (val.includes(':')) {
+        const parts = val.split(':');
+        seconds = parseInt(parts[0], 10) * 60 + (parseInt(parts[1], 10) || 0);
+    } else {
+        seconds = parseInt(val, 10);
+    }
+    if (!isNaN(seconds)) {
+        player.seekTo(seconds, true);
+        player.playVideo();
+    }
+}
+
+function handleEnter(e) { if (e.key === "Enter") seekTo(); }
 
 function onStateChange(e) {
     const btn = document.getElementById("playBtn");
