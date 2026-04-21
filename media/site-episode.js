@@ -343,20 +343,47 @@ function WPPodcastRVA(ProgramId) {
 
 async function loadAudioForPost(postId, mainUrl) {
    try {
+      // 1. Najpierw pobieramy dane posta, aby sprawdzić treść (dla wideo/YouTube)
+      const postRes = await fetch(`${mainUrl}/wp-json/wp/v2/posts/${postId}`);
+      const postData = await postRes.json();
+      const content = postData.content.rendered;
+
+      // 2. Pobieramy media audio (Twoja obecna logika)
       const audioRes = await fetch(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf,audio/x-aac,audio/vnd.dolby.dd-raw,application/octet-stream,audio/x-flac,audio/x-m4a,audio/x-mpeg-3,application/ogg,audio/x-wav,audio/wma`);
       const media = await audioRes.json();
 
       const li = document.getElementById(`post-${postId}`);
       const placeholder = li.querySelector('.audio-placeholder');
 
+      let finalUrl = "";
+
       if (media && media.length > 0) {
-         const audioUrl = media[0].source_url;
-         placeholder.innerHTML = `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">▶</a>`;
+         // Priorytet 1: Plik audio z mediów
+         finalUrl = media[0].source_url;
       } else {
-         placeholder.remove(); // Usuwamy napis, jeśli nie ma audio
+         // Priorytet 2: Szukamy wp-block-video (MP4/MOV)
+         const videoMatch = content.match(/<video[^>]+src="([^"]+)"/i) || content.match(/<source[^>]+src="([^"]+)"/i);
+         if (videoMatch) {
+            finalUrl = videoMatch[1];
+         } else {
+            // Priorytet 3: Szukamy YouTube (ID z embed)
+            const ytMatch = content.match(/youtube\.com\/embed\/([^"?\s]+)/i);
+            if (ytMatch) {
+               // UWAGA: Standardowy tag <audio> nie odtworzy YouTube. 
+               // Link kieruje do filmu, by zachować ciągłość listy.
+               placeholder.innerHTML = `<a href="https://youtube.com/watch?v=${ytMatch[1]}" target="_blank">📺 YT</a>`;
+               return;
+            }
+         }
+      }
+
+      if (finalUrl) {
+         placeholder.innerHTML = `<a href="#" onclick="AudioPlayerEpisode('${finalUrl}'); return false;">▶</a>`;
+      } else {
+         placeholder.remove();
       }
    } catch (e) {
-      console.error("Błąd audio dla ID " + postId);
+      console.error("Błąd przetwarzania ID " + postId, e);
    }
 }
 
