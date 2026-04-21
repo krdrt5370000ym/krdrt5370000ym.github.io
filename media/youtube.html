@@ -8,22 +8,21 @@
         body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
         .player { background: white; padding: 20px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 5px; height: 14px; }
-        #info-id a { color: #007bff; text-decoration: none; }
-        #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; min-height: 1.2em; }
+        #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; }
         #time-display { font-family: monospace; font-size: 20px; margin: 15px 0; font-weight: bold; }
         #jump-status { font-size: 14px; color: #007bff; height: 20px; margin-bottom: 5px; font-weight: bold; }
-        .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
-        .jump-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        button { padding: 10px 15px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; transition: 0.2s; }
-        button:hover { background: #f0f0f0; border-color: #bbb; }
+        
+        .controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+        button { padding: 10px 12px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; }
+        button.active { background: #007bff; color: white; border-color: #0056b3; }
+        
         .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
         input { width: 80px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
-        label { font-size: 14px; color: #555; }
     </style>
 </head>
 <body>
 
-<div class="player" id="article-post"> <!-- Zmienione ID dla spójności z Twoim JS -->
+<div class="player" id="article-post">
     <span id="info-id"></span>
     <span id="song-title">Wczytywanie...</span>
     
@@ -33,15 +32,15 @@
     <div class="controls">
         <button id="playBtn" onclick="togglePlay()">▶ Play</button>
         <button onclick="stopVideo()">■ Stop</button>
+        <button id="loopBtn" onclick="toggleLoop()">🔁 Pętla: WYŁ</button>
     </div>
 
-    <div class="jump-controls">
+    <div class="controls">
         <button onclick="smartJump(-1)">⏪ Cofnij</button>
         <button onclick="smartJump(1)">Szybciej ⏩</button>
     </div>
 
     <div class="input-group">
-        <label for="time">Czas: </label>
         <input type="text" id="time" placeholder="np. 0:48" onkeypress="handleEnter(event)">
         <button onclick="seekTo()">⏩ Czas</button>
     </div>
@@ -50,134 +49,61 @@
 </div>
 
 <script>
-// 1. OBSŁUGA URL I ID
 const params = new URLSearchParams(window.location.search);
 const youtubeId = params.get("id");
-const infoDisplay = document.getElementById("info-id");
-const playerContainer = document.getElementById('article-post');
-
-if (youtubeId) {
-    infoDisplay.innerHTML = `ID: <a href="https://youtube.com/watch?v=${youtubeId}" target="_blank">${youtubeId}</a>`;
-    playerContainer.style.display = 'block';
-} else {
-    playerContainer.style.display = 'none';
-}
-
 const activeId = youtubeId || null;
 
-// 2. ŁADOWANIE API
+if (!youtubeId) document.getElementById('article-post').style.display = 'none';
+
 var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
+tag.src = "https://youtube.com/iframe_api";
 document.head.appendChild(tag);
 
-let player, isPlaying = false, timeUpdater;
-let jumpClickCount = 0;
-let jumpTimer = null;
-const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200, 1500, 1800];
+let player, isPlaying = false, isLooping = false, timeUpdater;
+let jumpClickCount = 0, jumpTimer = null;
+
+// Twoja nowa lista skoków
+const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200];
 
 function onYouTubeIframeAPIReady() {
     if (!activeId) return;
     player = new YT.Player('yt-player', {
-        height: '0', 
-        width: '0', 
-        videoId: activeId,
-        playerVars: { 
-            controls: 0, 
-            disablekb: 1, 
-            modestbranding: 1,
-            playsinline: 1,
-            html5: 1 // Wymusza odtwarzacz HTML5, który łatwiej przechwycić przeglądarce w tle
-        },
-        events: { 
-            'onStateChange': onStateChange, 
-            'onReady': onPlayerReady 
-        }
+        height: '0', width: '0', videoId: activeId,
+        playerVars: { controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1 },
+        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
     });
 }
 
 function onPlayerReady() {
-    const videoData = player.getVideoData();
-    const titleName = videoData.title || "Nieznany utwór";
-    document.getElementById("song-title").textContent = titleName;
-    document.title = videoData.title || titleName + ' | YT Audio Player Pro';
+    document.getElementById("song-title").textContent = player.getVideoData().title;
+    document.getElementById("info-id").textContent = "ID: " + youtubeId;
     updateTimer();
 }
 
-// 3. LOGIKA SKOKÓW
+// Inteligentny skok z formatowaniem s/m
 function smartJump(direction) {
     jumpClickCount++;
     const statusDiv = document.getElementById("jump-status");
     const index = Math.min(jumpClickCount, jumpMap.length) - 1;
-    const secondsToJump = jumpMap[index];
+    const val = jumpMap[index];
     
-    statusDiv.textContent = `${direction > 0 ? '+' : '-'}${secondsToJump}s`;
+    // Formatowanie wyświetlania: jeśli >= 60s, pokazuj minuty
+    let displayVal = val >= 60 ? (val / 60) + "m" : val + "s";
+    statusDiv.textContent = (direction > 0 ? '+' : '-') + displayVal;
 
     if (jumpTimer) clearTimeout(jumpTimer);
-
     jumpTimer = setTimeout(() => {
-        const finalSeconds = jumpMap[Math.min(jumpClickCount, jumpMap.length) - 1] * direction;
-        player.seekTo(player.getCurrentTime() + finalSeconds, true);
+        player.seekTo(player.getCurrentTime() + (val * direction), true);
         jumpClickCount = 0;
         statusDiv.textContent = "";
-    }, 500); 
+    }, 500);
 }
 
-// 4. OBSŁUGA CZASU
-function seekTo() {
-    if (!player) return;
-    const val = document.getElementById("time").value.trim();
-    let seconds = 0;
-    if (val.includes(':')) {
-        const parts = val.split(':');
-        seconds = parseInt(parts[0], 10) * 60 + (parseInt(parts[1], 10) || 0);
-    } else {
-        seconds = parseInt(val, 10);
-    }
-    if (!isNaN(seconds)) {
-        player.seekTo(seconds, true);
-        player.playVideo();
-    }
-}
-
-function handleEnter(e) { if (e.key === "Enter") seekTo(); }
-
-// 5. KLAWIATURA (STRZAŁKI, SPACJA, ESC)
-document.addEventListener('keydown', function(e) {
-    if (document.activeElement.id === 'time') return;
-
-    if (e.key === "ArrowLeft") {
-        e.preventDefault(); smartJump(-1);
-    } else if (e.key === "ArrowRight") {
-        e.preventDefault(); smartJump(1);
-    } else if (e.code === "Space") { // Poprawione na e.code
-        e.preventDefault(); togglePlay();
-    } else if (e.key === "Escape" || e.key === "s") { // Przypisanie Stop pod ESC lub S
-        e.preventDefault(); stopVideo();
-    }
-});
-
-function formatTime(s) {
-    if (isNaN(s)) return "0:00";
-    const m = Math.floor(s / 60);
-    const secs = Math.floor(s % 60);
-    return `${m}:${secs < 10 ? '0' : ''}${secs}`;
-}
-
-function updateTimer() {
-    if (player && player.getCurrentTime) {
-        document.getElementById("time-display").textContent = 
-            `${formatTime(player.getCurrentTime())} / ${formatTime(player.getDuration())}`;
-    }
-}
-
-function togglePlay() {
-    if (!player) return;
-    isPlaying ? player.pauseVideo() : player.playVideo();
-}
-
-function stopVideo() {
-    if (!player) return;
-    player.stopVideo();
+function toggleLoop() {
+    isLooping = !isLooping;
+    const btn = document.getElementById("loopBtn");
+    btn.textContent = isLooping ? "🔁 Pętla: WŁ" : "🔁 Pętla: WYŁ";
+    btn.classList.toggle("active", isLooping);
 }
 
 function onStateChange(e) {
@@ -190,9 +116,45 @@ function onStateChange(e) {
         isPlaying = false;
         btn.textContent = "▶ Play";
         clearInterval(timeUpdater);
-        if (e.data === YT.PlayerState.ENDED || e.data === -1) updateTimer();
+        
+        // Logika Pętli
+        if (e.data === YT.PlayerState.ENDED && isLooping) {
+            player.seekTo(0);
+            player.playVideo();
+        }
     }
 }
+
+function formatTime(s) {
+    if (isNaN(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const secs = Math.floor(s % 60);
+    return m + ":" + (secs < 10 ? '0' : '') + secs;
+}
+
+function updateTimer() {
+    if (player && player.getCurrentTime) {
+        document.getElementById("time-display").textContent = 
+            formatTime(player.getCurrentTime()) + " / " + formatTime(player.getDuration());
+    }
+}
+
+function togglePlay() { isPlaying ? player.pauseVideo() : player.playVideo(); }
+function stopVideo() { player.stopVideo(); }
+function seekTo() {
+    const val = document.getElementById("time").value;
+    let s = val.includes(':') ? (val.split(':')[0]*60 + val.split(':')[1]*1) : val*1;
+    player.seekTo(s, true);
+    player.playVideo();
+}
+function handleEnter(e) { if (e.key === "Enter") seekTo(); }
+
+document.addEventListener('keydown', (e) => {
+    if (document.activeElement.id === 'time') return;
+    if (e.key === "ArrowLeft") smartJump(-1);
+    if (e.key === "ArrowRight") smartJump(1);
+    if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+});
 </script>
 </body>
 </html>
