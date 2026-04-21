@@ -41,7 +41,7 @@ function onPlayerReady() {
    const title = player.getVideoData().title || "Nieznany utwór";
    document.getElementById("song-title").textContent = title;
    document.getElementById("info-id").innerHTML = `ID: <a href="https://www.youtube.com/watch?v=${activeId}">${activeId}</a>`;
-   document.title = title + ' || YT Audio Player Pro';
+   document.title = title + ' || YT Audio Player | krdrt537000ym.github.io';
    if (player.setPlaybackQuality) player.setPlaybackQuality('tiny');
    updateTimer();
 }
