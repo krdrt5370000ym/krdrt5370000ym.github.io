@@ -95,6 +95,7 @@ function onPlayerReady() {
     player.setPlaybackQuality('tiny');
     updateTimer();
     updateMuteButton(); // Inicjalizacja stanu przycisku M
+    document.getElementById("muteBtn").textContent = player.isMuted() ? "🔇 Muted" : "🔊 Unmuted";
 }
 
 function showStatus(text) {
@@ -123,14 +124,18 @@ function updateMuteButton() {
 
 function toggleMute() {
     if (!player) return;
+    
     if (player.isMuted()) {
         player.unMute();
+        // Po odciszeniu:
         showStatus("Dźwięk włączony (" + player.getVolume() + "%)");
+        document.getElementById("muteBtn").textContent = "🔊 Unmuted";
     } else {
         player.mute();
+        // Po wyciszeniu:
         showStatus("Wyciszono (Mute)");
+        document.getElementById("muteBtn").textContent = "🔇 Muted";
     }
-    updateMuteButton(); // Aktualizacja napisu na przycisku
 }
 
 function changeVolume(delta) {
@@ -141,10 +146,10 @@ function changeVolume(delta) {
     
     if (newVol > 0 && player.isMuted()) {
         player.unMute();
+        document.getElementById("muteBtn").textContent = "🔊 Unmuted";
     }
     
     showStatus("Głośność: " + newVol + "%");
-    updateMuteButton(); // Aktualizacja, gdyby zmiana głośności odciszyła player
 }
 
 function smartJump(direction) {
