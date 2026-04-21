@@ -8,16 +8,14 @@
         body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding-top: 40px; }
         .player { background: white; padding: 20px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         #info-id { font-size: 11px; color: #888; display: block; margin-bottom: 5px; height: 14px; }
+        #info-id a { color: #007bff; text-decoration: none; }
         #song-title { font-weight: bold; margin-bottom: 10px; color: #333; display: block; min-height: 1.2em; }
         #time-display { font-family: monospace; font-size: 20px; margin: 15px 0; font-weight: bold; }
         #jump-status { font-size: 14px; color: #007bff; height: 20px; margin-bottom: 5px; font-weight: bold; }
-        
         .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
         .jump-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        
         button { padding: 10px 15px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff; font-size: 13px; transition: 0.2s; }
         button:hover { background: #f0f0f0; border-color: #bbb; }
-        
         .input-group { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
         input { width: 80px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
         label { font-size: 14px; color: #555; }
@@ -25,7 +23,7 @@
 </head>
 <body>
 
-<div class="player">
+<div class="player" id="article-post"> <!-- Zmienione ID dla spójności z Twoim JS -->
     <span id="info-id"></span>
     <span id="song-title">Wczytywanie...</span>
     
@@ -43,12 +41,11 @@
     </div>
 
     <div class="input-group">
-        <label for="time">Time: </label>
+        <label for="time">Czas: </label>
         <input type="text" id="time" placeholder="np. 0:48" onkeypress="handleEnter(event)">
-        <button onclick="seekTo()">⏩ Time</button>
+        <button onclick="seekTo()">⏩ Czas</button>
     </div>
 
-    <!-- Ukryty element dla API YouTube -->
     <div id="yt-player"></div>
 </div>
 
@@ -57,50 +54,49 @@
 const params = new URLSearchParams(window.location.search);
 const youtubeId = params.get("id");
 const infoDisplay = document.getElementById("info-id");
+const playerContainer = document.getElementById('article-post');
 
-// Wyświetl ID tylko jeśli istnieje w URL
-infoDisplay.textContent = youtubeId ? `ID: ${youtubeId}` : "";
-const activeId = youtubeId || "UPgIy-peHFI"; // Fallback jeśli brak ID
+if (youtubeId) {
+    infoDisplay.innerHTML = `ID: <a href="https://youtube.com/watch?v=${youtubeId}" target="_blank">${youtubeId}</a>`;
+    playerContainer.style.display = 'block';
+} else {
+    playerContainer.style.display = 'none';
+}
 
-// 2. ŁADOWANIE API YOUTUBE
+const activeId = youtubeId || null;
+
+// 2. ŁADOWANIE API
 var tag = document.createElement('script');
-tag.src = "https://youtube.com/iframe_api";
+tag.src = "https://www.youtube.com/iframe_api";
 document.head.appendChild(tag);
 
 let player, isPlaying = false, timeUpdater;
 let jumpClickCount = 0;
 let jumpTimer = null;
-const jumpMap = [10, 20, 40, 60, 120, 300]; // Progi skoku
+const jumpMap = [10, 20, 40, 60, 120, 300, 600, 900, 1200, 1500, 1800];
 
-// 3. INICJALIZACJA ODTWARZACZA
 function onYouTubeIframeAPIReady() {
+    if (!activeId) return;
     player = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: activeId,
         playerVars: { controls: 0, disablekb: 1, modestbranding: 1 },
-        events: { 
-            'onStateChange': onStateChange,
-            'onReady': onPlayerReady 
-        }
+        events: { 'onStateChange': onStateChange, 'onReady': onPlayerReady }
     });
 }
 
 function onPlayerReady() {
-    // Pobierz tytuł filmu z YouTube
     const videoData = player.getVideoData();
     document.getElementById("song-title").textContent = videoData.title || "Nieznany utwór";
     updateTimer();
 }
 
-// 4. LOGIKA SKOKÓW (SMART JUMP)
+// 3. LOGIKA SKOKÓW
 function smartJump(direction) {
     jumpClickCount++;
     const statusDiv = document.getElementById("jump-status");
-    
-    // Oblicz aktualny krok skoku
     const index = Math.min(jumpClickCount, jumpMap.length) - 1;
     const secondsToJump = jumpMap[index];
     
-    // Wyświetl info o skoku (np +40s)
     statusDiv.textContent = `${direction > 0 ? '+' : '-'}${secondsToJump}s`;
 
     if (jumpTimer) clearTimeout(jumpTimer);
@@ -108,18 +104,15 @@ function smartJump(direction) {
     jumpTimer = setTimeout(() => {
         const finalSeconds = jumpMap[Math.min(jumpClickCount, jumpMap.length) - 1] * direction;
         player.seekTo(player.getCurrentTime() + finalSeconds, true);
-        
         jumpClickCount = 0;
         statusDiv.textContent = "";
     }, 500); 
 }
 
-// 5. OBSŁUGA CZASU (SEEK TO)
+// 4. OBSŁUGA CZASU
 function seekTo() {
     if (!player) return;
     const val = document.getElementById("time").value.trim();
-    if (!val) return;
-
     let seconds = 0;
     if (val.includes(':')) {
         const parts = val.split(':');
@@ -127,30 +120,29 @@ function seekTo() {
     } else {
         seconds = parseInt(val, 10);
     }
-
     if (!isNaN(seconds)) {
         player.seekTo(seconds, true);
         player.playVideo();
     }
 }
 
-// 6. KLAWIATURA (ENTER I STRZAŁKI)
 function handleEnter(e) { if (e.key === "Enter") seekTo(); }
 
+// 5. KLAWIATURA (STRZAŁKI, SPACJA, ESC)
 document.addEventListener('keydown', function(e) {
-    // Nie reaguj, jeśli użytkownik pisze w polu tekstowym
     if (document.activeElement.id === 'time') return;
 
     if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        smartJump(-1);
+        e.preventDefault(); smartJump(-1);
     } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        smartJump(1);
+        e.preventDefault(); smartJump(1);
+    } else if (e.code === "Space") { // Poprawione na e.code
+        e.preventDefault(); togglePlay();
+    } else if (e.key === "Escape" || e.key === "s") { // Przypisanie Stop pod ESC lub S
+        e.preventDefault(); stopVideo();
     }
 });
 
-// 7. FUNKCJE POMOCNICZE
 function formatTime(s) {
     if (isNaN(s)) return "0:00";
     const m = Math.floor(s / 60);
@@ -173,9 +165,6 @@ function togglePlay() {
 function stopVideo() {
     if (!player) return;
     player.stopVideo();
-    document.getElementById("playBtn").textContent = "▶ Play";
-    isPlaying = false;
-    updateTimer();
 }
 
 function onStateChange(e) {
@@ -188,9 +177,9 @@ function onStateChange(e) {
         isPlaying = false;
         btn.textContent = "▶ Play";
         clearInterval(timeUpdater);
+        if (e.data === YT.PlayerState.ENDED || e.data === -1) updateTimer();
     }
 }
 </script>
-
 </body>
 </html>
