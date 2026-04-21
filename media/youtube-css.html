@@ -1,0 +1,89 @@
+.main-player {
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.player {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#info-id {
+    font-size: 11px;
+    color: #888;
+    display: block;
+    margin-bottom: 5px;
+    height: 14px;
+}
+
+#song-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    display: block;
+    min-height: 1.2em;
+}
+
+#time-display {
+    font-family: monospace;
+    font-size: 20px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+#status-info {
+    font-size: 14px;
+    color: #007bff;
+    height: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #f0f0f0;
+}
+
+button.active {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+.input-group {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+input {
+    width: 80px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
