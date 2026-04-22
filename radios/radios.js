@@ -98,8 +98,8 @@ const escapeHTML = (str) =>
       '<': '<',
       '>': '>',
       '"': '"',
-      "'": '''
-   })[m]) : "";
+      "'": "'"
+   } [m])) : "";
 
 // ✅ POPRAWIONE: Zabezpieczenie przed pusta wartością (undefined/null)
 function formatHour(h) {
@@ -615,8 +615,8 @@ function renderSDetails() {
          '<': '<',
          '>': '>',
          '"': '"',
-         "'": '''
-      })[m]) : "";
+         "'": "'"
+      } [m])) : "";
 
    container.innerHTML = "";
 
@@ -689,8 +689,8 @@ function renderPrograms() {
          '<': '<',
          '>': '>',
          '"': '"',
-         "'": '''
-      })[m]) : "";
+         "'": "'"
+      } [m])) : "";
 
    container.innerHTML = "";
 
