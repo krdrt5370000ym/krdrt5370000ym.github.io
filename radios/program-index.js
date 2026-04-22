@@ -49,10 +49,15 @@ const MonthWeekCalculator = (dateInput, requestedWeeks) => {
 // Funkcja wybierająca odpowiedni blok (np. ramówka świąteczna vs standardowa)
 function getActiveScheduleBlock(date = new Date(), scheduleData) {
     if (!Array.isArray(scheduleData)) return { schedule: [] };
-    return scheduleData.find(block => {
+    
+    // Szukaj bloku z zakresem dat
+    const specialBlock = scheduleData.find(block => {
         if (!block.startDate || !block.EndDate) return false;
         return date >= new Date(block.startDate) && date <= new Date(block.EndDate);
-    }) || scheduleData.find(b => b.scheduleID === 0) || { schedule: [] };
+    });
+
+    // Zwróć specjalny blok, domyślny (ID 0) lub pusty obiekt
+    return specialBlock || scheduleData.find(b => b.scheduleID === 0) || { schedule: [] };
 }
 
 // Główna funkcja formatująca czas emisji
@@ -167,6 +172,7 @@ async function uruchomProgram() {
         const [PROGRAMS, SCHEDULE_DATA, CONFIG] = await Promise.all([
             fetchJSON('programs'), fetchJSON('schedule'), fetchJSON('config')
         ]);
+        const ALL_ITEMS = SCHEDULE_DATA.flatMap(block => block.schedule || []);
 
         const program = PROGRAMS.find(p => p.id === uid);
         if (!program || program.hide_in_schedule || CONFIG.disable_programs_info) {
@@ -180,7 +186,13 @@ async function uruchomProgram() {
       }
 
       // 2. Logika emisji i prowadzących
-      const occurrencesSch = SCHEDULE.filter(osch => osch.id === uid && osch.active && !osch.private && !osch.hide_in_schedule);
+const occurrencesSch = ALL_ITEMS.filter(osch => 
+    osch.id === uid && 
+    osch.active && 
+    !osch.private && 
+    !osch.hide_in_schedule &&
+    (osch.publish_from_date ? new Date() >= new Date(osch.publish_from_date) : true)
+);
       const scheduleInfo = getDisplaySchedule(uid, SCHEDULE_DATA);
 
       if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
