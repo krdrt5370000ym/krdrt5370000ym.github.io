@@ -336,6 +336,8 @@ function renderCurrent() {
       return;
    }
 
+   if (!program || stations.radio_plug === true || stations.radio_listen === true || CONFIG.radio_plug === true) return;
+
    // 4. RENDEROWANIE PROGRAMU
    const data = getProgramData(program);
    const thumb = program.thumbnail_text || data.thumbnail_text;
