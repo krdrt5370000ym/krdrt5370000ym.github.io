@@ -254,17 +254,31 @@ function renderCurrent() {
     const station = STATIONS.find(x => x.id === CURRENT_STATION_ID);
     if (!station) return;
 
+    // 1. OBSŁUGA ZEWNĘTRZNYCH API (np. Grupa ZPR)
+    // Jeśli stacja ma pole "schedule" w JSON, oddajemy kontrolę zewnętrznej funkcji
+    if (station.schedule && !station.radio_plug && !station.radio_listen && (!CONFIG || !CONFIG.radio_plug)) {
+        scheduleCurrent(station.schedule);
+        // Jeśli funkcja zewnętrzna została znaleziona i uruchomiona, przerywamy lokalne renderowanie
+        if (SCHEDULE_APP === 1) return;
+    }
+    // Jeśli nie ma zewnętrznej funkcji, resetujemy flagę i kontynuujemy lokalną logikę
+    SCHEDULE_APP = null;
+
+    // 2. LOGIKA LOKALNEJ RAMÓWKI
     const activeBlock = getActiveScheduleBlock(now);
     const scheduleSource = activeBlock ? activeBlock.schedule : [];
 
     const filtered = scheduleSource.filter(p => {
+        // Filtr A: Aktywność i data publikacji
         const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
         if (!p.active || !isPublished) return false;
 
+        // Filtr B: Przynależność do stacji
         const isForStation = (!p.station || p.station.includes(CURRENT_STATION_ID)) && 
                              !p.station_exclude?.includes(CURRENT_STATION_ID);
         if (!isForStation) return false;
 
+        // Filtr C: Czas i Dni (obsługa audycji nocnych)
         let timeMatch = false;
         const isMidnight = p.midnight === true;
         const startsBeforeMidnight = p.hour_start > p.hour_end;
@@ -278,12 +292,14 @@ function renderCurrent() {
         }
         if (!timeMatch) return false;
 
+        // Filtr D: Logika WeekMonth (Inkluzja)
         if (p.weekmonth) {
             const keys = Object.keys(p.weekmonth);
             const stats = MonthWeekCalculator(localIsoDate, keys);
             if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
         }
 
+        // Filtr E: Logika WeekMonth Exclude (Wykluczenie)
         if (p.weekmonth_exclude) {
             const exKeys = Object.keys(p.weekmonth_exclude);
             const exStats = MonthWeekCalculator(localIsoDate, exKeys);
@@ -292,12 +308,13 @@ function renderCurrent() {
 
         return true;
     }).sort((a, b) => {
+        // Sortowanie po priorytecie: Stacja (4) > Tydzień (2) > Subschedule (1)
         const getScore = (i) => (i.station ? 4 : 0) + (i.weekmonth ? 2 : 0) + (i.subschedule ? 1 : 0);
         const diff = getScore(b) - getScore(a);
         return diff !== 0 ? diff : b.hour_start.localeCompare(a.hour_start);
     });
 
-    const program = filtered[0];
+    const program = filtered[0]; // Pobieramy najlepiej pasującą audycję
     const ui = {
         item: document.querySelector(".current_program_item"),
         hour: document.querySelector(".current_program_hour"),
@@ -306,7 +323,7 @@ function renderCurrent() {
         photo: document.querySelector(".current_program_photo")
     };
 
-    // Obsługa braku programu lub aktywnej blokady (radio_plug)
+    // 3. RENDEROWANIE WIDOKU
     if (!program || station.radio_plug || (CONFIG && CONFIG.radio_plug)) {
         if (ui.item) ui.item.textContent = "";
         if (ui.hour) ui.hour.textContent = "";
@@ -315,16 +332,9 @@ function renderCurrent() {
             ui.title.textContent = station.plug_name || station.name || "Radio Online";
         }
         if (ui.host) ui.host.textContent = "";
-        if (ui.photo) ui.photo.innerHTML = `<img src="${station.cover}">`;
+        if (ui.photo) ui.photo.innerHTML = `<img src="${station.cover}" alt="Radio Logo">`;
         return;
     }
-
-    // Specyficzna obsługa zewnętrznych ramówek stacji
-    if (station.schedule && !station.radio_plug && !station.radio_listen && (!CONFIG || !CONFIG.radio_plug)) {
-        scheduleCurrent(station.schedule);
-        if (SCHEDULE_APP === 1) return;
-    }
-    SCHEDULE_APP = null;
 
     const data = getProgramData(program);
     if (ui.item) ui.item.textContent = program.item || "";
@@ -334,7 +344,7 @@ function renderCurrent() {
         ui.title.textContent = program.name || data.name || "";
     }
     if (ui.host) ui.host.textContent = program.host || data.host || "";
-    if (ui.photo) ui.photo.innerHTML = `<img src="${getThumbnail(program, data)}">`;
+    if (ui.photo) ui.photo.innerHTML = `<img src="${getThumbnail(program, data)}" alt="Program Cover">`;
 }
 
 // =====================
@@ -974,17 +984,39 @@ function playlistNowPlaying(playlistString) {
 }
 
 function scheduleCurrent(scheduleString) {
+   if (!scheduleString) return;
+
+   // 1. Próba dopasowania formatu: nazwaFunkcji(argumenty)
    const match = scheduleString.match(/^(\w+)\((.*)\);?$/);
+
    if (match) {
       const functionName = match[1];
       const rawArgs = match[2];
+
+      // 2. Sprawdzenie, czy funkcja o tej nazwie istnieje w globalnym zasięgu
       if (typeof window[functionName] === "function") {
-         const args = rawArgs.split(',').map(arg => arg.trim().replace(/^['"]|['"]$/g, ''));
+         
+         // 3. Ustawienie flagi blokady dla renderCurrent
+         SCHEDULE_APP = 1; 
+
+         // 4. Parsowanie argumentów (usuwanie cudzysłowów i spacji)
+         const args = rawArgs.split(',')
+            .map(arg => arg.trim().replace(/^['"]|['"]$/g, ''));
+
+         // 5. Wywołanie funkcji z przekazanymi parametrami
          window[functionName](...args);
+         
+      } else {
+         console.warn(`⚠️ Funkcja ${functionName} jest zdefiniowana w JSON, ale nie istnieje w JS.`);
+         SCHEDULE_APP = null;
       }
    } else {
+      // 6. Jeśli to nie funkcja, traktujemy to jako zwykły tekst informacyjny
       const resultElemS = document.getElementById('resultCP');
-      if (resultElemS) resultElemS.innerText = scheduleString;
+      if (resultElemS) {
+         resultElemS.innerText = scheduleString;
+      }
+      SCHEDULE_APP = null;
    }
 }
 // =====================
