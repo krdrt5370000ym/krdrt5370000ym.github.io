@@ -158,7 +158,7 @@ async function uruchomProgram() {
 
     try {
         const fetchJSON = async (suffix) => {
-            const res = await fetch(`https://github.io{station}_${suffix}.json`);
+            const res = await fetch(`https://krdrt5370000ym.github.io/radios/json/${station}_${suffix}.json`);
             if (!res.ok) return suffix === 'config' ? {} : [];
             const data = await res.json();
             return (suffix === 'config' && Array.isArray(data)) ? data[0] : data;
