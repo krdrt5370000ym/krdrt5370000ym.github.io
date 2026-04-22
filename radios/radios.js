@@ -263,14 +263,11 @@ function renderCurrent() {
    const station = STATIONS.find(x => x.id === CURRENT_STATION_ID);
    if (!station) return;
 
-   // 1. OBSŁUGA ZEWNĘTRZNYCH API (np. Grupa ZPR)
-   // Jeśli stacja ma pole "schedule" w JSON, oddajemy kontrolę zewnętrznej funkcji
+   // 1. OBSŁUGA ZEWNĘTRZNYCH API
    if (station.schedule && !station.radio_plug && !station.radio_listen && (!CONFIG || !CONFIG.radio_plug)) {
       scheduleCurrent(station.schedule);
-      // Jeśli funkcja zewnętrzna została znaleziona i uruchomiona, przerywamy lokalne renderowanie
       if (SCHEDULE_APP === 1) return;
    }
-   // Jeśli nie ma zewnętrznej funkcji, resetujemy flagę i kontynuujemy lokalną logikę
    SCHEDULE_APP = null;
 
    // 2. LOGIKA LOKALNEJ RAMÓWKI
@@ -278,16 +275,13 @@ function renderCurrent() {
    const scheduleSource = activeBlock ? activeBlock.schedule : [];
 
    const filtered = scheduleSource.filter(p => {
-      // Filtr A: Aktywność i data publikacji
       const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
       if (!p.active || !isPublished) return false;
 
-      // Filtr B: Przynależność do stacji
       const isForStation = (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
          !p.station_exclude?.includes(CURRENT_STATION_ID);
       if (!isForStation) return false;
 
-      // Filtr C: Czas i Dni (obsługa audycji nocnych)
       let timeMatch = false;
       const isMidnight = p.midnight === true;
       const startsBeforeMidnight = p.hour_start > p.hour_end;
@@ -301,14 +295,12 @@ function renderCurrent() {
       }
       if (!timeMatch) return false;
 
-      // Filtr D: Logika WeekMonth (Inkluzja)
       if (p.weekmonth) {
          const keys = Object.keys(p.weekmonth);
          const stats = MonthWeekCalculator(localIsoDate, keys);
          if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
       }
 
-      // Filtr E: Logika WeekMonth Exclude (Wykluczenie)
       if (p.weekmonth_exclude) {
          const exKeys = Object.keys(p.weekmonth_exclude);
          const exStats = MonthWeekCalculator(localIsoDate, exKeys);
@@ -317,13 +309,12 @@ function renderCurrent() {
 
       return true;
    }).sort((a, b) => {
-      // Sortowanie po priorytecie: Stacja (4) > Tydzień (2) > Subschedule (1)
       const getScore = (i) => (i.station ? 4 : 0) + (i.weekmonth ? 2 : 0) + (i.subschedule ? 1 : 0);
       const diff = getScore(b) - getScore(a);
       return diff !== 0 ? diff : b.hour_start.localeCompare(a.hour_start);
    });
 
-   const program = filtered[0]; // Pobieramy najlepiej pasującą audycję
+   const program = filtered[0];
    const ui = {
       item: document.querySelector(".current_program_item"),
       hour: document.querySelector(".current_program_hour"),
@@ -332,7 +323,7 @@ function renderCurrent() {
       photo: document.querySelector(".current_program_photo")
    };
 
-   // 3. RENDEROWANIE WIDOKU
+   // 3. RENDEROWANIE WIDOKU - BRAK PROGRAMU / PLUG
    if (!program || station.radio_plug || (CONFIG && CONFIG.radio_plug)) {
       if (ui.item) ui.item.textContent = "";
       if (ui.hour) ui.hour.textContent = "";
@@ -341,11 +332,26 @@ function renderCurrent() {
          ui.title.textContent = station.plug_name || station.name || "Radio Online";
       }
       if (ui.host) ui.host.textContent = "";
-      if (ui.photo) ui.photo.innerHTML = `<img src="${station.cover}" alt="Radio Logo">`;
+      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="${station.cover}" alt="Logo">`;
       return;
    }
 
+   // 4. RENDEROWANIE PROGRAMU
    const data = getProgramData(program);
+   const thumb = program.thumbnail_text || data.thumbnail_text;
+   const thumbnail = getThumbnail(program, data);
+
+   let thumbnailHTML = "";
+   if (thumb) {
+      const style = [
+         thumb.background ? `background:${thumb.background}` : '',
+         thumb.color ? `color:${thumb.color}` : ''
+      ].filter(Boolean).join(';');
+      thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
+   } else if (thumbnail) {
+      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Program Cover"}">`;
+   }
+
    if (ui.item) ui.item.textContent = program.item || "";
    if (ui.hour) ui.hour.textContent = `${formatHour(program.hour_start)} - ${formatHour(program.hour_end)}`;
    if (ui.title) {
@@ -353,7 +359,7 @@ function renderCurrent() {
       ui.title.textContent = program.name || data.name || "";
    }
    if (ui.host) ui.host.textContent = program.host || data.host || "";
-   if (ui.photo) ui.photo.innerHTML = `<img src="${getThumbnail(program, data)}" alt="Program Cover">`;
+   if (ui.photo) ui.photo.innerHTML = thumbnailHTML;
 }
 
 // =====================
@@ -446,7 +452,7 @@ function renderSchedules() {
                ].filter(Boolean).join(';');
                thumbnailHTML = `<div class="schedule_name_box" style="${style}">${thumb.name || p.name || data.name || ""}</div>`;
             } else if (thumbnail) {
-               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="cover">`;
+               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${displayName || "cover"}">`;
             }
 
             // Linkowanie
