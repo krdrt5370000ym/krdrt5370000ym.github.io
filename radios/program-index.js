@@ -198,8 +198,9 @@ async function uruchomProgram() {
       const ALL_ITEMS = SCHEDULE_DATA.flatMap(block => block.schedule || []);
 
       const program = PROGRAMS.find(p => p.id === uid);
-      if (!program || program.hide_in_schedule || CONFIG.disable_programs_info) {
-         document.body.innerHTML = "Program niedostępny.";
+      if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info) {
+         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
+         document.title = window.location.href;
          return;
       }
 
