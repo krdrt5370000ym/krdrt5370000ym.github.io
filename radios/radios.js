@@ -452,7 +452,7 @@ function renderSchedules() {
                ].filter(Boolean).join(';');
                thumbnailHTML = `<div class="schedule_name_box" style="${style}">${thumb.name || p.name || data.name || ""}</div>`;
             } else if (thumbnail) {
-               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${displayName || "cover"}">`;
+               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${p.name || data.name || "cover"}">`;
             }
 
             // Linkowanie
