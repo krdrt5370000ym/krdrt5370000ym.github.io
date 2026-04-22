@@ -323,8 +323,8 @@ function renderCurrent() {
       photo: document.querySelector(".current_program_photo")
    };
 
-   // 3. RENDEROWANIE WIDOKU - BRAK PROGRAMU / PLUG
-   if (!program || station.radio_plug || (CONFIG && CONFIG.radio_plug)) {
+   // 3. RENDEROWANIE WIDOKU - DEFAULT (RADIO ONLINE / PLUG)
+   if (!program || station.radio_plug || station.radio_listen === true || (CONFIG && CONFIG.radio_plug)) {
       if (ui.item) ui.item.textContent = "";
       if (ui.hour) ui.hour.textContent = "";
       if (ui.title) {
@@ -336,9 +336,7 @@ function renderCurrent() {
       return;
    }
 
-   if (!program || stations.radio_plug === true || stations.radio_listen === true || CONFIG.radio_plug === true) return;
-
-   // 4. RENDEROWANIE PROGRAMU
+   // 4. RENDEROWANIE AKTUALNEGO PROGRAMU
    const data = getProgramData(program);
    const thumb = program.thumbnail_text || data.thumbnail_text;
    const thumbnail = getThumbnail(program, data);
@@ -351,7 +349,7 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Program Cover"}">`;
+      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "Program Cover")}">`;
    }
 
    if (ui.item) ui.item.textContent = program.item || "";
