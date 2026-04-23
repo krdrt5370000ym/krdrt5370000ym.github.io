@@ -194,10 +194,11 @@ function GetAndPlayAgora(brandId, podcastId) {
 
 async function WPPodcastRK(SearchId) {
    const apiUrl = 'https://radiokolor.pl/wp-json/wp/v2/podcast?search=' + SearchId + '&per_page=100';
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
    const container = document.getElementById('episode-list');
    const parser = new DOMParser();
 
-   fetch(apiUrl)
+   fetch(proxyUrl)
       .then(response => {
          if (!response.ok) throw new Error('Błąd sieci');
          return response.json();
