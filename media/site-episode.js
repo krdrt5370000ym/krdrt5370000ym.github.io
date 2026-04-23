@@ -423,10 +423,10 @@ function AudioPlayerEpisode(url) {
 
 function AudioPlayerEpisodeCORS(url) {
    const audio = document.getElementById('player');
+   const urlCORS = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url);
    audio.style.display = 'block'; // Pokaż player po kliknięciu
    document.scrollingElement.scrollTop = audio.offsetTop - 50;
-   const isM3U8 = url.toLowerCase().includes('.m3u8');
-   const urlCORS = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url);
+   const isM3U8 = urlCORS.toLowerCase().includes('.m3u8');
 
    // 1. Czyszczenie poprzedniej instancji HLS
    if (hls) {
@@ -437,7 +437,7 @@ function AudioPlayerEpisodeCORS(url) {
    // 2. Obsługa strumienia M3U8 (HLS)
    if (isM3U8 && Hls.isSupported()) {
       hls = new Hls();
-      hls.loadSource(url);
+      hls.loadSource(urlCORS);
       hls.attachMedia(audio);
       hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
 
@@ -450,7 +450,7 @@ function AudioPlayerEpisodeCORS(url) {
    }
    // 3. Obsługa Safari (natywne HLS) lub zwykłe MP3
    else {
-      audio.src = url;
+      audio.src = urlCORS;
       audio.play().catch(e => console.error("Błąd autostartu:", e));
    }
 }
