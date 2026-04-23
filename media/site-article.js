@@ -108,7 +108,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
-   const finalUrl = is_http && is_cors ? proxyUrl + encodeURIComponent(postsUrl) : postsUrl;
+   const finalUrl = (is_http || is_cors) ? proxyUrl + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       if (button) {
@@ -525,7 +525,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
    const postsUrl = slug.startsWith('post-') ?
       `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = is_http && is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const httpUrl = (is_http || is_cors) ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       const response = await fetch(httpUrl);
