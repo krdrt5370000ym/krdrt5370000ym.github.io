@@ -69,65 +69,50 @@ function getActiveScheduleBlock(date = new Date(), scheduleData) {
 // Główna funkcja formatująca czas emisji
 function getDisplaySchedule(programId, rawSchedule) {
    const daysMapFull = {
-      "1": "Poniedziałek",
-      "2": "Wtorek",
-      "3": "Środa",
-      "4": "Czwartek",
-      "5": "Piątek",
-      "6": "Sobota",
-      "0": "Niedziela"
+      "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek",
+      "5": "Piątek", "6": "Sobota", "0": "Niedziela"
    };
    const daysMapShort = {
-      "1": "Pn",
-      "2": "Wt",
-      "3": "Śr",
-      "4": "Czw",
-      "5": "Pt",
-      "6": "Sob",
-      "0": "Ndz"
+      "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz"
    };
 
    const timeGroups = {};
    const firstAppearance = {};
    const now = new Date();
-   const localIsoDate = now.toLocaleDateString('sv-SE');
 
    // 1. Pobierz dane z aktywnego bloku
    const activeBlock = getActiveScheduleBlock(now, rawSchedule);
-   const scheduleSource = activeBlock.schedule || [];
+   const scheduleSource = activeBlock ? (activeBlock.schedule || []) : [];
 
-   // 2. Filtruj wystąpienia audycji
+   // 2. Filtruj wystąpienia audycji (USUŃ FILTRY DATY)
    const filtered = scheduleSource.filter(p => {
+      // Zostawiamy tylko podstawowe warunki stałej dostępności
       if (p.id !== programId || !p.active || p.private || p.hide_in_schedule) return false;
 
-      // Filtr daty publikacji
+      // Filtr daty publikacji zostawiamy, by nie pokazywać zapowiedzi przed premierą
       const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
       if (!isPublished) return false;
 
-      // Filtr weekmonth (Inkluzja)
-      if (p.weekmonth) {
-         const keys = Object.keys(p.weekmonth);
-         const stats = MonthWeekCalculator(localIsoDate, keys);
-         if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
-      }
-
-      // Filtr weekmonth_exclude (Wykluczenie)
-      if (p.weekmonth_exclude) {
-         const exKeys = Object.keys(p.weekmonth_exclude);
-         const exStats = MonthWeekCalculator(localIsoDate, exKeys);
-         if (exKeys.every(k => exStats[k] === p.weekmonth_exclude[k])) return false;
-      }
-
+      // UWAGA: Nie filtrujemy tutaj przez MonthWeekCalculator!
+      // Chcemy pokazać, że audycja istnieje w grafiku, nawet jeśli nie gra w tym konkretnym tygodniu.
+      
       return true;
    });
 
    if (filtered.length === 0) return "";
 
-   // 3. Grupowanie według godzin
+   // 3. Grupowanie według godzin (z informacją o mod2)
    filtered.forEach(occ => {
       const start = (occ.hour_start || "00:00").substring(0, 5);
       const end = (occ.hour_end || "00:00").substring(0, 5);
-      const timeKey = `${start} - ${end}`;
+      
+      // Jeśli audycja jest co 2 tygodnie, dodajemy informację do etykiety czasu
+      let modSuffix = "";
+      if (occ.weekmonth && occ.weekmonth.mod2) {
+         modSuffix = occ.weekmonth.mod2 === 1 ? " (co 2 tyg. - nieparzyste)" : " (co 2 tyg. - parzyste)";
+      }
+      
+      const timeKey = `${start} - ${end}${modSuffix}`;
 
       if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
       const days = Array.isArray(occ.days) ? occ.days : [occ.days];
@@ -138,7 +123,9 @@ function getDisplaySchedule(programId, rawSchedule) {
             timeGroups[timeKey].add(dStr);
             const sortVal = dStr === "0" ? 7 : parseInt(dStr);
             const weight = sortVal * 10000 + parseInt(start.replace(":", ""));
-            if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) firstAppearance[timeKey] = weight;
+            if (!firstAppearance[timeKey] || weight < firstAppearance[timeKey]) {
+               firstAppearance[timeKey] = weight;
+            }
          }
       });
    });
