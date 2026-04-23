@@ -193,6 +193,7 @@ async function WPArticleList(
    mainUrl,
    siteKey,
    is_http = false,
+   is_cors = false,
    type = 'post',
    search = null,
    categoryID = null,
@@ -243,7 +244,7 @@ async function WPArticleList(
       const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
       const typesUrl = type === 'post' ? postsUrl : pagesUrl;
-      const httpUrl = is_http ?
+      const httpUrl = (is_http || is_cors) ?
          'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl) :
          typesUrl;
 
@@ -335,7 +336,7 @@ async function WPArticleList(
             '';
 
          const imageDisplay = is_image && imgUrl ?
-            `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
+            `<img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
             '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
@@ -388,6 +389,7 @@ async function WPArticleList(
             mainUrl,
             siteKey,
             is_http,
+            is_cors,
             type,
             search,
             categoryID,
