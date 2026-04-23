@@ -143,7 +143,7 @@ const MonthWeekCalculator = (dateInput, requestedWeeks) => {
    };
 
    for (let i = 2; i <= 16; i++) {
-      calculations[`mod${i}`] = ((firstMon - 1) % i) + 1;
+      calculations[`mod${i}`] = ((calculations.dayGroup - 1) % i) + 1;
    }
 
    if (typeof requestedWeeks === 'string') return calculations[requestedWeeks];
