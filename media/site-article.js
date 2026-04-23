@@ -243,8 +243,8 @@ async function WPArticleList(
       const is_include_tag = tagID ? `tags=${tagID}&` : '';
       const is_include_author = authorID ? `author=${authorID}&` : '';
 
-      const pagesUrl = `${mainUrlC}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-      const postsUrl = `${mainUrlC}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
       const typesUrl = type === 'post' ? postsUrl : pagesUrl;
       const httpUrl = (is_http || is_cors) ?
@@ -274,7 +274,7 @@ async function WPArticleList(
       let authorLink = '';
 
       if (categoryID) {
-         const res = await fetch(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
+         const res = await fetch(`${mainUrlC}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
          const data = await res.json();
          categoryName = data.name;
          categoryLink = data.link;
@@ -286,14 +286,14 @@ async function WPArticleList(
       }
 
       if (tagID) {
-         const res = await fetch(`${mainUrl}/wp-json/wp/v2/tags/${tagID}`);
+         const res = await fetch(`${mainUrlC}/wp-json/wp/v2/tags/${tagID}`);
          const data = await res.json();
          tagName = data.name;
          tagLink = data.link;
       }
 
       if (authorID) {
-         const res = await fetch(`${mainUrl}/wp-json/wp/v2/users/${authorID}`);
+         const res = await fetch(`${mainUrlC}/wp-json/wp/v2/users/${authorID}`);
          const data = await res.json();
          authorName = data.name;
          authorLink = data.link;
