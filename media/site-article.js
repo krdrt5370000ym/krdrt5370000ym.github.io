@@ -95,7 +95,7 @@ async function WPArticleRSC(append = false) {
    }
 }
 
-async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, append = false) {
+async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, is_cors = false, append = false) {
    const container = document.getElementById('article-list');
    const button = document.getElementById('load-more-btn');
    const perPage = 10;
@@ -108,7 +108,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
-   const finalUrl = is_http ? proxyUrl + encodeURIComponent(postsUrl) : postsUrl;
+   const finalUrl = is_http && is_cors ? proxyUrl + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       if (button) {
@@ -140,7 +140,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = is_image && imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" alt="">` : '';
+         const imageDisplay = is_image && imgUrl ? `<img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" width="150" height="150" style="object-fit:cover;" alt="">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -179,7 +179,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          button.disabled = false;
          // Ukryj przycisk, jeśli pobrano mniej postów niż limit perPage (koniec listy)
          button.style.display = posts.length < perPage ? 'none' : 'block';
-         button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, true);
+         button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, is_cors, true);
       }
 
    } catch (error) {
@@ -509,7 +509,7 @@ async function WPArticlePostRSC(slug) {
    }
 }
 
-async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false) {
+async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false, is_cors = false) {
    const container = document.getElementById('article-post');
 
    // Mapowanie URL na klucz strony (używane w linkach do list)
@@ -525,7 +525,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
    const postsUrl = slug.startsWith('post-') ?
       `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const httpUrl = is_http && is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       const response = await fetch(httpUrl);
@@ -591,7 +591,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
             if (imgUrl) {
-               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
+               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
             }
          }
 
@@ -613,7 +613,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${post.content.rendered}</div>
+                        <div class="article_singlecontent_posts">${is_cors ? replace(post.content.rendered,'src=\"http','src=\"https://cors.krdrt5370000ym2.workers.dev/?url=http') : post.content.rendered}</div>
                     </article>
                 </div>`;
       });
