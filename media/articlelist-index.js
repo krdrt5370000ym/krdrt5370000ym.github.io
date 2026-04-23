@@ -52,7 +52,7 @@
 
    const {
       url: mainUrl,
-      is_http
+      is_http,
       is_cors
    } = siteMap[site];
 
