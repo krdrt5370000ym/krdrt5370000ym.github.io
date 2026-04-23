@@ -591,7 +591,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
             if (imgUrl) {
-               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
+               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
             }
          }
 
