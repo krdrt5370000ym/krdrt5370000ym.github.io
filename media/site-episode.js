@@ -218,7 +218,7 @@ async function WPPodcastRK(SearchId) {
                 return `
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
+                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">►</a>` : ''}
                     </li>`;
             }).join('')}</ul>`;
 
@@ -393,6 +393,40 @@ function AudioPlayerEpisode(url) {
    audio.style.display = 'block'; // Pokaż player po kliknięciu
    document.scrollingElement.scrollTop = audio.offsetTop - 50;
    const isM3U8 = url.toLowerCase().includes('.m3u8');
+
+   // 1. Czyszczenie poprzedniej instancji HLS
+   if (hls) {
+      hls.destroy();
+      hls = null;
+   }
+
+   // 2. Obsługa strumienia M3U8 (HLS)
+   if (isM3U8 && Hls.isSupported()) {
+      hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(audio);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+         if (data.fatal) {
+            if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
+            else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
+         }
+      });
+   }
+   // 3. Obsługa Safari (natywne HLS) lub zwykłe MP3
+   else {
+      audio.src = url;
+      audio.play().catch(e => console.error("Błąd autostartu:", e));
+   }
+}
+
+function AudioPlayerEpisodeCORS(url) {
+   const audio = document.getElementById('player');
+   audio.style.display = 'block'; // Pokaż player po kliknięciu
+   document.scrollingElement.scrollTop = audio.offsetTop - 50;
+   const isM3U8 = url.toLowerCase().includes('.m3u8');
+   const urlCORS = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url);
 
    // 1. Czyszczenie poprzedniej instancji HLS
    if (hls) {
