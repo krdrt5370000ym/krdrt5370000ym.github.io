@@ -613,7 +613,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${is_cors ? post.content.rendered.replaceAll('src=\"http','src=\"https://cors.krdrt5370000ym2.workers.dev/?url=http') : post.content.rendered}</div>
+                        <div class="article_singlecontent_posts">${is_cors ? post.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl) : post.content.rendered}</div>
                     </article>
                 </div>`;
       });
