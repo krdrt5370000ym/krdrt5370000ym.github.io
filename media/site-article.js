@@ -711,14 +711,14 @@ async function fetchParentCategoriesIn(parentId) {
    }
 }
 
-async function WPArticlePage(slug, mainUrl, is_http = false) {
+async function WPArticlePage(slug, mainUrl, is_http = false, is_cors = false) {
    const container = document.getElementById('article-post');
 
    // Budowanie poprawnego URL (obsługa ID lub sluga)
    const postsUrl = slug.startsWith('page-') ?
       `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = is_http ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const httpUrl = (is_http || is_cors) ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       const response = await fetch(httpUrl);
@@ -738,7 +738,7 @@ async function WPArticlePage(slug, mainUrl, is_http = false) {
 
       // Obsługa obrazka wyróżniającego (Featured Media)
       const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      const imageHTML = featuredImage ? `<img src="${featuredImage}" class="article-image">` : '';
+      const imageHTML = featuredImage ? `<img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(featuredImage) : featuredImage}" class="article-image">` : '';
 
       // Generowanie HTML
       container.innerHTML = `
@@ -750,7 +750,7 @@ async function WPArticlePage(slug, mainUrl, is_http = false) {
                         </div>
                     </header>
                     ${imageHTML}
-                    <div class="article_singlecontent_posts">${page.content.rendered}</div>
+                    <div class="article_singlecontent_posts">${is_cors ? page.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl) : page.content.rendered}</div>
                 </article>
             </div>`;
 
