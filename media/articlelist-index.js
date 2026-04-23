@@ -13,23 +13,28 @@
    const siteMap = {
       radiorsc: {
          url: "https://radiorsc.pl",
-         is_http: false
+         is_http: false,
+         is_cors: false
       },
       radiovictoria: {
          url: "https://radiovictoria.pl",
-         is_http: false
+         is_http: false,
+         is_cors: false
       },
       radiokolor: {
          url: "https://radiokolor.pl",
-         is_http: false
+         is_http: false,
+         is_cors: true
       },
       sosw: {
          url: "https://soswskierniewice.pl",
-         is_http: false
+         is_http: false,
+         is_cors: false
       },
       ckis: {
          url: "https://cekis.pl",
-         is_http: true
+         is_http: true,
+         is_cors: false
       }
    };
 
@@ -48,6 +53,7 @@
    const {
       url: mainUrl,
       is_http
+      is_cors
    } = siteMap[site];
 
    function init() {
@@ -57,6 +63,7 @@
                mainUrl,
                site,
                is_http,
+               is_cors,
                type,
                search,
                category,
