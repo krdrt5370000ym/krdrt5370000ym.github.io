@@ -210,6 +210,9 @@ async function WPArticleList(
    const containerT = document.getElementById('article-t-result');
    const containerA = document.getElementById('article-a-result');
    const button = document.getElementById('load-more-btn');
+   const mainUrlC = (is_http || is_cors) ?
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(mainUrl) :
+      mainUrl;
 
    const perPage = 10;
 
@@ -230,7 +233,7 @@ async function WPArticleList(
       let finalCategoryIds = categoryID;
       if (categoryID) {
          if (!cachedCategoryIds) {
-            cachedCategoryIds = await fetchParentCategories(categoryID, mainUrl);
+            cachedCategoryIds = await fetchParentCategories(categoryID, mainUrlC);
          }
          finalCategoryIds = cachedCategoryIds;
       }
@@ -239,9 +242,6 @@ async function WPArticleList(
       const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
       const is_include_tag = tagID ? `tags=${tagID}&` : '';
       const is_include_author = authorID ? `author=${authorID}&` : '';
-      const mainUrlC = (is_http || is_cors) ?
-         'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(mainUrl) :
-         mainUrl;
 
       const pagesUrl = `${mainUrlC}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
       const postsUrl = `${mainUrlC}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
