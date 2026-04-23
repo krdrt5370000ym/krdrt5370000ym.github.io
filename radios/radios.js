@@ -258,7 +258,12 @@ function renderCurrent() {
    const day = now.getDay().toString();
    const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString();
    const time = now.toTimeString().slice(0, 8);
-   const localIsoDate = now.toLocaleDateString('sv-SE');
+   
+   // Przygotowanie daty dzisiejszej i wczorajszej dla kalkulatora mod2
+   const localIsoToday = now.toLocaleDateString('sv-SE');
+   const yesterdayDate = new Date(now);
+   yesterdayDate.setDate(now.getDate() - 1);
+   const localIsoYesterday = yesterdayDate.toLocaleDateString('sv-SE');
 
    const station = STATIONS.find(x => x.id === CURRENT_STATION_ID);
    if (!station) return;
@@ -283,32 +288,40 @@ function renderCurrent() {
       if (!isForStation) return false;
 
       let timeMatch = false;
+      let dateToUse = localIsoToday; // Domyślnie używamy daty dzisiejszej
+      
       const isMidnight = p.midnight === true;
       const startsBeforeMidnight = p.hour_start > p.hour_end;
 
+      // Sprawdzanie czy program zaczął się wczoraj i trwa po północy
       if (p.days.includes(yesterday) && startsBeforeMidnight && time < p.hour_end) {
          timeMatch = true;
+         dateToUse = localIsoYesterday; // Kluczowe: używamy daty wczorajszej dla kalkulatora
       } else if (p.days.includes(day)) {
          if (isMidnight) timeMatch = time >= p.hour_start && time < p.hour_end;
          else if (startsBeforeMidnight) timeMatch = time >= p.hour_start;
          else timeMatch = time >= p.hour_start && time < p.hour_end;
+         dateToUse = localIsoToday;
       }
+      
       if (!timeMatch) return false;
 
+      // Logika WeekMonth z uwzględnieniem skorygowanej daty (dateToUse)
       if (p.weekmonth) {
          const keys = Object.keys(p.weekmonth);
-         const stats = MonthWeekCalculator(localIsoDate, keys);
+         const stats = MonthWeekCalculator(dateToUse, keys);
          if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
       }
 
       if (p.weekmonth_exclude) {
          const exKeys = Object.keys(p.weekmonth_exclude);
-         const exStats = MonthWeekCalculator(localIsoDate, exKeys);
+         const exStats = MonthWeekCalculator(dateToUse, exKeys);
          if (exKeys.every(k => exStats[k] === p.weekmonth_exclude[k])) return false;
       }
 
       return true;
    }).sort((a, b) => {
+      // Sortowanie priorytetowe (stacja > mod2 > subschedule)
       const getScore = (i) => (i.station ? 4 : 0) + (i.weekmonth ? 2 : 0) + (i.subschedule ? 1 : 0);
       const diff = getScore(b) - getScore(a);
       return diff !== 0 ? diff : b.hour_start.localeCompare(a.hour_start);
@@ -349,7 +362,7 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name || data.name || "Program Cover")}">`;
+      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${program.name || data.name || "Program Cover"}">`;
    }
 
    if (ui.item) ui.item.textContent = program.item || "";
@@ -376,13 +389,19 @@ function renderSchedules() {
 
    const now = new Date();
    const today = now.getDay().toString();
-   const localIsoDate = now.toLocaleDateString('sv-SE');
 
    // 1. Pobierz aktywny blok harmonogramu (ID:0 lub specjalny zakres dat)
    const activeBlock = getActiveScheduleBlock(now);
    const scheduleSource = activeBlock ? activeBlock.schedule : [];
 
    dayOrder.forEach(day => {
+      // OBLICZANIE DATY DLA KONKRETNEJ ZAKŁADKI DNIA
+      // Pozwala to MonthWeekCalculator poprawnie wyliczyć mod2 dla dni przyszłych/przeszłych w widoku tygodnia
+      const targetDate = new Date(now);
+      const diff = (parseInt(day) - now.getDay() + 7) % 7;
+      targetDate.setDate(now.getDate() + diff);
+      const currentTabIsoDate = targetDate.toLocaleDateString('sv-SE');
+
       const btn = document.createElement("button");
       btn.className = "day_tablinks" + (day === today ? " active" : "");
       btn.textContent = dayNames[day];
@@ -414,26 +433,24 @@ function renderSchedules() {
                !p.station_exclude?.includes(CURRENT_STATION_ID);
             if (!isForStation) return false;
 
-            // --- FILTR D: Logika WeekMonth (Tylko dla zakładki "Dzisiaj") ---
-            // Stosujemy to tylko dzisiaj, aby użytkownik widział co faktycznie leci teraz.
-            if (day === today) {
-               // Inkluzja (musi pasować)
-               if (p.weekmonth) {
-                  const keys = Object.keys(p.weekmonth);
-                  const stats = MonthWeekCalculator(localIsoDate, keys);
-                  if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
-               }
-               // Ekskluzja (nie może pasować)
-               if (p.weekmonth_exclude) {
-                  const exKeys = Object.keys(p.weekmonth_exclude);
-                  const exStats = MonthWeekCalculator(localIsoDate, exKeys);
-                  if (exKeys.every(k => exStats[k] === p.weekmonth_exclude[k])) return false;
-               }
+            // --- FILTR D: Logika WeekMonth ---
+            // Sprawdzamy warunek tygodnia dla każdego dnia w widoku
+            if (p.weekmonth) {
+               const keys = Object.keys(p.weekmonth);
+               const stats = MonthWeekCalculator(currentTabIsoDate, keys);
+               if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
+            }
+            
+            if (p.weekmonth_exclude) {
+               const exKeys = Object.keys(p.weekmonth_exclude);
+               const exStats = MonthWeekCalculator(currentTabIsoDate, exKeys);
+               if (exKeys.every(k => exStats[k] === p.weekmonth_exclude[k])) return false;
             }
 
             return true;
          })
          .sort((a, b) => {
+            // Sortowanie uwzględniające audycje po północy na końcu listy
             const hourA = a.midnight ? "24:" + a.hour_start : a.hour_start;
             const hourB = b.midnight ? "24:" + b.hour_start : b.hour_start;
             return hourA.localeCompare(hourB);
@@ -458,7 +475,7 @@ function renderSchedules() {
             // Linkowanie
             const displayName = p.name || data.name || "Audycja";
             const isRestricted = !data.id || p.private || data.private ||
-               stations?.disable_programs || CONFIG.disable_programs;
+               (stations && stations.disable_programs) || CONFIG.disable_programs;
 
             const url = data.url_immediately || `program?uid=${data.id}&st=${SITE_ID}`;
             const nameHTML = isRestricted ?
