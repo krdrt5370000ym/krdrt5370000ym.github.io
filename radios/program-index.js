@@ -366,7 +366,7 @@ async function uruchomProgram() {
                                     ${program.onair ? `<div class="program_info_airtime">${escapeHTML(program.onair)}</div>` : ""}
                                     ${program.label ? `<div class="program_info_producter">Wydawca: ${escapeHTML(program.label)}</div>` : ""}
                                     ${emailContact ? `<div class="program_info_email">E-mail: ${emailContact}</div>` : ""}
-                                    <div class="program_info_djs"><small>Prowadzący:</small><br>${escapeHTML(occurrencesHostA)}</div>
+                                    <div class="program_info_djs"><small>Prowadzący:</small><br>${escapeHTML(hostToDisplay)}</div>
                                 </div>
                             </div>
                             <div class="program_info_desc">${program.description || "Brak opisu programu."}</div>
