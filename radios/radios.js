@@ -252,11 +252,11 @@ function getThumbnail(p, data) {
    // 2. Sprawdź bezpośrednie linki uri w obiektach
    if (p.thumbnail_uri) return p.thumbnail_uri;
    if (data && data.thumbnail_uri) return data.thumbnail_uri;
-   if (p.cover) return p.cover;
+   // if (p.cover) return p.cover;
 
    // 3. Fallback: Jeśli nic nie ma, zwróć cover aktualnej stacji
-   const station = STATIONS.find(s => s.id === CURRENT_STATION_ID);
-   return station ? station.cover : null;
+   // const station = STATIONS.find(s => s.id === CURRENT_STATION_ID);
+   // return station ? station.cover : null;
 }
 
 // =====================
@@ -412,7 +412,7 @@ function renderCurrent() {
    } else if (thumbnail) {
       thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
    } else {
-      thumbnailHTML = `<img decoding="async" src="${station.cover}" alt="Logo Stacji">`;
+      thumbnailHTML = `<img decoding="async" src="${station.cover}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Logo Stacji"}">`;
    }
 
    // Aktualizacja pól tekstowych
@@ -540,7 +540,8 @@ function renderSchedules() {
             } else if (thumbnail) {
                thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "cover"}">`;
             } else {
-               thumbnailHTML = `<img decoding="async" src="${stations.cover}" alt="logo">`;
+               thumbnailHTML = '';
+               // thumbnailHTML = `<img decoding="async" src="${stations.cover}" alt="logo">`;
             }
 
             const displayName = p.name || data.name || ""; // Audycja
