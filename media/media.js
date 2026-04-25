@@ -84,7 +84,7 @@ function renderPodcasts() {
 
          // 3. Jeśli priorytety są identyczne, sortuj alfabetycznie po nazwie
          return res !== 0 ? res : a.name.localeCompare(b.name);
-      });
+      })
    .forEach(p => {
       const el = document.createElement("div");
       el.className = "podcast_list_content";
