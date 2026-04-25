@@ -54,24 +54,29 @@ function openCity(evt, cityName) {
 }
 
 function hackBodyFont(fontName = 'Roboto', weights = '400;600;700') {
-  // 1. Tworzenie poprawnego URL do Google Fonts
-  const fontUrl = `https://fonts.googleapis.com/css2?family=${fontName.replace(' ', '+')}:wght@${weights}&display=swap`;
+  // 1. Aktualizacja lub tworzenie linku do Google Fonts
+  const fontUrl = `https://fonts.googleapis.com/css2?family=${fontName.replace(/ /g, '+')}:wght@${weights}&display=swap`;
+  let link = document.getElementById('google-font-hack');
 
-  // 2. Wstrzyknięcie linku do <head>
-  if (!document.getElementById('google-font-hack')) {
-    const link = document.createElement('link');
+  if (!link) {
+    link = document.createElement('link');
     link.id = 'google-font-hack';
     link.rel = 'stylesheet';
-    link.href = fontUrl;
     document.head.appendChild(link);
   }
+  link.href = fontUrl; // Zawsze aktualizuje URL
 
-  // 3. Wymuszenie czcionki na body
-  const style = document.createElement('style');
+  // 2. Wymuszenie czcionki (z nadpisywaniem poprzedniego stylu)
+  let style = document.getElementById('body-font-style');
+  if (!style) {
+    style = document.createElement('style');
+    style.id = 'body-font-style';
+    document.head.appendChild(style);
+  }
+  
   style.textContent = `
     body { 
       font-family: '${fontName}', sans-serif !important; 
     }
   `;
-  document.head.appendChild(style);
 }
