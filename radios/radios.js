@@ -653,24 +653,24 @@ function updateOnAirStatus() {
          }
 
          // Sprawdź inkluzję weekmonth
-         if (prog.weekmonth) {
-            const keys = Object.keys(prog.weekmonth);
-            const stats = MonthWeekCalculator(dateForMod, keys);
-            if (!keys.every(k => stats[k] === prog.weekmonth[k])) {
-               row.classList.remove('onair');
-               return;
-            }
-         }
+         // if (prog.weekmonth) {
+         //    const keys = Object.keys(prog.weekmonth);
+         //    const stats = MonthWeekCalculator(dateForMod, keys);
+         //    if (!keys.every(k => stats[k] === prog.weekmonth[k])) {
+         //       row.classList.remove('onair');
+         //       return;
+         //    }
+         // }
 
          // Sprawdź ekskluzję weekmonth_exclude
-         if (prog.weekmonth_exclude) {
-            const exKeys = Object.keys(prog.weekmonth_exclude);
-            const exStats = MonthWeekCalculator(dateForMod, exKeys);
-            if (exKeys.every(k => exStats[k] === prog.weekmonth_exclude[k])) {
-               row.classList.remove('onair');
-               return;
-            }
-         }
+         // if (prog.weekmonth_exclude) {
+         //    const exKeys = Object.keys(prog.weekmonth_exclude);
+         //    const exStats = MonthWeekCalculator(dateForMod, exKeys);
+         //    if (exKeys.every(k => exStats[k] === prog.weekmonth_exclude[k])) {
+         //       row.classList.remove('onair');
+         //       return;
+         //    }
+         // }
       }
       let isActive = false;
       if (isMidnightType) {
