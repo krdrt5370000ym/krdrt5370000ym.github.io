@@ -85,27 +85,25 @@ function renderPodcasts() {
          // 3. Jeśli priorytety są identyczne, sortuj alfabetycznie po nazwie
          return res !== 0 ? res : a.name.localeCompare(b.name);
       });
-   return result !== 0 ? result : a.name.localeCompare(b.name);
-})
-.forEach(p => {
-   const el = document.createElement("div");
-   el.className = "podcast_list_content";
+      .forEach(p => {
+         const el = document.createElement("div");
+         el.className = "podcast_list_content";
 
-   const thumb = p.thumbnail_text;
-   const style = thumb ? [
-      thumb.background ? `background:${thumb.background}` : '',
-      thumb.color ? `color:${thumb.color}` : ''
-   ].filter(Boolean).join(';') : '';
-   const name = (thumb && thumb.name) || p.name || "";
-   const thumbnailDisplay = p.thumbnail_uri ?
-      `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
-   const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
+         const thumb = p.thumbnail_text;
+         const style = thumb ? [
+            thumb.background ? `background:${thumb.background}` : '',
+            thumb.color ? `color:${thumb.color}` : ''
+         ].filter(Boolean).join(';') : '';
+         const name = (thumb && thumb.name) || p.name || "";
+         const thumbnailDisplay = p.thumbnail_uri ?
+            `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
+         const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
 
-   const podcastUrl = p.url_immediately ?
-      `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
-      `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
+         const podcastUrl = p.url_immediately ?
+            `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
+            `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
 
-   el.innerHTML = `
+         el.innerHTML = `
         <div class="podcast_list_cover">${thumbnailText}</div>
         <div>
             ${podcastUrl}
@@ -113,8 +111,8 @@ function renderPodcasts() {
         </div>
       `;
 
-   container.appendChild(el);
-});
+         container.appendChild(el);
+      });
 }
 
 // =====================
