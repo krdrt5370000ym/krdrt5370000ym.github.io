@@ -71,6 +71,21 @@ function getDisplaySchedule(programId, rawSchedule) {
    const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
    const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
+   // Mapa tłumaczeń kluczy z MonthWeekCalculator na czytelny tekst
+   const labelMap = {
+      dayGroup: "tydzień miesiąca",
+      lastDayGroup: "tydzień od końca miesiąca",
+      firstMonday: "poniedziałek miesiąca",
+      firstTuesday: "wtorek miesiąca",
+      firstWednesday: "środa miesiąca",
+      firstThursday: "czwartek miesiąca",
+      firstFriday: "piątek miesiąca",
+      firstSaturday: "sobota miesiąca",
+      firstSunday: "niedziela miesiąca",
+      lastMonday: "ostatni poniedziałek miesiąca",
+      lastSunday: "ostatnia niedziela miesiąca"
+   };
+
    const timeGroups = {};
    const firstAppearance = {};
    const now = new Date();
@@ -78,30 +93,42 @@ function getDisplaySchedule(programId, rawSchedule) {
    const activeBlock = getActiveScheduleBlock(now, rawSchedule);
    const scheduleSource = activeBlock ? (activeBlock.schedule || []) : [];
 
-   // 1. Filtrowanie - USUNIĘTO todayWeekStats, aby pokazać cały plan emisji
    const filtered = scheduleSource.filter(p => {
       if (p.id !== programId || !p.active || p.private || p.hide_in_schedule) return false;
-      
-      const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
-      return isPublished;
+      return p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
    });
 
    if (filtered.length === 0) return "";
 
-   // 2. Grupowanie
    filtered.forEach(occ => {
       const start = (occ.hour_start || "00:00").substring(0, 5);
       const end = (occ.hour_end || "00:00").substring(0, 5);
       
-      // Dodawanie czytelnych etykiet dla specyficznych cykli
-      let suffix = "";
-      if (occ.weekmonth) {
-         if (occ.weekmonth.mod2 === 1) suffix = " (co 2 tyg. nieparzyste)";
-         else if (occ.weekmonth.mod2 === 2) suffix = " (co 2 tyg. parzyste)";
-         else if (occ.weekmonth.dayGroup) suffix = ` (${occ.weekmonth.dayGroup}. tydzień miesiąca)`;
-      }
+      let suffixes = [];
+
+      // Funkcja pomocnicza do generowania opisu reguł
+      const buildRules = (obj, isExclude = false) => {
+         if (!obj) return;
+         Object.keys(obj).forEach(key => {
+            const val = obj[key];
+            let label = "";
+
+            if (key.startsWith('mod')) {
+               const num = key.replace('mod', '');
+               label = `co ${num} tyg. (cykl ${val})`;
+            } else if (labelMap[key]) {
+               label = `${val}. ${labelMap[key]}`;
+            }
+
+            if (label) suffixes.push(isExclude ? `oprócz: ${label}` : label);
+         });
+      };
+
+      buildRules(occ.weekmonth, false);
+      buildRules(occ.weekmonth_exclude, true);
       
-      const timeKey = `${start} - ${end}${suffix}`;
+      const suffixText = suffixes.length > 0 ? ` (${suffixes.join(', ')})` : "";
+      const timeKey = `${start} - ${end}${suffixText}`;
 
       if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
       const days = Array.isArray(occ.days) ? occ.days : [occ.days];
@@ -119,7 +146,6 @@ function getDisplaySchedule(programId, rawSchedule) {
       });
    });
 
-   // 3. Sortowanie i generowanie tekstu
    const sortedTimeKeys = Object.keys(timeGroups).sort((a, b) => firstAppearance[a] - firstAppearance[b]);
 
    return sortedTimeKeys.map(timeKey => {
