@@ -409,7 +409,7 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="Cover Audycji">`;
+      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
    } else {
       thumbnailHTML = `<img decoding="async" src="${station.cover}" alt="Logo Stacji">`;
    }
@@ -537,7 +537,7 @@ function renderSchedules() {
                ].filter(Boolean).join(';');
                thumbnailHTML = `<div class="schedule_name_box" style="${style}">${thumb.name || p.name || data.name || ""}</div>`;
             } else if (thumbnail) {
-               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="cover">`;
+               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "cover"}">`;
             } else {
                thumbnailHTML = `<img decoding="async" src="${stations.cover}" alt="logo">`;
             }
@@ -555,7 +555,8 @@ function renderSchedules() {
             el.className = p.subschedule ? "schedule_program small" : "schedule_program";
 
             // --- DATASET DLA updateOnAirStatus ---
-            el.dataset.id = p.id;
+            el.dataset.id = (p.id === null || !data.id || p.private || data.private ||
+               (stations && stations.disable_programs) || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs)) ? '' : p.id;
             el.dataset.start = p.hour_start;
             el.dataset.end = p.hour_end;
             el.dataset.midnight = p.midnight ? "true" : "false";
