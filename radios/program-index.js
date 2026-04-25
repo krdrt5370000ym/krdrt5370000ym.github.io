@@ -68,8 +68,24 @@ function getActiveScheduleBlock(date = new Date(), scheduleData) {
 
 // Główna funkcja formatująca czas emisji
 function getDisplaySchedule(programId, rawSchedule) {
-   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
-   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
+   const daysMapFull = {
+      "1": "Poniedziałek",
+      "2": "Wtorek",
+      "3": "Środa",
+      "4": "Czwartek",
+      "5": "Piątek",
+      "6": "Sobota",
+      "0": "Niedziela"
+   };
+   const daysMapShort = {
+      "1": "Pn",
+      "2": "Wt",
+      "3": "Śr",
+      "4": "Czw",
+      "5": "Pt",
+      "6": "Sob",
+      "0": "Ndz"
+   };
 
    // Mapa tłumaczeń kluczy z MonthWeekCalculator na czytelny tekst
    const labelMap = {
@@ -103,7 +119,7 @@ function getDisplaySchedule(programId, rawSchedule) {
    filtered.forEach(occ => {
       const start = (occ.hour_start || "00:00").substring(0, 5);
       const end = (occ.hour_end || "00:00").substring(0, 5);
-      
+
       let suffixes = [];
 
       // Funkcja pomocnicza do generowania opisu reguł
@@ -126,7 +142,7 @@ function getDisplaySchedule(programId, rawSchedule) {
 
       buildRules(occ.weekmonth, false);
       buildRules(occ.weekmonth_exclude, true);
-      
+
       const suffixText = suffixes.length > 0 ? ` (${suffixes.join(', ')})` : "";
       const timeKey = `${start} - ${end}${suffixText}`;
 
@@ -227,7 +243,7 @@ async function uruchomProgram() {
             const keys = Object.keys(osch.weekmonth);
             if (!keys.every(k => todayWeekStats[k] === osch.weekmonth[k])) return false;
          }
-         
+
          // Wykluczenia
          if (osch.weekmonth_exclude) {
             const exKeys = Object.keys(osch.weekmonth_exclude);
@@ -253,13 +269,14 @@ async function uruchomProgram() {
          (program.host || "---");
 
       // 3. Renderowanie HTML
-      const escapeHTML = (str) => str ? String(str).replace(/[&<>"']/g, m => ({
-         '&': '&',
-         '<': '<',
-         '>': '>',
-         '"': '"',
-         "'": "'"
-      } [m])) : "";
+      const escapeHTML = (str) =>
+         str ? String(str).replace(/[&<>"']/g, m => ({
+            '&': '&',
+            '<': '<',
+            '>': '>',
+            '"': '"',
+            "'": "'"
+         } [m])) : "";
 
       const thumb = program.thumbnail_text;
       const style = thumb ? `background:${thumb.background || ''};color:${thumb.color || ''}` : '';
