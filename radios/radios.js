@@ -263,7 +263,7 @@ function getThumbnail(p, data) {
 // ON AIR
 // =====================
 function renderCurrent() {
-   const now = new Date("2026-04-26 16:34:34");
+   const now = new Date();
    const currentTime = now.toTimeString().slice(0, 8);
    const currentDay = now.getDay().toString();
    const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString();
@@ -300,7 +300,7 @@ function renderCurrent() {
       const isMidnight = p.midnight === true;
       const crossesMidnight = p.hour_start > p.hour_end;
 
-      // A. Programy nocne (np. Korolova, Sam Feldt, Robin Schulz)
+      // A. Programy nocne
       if (isMidnight) {
          if (p.days.includes(currentDay)) {
             if (currentTime >= p.hour_start && currentTime < p.hour_end) {
@@ -309,7 +309,7 @@ function renderCurrent() {
             }
          }
       }
-      // B. Programy przechodzące przez północ (np. Podkręcamy tempo 23-06)
+      // B. Programy przechodzące przez północ
       else if (crossesMidnight) {
          if (p.days.includes(yesterday) && currentTime < p.hour_end) {
             timeMatch = true;
@@ -449,7 +449,7 @@ function renderSchedules() {
    tabs.innerHTML = "";
    contents.innerHTML = "";
 
-   const now = new Date("2026-04-12 16:34:34");
+   const now = new Date();
    const currentDayIdx = now.getDay();
    const todayStr = currentDayIdx.toString();
 
@@ -910,7 +910,6 @@ function renderPrograms() {
       container.appendChild(el);
    });
 }
-
 // =====================
 // STATIONS
 // =====================
