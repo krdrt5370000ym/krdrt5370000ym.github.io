@@ -263,7 +263,7 @@ function getThumbnail(p, data) {
 // ON AIR
 // =====================
 function renderCurrent() {
-   const now = new Date();
+   const now = new Date("2026-04-26 16:34:34");
    const currentTime = now.toTimeString().slice(0, 8);
    const currentDay = now.getDay().toString();
    const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString();
@@ -300,7 +300,7 @@ function renderCurrent() {
       const isMidnight = p.midnight === true;
       const crossesMidnight = p.hour_start > p.hour_end;
 
-      // A. Programy nocne
+      // A. Programy nocne (np. Korolova, Sam Feldt, Robin Schulz)
       if (isMidnight) {
          if (p.days.includes(currentDay)) {
             if (currentTime >= p.hour_start && currentTime < p.hour_end) {
@@ -309,7 +309,7 @@ function renderCurrent() {
             }
          }
       }
-      // B. Programy przechodzące przez północ
+      // B. Programy przechodzące przez północ (np. Podkręcamy tempo 23-06)
       else if (crossesMidnight) {
          if (p.days.includes(yesterday) && currentTime < p.hour_end) {
             timeMatch = true;
@@ -449,7 +449,7 @@ function renderSchedules() {
    tabs.innerHTML = "";
    contents.innerHTML = "";
 
-   const now = new Date();
+   const now = new Date("2026-04-12 16:34:34");
    const currentDayIdx = now.getDay();
    const todayStr = currentDayIdx.toString();
 
@@ -775,11 +775,12 @@ function renderSDetails() {
 // =====================
 function renderPrograms() {
    const container = document.getElementById("program_list");
-   const filter = document.getElementById("categoryFilter").value;
-   const search = document.getElementById("searchInput").value.toLowerCase();
+   const filter = document.getElementById("categoryFilter")?.value || "";
+   const search = document.getElementById("searchInput")?.value.toLowerCase() || "";
 
    if (!container) return;
 
+   // Poprawiona funkcja bezpiecznego escapowania znaków
    const escapeHTML = (str) =>
       str ? String(str).replace(/[&<>"']/g, m => ({
          '&': '&',
@@ -791,12 +792,19 @@ function renderPrograms() {
 
    container.innerHTML = "";
 
-   // 1. Pobierz aktualnie aktywny blok harmonogramu dla kontekstu prowadzących
-   const activeBlock = getActiveScheduleBlock(new Date());
+   // Pobranie kontekstu czasowego raz, przed pętlą (optymalizacja)
+   const now = new Date();
+   const localIsoToday = now.toLocaleDateString('sv-SE');
+   const activeBlock = getActiveScheduleBlock(now);
    const scheduleSource = activeBlock ? activeBlock.schedule : [];
 
-   PROGRAMS
+   // Pre-kalkulacja statystyk tygodnia dla dzisiejszej daty
+   // (używane później do filtrowania wystąpień w harmonogramie)
+   const todayWeekStats = MonthWeekCalculator(localIsoToday);
+
+   const filteredPrograms = PROGRAMS
       .filter(p => {
+         // Podstawowe filtry widoczności
          if (p.hide_in_program || p.hide_in_schedule || p.private || p.archive || p.hide_only_information_schedule) return false;
 
          // Filtr stacji
@@ -806,65 +814,101 @@ function renderPrograms() {
          if (p.category_not_all && filter === "") return false;
          if (filter !== "" && !(p.category && p.category.includes(filter))) return false;
 
-         // Wyszukiwarka
+         // Wyszukiwarka (nazwa lub prowadzący)
          const name = (p.name || "").toLowerCase();
          const host = (p.host || "").toLowerCase();
          return name.includes(search) || host.includes(search);
       })
       .sort((a, b) => {
-         const sortA = a.sorted || "";
-         const sortB = b.sorted || "";
-         const res = sortA.toString().localeCompare(sortB.toString(), undefined, {
+         const sortA = Array.isArray(a.sorted) ? a.sorted : [a.sorted || ""];
+         const sortB = Array.isArray(b.sorted) ? b.sorted : [b.sorted || ""];
+
+         // 1. Porównaj pierwszy element tablicy (np. "0" vs "1")
+         const res = sortA[0].toString().localeCompare(sortB[0].toString(), undefined, {
             numeric: true
          });
-         return res !== 0 ? res : a.name.localeCompare(b.name);
-      })
-      .forEach(p => {
-         // --- LOGIKA DYNAMICZNYCH PROWADZĄCYCH ---
-         // Znajdź wszystkie wystąpienia tego programu w obecnej ramówce
-         const occurrencesSch = scheduleSource.filter(osch => osch.id === p.id);
 
-         // Wyciągnij unikalnych prowadzących przypisanych do tych wystąpień
-         const occurrencesHost = [...new Set(occurrencesSch
-            .map(osch => osch.host)
-            .filter(h => h && h.trim() !== "")
-         )];
-
-         // Decyzja: czy brać hostów z ramówki, czy z bazy PROGRAMS
-         const hostToDisplay = p.only_the_schedule_hosts ?
-            (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "") :
-            (p.host || "");
-
-         // --- MINIATURA ---
-         const thumb = p.thumbnail_text;
-         let thumbnailHTML = "";
-         if (thumb) {
-            const style = [
-               thumb.background ? `background:${thumb.background}` : '',
-               thumb.color ? `color:${thumb.color}` : ''
-            ].filter(Boolean).join(';');
-            thumbnailHTML = `<div class="program_list_box" style="${style}">${thumb.name || p.name}</div>`;
-         } else if (p.thumbnail_uri) {
-            thumbnailHTML = `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">`;
+         // 2. Jeśli pierwsze elementy są identyczne, porównaj drugi element (np. "1" vs "7")
+         if (res === 0 && (sortA[1] !== undefined || sortB[1] !== undefined)) {
+            const res2 = (sortA[1] || "").toString().localeCompare((sortB[1] || "").toString(), undefined, {
+               numeric: true
+            });
+            if (res2 !== 0) return res2;
          }
 
-         // --- LINKOWANIE ---
-         const url = p.url_immediately || `program?uid=${p.id}&st=${SITE_ID}`;
-         const nameHTML = `<div class="program_list_name" style="cursor:pointer;"><a href="${url}" target="_blank">${p.name}</a></div>`;
+         // 3. Jeśli priorytety są identyczne, sortuj alfabetycznie po nazwie
+         return res !== 0 ? res : a.name.localeCompare(b.name);
+      });
 
-         const el = document.createElement("div");
-         el.className = "program_list_content";
-         el.innerHTML = `
-            <div class="program_list_cover">${thumbnailHTML}</div>
+   filteredPrograms.forEach(p => {
+      // --- LOGIKA DYNAMICZNYCH PROWADZĄCYCH Z HARMONOGRAMU ---
+
+      // Znajdź wystąpienia programu, które są aktywne "dzisiaj" i spełniają warunki tygodnia
+      const activeOccurrences = scheduleSource.filter(osch => {
+         if (osch.id !== p.id || !osch.active || osch.private || osch.hide_in_schedule) return false;
+
+         // Sprawdzanie publikacji czasowej
+         if (osch.publish_from_date && now < new Date(osch.publish_from_date)) return false;
+
+         // Logika tygodnia miesiąca (weekmonth)
+         if (osch.weekmonth) {
+            const keys = Object.keys(osch.weekmonth);
+            if (!keys.every(k => todayWeekStats[k] === osch.weekmonth[k])) return false;
+         }
+
+         // Logika wykluczeń tygodnia (weekmonth_exclude)
+         if (osch.weekmonth_exclude) {
+            const exKeys = Object.keys(osch.weekmonth_exclude);
+            if (exKeys.every(k => todayWeekStats[k] === osch.weekmonth_exclude[k])) return false;
+         }
+
+         return true;
+      });
+
+      // Unikalni prowadzący z odfiltrowanego harmonogramu
+      const occurrencesHost = [...new Set(activeOccurrences
+         .map(osch => osch.host)
+         .filter(h => h && h.trim() !== "")
+      )];
+
+      // Wybór źródła prowadzących: z harmonogramu lub z bazy programów
+      const hostToDisplay = p.only_the_schedule_hosts ?
+         (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "") :
+         (p.host || "");
+
+      // --- GENEROWANIE MINIATURY ---
+      let thumbnailHTML = "";
+      if (p.thumbnail_text) {
+         const thumb = p.thumbnail_text;
+         const style = [
+            thumb.background ? `background:${thumb.background}` : '',
+            thumb.color ? `color:${thumb.color}` : ''
+         ].filter(Boolean).join(';');
+         thumbnailHTML = `<div class="program_list_box" style="${style}">${escapeHTML(thumb.name || p.name)}</div>`;
+      } else if (p.thumbnail_uri) {
+         thumbnailHTML = `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">`;
+      }
+
+      // --- RENDEROWANIE ELEMENTU ---
+      const url = p.url_immediately || `program?uid=${p.id}&st=${SITE_ID}`;
+
+      const el = document.createElement("div");
+      el.className = "program_list_content";
+      el.innerHTML = `
+            <div class="program_list_cover">
+                <a href="${url}">${thumbnailHTML}</a>
+            </div>
             <div class="program_list_info">
-                ${nameHTML}
+                <div class="program_list_name">
+                    <a href="${url}">${escapeHTML(p.name)}</a>
+                </div>
                 <div class="program_list_host">${escapeHTML(hostToDisplay)}</div>
                 <div class="program_list_onair">${escapeHTML(p.onair || "")}</div>
             </div>
-         `;
+        `;
 
-         container.appendChild(el);
-      });
+      container.appendChild(el);
+   });
 }
 
 // =====================
