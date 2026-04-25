@@ -68,51 +68,40 @@ function getActiveScheduleBlock(date = new Date(), scheduleData) {
 
 // Główna funkcja formatująca czas emisji
 function getDisplaySchedule(programId, rawSchedule) {
-   const daysMapFull = {
-      "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek",
-      "5": "Piątek", "6": "Sobota", "0": "Niedziela"
-   };
-   const daysMapShort = {
-      "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz"
-   };
+   const daysMapFull = { "1": "Poniedziałek", "2": "Wtorek", "3": "Środa", "4": "Czwartek", "5": "Piątek", "6": "Sobota", "0": "Niedziela" };
+   const daysMapShort = { "1": "Pn", "2": "Wt", "3": "Śr", "4": "Czw", "5": "Pt", "6": "Sob", "0": "Ndz" };
 
    const timeGroups = {};
    const firstAppearance = {};
    const now = new Date();
 
-   // 1. Pobierz dane z aktywnego bloku
    const activeBlock = getActiveScheduleBlock(now, rawSchedule);
    const scheduleSource = activeBlock ? (activeBlock.schedule || []) : [];
 
-   // 2. Filtruj wystąpienia audycji (USUŃ FILTRY DATY)
+   // 1. Filtrowanie - USUNIĘTO todayWeekStats, aby pokazać cały plan emisji
    const filtered = scheduleSource.filter(p => {
-      // Zostawiamy tylko podstawowe warunki stałej dostępności
       if (p.id !== programId || !p.active || p.private || p.hide_in_schedule) return false;
-
-      // Filtr daty publikacji zostawiamy, by nie pokazywać zapowiedzi przed premierą
-      const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
-      if (!isPublished) return false;
-
-      // UWAGA: Nie filtrujemy tutaj przez MonthWeekCalculator!
-      // Chcemy pokazać, że audycja istnieje w grafiku, nawet jeśli nie gra w tym konkretnym tygodniu.
       
-      return true;
+      const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
+      return isPublished;
    });
 
    if (filtered.length === 0) return "";
 
-   // 3. Grupowanie według godzin (z informacją o mod2)
+   // 2. Grupowanie
    filtered.forEach(occ => {
       const start = (occ.hour_start || "00:00").substring(0, 5);
       const end = (occ.hour_end || "00:00").substring(0, 5);
       
-      // Jeśli audycja jest co 2 tygodnie, dodajemy informację do etykiety czasu
-      let modSuffix = "";
-      if (occ.weekmonth && occ.weekmonth.mod2) {
-         modSuffix = occ.weekmonth.mod2 === 1 ? " (co 2 tyg. - nieparzyste)" : " (co 2 tyg. - parzyste)";
+      // Dodawanie czytelnych etykiet dla specyficznych cykli
+      let suffix = "";
+      if (occ.weekmonth) {
+         if (occ.weekmonth.mod2 === 1) suffix = " (co 2 tyg. nieparzyste)";
+         else if (occ.weekmonth.mod2 === 2) suffix = " (co 2 tyg. parzyste)";
+         else if (occ.weekmonth.dayGroup) suffix = ` (${occ.weekmonth.dayGroup}. tydzień miesiąca)`;
       }
       
-      const timeKey = `${start} - ${end}${modSuffix}`;
+      const timeKey = `${start} - ${end}${suffix}`;
 
       if (!timeGroups[timeKey]) timeGroups[timeKey] = new Set();
       const days = Array.isArray(occ.days) ? occ.days : [occ.days];
@@ -130,7 +119,7 @@ function getDisplaySchedule(programId, rawSchedule) {
       });
    });
 
-   // 4. Sortowanie i generowanie stringa
+   // 3. Sortowanie i generowanie tekstu
    const sortedTimeKeys = Object.keys(timeGroups).sort((a, b) => firstAppearance[a] - firstAppearance[b]);
 
    return sortedTimeKeys.map(timeKey => {
@@ -165,6 +154,7 @@ async function uruchomProgram() {
    const uid = params.get('uid');
    const station = params.get('st');
    const now = new Date();
+   const localIsoToday = now.toLocaleDateString('sv-SE');
 
    if (!uid || !station) {
       document.body.innerHTML = "Błąd parametrów.";
@@ -175,17 +165,16 @@ async function uruchomProgram() {
       const fetchJSON = async (suffix) => {
          const res = await fetch(`https://krdrt5370000ym.github.io/radios/json/${station}_${suffix}.json`);
          if (!res.ok) return suffix === 'config' ? {} : [];
-         const data = await res.json();
-         return (suffix === 'config' && Array.isArray(data)) ? data[0] : data;
+         return await res.json();
       };
 
+      // 1. Pobieranie danych
       const [PROGRAMS, SCHEDULE_DATA, CONFIG] = await Promise.all([
          fetchJSON('programs'), fetchJSON('schedule'), fetchJSON('config')
       ]);
-      const ALL_ITEMS = SCHEDULE_DATA.flatMap(block => block.schedule || []);
 
       const program = PROGRAMS.find(p => p.id === uid);
-      if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info) {
+      if (!program || program.hide_in_schedule || program.private || (CONFIG && CONFIG.disable_programs_info)) {
          document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
          document.title = window.location.href;
          return;
@@ -196,14 +185,33 @@ async function uruchomProgram() {
          return;
       }
 
-      // 2. Logika emisji i prowadzących
-      const occurrencesSch = ALL_ITEMS.filter(osch =>
-         osch.id === uid &&
-         osch.active &&
-         !osch.private &&
-         !osch.hide_in_schedule &&
-         (osch.publish_from_date ? new Date() >= new Date(osch.publish_from_date) : true)
-      );
+      // 2. Obliczanie statystyk tygodnia
+      const todayWeekStats = MonthWeekCalculator(localIsoToday);
+
+      // 3. Pobranie aktywnego bloku harmonogramu
+      const activeBlock = getActiveScheduleBlock(now, SCHEDULE_DATA);
+      const scheduleSource = activeBlock ? activeBlock.schedule : [];
+
+      // 4. Logika emisji i prowadzących (filtrowanie na podstawie AKTUALNEGO bloku)
+      const occurrencesSch = scheduleSource.filter(osch => {
+         if (osch.id !== uid || !osch.active || osch.private || osch.hide_in_schedule) return false;
+
+         // Tygodnie/Mody
+         if (osch.weekmonth) {
+            const keys = Object.keys(osch.weekmonth);
+            if (!keys.every(k => todayWeekStats[k] === osch.weekmonth[k])) return false;
+         }
+         
+         // Wykluczenia
+         if (osch.weekmonth_exclude) {
+            const exKeys = Object.keys(osch.weekmonth_exclude);
+            if (exKeys.every(k => todayWeekStats[k] === osch.weekmonth_exclude[k])) return false;
+         }
+
+         return osch.publish_from_date ? now >= new Date(osch.publish_from_date) : true;
+      });
+
+      // 5. Pobranie pełnego napisu harmonogramu (z wszystkich bloków)
       const scheduleInfo = getDisplaySchedule(uid, SCHEDULE_DATA);
 
       if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
@@ -212,11 +220,9 @@ async function uruchomProgram() {
          return;
       }
 
-      const activeBlock = getActiveScheduleBlock(now, SCHEDULE_DATA);
-      const currentOccurrences = activeBlock.schedule.filter(o => o.id === uid && o.active);
-
-      const occurrencesHost = [...new Set(currentOccurrences.flatMap(o => o.host || []))];
-      const occurrencesHostA = program.only_the_schedule_hosts ?
+      // Prowadzący
+      const occurrencesHost = [...new Set(occurrencesSch.map(o => o.host).filter(h => h))];
+      const hostToDisplay = program.only_the_schedule_hosts ?
          (occurrencesHost.length > 0 ? occurrencesHost.join(', ') : "---") :
          (program.host || "---");
 
