@@ -109,51 +109,60 @@ function formatHour(h) {
 
 const MonthWeekCalculator = (dateInput, requestedWeeks) => {
    const date = new Date(dateInput);
+   // Walidacja daty
+   if (isNaN(date.getTime())) return null;
+
    const day = date.getDate();
    const month = date.getMonth();
    const year = date.getFullYear();
    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-   const getWeekByStartDay = (currentDay, targetDayIdx, reverse = false) => {
+   // Pomocnicza funkcja do obliczeń
+   const getWeekByStartDay = (targetDayIdx, reverse = false) => {
       if (!reverse) {
          const firstOfMonth = new Date(year, month, 1).getDay();
          const offset = (firstOfMonth - targetDayIdx + 7) % 7;
-         return Math.ceil((currentDay + offset) / 7);
+         return Math.ceil((day + offset) / 7);
       } else {
          const lastOfMonth = new Date(year, month, daysInMonth).getDay();
-         const distFromEnd = daysInMonth - currentDay + 1;
+         const distFromEnd = daysInMonth - day + 1;
          const offset = (targetDayIdx - lastOfMonth + 7) % 7;
          return Math.ceil((distFromEnd + offset) / 7);
       }
    };
 
-   const firstMon = getWeekByStartDay(day, 1);
+   // Obiekt z leniwym ładowaniem lub pełny wynik
    const calculations = {
       dayGroup: Math.ceil(day / 7),
       lastDayGroup: Math.ceil((daysInMonth - day + 1) / 7),
-      firstSunday: getWeekByStartDay(day, 0),
-      firstMonday: firstMon,
-      firstTuesday: getWeekByStartDay(day, 2),
-      firstWednesday: getWeekByStartDay(day, 3),
-      firstThursday: getWeekByStartDay(day, 4),
-      firstFriday: getWeekByStartDay(day, 5),
-      firstSaturday: getWeekByStartDay(day, 6),
-      lastSunday: getWeekByStartDay(day, 0, true),
-      lastMonday: getWeekByStartDay(day, 1, true)
+      firstSunday: getWeekByStartDay(0),
+      firstMonday: getWeekByStartDay(1),
+      firstTuesday: getWeekByStartDay(2),
+      firstWednesday: getWeekByStartDay(3),
+      firstThursday: getWeekByStartDay(4),
+      firstFriday: getWeekByStartDay(5),
+      firstSaturday: getWeekByStartDay(6),
+      lastSunday: getWeekByStartDay(0, true),
+      lastMonday: getWeekByStartDay(1, true)
    };
 
+   // Generowanie modów
    for (let i = 2; i <= 16; i++) {
       calculations[`mod${i}`] = ((calculations.dayGroup - 1) % i) + 1;
    }
 
-   if (typeof requestedWeeks === 'string') return calculations[requestedWeeks];
-   if (Array.isArray(requestedWeeks)) {
-      const results = {};
-      requestedWeeks.forEach(k => {
-         if (calculations[k]) results[k] = calculations[k];
-      });
-      return results;
+   // --- Logika zwracania wyników ---
+   if (typeof requestedWeeks === 'string') {
+      return calculations[requestedWeeks];
    }
+
+   if (Array.isArray(requestedWeeks)) {
+      return requestedWeeks.reduce((acc, key) => {
+         if (key in calculations) acc[key] = calculations[key];
+         return acc;
+      }, {});
+   }
+
    return calculations;
 };
 
@@ -255,11 +264,10 @@ function getThumbnail(p, data) {
 // =====================
 function renderCurrent() {
    const now = new Date();
-   const day = now.getDay().toString();
+   const currentTime = now.toTimeString().slice(0, 8);
+   const currentDay = now.getDay().toString();
    const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString();
-   const time = now.toTimeString().slice(0, 8);
-   
-   // Przygotowanie daty dzisiejszej i wczorajszej dla kalkulatora mod2
+
    const localIsoToday = now.toLocaleDateString('sv-SE');
    const yesterdayDate = new Date(now);
    yesterdayDate.setDate(now.getDate() - 1);
@@ -268,45 +276,60 @@ function renderCurrent() {
    const station = STATIONS.find(x => x.id === CURRENT_STATION_ID);
    if (!station) return;
 
-   // 1. OBSŁUGA ZEWNĘTRZNYCH API
+   // 1. OBSŁUGA PLUGÓW / API ZEWNĘTRZNYCH
    if (station.schedule && !station.radio_plug && !station.radio_listen && (!CONFIG || !CONFIG.radio_plug)) {
       scheduleCurrent(station.schedule);
-      if (SCHEDULE_APP === 1) return;
+      if (typeof SCHEDULE_APP !== 'undefined' && SCHEDULE_APP === 1) return;
    }
-   SCHEDULE_APP = null;
 
-   // 2. LOGIKA LOKALNEJ RAMÓWKI
+   // 2. LOGIKA FILTROWANIA RAMÓWKI
    const activeBlock = getActiveScheduleBlock(now);
    const scheduleSource = activeBlock ? activeBlock.schedule : [];
 
    const filtered = scheduleSource.filter(p => {
-      const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
-      if (!p.active || !isPublished) return false;
+      if (!p.active) return false;
 
+      // Sprawdzenie stacji
       const isForStation = (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
          !p.station_exclude?.includes(CURRENT_STATION_ID);
       if (!isForStation) return false;
 
       let timeMatch = false;
-      let dateToUse = localIsoToday; // Domyślnie używamy daty dzisiejszej
-      
-      const isMidnight = p.midnight === true;
-      const startsBeforeMidnight = p.hour_start > p.hour_end;
+      let dateToUse = localIsoToday;
 
-      // Sprawdzanie czy program zaczął się wczoraj i trwa po północy
-      if (p.days.includes(yesterday) && startsBeforeMidnight && time < p.hour_end) {
-         timeMatch = true;
-         dateToUse = localIsoYesterday; // Kluczowe: używamy daty wczorajszej dla kalkulatora
-      } else if (p.days.includes(day)) {
-         if (isMidnight) timeMatch = time >= p.hour_start && time < p.hour_end;
-         else if (startsBeforeMidnight) timeMatch = time >= p.hour_start;
-         else timeMatch = time >= p.hour_start && time < p.hour_end;
-         dateToUse = localIsoToday;
+      const isMidnight = p.midnight === true;
+      const crossesMidnight = p.hour_start > p.hour_end;
+
+      // A. Programy nocne
+      if (isMidnight) {
+         if (p.days.includes(currentDay)) {
+            if (currentTime >= p.hour_start && currentTime < p.hour_end) {
+               timeMatch = true;
+               dateToUse = localIsoToday;
+            }
+         }
       }
-      
+      // B. Programy przechodzące przez północ
+      else if (crossesMidnight) {
+         if (p.days.includes(yesterday) && currentTime < p.hour_end) {
+            timeMatch = true;
+            dateToUse = localIsoYesterday;
+         } else if (p.days.includes(currentDay) && currentTime >= p.hour_start) {
+            timeMatch = true;
+            dateToUse = localIsoToday;
+         }
+      }
+      // C. Standardowe audycje dzienne
+      else if (p.days.includes(currentDay)) {
+         if (currentTime >= p.hour_start && currentTime < p.hour_end) {
+            timeMatch = true;
+            dateToUse = localIsoToday;
+         }
+      }
+
       if (!timeMatch) return false;
 
-      // Logika WeekMonth z uwzględnieniem skorygowanej daty (dateToUse)
+      // Weryfikacja tygodnia (MOD2 / DayGroup)
       if (p.weekmonth) {
          const keys = Object.keys(p.weekmonth);
          const stats = MonthWeekCalculator(dateToUse, keys);
@@ -320,14 +343,37 @@ function renderCurrent() {
       }
 
       return true;
-   }).sort((a, b) => {
-      // Sortowanie priorytetowe (stacja > mod2 > subschedule)
-      const getScore = (i) => (i.station ? 4 : 0) + (i.weekmonth ? 2 : 0) + (i.subschedule ? 1 : 0);
-      const diff = getScore(b) - getScore(a);
-      return diff !== 0 ? diff : b.hour_start.localeCompare(a.hour_start);
+   });
+
+   // 3. ZAAWANSOWANE SORTOWANIE (Wybór najważniejszego programu)
+   filtered.sort((a, b) => {
+      const dataA = getProgramData(a);
+      const dataB = getProgramData(b);
+
+      const getScore = (item) => {
+         let score = 0;
+         if (item.station) score += 10; // Priorytet 1: Konkretna stacja
+         if (item.weekmonth) score += 5; // Priorytet 2: Rotacja (mod2)
+         if (item.subschedule) score += 2; // Priorytet 3: Subschedule
+         return score;
+      };
+
+      const scoreA = getScore(a);
+      const scoreB = getScore(b);
+
+      if (scoreA !== scoreB) return scoreB - scoreA;
+
+      // Jeśli punkty równe, wybierz ten, który zaczął się później
+      if (a.hour_start !== b.hour_start) {
+         return (b.hour_start || "").localeCompare(a.hour_start || "");
+      }
+
+      return (a.name || dataA.name || "").localeCompare(b.name || dataB.name || "");
    });
 
    const program = filtered[0];
+
+   // 4. RENDEROWANIE DO UI
    const ui = {
       item: document.querySelector(".current_program_item"),
       hour: document.querySelector(".current_program_hour"),
@@ -336,8 +382,8 @@ function renderCurrent() {
       photo: document.querySelector(".current_program_photo")
    };
 
-   // 3. RENDEROWANIE WIDOKU - DEFAULT (RADIO ONLINE / PLUG)
-   if (!program || station.radio_plug || station.radio_listen === true || (CONFIG && CONFIG.radio_plug)) {
+   // 3. WIDOK DOMYŚLNY (RADIO ONLINE / PLUG)
+   if (!program || station.radio_plug || station.radio_listen === true || (typeof CONFIG !== 'undefined' && CONFIG.radio_plug)) {
       if (ui.item) ui.item.textContent = "";
       if (ui.hour) ui.hour.textContent = "";
       if (ui.title) {
@@ -345,7 +391,7 @@ function renderCurrent() {
          ui.title.textContent = station.plug_name || station.name || "Radio Online";
       }
       if (ui.host) ui.host.textContent = "";
-      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="${station.cover}" alt="Logo">`;
+      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="${station.cover}" alt="Logo Stacji">`;
       return;
    }
 
@@ -354,6 +400,7 @@ function renderCurrent() {
    const thumb = program.thumbnail_text || data.thumbnail_text;
    const thumbnail = getThumbnail(program, data);
 
+   // Generowanie HTML dla miniatury (Priorytet: Box tekstowy > Zdjęcie audycji > Logo stacji)
    let thumbnailHTML = "";
    if (thumb) {
       const style = [
@@ -362,17 +409,32 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${program.name || data.name || "Program Cover"}">`;
+      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="Cover Audycji">`;
+   } else {
+      thumbnailHTML = `<img decoding="async" src="${station.cover}" alt="Logo Stacji">`;
    }
 
+   // Aktualizacja pól tekstowych
    if (ui.item) ui.item.textContent = program.item || "";
-   if (ui.hour) ui.hour.textContent = `${formatHour(program.hour_start)} - ${formatHour(program.hour_end)}`;
+
+   if (ui.hour) {
+      const start = program.hour_start ? program.hour_start.slice(0, 5) : "00:00";
+      const end = program.hour_end ? program.hour_end.slice(0, 5) : "00:00";
+      ui.hour.textContent = `${start} - ${end}`;
+   }
+
    if (ui.title) {
       ui.title.style.fontWeight = '600';
-      ui.title.textContent = program.name || data.name || "";
+      ui.title.textContent = program.name || data.name || ""; // Audycja
    }
-   if (ui.host) ui.host.textContent = program.host || data.host || "";
-   if (ui.photo) ui.photo.innerHTML = thumbnailHTML;
+
+   if (ui.host) {
+      ui.host.textContent = program.host || data.host || "";
+   }
+
+   if (ui.photo) {
+      ui.photo.innerHTML = thumbnailHTML;
+   }
 }
 
 // =====================
@@ -388,32 +450,36 @@ function renderSchedules() {
    contents.innerHTML = "";
 
    const now = new Date();
-   const today = now.getDay().toString();
+   const currentDayIdx = now.getDay();
+   const todayStr = currentDayIdx.toString();
 
-   // 1. Pobierz aktywny blok harmonogramu (ID:0 lub specjalny zakres dat)
+   const activeDayTab = todayStr;
+
    const activeBlock = getActiveScheduleBlock(now);
    const scheduleSource = activeBlock ? activeBlock.schedule : [];
 
    dayOrder.forEach(day => {
-      // OBLICZANIE DATY DLA KONKRETNEJ ZAKŁADKI DNIA
-      // Pozwala to MonthWeekCalculator poprawnie wyliczyć mod2 dla dni przyszłych/przeszłych w widoku tygodnia
+      const dayStr = day.toString();
+
       const targetDate = new Date(now);
-      const diff = (parseInt(day) - now.getDay() + 7) % 7;
+      const currentAdj = (currentDayIdx === 0) ? 7 : currentDayIdx;
+      const targetAdj = (parseInt(day) === 0) ? 7 : parseInt(day);
+      const diff = targetAdj - currentAdj;
+
       targetDate.setDate(now.getDate() + diff);
       const currentTabIsoDate = targetDate.toLocaleDateString('sv-SE');
 
       const btn = document.createElement("button");
-      btn.className = "day_tablinks" + (day === today ? " active" : "");
+      btn.className = "day_tablinks" + (dayStr === activeDayTab ? " active" : "");
       btn.textContent = dayNames[day];
+      btn.onclick = (e) => openDayTab(e, day);
 
       const tab = document.createElement("div");
       tab.className = "schedule_list";
       tab.id = "day_" + day;
-      tab.style.display = day === today ? "block" : "none";
+      tab.style.display = (dayStr === activeDayTab) ? "block" : "none";
 
-      btn.onclick = (e) => openDayTab(e, day);
-
-      // 2. Filtrowanie ramówki
+      // 2. FILTROWANIE RAMÓWKI
       scheduleSource
          .filter(p => {
             const data = getProgramData(p);
@@ -423,34 +489,36 @@ function renderSchedules() {
             const isPublished = p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
             if (!p.active || !isPublished || data.hide_in_schedule) return false;
 
-            // --- FILTR B: Czas i Dni (Nocne/Zwykłe) ---
-            const isMidnightForThisDay = p.midnight && p.days.includes(tomorrow);
-            const isRegularForThisDay = !p.midnight && p.days.includes(day);
-            if (!(isRegularForThisDay || isMidnightForThisDay)) return false;
+            const isAssigned = p.midnight ? p.days.includes(tomorrow) : p.days.includes(dayStr);
+            if (!isAssigned) return false;
 
             // --- FILTR C: Stacja ---
             const isForStation = (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
                !p.station_exclude?.includes(CURRENT_STATION_ID);
             if (!isForStation) return false;
 
-            // --- FILTR D: Logika WeekMonth ---
-            // Sprawdzamy warunek tygodnia dla każdego dnia w widoku
+            let dateToCheck = currentTabIsoDate;
+            if (p.midnight) {
+               const nextDayDate = new Date(targetDate);
+               nextDayDate.setDate(targetDate.getDate() + 1);
+               dateToCheck = nextDayDate.toLocaleDateString('sv-SE');
+            }
+
             if (p.weekmonth) {
                const keys = Object.keys(p.weekmonth);
-               const stats = MonthWeekCalculator(currentTabIsoDate, keys);
+               const stats = MonthWeekCalculator(dateToCheck, keys);
                if (!keys.every(k => stats[k] === p.weekmonth[k])) return false;
             }
-            
+
             if (p.weekmonth_exclude) {
                const exKeys = Object.keys(p.weekmonth_exclude);
-               const exStats = MonthWeekCalculator(currentTabIsoDate, exKeys);
+               const exStats = MonthWeekCalculator(dateToCheck, exKeys);
                if (exKeys.every(k => exStats[k] === p.weekmonth_exclude[k])) return false;
             }
 
             return true;
          })
          .sort((a, b) => {
-            // Sortowanie uwzględniające audycje po północy na końcu listy
             const hourA = a.midnight ? "24:" + a.hour_start : a.hour_start;
             const hourB = b.midnight ? "24:" + b.hour_start : b.hour_start;
             return hourA.localeCompare(hourB);
@@ -460,7 +528,7 @@ function renderSchedules() {
             const thumbnail = getThumbnail(p, data);
             const thumb = p.thumbnail_text || data.thumbnail_text;
 
-            // Miniatura/Box
+            // Miniatura / Box tekstowy
             let thumbnailHTML = "";
             if (thumb) {
                const style = [
@@ -469,13 +537,14 @@ function renderSchedules() {
                ].filter(Boolean).join(';');
                thumbnailHTML = `<div class="schedule_name_box" style="${style}">${thumb.name || p.name || data.name || ""}</div>`;
             } else if (thumbnail) {
-               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${p.name || data.name || "cover"}">`;
+               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="cover">`;
+            } else {
+               thumbnailHTML = `<img decoding="async" src="${stations.cover}" alt="logo">`;
             }
 
-            // Linkowanie
-            const displayName = p.name || data.name || "Audycja";
+            const displayName = p.name || data.name || ""; // Audycja
             const isRestricted = !data.id || p.private || data.private ||
-               (stations && stations.disable_programs) || CONFIG.disable_programs;
+               (stations && stations.disable_programs) || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs);
 
             const url = data.url_immediately || `program?uid=${data.id}&st=${SITE_ID}`;
             const nameHTML = isRestricted ?
@@ -484,6 +553,8 @@ function renderSchedules() {
 
             const el = document.createElement("div");
             el.className = p.subschedule ? "schedule_program small" : "schedule_program";
+
+            // --- DATASET DLA updateOnAirStatus ---
             el.dataset.id = p.id;
             el.dataset.start = p.hour_start;
             el.dataset.end = p.hour_end;
@@ -493,7 +564,7 @@ function renderSchedules() {
                <div class="schedule_program_cover">${thumbnailHTML}</div>
                <div class="schedule_program_content">
                    <div class="schedule_program_item">${p.item || ""}</div>
-                   <div class="schedule_program_data">${formatHour(p.hour_start)} - ${formatHour(p.hour_end)}</div>
+                   <div class="schedule_program_data">${p.hour_start.slice(0,5)} - ${p.hour_end.slice(0,5)}</div>
                    ${nameHTML}
                    <div class="schedule_program_host">${p.host || data.host || ""}</div>
                    ${p.comment ? `<div class="schedule_program_comment">${p.comment}</div>` : ''}
@@ -506,8 +577,10 @@ function renderSchedules() {
       contents.appendChild(tab);
    });
 
+   // Na końcu uruchamiamy status "Na antenie"
    updateOnAirStatus();
 }
+
 
 function initDefaultTab() {
    const currentDay = new Date().getDay().toString();
@@ -532,13 +605,13 @@ function switchScheduleDay(dayId) {
 // =====================
 function updateOnAirStatus() {
    const now = new Date();
-   const currentDay = now.getDay().toString();
    const currentTime = now.toTimeString().slice(0, 8);
-   const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString();
+   const currentDay = now.getDay().toString(); // "0" (Niedziela)
+   const yesterday = (now.getDay() === 0 ? 6 : now.getDay() - 1).toString(); // "6" (Sobota)
    const localIsoDate = now.toLocaleDateString('sv-SE');
 
    const station = STATIONS.find(x => x.id === CURRENT_STATION_ID);
-   const isRadioPlugActive = station?.radio_plug || (CONFIG && CONFIG.radio_plug);
+   const isRadioPlugActive = station?.radio_plug || (typeof CONFIG !== 'undefined' && CONFIG.radio_plug);
 
    // 1. Pobierz aktualnie aktywny blok danych
    const activeBlock = getActiveScheduleBlock(now);
@@ -558,22 +631,31 @@ function updateOnAirStatus() {
       } = row.dataset;
       if (!start || !end) return;
 
-      // 2. Znajdź dane programu w aktualnym bloku, aby sprawdzić weekmonth
+      const isMidnightType = midnight === "true"; // Flaga decydująca o systemie
+      const crossesMidnight = start > end; // Czy audycja trwa np. 23:00 - 06:00
+      const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
+
+      // --- 2. LOGIKA TYGODNIOWA I MOD2 ---
       const prog = activeBlock?.schedule.find(p => p.id === id || (p.hour_start === start && p.hour_end === end));
 
-      // --- LOGIKA TYGODNIOWA I PUBLIKACJI ---
       if (prog) {
-         // Sprawdź czy program jest już opublikowany
          const isPublished = prog.publish_from_date ? now >= new Date(prog.publish_from_date) : true;
          if (!prog.active || !isPublished) {
             row.classList.remove('onair');
             return;
          }
+         let dateForMod = localIsoDate;
+         if (dayOfTab === yesterday && !isMidnightType && crossesMidnight) {
+            // Jeśli to "ogon" audycji 23-06, która nie jest typu midnight, używamy daty wczorajszej
+            const yDate = new Date(now);
+            yDate.setDate(now.getDate() - 1);
+            dateForMod = yDate.toLocaleDateString('sv-SE');
+         }
 
          // Sprawdź inkluzję weekmonth
          if (prog.weekmonth) {
             const keys = Object.keys(prog.weekmonth);
-            const stats = MonthWeekCalculator(localIsoDate, keys);
+            const stats = MonthWeekCalculator(dateForMod, keys);
             if (!keys.every(k => stats[k] === prog.weekmonth[k])) {
                row.classList.remove('onair');
                return;
@@ -583,43 +665,35 @@ function updateOnAirStatus() {
          // Sprawdź ekskluzję weekmonth_exclude
          if (prog.weekmonth_exclude) {
             const exKeys = Object.keys(prog.weekmonth_exclude);
-            const exStats = MonthWeekCalculator(localIsoDate, exKeys);
+            const exStats = MonthWeekCalculator(dateForMod, exKeys);
             if (exKeys.every(k => exStats[k] === prog.weekmonth_exclude[k])) {
                row.classList.remove('onair');
                return;
             }
          }
       }
-
-      // --- LOGIKA CZASOWA (On Air) ---
-      const isMidnightType = midnight === "true";
-      const crossesMidnight = start > end;
-      const dayOfTab = row.closest('.schedule_list').id.replace('day_', '');
-
       let isActive = false;
-
-      if (dayOfTab === currentDay) {
-         if (isMidnightType) {
-            // Te audycje "należą" do wczorajszego dnia kalendarzowego
-            isActive = false;
-         } else if (crossesMidnight) {
-            // Startuje dzisiaj wieczorem (np. 22:00) i trwa po północy
-            isActive = (currentTime >= start);
-         } else {
-            // Standardowy czas w ciągu dnia
+      if (isMidnightType) {
+         if (dayOfTab === yesterday) {
             isActive = (currentTime >= start && currentTime < end);
          }
-      } else if (dayOfTab === yesterday) {
-         if (isMidnightType) {
-            // Audycja wyświetlana we wczorajszym tabie, ale trwająca dzisiaj rano (np. 01:00)
-            isActive = (currentTime >= start && currentTime < end);
-         } else if (crossesMidnight) {
-            // "Ogon" audycji startującej wczoraj o 22:00, sprawdzamy czy jeszcze trwa rano
-            isActive = (currentTime < end);
+      } else {
+         if (dayOfTab === currentDay) {
+            if (!crossesMidnight) {
+               isActive = (currentTime >= start && currentTime < end);
+            } else {
+               isActive = (currentTime >= start); // Startuje wieczorem
+            }
+         }
+      }
+      if (crossesMidnight) {
+         // Sprawdź czy trwa "ogon" audycji w zakładce wczorajszej
+         if (dayOfTab === yesterday && currentTime < end) {
+            isActive = true;
          }
       }
 
-      // 3. Dodaj lub usuń klasę CSS
+      // 4. Dodaj lub usuń klasę CSS
       row.classList.toggle('onair', isActive);
    });
 }
