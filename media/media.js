@@ -66,32 +66,46 @@ function renderPodcasts() {
          return name.includes(search) || host.includes(search);
       })
       .sort((a, b) => {
-         const sortA = a.sorted || "";
-         const sortB = b.sorted || "";
-         const result = sortA.toString().localeCompare(sortB.toString(), undefined, {
+         const sortA = Array.isArray(a.sorted) ? a.sorted : [a.sorted || ""];
+         const sortB = Array.isArray(b.sorted) ? b.sorted : [b.sorted || ""];
+
+         // 1. Porównaj pierwszy element tablicy (np. "0" vs "1")
+         const res = sortA[0].toString().localeCompare(sortB[0].toString(), undefined, {
             numeric: true
          });
-         return result !== 0 ? result : a.name.localeCompare(b.name);
-      })
-      .forEach(p => {
-         const el = document.createElement("div");
-         el.className = "podcast_list_content";
 
-         const thumb = p.thumbnail_text;
-         const style = thumb ? [
-            thumb.background ? `background:${thumb.background}` : '',
-            thumb.color ? `color:${thumb.color}` : ''
-         ].filter(Boolean).join(';') : '';
-         const name = (thumb && thumb.name) || p.name || "";
-         const thumbnailDisplay = p.thumbnail_uri ?
-            `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
-         const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
+         // 2. Jeśli pierwsze elementy są identyczne, porównaj drugi element (np. "1" vs "7")
+         if (res === 0 && (sortA[1] !== undefined || sortB[1] !== undefined)) {
+            const res2 = (sortA[1] || "").toString().localeCompare((sortB[1] || "").toString(), undefined, {
+               numeric: true
+            });
+            if (res2 !== 0) return res2;
+         }
 
-         const podcastUrl = p.url_immediately ?
-            `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
-            `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
+         // 3. Jeśli priorytety są identyczne, sortuj alfabetycznie po nazwie
+         return res !== 0 ? res : a.name.localeCompare(b.name);
+      });
+   return result !== 0 ? result : a.name.localeCompare(b.name);
+})
+.forEach(p => {
+   const el = document.createElement("div");
+   el.className = "podcast_list_content";
 
-         el.innerHTML = `
+   const thumb = p.thumbnail_text;
+   const style = thumb ? [
+      thumb.background ? `background:${thumb.background}` : '',
+      thumb.color ? `color:${thumb.color}` : ''
+   ].filter(Boolean).join(';') : '';
+   const name = (thumb && thumb.name) || p.name || "";
+   const thumbnailDisplay = p.thumbnail_uri ?
+      `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
+   const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
+
+   const podcastUrl = p.url_immediately ?
+      `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
+      `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
+
+   el.innerHTML = `
         <div class="podcast_list_cover">${thumbnailText}</div>
         <div>
             ${podcastUrl}
@@ -99,8 +113,8 @@ function renderPodcasts() {
         </div>
       `;
 
-         container.appendChild(el);
-      });
+   container.appendChild(el);
+});
 }
 
 // =====================
