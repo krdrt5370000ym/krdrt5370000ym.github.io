@@ -288,6 +288,7 @@ function renderCurrent() {
 
    const filtered = scheduleSource.filter(p => {
       if (!p.active) return false;
+      if (p.publish_from_date && now < new Date(p.publish_from_date)) return false;
 
       // Sprawdzenie stacji
       const isForStation = (!p.station || p.station.includes(CURRENT_STATION_ID)) &&
