@@ -409,7 +409,7 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
+      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
    } else {
       thumbnailHTML = `<img decoding="async" src="${station.cover}" alt="Logo Stacji">`;
    }
