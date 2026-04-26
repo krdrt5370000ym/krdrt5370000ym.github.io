@@ -228,6 +228,7 @@ async function uruchomProgram() {
          document.title = window.location.href;
          // console.log("Informacje o programie są wyłączone w konfiguracji.");
          // Tutaj możesz np. ukryć konkretny kontener w DOM zamiast blokować skrypt
+         return;
       }
 
       if (program.url_immediately) {
