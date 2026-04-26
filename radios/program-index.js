@@ -216,7 +216,7 @@ async function uruchomProgram() {
       ]);
 
       const program = PROGRAMS.find(p => p.id === uid);
-      if (!program || program.hide_in_schedule || program.private || (CONFIG && CONFIG.disable_programs_info)) {
+      if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info || (CONFIG && CONFIG.disable_programs_info)) {
          document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
          document.title = window.location.href;
          return;
