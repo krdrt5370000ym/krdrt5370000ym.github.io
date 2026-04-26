@@ -88,6 +88,7 @@ function renderPodcasts() {
       .forEach(p => {
          const el = document.createElement("div");
          el.className = "podcast_list_content";
+         el.dataset.uid = p.id;
 
          const thumb = p.thumbnail_text;
          const style = thumb ? [
