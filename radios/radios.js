@@ -900,6 +900,7 @@ function renderPrograms() {
 
       const el = document.createElement("div");
       el.className = "program_list_content";
+      el.dataset.uid = p.id;
       el.innerHTML = `
             <div class="program_list_cover">
                 <a href="${url}">${thumbnailHTML}</a>
