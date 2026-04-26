@@ -557,8 +557,8 @@ function renderSchedules() {
             el.className = p.subschedule ? "schedule_program small" : "schedule_program";
 
             // --- DATASET DLA updateOnAirStatus ---
-            if !(p.id === null || !data.id || p.private || data.private ||
-               (stations && stations.disable_programs) || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs)) {
+            const isDisabledUID = !p.id || !data.id || p.private || data.private || stations?.disable_programs || config?.disable_programs;
+            if (!isDisabledUID) {
                el.dataset.uid = p.id;
             }
             el.dataset.start = p.hour_start;
