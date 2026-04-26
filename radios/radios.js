@@ -557,8 +557,10 @@ function renderSchedules() {
             el.className = p.subschedule ? "schedule_program small" : "schedule_program";
 
             // --- DATASET DLA updateOnAirStatus ---
-            el.dataset.id = (p.id === null || !data.id || p.private || data.private ||
-               (stations && stations.disable_programs) || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs)) ? '' : p.id;
+            if !(p.id === null || !data.id || p.private || data.private ||
+               (stations && stations.disable_programs) || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs)) {
+               el.dataset.uid = p.id;
+            }
             el.dataset.start = p.hour_start;
             el.dataset.end = p.hour_end;
             el.dataset.midnight = p.midnight ? "true" : "false";
