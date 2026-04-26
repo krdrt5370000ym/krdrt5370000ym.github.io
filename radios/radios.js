@@ -526,6 +526,9 @@ function renderSchedules() {
          })
          .forEach(p => {
             const data = getProgramData(p);
+            const isProgramsDisabled = stations?.disable_programs || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs);
+            const isPrivate = p.private || data.private;
+            const hasNoId = !data.id;
             const thumbnail = getThumbnail(p, data);
             const thumb = p.thumbnail_text || data.thumbnail_text;
 
@@ -545,8 +548,7 @@ function renderSchedules() {
             }
 
             const displayName = p.name || data.name || ""; // Audycja
-            const isRestricted = !data.id || p.private || data.private ||
-               (stations && stations.disable_programs) || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs);
+            const isRestricted = hasNoId || isPrivate || isProgramsDisabled;
 
             const url = data.url_immediately || `program?uid=${data.id}&st=${SITE_ID}`;
             const nameHTML = isRestricted ?
@@ -557,9 +559,8 @@ function renderSchedules() {
             el.className = p.subschedule ? "schedule_program small" : "schedule_program";
 
             // --- DATASET DLA updateOnAirStatus ---
-            const isDisabledUID = !p.id || !data.id || p.private || data.private || stations?.disable_programs || config?.disable_programs;
-            if (!isDisabledUID) {
-               el.dataset.uid = p.id;
+            if (!isRestricted) {
+               el.dataset.uid = data.id; // Używamy data.id, bo to ono trafia do URL
             }
             el.dataset.start = p.hour_start;
             el.dataset.end = p.hour_end;
