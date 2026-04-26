@@ -526,7 +526,7 @@ function renderSchedules() {
          })
          .forEach(p => {
             const data = getProgramData(p);
-            const isProgramsDisabled = stations?.disable_programs || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs);
+            const isProgramsDisabled = stations?.disable_programs_info || (typeof CONFIG !== 'undefined' && CONFIG.disable_programs_info);
             const isPrivate = p.private || data.private;
             const hasNoId = !data.id;
             const thumbnail = getThumbnail(p, data);
