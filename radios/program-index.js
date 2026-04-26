@@ -211,15 +211,23 @@ async function uruchomProgram() {
       };
 
       // 1. Pobieranie danych
-      const [PROGRAMS, SCHEDULE_DATA, CONFIG] = await Promise.all([
+      const [PROGRAMS, SCHEDULE_DATA, CONFIG_RAW] = await Promise.all([
          fetchJSON('programs'), fetchJSON('schedule'), fetchJSON('config')
       ]);
+      const CONFIG = Array.isArray(CONFIG_RAW) ? CONFIG_RAW[0] : CONFIG_RAW;
 
       const program = PROGRAMS.find(p => p.id === uid);
-      if (!program || program.hide_in_schedule || program.private || CONFIG.disable_programs_info || (CONFIG && CONFIG.disable_programs_info)) {
+      if (!program || program.hide_in_schedule || program.private) {
          document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
          document.title = window.location.href;
          return;
+      }
+
+      if (CONFIG.disable_programs_info) {
+         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
+         document.title = window.location.href;
+         // console.log("Informacje o programie są wyłączone w konfiguracji.");
+         // Tutaj możesz np. ukryć konkretny kontener w DOM zamiast blokować skrypt
       }
 
       if (program.url_immediately) {
