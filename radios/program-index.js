@@ -218,8 +218,11 @@ async function uruchomProgram() {
 
       const program = PROGRAMS.find(p => p.id === uid);
       if (!program || program.hide_in_schedule || program.private) {
-         if (program.url_immediately_with_private) {
-            window.location.href = program.url_immediately;
+         // Używamy ?. aby uniknąć błędu, jeśli program jest undefined
+         const redirectUrl = program?.url_immediately_with_private;
+
+         if (redirectUrl) {
+            window.location.href = redirectUrl;
             return;
          } else {
             document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
@@ -229,8 +232,10 @@ async function uruchomProgram() {
       }
 
       if (CONFIG.disable_programs_info) {
-         if (program.url_immediately_with_private) {
-            window.location.href = program.url_immediately;
+         const redirectUrl = program?.url_immediately_with_private;
+
+         if (redirectUrl) {
+            window.location.href = redirectUrl;
             return;
          } else {
             document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
@@ -276,8 +281,10 @@ async function uruchomProgram() {
       const scheduleInfo = getDisplaySchedule(uid, SCHEDULE_DATA);
 
       if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
-         if (program.url_immediately_with_private) {
-            window.location.href = program.url_immediately;
+         const redirectUrl = program?.url_immediately_with_private;
+
+         if (redirectUrl) {
+            window.location.href = redirectUrl;
             return;
          } else {
             document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Brak planowanych emisji
