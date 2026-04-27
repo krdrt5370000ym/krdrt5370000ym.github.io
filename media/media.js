@@ -99,18 +99,19 @@ function renderPodcasts() {
          const thumbnailDisplay = p.thumbnail_uri ?
             `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">` : "";
          const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
-
-         const podcastUrl = p.url_immediately ?
-            `<div class="podcast_list_name" style="cursor:pointer;"><a href="${p.url_immediately}" target="_blank">${p.name}</a></div>` :
-            `<div class="podcast_list_name" style="cursor:pointer;"><a href="podcast?uid=${p.id}&st=${SITE_ID}" target="_blank">${p.name || ""}</a></div>`;
+         const url = p.url_immediately || `podcast?uid=${p.id}&st=${SITE_ID}`;
 
          el.innerHTML = `
-        <div class="podcast_list_cover">${thumbnailText}</div>
-        <div>
-            ${podcastUrl}
-            <div class="podcast_list_host">${p.only_the_schedule_hosts === true ? '' : p.host || ""}</div>
-        </div>
-      `;
+               <div class="podcast_list_cover">
+                   <a href="${url}" target="_blank">${thumbnailText}</a>
+               </div>
+               <div class="podcast_list_info">
+                   <div class="podcast_list_name">
+                       <a href="${url}" target="_blank">${escapeHTML(p.name)}</a>
+                   </div>
+                   <div class="podcast_list_host">${p.only_the_schedule_hosts === true ? '' : escapeHTML(p.host) || ""}</div>
+               </div>
+           `;
 
          container.appendChild(el);
       });
