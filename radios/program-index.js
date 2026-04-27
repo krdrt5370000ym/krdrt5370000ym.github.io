@@ -218,17 +218,27 @@ async function uruchomProgram() {
 
       const program = PROGRAMS.find(p => p.id === uid);
       if (!program || program.hide_in_schedule || program.private) {
-         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
-         document.title = window.location.href;
-         return;
+         if (program.url_immediately_with_private) {
+            window.location.href = program.url_immediately;
+            return;
+         } else {
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
+            document.title = window.location.href;
+            return;
+         }
       }
 
       if (CONFIG.disable_programs_info) {
-         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
-         document.title = window.location.href;
-         // console.log("Informacje o programie są wyłączone w konfiguracji.");
-         // Tutaj możesz np. ukryć konkretny kontener w DOM zamiast blokować skrypt
-         return;
+         if (program.url_immediately_with_private) {
+            window.location.href = program.url_immediately;
+            return;
+         } else {
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Program niedostępny.
+            document.title = window.location.href;
+            // console.log("Informacje o programie są wyłączone w konfiguracji.");
+            // Tutaj możesz np. ukryć konkretny kontener w DOM zamiast blokować skrypt
+            return;
+         }
       }
 
       if (program.url_immediately) {
@@ -266,9 +276,14 @@ async function uruchomProgram() {
       const scheduleInfo = getDisplaySchedule(uid, SCHEDULE_DATA);
 
       if (program.hide_only_information_schedule && occurrencesSch.length === 0) {
-         document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Brak planowanych emisji
-         document.title = window.location.href;
-         return;
+         if (program.url_immediately_with_private) {
+            window.location.href = program.url_immediately;
+            return;
+         } else {
+            document.body.innerHTML = `Nie znaleziono programu o ID: ${uid}`; // Brak planowanych emisji
+            document.title = window.location.href;
+            return;
+         }
       }
 
       // Prowadzący
