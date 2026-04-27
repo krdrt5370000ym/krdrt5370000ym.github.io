@@ -39,16 +39,20 @@ async function uruchomPodcast() {
       ]);
 
       const podcast = PODCASTS.find(p => p.id === uid);
-      const IsDisableProgramInfo = !podcast || podcast.private === true || CONFIG.disable_podcasts_info;
 
-      if (IsDisableProgramInfo && !podcast.url_immediately_with_private) {
-         document.body.innerHTML = "Nie znaleziono podcastu o ID: " + uid;
-         document.title = window.location.href;
-         return;
+      if (!podcast || podcast.private === true || CONFIG.disable_podcasts_info) {
+         if (podcast.url_immediately_with_private) {
+            window.location.href = podcast.url_immediately_with_private;
+            return;
+         } else {
+            document.body.innerHTML = "Nie znaleziono podcastu o ID: " + uid;
+            document.title = window.location.href;
+            return;
+         }
       }
 
       // 2. Obsługa natychmiastowego przekierowania
-      if (podcast.url_immediately || (IsDisableProgramInfo && podcast.url_immediately_with_private)) {
+      if (podcast.url_immediately) {
          window.location.href = podcast.url_immediately;
          return;
       }
