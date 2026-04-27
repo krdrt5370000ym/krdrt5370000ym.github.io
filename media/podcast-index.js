@@ -41,9 +41,14 @@ async function uruchomPodcast() {
       const podcast = PODCASTS.find(p => p.id === uid);
 
       if (!podcast || podcast.private === true || CONFIG.disable_podcasts_info) {
-         document.body.innerHTML = "Nie znaleziono podcastu o ID: " + uid;
-         document.title = window.location.href;
-         return;
+         if (podcast.url_immediately_with_private) {
+            window.location.href = program.url_immediately;
+            return;
+         } else {
+            document.body.innerHTML = "Nie znaleziono podcastu o ID: " + uid;
+            document.title = window.location.href;
+            return;
+         }
       }
 
       // 2. Obsługa natychmiastowego przekierowania
