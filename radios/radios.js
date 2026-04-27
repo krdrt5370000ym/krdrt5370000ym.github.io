@@ -1167,7 +1167,7 @@ function scheduleCurrent(scheduleString) {
       if (typeof window[functionName] === "function") {
 
          // 3. Ustawienie flagi blokady dla renderCurrent
-         SCHEDULE_APP = 1;
+         // SCHEDULE_APP = 1;
 
          // 4. Parsowanie argumentów (usuwanie cudzysłowów i spacji)
          const args = rawArgs.split(',')
@@ -1178,7 +1178,7 @@ function scheduleCurrent(scheduleString) {
 
       } else {
          console.warn(`⚠️ Funkcja ${functionName} jest zdefiniowana w JSON, ale nie istnieje w JS.`);
-         SCHEDULE_APP = null;
+         // SCHEDULE_APP = null;
       }
    } else {
       // 6. Jeśli to nie funkcja, traktujemy to jako zwykły tekst informacyjny
@@ -1186,7 +1186,7 @@ function scheduleCurrent(scheduleString) {
       if (resultElemS) {
          resultElemS.innerText = scheduleString;
       }
-      SCHEDULE_APP = null;
+      // SCHEDULE_APP = null;
    }
 }
 // =====================
