@@ -551,8 +551,11 @@ function renderSchedules() {
             const isRestricted = hasNoId || isPrivate || isProgramsDisabled;
 
             const url = data.url_immediately || `program?uid=${data.id}&st=${SITE_ID}`;
-            const nameHTML = isRestricted ?
-               `<div class="schedule_program_name">${displayName}</div>` :
+            const urlP = p.url_immediately_with_private || data.url_immediately_with_private;
+            const urlNameP = (urlP) ?
+               `<div class="schedule_program_name"><a href="${urlP}" target="_blank">${displayName}</a></div>` :
+               `<div class="schedule_program_name">${displayName}</div>`;
+            const nameHTML = isRestricted ? urlNameP :
                `<div class="schedule_program_name"><a href="${url}" target="_blank">${displayName}</a></div>`;
 
             const el = document.createElement("div");
