@@ -906,11 +906,11 @@ function renderPrograms() {
       el.dataset.uid = p.id;
       el.innerHTML = `
             <div class="program_list_cover">
-                <a href="${url}">${thumbnailHTML}</a>
+                <a href="${url}" target="_blank">${thumbnailHTML}</a>
             </div>
             <div class="program_list_info">
                 <div class="program_list_name">
-                    <a href="${url}">${escapeHTML(p.name)}</a>
+                    <a href="${url}" target="_blank">${escapeHTML(p.name)}</a>
                 </div>
                 <div class="program_list_host">${escapeHTML(hostToDisplay)}</div>
                 <div class="program_list_onair">${escapeHTML(p.onair || "")}</div>
