@@ -392,7 +392,7 @@ function renderCurrent() {
          ui.title.textContent = station.plug_name || station.name || "Radio Online";
       }
       if (ui.host) ui.host.textContent = "";
-      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="${station.cover}" alt="Logo Stacji">`;
+      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="${station.cover}" alt="${escapeHTML(station.plug_name) || escapeHTML(station.name) || "Logo Stacji"}">`;
       return;
    }
 
