@@ -57,7 +57,7 @@ function hackBodyFont(fontName = 'Roboto', option = 1, customWeights = '', adobe
 // Wpisz ręcznie słowo javascript: (Chrome często usuwa ten człon przy wklejaniu ze schowka dla bezpieczeństwa).
 // Wklej resztę kodu zaraz po dwukropku i naciśnij Enter.
 // javascript:(function(f,o,w){const m={0:'ital,wght@0,100..900;1,100..900',1:'wght@400;600;700',2:'wght@400;700',3:'wght@'+w};const s=m[o];const u=`https://fonts.googleapis.com/css2?family=${f.replace(/ /g,'+')}:${s}&display=swap`;let l=document.getElementById('gf-h');if(!l){l=document.createElement('link');l.id='gf-h';l.rel='stylesheet';document.head.appendChild(l)}l.href=u;let t=document.getElementById('bf-s');if(!t){t=document.createElement('style');t.id='bf-s';document.head.appendChild(t)}t.textContent=`body,body *{font-family:'${f}',sans-serif !important}`;})('Roboto',1,'');
-// javascript:javascript:(function(){const f='Roboto';const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f.replace(/ /g,'+')+':wght@400;600;700&display=swap';document.head.appendChild(l);const s=document.createElement('style');s.innerHTML="body,body *{font-family:'"+f+"',sans-serif!important}";document.head.appendChild(s);})();
+// javascript:(function(){const f='Roboto';const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f.replace(/ /g,'+')+':wght@400;600;700&display=swap';document.head.appendChild(l);const s=document.createElement('style');s.innerHTML="body,body *{font-family:'"+f+"',sans-serif!important}";document.head.appendChild(s);})();
 // {
 //   "manifest_version": 3,
 //   "name": "Font Hack New Tab",
