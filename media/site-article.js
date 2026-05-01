@@ -192,8 +192,6 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 async function WPArticleList(
    mainUrl,
    siteKey,
-   is_http = false,
-   is_cors = false,
    type = 'post',
    search = null,
    categoryID = null,
@@ -210,15 +208,13 @@ async function WPArticleList(
    const containerT = document.getElementById('article-t-result');
    const containerA = document.getElementById('article-a-result');
    const button = document.getElementById('load-more-btn');
-   const mainUrlC = (is_http || is_cors) ?
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(mainUrl) :
-      mainUrl;
 
+   const proxyBase = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
    const perPage = 10;
 
    if (!append) {
       window.currentPage = 1;
-      cachedCategoryIds = null; // Resetuj przy nowym wyszukiwaniu/kategorii
+      window.cachedCategoryIds = null;
    } else {
       window.currentPage++;
    }
@@ -229,119 +225,115 @@ async function WPArticleList(
          button.disabled = true;
       }
 
-      // 🔹 1. Pobieramy listę ID (rodzic + dzieci), jeśli categoryID istnieje
       let finalCategoryIds = categoryID;
+
       if (categoryID) {
-         if (!cachedCategoryIds) {
-            cachedCategoryIds = await fetchParentCategories(categoryID, mainUrlC);
+         if (!window.cachedCategoryIds) {
+            window.cachedCategoryIds = await fetchParentCategories(categoryID, +encodeURIComponent(mainUrl));
          }
-         finalCategoryIds = cachedCategoryIds;
+         finalCategoryIds = window.cachedCategoryIds;
       }
 
-      const is_include_search = search ? `search=${search}&` : '';
-      const is_include_category = categoryID ? `categories=${finalCategoryIds}&` : '';
-      const is_include_tag = tagID ? `tags=${tagID}&` : '';
-      const is_include_author = authorID ? `author=${authorID}&` : '';
+      const params = new URLSearchParams({
+         per_page: perPage,
+         page: window.currentPage,
+         _embed: true
+      });
 
-      const pagesUrl = `${mainUrl}/wp-json/wp/v2/pages?${is_include_search}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-      const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?${is_include_search}${is_include_category}${is_include_tag}${is_include_author}per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      if (search) params.append('search', search);
+      if (categoryID) params.append('categories', finalCategoryIds);
+      if (tagID) params.append('tags', tagID);
 
-      const typesUrl = type === 'post' ? postsUrl : pagesUrl;
-      const httpUrl = (is_http || is_cors) ?
-         'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(typesUrl) :
-         typesUrl;
+      if (authorID) {
+         if (siteKey === 'radiolodz') {
+            params.append('ppma_author', authorID);
+         } else {
+            params.append('author', authorID);
+         }
+      }
 
-      const response = await fetch(httpUrl);
-      if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
+      const endpoint = type === 'post' ? 'posts' : 'pages';
+      const url = `${mainUrl}/wp-json/wp/v2/${endpoint}?${params.toString()}`;
+      const response = await fetch(proxyBase + encodeURIComponent(url));
+
+      if (!response.ok) throw new Error("Błąd API");
 
       const posts = await response.json();
 
       if (!Array.isArray(posts) || posts.length === 0) {
-         if (!append) container.innerHTML = "Brak aktualności.";
+         if (!append) container.innerHTML = "Brak wyników.";
          if (button) button.style.display = 'none';
          return;
       }
-
-      // 🔹 Pobieranie nazw
-      let categoryName = '';
-      let categoryLink = '';
-      let categoryParent = '';
-      let subcategoryID = '';
-      let subcategoryName = '';
-      let tagName = '';
-      let tagLink = '';
-      let authorName = '';
-      let authorLink = '';
-
-      if (categoryID) {
-         const res = await fetch(`${mainUrlC}/wp-json/wp/v2/categories/${categoryID}?_embed=true`);
-         const data = await res.json();
-         categoryName = data.name;
-         categoryLink = data.link;
-         categoryParent = data.parent !== 0;
-         if (categoryParent) {
-            subcategoryID = data._embedded.up[0].id;
-            subcategoryName = data._embedded.up[0].name;
-         }
-      }
-
-      if (tagID) {
-         const res = await fetch(`${mainUrlC}/wp-json/wp/v2/tags/${tagID}`);
-         const data = await res.json();
-         tagName = data.name;
-         tagLink = data.link;
-      }
-
-      if (authorID) {
-         const res = await fetch(`${mainUrlC}/wp-json/wp/v2/users/${authorID}`);
-         const data = await res.json();
-         authorName = data.name;
-         authorLink = data.link;
-      }
-
-      // 🔹 Wyniki nagłówków
-      if (containerS) containerS.innerHTML = search ? `Wyniki dla: <b>${search}</b>` : '';
-      if (containerC) containerC.innerHTML = categoryName ? `Kategoria: ${categoryParent ? `<a href="https://krdrt5370000ym.github.io/media/article-list?si=${siteKey}&c=${subcategoryID}">${subcategoryName}</a> / ` : ''}<b><a href="${categoryLink}">${categoryName}</a></b>` : '';
-      if (containerT) containerT.innerHTML = tagName ? `Tag: <b><a href="${tagLink}">${tagName}</a></b>` : '';
-      if (containerA) containerA.innerHTML = authorName ? `Autor: <b><a href="${authorLink}">${authorName}</a></b>` : '';
-
-      const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
-
-      // 🔹 Tytuł strony
-      docTitle = [
-         searchTitle,
-         categoryName,
-         tagName,
-         authorName
-      ].filter(Boolean).join(' | ') || 'Artykuły';
-
-      document.title = docTitle + ' | krdrt5370000ym.github.io';
 
       // 🔹 Generowanie HTML
       const postsHTML = posts.map(post => {
          const title = post.title.rendered.replace(/<[^>]+>/g, '');
 
-         const author = post._embedded?.author?.[0];
-         const authorSite = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
-         const authorHTML = author ?
-            `<a href="${authorSite}">${author.name}</a>` :
-            'Redakcja';
+         // 🔹 Autor
+         let authorHTML = 'Redakcja';
 
+         if (siteKey === 'radiolodz') {
+
+            // 🔹 POSTY (mają tablicę authors)
+            if (type === 'post' && post.authors && post.authors.length > 0) {
+               authorHTML = post.authors.map(a =>
+                  `<a href="article-list?si=${siteKey}&a=${a.term_id}">${a.display_name}</a>`
+               ).join(', ');
+            }
+
+            // 🔹 STRONY (autor w taksonomii)
+            else if (type === 'page') {
+               const terms = post._embedded?.['wp:term'] || [];
+
+               let authors = [];
+
+               terms.forEach(group => {
+                  group.forEach(term => {
+                     // często autorzy mają slug lub taxonomy zawierające "author"
+                     if (
+                        term.taxonomy?.includes('author') ||
+                        term.slug?.includes('autor') ||
+                        term.slug?.includes('author')
+                     ) {
+                        authors.push(term);
+                     }
+                  });
+               });
+
+               if (authors.length > 0) {
+                  authorHTML = authors.map(a =>
+                     `<a href="article-list?si=${siteKey}&a=${a.id}">${a.name}</a>`
+                  ).join(', ');
+               } else {
+                  authorHTML = 'Radio Łódź';
+               }
+            }
+
+         } else {
+            // 🔹 NORMALNY WORDPRESS
+            if (post._embedded?.author?.[0]) {
+               const author = post._embedded.author[0];
+               const link = mainUrl === "https://radiovictoria.pl" ? author.link : `article-list?si=${siteKey}&a=${author.id}`;
+               authorHTML = `<a href="${link}">${author.name}</a>`;
+            }
+         }
+
+         // 🔹 Kategorie
          const terms = post._embedded?.['wp:term']?.[0] || [];
-         const catsHTML = terms.length > 0 ?
-            terms.map(t => `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`).join(' • ') :
-            `<a href="${mainUrl}">Aktualności</a>`;
+         const catsHTML = terms.map(t =>
+            `<a href="article-list?si=${siteKey}&c=${t.id}">${t.name}</a>`
+         ).join(' • ');
 
+         // 🔹 Obrazek
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-         const imgUrl =
-            featuredMedia?.media_details?.sizes?.medium?.source_url ||
-            featuredMedia?.source_url ||
+         const imgUrl = featuredMedia?.source_url || '';
+
+         const imageHTML = (is_image && imgUrl) ?
+            `<img src="${imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
             '';
 
-         const imageDisplay = is_image && imgUrl ?
-            `<img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
-            '';
-
+         // 🔹 Data
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
             month: 'long',
@@ -350,39 +342,32 @@ async function WPArticleList(
 
          return `
             <article class="article_post">
-                <div class="article_cover">${imageDisplay}</div>
+                <div class="article_cover">${imageHTML}</div>
                 <div class="article_content">
                     ${is_categories && type === 'post'
                         ? `<div class="article_category">${catsHTML}</div>`
                         : ''}
 
                     <div class="article_title">
-                        <a href="article?id=${post.slug}&si=${siteKey}${type === 'post' ? '' : `&tp=${type}`}" target="_blank">
+                        <a href="article?id=${post.slug}&si=${siteKey}" target="_blank">
                             ${title || '{Brak tytułu}'}
                         </a>
                     </div>
 
                     <div class="article_info">
-                        ${is_author
-                            ? `<i class="fa-solid fa-user"></i> ${authorHTML} | `
-                            : ''}
+                        ${is_author ? `<i class="fa-solid fa-user"></i> ${authorHTML} | ` : ''}
                         ${postDate}
                     </div>
                 </div>
             </article>`;
       }).join('');
 
-      // 🔹 Render
       if (append) {
-         const wrapper = container.querySelector('.articles');
-         if (wrapper) {
-            wrapper.insertAdjacentHTML('beforeend', postsHTML);
-         }
+         container.querySelector('.articles')?.insertAdjacentHTML('beforeend', postsHTML);
       } else {
          container.innerHTML = `<div class="articles">${postsHTML}</div>`;
       }
 
-      // 🔹 Przycisk "więcej"
       if (button) {
          button.innerText = "Wczytaj więcej";
          button.disabled = false;
@@ -391,8 +376,6 @@ async function WPArticleList(
          button.onclick = () => WPArticleList(
             mainUrl,
             siteKey,
-            is_http,
-            is_cors,
             type,
             search,
             categoryID,
@@ -406,8 +389,8 @@ async function WPArticleList(
       }
 
    } catch (error) {
-      console.error("Błąd WP API:", error);
-      container.innerHTML = 'Nie udało się pobrać artykułu.';
+      console.error(error);
+      container.innerHTML = 'Błąd ładowania artykułów.';
       if (button) button.style.display = 'none';
    }
 }
@@ -547,7 +530,7 @@ async function WPArticlePostRLodz(slug) {
          // 2. Autorzy (Zaktualizowano: obsługa wielu autorów przez .map)
          let authorDisplay = '<i class="fa-solid fa-user"></i> Redakcja | ';
          if (post.authors && post.authors.length > 0) {
-            const authorsLinks = post.authors.map(author => 
+            const authorsLinks = post.authors.map(author =>
                `<a href="article-list?si=radiolodz&a=${author.term_id}" target="_blank">${author.display_name}</a>`
             ).join(', ');
             authorDisplay = `<i class="fa-solid fa-user"></i> ${authorsLinks} | `;
@@ -772,9 +755,10 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 
 async function fetchParentCategories(parentId, mainUrl) {
    const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(baseUrl);
    try {
       // Pobieramy listę kategorii raz (max 100)
-      const response = await fetch(`${baseUrl}?per_page=100`);
+      const response = await fetch(`${proxyUrl}${encodeURIComponent(`?per_page=100`)}`);
       const allCats = await response.json();
 
       const resultIds = new Set([parseInt(parentId)]);
@@ -795,9 +779,10 @@ async function fetchParentCategories(parentId, mainUrl) {
 
 async function fetchParentCategoriesIn(parentId) {
    const baseUrl = `https://radiorsc.pl/wp-json/wp/v2/categories`;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(baseUrl);
    try {
       // Pobieramy listę kategorii raz (max 100)
-      const response = await fetch(`${baseUrl}?per_page=100`);
+      const response = await fetch(`${proxyUrl}${encodeURIComponent(`?per_page=100`)}`);
       const allCats = await response.json();
 
       const resultIds = new Set([parseInt(parentId)]);
