@@ -419,9 +419,10 @@ async function WPArticlePostRSC(slug) {
    const postsUrl = slug.startsWith('post-') ?
       `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
-      const response = await fetch(postsUrl);
+      const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error(`Błąd API: ${response.status}`);
 
       let posts = await response.json();
@@ -474,7 +475,7 @@ async function WPArticlePostRSC(slug) {
          if (embed['wp:featuredmedia']?.[0]) {
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-            imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
+            imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}" alt="${media.alt_text || ''}"></div></div>`;
          }
 
          // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
@@ -499,7 +500,7 @@ async function WPArticlePostRSC(slug) {
                         </header>
                         ${imageDisplay}
                         ${playerHtml}
-                        <div class="article_singlecontent_posts">${post.content.rendered}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}</div>
                     </article>
                 </div>`;
       });
@@ -514,7 +515,107 @@ async function WPArticlePostRSC(slug) {
    }
 }
 
-async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true, is_http = false, is_cors = false) {
+async function WPArticlePostRLodz(slug) {
+   const container = document.getElementById('article-post');
+   if (!container) return;
+
+   const postsUrl = slug.startsWith('post-') ?
+      `https://radiolodz.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
+      `https://radiolodz.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
+
+   try {
+      const response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error(`Błąd API: ${response.status}`);
+
+      let posts = await response.json();
+      if (!Array.isArray(posts)) posts = [posts];
+
+      if (posts.length === 0 || !posts[0].id) {
+         container.innerHTML = "Brak dostępnych postów.";
+         return;
+      }
+
+      const postPromises = posts.map(async (post) => {
+         const embed = post._embedded || {};
+
+         // 1. Tytuł
+         const titleDoc = new DOMParser().parseFromString(post.title.rendered, 'text/html');
+         const cleanTitle = titleDoc.body.textContent;
+         document.title = `${cleanTitle} | krdrt537000ym.github.io`;
+
+         // 2. Autorzy (Zaktualizowano: obsługa wielu autorów przez .map)
+         let authorDisplay = '<i class="fa-solid fa-user"></i> Redakcja | ';
+         if (post.authors && post.authors.length > 0) {
+            const authorsLinks = post.authors.map(author => 
+               `<a href="article-list?si=radiolodz&a=${author.term_id}" target="_blank">${author.display_name}</a>`
+            ).join(', ');
+            authorDisplay = `<i class="fa-solid fa-user"></i> ${authorsLinks} | `;
+         }
+
+         // 3. Kategorie
+         let categoriesDisplay = '';
+         if (embed['wp:term']?.[0]) {
+            const catsHtml = embed['wp:term'][0]
+               .map(cat => `<a href="article-list?si=radiolodz&c=${cat.id}" target="_blank">${cat.name}</a>`)
+               .join(' • ');
+            categoriesDisplay = `<div class="article_category_posts">${catsHtml}</div>`;
+         }
+
+         // 4. Tagi
+         let tagsDisplay = '';
+         if (embed['wp:term']?.[1]?.length > 0) {
+            const tagsHtml = embed['wp:term'][1]
+               .map(t => `<a href="article-list?si=radiolodz&t=${t.id}" target="_blank">${t.name}</a>`)
+               .join(', ');
+            tagsDisplay = `
+                    <div class="article_tags_posts">
+                        <div class="article_tagsprefix_posts"><i class="fa-solid fa-tags"></i> Tagi: </div>
+                        <div class="article_tagsprefix_list">${tagsHtml}</div>
+                    </div>`;
+         }
+
+         // 5. Obrazek wyróżniający
+         let imageDisplay = '';
+         if (embed['wp:featuredmedia']?.[0]) {
+            const media = embed['wp:featuredmedia'][0];
+            const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
+            imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/")}" alt="${media.alt_text || ''}"></div></div>`;
+         }
+
+         const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+         });
+
+         return `
+                <div class="articles_posts">
+                    <article id="post-${post.id}">
+                        <header class="article_headers_posts">
+                            ${categoriesDisplay}
+                            <div class="article_title_posts"><a href="${post.link}" target="_blank">${post.title.rendered || '{Brak tytułu}'}</a></div>
+                            <div class="article_postedon_posts">${authorDisplay}${postDate}</div>
+                            ${tagsDisplay}
+                        </header>
+                        ${imageDisplay}
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/")}</div>
+                    </article>
+                </div>`;
+      });
+
+      const results = await Promise.all(postPromises);
+      container.innerHTML = results.join('');
+
+   } catch (error) {
+      console.error("Błąd WP API:", error);
+      container.innerHTML = `<div class="error-msg">Nie udało się pobrać artykułu.</div>`;
+   }
+}
+
+async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true, is_author = true, is_image = true) {
    const container = document.getElementById('article-post');
 
    // Mapowanie URL na klucz strony (używane w linkach do list)
@@ -523,14 +624,15 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
       'https://radiovictoria.pl': 'radiovictoria',
       'https://radiokolor.pl': 'radiokolor',
       'https://soswskierniewice.pl': 'sosw',
-      'https://cekis.pl': 'ckis'
+      'https://cekis.pl': 'ckis',
+      'https://radiolodz.pl': 'radiolodz'
    };
    const currentSiteKey = siteKeys[mainUrl] || 'default';
    // Dodajemy _embed do URL
    const postsUrl = slug.startsWith('post-') ?
       `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = (is_http || is_cors) ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
       const response = await fetch(httpUrl);
@@ -596,7 +698,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
             if (imgUrl) {
-               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" alt="${media.alt_text || ''}"></div></div>`;
+               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}" alt="${media.alt_text || ''}"></div></div>`;
             }
          }
 
@@ -618,7 +720,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${is_cors ? post.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl) : post.content.rendered}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}</div>
                     </article>
                 </div>`;
       });
@@ -714,14 +816,14 @@ async function fetchParentCategoriesIn(parentId) {
    }
 }
 
-async function WPArticlePage(slug, mainUrl, is_http = false, is_cors = false) {
+async function WPArticlePage(slug, mainUrl) {
    const container = document.getElementById('article-post');
 
    // Budowanie poprawnego URL (obsługa ID lub sluga)
    const postsUrl = slug.startsWith('page-') ?
       `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
-   const httpUrl = (is_http || is_cors) ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl) : postsUrl;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
       const response = await fetch(httpUrl);
@@ -741,7 +843,7 @@ async function WPArticlePage(slug, mainUrl, is_http = false, is_cors = false) {
 
       // Obsługa obrazka wyróżniającego (Featured Media)
       const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      const imageHTML = featuredImage ? `<img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(featuredImage) : featuredImage}" class="article-image">` : '';
+      const imageHTML = featuredImage ? `<img src="${featuredImage.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}" class="article-image">` : '';
 
       // Generowanie HTML
       container.innerHTML = `
@@ -753,7 +855,7 @@ async function WPArticlePage(slug, mainUrl, is_http = false, is_cors = false) {
                         </div>
                     </header>
                     ${imageHTML}
-                    <div class="article_singlecontent_posts">${is_cors ? page.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl) : page.content.rendered}</div>
+                    <div class="article_singlecontent_posts">${page.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}</div>
                 </article>
             </div>`;
 
