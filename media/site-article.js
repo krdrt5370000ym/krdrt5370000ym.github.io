@@ -229,7 +229,7 @@ async function WPArticleList(
 
       if (categoryID) {
          if (!window.cachedCategoryIds) {
-            window.cachedCategoryIds = await fetchParentCategories(categoryID, +encodeURIComponent(mainUrl));
+            window.cachedCategoryIds = await fetchParentCategories(categoryID, proxyBase + encodeURIComponent(mainUrl));
          }
          finalCategoryIds = window.cachedCategoryIds;
       }
@@ -265,6 +265,102 @@ async function WPArticleList(
          if (button) button.style.display = 'none';
          return;
       }
+
+      // 🔹 Pobieranie nazw
+      let categoryName = '';
+      let categoryLink = '';
+      let categoryParent = false;
+      let subcategoryID = '';
+      let subcategoryName = '';
+      let tagName = '';
+      let tagLink = '';
+      let authorName = '';
+      let authorLink = '';
+
+      // 🔹 KATEGORIA
+      if (categoryID) {
+         const res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`)}`);
+         const data = await res.json();
+
+         categoryName = data.name;
+         categoryLink = data.link;
+         categoryParent = data.parent !== 0;
+
+         if (categoryParent && data._embedded?.up?.[0]) {
+            subcategoryID = data._embedded.up[0].id;
+            subcategoryName = data._embedded.up[0].name;
+         }
+      }
+
+      // 🔹 TAG
+      if (tagID) {
+         const res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/tags/${tagID}?_embed=true`)}`);
+         const data = await res.json();
+
+         tagName = data.name;
+         tagLink = data.link;
+      }
+
+      // 🔹 AUTOR
+      if (authorID) {
+         try {
+            let res;
+
+            if (siteKey === 'radiolodz') {
+               res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/ppma_author/${authorID}?_embed=true`)}`);
+            } else {
+               res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/users/${authorID}?_embed=true`)}`);
+            }
+
+            const data = await res.json();
+
+            authorName = data.name || '';
+            authorLink = data.link || '';
+         } catch (e) {
+            console.warn('Błąd pobierania autora', e);
+         }
+      }
+
+      // 🔹 Wyniki nagłówków
+      if (containerS) {
+         containerS.innerHTML = search ?
+            `Wyniki dla: <b>${search}</b>` :
+            '';
+      }
+
+      if (containerC) {
+         containerC.innerHTML = categoryName ?
+            `Kategoria: ${
+               categoryParent
+               ? `<a href="article-list?si=${siteKey}&c=${subcategoryID}">${subcategoryName}</a> / `
+               : ''
+            }<b><a href="${categoryLink}">${categoryName}</a></b>` :
+            '';
+      }
+
+      if (containerT) {
+         containerT.innerHTML = tagName ?
+            `Tag: <b><a href="${tagLink}">${tagName}</a></b>` :
+            '';
+      }
+
+      if (containerA) {
+         containerA.innerHTML = authorName ?
+            `Autor: <b><a href="${authorLink}">${authorName}</a></b>` :
+            '';
+      }
+
+      // 🔹 Tytuł strony
+      const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
+
+      const docTitle = [
+         searchTitle,
+         categoryName,
+         tagName,
+         authorName
+      ].filter(Boolean).join(' | ') || 'Artykuły';
+
+      document.title = docTitle + ' | krdrt5370000ym.github.io';
 
       // 🔹 Generowanie HTML
       const postsHTML = posts.map(post => {
@@ -330,7 +426,7 @@ async function WPArticleList(
          const imgUrl = featuredMedia?.source_url || '';
 
          const imageHTML = (is_image && imgUrl) ?
-            `<img src="${imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
+            `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
             '';
 
          // 🔹 Data
