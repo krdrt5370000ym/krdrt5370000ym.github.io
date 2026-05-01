@@ -12,29 +12,25 @@
 
    const siteMap = {
       radiorsc: {
-         url: "https://radiorsc.pl",
-         is_http: false,
-         is_cors: false
+         url: "https://radiorsc.pl"
       },
       radiovictoria: {
-         url: "https://radiovictoria.pl",
-         is_http: false,
-         is_cors: false
+         url: "https://radiovictoria.pl"
       },
       radiokolor: {
-         url: "https://radiokolor.pl",
-         is_http: false,
-         is_cors: true
+         url: "https://radiokolor.pl"
       },
       sosw: {
-         url: "https://soswskierniewice.pl",
-         is_http: false,
-         is_cors: false
+         url: "https://soswskierniewice.pl"
       },
       ckis: {
-         url: "https://cekis.pl",
-         is_http: true,
-         is_cors: false
+         url: "https://cekis.pl"
+      },
+      radiolodz: {
+         url: "https://radiolodz.pl"
+      },
+      elradio: {
+         url: "https://elradio.pl"
       }
    };
 
@@ -51,9 +47,7 @@
    }
 
    const {
-      url: mainUrl,
-      is_http,
-      is_cors
+      url: mainUrl
    } = siteMap[site];
 
    function init() {
@@ -62,8 +56,6 @@
             window.WPArticleList(
                mainUrl,
                site,
-               is_http,
-               is_cors,
                type,
                search,
                category,
