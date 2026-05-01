@@ -426,7 +426,7 @@ async function WPArticleList(
          const imgUrl = featuredMedia?.source_url || '';
 
          const imageHTML = (is_image && imgUrl) ?
-            `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
+            `<img src="${imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
             '';
 
          // 🔹 Data
