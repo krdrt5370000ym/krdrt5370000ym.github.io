@@ -761,7 +761,7 @@ async function WPArticlePostRSCPlayer(targetUrl) {
          return `
                 <div class="article_player_posts">
                     <small>Posłuchaj tutaj:</small><br>
-                    <audio controls src="${audioSrc}"></audio>
+                    <audio controls src="${audioSrc.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}"></audio>
                 </div>`;
       }
       return '';
