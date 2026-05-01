@@ -23,6 +23,9 @@
       "radiolodz": {
          "url": "https://radiolodz.pl"
       },
+      "elradio": {
+         "url": "https://elradio.pl"
+      },
    };
 
    if (!id || !site || !siteMap[site]) {
