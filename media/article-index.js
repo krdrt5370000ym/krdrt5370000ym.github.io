@@ -6,29 +6,22 @@
 
    const siteMap = {
       "radiorsc": {
-         "url": "https://radiorsc.pl",
-         "is_http": false,
-         "is_cors": false
+         "url": "https://radiorsc.pl"
       },
       "radiovictoria": {
-         "url": "https://radiovictoria.pl",
-         "is_http": false,
-         "is_cors": false
+         "url": "https://radiovictoria.pl"
       },
       "radiokolor": {
-         "url": "https://radiokolor.pl",
-         "is_http": false,
-         "is_cors": true
+         "url": "https://radiokolor.pl"
       },
       "sosw": {
-         "url": "https://soswskierniewice.pl",
-         "is_http": false,
-         "is_cors": false
+         "url": "https://soswskierniewice.pl"
       },
       "ckis": {
-         "url": "https://cekis.pl",
-         "is_http": true,
-         "is_cors": false
+         "url": "https://cekis.pl"
+      },
+      "radiolodz": {
+         "url": "https://radiolodz.pl"
       },
    };
 
@@ -38,9 +31,7 @@
    }
 
    const {
-      url: mainUrl,
-      is_http,
-      is_cors
+      url: mainUrl
    } = siteMap[site];
 
    // Funkcja uruchamiająca odpowiedni moduł
@@ -49,11 +40,13 @@
          if (type === 'post') {
             if (site === 'radiorsc' && typeof WPArticlePostRSC === 'function') {
                WPArticlePostRSC(id);
+            } else if (site === 'radiolodz' && typeof WPArticlePostRLodz === 'function') {
+               WPArticlePostRLodz(id);
             } else if (typeof WPArticlePost === 'function') {
-               WPArticlePost(id, mainUrl, undefined, undefined, undefined, undefined, is_http, is_cors);
+               WPArticlePost(id, mainUrl);
             }
          } else if (type === 'page' && typeof WPArticlePage === 'function') {
-            WPArticlePage(id, mainUrl, is_http, is_cors);
+            WPArticlePage(id, mainUrl);
          } else {
             throw new Error("Nie znaleziono funkcji ładującej.");
          }
