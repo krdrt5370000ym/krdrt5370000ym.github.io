@@ -635,7 +635,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
-      const response = await fetch(httpUrl);
+      const response = await fetch(proxyUrl);
       let posts = await response.json();
       if (!Array.isArray(posts)) posts = [posts];
 
@@ -826,7 +826,7 @@ async function WPArticlePage(slug, mainUrl) {
    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
-      const response = await fetch(httpUrl);
+      const response = await fetch(proxyUrl);
       let data = await response.json();
 
       // WP API zwraca obiekt dla pojedynczego ID lub tablicę dla sluga
