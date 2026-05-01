@@ -3,6 +3,7 @@ let cachedCategoryIds = null;
 async function WPArticleRSC(append = false) {
    const container = document.getElementById('article-list');
    const button = document.getElementById('load-more-btn');
+   const proxyBase = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
    const perPage = 10;
 
    if (!append) window.currentPage = 1;
@@ -21,7 +22,7 @@ async function WPArticleRSC(append = false) {
 
       const postsUrl = `https://radiorsc.pl/wp-json/wp/v2/posts?categories=1,${include18},${include19},${include75}&per_page=${perPage}&page=${window.currentPage}&_embed=true`;
 
-      const response = await fetch(postsUrl);
+      const response = await fetch(proxyBase + encodeURIComponent(postsUrl));
       if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
       const posts = await response.json();
@@ -43,7 +44,7 @@ async function WPArticleRSC(append = false) {
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = imgUrl ? `<img src="${imgUrl}" width="150" height="150" style="object-fit:cover;">` : '';
+         const imageDisplay = imgUrl ? `<img src="${imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}" width="150" height="150" style="object-fit:cover;">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -95,7 +96,7 @@ async function WPArticleRSC(append = false) {
    }
 }
 
-async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, is_http = false, is_cors = false, append = false) {
+async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = true, is_image = true, append = false) {
    const container = document.getElementById('article-list');
    const button = document.getElementById('load-more-btn');
    const perPage = 10;
@@ -108,7 +109,6 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
-   const finalUrl = (is_http || is_cors) ? proxyUrl + encodeURIComponent(postsUrl) : postsUrl;
 
    try {
       if (button) {
@@ -116,7 +116,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          button.disabled = true;
       }
 
-      const response = await fetch(finalUrl);
+      const response = await fetch(proxyUrl + encodeURIComponent(postsUrl));
       if (!response.ok) throw new Error("Błąd odpowiedzi sieci");
 
       const posts = await response.json();
@@ -140,7 +140,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = is_image && imgUrl ? `<img src="${is_cors ? 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(imgUrl) : imgUrl}" width="150" height="150" style="object-fit:cover;" alt="">` : '';
+         const imageDisplay = is_image && imgUrl ? `<img src="${imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}" width="150" height="150" style="object-fit:cover;" alt="">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -179,7 +179,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
          button.disabled = false;
          // Ukryj przycisk, jeśli pobrano mniej postów niż limit perPage (koniec listy)
          button.style.display = posts.length < perPage ? 'none' : 'block';
-         button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, is_http, is_cors, true);
+         button.onclick = () => WPArticle(mainUrl, siteKey, is_categories, is_author, is_image, true);
       }
 
    } catch (error) {
@@ -851,10 +851,9 @@ async function WPArticlePostRSCPlayer(targetUrl) {
 
 async function fetchParentCategories(parentId, mainUrl) {
    const baseUrl = `${mainUrl}/wp-json/wp/v2/categories`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(baseUrl);
    try {
       // Pobieramy listę kategorii raz (max 100)
-      const response = await fetch(`${proxyUrl}${encodeURIComponent(`?per_page=100`)}`);
+      const response = await fetch(`${baseUrl}?per_page=100`);
       const allCats = await response.json();
 
       const resultIds = new Set([parseInt(parentId)]);
