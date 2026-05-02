@@ -190,23 +190,27 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 }
 
 async function WPArticleList(
-   mainUrl,
-   siteKey,
-   type = 'post',
-   search = null,
-   categoryID = null,
-   tagID = null,
-   authorID = null,
-   is_categories = true,
-   is_author = true,
-   is_image = true,
-   append = false
+    mainUrl,
+    siteKey,
+    type = 'post',
+    search = null,
+    categoryID = null,
+    tagID = null,
+    authorID = null,
+    year = null,
+    month = null,
+    day = null,
+    is_categories = true,
+    is_author = true,
+    is_image = true,
+    append = false
 ) {
    const container = document.getElementById('article-list');
    const containerS = document.getElementById('article-s-result');
    const containerC = document.getElementById('article-c-result');
    const containerT = document.getElementById('article-t-result');
    const containerA = document.getElementById('article-a-result');
+   const containerD = document.getElementById('article-d-result');
    const button = document.getElementById('load-more-btn');
 
    const proxyBase = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
@@ -251,6 +255,31 @@ async function WPArticleList(
             params.append('author', authorID);
          }
       }
+
+      // 🔹 DATA (rok / miesiąc / dzień)
+if (year) {
+    let after, before;
+
+    if (year && !month && !day) {
+        // cały rok
+        after = `${year}-01-01T00:00:00Z`;
+        before = `${year}-12-31T23:59:59Z`;
+    } else if (year && month && !day) {
+        // cały miesiąc
+        const lastDay = new Date(year, month, 0).getDate();
+        after = `${year}-${String(month).padStart(2, '0')}-01T00:00:00Z`;
+        before = `${year}-${String(month).padStart(2, '0')}-${lastDay}T23:59:59Z`;
+    } else if (year && month && day) {
+        // konkretny dzień
+        after = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`;
+        before = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T23:59:59Z`;
+    }
+
+    if (after && before) {
+        params.append('after', after);
+        params.append('before', before);
+    }
+}
 
       const endpoint = type === 'post' ? 'posts' : 'pages';
       const url = `${mainUrl}/wp-json/wp/v2/${endpoint}?${params.toString()}`;
@@ -349,6 +378,26 @@ async function WPArticleList(
             `Autor: <b><a href="${authorLink}">${authorName}</a></b>` :
             '';
       }
+
+if (containerD) {
+    let dateText = '';
+
+    if (year && !month && !day) {
+        dateText = `Rok: ${year}`;
+    } else if (year && month && !day) {
+        const monthName = new Date(year, month - 1).toLocaleDateString('pl-PL', { month: 'long' });
+        dateText = `Miesiąc: ${monthName} ${year}`;
+    } else if (year && month && day) {
+        const fullDate = new Date(year, month - 1, day).toLocaleDateString('pl-PL', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        dateText = `Dzień: ${fullDate}`;
+    }
+
+    containerD.innerHTML = dateText;
+}
 
       // 🔹 Tytuł strony
       const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
@@ -477,6 +526,9 @@ async function WPArticleList(
             categoryID,
             tagID,
             authorID,
+            year,
+            month,
+            day,
             is_categories,
             is_author,
             is_image,
