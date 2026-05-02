@@ -602,9 +602,18 @@ if (authorID) {
 }
 
       // 🔹 Wyniki nagłówków
+   const escapeHTML = (str) =>
+      str ? String(str).replace(/[&<>"']/g, m => ({
+         '&': '&',
+         '<': '<',
+         '>': '>',
+         '"': '"',
+         "'": "'"
+      } [m])) : "";
+      
       if (containerS) {
          containerS.innerHTML = search ?
-            `Wyniki dla: <b>${search}</b>` :
+            `Wyniki dla: <b>${escapeHTML(search)}</b>` :
             '';
       }
 
