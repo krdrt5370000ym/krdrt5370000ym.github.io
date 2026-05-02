@@ -189,6 +189,40 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
    }
 }
 
+function parseDateRange(year, month, day) {
+    if (!year) return null;
+
+    // 👉 format: "2025-09-14", "2026-06-10"
+    if (typeof year === 'string' && year.length === 10 && month && month.length === 10) {
+        return {
+            after: `${year}T00:00:00Z`,
+            before: `${month}T23:59:59Z`
+        };
+    }
+
+    const y = String(year).split('-');
+    const m = month ? String(month).split('-') : [];
+    const d = day ? String(day).split('-') : [];
+
+    const startYear = y[0];
+    const endYear = y[1] || y[0];
+
+    const startMonth = m[0] || 1;
+    const endMonth = m[1] || m[0] || 12;
+
+    const startDay = d[0] || 1;
+
+    let endDay = d[1];
+    if (!endDay) {
+        endDay = new Date(endYear, endMonth, 0).getDate();
+    }
+
+    const after = `${startYear}-${String(startMonth).padStart(2, '0')}-${String(startDay).padStart(2, '0')}T00:00:00Z`;
+    const before = `${endYear}-${String(endMonth).padStart(2, '0')}-${String(endDay).padStart(2, '0')}T23:59:59Z`;
+
+    return { after, before };
+}
+
 async function WPArticleList(
     mainUrl,
     siteKey,
@@ -256,44 +290,20 @@ async function WPArticleList(
          }
       }
 
-// 🔹 DATA (rok / miesiąc / dzień / zakres dni)
-if (year) {
-    let after, before;
+        // 🔹 DATA RANGE
+        const range = parseDateRange(year, month, day);
 
-    // 👉 zakres dni np. "2-9"
-    if (typeof day === 'string' && day.includes('-')) {
-        const [startDay, endDay] = day.split('-').map(d => parseInt(d));
+        let dateText = '';
 
-        if (year && month && startDay && endDay) {
-            after = `${year}-${String(month).padStart(2, '0')}-${String(startDay).padStart(2, '0')}T00:00:00Z`;
-            before = `${year}-${String(month).padStart(2, '0')}-${String(endDay).padStart(2, '0')}T23:59:59Z`;
+        if (range) {
+            params.append('after', range.after);
+            params.append('before', range.before);
+
+            const from = new Date(range.after).toLocaleDateString('pl-PL');
+            const to = new Date(range.before).toLocaleDateString('pl-PL');
+
+            dateText = `Od ${from} do ${to}`;
         }
-    }
-
-    // 👉 pojedynczy dzień
-    else if (year && month && day) {
-        after = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`;
-        before = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T23:59:59Z`;
-    }
-
-    // 👉 cały miesiąc
-    else if (year && month) {
-        const lastDay = new Date(year, month, 0).getDate();
-        after = `${year}-${String(month).padStart(2, '0')}-01T00:00:00Z`;
-        before = `${year}-${String(month).padStart(2, '0')}-${lastDay}T23:59:59Z`;
-    }
-
-    // 👉 cały rok
-    else if (year) {
-        after = `${year}-01-01T00:00:00Z`;
-        before = `${year}-12-31T23:59:59Z`;
-    }
-
-    if (after && before) {
-        params.append('after', after);
-        params.append('before', before);
-    }
-}
 
       const endpoint = type === 'post' ? 'posts' : 'pages';
       const url = `${mainUrl}/wp-json/wp/v2/${endpoint}?${params.toString()}`;
@@ -394,34 +404,9 @@ if (year) {
             '';
       }
 
-if (containerD) {
-    let dateText = '';
-
-    if (typeof day === 'string' && day.includes('-')) {
-        const [startDay, endDay] = day.split('-');
-
-        const monthName = new Date(year, month - 1).toLocaleDateString('pl-PL', { month: 'long' });
-
-        dateText = `Dni: ${startDay}–${endDay} ${monthName} ${year}`;
-    }
-    else if (year && month && day) {
-        const fullDate = new Date(year, month - 1, day).toLocaleDateString('pl-PL', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-        dateText = `Dzień: ${fullDate}`;
-    }
-    else if (year && month) {
-        const monthName = new Date(year, month - 1).toLocaleDateString('pl-PL', { month: 'long' });
-        dateText = `Miesiąc: ${monthName} ${year}`;
-    }
-    else if (year) {
-        dateText = `Rok: ${year}`;
-    }
-
-    containerD.innerHTML = dateText;
-}
+        if (containerD) {
+            containerD.innerHTML = dateText;
+        }
 
       // 🔹 Tytuł strony
       const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
