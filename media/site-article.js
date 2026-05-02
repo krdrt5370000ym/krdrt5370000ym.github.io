@@ -602,14 +602,14 @@ if (authorID) {
 }
 
       // 🔹 Wyniki nagłówków
-   const escapeHTML = (str) =>
-      str ? String(str).replace(/[&<>"']/g, m => ({
-         '&': '&',
-         '<': '<',
-         '>': '>',
-         '"': '"',
-         "'": "'"
-      } [m])) : "";
+const escapeHTML = (str) =>
+    str ? String(str).replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    })[m]) : "";
       
       if (containerS) {
          containerS.innerHTML = search ?
