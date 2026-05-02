@@ -52,11 +52,11 @@ const getTrackDetails = async () => {
       // Funkcja zabezpieczająca przed XSS
       const escapeHTML = (str) =>
          str ? String(str).replace(/[&<>"']/g, m => ({
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
          } [m])) : "";
 
       const artistsUrl = `https://shazam.p.rapidapi.com/songs/get-related-artist?id=${SongID}&l=pl-PL`;
