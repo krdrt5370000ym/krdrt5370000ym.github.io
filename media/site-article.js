@@ -339,12 +339,12 @@ function formatDateText(range) {
       new Date(y, m - 1).toLocaleDateString('pl-PL', {
          month: 'long'
       });
-   
+
    // Nowy blok dla zakresu lat
    if (mode === 'year-range') {
       return `Lata: <b>${y1}-${y2}</b>`;
    }
-   
+
    // 🔹 ROK
    if (mode === 'year') {
       return `Rok: <b>${y1}</b>`;
