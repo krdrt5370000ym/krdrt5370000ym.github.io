@@ -190,79 +190,128 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 }
 
 function parseDateRangeAdvanced(year, month, day) {
+
+    // 🔒 brak danych → brak filtrowania
+    if (!year && !month && !day) return null;
+
     let after = null;
     let before = null;
-    let mode = ''; // do opisu (rok, miesiąc itd.)
+    let mode = '';
 
-    // 🔹 pełne daty YYYY-MM-DD → YYYY-MM-DD
-    if (year && year.length === 10 && month && month.length === 10) {
+    // 🔧 helper
+    const pad = (n) => String(n).padStart(2, '0');
+
+    // =====================================================
+    // 🔹 1. FORMAT: pełne daty (YYYY-MM-DD → YYYY-MM-DD)
+    // =====================================================
+    if (
+        typeof year === 'string' && year.length === 10 &&
+        typeof month === 'string' && month.length === 10
+    ) {
         after = `${year}T00:00:00Z`;
         before = `${month}T23:59:59Z`;
         mode = 'range';
         return { after, before, mode };
     }
 
-    // 🔹 YYYY-MM-DD (pojedyncza data)
-    if (year && year.length === 10 && !month) {
+    // =====================================================
+    // 🔹 2. FORMAT: pojedyncza data YYYY-MM-DD
+    // =====================================================
+    if (typeof year === 'string' && year.length === 10 && !month) {
         after = `${year}T00:00:00Z`;
         before = `${year}T23:59:59Z`;
         mode = 'day';
         return { after, before, mode };
     }
 
-    // 🔹 YYYY-MM (rok + miesiąc)
-    if (year && year.length === 7 && !month) {
+    // =====================================================
+    // 🔹 3. FORMAT: YYYY-MM (miesiąc)
+    // =====================================================
+    if (typeof year === 'string' && year.length === 7 && !month) {
         const [y, m] = year.split('-');
+
         const lastDay = new Date(y, m, 0).getDate();
 
         after = `${y}-${m}-01T00:00:00Z`;
         before = `${y}-${m}-${lastDay}T23:59:59Z`;
+
         mode = 'month';
-        return { after, before, mode };
+        return { after, before, mode, y1: y, m1: m };
     }
 
-    // 🔹 zakresy (y=2025-2026, m=9-10, d=12-9)
-    const y = year ? year.split('-') : [];
-    const m = month ? month.split('-') : [];
-    const d = day ? day.split('-') : [];
+    // =====================================================
+    // 🔹 4. STANDARD (rok / miesiąc / dzień / zakresy)
+    // =====================================================
+
+    const y = year ? String(year).split('-') : [];
+    const m = month ? String(month).split('-') : [];
+    const d = day ? String(day).split('-') : [];
 
     const y1 = y[0];
     const y2 = y[1] || y1;
 
-    const m1 = m[0] || 1;
-    const m2 = m[1] || m1 || 12;
+    if (!y1) return null; // 🔒 bez roku nie robimy nic
 
-    const d1 = d[0] || 1;
+let m1, m2;
+
+if (!month) {
+    m1 = 1;
+    m2 = 12; // 🔥 cały rok
+} else {
+    m1 = m[0] || 1;
+    m2 = m[1] || m1;
+}
+
+    let d1 = d[0] || 1;
     let d2 = d[1];
 
-    // 🔹 poprawka: NIE dodawaj +1 dnia
+    // 🔥 KLUCZOWE: poprawne końce zakresów
     if (!d2) {
         d2 = new Date(y2, m2, 0).getDate();
     }
 
-    after = `${y1}-${String(m1).padStart(2,'0')}-${String(d1).padStart(2,'0')}T00:00:00Z`;
-    before = `${y2}-${String(m2).padStart(2,'0')}-${String(d2).padStart(2,'0')}T23:59:59Z`;
+    after = `${y1}-${pad(m1)}-${pad(d1)}T00:00:00Z`;
+    before = `${y2}-${pad(m2)}-${pad(d2)}T23:59:59Z`;
 
-    // 🔹 tryby do opisu
-    if (year && !month && !day) mode = 'year';
-    else if (year && month && !day) mode = 'month';
-    else if (year && month && day && !day.includes('-')) mode = 'day';
-    else if (day && day.includes('-') && year && month && !year.includes('-')) mode = 'day-range';
-    else mode = 'range';
+    // =====================================================
+    // 🔹 TRYB (do UI)
+    // =====================================================
 
-    return { after, before, mode, y1, y2, m1, m2, d1, d2 };
+    if (year && !month && !day) {
+        mode = 'year';
+    }
+    else if (year && month && !day && !String(month).includes('-')) {
+        mode = 'month';
+    }
+    else if (year && month && day && !String(day).includes('-')) {
+        mode = 'day';
+    }
+    else if (year && month && String(day).includes('-') && !String(month).includes('-') && !String(year).includes('-')) {
+        mode = 'day-range';
+    }
+    else {
+        mode = 'range';
+    }
+
+    return {
+        after,
+        before,
+        mode,
+        y1, y2,
+        m1, m2,
+        d1, d2
+    };
 }
 
 function formatDateText(range) {
     if (!range) return '';
 
-    const {
-        mode, after, before,
-        y1, y2, m1, m2, d1, d2
-    } = range;
+    const { mode, after, before, y1, m1, d1, d2 } = range;
 
-    const formatPL = (date) =>
-        new Date(date).toLocaleDateString('pl-PL');
+    const formatPL = (date) => {
+        const d = new Date(date);
+        return isNaN(d) ? '' : d.toLocaleDateString('pl-PL');
+    };
 
     const monthName = (y, m) =>
         new Date(y, m - 1).toLocaleDateString('pl-PL', { month: 'long' });
@@ -273,7 +322,7 @@ function formatDateText(range) {
     }
 
     // 🔹 MIESIĄC
-    if (mode === 'month' && !String(month).includes('-')) {
+    if (mode === 'month') {
         return `Miesiąc: ${monthName(y1, m1)} ${y1}`;
     }
 
@@ -282,26 +331,16 @@ function formatDateText(range) {
         return `Dzień: ${formatPL(after)}`;
     }
 
-    // 🔹 zakres dni w jednym miesiącu
+    // 🔹 zakres dni
     if (mode === 'day-range') {
         return `Dni: ${d1}-${d2} ${monthName(y1, m1)} ${y1}`;
     }
 
-    // 🔹 pełny zakres
-    return `Od ${formatPL(after)} do ${formatPL(before)}`;
-}
+    // 🔹 zakres ogólny
+const beforeDate = new Date(before);
+beforeDate.setHours(0,0,0,0);
 
-const range = parseDateRangeAdvanced(year, month, day);
-
-if (range) {
-    params.append('after', range.after);
-    params.append('before', range.before);
-}
-
-const dateText = formatDateText(range);
-
-if (containerD) {
-    containerD.innerHTML = dateText;
+return `Od ${formatPL(after)} do ${formatPL(beforeDate - 1)}`;
 }
 
 async function WPArticleList(
@@ -344,14 +383,28 @@ async function WPArticleList(
          button.disabled = true;
       }
 
-      let finalCategoryIds = categoryID;
+let finalCategoryIds = categoryID;
 
-      if (categoryID) {
-         if (!window.cachedCategoryIds) {
-            window.cachedCategoryIds = await fetchParentCategories(categoryID, proxyBase + encodeURIComponent(mainUrl));
-         }
-         finalCategoryIds = window.cachedCategoryIds;
-      }
+if (categoryID) {
+    const ids = String(categoryID).split(',');
+
+    // 🔹 tylko dla pojedynczej kategorii
+    if (ids.length === 1) {
+
+        if (!window.cachedCategoryIds) {
+            window.cachedCategoryIds = await fetchParentCategories(
+                ids[0],
+                proxyBase + encodeURIComponent(mainUrl)
+            );
+        }
+
+        finalCategoryIds = window.cachedCategoryIds;
+
+    } else {
+        // 🔹 MULTI → bez parentów
+        finalCategoryIds = ids.join(',');
+    }
+}
 
       const params = new URLSearchParams({
          per_page: perPage,
@@ -373,16 +426,17 @@ async function WPArticleList(
 
         // 🔹 DATA RANGE
 let range = null;
+
 if (year || month || day) {
     range = parseDateRangeAdvanced(year, month, day);
 }
 
-if (range) {
+if (range && range.after && range.before) {
     params.append('after', range.after);
     params.append('before', range.before);
 }
 
-const dateText = formatDateText(range);
+const dateText = range ? formatDateText(range) : '';
 
 if (containerD) {
     containerD.innerHTML = dateText;
