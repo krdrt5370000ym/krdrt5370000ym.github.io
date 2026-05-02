@@ -8,6 +8,9 @@
    const category = params.get("c") || "";
    const tag = params.get("t") || "";
    const author = params.get("a") || "";
+   const year = params.get("y") || "";
+   const month = params.get("m") || "";
+   const day = params.get("d") || "";
    const type = params.get("tp") || "post";
 
    const siteMap = {
@@ -60,7 +63,10 @@
                search,
                category,
                tag,
-               author
+               author,
+               year,
+               month,
+               day
             );
          } else {
             throw new Error("Nie znaleziono funkcji WPArticleList.");
