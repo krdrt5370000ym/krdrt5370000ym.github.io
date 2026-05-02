@@ -704,7 +704,8 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
       'https://radiokolor.pl': 'radiokolor',
       'https://soswskierniewice.pl': 'sosw',
       'https://cekis.pl': 'ckis',
-      'https://radiolodz.pl': 'radiolodz'
+      'https://radiolodz.pl': 'radiolodz',
+      'https://elradio.pl': 'elradio'
    };
    const currentSiteKey = siteKeys[mainUrl] || 'default';
    // Dodajemy _embed do URL
