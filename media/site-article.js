@@ -318,29 +318,29 @@ function formatDateText(range) {
 
     // 🔹 ROK
     if (mode === 'year') {
-        return `Rok: ${y1}`;
+        return `Rok: <b>${y1}</b>`;
     }
 
     // 🔹 MIESIĄC
     if (mode === 'month') {
-        return `Miesiąc: ${monthName(y1, m1)} ${y1}`;
+        return `Miesiąc: <b>${monthName(y1, m1)} ${y1}</b>`;
     }
 
     // 🔹 DZIEŃ
     if (mode === 'day') {
-        return `Dzień: ${formatPL(after)}`;
+        return `Dzień: <b>${formatPL(after)}</b>`;
     }
 
     // 🔹 zakres dni
     if (mode === 'day-range') {
-        return `Dni: ${d1}-${d2} ${monthName(y1, m1)} ${y1}`;
+        return `Dni: <b>${d1}-${d2} ${monthName(y1, m1)} ${y1}</b>`;
     }
 
     // 🔹 zakres ogólny
 const beforeDate = new Date(before);
 beforeDate.setHours(0,0,0,0);
 
-return `Od ${formatPL(after)} do ${formatPL(beforeDate - 1)}`;
+return `Od <b>${formatPL(after)}</b> do <b>${formatPL(beforeDate - 1)}</b>`;
 }
 
 async function WPArticleList(
@@ -462,50 +462,144 @@ const dateText = range ? formatDateText(range) : '';
       let tagLink = '';
       let authorName = '';
       let authorLink = '';
+      let containerCcon = '';
+      let containerTcon = '';
+      let containerAcon = '';
 
       // 🔹 KATEGORIA
-      if (categoryID) {
-         const res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/categories/${categoryID}?_embed=true`)}`);
-         const data = await res.json();
+if (categoryID) {
+    const ids = String(categoryID).split(',');
 
-         categoryName = data.name;
-         categoryLink = data.link;
-         categoryParent = data.parent !== 0;
+    // 🔹 SINGLE
+    if (ids.length === 1) {
 
-         if (categoryParent && data._embedded?.up?.[0]) {
+        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            `${mainUrl}/wp-json/wp/v2/categories/${ids[0]}?_embed=true`
+        )}`);
+
+        const data = await res.json();
+
+        categoryName = data.name;
+        categoryLink = data.link;
+        categoryParent = data.parent !== 0;
+
+        if (categoryParent && data._embedded?.up?.[0]) {
             subcategoryID = data._embedded.up[0].id;
             subcategoryName = data._embedded.up[0].name;
-         }
-      }
+        }
+
+            containerCcon = categoryName
+                ? `Kategoria: ${
+                    categoryParent
+                        ? `<a href="article-list?c=${subcategoryID}">${subcategoryName}</a> / `
+                        : ''
+                }<b><a href="${categoryLink}">${categoryName}</a></b>`
+                : '';
+
+    } else {
+
+        // 🔹 MULTI
+        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            `${mainUrl}/wp-json/wp/v2/categories?include=${ids.join(',')}`
+        )}`);
+
+        const data = await res.json();
+
+        const names = data.map(c =>
+            `<b><a href="${c.link}">${c.name}</a></b>`
+        );
+
+        containerCcon = `Kategorie: ${names.join(', ')}`;
+    }
+}
 
       // 🔹 TAG
-      if (tagID) {
-         const res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/tags/${tagID}?_embed=true`)}`);
-         const data = await res.json();
+if (tagID) {
+    const ids = String(tagID).split(',');
 
-         tagName = data.name;
-         tagLink = data.link;
-      }
+    // 🔹 SINGLE
+    if (ids.length === 1) {
+
+        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            `${mainUrl}/wp-json/wp/v2/tags/${ids[0]}`
+        )}`);
+
+        const data = await res.json();
+
+        containerTcon = data.name
+                ? `Tag: <b><a href="${data.link}">${data.name}</a></b>`
+                : '';
+
+    } else {
+
+        // 🔹 MULTI
+        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            `${mainUrl}/wp-json/wp/v2/tags?include=${ids.join(',')}`
+        )}`);
+
+        const data = await res.json();
+
+        const names = data.map(t =>
+            `<a href="${t.link}">${t.name}</a>`
+        );
+        
+            containerTcon = `Tagi: <b>${names.join('</b>, <b>')}</b>`;
+    }
+}
 
       // 🔹 AUTOR
-      if (authorID) {
-         try {
+if (authorID) {
+    const ids = String(authorID).split(',');
+
+    try {
+
+        // 🔹 SINGLE
+        if (ids.length === 1) {
+
             let res;
 
             if (siteKey === 'radiolodz') {
-               res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/ppma_author/${authorID}?_embed=true`)}`);
+                res = await fetch(`${proxyBase}${encodeURIComponent(
+                    `${mainUrl}/wp-json/wp/v2/ppma_author/${ids[0]}`
+                )}`);
             } else {
-               res = await fetch(`${proxyBase}${encodeURIComponent(`${mainUrl}/wp-json/wp/v2/users/${authorID}?_embed=true`)}`);
+                res = await fetch(`${proxyBase}${encodeURIComponent(
+                    `${mainUrl}/wp-json/wp/v2/users/${ids[0]}`
+                )}`);
             }
 
             const data = await res.json();
 
-            authorName = data.name || '';
-            authorLink = data.link || '';
-         } catch (e) {
-            console.warn('Błąd pobierania autora', e);
-         }
-      }
+            containerAcon = data.name
+                    ? `Autor: <b><a href="${data.link}">${data.name}</a></b>`
+                    : '';
+
+        } else {
+
+            // 🔹 MULTI
+            let endpoint = 'users';
+
+            if (siteKey === 'radiolodz') {
+                endpoint = 'ppma_author';
+            }
+
+            const res = await fetch(`${proxyBase}${encodeURIComponent(
+                `${mainUrl}/wp-json/wp/v2/${endpoint}?include=${ids.join(',')}`
+            )}`);
+
+            const data = await res.json();
+
+            const names = data.map(a =>
+                `<a href="${a.link}">${a.name}</a>`
+            );
+
+            containerAcon = `Autorzy: <b>${names.join('</b>, <b>')}</b>`;
+        }
+
+    } catch (e) {
+        console.warn('Błąd pobierania autorów', e);
+    }
+}
 
       // 🔹 Wyniki nagłówków
       if (containerS) {
@@ -515,25 +609,15 @@ const dateText = range ? formatDateText(range) : '';
       }
 
       if (containerC) {
-         containerC.innerHTML = categoryName ?
-            `Kategoria: ${
-               categoryParent
-               ? `<a href="article-list?si=${siteKey}&c=${subcategoryID}">${subcategoryName}</a> / `
-               : ''
-            }<b><a href="${categoryLink}">${categoryName}</a></b>` :
-            '';
+         containerC.innerHTML = containerCcon;
       }
 
       if (containerT) {
-         containerT.innerHTML = tagName ?
-            `Tag: <b><a href="${tagLink}">${tagName}</a></b>` :
-            '';
+         containerT.innerHTML = containerTcon;
       }
 
       if (containerA) {
-         containerA.innerHTML = authorName ?
-            `Autor: <b><a href="${authorLink}">${authorName}</a></b>` :
-            '';
+         containerA.innerHTML = containerAcon;
       }
 
         if (containerD) {
@@ -545,9 +629,9 @@ const dateText = range ? formatDateText(range) : '';
 
       const docTitle = [
          searchTitle,
-         categoryName,
-         tagName,
-         authorName,
+         containerCcon,
+         containerTcon,
+         containerAcon,
          dateText
       ].filter(Boolean).join(' | ') || 'Artykuły';
 
