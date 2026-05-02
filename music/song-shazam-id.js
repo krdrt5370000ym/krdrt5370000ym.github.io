@@ -42,11 +42,11 @@ const getTrackShazamDetails = async () => {
       // Funkcja zabezpieczająca przed XSS
       const escapeHTML = (str) =>
          str ? String(str).replace(/[&<>"']/g, m => ({
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
          } [m])) : "";
 
       // Logika dla okładki i gatunków
