@@ -189,38 +189,119 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
    }
 }
 
-function parseDateRange(year, month, day) {
-    if (!year) return null;
+function parseDateRangeAdvanced(year, month, day) {
+    let after = null;
+    let before = null;
+    let mode = ''; // do opisu (rok, miesiąc itd.)
 
-    // 👉 format: "2025-09-14", "2026-06-10"
-    if (typeof year === 'string' && year.length === 10 && month && month.length === 10) {
-        return {
-            after: `${year}T00:00:00Z`,
-            before: `${month}T23:59:59Z`
-        };
+    // 🔹 pełne daty YYYY-MM-DD → YYYY-MM-DD
+    if (year && year.length === 10 && month && month.length === 10) {
+        after = `${year}T00:00:00Z`;
+        before = `${month}T23:59:59Z`;
+        mode = 'range';
+        return { after, before, mode };
     }
 
-    const y = String(year).split('-');
-    const m = month ? String(month).split('-') : [];
-    const d = day ? String(day).split('-') : [];
-
-    const startYear = y[0];
-    const endYear = y[1] || y[0];
-
-    const startMonth = m[0] || 1;
-    const endMonth = m[1] || m[0] || 12;
-
-    const startDay = d[0] || 1;
-
-    let endDay = d[1];
-    if (!endDay) {
-        endDay = new Date(endYear, endMonth, 0).getDate();
+    // 🔹 YYYY-MM-DD (pojedyncza data)
+    if (year && year.length === 10 && !month) {
+        after = `${year}T00:00:00Z`;
+        before = `${year}T23:59:59Z`;
+        mode = 'day';
+        return { after, before, mode };
     }
 
-    const after = `${startYear}-${String(startMonth).padStart(2, '0')}-${String(startDay).padStart(2, '0')}T00:00:00Z`;
-    const before = `${endYear}-${String(endMonth).padStart(2, '0')}-${String(endDay).padStart(2, '0')}T23:59:59Z`;
+    // 🔹 YYYY-MM (rok + miesiąc)
+    if (year && year.length === 7 && !month) {
+        const [y, m] = year.split('-');
+        const lastDay = new Date(y, m, 0).getDate();
 
-    return { after, before };
+        after = `${y}-${m}-01T00:00:00Z`;
+        before = `${y}-${m}-${lastDay}T23:59:59Z`;
+        mode = 'month';
+        return { after, before, mode };
+    }
+
+    // 🔹 zakresy (y=2025-2026, m=9-10, d=12-9)
+    const y = year ? year.split('-') : [];
+    const m = month ? month.split('-') : [];
+    const d = day ? day.split('-') : [];
+
+    const y1 = y[0];
+    const y2 = y[1] || y1;
+
+    const m1 = m[0] || 1;
+    const m2 = m[1] || m1 || 12;
+
+    const d1 = d[0] || 1;
+    let d2 = d[1];
+
+    // 🔹 poprawka: NIE dodawaj +1 dnia
+    if (!d2) {
+        d2 = new Date(y2, m2, 0).getDate();
+    }
+
+    after = `${y1}-${String(m1).padStart(2,'0')}-${String(d1).padStart(2,'0')}T00:00:00Z`;
+    before = `${y2}-${String(m2).padStart(2,'0')}-${String(d2).padStart(2,'0')}T23:59:59Z`;
+
+    // 🔹 tryby do opisu
+    if (year && !month && !day) mode = 'year';
+    else if (year && month && !day) mode = 'month';
+    else if (year && month && day && !day.includes('-')) mode = 'day';
+    else if (day && day.includes('-') && year && month && !year.includes('-')) mode = 'day-range';
+    else mode = 'range';
+
+    return { after, before, mode, y1, y2, m1, m2, d1, d2 };
+}
+
+function formatDateText(range) {
+    if (!range) return '';
+
+    const {
+        mode, after, before,
+        y1, y2, m1, m2, d1, d2
+    } = range;
+
+    const formatPL = (date) =>
+        new Date(date).toLocaleDateString('pl-PL');
+
+    const monthName = (y, m) =>
+        new Date(y, m - 1).toLocaleDateString('pl-PL', { month: 'long' });
+
+    // 🔹 ROK
+    if (mode === 'year') {
+        return `Rok: ${y1}`;
+    }
+
+    // 🔹 MIESIĄC
+    if (mode === 'month' && !String(month).includes('-')) {
+        return `Miesiąc: ${monthName(y1, m1)} ${y1}`;
+    }
+
+    // 🔹 DZIEŃ
+    if (mode === 'day') {
+        return `Dzień: ${formatPL(after)}`;
+    }
+
+    // 🔹 zakres dni w jednym miesiącu
+    if (mode === 'day-range') {
+        return `Dni: ${d1}-${d2} ${monthName(y1, m1)} ${y1}`;
+    }
+
+    // 🔹 pełny zakres
+    return `Od ${formatPL(after)} do ${formatPL(before)}`;
+}
+
+const range = parseDateRangeAdvanced(year, month, day);
+
+if (range) {
+    params.append('after', range.after);
+    params.append('before', range.before);
+}
+
+const dateText = formatDateText(range);
+
+if (containerD) {
+    containerD.innerHTML = dateText;
 }
 
 async function WPArticleList(
@@ -291,19 +372,18 @@ async function WPArticleList(
       }
 
         // 🔹 DATA RANGE
-        const range = parseDateRange(year, month, day);
+const range = parseDateRangeAdvanced(year, month, day);
 
-        let dateText = '';
+if (range) {
+    params.append('after', range.after);
+    params.append('before', range.before);
+}
 
-        if (range) {
-            params.append('after', range.after);
-            params.append('before', range.before);
+const dateText = formatDateText(range);
 
-            const from = new Date(range.after).toLocaleDateString('pl-PL');
-            const to = new Date(range.before).toLocaleDateString('pl-PL');
-
-            dateText = `Od ${from} do ${to}`;
-        }
+if (containerD) {
+    containerD.innerHTML = dateText;
+}
 
       const endpoint = type === 'post' ? 'posts' : 'pages';
       const url = `${mainUrl}/wp-json/wp/v2/${endpoint}?${params.toString()}`;
