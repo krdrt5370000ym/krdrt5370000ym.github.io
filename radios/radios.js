@@ -648,11 +648,12 @@ function updateOnAirStatus() {
       const prog = activeBlock?.schedule.find(p => p.id === id || (p.hour_start === start && p.hour_end === end));
 
       if (prog) {
-         const isPublished = prog.publish_from_date ? now >= new Date(prog.publish_from_date) : true;
-         if (!prog.active || !isPublished) {
-            row.classList.remove('onair');
-            return;
-         }
+         // const isPublished = prog.publish_from_date ? now >= new Date(prog.publish_from_date) : true;
+         // Usunięto !prog.active - teraz sprawdzamy tylko datę publikacji
+         // if (!prog.active || !isPublished) {
+         //   row.classList.remove('onair');
+         //   return;
+         // }
          let dateForMod = localIsoDate;
          if (dayOfTab === yesterday && !isMidnightType && crossesMidnight) {
             // Jeśli to "ogon" audycji 23-06, która nie jest typu midnight, używamy daty wczorajszej
