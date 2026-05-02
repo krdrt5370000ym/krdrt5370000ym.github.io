@@ -63,11 +63,11 @@ async function uruchomPodcast() {
       // 3. Przygotowanie zmiennych pomocniczych
       const escapeHTML = (str) =>
          str ? String(str).replace(/[&<>"']/g, m => ({
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
          } [m])) : "";
 
       const occurrencesHostA = podcast.host || "---";
