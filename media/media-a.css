@@ -428,6 +428,26 @@ iframe {
     }
 }
 
+/* Zapewnienie responsywności dla wszystkich kontenerów wp-caption */
+.wp-caption {
+    max-width: 100% !important; /* Blokuje wychodzenie poza ekran */
+    height: auto;
+}
+
+.wp-caption img {
+    width: 100%;
+    height: auto;
+}
+
+/* Specyficzne ustawienia dla alignnone na mobile */
+@media (max-width: 768px) {
+    .wp-caption.alignnone {
+        width: 100% !important; /* Rozciąga obrazek na całą szerokość ekranu telefonu */
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
 /* =====================================================
    PLIKI
 ===================================================== */
