@@ -38,11 +38,11 @@ function renderPodcasts() {
    const search = document.getElementById("searchInput").value.toLowerCase(); // Pobieramy frazę
    const escapeHTML = (str) =>
       str ? String(str).replace(/[&<>"']/g, m => ({
-         '&': '&',
-         '<': '<',
-         '>': '>',
-         '"': '"',
-         "'": "'"
+         '&': '&amp;',
+         '<': '&lt;',
+         '>': '&gt;',
+         '"': '&quot;',
+         "'": '&#039;'
       } [m])) : "";
 
    container.innerHTML = "";
