@@ -349,14 +349,14 @@ function WPPodcastRVA(ProgramId) {
 async function loadAudioForPost(postId, mainUrl) {
    try {
       // 1. Najpierw pobieramy dane posta, aby sprawdzić treść (dla wideo/YouTube)
-      const postRes = await fetch(`${mainUrl}/wp-json/wp/v2/posts/${postId}`);
+      const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+      const postRes = await fetch(proxyUrl + encodeURIComponent(`${mainUrl}/wp-json/wp/v2/posts/${postId}`));
       const postData = await postRes.json();
       const content = postData.content.rendered;
-      const audioRs = `${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf,audio/x-aac,audio/vnd.dolby.dd-raw,application/octet-stream,audio/x-flac,audio/x-m4a,audio/x-mpeg-3,application/ogg,audio/x-wav,audio/wma`;
-      const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(audioRs);
+      const audioRs = proxyUrl + encodeURIComponent(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf,audio/x-aac,audio/vnd.dolby.dd-raw,application/octet-stream,audio/x-flac,audio/x-m4a,audio/x-mpeg-3,application/ogg,audio/x-wav,audio/wma`);
 
       // 2. Pobieramy media audio (Twoja obecna logika)
-      const audioRes = await fetch(proxyUrl);
+      const audioRes = await fetch(audioRs);
       const media = await audioRes.json();
 
       const li = document.getElementById(`post-${postId}`);
