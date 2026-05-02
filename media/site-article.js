@@ -462,7 +462,6 @@ const dateText = range ? formatDateText(range) : '';
       let tagLink = '';
       let authorName = '';
       let authorLink = '';
-      let dateText = '';
 
       // 🔹 KATEGORIA
       if (categoryID) {
