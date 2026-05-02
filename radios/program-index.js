@@ -302,11 +302,11 @@ async function uruchomProgram() {
       // 3. Renderowanie HTML
       const escapeHTML = (str) =>
          str ? String(str).replace(/[&<>"']/g, m => ({
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
          } [m])) : "";
 
       const thumb = program.thumbnail_text;
