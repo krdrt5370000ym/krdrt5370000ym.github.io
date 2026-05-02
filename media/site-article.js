@@ -579,7 +579,7 @@ async function WPArticlePostRSC(slug) {
                         </header>
                         ${imageDisplay}
                         ${playerHtml}
-                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/").replaceAll(/<a href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, '<a href="')}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/").replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
                     </article>
                 </div>`;
       });
@@ -680,7 +680,7 @@ async function WPArticlePostRLodz(slug) {
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/").replaceAll(/<a href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, '<a href="')}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/").replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
                     </article>
                 </div>`;
       });
@@ -800,7 +800,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl).replaceAll(/<a href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, '<a href="')}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl).replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
                     </article>
                 </div>`;
       });
@@ -936,7 +936,7 @@ async function WPArticlePage(slug, mainUrl) {
                         </div>
                     </header>
                     ${imageHTML}
-                    <div class="article_singlecontent_posts">${page.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl).replaceAll(/<a href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, '<a href="')}</div>
+                    <div class="article_singlecontent_posts">${page.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl).replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
                 </article>
             </div>`;
 
