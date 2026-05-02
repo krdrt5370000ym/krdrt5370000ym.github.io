@@ -329,7 +329,6 @@ async function WPArticleList(
       let tagLink = '';
       let authorName = '';
       let authorLink = '';
-      let dateText = '';
 
       // 🔹 KATEGORIA
       if (categoryID) {
