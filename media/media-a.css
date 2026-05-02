@@ -203,6 +203,26 @@ iframe {
     width: 100%;
 }
 
+.wp-video, 
+.wp-video video, 
+.wp-video-shortcode {
+    width: 100% !important;
+    height: auto !important;
+}
+
+@media screen and (max-width: 768px) {
+    .wp-video {
+        width: 100% !important;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .wp-video video {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
 /* =====================================================
    EMBED (YouTube, Twitter itd.)
 ===================================================== */
