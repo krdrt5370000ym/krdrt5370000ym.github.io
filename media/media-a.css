@@ -290,6 +290,144 @@ iframe {
     }
 }
 
+/* ============================================================
+   1. STYL GLOBALNY I DESKTOP (Ekrany powyżej 768px)
+   ============================================================ */
+#arbitrary-instance-69f5be6bf0518 {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 25px;
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    overflow: hidden;
+}
+
+/* Naprawa kontenera odtwarzacza */
+.album-player.sr_waveform_mediaElement {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Stylizacja tekstu i tytułów */
+.track-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f37021; /* Pomarańczowy Radio Łódź */
+    margin-bottom: 15px;
+}
+
+/* Fala dźwiękowa - zapobieganie rozciąganiu na 2540px */
+.srp_wave_box, 
+.sonaar_fake_wave, 
+.sonaar_wave_base, 
+.sonaar_wave_cut,
+#sonaar_wave_base_canvas, 
+#sonaar_wave_cut_canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 70px !important;
+}
+
+/* Pasek postępu i czasy */
+.sr_progressbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.currentTime, .totalTime {
+    font-size: 0.85rem;
+    color: #bbb;
+    min-width: 45px;
+}
+
+/* Przyciski sterowania */
+.srp_control_box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.srp-play-button {
+    background: #f37021 !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.srp-play-button:hover {
+    transform: scale(1.05);
+}
+
+/* ============================================================
+   2. STYL MOBILNY (Telefony i małe ekrany, max 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    #arbitrary-instance-69f5be6bf0518 {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .track-title {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    /* Układ sterowania w pionie dla lepszej klikalności */
+    .srp_control_box {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .srp_main_control .control {
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Ukrycie suwaka głośności na mobile dla oszczędności miejsca */
+    .volume {
+        transform: scale(0.9);
+    }
+}
+
+/* ============================================================
+   3. SPECYFICZNA NAPRAWA DLA WĄSKICH EKRANÓW (poniżej 400px)
+   To rozwiązuje problem szerokości 2540px
+   ============================================================ */
+@media (max-width: 400px) {
+    .album-player.sr_waveform_mediaElement {
+        padding: 5px !important;
+    }
+
+    /* Wymuszenie proporcji canvas */
+    canvas#sonaar_wave_base_canvas, 
+    canvas#sonaar_wave_cut_canvas {
+        height: 50px !important; /* Niższa fala na bardzo małe ekrany */
+    }
+
+    .srp_speedRate, .sr_skipBackward, .sr_skipForward {
+        transform: scale(0.85); /* Pomniejszenie ikonek, by się zmieściły */
+    }
+    
+    /* Ukrywamy głośność, jeśli nadal brakuje miejsca */
+    .volume {
+        display: none !important;
+    }
+}
+
 /* =====================================================
    PLIKI
 ===================================================== */
