@@ -191,173 +191,196 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
 function parseDateRangeAdvanced(year, month, day) {
 
-    // 🔒 brak danych → brak filtrowania
-    if (!year && !month && !day) return null;
+   // 🔒 brak danych → brak filtrowania
+   if (!year && !month && !day) return null;
 
-    let after = null;
-    let before = null;
-    let mode = '';
+   let after = null;
+   let before = null;
+   let mode = '';
 
-    // 🔧 helper
-    const pad = (n) => String(n).padStart(2, '0');
+   // 🔧 helper
+   const pad = (n) => String(n).padStart(2, '0');
 
-    // =====================================================
-    // 🔹 1. FORMAT: pełne daty (YYYY-MM-DD → YYYY-MM-DD)
-    // =====================================================
-    if (
-        typeof year === 'string' && year.length === 10 &&
-        typeof month === 'string' && month.length === 10
-    ) {
-        after = `${year}T00:00:00Z`;
-        before = `${month}T23:59:59Z`;
-        mode = 'range';
-        return { after, before, mode };
-    }
+   // =====================================================
+   // 🔹 1. FORMAT: pełne daty (YYYY-MM-DD → YYYY-MM-DD)
+   // =====================================================
+   if (
+      typeof year === 'string' && year.length === 10 &&
+      typeof month === 'string' && month.length === 10
+   ) {
+      after = `${year}T00:00:00Z`;
+      before = `${month}T23:59:59Z`;
+      mode = 'range';
+      return {
+         after,
+         before,
+         mode
+      };
+   }
 
-    // =====================================================
-    // 🔹 2. FORMAT: pojedyncza data YYYY-MM-DD
-    // =====================================================
-    if (typeof year === 'string' && year.length === 10 && !month) {
-        after = `${year}T00:00:00Z`;
-        before = `${year}T23:59:59Z`;
-        mode = 'day';
-        return { after, before, mode };
-    }
+   // =====================================================
+   // 🔹 2. FORMAT: pojedyncza data YYYY-MM-DD
+   // =====================================================
+   if (typeof year === 'string' && year.length === 10 && !month) {
+      after = `${year}T00:00:00Z`;
+      before = `${year}T23:59:59Z`;
+      mode = 'day';
+      return {
+         after,
+         before,
+         mode
+      };
+   }
 
-    // =====================================================
-    // 🔹 3. FORMAT: YYYY-MM (miesiąc)
-    // =====================================================
-    if (typeof year === 'string' && year.length === 7 && !month) {
-        const [y, m] = year.split('-');
+   // =====================================================
+   // 🔹 3. FORMAT: YYYY-MM (miesiąc)
+   // =====================================================
+   if (typeof year === 'string' && year.length === 7 && !month) {
+      const [y, m] = year.split('-');
 
-        const lastDay = new Date(y, m, 0).getDate();
+      const lastDay = new Date(y, m, 0).getDate();
 
-        after = `${y}-${m}-01T00:00:00Z`;
-        before = `${y}-${m}-${lastDay}T23:59:59Z`;
+      after = `${y}-${m}-01T00:00:00Z`;
+      before = `${y}-${m}-${lastDay}T23:59:59Z`;
 
-        mode = 'month';
-        return { after, before, mode, y1: y, m1: m };
-    }
+      mode = 'month';
+      return {
+         after,
+         before,
+         mode,
+         y1: y,
+         m1: m
+      };
+   }
 
-    // =====================================================
-    // 🔹 4. STANDARD (rok / miesiąc / dzień / zakresy)
-    // =====================================================
+   // =====================================================
+   // 🔹 4. STANDARD (rok / miesiąc / dzień / zakresy)
+   // =====================================================
 
-    const y = year ? String(year).split('-') : [];
-    const m = month ? String(month).split('-') : [];
-    const d = day ? String(day).split('-') : [];
+   const y = year ? String(year).split('-') : [];
+   const m = month ? String(month).split('-') : [];
+   const d = day ? String(day).split('-') : [];
 
-    const y1 = y[0];
-    const y2 = y[1] || y1;
+   const y1 = y[0];
+   const y2 = y[1] || y1;
 
-    if (!y1) return null; // 🔒 bez roku nie robimy nic
+   if (!y1) return null; // 🔒 bez roku nie robimy nic
 
-let m1, m2;
+   let m1, m2;
 
-if (!month) {
-    m1 = 1;
-    m2 = 12; // 🔥 cały rok
-} else {
-    m1 = m[0] || 1;
-    m2 = m[1] || m1;
-}
+   if (!month) {
+      m1 = 1;
+      m2 = 12; // 🔥 cały rok
+   } else {
+      m1 = m[0] || 1;
+      m2 = m[1] || m1;
+   }
 
-    let d1 = d[0] || 1;
-    let d2 = d[1];
+   let d1 = d[0] || 1;
+   let d2 = d[1];
 
-    // 🔥 KLUCZOWE: poprawne końce zakresów
-    if (!d2) {
-        d2 = new Date(y2, m2, 0).getDate();
-    }
+   // 🔥 KLUCZOWE: poprawne końce zakresów
+   if (!d2) {
+      d2 = new Date(y2, m2, 0).getDate();
+   }
 
-    after = `${y1}-${pad(m1)}-${pad(d1)}T00:00:00Z`;
-    before = `${y2}-${pad(m2)}-${pad(d2)}T23:59:59Z`;
+   after = `${y1}-${pad(m1)}-${pad(d1)}T00:00:00Z`;
+   before = `${y2}-${pad(m2)}-${pad(d2)}T23:59:59Z`;
 
-    // =====================================================
-    // 🔹 TRYB (do UI)
-    // =====================================================
+   // =====================================================
+   // 🔹 TRYB (do UI)
+   // =====================================================
 
-    if (year && !month && !day) {
-        mode = 'year';
-    }
-    else if (year && month && !day && !String(month).includes('-')) {
-        mode = 'month';
-    }
-    else if (year && month && day && !String(day).includes('-')) {
-        mode = 'day';
-    }
-    else if (year && month && String(day).includes('-') && !String(month).includes('-') && !String(year).includes('-')) {
-        mode = 'day-range';
-    }
-    else {
-        mode = 'range';
-    }
+   if (year && !month && !day) {
+      mode = 'year';
+   } else if (year && month && !day && !String(month).includes('-')) {
+      mode = 'month';
+   } else if (year && month && day && !String(day).includes('-')) {
+      mode = 'day';
+   } else if (year && month && String(day).includes('-') && !String(month).includes('-') && !String(year).includes('-')) {
+      mode = 'day-range';
+   } else {
+      mode = 'range';
+   }
 
-    return {
-        after,
-        before,
-        mode,
-        y1, y2,
-        m1, m2,
-        d1, d2
-    };
+   return {
+      after,
+      before,
+      mode,
+      y1,
+      y2,
+      m1,
+      m2,
+      d1,
+      d2
+   };
 }
 
 function formatDateText(range) {
-    if (!range) return '';
+   if (!range) return '';
 
-    const { mode, after, before, y1, m1, d1, d2 } = range;
+   const {
+      mode,
+      after,
+      before,
+      y1,
+      m1,
+      d1,
+      d2
+   } = range;
 
-    const formatPL = (date) => {
-        const d = new Date(date);
-        return isNaN(d) ? '' : d.toLocaleDateString('pl-PL');
-    };
+   const formatPL = (date) => {
+      const d = new Date(date);
+      return isNaN(d) ? '' : d.toLocaleDateString('pl-PL');
+   };
 
-    const monthName = (y, m) =>
-        new Date(y, m - 1).toLocaleDateString('pl-PL', { month: 'long' });
+   const monthName = (y, m) =>
+      new Date(y, m - 1).toLocaleDateString('pl-PL', {
+         month: 'long'
+      });
 
-    // 🔹 ROK
-    if (mode === 'year') {
-        return `Rok: <b>${y1}</b>`;
-    }
+   // 🔹 ROK
+   if (mode === 'year') {
+      return `Rok: <b>${y1}</b>`;
+   }
 
-    // 🔹 MIESIĄC
-    if (mode === 'month') {
-        return `Miesiąc: <b>${monthName(y1, m1)} ${y1}</b>`;
-    }
+   // 🔹 MIESIĄC
+   if (mode === 'month') {
+      return `Miesiąc: <b>${monthName(y1, m1)} ${y1}</b>`;
+   }
 
-    // 🔹 DZIEŃ
-    if (mode === 'day') {
-        return `Dzień: <b>${formatPL(after)}</b>`;
-    }
+   // 🔹 DZIEŃ
+   if (mode === 'day') {
+      return `Dzień: <b>${formatPL(after)}</b>`;
+   }
 
-    // 🔹 zakres dni
-    if (mode === 'day-range') {
-        return `Dni: <b>${d1}-${d2} ${monthName(y1, m1)} ${y1}</b>`;
-    }
+   // 🔹 zakres dni
+   if (mode === 'day-range') {
+      return `Dni: <b>${d1}-${d2} ${monthName(y1, m1)} ${y1}</b>`;
+   }
 
-    // 🔹 zakres ogólny
-const beforeDate = new Date(before);
-beforeDate.setHours(0,0,0,0);
+   // 🔹 zakres ogólny
+   const beforeDate = new Date(before);
+   beforeDate.setHours(0, 0, 0, 0);
 
-return `Od <b>${formatPL(after)}</b> do <b>${formatPL(beforeDate - 1)}</b>`;
+   return `Od <b>${formatPL(after)}</b> do <b>${formatPL(beforeDate - 1)}</b>`;
 }
 
 async function WPArticleList(
-    mainUrl,
-    siteKey,
-    type = 'post',
-    search = null,
-    categoryID = null,
-    tagID = null,
-    authorID = null,
-    year = null,
-    month = null,
-    day = null,
-    is_categories = true,
-    is_author = true,
-    is_image = true,
-    append = false
+   mainUrl,
+   siteKey,
+   type = 'post',
+   search = null,
+   categoryID = null,
+   tagID = null,
+   authorID = null,
+   year = null,
+   month = null,
+   day = null,
+   is_categories = true,
+   is_author = true,
+   is_image = true,
+   append = false
 ) {
    const container = document.getElementById('article-list');
    const containerS = document.getElementById('article-s-result');
@@ -383,28 +406,28 @@ async function WPArticleList(
          button.disabled = true;
       }
 
-let finalCategoryIds = categoryID;
+      let finalCategoryIds = categoryID;
 
-if (categoryID) {
-    const ids = String(categoryID).split(',');
+      if (categoryID) {
+         const ids = String(categoryID).split(',');
 
-    // 🔹 tylko dla pojedynczej kategorii
-    if (ids.length === 1) {
+         // 🔹 tylko dla pojedynczej kategorii
+         if (ids.length === 1) {
 
-        if (!window.cachedCategoryIds) {
-            window.cachedCategoryIds = await fetchParentCategories(
-                ids[0],
-                proxyBase + encodeURIComponent(mainUrl)
-            );
-        }
+            if (!window.cachedCategoryIds) {
+               window.cachedCategoryIds = await fetchParentCategories(
+                  ids[0],
+                  proxyBase + encodeURIComponent(mainUrl)
+               );
+            }
 
-        finalCategoryIds = window.cachedCategoryIds;
+            finalCategoryIds = window.cachedCategoryIds;
 
-    } else {
-        // 🔹 MULTI → bez parentów
-        finalCategoryIds = ids.join(',');
-    }
-}
+         } else {
+            // 🔹 MULTI → bez parentów
+            finalCategoryIds = ids.join(',');
+         }
+      }
 
       const params = new URLSearchParams({
          per_page: perPage,
@@ -424,19 +447,19 @@ if (categoryID) {
          }
       }
 
-        // 🔹 DATA RANGE
-let range = null;
+      // 🔹 DATA RANGE
+      let range = null;
 
-if (year || month || day) {
-    range = parseDateRangeAdvanced(year, month, day);
-}
+      if (year || month || day) {
+         range = parseDateRangeAdvanced(year, month, day);
+      }
 
-if (range && range.after && range.before) {
-    params.append('after', range.after);
-    params.append('before', range.before);
-}
+      if (range && range.after && range.before) {
+         params.append('after', range.after);
+         params.append('before', range.before);
+      }
 
-const dateText = range ? formatDateText(range) : '';
+      const dateText = range ? formatDateText(range) : '';
 
       const endpoint = type === 'post' ? 'posts' : 'pages';
       const url = `${mainUrl}/wp-json/wp/v2/${endpoint}?${params.toString()}`;
@@ -467,150 +490,150 @@ const dateText = range ? formatDateText(range) : '';
       let containerAcon = '';
 
       // 🔹 KATEGORIA
-if (categoryID) {
-    const ids = String(categoryID).split(',');
+      if (categoryID) {
+         const ids = String(categoryID).split(',');
 
-    // 🔹 SINGLE
-    if (ids.length === 1) {
+         // 🔹 SINGLE
+         if (ids.length === 1) {
 
-        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            const res = await fetch(`${proxyBase}${encodeURIComponent(
             `${mainUrl}/wp-json/wp/v2/categories/${ids[0]}?_embed=true`
         )}`);
 
-        const data = await res.json();
+            const data = await res.json();
 
-        categoryName = data.name;
-        categoryLink = data.link;
-        categoryParent = data.parent !== 0;
+            categoryName = data.name;
+            categoryLink = data.link;
+            categoryParent = data.parent !== 0;
 
-        if (categoryParent && data._embedded?.up?.[0]) {
-            subcategoryID = data._embedded.up[0].id;
-            subcategoryName = data._embedded.up[0].name;
-        }
+            if (categoryParent && data._embedded?.up?.[0]) {
+               subcategoryID = data._embedded.up[0].id;
+               subcategoryName = data._embedded.up[0].name;
+            }
 
-            containerCcon = categoryName
-                ? `Kategoria: ${
+            containerCcon = categoryName ?
+               `Kategoria: ${
                     categoryParent
                         ? `<a href="article-list?c=${subcategoryID}">${subcategoryName}</a> / `
                         : ''
-                }<b><a href="${categoryLink}">${categoryName}</a></b>`
-                : '';
+                }<b><a href="${categoryLink}">${categoryName}</a></b>` :
+               '';
 
-    } else {
+         } else {
 
-        // 🔹 MULTI
-        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            // 🔹 MULTI
+            const res = await fetch(`${proxyBase}${encodeURIComponent(
             `${mainUrl}/wp-json/wp/v2/categories?include=${ids.join(',')}`
         )}`);
 
-        const data = await res.json();
+            const data = await res.json();
 
-        const names = data.map(c =>
-            `<b><a href="${c.link}">${c.name}</a></b>`
-        );
+            const names = data.map(c =>
+               `<b><a href="${c.link}">${c.name}</a></b>`
+            );
 
-        containerCcon = `Kategorie: ${names.join(', ')}`;
-    }
-}
+            containerCcon = `Kategorie: ${names.join(', ')}`;
+         }
+      }
 
       // 🔹 TAG
-if (tagID) {
-    const ids = String(tagID).split(',');
+      if (tagID) {
+         const ids = String(tagID).split(',');
 
-    // 🔹 SINGLE
-    if (ids.length === 1) {
+         // 🔹 SINGLE
+         if (ids.length === 1) {
 
-        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            const res = await fetch(`${proxyBase}${encodeURIComponent(
             `${mainUrl}/wp-json/wp/v2/tags/${ids[0]}`
         )}`);
 
-        const data = await res.json();
+            const data = await res.json();
 
-        containerTcon = data.name
-                ? `Tag: <b><a href="${data.link}">${data.name}</a></b>`
-                : '';
+            containerTcon = data.name ?
+               `Tag: <b><a href="${data.link}">${data.name}</a></b>` :
+               '';
 
-    } else {
+         } else {
 
-        // 🔹 MULTI
-        const res = await fetch(`${proxyBase}${encodeURIComponent(
+            // 🔹 MULTI
+            const res = await fetch(`${proxyBase}${encodeURIComponent(
             `${mainUrl}/wp-json/wp/v2/tags?include=${ids.join(',')}`
         )}`);
 
-        const data = await res.json();
-
-        const names = data.map(t =>
-            `<a href="${t.link}">${t.name}</a>`
-        );
-        
-            containerTcon = `Tagi: <b>${names.join('</b>, <b>')}</b>`;
-    }
-}
-
-      // 🔹 AUTOR
-if (authorID) {
-    const ids = String(authorID).split(',');
-
-    try {
-
-        // 🔹 SINGLE
-        if (ids.length === 1) {
-
-            let res;
-
-            if (siteKey === 'radiolodz') {
-                res = await fetch(`${proxyBase}${encodeURIComponent(
-                    `${mainUrl}/wp-json/wp/v2/ppma_author/${ids[0]}`
-                )}`);
-            } else {
-                res = await fetch(`${proxyBase}${encodeURIComponent(
-                    `${mainUrl}/wp-json/wp/v2/users/${ids[0]}`
-                )}`);
-            }
-
             const data = await res.json();
 
-            containerAcon = data.name
-                    ? `Autor: <b><a href="${data.link}">${data.name}</a></b>`
-                    : '';
+            const names = data.map(t =>
+               `<a href="${t.link}">${t.name}</a>`
+            );
 
-        } else {
+            containerTcon = `Tagi: <b>${names.join('</b>, <b>')}</b>`;
+         }
+      }
 
-            // 🔹 MULTI
-            let endpoint = 'users';
+      // 🔹 AUTOR
+      if (authorID) {
+         const ids = String(authorID).split(',');
 
-            if (siteKey === 'radiolodz') {
-                endpoint = 'ppma_author';
-            }
+         try {
 
-            const res = await fetch(`${proxyBase}${encodeURIComponent(
+            // 🔹 SINGLE
+            if (ids.length === 1) {
+
+               let res;
+
+               if (siteKey === 'radiolodz') {
+                  res = await fetch(`${proxyBase}${encodeURIComponent(
+                    `${mainUrl}/wp-json/wp/v2/ppma_author/${ids[0]}`
+                )}`);
+               } else {
+                  res = await fetch(`${proxyBase}${encodeURIComponent(
+                    `${mainUrl}/wp-json/wp/v2/users/${ids[0]}`
+                )}`);
+               }
+
+               const data = await res.json();
+
+               containerAcon = data.name ?
+                  `Autor: <b><a href="${data.link}">${data.name}</a></b>` :
+                  '';
+
+            } else {
+
+               // 🔹 MULTI
+               let endpoint = 'users';
+
+               if (siteKey === 'radiolodz') {
+                  endpoint = 'ppma_author';
+               }
+
+               const res = await fetch(`${proxyBase}${encodeURIComponent(
                 `${mainUrl}/wp-json/wp/v2/${endpoint}?include=${ids.join(',')}`
             )}`);
 
-            const data = await res.json();
+               const data = await res.json();
 
-            const names = data.map(a =>
-                `<a href="${a.link}">${a.name}</a>`
-            );
+               const names = data.map(a =>
+                  `<a href="${a.link}">${a.name}</a>`
+               );
 
-            containerAcon = `Autorzy: <b>${names.join('</b>, <b>')}</b>`;
-        }
+               containerAcon = `Autorzy: <b>${names.join('</b>, <b>')}</b>`;
+            }
 
-    } catch (e) {
-        console.warn('Błąd pobierania autorów', e);
-    }
-}
+         } catch (e) {
+            console.warn('Błąd pobierania autorów', e);
+         }
+      }
 
       // 🔹 Wyniki nagłówków
-const escapeHTML = (str) =>
-    str ? String(str).replace(/[&<>"']/g, (m) => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    })[m]) : "";
-      
+      const escapeHTML = (str) =>
+          str ? String(str).replace(/[&<>"']/g, (m) => ({
+              '&': '&amp;',
+              '<': '&lt;',
+              '>': '&gt;',
+              '"': '&quot;',
+              "'": '&#039;'
+          })[m]) : "";
+
       if (containerS) {
          containerS.innerHTML = search ?
             `Wyniki dla: <b>${escapeHTML(search)}</b>` :
@@ -629,18 +652,18 @@ const escapeHTML = (str) =>
          containerA.innerHTML = containerAcon;
       }
 
-        if (containerD) {
-            containerD.innerHTML = dateText;
-        }
+      if (containerD) {
+         containerD.innerHTML = dateText;
+      }
 
       // 🔹 Tytuł strony
-function stripHTML(html) {
-    if (!html) return '';
-    return html
-        .replace(/<[^>]*>/g, '')   // usuwa tagi
-        .replace(/&nbsp;/g, ' ')   // spacje HTML
-        .trim();
-}
+      function stripHTML(html) {
+         if (!html) return '';
+         return html
+            .replace(/<[^>]*>/g, '')   // usuwa tagi
+            .replace(/&nbsp;/g, ' ')   // spacje HTML
+            .trim();
+      }
       const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
 
       const docTitle = [
