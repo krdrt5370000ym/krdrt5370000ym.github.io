@@ -625,14 +625,21 @@ if (authorID) {
         }
 
       // 🔹 Tytuł strony
+function stripHTML(html) {
+    if (!html) return '';
+    return html
+        .replace(/<[^>]*>/g, '')   // usuwa tagi
+        .replace(/&nbsp;/g, ' ')   // spacje HTML
+        .trim();
+}
       const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
 
       const docTitle = [
          searchTitle,
-         containerCcon,
-         containerTcon,
-         containerAcon,
-         dateText
+         stripHTML(containerCcon),
+         stripHTML(containerTcon),
+         stripHTML(containerAcon),
+         stripHTML(dateText)
       ].filter(Boolean).join(' | ') || 'Artykuły';
 
       document.title = docTitle + ' | krdrt5370000ym.github.io';
