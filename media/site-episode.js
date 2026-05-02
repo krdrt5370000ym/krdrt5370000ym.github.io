@@ -118,9 +118,10 @@ function EurozetPodcast(showId, mainUrl, stationId) {
 async function WPPodcast(categoryId, mainUrl) {
    const container = document.getElementById('episode-list');
    const apiUrl = `${mainUrl}/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`;
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
 
    try {
-      const response = await fetch(apiUrl);
+      const response = await fetch(proxyUrl);
       const posts = await response.json();
 
       if (posts.length === 0) {
@@ -218,7 +219,7 @@ async function WPPodcastRK(SearchId) {
                 return `
                     <li class="podcast_list_episode_title">
                         <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">►</a>` : ''}
+                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisode('${audioUrl}'); return false;">►</a>` : ''}
                     </li>`;
             }).join('')}</ul>`;
 
@@ -232,10 +233,11 @@ async function WPPodcastRK(SearchId) {
 
 function WPPodcastRVG() {
    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/gosc?per_page=100';
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
    const container = document.getElementById('episode-list');
    const parser = new DOMParser();
 
-   fetch(apiUrl)
+   fetch(proxyUrl)
       .then(response => {
          if (!response.ok) throw new Error('Błąd sieci');
          return response.json();
@@ -269,10 +271,11 @@ function WPPodcastRVG() {
 
 function WPPodcastRVR() {
    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/reporter?per_page=100';
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
    const container = document.getElementById('episode-list');
    const parser = new DOMParser();
 
-   fetch(apiUrl)
+   fetch(proxyUrl)
       .then(response => {
          if (!response.ok) throw new Error('Błąd sieci');
          return response.json();
@@ -307,10 +310,11 @@ function WPPodcastRVR() {
 function WPPodcastRVA(ProgramId) {
    // WordPress API zwraca tablicę postów bezpośrednio
    const apiUrl = 'https://radiovictoria.pl/wp-json/wp/v2/programy?audycje=' + ProgramId + '&per_page=100';
+   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
    const container = document.getElementById('episode-list');
    const parser = new DOMParser();
 
-   fetch(apiUrl)
+   fetch(proxyUrl)
       .then(response => {
          if (!response.ok) throw new Error('Błąd sieci');
          return response.json();
@@ -348,9 +352,11 @@ async function loadAudioForPost(postId, mainUrl) {
       const postRes = await fetch(`${mainUrl}/wp-json/wp/v2/posts/${postId}`);
       const postData = await postRes.json();
       const content = postData.content.rendered;
+      const audioRs = `${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf,audio/x-aac,audio/vnd.dolby.dd-raw,application/octet-stream,audio/x-flac,audio/x-m4a,audio/x-mpeg-3,application/ogg,audio/x-wav,audio/wma`;
+      const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(audioRs);
 
       // 2. Pobieramy media audio (Twoja obecna logika)
-      const audioRes = await fetch(`${mainUrl}/wp-json/wp/v2/media?parent=${postId}&mime_type=audio/mpeg,audio/wav,audio/x-ms-wma,audio/ogg,audio/mp4,audio/flac,audio/alac,audio/x-aiff,audio/aiff,audio/aac,audio/ac3,audio/x-caf,audio/x-aac,audio/vnd.dolby.dd-raw,application/octet-stream,audio/x-flac,audio/x-m4a,audio/x-mpeg-3,application/ogg,audio/x-wav,audio/wma`);
+      const audioRes = await fetch(proxyUrl);
       const media = await audioRes.json();
 
       const li = document.getElementById(`post-${postId}`);
@@ -389,39 +395,6 @@ async function loadAudioForPost(postId, mainUrl) {
 }
 
 function AudioPlayerEpisode(url) {
-   const audio = document.getElementById('player');
-   audio.style.display = 'block'; // Pokaż player po kliknięciu
-   document.scrollingElement.scrollTop = audio.offsetTop - 50;
-   const isM3U8 = url.toLowerCase().includes('.m3u8');
-
-   // 1. Czyszczenie poprzedniej instancji HLS
-   if (hls) {
-      hls.destroy();
-      hls = null;
-   }
-
-   // 2. Obsługa strumienia M3U8 (HLS)
-   if (isM3U8 && Hls.isSupported()) {
-      hls = new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(audio);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
-
-      hls.on(Hls.Events.ERROR, (event, data) => {
-         if (data.fatal) {
-            if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
-            else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
-         }
-      });
-   }
-   // 3. Obsługa Safari (natywne HLS) lub zwykłe MP3
-   else {
-      audio.src = url;
-      audio.play().catch(e => console.error("Błąd autostartu:", e));
-   }
-}
-
-function AudioPlayerEpisodeCORS(url) {
    const audio = document.getElementById('player');
    const urlCORS = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url);
    audio.style.display = 'block'; // Pokaż player po kliknięciu
