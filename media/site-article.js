@@ -256,23 +256,37 @@ async function WPArticleList(
          }
       }
 
-      // 🔹 DATA (rok / miesiąc / dzień)
+// 🔹 DATA (rok / miesiąc / dzień / zakres dni)
 if (year) {
     let after, before;
 
-    if (year && !month && !day) {
-        // cały rok
-        after = `${year}-01-01T00:00:00Z`;
-        before = `${year}-12-31T23:59:59Z`;
-    } else if (year && month && !day) {
-        // cały miesiąc
+    // 👉 zakres dni np. "2-9"
+    if (typeof day === 'string' && day.includes('-')) {
+        const [startDay, endDay] = day.split('-').map(d => parseInt(d));
+
+        if (year && month && startDay && endDay) {
+            after = `${year}-${String(month).padStart(2, '0')}-${String(startDay).padStart(2, '0')}T00:00:00Z`;
+            before = `${year}-${String(month).padStart(2, '0')}-${String(endDay).padStart(2, '0')}T23:59:59Z`;
+        }
+    }
+
+    // 👉 pojedynczy dzień
+    else if (year && month && day) {
+        after = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`;
+        before = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T23:59:59Z`;
+    }
+
+    // 👉 cały miesiąc
+    else if (year && month) {
         const lastDay = new Date(year, month, 0).getDate();
         after = `${year}-${String(month).padStart(2, '0')}-01T00:00:00Z`;
         before = `${year}-${String(month).padStart(2, '0')}-${lastDay}T23:59:59Z`;
-    } else if (year && month && day) {
-        // konkretny dzień
-        after = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`;
-        before = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T23:59:59Z`;
+    }
+
+    // 👉 cały rok
+    else if (year) {
+        after = `${year}-01-01T00:00:00Z`;
+        before = `${year}-12-31T23:59:59Z`;
     }
 
     if (after && before) {
@@ -383,18 +397,27 @@ if (year) {
 if (containerD) {
     let dateText = '';
 
-    if (year && !month && !day) {
-        dateText = `Rok: ${year}`;
-    } else if (year && month && !day) {
+    if (typeof day === 'string' && day.includes('-')) {
+        const [startDay, endDay] = day.split('-');
+
         const monthName = new Date(year, month - 1).toLocaleDateString('pl-PL', { month: 'long' });
-        dateText = `Miesiąc: ${monthName} ${year}`;
-    } else if (year && month && day) {
+
+        dateText = `Dni: ${startDay}–${endDay} ${monthName} ${year}`;
+    }
+    else if (year && month && day) {
         const fullDate = new Date(year, month - 1, day).toLocaleDateString('pl-PL', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
         });
         dateText = `Dzień: ${fullDate}`;
+    }
+    else if (year && month) {
+        const monthName = new Date(year, month - 1).toLocaleDateString('pl-PL', { month: 'long' });
+        dateText = `Miesiąc: ${monthName} ${year}`;
+    }
+    else if (year) {
+        dateText = `Rok: ${year}`;
     }
 
     containerD.innerHTML = dateText;
