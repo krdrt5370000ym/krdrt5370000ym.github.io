@@ -94,11 +94,11 @@ async function loadData(siteId) {
 // ✅ POPRAWIONE: Domknięcie funkcji escapeHTML
 const escapeHTML = (str) =>
    str ? String(str).replace(/[&<>"']/g, m => ({
-      '&': '&',
-      '<': '<',
-      '>': '>',
-      '"': '"',
-      "'": "'"
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
    } [m])) : "";
 
 // ✅ POPRAWIONE: Zabezpieczenie przed pusta wartością (undefined/null)
@@ -718,11 +718,11 @@ function renderSDetails() {
    const now = new Date();
    const escapeHTML = (str) =>
       str ? String(str).replace(/[&<>"']/g, m => ({
-         '&': '&',
-         '<': '<',
-         '>': '>',
-         '"': '"',
-         "'": "'"
+         '&': '&amp;',
+         '<': '&lt;',
+         '>': '&gt;',
+         '"': '&quot;',
+         "'": '&#039;'
       } [m])) : "";
 
    container.innerHTML = "";
@@ -793,11 +793,11 @@ function renderPrograms() {
    // Poprawiona funkcja bezpiecznego escapowania znaków
    const escapeHTML = (str) =>
       str ? String(str).replace(/[&<>"']/g, m => ({
-         '&': '&',
-         '<': '<',
-         '>': '>',
-         '"': '"',
-         "'": "'"
+         '&': '&amp;',
+         '<': '&lt;',
+         '>': '&gt;',
+         '"': '&quot;',
+         "'": '&#039;'
       } [m])) : "";
 
    container.innerHTML = "";
