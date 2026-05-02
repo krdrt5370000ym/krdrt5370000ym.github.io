@@ -105,11 +105,11 @@ function appendSongsToDisplay(songs) {
       const shazamId = song.id || "";
       const escapeHTML = (str) =>
          str ? String(str).replace(/[&<>"']/g, m => ({
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
          } [m])) : "";
 
       const songElement = document.createElement("div");
