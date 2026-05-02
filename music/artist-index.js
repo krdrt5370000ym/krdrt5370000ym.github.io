@@ -57,11 +57,11 @@ const getArtistDetails = async () => {
       // Funkcja zabezpieczająca przed atakami XSS
       const escapeHTML = (str) =>
          str ? String(str).replace(/[&<>"']/g, m => ({
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
          } [m])) : "";
 
       // 4. Renderowanie HTML z danymi artysty
