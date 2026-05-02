@@ -438,10 +438,6 @@ if (range && range.after && range.before) {
 
 const dateText = range ? formatDateText(range) : '';
 
-if (containerD) {
-    containerD.innerHTML = dateText;
-}
-
       const endpoint = type === 'post' ? 'posts' : 'pages';
       const url = `${mainUrl}/wp-json/wp/v2/${endpoint}?${params.toString()}`;
       const response = await fetch(proxyBase + encodeURIComponent(url));
@@ -466,6 +462,7 @@ if (containerD) {
       let tagLink = '';
       let authorName = '';
       let authorLink = '';
+      let dateText = '';
 
       // 🔹 KATEGORIA
       if (categoryID) {
