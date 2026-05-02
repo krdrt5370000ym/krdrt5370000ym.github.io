@@ -305,6 +305,7 @@ if (year) {
       let tagLink = '';
       let authorName = '';
       let authorLink = '';
+      let dateText = '';
 
       // 🔹 KATEGORIA
       if (categoryID) {
@@ -406,7 +407,8 @@ if (containerD) {
          searchTitle,
          categoryName,
          tagName,
-         authorName
+         authorName,
+         dateText
       ].filter(Boolean).join(' | ') || 'Artykuły';
 
       document.title = docTitle + ' | krdrt5370000ym.github.io';
