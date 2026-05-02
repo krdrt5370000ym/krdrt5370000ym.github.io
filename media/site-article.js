@@ -372,7 +372,10 @@ async function WPArticleList(
       }
 
         // 🔹 DATA RANGE
-const range = parseDateRangeAdvanced(year, month, day);
+let range = null;
+if (year || month || day) {
+    range = parseDateRangeAdvanced(year, month, day);
+}
 
 if (range) {
     params.append('after', range.after);
