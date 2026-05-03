@@ -67,6 +67,12 @@ https://stream4.nadaje.com:8745/jard1
 https://stream4.nadaje.com:8625/mcradio
 #EXTINF:-1, Radio Łódź (99,2 FM)
 https://stream.radiolodz.pl/RadioLodz-1-HQ.aac
+#EXTINF:-1, Radio Łódź nad Wartą
+https://stream.radiolodz.pl/RadioLodz-NW-HQ.aac
+#EXTINF:-1, Radio Łódź Extra - transmisje specjalne
+https://stream.radiolodz.pl/RadioLodz-2-HQ.aac
+#EXTINF:-1, RŁ - Dodatkowe transmisje
+https://stream.radiolodz.pl/RadioLodz-3-HQ.aac
 #EXTINF:-1, EL Radio (90,8 FM)
 http://dhtk2.noip.pl:8888/elradio
 #EXTINF:-1, Radio RDC (101 FM)
