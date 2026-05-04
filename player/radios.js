@@ -116,10 +116,12 @@ function play(st, el) {
       hls.loadSource(sm);
       hls.attachMedia(player);
       siteRadio(st.url);
+      openStreamLink(st.url);
       playlistNowPlaying(st.url);
    } else {
       player.src = sm;
       siteRadio(st.url);
+      openStreamLink(st.url);
       playlistNowPlaying(st.url);
    }
 
@@ -166,6 +168,27 @@ function siteRadio(streamUrl) {
       .catch(err => {
          console.error("Błąd:", err);
          resultSite.innerHTML = "";
+      });
+}
+
+function openStreamLink(streamUrl) {
+   const resultOpenStreamLink = document.getElementById('resultOpenStreamLink');
+
+   fetch("https://krdrt5370000ym.github.io/player/openstreamlink.json")
+      .then(res => res.json())
+      .then(json => {
+         // Zmiana na json.site zgodnie z Twoją sugestią
+         const item = json.site.find(x => x.stream === streamUrl);
+
+         if (item && item.value) {
+            resultOpenStreamLink.innerHTML = `<a href="${item.value}" target="_blank">Bezpośredni link do strumienia</a>`;
+         } else {
+            resultOpenStreamLink.innerHTML = "";
+         }
+      })
+      .catch(err => {
+         console.error("Błąd:", err);
+         resultOpenStreamLink.innerHTML = "";
       });
 }
 
