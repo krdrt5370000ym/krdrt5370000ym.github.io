@@ -178,7 +178,7 @@ function openStreamLink(streamUrl) {
       .then(res => res.json())
       .then(json => {
          // Zmiana na json.site zgodnie z Twoją sugestią
-         const item = json.site.find(x => x.stream === streamUrl);
+         const item = json.openLink.find(x => x.stream === streamUrl);
 
          if (item && item.value) {
             resultOpenStreamLink.innerHTML = `<a href="${item.value}" target="_blank">Bezpośredni link do strumienia</a>`;
