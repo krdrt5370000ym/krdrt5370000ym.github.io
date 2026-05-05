@@ -877,7 +877,9 @@ async function WPArticlePostRSC(slug) {
          if (embed['wp:featuredmedia']?.[0]) {
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-            imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}" alt="${media.alt_text || ''}"></div></div>`;
+            const imgUrlE = (imgUrl !== "" && imgUrl !== null) ?
+               `<img src="${imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}" alt="${media.alt_text || ''}">` : '';
+            imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="${imgUrlE}" alt="${media.alt_text || ''}"></div></div>`;
          }
 
          // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
