@@ -877,7 +877,7 @@ async function WPArticlePostRSC(slug) {
          if (embed['wp:featuredmedia']?.[0]) {
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/"))}&w=1000&h=1000&q=75" alt="${media.alt_text || ''}"></div></div>` : '';
+            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/"))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>` : '';
          }
 
          // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
@@ -982,7 +982,7 @@ async function WPArticlePostRLodz(slug) {
          if (embed['wp:featuredmedia']?.[0]) {
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/"))}&w=1000&h=1000&q=75" alt="${media.alt_text || ''}"></div></div>` : '';
+            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/"))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>` : '';
          }
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
@@ -1101,7 +1101,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
             if (imgUrl) {
-               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75" alt="${media.alt_text || ''}"></div></div>`;
+               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>`;
             }
          }
 
@@ -1247,7 +1247,7 @@ async function WPArticlePage(slug, mainUrl) {
 
       // Obsługa obrazka wyróżniającego (Featured Media)
       const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      const imageHTML = featuredImage ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(featuredImage.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75" class="article-image">` : '';
+      const imageHTML = featuredImage ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(featuredImage.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75&d=1" class="article-image">` : '';
 
       // Generowanie HTML
       container.innerHTML = `
