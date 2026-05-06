@@ -1247,7 +1247,7 @@ async function WPArticlePage(slug, mainUrl) {
 
       // Obsługa obrazka wyróżniającego (Featured Media)
       const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      const imageHTML = featuredImage ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(featuredImage.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl)}&w=1000&h=1000&q=75" class="article-image">` : '';
+      const imageHTML = featuredImage ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(featuredImage.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75" class="article-image">` : '';
 
       // Generowanie HTML
       container.innerHTML = `
