@@ -313,7 +313,7 @@ async function uruchomProgram() {
       const style = thumb ? `background:${thumb.background || ''};color:${thumb.color || ''}` : '';
       const thumbnailText = thumb ?
          `<div class="podcast_info_name_box" style="${style}">${escapeHTML(thumb.name || program.name)}</div>` :
-         (program.thumbnail_uri ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(program.thumbnail_uri)}" alt="${escapeHTML(program.name)}">` : "");
+         (program.thumbnail_uri ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(program.thumbnail_uri)}&w=500&h=500&q=75" alt="${escapeHTML(program.name)}">` : "");
 
       const emailContact = (Array.isArray(program.email) && program.email.length > 0) ?
          program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') : '';
