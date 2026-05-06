@@ -97,7 +97,7 @@ function renderPodcasts() {
          ].filter(Boolean).join(';') : '';
          const name = (thumb && thumb.name) || p.name || "";
          const thumbnailDisplay = p.thumbnail_uri ?
-            `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(p.thumbnail_uri)}" alt="${escapeHTML(p.name)}">` : "";
+            `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(p.thumbnail_uri)}&w=500&h=500&q=75" alt="${escapeHTML(p.name)}">` : "";
          const thumbnailText = thumb ? `<div class="podcast_list_box" style="${style}">${name}</div>` : thumbnailDisplay;
          const url = p.url_immediately || `podcast?uid=${p.id}&st=${SITE_ID}`;
 
