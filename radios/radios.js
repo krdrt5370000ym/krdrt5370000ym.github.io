@@ -392,7 +392,7 @@ function renderCurrent() {
          ui.title.textContent = station.plug_name || station.name || "Radio Online";
       }
       if (ui.host) ui.host.textContent = "";
-      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="${station.cover}" alt="${escapeHTML(station.plug_name) || escapeHTML(station.name) || "Logo Stacji"}">`;
+      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(station.cover)}&w=500&h=500&q=75" alt="${escapeHTML(station.plug_name) || escapeHTML(station.name) || "Logo Stacji"}">`;
       return;
    }
 
@@ -410,9 +410,9 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
+      thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(thumbnail)}&w=500&h=500&q=75" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
    } else {
-      thumbnailHTML = `<img decoding="async" src="${station.cover}" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Logo Stacji"}">`;
+      thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(station.cover)}&w=500&h=500&q=75" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Logo Stacji"}">`;
    }
 
    // Aktualizacja pól tekstowych
@@ -541,10 +541,10 @@ function renderSchedules() {
                ].filter(Boolean).join(';');
                thumbnailHTML = `<div class="schedule_name_box" style="${style}">${thumb.name || p.name || data.name || ""}</div>`;
             } else if (thumbnail) {
-               thumbnailHTML = `<img decoding="async" src="${thumbnail}" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "cover"}">`;
+               thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(thumbnail)}&w=500&h=500&q=75" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "cover"}">`;
             } else {
                thumbnailHTML = '';
-               // thumbnailHTML = `<img decoding="async" src="${stations.cover}" alt="logo">`;
+               // thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(stations.cover)}&w=500&h=500&q=75" alt="logo">`;
             }
 
             const displayName = p.name || data.name || ""; // Audycja
@@ -896,7 +896,7 @@ function renderPrograms() {
          ].filter(Boolean).join(';');
          thumbnailHTML = `<div class="program_list_box" style="${style}">${escapeHTML(thumb.name || p.name)}</div>`;
       } else if (p.thumbnail_uri) {
-         thumbnailHTML = `<img decoding="async" src="${p.thumbnail_uri}" alt="${escapeHTML(p.name)}">`;
+         thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(p.thumbnail_uri)}" alt="${escapeHTML(p.name)}">`;
       }
 
       // --- RENDEROWANIE ELEMENTU ---
