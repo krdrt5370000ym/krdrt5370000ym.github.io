@@ -1,0 +1,581 @@
+function parseDateRangeAdvanced(year, month, day) {
+
+   // 🔒 brak danych → brak filtrowania
+   if (!year && !month && !day) return null;
+
+   let after = null;
+   let before = null;
+   let mode = '';
+
+   // 🔧 helper
+   const pad = (n) => String(n).padStart(2, '0');
+
+   // =====================================================
+   // 🔹 1. FORMAT: pełne daty (YYYY-MM-DD → YYYY-MM-DD)
+   // =====================================================
+   if (
+      typeof year === 'string' && year.length === 10 &&
+      typeof month === 'string' && month.length === 10
+   ) {
+      after = `${year}T00:00:00Z`;
+      before = `${month}T23:59:59Z`;
+      mode = 'range';
+      return {
+         after,
+         before,
+         mode
+      };
+   }
+
+   // =====================================================
+   // 🔹 2. FORMAT: pojedyncza data YYYY-MM-DD
+   // =====================================================
+   if (typeof year === 'string' && year.length === 10 && !month) {
+      after = `${year}T00:00:00Z`;
+      before = `${year}T23:59:59Z`;
+      mode = 'day';
+      return {
+         after,
+         before,
+         mode
+      };
+   }
+
+   // =====================================================
+   // 🔹 3. FORMAT: YYYY-MM (miesiąc)
+   // =====================================================
+   if (typeof year === 'string' && year.length === 7 && !month) {
+      const [y, m] = year.split('-');
+
+      const lastDay = new Date(y, m, 0).getDate();
+
+      after = `${y}-${m}-01T00:00:00Z`;
+      before = `${y}-${m}-${lastDay}T23:59:59Z`;
+
+      mode = 'month';
+      return {
+         after,
+         before,
+         mode,
+         y1: y,
+         m1: m
+      };
+   }
+
+   // =====================================================
+   // 🔹 4. STANDARD (rok / miesiąc / dzień / zakresy)
+   // =====================================================
+
+   const y = year ? String(year).split('-') : [];
+   const m = month ? String(month).split('-') : [];
+   const d = day ? String(day).split('-') : [];
+
+   const y1 = y[0];
+   const y2 = y[1] || y1;
+
+   if (!y1) return null; // 🔒 bez roku nie robimy nic
+
+   let m1, m2;
+
+   if (!month) {
+      m1 = 1;
+      m2 = 12; // 🔥 cały rok
+   } else {
+      m1 = m[0] || 1;
+      m2 = m[1] || m1;
+   }
+
+   let d1 = d[0] || 1;
+   let d2 = d[1];
+
+   // 🔥 KLUCZOWE: poprawne końce zakresów
+   if (!d2) {
+      d2 = new Date(y2, m2, 0).getDate();
+   }
+
+   after = `${y1}-${pad(m1)}-${pad(d1)}T00:00:00Z`;
+   before = `${y2}-${pad(m2)}-${pad(d2)}T23:59:59Z`;
+
+   // =====================================================
+   // 🔹 TRYB (do UI)
+   // =====================================================
+
+   if (year && !month && !day) {
+      mode = String(year).includes('-') ? 'year-range' : 'year';
+   } else if (year && month && !day && !String(month).includes('-')) {
+      mode = 'month';
+   } else if (year && month && day && !String(day).includes('-')) {
+      mode = 'day';
+   } else if (year && month && String(day).includes('-') && !String(month).includes('-') && !String(year).includes('-')) {
+      mode = 'day-range';
+   } else {
+      mode = 'range';
+   }
+
+   return {
+      after,
+      before,
+      mode,
+      y1,
+      y2,
+      m1,
+      m2,
+      d1,
+      d2
+   };
+}
+
+function formatDateText(range) {
+   if (!range) return '';
+
+   const {
+      mode,
+      y1,
+      y2,
+      after,
+      before,
+      m1,
+      d1,
+      d2
+   } = range;
+
+   const formatPL = (date) => {
+      const d = new Date(date);
+      return isNaN(d) ? '' : d.toLocaleDateString('pl-PL');
+   };
+
+   const monthName = (y, m) =>
+      new Date(y, m - 1).toLocaleDateString('pl-PL', {
+         month: 'long'
+      });
+
+   // Nowy blok dla zakresu lat
+   if (mode === 'year-range') {
+      return `Lata: <b>${y1}-${y2}</b>`;
+   }
+
+   // 🔹 ROK
+   if (mode === 'year') {
+      return `Rok: <b>${y1}</b>`;
+   }
+
+   // 🔹 MIESIĄC
+   if (mode === 'month') {
+      return `Miesiąc: <b>${monthName(y1, m1)} ${y1}</b>`;
+   }
+
+   // 🔹 DZIEŃ
+   if (mode === 'day') {
+      return `Dzień: <b>${formatPL(after)}</b>`;
+   }
+
+   // 🔹 zakres dni
+   if (mode === 'day-range') {
+      return `Dni: <b>${d1}-${d2} ${monthName(y1, m1)} ${y1}</b>`;
+   }
+
+   // 🔹 zakres ogólny
+   const beforeDate = new Date(before);
+   beforeDate.setHours(0, 0, 0, 0);
+
+   return `Od <b>${formatPL(after)}</b> do <b>${formatPL(beforeDate - 1)}</b>`;
+}
+
+async function WPCustomList(
+   mainUrl,
+   siteKey,
+   typeName,
+   typeCat,
+   search = null,
+   categoryID = null,
+   year = null,
+   month = null,
+   day = null,
+   is_categories = true,
+   is_image = true,
+   append = false
+) {
+
+   const container = document.getElementById('article-list');
+   const containerS = document.getElementById('article-s-result');
+   const containerC = document.getElementById('article-c-result');
+   const containerD = document.getElementById('article-d-result');
+   const containerDesc = document.getElementById('article-desc-result');
+
+   const button = document.getElementById('load-more-btn');
+
+   const proxyBase =
+      'https://cors.krdrt5370000ym2.workers.dev/?url=';
+
+   const perPage = 10;
+
+   try {
+
+      if (button) {
+
+         button.innerText = 'Ładowanie...';
+         button.disabled = true;
+      }
+
+      let finalCategoryIds = categoryID;
+
+      if (categoryID) {
+
+         const ids = String(categoryID).split(',');
+
+         finalCategoryIds = ids.join(',');
+      }
+
+      const params = new URLSearchParams({
+         per_page: perPage,
+         page: window.currentPage || 1,
+         _embed: true
+      });
+
+      if (search) {
+         params.append('search', search);
+      }
+
+      if (categoryID) {
+         params.append('categories', finalCategoryIds);
+      }
+
+      // =====================================================
+      // zakres dat
+      // =====================================================
+
+      let range = null;
+
+      if (year || month || day) {
+         range = parseDateRangeAdvanced(
+            year,
+            month,
+            day
+         );
+      }
+
+      if (range?.after && range?.before) {
+
+         params.append('after', range.after);
+         params.append('before', range.before);
+      }
+
+      const dateText = range
+         ? formatDateText(range)
+         : '';
+
+      // =====================================================
+      // URL
+      // =====================================================
+
+      const url =
+         `${mainUrl}/wp-json/wp/v2/${typeName}?${params.toString()}`;
+
+      const response = await fetch(
+         proxyBase + encodeURIComponent(url)
+      );
+
+      if (!response.ok) {
+         throw new Error('Błąd API');
+      }
+
+      const posts = await response.json();
+
+      if (!Array.isArray(posts) || posts.length === 0) {
+
+         if (!append) {
+            container.innerHTML = 'Brak wyników.';
+         }
+
+         if (button) {
+            button.style.display = 'none';
+         }
+
+         return;
+      }
+
+      // =====================================================
+      // kategorie
+      // =====================================================
+
+      let categoryName = '';
+      let categoryLink = '';
+      let categoryDesc = '';
+      let containerCcon = '';
+
+      if (categoryID) {
+
+         const ids = String(categoryID).split(',');
+
+         // SINGLE
+
+         if (ids.length === 1) {
+
+            const catUrl =
+               `${mainUrl}/wp-json/wp/v2/${typeCat}/${ids[0]}?_embed=true`;
+
+            const res = await fetch(
+               proxyBase + encodeURIComponent(catUrl)
+            );
+
+            const data = await res.json();
+
+            categoryName = data.name || '';
+            categoryLink = data.link || '#';
+            categoryDesc = data.description || '';
+
+            containerCcon =
+               `Kategoria: <b><a href="${categoryLink}">${categoryName}</a></b>`;
+
+         } else {
+
+            // MULTI
+
+            const catUrl =
+               `${mainUrl}/wp-json/wp/v2/${typeCat}?include=${ids.join(',')}`;
+
+            const res = await fetch(
+               proxyBase + encodeURIComponent(catUrl)
+            );
+
+            const data = await res.json();
+
+            const names = data.map(c =>
+               `<b><a href="${c.link}">${c.name}</a></b>`
+            );
+
+            containerCcon =
+               `Kategorie: ${names.join(', ')}`;
+         }
+      }
+
+      // =====================================================
+      // escape html
+      // =====================================================
+
+      const escapeHTML = (str) =>
+
+         str
+            ? String(str).replace(
+               /[&<>"']/g,
+               (m) => ({
+                  '&': '&amp;',
+                  '<': '&lt;',
+                  '>': '&gt;',
+                  '"': '&quot;',
+                  "'": '&#039;'
+               }[m])
+            )
+            : '';
+
+      // =====================================================
+      // nagłówki
+      // =====================================================
+
+      if (containerS) {
+
+         containerS.innerHTML = search
+            ? `Wyniki dla: <b>${escapeHTML(search)}</b>`
+            : '';
+      }
+
+      if (containerC) {
+         containerC.innerHTML = containerCcon;
+      }
+
+      if (containerD) {
+         containerD.innerHTML = dateText;
+      }
+
+      if (containerDesc) {
+         containerDesc.innerHTML = categoryDesc;
+      }
+
+      // =====================================================
+      // tytuł strony
+      // =====================================================
+
+      const stripHTML = (html) => {
+
+         if (!html) return '';
+
+         return html
+            .replace(/<[^>]*>/g, '')
+            .replace(/&nbsp;/g, ' ')
+            .trim();
+      };
+
+      const searchTitle = search
+         ? `Wyniki wyszukiwania: ${search}`
+         : '';
+
+      const docTitle = [
+
+         searchTitle,
+         stripHTML(containerCcon),
+         stripHTML(dateText)
+
+      ]
+      .filter(Boolean)
+      .join(' | ') || 'Artykuły';
+
+      document.title =
+         `${docTitle} | ${siteKey}`;
+
+      // =====================================================
+      // HTML postów
+      // =====================================================
+
+      const postsHTML = posts.map(post => {
+
+         const title =
+            post.title?.rendered
+               ?.replace(/<[^>]+>/g, '')
+               || '{Brak tytułu}';
+
+         // kategorie
+
+         const terms =
+            post._embedded?.['wp:term']?.[0] || [];
+
+         const catsHTML = terms
+            .map(t => `<a href="#">${t.name}</a>`)
+            .join(' • ');
+
+         // obrazek
+
+         const featuredMedia =
+            post._embedded?.['wp:featuredmedia']?.[0];
+
+         const imgUrl =
+            featuredMedia?.source_url || '';
+
+         const imageHTML =
+            (is_image && imgUrl)
+               ? `
+                  <img
+                     src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl)}&w=500&h=500&q=75&d=1"
+                     width="150"
+                     height="150"
+                     style="object-fit:cover;"
+                     loading="lazy"
+                  >
+               `
+               : '';
+
+         // data
+
+         const postDate =
+            new Date(post.date)
+               .toLocaleDateString(
+                  'pl-PL',
+                  {
+                     day: 'numeric',
+                     month: 'long',
+                     year: 'numeric'
+                  }
+               );
+
+         // link
+
+         const postLink = post.link || '#';
+
+         return `
+            <article class="article_post">
+
+               <div class="article_cover">
+                  ${imageHTML}
+               </div>
+
+               <div class="article_content">
+
+                  ${
+                     is_categories
+                     ? `<div class="article_category">${catsHTML}</div>`
+                     : ''
+                  }
+
+                  <div class="article_title">
+                     <a href="${postLink}" target="_blank">
+                        ${title}
+                     </a>
+                  </div>
+
+                  <div class="article_info">
+                     ${postDate}
+                  </div>
+
+               </div>
+
+            </article>
+         `;
+      }).join('');
+
+      // =====================================================
+      // append
+      // =====================================================
+
+      if (append) {
+
+         container
+            .querySelector('.articles')
+            ?.insertAdjacentHTML(
+               'beforeend',
+               postsHTML
+            );
+
+      } else {
+
+         container.innerHTML =
+            `<div class="articles">${postsHTML}</div>`;
+      }
+
+      // =====================================================
+      // button
+      // =====================================================
+
+      if (button) {
+
+         button.innerText = 'Wczytaj więcej';
+
+         button.disabled = false;
+
+         button.style.display =
+            posts.length < perPage
+               ? 'none'
+               : 'block';
+
+         button.onclick = () => {
+
+            window.currentPage =
+               (window.currentPage || 1) + 1;
+
+            WPCustomList(
+               mainUrl,
+               siteKey,
+               typeName,
+               typeCat,
+               search,
+               categoryID,
+               year,
+               month,
+               day,
+               is_categories,
+               is_image,
+               true
+            );
+         };
+      }
+
+   } catch (error) {
+
+      console.error(error);
+
+      container.innerHTML =
+         'Błąd ładowania artykułów.';
+
+      if (button) {
+         button.style.display = 'none';
+      }
+   }
+}
