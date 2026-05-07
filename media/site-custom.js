@@ -61,7 +61,7 @@ async function WPCustom(
          const catsHtml =
             terms.length > 0 ?
             terms.map(t =>
-               `<a href="article-list?si=${siteKey}&c=${t.id}">
+               `<a href="#">
                             ${t.name}
                         </a>`
             ).join(' • ') :
@@ -107,7 +107,7 @@ async function WPCustom(
                                 : ''
                         }
                         <div class="article_title">
-                            <a href="article?id=${post.slug}&si=${siteKey}" target="_blank">
+                            <a href="${post.link}" target="_blank">
                                 ${post.title.rendered || 'Brak tytułu'}
                             </a>
                         </div>
