@@ -8,7 +8,7 @@ async function WPCustom(
    append = false
 ) {
 
-   const container = document.getElementById('article-list');
+   const container = document.getElementById('custom-article-list');
    const button = document.getElementById('load-more-btn');
    const perPage = 10;
 
