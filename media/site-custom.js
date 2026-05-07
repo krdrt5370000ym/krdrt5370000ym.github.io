@@ -579,3 +579,177 @@ async function WPCustomList(
       }
    }
 }
+
+async function WPCustomPost(
+    slug,
+    mainUrl,
+    typeName,
+    typeCat,
+    is_categories = true,
+    is_image = true
+) {
+
+    const container = document.getElementById('article-post');
+
+    // URL WP API
+    const postsUrl = slug.startsWith('post-')
+        ? `${mainUrl}/wp-json/wp/v2/${typeName}/${slug.slice(5)}?_embed=true`
+        : `${mainUrl}/wp-json/wp/v2/${typeName}?slug=${slug}&per_page=1&_embed=true`;
+
+    const proxyUrl =
+        'https://cors.krdrt5370000ym2.workers.dev/?url=' +
+        encodeURIComponent(postsUrl);
+
+    try {
+
+        const response = await fetch(proxyUrl);
+        let posts = await response.json();
+
+        if (!Array.isArray(posts)) {
+            posts = [posts];
+        }
+
+        if (!posts.length || !posts[0].id) {
+            container.innerHTML = 'Brak dostępnych postów.';
+            return;
+        }
+
+        const post = posts[0];
+
+        // title strony
+        const doc = new DOMParser().parseFromString(
+            post.title.rendered,
+            'text/html'
+        );
+
+        document.title =
+            `${doc.body.textContent} | krdrt537000ym.github.io`;
+
+        const htmlContent = posts.map(post => {
+
+            const embed = post._embedded || {};
+
+            // Kategorie
+            let categoriesDisplay = '';
+
+            if (
+                is_categories &&
+                embed['wp:term'] &&
+                embed['wp:term'][0]
+            ) {
+
+                const catsHtml = embed['wp:term'][0]
+                    .map(cat =>
+                        `<a href="#" target="_blank">${cat.name}</a>`
+                    )
+                    .join(' • ');
+
+                categoriesDisplay = `
+                    <div class="article_category_posts">
+                        ${catsHtml || 'Aktualności'}
+                    </div>
+                `;
+            }
+
+            // Obrazek
+            let imageDisplay = '';
+
+            if (
+                is_image &&
+                embed['wp:featuredmedia']
+            ) {
+
+                const media = embed['wp:featuredmedia'][0];
+
+                const imgUrl =
+                    media.media_details?.sizes?.large?.source_url ||
+                    media.source_url;
+
+                if (imgUrl) {
+
+                    const proxiedImg =
+                        'https://image.krdrt5370000ym2.workers.dev/?url=' +
+                        encodeURIComponent(imgUrl) +
+                        '&w=1000&h=1000&q=75&d=1';
+
+                    imageDisplay = `
+                        <div class="wp-site-blocks">
+                            <div class="post-thumbnail">
+                                <img
+                                    src="${proxiedImg}"
+                                    alt="${media.alt_text || ''}"
+                                >
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            // Data
+            const postDate = new Date(post.date).toLocaleDateString(
+                'pl-PL',
+                {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                }
+            );
+
+            // Content
+            let content = post.content.rendered;
+
+            content = content.replace(
+                new RegExp(mainUrl, 'g'),
+                'https://cors.krdrt5370000ym2.workers.dev/?url=' + mainUrl
+            );
+
+            content = content.replace(
+                /href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g,
+                'href="'
+            );
+
+            return `
+                <div class="articles_posts">
+
+                    <article id="post-${post.id}">
+
+                        <header class="article_headers_posts">
+
+                            ${categoriesDisplay}
+
+                            <div class="article_title_posts">
+                                <a href="${post.link}" target="_blank">
+                                    ${post.title.rendered || 'Brak tytułu'}
+                                </a>
+                            </div>
+
+                            <div class="article_postedon_posts">
+                                ${postDate}
+                            </div>
+
+                        </header>
+
+                        ${imageDisplay}
+
+                        <div class="article_singlecontent_posts">
+                            ${content}
+                        </div>
+
+                    </article>
+
+                </div>
+            `;
+        });
+
+        container.innerHTML = htmlContent.join('');
+
+    } catch (error) {
+
+        console.error('Błąd WP API:', error);
+
+        container.innerHTML =
+            'Błąd podczas ładowania postów.';
+    }
+}
