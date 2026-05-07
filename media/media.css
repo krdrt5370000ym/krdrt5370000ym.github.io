@@ -412,14 +412,16 @@ label {
 /* Logika przełączania - teraz szukamy .content pośród rodzeństwa inputa */
 #tab1:checked~.tab1-content,
 #tab2:checked~.tab2-content,
-#tab3:checked~.tab3-content {
+#tab3:checked~.tab3-content,
+#tab4:checked~.tab4-content {
     display: block;
 }
 
 /* Stylizacja aktywnej etykiety */
 #tab1:checked~.tabs-wrapper label[for="tab1"],
 #tab2:checked~.tabs-wrapper label[for="tab2"],
-#tab3:checked~.tabs-wrapper label[for="tab3"] {
+#tab3:checked~.tabs-wrapper label[for="tab3"],
+#tab4:checked~.tabs-wrapper label[for="tab4"] {
     background: #fff;
     font-weight: bold;
     border-bottom: 1px solid #fff;
