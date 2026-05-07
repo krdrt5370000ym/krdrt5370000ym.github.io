@@ -80,7 +80,7 @@ async function uruchomPodcast() {
 
       const name = (thumb && thumb.name) || podcast.name || "";
       const thumbnailDisplay = podcast.thumbnail_uri ?
-         `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(podcast.thumbnail_uri)}&w=500&h=500&q=75" alt="${escapeHTML(podcast.name)}">` : "";
+         `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(podcast.thumbnail_uri)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(podcast.name)}">` : "";
 
       const thumbnailText = thumb ? `<div class="podcast_info_name_box" style="${style}">${escapeHTML(name)}</div>` : thumbnailDisplay;
 
