@@ -44,7 +44,7 @@ async function WPArticleRSC(append = false) {
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = imgUrl ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/"))}&w=500&h=500&q=75" width="150" height="150" style="object-fit:cover;">` : '';
+         const imageDisplay = imgUrl ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/"))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -140,7 +140,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = is_image && imgUrl ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75" width="150" height="150" style="object-fit:cover;" alt="">` : '';
+         const imageDisplay = is_image && imgUrl ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" alt="">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -746,7 +746,7 @@ async function WPArticleList(
          const imgUrl = featuredMedia?.source_url || '';
 
          const imageHTML = (is_image && imgUrl) ?
-            `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
+            `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
             '';
 
          // 🔹 Data
