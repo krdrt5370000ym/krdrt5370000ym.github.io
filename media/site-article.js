@@ -394,6 +394,7 @@ async function WPArticleList(
    const containerT = document.getElementById('article-t-result');
    const containerA = document.getElementById('article-a-result');
    const containerD = document.getElementById('article-d-result');
+   const containerDesc = document.getElementById('article-desc-result');
    const button = document.getElementById('load-more-btn');
 
    const proxyBase = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
@@ -485,6 +486,7 @@ async function WPArticleList(
       let categoryName = '';
       let categoryLink = '';
       let categoryParent = false;
+      let categoryDesc = '';
       let subcategoryID = '';
       let subcategoryName = '';
       let tagName = '';
@@ -494,6 +496,7 @@ async function WPArticleList(
       let containerCcon = '';
       let containerTcon = '';
       let containerAcon = '';
+      let containerDesccon = '';
 
       // 🔹 KATEGORIA
       if (categoryID) {
@@ -511,6 +514,7 @@ async function WPArticleList(
             categoryName = data.name;
             categoryLink = data.link;
             categoryParent = data.parent !== 0;
+            categoryDesc = data.description || '';
 
             if (categoryParent && data._embedded?.up?.[0]) {
                subcategoryID = data._embedded.up[0].id;
@@ -524,6 +528,7 @@ async function WPArticleList(
                         : ''
                 }<b><a href="${categoryLink}">${categoryName}</a></b>` :
                '';
+            containerDesccon = categoryDesc;
 
          } else {
 
@@ -660,6 +665,10 @@ async function WPArticleList(
 
       if (containerD) {
          containerD.innerHTML = dateText;
+      }
+
+      if (containerDesc) {
+         containerDesc.innerHTML = containerDesccon;
       }
 
       // 🔹 Tytuł strony
