@@ -61,7 +61,7 @@ async function WPCustom(
          const catsHtml =
             terms.length > 0 ?
             terms.map(t =>
-               `<a href="#">
+               `<a href="articlecustom-list?si=${siteKey}&tp=${typeName}&tc=${typeCat}&c=${t.id}">
                             ${t.name}
                         </a>`
             ).join(' • ') :
