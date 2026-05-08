@@ -597,7 +597,7 @@ async function WPCustomList(
             post._embedded?.['wp:term']?.[0] || [];
 
          const catsHTML = terms
-            .map(t => `<a href="#">${t.name}</a>`)
+            .map(t => `<a href="articlecustom-list?si=${siteKey}&tp=${typeName}&tc=${typeCat}&c=${t.id}">${t.name}</a>`)
             .join(' • ');
 
          // obrazek
@@ -635,7 +635,7 @@ async function WPCustomList(
 
          // link
 
-         const postLink = post.link || '#';
+         const postLink = `articlecustom?id=${post.slug}&si=${siteKey}&tp=${typeName}&tc=${typeCat}` || post.link || '#';
 
          return `
             <article class="article_post">
