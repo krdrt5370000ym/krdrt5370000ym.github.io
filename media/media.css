@@ -390,14 +390,6 @@ input[type="radio"] {
     gap: 0;
     /* Odstępy reguluj paddingiem w label */
     width: 100%;
-
-    @media (min-width: 400px) and (max-width: 500px) {
-        font-size: 13.5px;
-    }
-
-    @media (min-width: 300px) and (max-width: 400px) {
-        font-size: 11px;
-    }
 }
 
 label {
@@ -414,6 +406,18 @@ label {
 @media (min-width: 1000px) {
     label {
         font-size: 18px;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 401px) {
+    label {
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    label {
+        padding: 10px 10px;
     }
 }
 
