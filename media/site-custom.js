@@ -789,7 +789,7 @@ async function WPCustomPost(
 
             const catsHtml = embed['wp:term'][0]
                .map(cat =>
-                  `<a href="#" target="_blank">${cat.name}</a>`
+                  `<a href="articlecustom-list?si=${slug}&tp=${typeName}&tc=${typeCat}&c=${cat.id}" target="_blank">${cat.name}</a>`
                )
                .join(' • ');
 
