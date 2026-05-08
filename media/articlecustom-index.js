@@ -29,7 +29,7 @@
       },
    };
 
-   if (!id || !site || !siteMap[site]) {
+   if (!id || !site || !siteMap[site] || !typename || !typecat) {
       document.getElementById('article-post').innerHTML = "Błąd: Nieprawidłowe parametry URL.";
       return;
    }
