@@ -13,13 +13,13 @@ async function WPCustom(
    const perPage = 10;
 
    if (!append) {
-      window.currentPage = 1;
+      window.currentPageC = 1;
    } else {
-      window.currentPage++;
+      window.currentPageC++;
    }
 
    const postsUrl =
-      `${mainUrl}/wp-json/wp/v2/${typeName}?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
+      `${mainUrl}/wp-json/wp/v2/${typeName}?per_page=${perPage}&page=${window.currentPageC}&_embed=true`;
 
    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
 
