@@ -14,13 +14,27 @@
 
    // Mapa obsługiwanych serwisów
    const siteMap = {
-      radiorsc: { url: "https://radiorsc.pl" },
-      radiovictoria: { url: "https://radiovictoria.pl" },
-      radiokolor: { url: "https://radiokolor.pl" },
-      sosw: { url: "https://soswskierniewice.pl" },
-      ckis: { url: "https://cekis.pl" },
-      radiolodz: { url: "https://radiolodz.pl" },
-      elradio: { url: "https://elradio.pl" }
+      radiorsc: {
+         url: "https://radiorsc.pl"
+      },
+      radiovictoria: {
+         url: "https://radiovictoria.pl"
+      },
+      radiokolor: {
+         url: "https://radiokolor.pl"
+      },
+      sosw: {
+         url: "https://soswskierniewice.pl"
+      },
+      ckis: {
+         url: "https://cekis.pl"
+      },
+      radiolodz: {
+         url: "https://radiolodz.pl"
+      },
+      elradio: {
+         url: "https://elradio.pl"
+      }
    };
 
    // Lista dozwolonych typów (używamy Set dla lepszej wydajności)
@@ -67,7 +81,9 @@
    }
 
    // Pobranie URL po pomyślnej walidacji
-   const { url: mainUrl } = siteMap[site];
+   const {
+      url: mainUrl
+   } = siteMap[site];
 
    function init() {
       try {
