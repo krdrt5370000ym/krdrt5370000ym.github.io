@@ -362,7 +362,6 @@ async function WPCustomList(
    siteKey,
    typeName,
    typeCat,
-   search = null,
    categoryID = null,
    year = null,
    month = null,
@@ -373,7 +372,6 @@ async function WPCustomList(
 ) {
 
    const container = document.getElementById('article-list');
-   const containerS = document.getElementById('article-s-result');
    const containerC = document.getElementById('article-c-result');
    const containerD = document.getElementById('article-d-result');
    const containerDesc = document.getElementById('article-desc-result');
@@ -407,10 +405,6 @@ async function WPCustomList(
          page: window.currentPage || 1,
          _embed: true
       });
-
-      if (search) {
-         params.append('search', search);
-      }
 
       if (categoryID) {
          params.append('categories', finalCategoryIds);
@@ -548,13 +542,6 @@ async function WPCustomList(
       // nagłówki
       // =====================================================
 
-      if (containerS) {
-
-         containerS.innerHTML = search ?
-            `Wyniki dla: <b>${escapeHTML(search)}</b>` :
-            '';
-      }
-
       if (containerC) {
          containerC.innerHTML = containerCcon;
       }
@@ -581,13 +568,8 @@ async function WPCustomList(
             .trim();
       };
 
-      const searchTitle = search ?
-         `Wyniki wyszukiwania: ${search}` :
-         '';
-
       const docTitle = [
 
-            searchTitle,
             stripHTML(containerCcon),
             stripHTML(dateText)
 
@@ -723,7 +705,6 @@ async function WPCustomList(
                siteKey,
                typeName,
                typeCat,
-               search,
                categoryID,
                year,
                month,
