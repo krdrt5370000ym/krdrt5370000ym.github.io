@@ -41,9 +41,29 @@
       if (container) container.innerHTML = msg;
    }
 
-   // Walidacja site
+   // 1. Definiujemy listę dozwolonych typów
+   const allowedTypes = [
+      'posts', 'pages', 'media', 'menu-items', 'blocks', 'templates', 'template-parts',
+      'global-styles', 'navigation', 'font-families', 'e-floating-buttons', 'elementor_library',
+      'dedications', 'voiceline', 'radiochannel', 'shows', 'schedule', 'chart', 'members',
+      'podcast', 'qtsponsor', 'event', 'types', 'statuses', 'taxonomies', 'categories',
+      'tags', 'menus', 'wp_pattern_category', 'radio-genre', 'genre', 'schedulefilter',
+      'chartcategory', 'podcastfilter', 'eventtype', 'users', 'comments', 'search',
+      'block-renderer', 'block-types', 'settings', 'themes', 'plugins', 'sidebars',
+      'widget-types', 'widgets', 'block-directory', 'pattern-directory', 'block-patterns',
+      'menu-locations', 'font-collections', 'kadence_element', 'kadence_form', 'kb_icon',
+      'kadence_lottie'
+   ];
+   
+   // 2. Walidacja site (Twoja pierwsza część)
    if (!site || !siteMap[site] || !typename || !typecat) {
       showError("Błąd: Nieprawidłowe parametry URL.");
+      return;
+   }
+
+   // 3. Walidacja typename (Sprawdzamy czy typename jest na liście)
+   if (!allowedTypes.includes(typename)) {
+      showError("Błąd: Nieprawidłowy typ (typename).");
       return;
    }
 
