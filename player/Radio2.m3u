@@ -835,9 +835,9 @@ https://ch.cdn.eurozet.pl/CHIWJZ.mp3
 https://radiostream.pl/tuba9-1.mp3
 #EXTINF:-1, Radio Pogoda
 https://radiostream.pl/tuba38-1.mp3
-#EXTINF:-1, ESKA Hity na Czasie
+#EXTINF:-1, Radio ESKA
 https://liveradio.timesa.pl/2980-1.aac/playlist.m3u8
-#EXTINF:-1, ESKA Hity na Czasie (IC)
+#EXTINF:-1, Radio ESKA (IC)
 https://waw.ic.smcdn.pl/2980-1.aac
 #EXTINF:-1, ESKA Bełchatów
 https://liveradio.timesa.pl/2010-1.aac/playlist.m3u8
@@ -1087,9 +1087,9 @@ https://waw.ic.smcdn.pl/6240-1.aac
 https://liveradio.timesa.pl/6150-1.aac/playlist.m3u8
 #EXTINF:-1, ESKA FITNESS (IC)
 https://waw.ic.smcdn.pl/6150-1.aac
-#EXTINF:-1, ESKA2 Najlepsze Polskie Hity
+#EXTINF:-1, Radio ESKA2
 https://liveradio.timesa.pl/1980-1.aac/playlist.m3u8
-#EXTINF:-1, ESKA2 Najlepsze Polskie Hity (IC)
+#EXTINF:-1, Radio ESKA2 (IC)
 https://waw.ic.smcdn.pl/1980-1.aac
 #EXTINF:-1, ESKA2 Biała Podlaska
 https://liveradio.timesa.pl/1390-1.aac/playlist.m3u8
@@ -1179,9 +1179,9 @@ https://waw.ic.smcdn.pl/5980-1.aac
 https://liveradio.timesa.pl/5380-1.aac/playlist.m3u8
 #EXTINF:-1, Eska ROCK Warszawa (IC)
 https://waw.ic.smcdn.pl/5380-1.aac
-#EXTINF:-1, Eska ROCK
+#EXTINF:-1, Radio ESKA Rock
 https://liveradio.timesa.pl/5990-1.aac/playlist.m3u8
-#EXTINF:-1, Eska ROCK (IC)
+#EXTINF:-1, Radio ESKA Rock (IC)
 https://waw.ic.smcdn.pl/5990-1.aac
 #EXTINF:-1, Eska ROCK Rocktoberfest
 https://liveradio.timesa.pl/6200-1.aac/playlist.m3u8
@@ -1207,9 +1207,9 @@ https://waw.ic.smcdn.pl/6070-1.aac
 https://liveradio.timesa.pl/6090-1.aac/playlist.m3u8
 #EXTINF:-1, Eska ROCK Teraz Polski Rock (IC)
 https://waw.ic.smcdn.pl/6090-1.aac
-#EXTINF:-1, VOX w Rytmie Hitów
+#EXTINF:-1, Radio VOX
 https://liveradio.timesa.pl/3980-1.aac/playlist.m3u8
-#EXTINF:-1, VOX w Rytmie Hitów (IC)
+#EXTINF:-1, Radio VOX (IC)
 https://waw.ic.smcdn.pl/3980-1.aac
 #EXTINF:-1, VOX FM
 https://liveradio.timesa.pl/3990-1.aac/playlist.m3u8
@@ -1239,6 +1239,10 @@ https://waw.ic.smcdn.pl/6100-1.aac
 https://liveradio.timesa.pl/6020-1.aac/playlist.m3u8
 #EXTINF:-1, VOX DJ Mix (IC)
 https://waw.ic.smcdn.pl/6020-1.aac
+#EXTINF:-1, VOX Złombol
+https://liveradio.timesa.pl/6930-1.aac/playlist.m3u8
+#EXTINF:-1, VOX Złombol (IC)
+https://waw.ic.smcdn.pl/6930-1.aac
 #EXTINF:-1, VOX Dance
 https://liveradio.timesa.pl/6180-1.aac/playlist.m3u8
 #EXTINF:-1, VOX Dance (IC)
