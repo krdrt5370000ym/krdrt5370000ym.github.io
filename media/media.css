@@ -390,6 +390,7 @@ input[type="radio"] {
     gap: 0;
     /* Odstępy reguluj paddingiem w label */
     width: 100%;
+    font-size: 13.5px;
 }
 
 label {
