@@ -376,7 +376,7 @@ async function WPCustomList(
    const containerD = document.getElementById('article-d-result');
    const containerDesc = document.getElementById('article-desc-result');
 
-   const button = document.getElementById('load-more-btn-custom');
+   const button = document.getElementById('load-more-btn');
 
    const proxyBase =
       'https://cors.krdrt5370000ym2.workers.dev/?url=';
