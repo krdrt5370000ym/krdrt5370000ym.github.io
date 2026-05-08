@@ -407,7 +407,7 @@ async function WPCustomList(
       });
 
       if (categoryID) {
-         params.append('categories', finalCategoryIds);
+         params.append(typeCat, finalCategoryIds);
       }
 
       // =====================================================
