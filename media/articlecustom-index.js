@@ -3,7 +3,7 @@
    const id = params.get('id');
    const site = params.get('si');
    const typename = params.get('tp');
-   const typecat = params.get('tc');
+   const typecat = params.get('tc') || "categories";
 
    const siteMap = {
       "radiorsc": {
@@ -29,7 +29,7 @@
       },
    };
 
-   if (!id || !site || !siteMap[site] || !typename || !typecat) {
+   if (!id || !site || !siteMap[site] || !typename) {
       document.getElementById('article-post').innerHTML = "Błąd: Nieprawidłowe parametry URL.";
       return;
    }
