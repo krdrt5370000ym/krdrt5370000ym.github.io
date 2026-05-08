@@ -732,7 +732,6 @@ async function WPCustomList(
 async function WPCustomPost(
    slug,
    mainUrl,
-   siteKey,
    typeName,
    typeCat,
    is_categories = true,
@@ -740,6 +739,18 @@ async function WPCustomPost(
 ) {
 
    const container = document.getElementById('article-post');
+
+   // Mapowanie URL na klucz strony (używane w linkach do list)
+   const siteKeys = {
+      'https://radiorsc.pl': 'radiorsc',
+      'https://radiovictoria.pl': 'radiovictoria',
+      'https://radiokolor.pl': 'radiokolor',
+      'https://soswskierniewice.pl': 'sosw',
+      'https://cekis.pl': 'ckis',
+      'https://radiolodz.pl': 'radiolodz',
+      'https://elradio.pl': 'elradio'
+   };
+   const currentSiteKey = siteKeys[mainUrl] || 'default';
 
    // URL WP API
    const postsUrl = slug.startsWith('post-') ?
@@ -790,7 +801,7 @@ async function WPCustomPost(
 
             const catsHtml = embed['wp:term'][0]
                .map(cat =>
-                  `<a href="articlecustom-list?si=${siteKey}&tp=${typeName}&tc=${typeCat}&c=${cat.id}" target="_blank">${cat.name}</a>`
+                  `<a href="articlecustom-list?si=${currentSiteKey}&tp=${typeName}&tc=${typeCat}&c=${cat.id}" target="_blank">${cat.name}</a>`
                )
                .join(' • ');
 
