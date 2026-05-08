@@ -6,10 +6,7 @@
    const site = params.get("si");
    const typename = params.get("tp");
    const typecat = params.get("tc");
-   const search = params.get("s") || "";
    const category = params.get("c") || "";
-   const tag = params.get("t") || "";
-   const author = params.get("a") || "";
    const year = params.get("y") || "";
    const month = params.get("m") || "";
    const day = params.get("d") || "";
@@ -62,7 +59,6 @@
                site,
                typename,
                typecat,
-               search,
                category,
                year,
                month,
