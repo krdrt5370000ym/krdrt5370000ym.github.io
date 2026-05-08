@@ -70,6 +70,10 @@ iframe {
     text-decoration: none;
 }
 
+.has-text-align-center {
+    text-align: center;
+}
+
 /* =====================================================
    THUMBNAIL (NAPRAWA WORDPRESS)
 ===================================================== */
