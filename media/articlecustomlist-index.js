@@ -37,7 +37,7 @@
       'kadence_lottie'
    ]);
 
-   const container = document.getElementById("article-post");
+   const container = document.getElementById("article-list");
 
    function showError(msg) {
       if (container) {
@@ -61,7 +61,7 @@
    }
 
    // 3. Sprawdzenie czy typ jest dozwolony
-   if (!allowedTypes.has(typename)) {
+   if (allowedTypes.has(typename)) {
       showError("Błąd: Nieprawidłowy typ zawartości (tp).");
       return;
    }
