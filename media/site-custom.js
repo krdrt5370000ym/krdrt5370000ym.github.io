@@ -9,7 +9,7 @@ async function WPCustom(
 ) {
 
    const container = document.getElementById('custom-article-list');
-   const button = document.getElementById('load-more-btn');
+   const button = document.getElementById('load-more-btn-custom');
    const perPage = 10;
 
    if (!append) {
@@ -376,7 +376,7 @@ async function WPCustomList(
    const containerD = document.getElementById('article-d-result');
    const containerDesc = document.getElementById('article-desc-result');
 
-   const button = document.getElementById('load-more-btn');
+   const button = document.getElementById('load-more-btn-custom');
 
    const proxyBase =
       'https://cors.krdrt5370000ym2.workers.dev/?url=';
