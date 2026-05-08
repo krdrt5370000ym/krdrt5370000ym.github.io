@@ -3,6 +3,7 @@
 
    const params = new URLSearchParams(window.location.search);
 
+   // Pobieranie parametrów z URL
    const site = params.get("si");
    const typename = params.get("tp");
    const typecat = params.get("tc");
@@ -11,38 +12,19 @@
    const month = params.get("m") || "";
    const day = params.get("d") || "";
 
+   // Mapa obsługiwanych serwisów
    const siteMap = {
-      radiorsc: {
-         url: "https://radiorsc.pl"
-      },
-      radiovictoria: {
-         url: "https://radiovictoria.pl"
-      },
-      radiokolor: {
-         url: "https://radiokolor.pl"
-      },
-      sosw: {
-         url: "https://soswskierniewice.pl"
-      },
-      ckis: {
-         url: "https://cekis.pl"
-      },
-      radiolodz: {
-         url: "https://radiolodz.pl"
-      },
-      elradio: {
-         url: "https://elradio.pl"
-      }
+      radiorsc: { url: "https://radiorsc.pl" },
+      radiovictoria: { url: "https://radiovictoria.pl" },
+      radiokolor: { url: "https://radiokolor.pl" },
+      sosw: { url: "https://soswskierniewice.pl" },
+      ckis: { url: "https://cekis.pl" },
+      radiolodz: { url: "https://radiolodz.pl" },
+      elradio: { url: "https://elradio.pl" }
    };
 
-   const container = document.getElementById("article-post");
-
-   function showError(msg) {
-      if (container) container.innerHTML = msg;
-   }
-
-   // 1. Definiujemy listę dozwolonych typów
-   const allowedTypes = [
+   // Lista dozwolonych typów (używamy Set dla lepszej wydajności)
+   const allowedTypes = new Set([
       'posts', 'pages', 'media', 'menu-items', 'blocks', 'templates', 'template-parts',
       'global-styles', 'navigation', 'font-families', 'e-floating-buttons', 'elementor_library',
       'dedications', 'voiceline', 'radiochannel', 'shows', 'schedule', 'chart', 'members',
@@ -53,34 +35,43 @@
       'widget-types', 'widgets', 'block-directory', 'pattern-directory', 'block-patterns',
       'menu-locations', 'font-collections', 'kadence_element', 'kadence_form', 'kb_icon',
       'kadence_lottie'
-   ];
+   ]);
 
-   const allowedTypeCats = ['wp-api-v2', 'custom-api', 'taxonomy'];
-   
-   // 2. Walidacja site (Twoja pierwsza część)
-   if (!site || !siteMap[site] || !typename || !typecat) {
-      showError("Błąd: Brak wymaganych parametrów URL.");
+   const container = document.getElementById("article-post");
+
+   function showError(msg) {
+      if (container) {
+         container.innerHTML = `<div class="error-message">${msg}</div>`;
+      }
+      console.error(msg);
+   }
+
+   // --- Walidacja ---
+
+   // 1. Sprawdzenie czy wymagane parametry w ogóle istnieją
+   if (!site || !typename || !typecat) {
+      showError("Błąd: Brak wymaganych parametrów URL (si, tp, tc).");
       return;
    }
 
-  // 3. Walidacja konkretnych wartości
-   if (!allowedTypes.includes(typename)) {
-      showError("Błąd: Nieprawidłowy parametr 'tp'.");
+   // 2. Sprawdzenie czy serwis znajduje się na mapie
+   if (!siteMap[site]) {
+      showError("Błąd: Nieobsługiwany identyfikator serwisu.");
       return;
    }
-   
-   // Opcjonalne: Walidacja typecat, jeśli znasz dopuszczalne wzorce
-   // if (!allowedTypeCats.includes(typecat)) {
-   //    showError("Błąd: Nieprawidłowy parametr 'tc'.");
-   //    return;
-   // }
 
-   const {
-      url: mainUrl
-   } = siteMap[site];
+   // 3. Sprawdzenie czy typ jest dozwolony
+   if (!allowedTypes.has(typename)) {
+      showError("Błąd: Nieprawidłowy typ zawartości (tp).");
+      return;
+   }
+
+   // Pobranie URL po pomyślnej walidacji
+   const { url: mainUrl } = siteMap[site];
 
    function init() {
       try {
+         // Sprawdzenie czy zewnętrzna funkcja istnieje
          if (typeof window.WPCustomList === "function") {
             window.WPCustomList(
                mainUrl,
@@ -93,13 +84,18 @@
                day
             );
          } else {
-            throw new Error("Nie znaleziono funkcji WPCustomList.");
+            throw new Error("Nie znaleziono funkcji WPCustomList. Upewnij się, że odpowiedni skrypt został załadowany.");
          }
       } catch (err) {
-         console.error(err);
-         showError("Błąd podczas ładowania modułu.");
+         showError("Błąd podczas inicjalizacji listy.");
+         console.error("Szczegóły błędu:", err);
       }
    }
 
-   window.addEventListener("DOMContentLoaded", init);
+   // Uruchomienie po załadowaniu DOM
+   if (document.readyState === "loading") {
+      window.addEventListener("DOMContentLoaded", init);
+   } else {
+      init(); // Jeśli DOM jest już gotowy
+   }
 })();
