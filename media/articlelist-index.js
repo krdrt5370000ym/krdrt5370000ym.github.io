@@ -37,7 +37,7 @@
       }
    };
 
-   const container = document.getElementById("article-post");
+   const container = document.getElementById("article-list");
 
    function showError(msg) {
       if (container) container.innerHTML = msg;
