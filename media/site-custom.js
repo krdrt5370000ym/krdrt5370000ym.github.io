@@ -578,7 +578,7 @@ async function WPCustomList(
          .join(' | ') || 'Artykuły';
 
       document.title =
-         `${docTitle} | ${siteKey}`;
+         `${docTitle} | krdrt537000ym.github.io`;
 
       // =====================================================
       // HTML postów
