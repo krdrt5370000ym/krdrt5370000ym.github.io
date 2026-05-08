@@ -6,7 +6,7 @@
    // Pobieranie parametrów z URL
    const site = params.get("si");
    const typename = params.get("tp");
-   const typecat = params.get("tc"); || "categories";
+   const typecat = params.get("tc") || "categories";
    const category = params.get("c") || "";
    const year = params.get("y") || "";
    const month = params.get("m") || "";
