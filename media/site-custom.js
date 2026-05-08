@@ -107,7 +107,7 @@ async function WPCustom(
                                 : ''
                         }
                         <div class="article_title">
-                            <a href="${post.link}" target="_blank">
+                            <a href="articlecustom?id=${post.id}&si=${siteKey}&tp=${typeName}&tc=${typeCat}" target="_blank">
                                 ${post.title.rendered || 'Brak tytułu'}
                             </a>
                         </div>
