@@ -732,6 +732,7 @@ async function WPCustomList(
 async function WPCustomPost(
    slug,
    mainUrl,
+   siteKey,
    typeName,
    typeCat,
    is_categories = true,
@@ -789,7 +790,7 @@ async function WPCustomPost(
 
             const catsHtml = embed['wp:term'][0]
                .map(cat =>
-                  `<a href="articlecustom-list?si=${slug}&tp=${typeName}&tc=${typeCat}&c=${cat.id}" target="_blank">${cat.name}</a>`
+                  `<a href="articlecustom-list?si=${siteKey}&tp=${typeName}&tc=${typeCat}&c=${cat.id}" target="_blank">${cat.name}</a>`
                )
                .join(' • ');
 
