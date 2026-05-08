@@ -54,18 +54,26 @@
       'menu-locations', 'font-collections', 'kadence_element', 'kadence_form', 'kb_icon',
       'kadence_lottie'
    ];
+
+   const allowedTypeCats = ['wp-api-v2', 'custom-api', 'taxonomy'];
    
    // 2. Walidacja site (Twoja pierwsza część)
    if (!site || !siteMap[site] || !typename || !typecat) {
-      showError("Błąd: Nieprawidłowe parametry URL.");
+      showError("Błąd: Brak wymaganych parametrów URL.");
       return;
    }
 
-   // 3. Walidacja typename (Sprawdzamy czy typename jest na liście)
+  // 3. Walidacja konkretnych wartości
    if (!allowedTypes.includes(typename)) {
-      showError("Błąd: Nieprawidłowy typ (typename).");
+      showError("Błąd: Nieprawidłowy parametr 'tp'.");
       return;
    }
+   
+   // Opcjonalne: Walidacja typecat, jeśli znasz dopuszczalne wzorce
+   // if (!allowedTypeCats.includes(typecat)) {
+   //    showError("Błąd: Nieprawidłowy parametr 'tc'.");
+   //    return;
+   // }
 
    const {
       url: mainUrl
