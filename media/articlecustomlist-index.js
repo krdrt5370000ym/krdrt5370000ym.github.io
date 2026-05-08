@@ -6,7 +6,7 @@
    // Pobieranie parametrów z URL
    const site = params.get("si");
    const typename = params.get("tp");
-   const typecat = params.get("tc");
+   const typecat = params.get("tc"); || "categories";
    const category = params.get("c") || "";
    const year = params.get("y") || "";
    const month = params.get("m") || "";
@@ -49,8 +49,8 @@
    // --- Walidacja ---
 
    // 1. Sprawdzenie czy wymagane parametry w ogóle istnieją
-   if (!site || !typename || !typecat) {
-      showError("Błąd: Brak wymaganych parametrów URL (si, tp, tc).");
+   if (!site || !typename) {
+      showError("Błąd: Brak wymaganych parametrów URL (si, tp).");
       return;
    }
 
