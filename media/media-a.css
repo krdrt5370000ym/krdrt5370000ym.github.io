@@ -207,8 +207,8 @@ iframe {
     width: 100%;
 }
 
-.wp-video, 
-.wp-video video, 
+.wp-video,
+.wp-video video,
 .wp-video-shortcode {
     width: 100% !important;
     height: auto !important;
@@ -221,6 +221,7 @@ iframe {
         margin-left: 0;
         margin-right: 0;
     }
+
     .wp-video video {
         width: 100% !important;
         height: auto !important;
@@ -304,7 +305,7 @@ iframe {
     border-radius: 12px;
     padding: 25px;
     color: #ffffff;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     overflow: hidden;
 }
 
@@ -321,16 +322,17 @@ iframe {
 .track-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #f37021; /* Pomarańczowy Radio Łódź */
+    color: #f37021;
+    /* Pomarańczowy Radio Łódź */
     margin-bottom: 15px;
 }
 
 /* Fala dźwiękowa - zapobieganie rozciąganiu na 2540px */
-.srp_wave_box, 
-.sonaar_fake_wave, 
-.sonaar_wave_base, 
+.srp_wave_box,
+.sonaar_fake_wave,
+.sonaar_wave_base,
 .sonaar_wave_cut,
-#sonaar_wave_base_canvas, 
+#sonaar_wave_base_canvas,
 #sonaar_wave_cut_canvas {
     width: 100% !important;
     max-width: 100% !important;
@@ -345,7 +347,8 @@ iframe {
     margin: 10px 0;
 }
 
-.currentTime, .totalTime {
+.currentTime,
+.totalTime {
     font-size: 0.85rem;
     color: #bbb;
     min-width: 45px;
@@ -417,15 +420,19 @@ iframe {
     }
 
     /* Wymuszenie proporcji canvas */
-    canvas#sonaar_wave_base_canvas, 
+    canvas#sonaar_wave_base_canvas,
     canvas#sonaar_wave_cut_canvas {
-        height: 50px !important; /* Niższa fala na bardzo małe ekrany */
+        height: 50px !important;
+        /* Niższa fala na bardzo małe ekrany */
     }
 
-    .srp_speedRate, .sr_skipBackward, .sr_skipForward {
-        transform: scale(0.85); /* Pomniejszenie ikonek, by się zmieściły */
+    .srp_speedRate,
+    .sr_skipBackward,
+    .sr_skipForward {
+        transform: scale(0.85);
+        /* Pomniejszenie ikonek, by się zmieściły */
     }
-    
+
     /* Ukrywamy głośność, jeśli nadal brakuje miejsca */
     .volume {
         display: none !important;
@@ -434,7 +441,8 @@ iframe {
 
 /* Zapewnienie responsywności dla wszystkich kontenerów wp-caption */
 .wp-caption {
-    max-width: 100% !important; /* Blokuje wychodzenie poza ekran */
+    max-width: 100% !important;
+    /* Blokuje wychodzenie poza ekran */
     height: auto;
 }
 
@@ -446,7 +454,8 @@ iframe {
 /* Specyficzne ustawienia dla alignnone na mobile */
 @media (max-width: 768px) {
     .wp-caption.alignnone {
-        width: 100% !important; /* Rozciąga obrazek na całą szerokość ekranu telefonu */
+        width: 100% !important;
+        /* Rozciąga obrazek na całą szerokość ekranu telefonu */
         margin-left: 0;
         margin-right: 0;
     }
