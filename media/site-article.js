@@ -683,7 +683,7 @@ async function WPArticleList(
 
       const docTitle = [
          searchTitle,
-         stripHTML(categoryName) || stripHTML(containerCcon),
+         containerCcon ? 'Kategoria: ' + stripHTML(categoryName) || stripHTML(containerCcon) : '',
          stripHTML(containerTcon),
          stripHTML(containerAcon),
          stripHTML(dateText)
