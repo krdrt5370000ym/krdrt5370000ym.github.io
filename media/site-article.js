@@ -680,10 +680,11 @@ async function WPArticleList(
             .trim();
       }
       const searchTitle = search ? 'Wyniki wyszukiwania: ' + search : '';
+      const categoryTitle = categoryName ? 'Kategoria: ' + categoryName : '';
 
       const docTitle = [
          searchTitle,
-         containerCcon ? 'Kategoria: ' + stripHTML(categoryName) || stripHTML(containerCcon) : '',
+         stripHTML(categoryTitle) || stripHTML(containerCcon),
          stripHTML(containerTcon),
          stripHTML(containerAcon),
          stripHTML(dateText)
