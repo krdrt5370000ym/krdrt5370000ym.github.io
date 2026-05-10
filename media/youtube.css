@@ -53,6 +53,14 @@ audio {
    flex-wrap: wrap;
 }
 
+.actions-yt {
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+   flex-wrap: wrap;
+   padding-bottom: 10px;
+}
+
 .btn {
    display: inline-block;
    padding: 10px 16px;
