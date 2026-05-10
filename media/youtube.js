@@ -24,6 +24,10 @@ async function init() {
    const vId =
       new URLSearchParams(window.location.search)
       .get('v');
+   if (!vId) {
+      throw new Error('Brak parametrów ?v=');
+      return;
+   }
    try {
       statusEl.textContent =
          'Łączenie z API...';
