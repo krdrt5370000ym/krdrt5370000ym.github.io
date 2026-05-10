@@ -1,6 +1,16 @@
 const API_URL =
    'https://youtube.krdrt5370000ym2.workers.dev';
 
+async function forceDownload(url, name) {
+    const res = await fetch(url);
+    const blob = await res.blob();
+
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.click();
+}
+
 async function init() {
 
    const titleEl =
@@ -77,10 +87,10 @@ async function init() {
          `https://i.ytimg.com/vi/${data.videoId}/hqdefault.jpg`;
       thumbEl.style.display = 'block';
 
-      dlEl.href = audioUrl;
-      dlEl.download =
-         data?.results?.[0]?.fileKey ||
-         `${data.videoId}.mp3`;
+      dlEl.onclick = (e) => {
+         e.preventDefault();
+         forceDownload(audioUrl, `${data.videoId}.mp3`);
+      };
 
       dlEl.style.display = 'inline-block';
 
