@@ -43,6 +43,9 @@ async function init() {
       throw new Error('Brak ?v=');
    }
 
+   pageEl.href =
+      `https://www.youtube.com/?watch?v=${vId}`;
+
    try {
 
       statusEl.textContent = 'Łączenie z API...';
@@ -89,9 +92,6 @@ async function init() {
       thumbEl.src =
          `https://i.ytimg.com/vi/${data.videoId}/hqdefault.jpg`;
       thumbEl.style.display = 'block';
-
-      pageEl.href =
-         `https://www.youtube.com/?watch?v=${vId}`;
 
       dlEl.onclick = (e) => {
          e.preventDefault();
