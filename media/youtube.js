@@ -31,6 +31,9 @@ async function init() {
    const thumbEl =
       document.getElementById('thumb');
 
+   const pageEl =
+      document.getElementById('show-page');
+
    const vId =
       new URLSearchParams(window.location.search)
       .get('v');
@@ -86,6 +89,10 @@ async function init() {
       thumbEl.src =
          `https://i.ytimg.com/vi/${data.videoId}/hqdefault.jpg`;
       thumbEl.style.display = 'block';
+
+      pageEl.href =
+         `https://www.youtube.com/?watch?v=${data.videoId}`;
+      pageEl.style.display = 'block';
 
       dlEl.onclick = (e) => {
          e.preventDefault();
