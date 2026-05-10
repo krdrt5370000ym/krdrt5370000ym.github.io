@@ -44,7 +44,7 @@ async function init() {
    }
 
    pageEl.href =
-      `https://www.youtube.com/?watch?v=${vId}`;
+      `https://www.youtube.com/watch?v=${vId}`;
 
    try {
 
