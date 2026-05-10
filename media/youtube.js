@@ -26,6 +26,7 @@ async function init() {
       .get('v');
 
    if (!vId) {
+      document.getElementById('player-screen').style.display = 'none';
       throw new Error('Brak ?v=');
    }
 
