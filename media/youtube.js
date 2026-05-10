@@ -92,7 +92,6 @@ async function init() {
 
       pageEl.href =
          `https://www.youtube.com/?watch?v=${data.videoId}`;
-      pageEl.style.display = 'block';
 
       dlEl.onclick = (e) => {
          e.preventDefault();
