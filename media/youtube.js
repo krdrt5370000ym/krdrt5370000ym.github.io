@@ -95,7 +95,7 @@ async function init() {
 
       dlEl.onclick = (e) => {
          e.preventDefault();
-         forceDownload(audioUrl, `${data.results[0].fileKey}.mp3` || `${data.videoId}.mp3`);
+         forceDownload(audioUrl, data.results[0].fileKey || `${data.videoId}.mp3`);
       };
 
       dlEl.style.display = 'inline-block';
