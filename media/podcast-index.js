@@ -84,9 +84,9 @@ async function uruchomPodcast() {
 
       const thumbnailText = thumb ? `<div class="podcast_info_name_box" style="${style}">${escapeHTML(name)}</div>` : thumbnailDisplay;
 
-      const emailContact = Array.isArray(program.email) ? 
-         program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') :
-         typeof program.email === 'string' && program.email.trim() !== '' ? `<a href="mailto:${program.email}">${escapeHTML(program.email)}</a>` : '';
+      const emailContact = Array.isArray(podcast.email) ? 
+         podcast.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') :
+         typeof podcast.email === 'string' && podcast.email.trim() !== '' ? `<a href="mailto:${podcast.email}">${escapeHTML(podcast.email)}</a>` : '';
 
       const podcastList = (podcast.podcast) ? `
           <audio controls="" id="player" style="display:none;margin-top:10px;margin-left:25px;"><source src=""></audio>
