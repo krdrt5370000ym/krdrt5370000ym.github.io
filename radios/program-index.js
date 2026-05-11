@@ -1,17 +1,25 @@
+function NowZone(value = new Date()) {
+   return new Date(
+      new Date(value).toLocaleString("sv-SE", {
+         timeZone: "Europe/Warsaw"
+      })
+   );
+}
+
 const MonthWeekCalculator = (dateInput, requestedWeeks) => {
-   const date = new Date(dateInput);
+   const date = NowZone(dateInput);
    const day = date.getDate();
    const month = date.getMonth();
    const year = date.getFullYear();
-   const daysInMonth = new Date(year, month + 1, 0).getDate();
+   const daysInMonth = NowZone(year, month + 1, 0).getDate();
 
    const getWeekByStartDay = (currentDay, targetDayIdx, reverse = false) => {
       if (!reverse) {
-         const firstOfMonth = new Date(year, month, 1).getDay();
+         const firstOfMonth = NowZone(year, month, 1).getDay();
          const offset = (firstOfMonth - targetDayIdx + 7) % 7;
          return Math.ceil((currentDay + offset) / 7);
       } else {
-         const lastOfMonth = new Date(year, month, daysInMonth).getDay();
+         const lastOfMonth = NowZone(year, month, daysInMonth).getDay();
          const distFromEnd = daysInMonth - currentDay + 1;
          const offset = (targetDayIdx - lastOfMonth + 7) % 7;
          return Math.ceil((distFromEnd + offset) / 7);
@@ -49,7 +57,7 @@ const MonthWeekCalculator = (dateInput, requestedWeeks) => {
 };
 
 // Funkcja wybierająca odpowiedni blok (np. ramówka świąteczna vs standardowa)
-function getActiveScheduleBlock(date = new Date(), scheduleData) {
+function getActiveScheduleBlock(date = NowZone(), scheduleData) {
    if (!Array.isArray(scheduleData)) return {
       schedule: []
    };
@@ -57,7 +65,7 @@ function getActiveScheduleBlock(date = new Date(), scheduleData) {
    // Szukaj bloku z zakresem dat
    const specialBlock = scheduleData.find(block => {
       if (!block.startDate || !block.EndDate) return false;
-      return date >= new Date(block.startDate) && date <= new Date(block.EndDate);
+      return date >= NowZone(block.startDate) && date <= NowZone(block.EndDate);
    });
 
    // Zwróć specjalny blok, domyślny (ID 0) lub pusty obiekt
@@ -104,14 +112,14 @@ function getDisplaySchedule(programId, rawSchedule) {
 
    const timeGroups = {};
    const firstAppearance = {};
-   const now = new Date();
+   const now = NowZone();
 
    const activeBlock = getActiveScheduleBlock(now, rawSchedule);
    const scheduleSource = activeBlock ? (activeBlock.schedule || []) : [];
 
    const filtered = scheduleSource.filter(p => {
       if (p.id !== programId || !p.active || p.private || p.hide_in_schedule) return false;
-      return p.publish_from_date ? now >= new Date(p.publish_from_date) : true;
+      return p.publish_from_date ? now >= NowZone(p.publish_from_date) : true;
    });
 
    if (filtered.length === 0) return "";
@@ -195,7 +203,7 @@ async function uruchomProgram() {
    const params = new URLSearchParams(window.location.search);
    const uid = params.get('uid');
    const station = params.get('st');
-   const now = new Date();
+   const now = NowZone();
    const localIsoToday = now.toLocaleDateString('sv-SE');
 
    if (!uid || !station) {
@@ -274,7 +282,7 @@ async function uruchomProgram() {
             if (exKeys.every(k => todayWeekStats[k] === osch.weekmonth_exclude[k])) return false;
          }
 
-         return osch.publish_from_date ? now >= new Date(osch.publish_from_date) : true;
+         return osch.publish_from_date ? now >= NowZone(osch.publish_from_date) : true;
       });
 
       // 5. Pobranie pełnego napisu harmonogramu (z wszystkich bloków)
