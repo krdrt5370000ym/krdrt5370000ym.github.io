@@ -178,9 +178,7 @@ dlEl.onclick = (e) => {
       });
 
       try {
-         audioEl.muted = true;
          await audioEl.play();
-         audioEl.muted = false;
       } catch {
          console.warn('Autoplay blocked');
       }
