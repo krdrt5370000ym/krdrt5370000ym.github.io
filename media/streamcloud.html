@@ -188,24 +188,6 @@ dlEl.onclick = async (e) => {
    );
 };
 
-   if (!audioUrl) {
-      console.error("Brak audioUrl");
-      return;
-   }
-
-   const a = document.createElement("a");
-   a.href = audioUrl;
-   a.target = "_blank";   // ważne
-   a.rel = "noopener";
-
-   // nie zawsze działa, ale zostawiamy
-   a.download = title || "audio.mp3";
-
-   document.body.appendChild(a);
-   a.click();
-   a.remove();
-};
-
       audioEl.addEventListener('canplay', () => {
          statusEl.textContent = 'Gotowe';
          loaderEl.style.display = 'none';
