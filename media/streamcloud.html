@@ -183,7 +183,7 @@ dlEl.onclick = async (e) => {
    e.preventDefault();
 
    await forceDownload(
-      audioUrl,
+      'https://cors.krdrt5370000ym2.workers.dev' + audioUrl,
       data.results?.[0]?.fileKey || `${data.videoId}.mp3`
    );
 };
@@ -198,9 +198,7 @@ dlEl.onclick = async (e) => {
       });
 
       try {
-         audioEl.muted = true;
          await audioEl.play();
-         audioEl.muted = false;
       } catch {
          console.warn('Autoplay blocked');
       }
