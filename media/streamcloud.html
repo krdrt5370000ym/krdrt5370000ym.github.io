@@ -183,7 +183,7 @@ dlEl.onclick = async (e) => {
    e.preventDefault();
 
    await forceDownload(
-      'https://cors.krdrt5370000ym2.workers.dev' + audioUrl,
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(audioUrl),
       data.results?.[0]?.fileKey || `${data.videoId}.mp3`
    );
 };
