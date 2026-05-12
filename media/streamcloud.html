@@ -99,8 +99,39 @@ audio {
 <script>
 const API_URL = 'https://streamcloud.krdrt5370000ym2.workers.dev';
 
-function forceDownload(url) {
-   window.open(url, "_blank");
+async function forceDownload(url, name = "audio.mp3") {
+   try {
+
+      const res = await fetch(url);
+
+      if (!res.ok) {
+         throw new Error(`HTTP ${res.status}`);
+      }
+
+      const blob = await res.blob();
+
+      const blobUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+
+      a.href = blobUrl;
+      a.download = name;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
+      // cleanup pamięci
+      setTimeout(() => {
+         URL.revokeObjectURL(blobUrl);
+      }, 1000);
+
+   } catch (err) {
+      console.error("Download error:", err);
+      alert("Nie udało się pobrać pliku");
+   }
 }
 
 async function init() {
@@ -147,8 +178,15 @@ if (!audioUrl) {
 
 audioEl.src = audioUrl;
 
-dlEl.onclick = (e) => {
+dlEl.onclick = async (e) => {
+
    e.preventDefault();
+
+   await forceDownload(
+      audioUrl,
+      data.results?.[0]?.fileKey || `${data.videoId}.mp3`
+   );
+};
 
    if (!audioUrl) {
       console.error("Brak audioUrl");
