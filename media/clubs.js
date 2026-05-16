@@ -62,7 +62,7 @@ function renderList(clubs) {
       // audio=true → odtwarzaj w playerze
       if (club.audio === true) {
          button = `
-            <button onclick="playAudio('${club.value}')">
+            <button onclick="playAudio('${club.value}', '${club.name}')">
               ▶ Odtwórz
             </button>
           `;
@@ -92,11 +92,16 @@ function renderList(clubs) {
    });
 }
 
-function playAudio(url) {
+function playAudio(url, title) {
+
    const player = document.getElementById('mainPlayer');
    const source = document.getElementById('mainSource');
+   const settitle = document.getElementById('set-title');
 
    source.src = url;
+
+   // tytuł seta
+   settitle.textContent = title;
 
    // pokaż player
    player.style.display = 'block';
@@ -104,7 +109,7 @@ function playAudio(url) {
    player.load();
    player.play();
 
-   // przewiń do playera
+   // scroll do playera
    window.scrollTo({
       top: player.offsetTop - 50,
       behavior: 'smooth'
