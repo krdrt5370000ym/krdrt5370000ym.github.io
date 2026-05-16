@@ -93,124 +93,89 @@
     }
   </style>
 </head>
-<body>
-    
-  <a href="https://krdrt5370000ym.github.io/" style="text-decoration:none;color:white;">Wstecz</a>
-
+<body>  
+  <a href="https://krdrt5370000ym.github.io/" style="text-decoration:none;color:white;">Wstecz</a> | <a href="https://www.beatport.com" style="text-decoration:none;color:white;">Beatport</a>
   <h1>Klubowy Player</h1>
-
   <!-- GŁÓWNY PLAYER -->
   <div class="audio-player">
     <audio id="mainPlayer" controls style="display:none;">
       <source id="mainSource" src="">
     </audio>
   </div>
-
 <!-- WYSZUKIWARKA -->
 <div class="search-box">
-  <input 
-    type="text" 
-    id="searchInput"
-    placeholder="Szukaj seta lub kategorii..."
-  >
+  <input type="text" id="searchInput" placeholder="Szukaj seta lub kategorii...">
 </div>
-
 <!-- FILTR -->
 <div class="filter">
   <label for="categoryFilter">Kategoria:</label>
-
   <select id="categoryFilter">
     <option value="all">Wszystkie</option>
   </select>
 </div>
-
   <div class="list" id="clubList"></div>
-
   <script>
     const jsonUrl = 'https://krdrt5370000ym.github.io/media/json/clubs.json';
-
     let allClubs = [];
-
     async function loadClubs() {
       try {
         const response = await fetch(jsonUrl);
         const data = await response.json();
-
         allClubs = data.clubs;
-
         createCategories(allClubs);
         renderList(allClubs);
-
         // FILTR KATEGORII
         document
           .getElementById('categoryFilter')
           .addEventListener('change', filterClubs);
-
         // WYSZUKIWARKA
         document
           .getElementById('searchInput')
           .addEventListener('input', filterClubs);
-
       } catch (error) {
         console.error('Błąd ładowania JSON:', error);
       }
     }
 
     function filterClubs() {
-
       const category =
         document.getElementById('categoryFilter').value;
-
       const search =
         document.getElementById('searchInput')
           .value
           .toLowerCase();
-
       const filtered = allClubs.filter(club => {
-
         const matchCategory =
           category === 'all' ||
           club.category === category;
-
         const matchSearch =
           club.name.toLowerCase().includes(search) ||
           club.category.toLowerCase().includes(search);
-
         return matchCategory && matchSearch;
       });
-
       renderList(filtered);
     }
 
     function createCategories(clubs) {
       const select = document.getElementById('categoryFilter');
-
       const categories = [
         ...new Set(clubs.map(club => club.category))
       ];
-
       categories.forEach(category => {
         const option = document.createElement('option');
-
         option.value = category;
         option.textContent = category;
-
         select.appendChild(option);
       });
     }
 
     function renderList(clubs) {
       const list = document.getElementById('clubList');
-
       list.innerHTML = '';
-
       clubs.forEach(club => {
-
         const item = document.createElement('div');
         item.className = 'item';
-
         let button = '';
-
         // audio=true → odtwarzaj w playerze
         if (club.audio === true) {
           button = `
@@ -219,7 +184,6 @@
             </button>
           `;
         }
-
         // audio=false → otwórz link
         if (club.audio === false) {
           button = `
@@ -230,7 +194,6 @@
             </a>
           `;
         }
-
         item.innerHTML = `
           <div class="title">
             ${club.name} |
@@ -245,7 +208,6 @@
         list.appendChild(item);
       });
     }
-
     function playAudio(url) {
       const player = document.getElementById('mainPlayer');
       const source = document.getElementById('mainSource');
@@ -264,9 +226,7 @@
         behavior: 'smooth'
       });
     }
-
     loadClubs();
   </script>
-
 </body>
 </html>
