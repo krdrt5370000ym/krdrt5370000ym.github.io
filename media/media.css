@@ -1,19 +1,28 @@
+/* ==============================
+   RADIO MAIN - Top menu
+   ============================== */
 .radio-main {
     background: #f8f8f8; /* light gray background */
     padding: 15px 20px;
     border-radius: 8px;
-    margin-bottom: 20px; /* space between the menu and the cards */
+    margin-bottom: 20px; /* space between menu and cards */
 }
 
 .radio-main .station-list {
     list-style: none; /* remove bullets */
     display: flex;
-    gap: 15px; /* spacing between links */
+    flex-wrap: wrap; /* wrap on small screens */
+    gap: 10px;
     padding: 0;
     margin: 0;
 }
 
+.radio-main .station-list li {
+    margin: 0;
+}
+
 .radio-main .station-list li a {
+    display: block; /* full clickable area */
     text-decoration: none;
     color: #333;
     font-weight: 500;
@@ -27,15 +36,19 @@
     color: white;
 }
 
+/* ==============================
+   RADIO CONTAINER - Grid of cards
+   ============================== */
 .radio-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
-    /* font-family: 'Segoe UI', sans-serif; */
 }
 
-/* Karta grupy */
+/* ==============================
+   RADIO CARD
+   ============================== */
 .radio-card {
     background: #fff;
     border-radius: 12px;
@@ -44,7 +57,9 @@
     border: 1px solid #eee;
 }
 
-/* Nagłówki grup */
+/* ==============================
+   CARD HEADER
+   ============================== */
 .card-header {
     padding: 15px;
     font-weight: bold;
@@ -54,57 +69,53 @@
     letter-spacing: 1px;
 }
 
-/* Kolory dla poszczególnych grup */
-.time-sa {
-    background: #e67e22;
-}
+/* Colors for each group */
+.time-sa { background: #e67e22; }  /* Orange */
+.agora   { background: #e74c3c; }  /* Red */
+.rmf     { background: #f1c40f; color: #333; } /* Yellow */
+.inne    { background: #34495e; }  /* Dark Blue */
 
-/* Pomarańczowy */
-.agora {
-    background: #e74c3c;
-}
-
-/* Czerwony */
-.rmf {
-    background: #f1c40f;
-    color: #333;
-}
-
-/* Żółty */
-.inne {
-    background: #34495e;
-}
-
-/* Granatowy */
-
-/* Lista stacji */
-.station-list {
+/* ==============================
+   STATION LIST INSIDE CARDS
+   ============================== */
+.radio-card .station-list {
     list-style: none;
     padding: 0;
     margin: 0;
-
-    a {
-        text-decoration: none;
-    }
 }
 
-.station-list li {
+.radio-card .station-list li a {
+    display: block;
     padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
     color: #444;
-    transition: background 0.3s;
+    text-decoration: none;
+    transition: background 0.3s, padding-left 0.3s;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.station-list li:last-child {
+.radio-card .station-list li:last-child a {
     border-bottom: none;
+    border-radius: 0 0 12px 12px; /* match card rounding */
 }
 
-/* Efekt najechania myszką */
-.station-list li:hover {
+.radio-card .station-list li a:hover {
     background: #f8f9fa;
+    padding-left: 20px; /* subtle shift effect */
     cursor: pointer;
-    padding-left: 20px;
-    /* Delikatne przesunięcie */
+}
+
+/* ==============================
+   RESPONSIVE ADJUSTMENTS
+   ============================== */
+@media (max-width: 600px) {
+    .radio-main .station-list {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .radio-container {
+        grid-template-columns: 1fr; /* single column on small screens */
+    }
 }
 
 .fb-container {
