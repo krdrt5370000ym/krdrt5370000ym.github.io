@@ -1,12 +1,12 @@
 // <div id="episode-list">Ładowanie odcinków...</div>
 let nextEpisodesUrl = null;
-let currentPage = 0;
+let grupaZprLastId = null;
 let eurozetOffset = 0;
 let agoraOffset = 0;
 let wpCurrentPage = 1;
 
 function resetPodcastPagination() {
-   currentPage = 0;
+   grupaZprLastId = null;
    wpCurrentPage = 1;
    agoraOffset = 0;
    eurozetOffset = 0;
