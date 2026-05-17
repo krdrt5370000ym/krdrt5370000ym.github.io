@@ -279,14 +279,13 @@ async function uruchomPodcast() {
       // 👉 WAŻNE: inicjalizacja po renderze
       setTimeout(() => {
          const btn = document.getElementById('load-more-btn');
-         if (btn) {
-            btn.onclick = () => {
-               if (loadMoreHandler) {
-                  loadMoreHandler();
-               }
-            };
-         }
-      }, 2000);
+         if (!btn) return;
+         btn.onclick = () => {
+            if (window.loadMoreHandler) {
+               window.loadMoreHandler();
+            }
+         };  
+      }, 550);
       // 👉 RESET pagination (globalnie)
       if (typeof resetPodcastPagination === "function") {
          resetPodcastPagination();
