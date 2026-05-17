@@ -1,17 +1,11 @@
 function startPodcastEngine(podcast) {
-
    if (podcast.provider === 'spreaker') {
-
       SpreakerPodcast(podcast.showId);
-
       loadMoreHandler = () =>
          SpreakerPodcast(podcast.showId, true);
    }
-
    else if (podcast.provider === 'grupazpr') {
-
       GrupaZPRPodcast(podcast.podcastUid, podcast.siteUid);
-
       loadMoreHandler = () =>
          GrupaZPRPodcast(
             podcast.podcastUid,
@@ -19,15 +13,12 @@ function startPodcastEngine(podcast) {
             true
          );
    }
-
    else if (podcast.provider === 'eurozet') {
-
       EurozetPodcast(
          podcast.showId,
          podcast.mainUrl,
          podcast.stationId
       );
-
       loadMoreHandler = () =>
          EurozetPodcast(
             podcast.showId,
@@ -36,14 +27,11 @@ function startPodcastEngine(podcast) {
             true
          );
    }
-
    else if (podcast.provider === 'wordpress') {
-
       WPPodcast(
          podcast.categoryId,
          podcast.mainUrl
       );
-
       loadMoreHandler = () =>
          WPPodcast(
             podcast.categoryId,
@@ -51,15 +39,12 @@ function startPodcastEngine(podcast) {
             true
          );
    }
-
    else if (podcast.provider === 'agora') {
-
       AgoraPodcast(
          podcast.brandId,
          podcast.seriesId,
          podcast.mainUrl
       );
-
       loadMoreHandler = () =>
          AgoraPodcast(
             podcast.brandId,
@@ -68,27 +53,18 @@ function startPodcastEngine(podcast) {
             true
          );
    }
-
    else if (podcast.provider === 'rvg') {
-
       WPPodcastRVG();
-
       loadMoreHandler = () =>
          WPPodcastRVG(true);
    }
-
    else if (podcast.provider === 'rvr') {
-
       WPPodcastRVR();
-
       loadMoreHandler = () =>
          WPPodcastRVR(true);
    }
-
    else if (podcast.provider === 'rva') {
-
       WPPodcastRVA(podcast.programId);
-
       loadMoreHandler = () =>
          WPPodcastRVA(podcast.programId, true);
    }
