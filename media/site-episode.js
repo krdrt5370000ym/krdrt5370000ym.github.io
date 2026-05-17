@@ -177,8 +177,9 @@ function SpreakerPodcast(showId, append = false) {
 }
 
 function GrupaZPRPodcast(podcastUid, siteUid, append = false) {
-   const apiUrl =
-      `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&page=${currentPage}`;
+   const apiUrl = grupaZprLastId
+   ? `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&last_id=${grupaZprLastId}`
+   : `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&page=0`;
    const proxyUrl =
       'https://cors.krdrt5370000ym2.workers.dev/?url=' +
       encodeURIComponent(apiUrl);
@@ -201,7 +202,7 @@ function GrupaZPRPodcast(podcastUid, siteUid, append = false) {
       .then(data => {
          const episodes = data.episodes || [];
          // może być 0
-         const nextPage = data.next_page;
+         const lastId = data.last_id;
          if (episodes.length === 0) {
             if (!append) {
                container.innerHTML =
@@ -221,8 +222,8 @@ function GrupaZPRPodcast(podcastUid, siteUid, append = false) {
                .insertAdjacentHTML('beforeend', htmlContent);
          }
          // Pagination
-         if (nextPage != null) {
-            currentPage = nextPage;
+         if (lastId) {
+            grupaZprLastId = lastId;
             button.style.display = 'block';
          } else {
             button.style.display = 'none';
