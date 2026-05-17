@@ -160,7 +160,7 @@ function SpreakerPodcast(showId, append = false) {
             button.style.display = 'none';
             return;
          }
-         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${episode.site_url}" target="_blank">${episode.title}</a><a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">▶</a></li>`).join('');
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${episode.site_url}" target="_blank">${episode.title}</a> <a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">▶</a></li>`).join('');
          // Pierwsze ładowanie
          if (!append) {
             container.innerHTML = `
@@ -230,7 +230,7 @@ const apiUrl = grupaZprLastId
             button.style.display = 'none';
             return;
          }
-         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title">${episode.title}<a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}');return false;">▶</a></li>
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title">${episode.title} <a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}');return false;">▶</a></li>
          `).join('');
          // Pierwsze ładowanie
          if (!append) {
@@ -286,7 +286,7 @@ function EurozetPodcast(showId, mainUrl, stationId, append = false) {
             button.style.display = 'none';
             return;
          }
-         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a><a href="#" onclick="AudioPlayerEpisode('${episode.player.stream}');return false;">▶</a></li>`).join('');
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a> <a href="#" onclick="AudioPlayerEpisode('${episode.player.stream}');return false;">▶</a></li>`).join('');
          // Pierwsze ładowanie
          if (!append) {
             container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
@@ -411,7 +411,7 @@ function AgoraPodcast(brandId, seriesId, mainUrl, append = false) {
             button.style.display = 'none';
             return;
          }
-         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a><a href="#" onclick="GetAndPlayAgora(${brandId}, ${episode.podcast_id});return false;">▶</a></li>`).join('');
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a> <a href="#" onclick="GetAndPlayAgora(${brandId}, ${episode.podcast_id});return false;">▶</a></li>`).join('');
          // Pierwsze ładowanie
          if (!append) {
             container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
@@ -496,7 +496,7 @@ function WPPodcastRK(SearchId, append = false) {
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a> ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
             if (!append) {
                 container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
@@ -552,7 +552,7 @@ function WPPodcastRVG(append = false) {
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a> ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
             if (!append) {
                 container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
@@ -608,7 +608,7 @@ function WPPodcastRVR(append = false) {
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a> ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
             if (!append) {
                 container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
@@ -664,7 +664,7 @@ function WPPodcastRVA(ProgramId, append = false) {
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a> ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
             if (!append) {
                 container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
