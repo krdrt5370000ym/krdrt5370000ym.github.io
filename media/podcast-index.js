@@ -205,8 +205,10 @@ async function uruchomPodcast() {
       document.write(fullHTML);
       document.close();
       // 👉 WAŻNE: inicjalizacja po renderze
-      bindLoadMoreButton();
-      startPodcastEngine(podcast.podcast);
+      setTimeout(() => {
+         bindLoadMoreButton();
+         startPodcastEngine(podcast.podcast);
+      }, 1000);
       // 👉 RESET pagination (globalnie)
       if (typeof resetPodcastPagination === "function") {
          resetPodcastPagination();
