@@ -13,6 +13,79 @@ function resetPodcastPagination() {
    nextEpisodesUrl = null;
 }
 
+function startPodcastEngine(podcast) {
+   const podcastprovider = podcast.podcast.split("(")[0].trim();
+   if (podcastprovider === 'SpreakerPodcast') {
+      SpreakerPodcast(podcast.showId);
+      window.loadMoreHandler = () =>
+         SpreakerPodcast(podcast.showId, true);
+   }
+   else if (podcastprovider === 'GrupaZPRPodcast') {
+      GrupaZPRPodcast(podcast.podcastUid, podcast.siteUid);
+      window.loadMoreHandler = () =>
+         GrupaZPRPodcast(
+            podcast.podcastUid,
+            podcast.siteUid,
+            true
+         );
+   }
+   else if (podcastprovider === 'EurozetPodcast') {
+      EurozetPodcast(
+         podcast.showId,
+         podcast.mainUrl,
+         podcast.stationId
+      );
+      window.loadMoreHandler = () =>
+         EurozetPodcast(
+            podcast.showId,
+            podcast.mainUrl,
+            podcast.stationId,
+            true
+         );
+   }
+   else if (podcastprovider === 'WPPodcast') {
+      WPPodcast(
+         podcast.categoryId,
+         podcast.mainUrl
+      );
+      window.loadMoreHandler = () =>
+         WPPodcast(
+            podcast.categoryId,
+            podcast.mainUrl,
+            true
+         );
+   }
+   else if (podcastprovider === 'AgoraPodcast') {
+      AgoraPodcast(
+         podcast.brandId,
+         podcast.seriesId,
+         podcast.mainUrl
+      );
+      window.loadMoreHandler = () =>
+         AgoraPodcast(
+            podcast.brandId,
+            podcast.seriesId,
+            podcast.mainUrl,
+            true
+         );
+   }
+   else if (podcastprovider === 'WPPodcastRVG') {
+      WPPodcastRVG();
+      window.loadMoreHandler = () =>
+         WPPodcastRVG(true);
+   }
+   else if (podcastprovider === 'WPPodcastRVR') {
+      WPPodcastRVR();
+      window.loadMoreHandler = () =>
+         WPPodcastRVR(true);
+   }
+   else if (podcastprovider === 'WPPodcastRVA') {
+      WPPodcastRVA(podcast.programId);
+      window.loadMoreHandler = () =>
+         WPPodcastRVA(podcast.programId, true);
+   }
+}
+
 function SpreakerPodcast(showId, append = false) {
    const apiUrl = nextEpisodesUrl || 
       `https://api.spreaker.com/v2/shows/${showId}/episodes?limit=100`;
