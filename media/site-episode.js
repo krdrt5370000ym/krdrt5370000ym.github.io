@@ -1,4 +1,5 @@
 // <div id="episode-list">Ładowanie odcinków...</div>
+let PodcastProviderA = null;
 let nextEpisodesUrl = null;
 let currentPage = 0;
 let eurozetOffset = 0;
@@ -14,7 +15,7 @@ function resetPodcastPagination() {
 }
 
 function startPodcastEngine(podcast) {
-   const podcastprovider = podcast.podcast.split("(")[0].trim();
+   let PodcastProviderA = podcastprovider;
    if (podcastprovider === 'SpreakerPodcast') {
       SpreakerPodcast(podcast.showId);
       window.loadMoreHandler = () =>
@@ -84,6 +85,16 @@ function startPodcastEngine(podcast) {
       window.loadMoreHandler = () =>
          WPPodcastRVA(podcast.programId, true);
    }
+}
+
+function bindLoadMoreButton() {
+   const btn = document.getElementById('load-more-btn');
+   if (!btn) return;
+   btn.onclick = () => {
+      if (window.loadMoreHandler) {
+         window.loadMoreHandler();
+      }
+   };
 }
 
 function SpreakerPodcast(showId, append = false) {
