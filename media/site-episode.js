@@ -176,6 +176,8 @@ function SpreakerPodcast(showId, append = false) {
          // Pokazuj przycisk tylko gdy istnieje kolejna strona
          if (nextEpisodesUrl) {
             button.style.display = 'block';
+            button.innerText = "Załaduj więcej";
+            button.disabled = false;
          } else {
             button.style.display = 'none';
          }
@@ -242,6 +244,8 @@ const apiUrl = grupaZprLastId
          if (lastId) {
             grupaZprLastId = lastId;
             button.style.display = 'block';
+            button.innerText = "Załaduj więcej";
+            button.disabled = false;
          } else {
             button.style.display = 'none';
          }
@@ -297,6 +301,8 @@ function EurozetPodcast(showId, mainUrl, stationId, append = false) {
          if (episodes.length >= 250) {
             eurozetOffset++;
             button.style.display = 'block';
+            button.innerText = "Załaduj więcej";
+            button.disabled = false;
          } else {
             button.style.display = 'none';
          }
@@ -362,6 +368,8 @@ async function WPPodcast(categoryId, mainUrl, append = false) {
       if (wpCurrentPage < totalPages) {
          wpCurrentPage++;
          button.style.display = 'block';
+         button.innerText = "Załaduj więcej";
+         button.disabled = false;
       } else {
          button.style.display = 'none';
       }
@@ -418,6 +426,8 @@ function AgoraPodcast(brandId, seriesId, mainUrl, append = false) {
          if (episodes.length > 0) {
             agoraOffset += 100;
             button.style.display = 'block';
+            button.innerText = "Załaduj więcej";
+            button.disabled = false;
          } else {
             button.style.display = 'none';
          }
@@ -498,6 +508,10 @@ function WPPodcastRK(SearchId, append = false) {
             // Pagination
             wpCurrentPage++;
             document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+            if (posts.length === 100) {
+               document.getElementById('load-more-btn').innerText = "Załaduj więcej";
+               document.getElementById('load-more-btn').disabled = false;
+            }
         })
         .catch(error => {
             console.error("Błąd WP API:", error);
@@ -550,6 +564,10 @@ function WPPodcastRVG(append = false) {
             // Pagination
             wpCurrentPage++;
             document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+            if (posts.length === 100) {
+               document.getElementById('load-more-btn').innerText = "Załaduj więcej";
+               document.getElementById('load-more-btn').disabled = false;
+            }
         })
         .catch(error => {
             console.error("Błąd WP API:", error);
@@ -602,6 +620,10 @@ function WPPodcastRVR(append = false) {
             // Pagination
             wpCurrentPage++;
             document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+            if (posts.length === 100) {
+               document.getElementById('load-more-btn').innerText = "Załaduj więcej";
+               document.getElementById('load-more-btn').disabled = false;
+            }
         })
         .catch(error => {
             console.error("Błąd WP API:", error);
@@ -654,6 +676,10 @@ function WPPodcastRVA(ProgramId, append = false) {
             // Pagination
             wpCurrentPage++;
             document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+            if (posts.length === 100) {
+               document.getElementById('load-more-btn').innerText = "Załaduj więcej";
+               document.getElementById('load-more-btn').disabled = false;
+            }
         })
         .catch(error => {
             console.error("Błąd WP API:", error);
