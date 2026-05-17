@@ -1,54 +1,106 @@
-function startPodcastEngine(podcast) {
-   const podcastprovider = podcast.podcast.split("(")[0].trim();
-   if (podcastprovider === 'SpreakerPodcast') {
-      window.loadMoreHandler = () =>
-         SpreakerPodcast(podcast.showId, true);
+function normalizePodcast(podcastA) {
+   if (typeof podcastA === 'string') {
+      const name = podcastA.split("(")[0].trim();
+      const args = podcastA
+         .match(/\((.*?)\)/)?.[1]
+         ?.split(",")
+         .map(v => v.replace(/['"]/g, '').trim()) || [];
+      const base = { provider: name };
+      switch (name) {
+         case 'SpreakerPodcast':
+            return {
+               ...base,
+               showId: args[0]
+            };
+         case 'GrupaZPRPodcast':
+            return {
+               ...base,
+               podcastUid: args[0],
+               siteUid: args[1]
+            };
+         case 'EurozetPodcast':
+            return {
+               ...base,
+               showId: args[0],
+               mainUrl: args[1],
+               stationId: args[2]
+            };
+         case 'WPPodcast':
+            return {
+               ...base,
+               categoryId: args[0],
+               mainUrl: args[1]
+            };
+         case 'AgoraPodcast':
+            return {
+               ...base,
+               brandId: args[0],
+               seriesId: args[1],
+               mainUrl: args[2]
+            };
+         case 'WPPodcastRVA':
+            return {
+               ...base,
+               programId: args[0]
+            };
+         default:
+            return base;
+      }
    }
-   else if (podcastprovider === 'GrupaZPRPodcast') {
+   return podcastA;
+}          
+          
+function startPodcastEngine(podcastA) {
+   podcastB = normalizePodcast(podcastA);
+   if (podcastB.provider === 'SpreakerPodcast') {
+      window.loadMoreHandler = () =>
+         SpreakerPodcast(podcastB.showId, true);
+   }
+   else if (podcastB.provider === 'GrupaZPRPodcast') {
       window.loadMoreHandler = () =>
          GrupaZPRPodcast(
-            podcast.podcastUid,
-            podcast.siteUid,
+            podcastB.podcastUid,
+            podcastB.siteUid,
             true
          );
    }
-   else if (podcastprovider === 'EurozetPodcast') {
+   else if (podcastB.provider === 'EurozetPodcast') {
       window.loadMoreHandler = () =>
          EurozetPodcast(
-            podcast.showId,
-            podcast.mainUrl,
-            podcast.stationId,
+            podcastB.showId,
+            podcastB.mainUrl,
+            podcastB.stationId,
             true
          );
    }
-   else if (podcastprovider === 'WPPodcast') {
+   else if (podcastB.provider === 'WPPodcast') {
       window.loadMoreHandler = () =>
          WPPodcast(
-            podcast.categoryId,
-            podcast.mainUrl,
+            podcastB.categoryId,
+            podcastB.mainUrl,
             true
          );
    }
-   else if (podcastprovider === 'AgoraPodcast') {
+   else if (podcastB.provider === 'AgoraPodcast') {
       window.loadMoreHandler = () =>
          AgoraPodcast(
-            podcast.brandId,
-            podcast.seriesId,
-            podcast.mainUrl,
+            podcastB.brandId,
+            podcastB.seriesId,
+            podcastB.mainUrl,
             true
          );
    }
-   else if (podcastprovider === 'WPPodcastRVG') {
+   else if (podcastB.provider === 'WPPodcastRVG') {
       window.loadMoreHandler = () =>
          WPPodcastRVG(true);
    }
-   else if (podcastprovider === 'WPPodcastRVR') {
+   else if (podcastB.provider === 'WPPodcastRVR') {
       window.loadMoreHandler = () =>
          WPPodcastRVR(true);
    }
-   else if (podcastprovider === 'WPPodcastRVA') {
+   else if (podcastB.provider === 'WPPodcastRVA') {
       window.loadMoreHandler = () =>
-         WPPodcastRVA(podcast.programId, true);
+         WPPodcastRVA(podcastB.programId, true);
    }
 }
 
