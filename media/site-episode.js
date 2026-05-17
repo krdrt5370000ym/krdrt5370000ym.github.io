@@ -273,7 +273,7 @@ function EurozetPodcast(showId, mainUrl, stationId, append = false) {
          }
          // Jeśli liczba wyników > 0,
          // zakładamy że może istnieć kolejna strona
-         if (episodes.length > 0) {
+         if (episodes.length > 250) {
             eurozetOffset++;
             button.style.display = 'block';
          } else {
