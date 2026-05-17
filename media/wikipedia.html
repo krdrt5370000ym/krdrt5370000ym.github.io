@@ -30,7 +30,12 @@ async function loadWikiPage() {
     `https://${language}.${project}.org/w/api.php?action=parse&page=${page}&prop=text&formatversion=2&format=json&origin=*`
   );
   const data = await response.json();
-  document.getElementById('wiki-post').innerHTML = `<div class="article_title_posts">${data.parse.title}</div>${data.parse.text}`;}
+  // Remove stylesheet links
+  let cleanHtml = data.parse.text.replace(
+    /<link[^>]*stylesheet[^>]*>/gi,
+    ''
+  );
+  document.getElementById('wiki-post').innerHTML = `<h2>${data.parse.title}</h2>${cleanHtml}`;}
 loadWikiPage();
 </script>
       <script src="/site-sidebar.js"></script>
