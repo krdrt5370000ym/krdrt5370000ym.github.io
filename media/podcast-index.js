@@ -286,7 +286,7 @@ async function uruchomPodcast() {
                }
             };
          }
-      }, 50);
+      }, 2000);
       // 👉 RESET pagination (globalnie)
       if (typeof resetPodcastPagination === "function") {
          resetPodcastPagination();
