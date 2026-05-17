@@ -1,14 +1,10 @@
-let PodcastProviderA = null;
-
 function startPodcastEngine(podcast) {
-   let PodcastProviderA = podcastprovider;
+   const podcastprovider = podcast.podcast.split("(")[0].trim();
    if (podcastprovider === 'SpreakerPodcast') {
-      SpreakerPodcast(podcast.showId);
       window.loadMoreHandler = () =>
          SpreakerPodcast(podcast.showId, true);
    }
    else if (podcastprovider === 'GrupaZPRPodcast') {
-      GrupaZPRPodcast(podcast.podcastUid, podcast.siteUid);
       window.loadMoreHandler = () =>
          GrupaZPRPodcast(
             podcast.podcastUid,
@@ -17,11 +13,6 @@ function startPodcastEngine(podcast) {
          );
    }
    else if (podcastprovider === 'EurozetPodcast') {
-      EurozetPodcast(
-         podcast.showId,
-         podcast.mainUrl,
-         podcast.stationId
-      );
       window.loadMoreHandler = () =>
          EurozetPodcast(
             podcast.showId,
@@ -31,10 +22,6 @@ function startPodcastEngine(podcast) {
          );
    }
    else if (podcastprovider === 'WPPodcast') {
-      WPPodcast(
-         podcast.categoryId,
-         podcast.mainUrl
-      );
       window.loadMoreHandler = () =>
          WPPodcast(
             podcast.categoryId,
@@ -43,11 +30,6 @@ function startPodcastEngine(podcast) {
          );
    }
    else if (podcastprovider === 'AgoraPodcast') {
-      AgoraPodcast(
-         podcast.brandId,
-         podcast.seriesId,
-         podcast.mainUrl
-      );
       window.loadMoreHandler = () =>
          AgoraPodcast(
             podcast.brandId,
@@ -57,17 +39,14 @@ function startPodcastEngine(podcast) {
          );
    }
    else if (podcastprovider === 'WPPodcastRVG') {
-      WPPodcastRVG();
       window.loadMoreHandler = () =>
          WPPodcastRVG(true);
    }
    else if (podcastprovider === 'WPPodcastRVR') {
-      WPPodcastRVR();
       window.loadMoreHandler = () =>
          WPPodcastRVR(true);
    }
    else if (podcastprovider === 'WPPodcastRVA') {
-      WPPodcastRVA(podcast.programId);
       window.loadMoreHandler = () =>
          WPPodcastRVA(podcast.programId, true);
    }
