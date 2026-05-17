@@ -289,13 +289,12 @@ async function uruchomPodcast() {
       // 👉 WAŻNE: inicjalizacja po renderze
       setTimeout(() => {
          bindLoadMoreButton();
+         startPodcastEngine(podcast);
       }, 0);
       // 👉 RESET pagination (globalnie)
       if (typeof resetPodcastPagination === "function") {
          resetPodcastPagination();
       }
-      // 👉 START podcastu (tu Twoja logika wyboru providerów)
-      startPodcastEngine(podcast);
    } catch (err) {
       console.error(err);
       document.body.innerHTML =
