@@ -157,7 +157,7 @@ async function uruchomPodcast() {
           <div class="podcast_list_episode">
               <h3>Lista odcinków podcastu:</h3>
               <div id="episode-list">Ładowanie odcinków...</div>
-              <button id="load-more-btn" style="display:none;">Załaduj więcej</button></div>
+              <button id="load-more-btn" style="display:none;">Załaduj więcej</button>
           </div>` : '';
 
       const socialConfig = [{
