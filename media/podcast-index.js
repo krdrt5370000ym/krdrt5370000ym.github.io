@@ -70,6 +70,16 @@ function startPodcastEngine(podcast) {
    }
 }
 
+function bindLoadMoreButton() {
+   const btn = document.getElementById('load-more-btn');
+   if (!btn) return;
+   btn.onclick = () => {
+      if (window.loadMoreHandler) {
+         window.loadMoreHandler();
+      }
+   };
+}
+
 async function uruchomPodcast() {
    const params = new URLSearchParams(window.location.search);
    const uid = params.get('uid');
@@ -278,14 +288,8 @@ async function uruchomPodcast() {
       document.close();
       // 👉 WAŻNE: inicjalizacja po renderze
       setTimeout(() => {
-         const btn = document.getElementById('load-more-btn');
-         if (!btn) return;
-         btn.onclick = () => {
-            if (window.loadMoreHandler) {
-               window.loadMoreHandler();
-            }
-         };  
-      }, 550);
+         bindLoadMoreButton();
+      }, 0);
       // 👉 RESET pagination (globalnie)
       if (typeof resetPodcastPagination === "function") {
          resetPodcastPagination();
