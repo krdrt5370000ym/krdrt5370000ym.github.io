@@ -1,35 +1,51 @@
 // <div id="episode-list">Ładowanie odcinków...</div>
-function SpreakerPodcast(showId) {
-   // Dodanie parametru limit=100 pozwala pobrać więcej odcinków w jednym zapytaniu
-   const apiUrl = 'https://api.spreaker.com/v2/shows/' + showId + '/episodes?limit=100';
-   const container = document.getElementById('episode-list');
+let nextEpisodesUrl = null;
 
+function SpreakerPodcast(showId, append = false) {
+   const apiUrl = nextEpisodesUrl || 
+      `https://api.spreaker.com/v2/shows/${showId}/episodes?limit=100`;
+   const container = document.getElementById('episode-list');
+   const button = document.getElementById('load-more-btn');
    fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-         // Dostęp do tablicy odcinków: response -> items
          const episodes = data.response.items;
-
-         if (episodes.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
+         // URL do kolejnej strony
+         nextEpisodesUrl = data.response.next_url || null;
+         if (!episodes || episodes.length === 0) {
+            if (!append) {
+               container.innerHTML = "Brak dostępnych odcinków.";
+            }
+            button.style.display = 'none';
             return;
          }
-
-         const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        <a href="${episode.site_url}" target="_blank">${episode.title}</a> 
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.playback_url}');
-                            return false;
-                        ">▶</a>
-                    </li>`
-            ).join('')}</ul>`;
-
-         container.innerHTML = htmlContent;
+         const htmlContent = episodes.map(episode => `
+            <li class="podcast_list_episode_title"><a href="${episode.site_url}" target="_blank">${episode.title}</a><a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">▶</a></li>`).join('');
+         // Pierwsze ładowanie
+         if (!append) {
+            container.innerHTML = `
+               <ul class="podcast_list_episode_content">
+                  ${htmlContent}
+               </ul>
+            `;
+         } else {
+            // Dopisywanie kolejnych odcinków
+            container.querySelector('.podcast_list_episode_content')
+               .insertAdjacentHTML('beforeend', htmlContent);
+         }
+         // Pokazuj przycisk tylko gdy istnieje kolejna strona
+         if (nextEpisodesUrl) {
+            button.style.display = 'block';
+         } else {
+            button.style.display = 'none';
+         }
       })
       .catch(error => {
          console.error("Błąd Spreaker API:", error);
-         container.innerHTML = "Błąd podczas ładowania podcastu.";
+         if (!append) {
+            container.innerHTML = "Błąd podczas ładowania podcastu.";
+         }
+         button.style.display = 'none';
       });
 }
 
