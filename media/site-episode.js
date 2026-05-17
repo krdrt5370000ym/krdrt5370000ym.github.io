@@ -1,5 +1,9 @@
 // <div id="episode-list">Ładowanie odcinków...</div>
 let nextEpisodesUrl = null;
+let currentPage = 0;
+let eurozetOffset = 0;
+let agoraOffset = 0;
+let wpCurrentPage = 1;
 
 function SpreakerPodcast(showId, append = false) {
    const apiUrl = nextEpisodesUrl || 
@@ -19,8 +23,7 @@ function SpreakerPodcast(showId, append = false) {
             button.style.display = 'none';
             return;
          }
-         const htmlContent = episodes.map(episode => `
-            <li class="podcast_list_episode_title"><a href="${episode.site_url}" target="_blank">${episode.title}</a><a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">▶</a></li>`).join('');
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${episode.site_url}" target="_blank">${episode.title}</a><a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}'); return false;">▶</a></li>`).join('');
          // Pierwsze ładowanie
          if (!append) {
             container.innerHTML = `
@@ -49,147 +52,235 @@ function SpreakerPodcast(showId, append = false) {
       });
 }
 
-function GrupaZPRPodcast(podcastUid, SiteUid) {
-   // Używamy proxy, ponieważ GitHub nie obsługuje PHP do obejścia CORS
-   const apiUrl = `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${SiteUid}`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
-
+function GrupaZPRPodcast(podcastUid, siteUid, append = false) {
+   const apiUrl =
+      `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&page=${currentPage}`;
+   const proxyUrl =
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
+      encodeURIComponent(apiUrl);
    const container = document.getElementById('episode-list');
-
+   const button = document.getElementById('load-more-btn');
    fetch(proxyUrl)
       .then(response => {
          if (!response.ok) {
-            // Rzuca błąd z kodem statusu (np. "Błąd sieci: 404")
             throw new Error(`Błąd sieci: ${response.status}`);
          }
-         // Sprawdza, czy nagłówek odpowiedzi to faktycznie JSON
          const contentType = response.headers.get("content-type");
-         if (!contentType || !contentType.includes("application/json")) {
-            throw new TypeError("Otrzymano format inny niż JSON!");
+         if (!contentType ||
+             !contentType.includes("application/json")) {
+            throw new TypeError(
+               "Otrzymano format inny niż JSON!"
+            );
          }
          return response.json();
       })
       .then(data => {
-         // Grupa ZPR zwraca dane w polu 'episodes'
          const episodes = data.episodes || [];
-
+         // może być 0
+         const nextPage = data.next_page;
          if (episodes.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
+            if (!append) {
+               container.innerHTML =
+                  "Brak dostępnych odcinków.";
+            }
+            button.style.display = 'none';
             return;
          }
-
-         const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        ${episode.title}
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.playback_url}');
-                            return false;
-                        ">▶</a>
-                    </li>`
-            ).join('')}</ul>`;
-
-         container.innerHTML = htmlContent;
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title">${episode.title}<a href="#" onclick="AudioPlayerEpisode('${episode.playback_url}');return false;">▶</a></li>
+         `).join('');
+         // Pierwsze ładowanie
+         if (!append) {
+            container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+         } else {
+            container
+               .querySelector('.podcast_list_episode_content')
+               .insertAdjacentHTML('beforeend', htmlContent);
+         }
+         // Pagination
+         if (nextPage != null) {
+            currentPage = nextPage;
+            button.style.display = 'block';
+         } else {
+            button.style.display = 'none';
+         }
       })
       .catch(error => {
          console.error("Błąd:", error);
-         container.innerHTML = "Błąd podczas ładowania podcastu.";
+         if (!append) {
+            container.innerHTML =
+               "Błąd podczas ładowania podcastu.";
+         }
+         button.style.display = 'none';
       });
 }
 
-function EurozetPodcast(showId, mainUrl, stationId) {
-   const apiUrl = 'https://player.radiozet.pl/api/podcasts/getPodcastListByProgram/(node)/' + showId + '/(station)/' + stationId;
+function EurozetPodcast(showId, mainUrl, stationId, append = false) {
+   const apiUrl =
+      `https://player.radiozet.pl/api/podcasts/getPodcastListByProgram/(node)/${showId}/(station)/${stationId}/(offset)/${eurozetOffset}`;
    const container = document.getElementById('episode-list');
-
+   const button = document.getElementById('load-more-btn');
    fetch(apiUrl)
-      .then(response => response.json())
+      .then(response => {
+         if (!response.ok) {
+            throw new Error(`Błąd sieci: ${response.status}`);
+         }
+         return response.json();
+      })
       .then(data => {
-         // Dostęp do tablicy odcinków: response -> items
-         const episodes = data.data;
-
+         // Odcinki
+         const episodes = data.data || [];
          if (episodes.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
+            if (!append) {
+               container.innerHTML = "Brak dostępnych odcinków.";
+            }
+            button.style.display = 'none';
             return;
          }
-
-         const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        <a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a> 
-                        <a href="#" onclick="
-                            AudioPlayerEpisode('${episode.player.stream}');
-                            return false;
-                        ">▶</a>
-                    </li>`
-            ).join('')}</ul>`;
-
-         container.innerHTML = htmlContent;
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${mainUrl}${episode.url}" target="_blank">${episode.title}</a><a href="#" onclick="AudioPlayerEpisode('${episode.player.stream}');return false;">▶</a></li>`).join('');
+         // Pierwsze ładowanie
+         if (!append) {
+            container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+         } else {
+            // Dopisywanie kolejnych elementów
+            container
+               .querySelector('.podcast_list_episode_content')
+               .insertAdjacentHTML('beforeend', htmlContent);
+         }
+         // Jeśli liczba wyników > 0,
+         // zakładamy że może istnieć kolejna strona
+         if (episodes.length > 0) {
+            eurozetOffset++;
+            button.style.display = 'block';
+         } else {
+            button.style.display = 'none';
+         }
       })
       .catch(error => {
          console.error("Błąd:", error);
-         container.innerHTML = "Błąd podczas ładowania podcastu.";
+         if (!append) {
+            container.innerHTML =
+               "Błąd podczas ładowania podcastu.";
+         }
+         button.style.display = 'none';
       });
 }
 // Wywołanie z Twoim ID
 // EurozetPodcast(12345, "https://player.radiozet.pl/", "radiozet");
 
-async function WPPodcast(categoryId, mainUrl) {
+async function WPPodcast(categoryId, mainUrl, append = false) {
    const container = document.getElementById('episode-list');
-   const apiUrl = `${mainUrl}/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
-
+   const button = document.getElementById('load-more-btn');
+   const apiUrl =
+      `${mainUrl}/wp-json/wp/v2/posts?categories=${categoryId}&page=${wpCurrentPage}&per_page=100`;
+   const proxyUrl =
+      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
+      encodeURIComponent(apiUrl);
    try {
       const response = await fetch(proxyUrl);
+      if (!response.ok) {
+         throw new Error(`HTTP ${response.status}`);
+      }
       const posts = await response.json();
-
-      if (posts.length === 0) {
-         container.innerHTML = "Brak dostępnych odcinków.";
+      // Liczba wszystkich stron
+      const totalPages =
+         parseInt(response.headers.get('X-WP-TotalPages')) || 1;
+      // Brak wyników
+      if (!posts || posts.length === 0) {
+         if (!append) {
+            container.innerHTML = "Brak dostępnych odcinków.";
+         }
+         button.style.display = 'none';
          return;
       }
-
-      // Renderujemy szkielet listy
-      container.innerHTML = `<ul class="podcast_list_episode_content">${posts.map(post => `
-                <li id="post-${post.id}" class="podcast_list_episode_title">
-                    <a href="${post.link}" target="_blank">${post.title.rendered}</a>
-                    <span class="audio-placeholder"></span>
-                </li>
-        `).join('')}</ul>`;
-
-      // Dla każdego posta doczytujemy plik audio osobnym zapytaniem
-      posts.forEach(post => loadAudioForPost(post.id, mainUrl));
-
+      // HTML wpisów
+      const htmlContent = posts.map(post => `
+         <li id="post-${post.id}"class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a><span class="audio-placeholder"></span></li>`).join('');
+      // Pierwsze ładowanie
+      if (!append) {
+         container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+      } else {
+         // Dopisywanie kolejnych wpisów
+         container
+            .querySelector('.podcast_list_episode_content')
+            .insertAdjacentHTML('beforeend', htmlContent);
+      }
+      // Dociąganie audio dla nowych wpisów
+      posts.forEach(post => {
+         loadAudioForPost(post.id, mainUrl);
+      });
+      // Pagination
+      if (wpCurrentPage < totalPages) {
+         wpCurrentPage++;
+         button.style.display = 'block';
+      } else {
+         button.style.display = 'none';
+      }
    } catch (error) {
-      container.innerHTML = "Błąd ładowania.";
+      console.error("Błąd WP API:", error);
+      if (!append) {
+         container.innerHTML =
+            "Błąd podczas ładowania podcastu.";
+      }
+      button.style.display = 'none';
    }
 }
 // Przykład użycia (podaj ID kategorii z Twojego WordPressa)
 // WPPodcast(5,"https://radiorsc.pl");
 
-function AgoraPodcast(brandId, seriesId, mainUrl) {
-   const apiUrl = 'https://podcasts.radioagora.pl/api/getPodcasts?brand_id=' + brandId + '&limit=100&offset=0&series_id=' + seriesId;
+function AgoraPodcast(brandId, seriesId, mainUrl, append = false) {
+   const apiUrl =
+      `https://podcasts.radioagora.pl/api/getPodcasts?brand_id=${brandId}&limit=100&offset=${agoraOffset}&series_id=${seriesId}`;
    const container = document.getElementById('episode-list');
-
+   const button = document.getElementById('load-more-btn');
    fetch(apiUrl)
-      .then(response => response.json())
+      .then(response => {
+         if (!response.ok) {
+            throw new Error(`Błąd sieci: ${response.status}`);
+         }
+         return response.json();
+      })
       .then(data => {
          const episodes = data.records || [];
-
+         // Brak wyników
          if (episodes.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
+            if (!append) {
+               container.innerHTML = "Brak dostępnych odcinków.";
+            }
+            button.style.display = 'none';
             return;
          }
-
-         const htmlContent = `<ul class="podcast_list_episode_content">${episodes.map(episode => 
-                    `<li class="podcast_list_episode_title">
-                        <a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a> 
-                        <a href="#" onclick="
-                            GetAndPlayAgora(${brandId}, ${episode.podcast_id});
-                            return false;"
-                        >▶</a>
-                    </li>`
-            ).join('')}</ul>`;
-
-         container.innerHTML = htmlContent;
+         const htmlContent = episodes.map(episode => `<li class="podcast_list_episode_title"><a href="${mainUrl}/podcast/${episode.podcast_seo_url}/${episode.podcast_id}" target="_blank">${episode.podcast_name}</a><a href="#" onclick="GetAndPlayAgora(${brandId}, ${episode.podcast_id});return false;">▶</a></li>`).join('');
+         // Pierwsze ładowanie
+         if (!append) {
+            container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+         } else {
+            // Dopisywanie kolejnych elementów
+            container
+               .querySelector('.podcast_list_episode_content')
+               .insertAdjacentHTML('beforeend', htmlContent);
+         }
+         // Pagination
+         // Jeśli coś przyszło, zwiększamy offset
+         if (episodes.length > 0) {
+            agoraOffset++;
+            button.style.display = 'block';
+         } else {
+            button.style.display = 'none';
+         }
+         // Opcjonalnie:
+         // jeśli ostatnia strona ma mniej niż 100 elementów
+         if (episodes.length < 100) {
+            button.style.display = 'none';
+         }
       })
-      .catch(err => container.innerHTML = "Błąd API.");
+      .catch(error => {
+         console.error("Błąd API:", error);
+         if (!append) {
+            container.innerHTML =
+               "Błąd podczas ładowania podcastu.";
+         }
+         button.style.display = 'none';
+      });
 }
 
 // Funkcja pomocnicza pobierająca konkretny strumień przed odtworzeniem
