@@ -5,6 +5,14 @@ let eurozetOffset = 0;
 let agoraOffset = 0;
 let wpCurrentPage = 1;
 
+function resetPodcastPagination() {
+   currentPage = 0;
+   wpCurrentPage = 1;
+   agoraOffset = 0;
+   eurozetOffset = 0;
+   nextEpisodesUrl = null;
+}
+
 function SpreakerPodcast(showId, append = false) {
    const apiUrl = nextEpisodesUrl || 
       `https://api.spreaker.com/v2/shows/${showId}/episodes?limit=100`;
