@@ -177,7 +177,7 @@ function SpreakerPodcast(showId, append = false) {
 }
 
 function GrupaZPRPodcast(podcastUid, siteUid, append = false) {
-   const apiUrl = grupaZprLastId;
+const apiUrl = grupaZprLastId
    ? `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&last_id=${grupaZprLastId}`
    : `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&page=0`;
    const proxyUrl =
