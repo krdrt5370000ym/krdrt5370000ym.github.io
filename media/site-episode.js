@@ -425,227 +425,188 @@ function GetAndPlayAgora(brandId, podcastId) {
       });
 }
 
-async function LoadWPPodcast(apiUrl, append = false) {
-   const proxyUrl =
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
-      encodeURIComponent(apiUrl);
-   const container = document.getElementById('episode-list');
-   const button = document.getElementById('load-more-btn');
-   const parser = new DOMParser();
-   try {
-      const response = await fetch(proxyUrl);
-      if (!response.ok) {
-         throw new Error(`HTTP ${response.status}`);
-      }
-      const posts = await response.json();
-      // WordPress pagination
-      const totalPages =
-         parseInt(response.headers.get('X-WP-TotalPages')) || 1;
-      if (!posts || posts.length === 0) {
-         if (!append) {
-            container.innerHTML =
-               "Brak dostępnych odcinków.";
-         }
-         button.style.display = 'none';
-         return;
-      }
-      const htmlContent = posts.map(post => {
-         // Parsowanie audio
-         const docAudio = parser.parseFromString(
-            post.content.rendered,
-            'text/html'
-         );
-         const audioTag =
-            docAudio.querySelector('audio source') ||
-            docAudio.querySelector('audio');
-         const audioUrl =
-            audioTag?.getAttribute('src') || '';
-         return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl? `<a href="#"onclick="AudioPlayerEpisodeCORS('${audioUrl}');return false;">▶</a>`: ''}</li>`;
-      }).join('');
-      // Pierwsze ładowanie
-      if (!append) {
-         container.innerHTML = `
-            <ul class="podcast_list_episode_content">
-               ${htmlContent}
-            </ul>
-         `;
-      } else {
-         // Dopisywanie
-         container
-            .querySelector('.podcast_list_episode_content')
-            .insertAdjacentHTML('beforeend', htmlContent);
-      }
-      // Pagination
-      if (wpCurrentPage < totalPages) {
-         wpCurrentPage++;
-         button.style.display = 'block';
-      } else {
-         button.style.display = 'none';
-      }
-   } catch (error) {
-      console.error("Błąd WP API:", error);
-      if (!append) {
-         container.innerHTML =
-            "Błąd podczas ładowania postów.";
-      }
-      button.style.display = 'none';
-   }
-}
+function WPPodcastRK(SearchId, append = false) {
+    const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
-async function WPPodcastRK(SearchId, append = false) {
-   const apiUrl = `https://radiokolor.pl/wp-json/wp/v2/podcast?search=${searchId}&page=${wpCurrentPage}&per_page=100`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
-   const container = document.getElementById('episode-list');
-   const parser = new DOMParser();
+    if (!append) wpCurrentPage = 1;
 
-   fetch(proxyUrl)
-      .then(response => {
-         if (!response.ok) throw new Error('Błąd sieci');
-         return response.json();
-      })
-      .then(posts => {
-         if (posts.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
-            return;
-         }
+    const apiUrl = `https://radiokolor.pl/wp-json/wp/v2/podcast?search=${SearchId}&page=${wpCurrentPage}&per_page=100`;
+    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
 
-         const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+    fetch(proxyUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci');
+            return response.json();
+        })
+        .then(posts => {
+            if (posts.length === 0) {
+                if (!append) container.innerHTML = "Brak dostępnych odcinków.";
+                document.getElementById('load-more-btn').style.display = 'none';
+                return;
+            }
+
+            const htmlContent = posts.map(post => {
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
-         container.innerHTML = htmlContent;
-      })
-      .catch(error => {
-         console.error("Błąd WP API:", error);
-         container.innerHTML = "Błąd podczas ładowania postów.";
-      });
+            if (!append) {
+                container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+            } else {
+                container.querySelector('.podcast_list_episode_content')
+                         .insertAdjacentHTML('beforeend', htmlContent);
+            }
+
+            // Pagination
+            wpCurrentPage++;
+            document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            if (!append) container.innerHTML = "Błąd podczas ładowania postów.";
+            document.getElementById('load-more-btn').style.display = 'none';
+        });
 }
 
 function WPPodcastRVG(append = false) {
-   const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/gosc?page=${wpCurrentPage}&per_page=100`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
-   const container = document.getElementById('episode-list');
-   const parser = new DOMParser();
+    const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
-   fetch(proxyUrl)
-      .then(response => {
-         if (!response.ok) throw new Error('Błąd sieci');
-         return response.json();
-      })
-      .then(posts => {
-         if (posts.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
-            return;
-         }
+    if (!append) wpCurrentPage = 1;
 
-         const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+    const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/gosc?page=${wpCurrentPage}&per_page=100`;
+    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+
+    fetch(proxyUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci');
+            return response.json();
+        })
+        .then(posts => {
+            if (posts.length === 0) {
+                if (!append) container.innerHTML = "Brak dostępnych odcinków.";
+                document.getElementById('load-more-btn').style.display = 'none';
+                return;
+            }
+
+            const htmlContent = posts.map(post => {
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
-         container.innerHTML = htmlContent;
-         LoadWPPodcast(apiUrl, append);
-      })
-      .catch(error => {
-         console.error("Błąd WP API:", error);
-         container.innerHTML = "Błąd podczas ładowania postów.";
-      });
+            if (!append) {
+                container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+            } else {
+                container.querySelector('.podcast_list_episode_content')
+                         .insertAdjacentHTML('beforeend', htmlContent);
+            }
+
+            // Pagination
+            wpCurrentPage++;
+            document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            if (!append) container.innerHTML = "Błąd podczas ładowania postów.";
+            document.getElementById('load-more-btn').style.display = 'none';
+        });
 }
 
 function WPPodcastRVR(append = false) {
-   const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/reporter?page=${wpCurrentPage}&per_page=100`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
-   const container = document.getElementById('episode-list');
-   const parser = new DOMParser();
+    const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
-   fetch(proxyUrl)
-      .then(response => {
-         if (!response.ok) throw new Error('Błąd sieci');
-         return response.json();
-      })
-      .then(posts => {
-         if (posts.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
-            return;
-         }
+    if (!append) wpCurrentPage = 1;
 
-         const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+    const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/reporter?page=${wpCurrentPage}&per_page=100`;
+    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+
+    fetch(proxyUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci');
+            return response.json();
+        })
+        .then(posts => {
+            if (posts.length === 0) {
+                if (!append) container.innerHTML = "Brak dostępnych odcinków.";
+                document.getElementById('load-more-btn').style.display = 'none';
+                return;
+            }
+
+            const htmlContent = posts.map(post => {
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
-         container.innerHTML = htmlContent;
-         LoadWPPodcast(apiUrl, append);
-      })
-      .catch(error => {
-         console.error("Błąd WP API:", error);
-         container.innerHTML = "Błąd podczas ładowania postów.";
-      });
+            if (!append) {
+                container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+            } else {
+                container.querySelector('.podcast_list_episode_content')
+                         .insertAdjacentHTML('beforeend', htmlContent);
+            }
+
+            // Pagination
+            wpCurrentPage++;
+            document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            if (!append) container.innerHTML = "Błąd podczas ładowania postów.";
+            document.getElementById('load-more-btn').style.display = 'none';
+        });
 }
 
 function WPPodcastRVA(ProgramId, append = false) {
-   // WordPress API zwraca tablicę postów bezpośrednio
-   const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/programy?audycje=${programId}&page=${wpCurrentPage}&per_page=100`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
-   const container = document.getElementById('episode-list');
-   const parser = new DOMParser();
+    const container = document.getElementById('episode-list');
+    const parser = new DOMParser();
 
-   fetch(proxyUrl)
-      .then(response => {
-         if (!response.ok) throw new Error('Błąd sieci');
-         return response.json();
-      })
-      .then(posts => {
-         if (posts.length === 0) {
-            container.innerHTML = "Brak dostępnych odcinków.";
-            return;
-         }
+    if (!append) wpCurrentPage = 1;
 
-         const htmlContent = `<ul class="podcast_list_episode_content">${posts.map(post => {
-                // Parsujemy treść posta, aby wyciągnąć tag <audio> lub <source>
+    const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/programy?audycje=${ProgramId}&page=${wpCurrentPage}&per_page=100`;
+    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+
+    fetch(proxyUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd sieci');
+            return response.json();
+        })
+        .then(posts => {
+            if (posts.length === 0) {
+                if (!append) container.innerHTML = "Brak dostępnych odcinków.";
+                document.getElementById('load-more-btn').style.display = 'none';
+                return;
+            }
+
+            const htmlContent = posts.map(post => {
                 const docAudio = parser.parseFromString(post.content.rendered, 'text/html');
                 const audioTag = docAudio.querySelector('audio source') || docAudio.querySelector('audio');
                 const audioUrl = audioTag ? audioTag.getAttribute('src') : '';
 
-                return `
-                    <li class="podcast_list_episode_title">
-                        <a href="${post.link}" target="_blank">${post.title.rendered}</a> 
-                        ${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}
-                    </li>`;
-            }).join('')}</ul>`;
+                return `<li class="podcast_list_episode_title"><a href="${post.link}" target="_blank">${post.title.rendered}</a>${audioUrl ? `<a href="#" onclick="AudioPlayerEpisodeCORS('${audioUrl}'); return false;">▶</a>` : ''}</li>`;}).join('');
 
-         container.innerHTML = htmlContent;
-         LoadWPPodcast(apiUrl, append);
-      })
-      .catch(error => {
-         console.error("Błąd WP API:", error);
-         container.innerHTML = "Błąd podczas ładowania postów.";
-      });
+            if (!append) {
+                container.innerHTML = `<ul class="podcast_list_episode_content">${htmlContent}</ul>`;
+            } else {
+                container.querySelector('.podcast_list_episode_content')
+                         .insertAdjacentHTML('beforeend', htmlContent);
+            }
+
+            // Pagination
+            wpCurrentPage++;
+            document.getElementById('load-more-btn').style.display = (posts.length === 100) ? 'block' : 'none';
+        })
+        .catch(error => {
+            console.error("Błąd WP API:", error);
+            if (!append) container.innerHTML = "Błąd podczas ładowania postów.";
+            document.getElementById('load-more-btn').style.display = 'none';
+        });
 }
 
 async function loadAudioForPost(postId, mainUrl) {
