@@ -322,7 +322,7 @@ async function uruchomPodcast() {
       document.close();
       // 👉 WAŻNE: inicjalizacja po renderze
       bindLoadMoreButton();
-      startPodcastEngine(podcast);
+      startPodcastEngine(podcast.podcast);
       // 👉 RESET pagination (globalnie)
       if (typeof resetPodcastPagination === "function") {
          resetPodcastPagination();
