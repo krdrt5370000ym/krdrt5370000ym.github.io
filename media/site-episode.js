@@ -53,6 +53,11 @@ function normalizePodcast(podcastA) {
                seriesId: args[1],
                mainUrl: args[2]
             };
+         case 'WPPodcastRK':
+            return {
+               ...base,
+               SearchId: args[0]
+            };
          case 'WPPodcastRVA':
             return {
                ...base,
@@ -104,6 +109,10 @@ function startPodcastEngine(podcastA) {
             podcastB.mainUrl,
             true
          );
+   }
+   else if (podcastB.provider === 'WPPodcastRK') {
+      window.loadMoreHandler = () =>
+         WPPodcastRK(podcastB.SearchId, true);
    }
    else if (podcastB.provider === 'WPPodcastRVG') {
       window.loadMoreHandler = () =>
