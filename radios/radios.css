@@ -135,7 +135,7 @@ input[type="radio"] {
     display: none;
     padding: 20px 0;
     border: 1px solid #ccc;
-    background: #fff;
+    background: var(--card);
 }
 
 /* 3. POKAŻ TREŚĆ TYLKO ZAZNACZONEJ ZAKŁADKI */
@@ -157,7 +157,7 @@ input[type="radio"] {
 
 label {
     padding: 10px 20px;
-    background: #f1f1f1;
+    background: var(--card);
     cursor: pointer;
     border: 1px solid #ccc;
     border-bottom: none;
@@ -173,7 +173,7 @@ label {
 /* 5. Styl aktywnej etykiety (białe tło i pogrubienie) */
 #r-tab1:checked~.tabs-wrapper label[for="r-tab1"],
 #r-tab2:checked~.tabs-wrapper label[for="r-tab2"] {
-    background: #fff;
+    background: var(--card);
     font-weight: bold;
     border-bottom: 1px solid #fff;
     position: relative;
@@ -385,7 +385,8 @@ label {
 .schedule_tabs button {
     padding: 10px;
     cursor: pointer;
-    background: #eee;
+    background: var(--card);
+    color: var(--text);
     border: none;
 }
 
@@ -397,7 +398,7 @@ label {
 .schedule_list {
     display: none;
     border: 1px solid #ccc;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .schedule_program {
@@ -618,7 +619,7 @@ label {
 }
 
 .schedule_tabs {
-    background: #eee;
+    background: var(--card);
     border: 1px solid #ccc;
 }
 
