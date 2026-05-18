@@ -3,6 +3,7 @@
 }
 
 :root {
+  --fonts: "Univia Pro", "SF Pro Display", "Google Sans Flex", 'Inter', sans-serif;
   --bg: #0f172a;
   --card: #111827;
   --card-light: #1e293b;
@@ -24,7 +25,7 @@ body.light {
 }
 
 body, html {
-  font-family: "Univia Pro", "SF Pro Display", "Google Sans Flex", 'Inter', sans-serif;
+  font-family: var(--fonts);
   background: var(--bg);
   color: var(--text);
   transition: 0.3s ease;
