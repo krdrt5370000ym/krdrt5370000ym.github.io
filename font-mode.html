@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
    <head>
-      <title>Tryb czcionki | krdrt537000ym.github.io</title>
-      <script src="site-head.js"></script>
-      <link rel="stylesheet" href="style.css">
+      <title>Tryb czcionki | KrdrtRadio</title>
+      <script src="/site-head.js"></script>
+      <link rel="stylesheet" href="/style-def.css">
    </head>
-   <body class="w3-light-grey">
-      <script src="site-topscreen.js"></script>
-      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-         <!-- Header -->
-         <header class="w3-container" style="padding-top:22px">
-            <h5><b><i class="fa-solid fa-font"></i> Tryb czcionki</b></h5>
-         </header>
-         <div class="w3-row-padding w3-margin-bottom">
-            <p>Jak tego używać w Chrome?</p>
-            <p>Otwórz dowolną stronę WWW (np. Google.pl, Wikipedia).</p>
-            <p>Skasuj wszystko z paska adresu.</p>
-            <p>Wpisz ręcznie słowo javascript: <a href="javascript:(function(){function hackBodyFont(fontName='Roboto',option=1,customWeights='',adobeId=''){const isSystem=['Arial','Times New Roman','Verdana','Georgia','Courier New','Tahoma'].includes(fontName);const isAdobe=adobeId!=='';let link=document.getElementById('font-hack-link');if(isSystem){if(link)link.remove();}else{if(!link){link=document.createElement('link');link.id='font-hack-link';link.rel='stylesheet';document.head.appendChild(link);}if(isAdobe){link.href=`https://use.typekit.net/${adobeId}.css`;}else{const weightMap={0:'ital,wght@0,100..900;1,100..900',1:'wght@400;600;700',2:'wght@400;700',3:`wght@${customWeights}`};const selectedWeights=weightMap[option]||weightMap[1];const formattedFont=fontName.replace(/ /g,'+');link.href=`https://fonts.googleapis.com/css2?family=${formattedFont}:${selectedWeights}&display=swap`;}}let style=document.getElementById('body-font-style');if(!style){style=document.createElement('style');style.id='body-font-style';document.head.appendChild(style);}const fallback=isSystem?'':', sans-serif';style.textContent=`body, body * { font-family: '${fontName}'${fallback} !important; }`;console.log(`Font set to: ${fontName}`);}hackBodyFont('Roboto',1);})();">(Chrome często usuwa ten człon przy wklejaniu ze schowka dla bezpieczeństwa)</a>.</p>
-            <p>Wklej resztę kodu zaraz po dwukropku i naciśnij Enter.</p>
-            <p>Jak to dodać w Chrome, Firefox lub Vivaldi?</p>
-            <ol>
-               <li>Naciśnij Ctrl + D (lub Cmd + D na Macu), aby dodać dowolną stronę do zakładek.</li>
-               <li>Kliknij Więcej... lub Edytuj (zależnie od przeglądarki).</li>
-               <li>W polu Nazwa wpisz np. Hack Font.</li>
-               <li>W polu Adres URL (lub Lokalizacja) wklej powyższy długi kod zaczynający się od javascript:.</li>
-               <li>Zapisz.</li>
-            </ol>
-            <pre>javascript:hackBodyFont('Roboto',1); / hackBodyFont('Open Sans',1); / hackBodyFont('TwojaNazwa',1,'','ID_PROJEKTU');</pre>
-         </div>
-         <script src="site-bottomscreen.js"></script>
+   <body>
+      <div class="app">
+         <script src="/site-top.js"></script>
+         <div class="overlay" id="overlay"></div>
+         <main class="main-content">
+            <script src="/site-tophead.js"></script>
+            <section class="hero">
+               <p>Jak tego używać w Chrome?</p>
+               <p>Otwórz dowolną stronę WWW (np. Google.pl, Wikipedia).</p>
+               <p>Skasuj wszystko z paska adresu.</p>
+               <p>Wpisz ręcznie słowo javascript: <a href="javascript:(function(){function hackBodyFont(fontName='Roboto',option=1,customWeights='',adobeId=''){const isSystem=['Arial','Times New Roman','Verdana','Georgia','Courier New','Tahoma'].includes(fontName);const isAdobe=adobeId!=='';let link=document.getElementById('font-hack-link');if(isSystem){if(link)link.remove();}else{if(!link){link=document.createElement('link');link.id='font-hack-link';link.rel='stylesheet';document.head.appendChild(link);}if(isAdobe){link.href=`https://use.typekit.net/${adobeId}.css`;}else{const weightMap={0:'ital,wght@0,100..900;1,100..900',1:'wght@400;600;700',2:'wght@400;700',3:`wght@${customWeights}`};const selectedWeights=weightMap[option]||weightMap[1];const formattedFont=fontName.replace(/ /g,'+');link.href=`https://fonts.googleapis.com/css2?family=${formattedFont}:${selectedWeights}&display=swap`;}}let style=document.getElementById('body-font-style');if(!style){style=document.createElement('style');style.id='body-font-style';document.head.appendChild(style);}const fallback=isSystem?'':', sans-serif';style.textContent=`body, body * { font-family: '${fontName}'${fallback} !important; }`;console.log(`Font set to: ${fontName}`);}hackBodyFont('Roboto',1);})();">(Chrome często usuwa ten człon przy wklejaniu ze schowka dla bezpieczeństwa)</a>.</p>
+               <p>Wklej resztę kodu zaraz po dwukropku i naciśnij Enter.</p>
+               <p>Jak to dodać w Chrome, Firefox lub Vivaldi?</p>
+               <ol>
+                  <li>Naciśnij Ctrl + D (lub Cmd + D na Macu), aby dodać dowolną stronę do zakładek.</li>
+                  <li>Kliknij Więcej... lub Edytuj (zależnie od przeglądarki).</li>
+                  <li>W polu Nazwa wpisz np. Hack Font.</li>
+                  <li>W polu Adres URL (lub Lokalizacja) wklej powyższy długi kod zaczynający się od javascript:.</li>
+                  <li>Zapisz.</li>
+               </ol>
+               <pre>javascript:hackBodyFont('Roboto',1); / hackBodyFont('Open Sans',1); / hackBodyFont('TwojaNazwa',1,'','ID_PROJEKTU');</pre>
+            </section>
+            <script src="/site-bottom.js"></script>
+         </main>
       </div>
-      <script src="site-sidebar.js"></script>
+      <script src="/script.js"></script>
+      <script src="/script-def.js"></script>
    </body>
 </html>
