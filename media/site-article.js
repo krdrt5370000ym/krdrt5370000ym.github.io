@@ -3,7 +3,7 @@ let cachedCategoryIds = null;
 async function WPArticleRSC(append = false) {
    const container = document.getElementById('article-list');
    const button = document.getElementById('load-more-btn');
-   const proxyBase = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+   const proxyBase = 'https://cors.krdrtradio.workers.dev/?url=';
    const perPage = 10;
 
    if (!append) window.currentPage = 1;
@@ -44,7 +44,7 @@ async function WPArticleRSC(append = false) {
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = imgUrl ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/"))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;">` : '';
+         const imageDisplay = imgUrl ? `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrtradio.workers.dev/?url=https://radiorsc.pl/"))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -108,7 +108,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
    }
 
    const postsUrl = `${mainUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${window.currentPage}&_embed=true`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=';
 
    try {
       if (button) {
@@ -140,7 +140,7 @@ async function WPArticle(mainUrl, siteKey, is_categories = true, is_author = tru
 
          const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
          const imgUrl = featuredMedia?.media_details?.sizes?.medium?.source_url || featuredMedia?.source_url;
-         const imageDisplay = is_image && imgUrl ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" alt="">` : '';
+         const imageDisplay = is_image && imgUrl ? `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrtradio.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" alt="">` : '';
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
             day: 'numeric',
@@ -397,7 +397,7 @@ async function WPArticleList(
    const containerDesc = document.getElementById('article-desc-result');
    const button = document.getElementById('load-more-btn');
 
-   const proxyBase = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+   const proxyBase = 'https://cors.krdrtradio.workers.dev/?url=';
    const perPage = 10;
 
    if (!append) {
@@ -690,7 +690,7 @@ async function WPArticleList(
          stripHTML(dateText)
       ].filter(Boolean).join(' | ') || 'Artykuły';
 
-      document.title = docTitle + ' | krdrt5370000ym.github.io';
+      document.title = docTitle + ' | krdrtradio.github.io';
 
       // 🔹 Generowanie HTML
       const postsHTML = posts.map(post => {
@@ -756,7 +756,7 @@ async function WPArticleList(
          const imgUrl = featuredMedia?.source_url || '';
 
          const imageHTML = (is_image && imgUrl) ?
-            `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
+            `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrtradio.workers.dev/?url=" + mainUrl))}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" loading="lazy">` :
             '';
 
          // 🔹 Data
@@ -831,7 +831,7 @@ async function WPArticlePostRSC(slug) {
    const postsUrl = slug.startsWith('post-') ?
       `https://radiorsc.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `https://radiorsc.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
       const response = await fetch(proxyUrl);
@@ -887,7 +887,7 @@ async function WPArticlePostRSC(slug) {
          if (embed['wp:featuredmedia']?.[0]) {
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/"))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>` : '';
+            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiorsc.pl/","https://cors.krdrtradio.workers.dev/?url=https://radiorsc.pl/"))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>` : '';
          }
 
          // 6. Pobieranie Audio (Player) - CZEKAMY NA WYNIK
@@ -912,7 +912,7 @@ async function WPArticlePostRSC(slug) {
                         </header>
                         ${imageDisplay}
                         ${playerHtml}
-                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/").replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiorsc.pl/","https://cors.krdrtradio.workers.dev/?url=https://radiorsc.pl/").replaceAll(/href="https:\/\/cors\.krdrtradio\.workers\.dev\/\?url=/g, 'href="')}</div>
                     </article>
                 </div>`;
       });
@@ -934,7 +934,7 @@ async function WPArticlePostRLodz(slug) {
    const postsUrl = slug.startsWith('post-') ?
       `https://radiolodz.pl/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `https://radiolodz.pl/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
       const response = await fetch(proxyUrl);
@@ -992,7 +992,7 @@ async function WPArticlePostRLodz(slug) {
          if (embed['wp:featuredmedia']?.[0]) {
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
-            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/"))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>` : '';
+            imageDisplay = imgUrl ? `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll("https://radiolodz.pl/","https://cors.krdrtradio.workers.dev/?url=https://radiolodz.pl/"))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>` : '';
          }
 
          const postDate = new Date(post.date).toLocaleDateString('pl-PL', {
@@ -1013,7 +1013,7 @@ async function WPArticlePostRLodz(slug) {
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiolodz.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiolodz.pl/").replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll("https://radiolodz.pl/","https://cors.krdrtradio.workers.dev/?url=https://radiolodz.pl/").replaceAll(/href="https:\/\/cors\.krdrtradio\.workers\.dev\/\?url=/g, 'href="')}</div>
                     </article>
                 </div>`;
       });
@@ -1046,7 +1046,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
    const postsUrl = slug.startsWith('post-') ?
       `${mainUrl}/wp-json/wp/v2/posts/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/posts?slug=${slug}&per_page=1&_embed=true`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
       const response = await fetch(proxyUrl);
@@ -1112,7 +1112,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
             const media = embed['wp:featuredmedia'][0];
             const imgUrl = media.media_details?.sizes?.large?.source_url || media.source_url;
             if (imgUrl) {
-               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>`;
+               imageDisplay = `<div class="wp-site-blocks"><div class="post-thumbnail"><img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl.replaceAll(mainUrl,"https://cors.krdrtradio.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75&d=1" alt="${media.alt_text || ''}"></div></div>`;
             }
          }
 
@@ -1134,7 +1134,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
                             ${tagsDisplay}
                         </header>
                         ${imageDisplay}
-                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl).replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
+                        <div class="article_singlecontent_posts">${post.content.rendered.replaceAll(mainUrl,"https://cors.krdrtradio.workers.dev/?url=" + mainUrl).replaceAll(/href="https:\/\/cors\.krdrtradio\.workers\.dev\/\?url=/g, 'href="')}</div>
                     </article>
                 </div>`;
       });
@@ -1148,7 +1148,7 @@ async function WPArticlePost(slug, mainUrl, is_categories = true, is_tags = true
 }
 
 async function WPArticlePostRSCPlayer(targetUrl) {
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev?url=' + encodeURIComponent(targetUrl);
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev?url=' + encodeURIComponent(targetUrl);
    // XPath celujący w kontener audio
    const xpath = "//div[contains(@class, 'custom-audio-block')]//audio/@src";
 
@@ -1175,7 +1175,7 @@ async function WPArticlePostRSCPlayer(targetUrl) {
          return `
                 <div class="article_player_posts">
                     <small>Posłuchaj tutaj:</small><br>
-                    <audio controls src="${audioSrc.replaceAll("https://radiorsc.pl/","https://cors.krdrt5370000ym2.workers.dev/?url=https://radiorsc.pl/")}"></audio>
+                    <audio controls src="${audioSrc.replaceAll("https://radiorsc.pl/","https://cors.krdrtradio.workers.dev/?url=https://radiorsc.pl/")}"></audio>
                 </div>`;
       }
       return '';
@@ -1209,7 +1209,7 @@ async function fetchParentCategories(parentId, mainUrl) {
 
 async function fetchParentCategoriesIn(parentId) {
    const baseUrl = `https://radiorsc.pl/wp-json/wp/v2/categories`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(baseUrl);
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(baseUrl);
    try {
       // Pobieramy listę kategorii raz (max 100)
       const response = await fetch(`${proxyUrl}${encodeURIComponent(`?per_page=100`)}`);
@@ -1238,7 +1238,7 @@ async function WPArticlePage(slug, mainUrl) {
    const postsUrl = slug.startsWith('page-') ?
       `${mainUrl}/wp-json/wp/v2/pages/${slug.slice(5)}?_embed=true` :
       `${mainUrl}/wp-json/wp/v2/pages?slug=${slug}&per_page=1&_embed=true`;
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(postsUrl);
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(postsUrl);
 
    try {
       const response = await fetch(proxyUrl);
@@ -1258,7 +1258,7 @@ async function WPArticlePage(slug, mainUrl) {
 
       // Obsługa obrazka wyróżniającego (Featured Media)
       const featuredImage = page._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      const imageHTML = featuredImage ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(featuredImage.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75&d=1" class="article-image">` : '';
+      const imageHTML = featuredImage ? `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(featuredImage.replaceAll(mainUrl,"https://cors.krdrtradio.workers.dev/?url=" + mainUrl))}&w=1000&h=1000&q=75&d=1" class="article-image">` : '';
 
       // Generowanie HTML
       container.innerHTML = `
@@ -1270,7 +1270,7 @@ async function WPArticlePage(slug, mainUrl) {
                         </div>
                     </header>
                     ${imageHTML}
-                    <div class="article_singlecontent_posts">${page.content.rendered.replaceAll(mainUrl,"https://cors.krdrt5370000ym2.workers.dev/?url=" + mainUrl).replaceAll(/href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g, 'href="')}</div>
+                    <div class="article_singlecontent_posts">${page.content.rendered.replaceAll(mainUrl,"https://cors.krdrtradio.workers.dev/?url=" + mainUrl).replaceAll(/href="https:\/\/cors\.krdrtradio\.workers\.dev\/\?url=/g, 'href="')}</div>
                 </article>
             </div>`;
 
