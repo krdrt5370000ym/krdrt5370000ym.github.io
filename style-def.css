@@ -317,6 +317,7 @@ li ul.website_info_page {
 	outline: none;
 	cursor: pointer;
 	color: var(--text);
+	font-family: inherit;
 
 	@media screen and (min-width: 600px) {
 		padding: 10.5px 16px;
