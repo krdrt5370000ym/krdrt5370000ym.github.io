@@ -128,6 +128,7 @@ li ul.website_info_page {
 
 	a {
 		text-decoration: none;
+		color: inherit;
 	}
 
 	@media (min-width:1000px) {
@@ -209,6 +210,7 @@ li ul.website_info_page {
 
 		a {
 			text-decoration: none;
+			color: inherit;
 		}
 	}
 }
@@ -240,6 +242,7 @@ li ul.website_info_page {
 
 		a {
 			text-decoration: none;
+			color: inherit;
 		}
 	}
 }
@@ -255,6 +258,7 @@ li ul.website_info_page {
 .buttons {
 	a {
 		text-decoration: none;
+		color: inherit;
 	}
 }
 
@@ -289,6 +293,7 @@ li ul.website_info_page {
 .pathology_content {
 	a {
 		text-decoration: none;
+		color: inherit;
 	}
 }
 
