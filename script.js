@@ -3,8 +3,6 @@ const overlay = document.getElementById('overlay');
 const menuBtn = document.getElementById('menuBtn');
 const closeSidebar = document.getElementById('closeSidebar');
 const themeToggle = document.getElementById('themeToggle');
-const player = document.getElementById('radioPlayer');
-const playBtn = document.getElementById('playBtn');
 
 let isPlaying = false;
 
@@ -53,14 +51,25 @@ links.forEach(link => {
   });
 });
 
-playBtn.addEventListener('click', () => {
-  if (!isPlaying) {
-    player.play();
-    playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    isPlaying = true;
-  } else {
-    player.pause();
-    playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-    isPlaying = false;
-  }
+document.addEventListener('DOMContentLoaded', () => {
+
+  const player = document.getElementById('radioPlayer');
+  const playBtn = document.getElementById('playBtn');
+
+  let isPlaying = false;
+
+  playBtn.addEventListener('click', () => {
+
+    if (!isPlaying) {
+      player.play();
+      playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+      isPlaying = true;
+    } else {
+      player.pause();
+      playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+      isPlaying = false;
+    }
+
+  });
+
 });
