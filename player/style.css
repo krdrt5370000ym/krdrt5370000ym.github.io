@@ -1,4 +1,8 @@
-body, html {
+* {
+  box-sizing: border-box;
+}
+
+body {
   font-family: "Univia Pro", "SF Pro Display", "Google Sans Flex", 'Inter', sans-serif;
 }
 
