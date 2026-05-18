@@ -25,7 +25,7 @@ body.light {
   --border: rgba(0,0,0,0.08);
 }
 
-body {
+body, html {
   font-family: "Univia Pro", "SF Pro Display", "Google Sans Flex", 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
