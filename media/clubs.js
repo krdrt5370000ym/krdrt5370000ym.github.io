@@ -1,4 +1,4 @@
-const jsonUrl = 'https://krdrt5370000ym.github.io/media/json/clubs.json';
+const jsonUrl = 'https://krdrtradio.github.io/media/json/clubs.json';
 let allClubs = [];
 async function loadClubs() {
    try {
