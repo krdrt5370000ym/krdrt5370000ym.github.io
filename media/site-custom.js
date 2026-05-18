@@ -21,7 +21,7 @@ async function WPCustom(
    const postsUrl =
       `${mainUrl}/wp-json/wp/v2/${typeName}?per_page=${perPage}&page=${window.currentPageC}&_embed=true`;
 
-   const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+   const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=';
 
    try {
 
@@ -76,7 +76,7 @@ async function WPCustom(
 
          const imageDisplay =
             is_image && imgUrl ?
-            `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl)}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" alt="">` : '';
+            `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl)}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" alt="">` : '';
 
          const postDate = new Date(post.date)
             .toLocaleDateString('pl-PL', {
@@ -371,7 +371,7 @@ async function WPCustomList(
    const button = document.getElementById('load-more-btn');
 
    const proxyBase =
-      'https://cors.krdrt5370000ym2.workers.dev/?url=';
+      'https://cors.krdrtradio.workers.dev/?url=';
 
    const perPage = 10;
 
@@ -602,7 +602,7 @@ async function WPCustomList(
 
          const imageHTML =
             (is_image && imgUrl) ?
-            `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent(imgUrl)}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" loading="lazy">` : '';
+            `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent(imgUrl)}&w=500&h=500&q=75&d=1" width="150" height="150" style="object-fit:cover;" loading="lazy">` : '';
 
          // data
 
@@ -742,7 +742,7 @@ async function WPCustomPost(
       `${mainUrl}/wp-json/wp/v2/${typeName}?slug=${slug}&per_page=1&_embed=true`;
 
    const proxyUrl =
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
+      'https://cors.krdrtradio.workers.dev/?url=' +
       encodeURIComponent(postsUrl);
 
    try {
@@ -813,7 +813,7 @@ async function WPCustomPost(
             if (imgUrl) {
 
                const proxiedImg =
-                  'https://image.krdrt5370000ym2.workers.dev/?url=' +
+                  'https://image.krdrtradio.workers.dev/?url=' +
                   encodeURIComponent(imgUrl) +
                   '&w=1000&h=1000&q=75&d=1';
 
@@ -846,11 +846,11 @@ async function WPCustomPost(
 
          content = content.replace(
             new RegExp(mainUrl, 'g'),
-            'https://cors.krdrt5370000ym2.workers.dev/?url=' + mainUrl
+            'https://cors.krdrtradio.workers.dev/?url=' + mainUrl
          );
 
          content = content.replace(
-            /href="https:\/\/cors\.krdrt5370000ym2\.workers\.dev\/\?url=/g,
+            /href="https:\/\/cors\.krdrtradio\.workers\.dev\/\?url=/g,
             'href="'
          );
 
