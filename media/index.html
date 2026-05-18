@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
    <head>
-      <title>Media | krdrt537000ym.github.io</title>
+      <title>Media | KrdrtRadio</title>
       <script src="/site-head.js"></script>
-      <link rel="stylesheet" href="/style.css">
+      <link rel="stylesheet" href="/style-def.css">
       <link rel="stylesheet" href="media.css">
    </head>
-   <body class="w3-light-grey">
-      <script src="/site-topscreen.js"></script>
-      <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-         <!-- Header -->
-         <header class="w3-container" style="padding-top:22px">
-            <h5><b><i class="fa-solid fa-photo-film"></i> Media</b></h5>
-         </header>
-         <div class="w3-row-padding w3-margin-bottom">
+   <body>
+      <div class="app">
+         <script src="/site-top.js"></script>
+         <div class="overlay" id="overlay"></div>
+         <main class="main-content">
+            <script src="/site-tophead.js"></script>
+            <section class="hero">
             <div class="radio-main">
                <ul class="station-list">
                   <li><a href="article-list?si=radiomaryja">Aktualności</a></li>
@@ -82,9 +81,11 @@
                   </ul>
                </div>
             </div>
-         </div>
-         <script src="/site-bottomscreen.js"></script>
+            </section>
+            <script src="/site-bottom.js"></script>
+         </main>
       </div>
-      <script src="/site-sidebar.js"></script>
+      <script src="/script.js"></script>
+      <script src="/script-def.js"></script>
    </body>
 </html>
