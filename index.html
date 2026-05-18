@@ -1,1 +1,214 @@
-<p>Wkrótce powrót na stronę internetową.</p>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRDRTRADIO — Radio, Media i Muzyka</title>
+  <link rel="icon" type="image/png" href="https://krdrtradio.github.io/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-radio"></i>
+          </div>
+          <div>
+            <h1>KRDRTRADIO</h1>
+            <p>Nowoczesne radio online</p>
+          </div>
+        </div>
+        <button class="close-sidebar" id="closeSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="nav-menu">
+        <a href="#hero" class="active">
+          <i class="fa-solid fa-house"></i>
+          <span>Strona główna</span>
+        </a>
+        <a href="#stations">
+          <i class="fa-solid fa-radio"></i>
+          <span>Radio</span>
+        </a>
+        <a href="#media">
+          <i class="fa-solid fa-photo-film"></i>
+          <span>Media</span>
+        </a>
+        <a href="#music">
+          <i class="fa-solid fa-music"></i>
+          <span>Muzyka</span>
+        </a>
+        <a href="#news">
+          <i class="fa-solid fa-newspaper"></i>
+          <span>Wiadomości</span>
+        </a>
+        <a href="#weather">
+          <i class="fa-solid fa-cloud-sun"></i>
+          <span>Pogoda</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="online-status">
+          <span class="dot"></span>
+          Online
+        </div>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+    <main class="main-content">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Szukaj w serwisie...">
+        </div>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </header>
+      <section class="hero" id="hero">
+        <div class="hero-content">
+          <div class="hero-text">
+            <span class="hero-badge">
+              <i class="fa-solid fa-wave-square"></i>
+              KRDRTRADIO LIVE
+            </span>
+            <h2>Radio, muzyka i media w nowoczesnym wydaniu</h2>
+            <p>
+              Odkrywaj stacje radiowe, wiadomości, multimedia i najlepszą muzykę w jednym miejscu.
+            </p>
+            <div class="hero-buttons">
+              <a href="#stations" class="primary-btn">
+                <i class="fa-solid fa-play"></i>
+                Otwórz radio
+              </a>
+              <a href="#news" class="secondary-btn">
+                <i class="fa-solid fa-newspaper"></i>
+                Aktualności
+              </a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="player-card">
+              <div class="player-top">
+                <img src="https://krdrtradio.github.io/favicon.png" alt="KRDRTRADIO">
+                <div>
+                  <h3>KRDRTRADIO</h3>
+                  <p>Streaming online</p>
+                </div>
+              </div>
+              <div class="wave"></div>
+              <button class="play-button">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+     <section class="cards-grid" id="stations">
+        <article class="card">
+          <div class="card-icon blue">
+            <i class="fa-solid fa-radio"></i>
+          </div>
+          <h3>Stacje radiowe</h3>
+          <p>Słuchaj najlepszych stacji online i odkrywaj nową muzykę.</p>
+          <ul>
+            <li><a href="https://open.fm">Open FM</a></li>
+            <li><a href="https://rmfon.pl">RMF ON</a></li>
+            <li><a href="https://radio.pl">Radio.pl</a></li>
+            <li><a href="https://tunein.com">TuneIn</a></li>
+          </ul>
+        </article>
+        <article class="card" id="music">
+          <div class="card-icon purple">
+            <i class="fa-solid fa-music"></i>
+          </div>
+          <h3>Muzyka</h3>
+          <p>Playlisty, streaming i najlepsze platformy muzyczne.</p>
+          <ul>
+            <li><a href="https://spotify.com">Spotify</a></li>
+            <li><a href="https://www.di.fm">DI.FM</a></li>
+            <li><a href="https://www.beatport.com">Beatport</a></li>
+            <li><a href="https://www.monstercat.com">Monstercat</a></li>
+          </ul>
+        </article>
+        <article class="card" id="media">
+          <div class="card-icon green">
+            <i class="fa-solid fa-photo-film"></i>
+          </div>
+          <h3>Media i VOD</h3>
+          <p>Telewizja, filmy i platformy streamingowe.</p>
+          <ul>
+            <li><a href="https://tvp.pl">TVP</a></li>
+            <li><a href="https://www.netflix.com/pl">Netflix</a></li>
+            <li><a href="https://player.pl">Player</a></li>
+            <li><a href="https://www.disneyplus.com/pl-pl">Disney+</a></li>
+          </ul>
+        </article>
+        <article class="card" id="news">
+          <div class="card-icon orange">
+            <i class="fa-solid fa-newspaper"></i>
+          </div>
+          <h3>Wiadomości</h3>
+          <p>Najnowsze informacje z Polski i świata.</p>
+          <ul>
+            <li><a href="https://www.onet.pl">Onet</a></li>
+            <li><a href="https://www.rmf24.pl">RMF24</a></li>
+            <li><a href="https://tvn24.pl">TVN24</a></li>
+            <li><a href="https://www.bbc.com/news">BBC News</a></li>
+          </ul>
+        </article>
+        <article class="card" id="weather">
+          <div class="card-icon cyan">
+            <i class="fa-solid fa-cloud-sun"></i>
+          </div>
+          <h3>Pogoda</h3>
+          <p>Aktualne warunki pogodowe i prognozy.</p>
+          <ul>
+            <li><a href="https://windy.com">Windy</a></li>
+            <li><a href="https://www.imgw.pl">IMGW</a></li>
+            <li><a href="https://burzowo.info">Burzowo.info</a></li>
+            <li><a href="https://www.meteoblue.com/pl">meteoblue</a></li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="card-icon pink">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <h3>Mapy i podróże</h3>
+          <p>Mapy, lokalizacje i podróże online.</p>
+          <ul>
+            <li><a href="https://maps.google.com">Google Maps</a></li>
+            <li><a href="https://www.openstreetmap.org">OpenStreetMap</a></li>
+            <li><a href="https://terradrive.eu">Terra Drive</a></li>
+            <li><a href="https://tinyurl.com/4s4uv3kx">Driving Simulator</a></li>
+          </ul>
+        </article>
+      </section>
+      <footer class="footer">
+        <div>
+          <h3>KRDRTRADIO</h3>
+          <p>Nowoczesny portal radiowy i multimedialny.</p>
+        </div>
+        <div class="footer-socials">
+          <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://instagram.com"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://tiktok.com"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
