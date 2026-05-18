@@ -38,7 +38,7 @@ let lastDay = NowZone().getDay();
 // LOAD
 // =====================
 async function loadData(siteId) {
-   const baseUrl = `https://krdrt5370000ym.github.io/radios/json/${siteId}`;
+   const baseUrl = `https://krdrtradio.github.io/radios/json/${siteId}`;
    SITE_ID = siteId;
 
    // Helper z rozszerzoną diagnostyką
@@ -400,7 +400,7 @@ function renderCurrent() {
          ui.title.textContent = station.plug_name || station.name || "Radio Online";
       }
       if (ui.host) ui.host.textContent = "";
-      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + station.cover)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(station.plug_name) || escapeHTML(station.name) || "Logo Stacji"}">`;
+      if (ui.photo) ui.photo.innerHTML = `<img decoding="async" src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + station.cover)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(station.plug_name) || escapeHTML(station.name) || "Logo Stacji"}">`;
       return;
    }
 
@@ -418,9 +418,9 @@ function renderCurrent() {
       ].filter(Boolean).join(';');
       thumbnailHTML = `<div class="current_program_box" style="${style}">${thumb.name || program.name || data.name || ""}</div>`;
    } else if (thumbnail) {
-      thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + thumbnail)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
+      thumbnailHTML = `<img decoding="async" src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + thumbnail)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Cover Audycji"}">`;
    } else {
-      thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + station.cover)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Logo Stacji"}">`;
+      thumbnailHTML = `<img decoding="async" src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + station.cover)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(program.name) || escapeHTML(data.name) || "Logo Stacji"}">`;
    }
 
    // Aktualizacja pól tekstowych
@@ -549,10 +549,10 @@ function renderSchedules() {
                ].filter(Boolean).join(';');
                thumbnailHTML = `<div class="schedule_name_box" style="${style}">${thumb.name || p.name || data.name || ""}</div>`;
             } else if (thumbnail) {
-               thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + thumbnail)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "cover"}">`;
+               thumbnailHTML = `<img decoding="async" src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + thumbnail)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(p.name) || escapeHTML(data.name) || "cover"}">`;
             } else {
                thumbnailHTML = '';
-               // thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + stations.cover)}&w=500&h=500&q=75&d=1" alt="logo">`;
+               // thumbnailHTML = `<img decoding="async" src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + stations.cover)}&w=500&h=500&q=75&d=1" alt="logo">`;
             }
 
             const displayName = p.name || data.name || ""; // Audycja
@@ -904,7 +904,7 @@ function renderPrograms() {
          ].filter(Boolean).join(';');
          thumbnailHTML = `<div class="program_list_box" style="${style}">${escapeHTML(thumb.name || p.name)}</div>`;
       } else if (p.thumbnail_uri) {
-         thumbnailHTML = `<img decoding="async" src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + p.thumbnail_uri)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(p.name)}">`;
+         thumbnailHTML = `<img decoding="async" src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + p.thumbnail_uri)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(p.name)}">`;
       }
 
       // --- RENDEROWANIE ELEMENTU ---
@@ -1096,7 +1096,7 @@ function AudioPlayer(url) {
    }
 
    const sm = url.slice(0, 7) === 'http://' ?
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url) : url;
+      'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(url) : url;
 
    if (url.includes('.m3u8')) {
       if (Hls.isSupported()) {
