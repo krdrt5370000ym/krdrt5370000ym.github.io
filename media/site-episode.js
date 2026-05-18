@@ -196,7 +196,7 @@ const apiUrl = grupaZprLastId
    ? `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&last_id=${grupaZprLastId}`
    : `https://front-api.grupazprmedia.pl/media/v1/podcast_series_mobile_app/${podcastUid}/?site_uid=${siteUid}&page=0`;
    const proxyUrl =
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
+      'https://cors.krdrtradio.workers.dev/?url=' +
       encodeURIComponent(apiUrl);
    const container = document.getElementById('episode-list');
    const button = document.getElementById('load-more-btn');
@@ -325,7 +325,7 @@ async function WPPodcast(categoryId, mainUrl, append = false) {
    const apiUrl =
       `${mainUrl}/wp-json/wp/v2/posts?categories=${categoryId}&page=${wpCurrentPage}&per_page=100`;
    const proxyUrl =
-      'https://cors.krdrt5370000ym2.workers.dev/?url=' +
+      'https://cors.krdrtradio.workers.dev/?url=' +
       encodeURIComponent(apiUrl);
    if (button) {
       button.innerText = "Ładowanie...";
@@ -472,7 +472,7 @@ function WPPodcastRK(SearchId, append = false) {
     if (!append) wpCurrentPage = 1;
 
     const apiUrl = `https://radiokolor.pl/wp-json/wp/v2/podcast?search=${SearchId}&page=${wpCurrentPage}&per_page=100`;
-    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+    const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(apiUrl);
 
    if (button) {
       button.innerText = "Ładowanie...";
@@ -528,7 +528,7 @@ function WPPodcastRVG(append = false) {
     if (!append) wpCurrentPage = 1;
 
     const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/gosc?page=${wpCurrentPage}&per_page=100`;
-    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+    const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(apiUrl);
 
    if (button) {
       button.innerText = "Ładowanie...";
@@ -584,7 +584,7 @@ function WPPodcastRVR(append = false) {
     if (!append) wpCurrentPage = 1;
 
     const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/reporter?page=${wpCurrentPage}&per_page=100`;
-    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+    const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(apiUrl);
 
    if (button) {
       button.innerText = "Ładowanie...";
@@ -640,7 +640,7 @@ function WPPodcastRVA(ProgramId, append = false) {
     if (!append) wpCurrentPage = 1;
 
     const apiUrl = `https://radiovictoria.pl/wp-json/wp/v2/programy?audycje=${ProgramId}&page=${wpCurrentPage}&per_page=100`;
-    const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(apiUrl);
+    const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(apiUrl);
 
    if (button) {
       button.innerText = "Ładowanie...";
@@ -691,7 +691,7 @@ function WPPodcastRVA(ProgramId, append = false) {
 async function loadAudioForPost(postId, mainUrl) {
    try {
       // 1. Najpierw pobieramy dane posta, aby sprawdzić treść (dla wideo/YouTube)
-      const proxyUrl = 'https://cors.krdrt5370000ym2.workers.dev/?url=';
+      const proxyUrl = 'https://cors.krdrtradio.workers.dev/?url=';
       const postRes = await fetch(proxyUrl + encodeURIComponent(`${mainUrl}/wp-json/wp/v2/posts/${postId}`));
       const postData = await postRes.json();
       const content = postData.content.rendered;
@@ -720,7 +720,7 @@ async function loadAudioForPost(postId, mainUrl) {
             if (ytMatch) {
                // UWAGA: Standardowy tag <audio> nie odtworzy YouTube. 
                // Link kieruje do filmu, by zachować ciągłość listy.
-               placeholder.innerHTML = `<a href="https://krdrt5370000ym.github.io/media/youtube?v=${ytMatch[1]}" target="_blank"><i class="fa-brands fa-youtube"></i></a>`;
+               placeholder.innerHTML = `<a href="https://krdrtradio.github.io/media/youtube?v=${ytMatch[1]}" target="_blank"><i class="fa-brands fa-youtube"></i></a>`;
                return;
             }
          }
@@ -771,7 +771,7 @@ function AudioPlayerEpisode(url) {
 
 function AudioPlayerEpisodeCORS(url) {
    const audio = document.getElementById('player');
-   const urlCORS = 'https://cors.krdrt5370000ym2.workers.dev/?url=' + encodeURIComponent(url);
+   const urlCORS = 'https://cors.krdrtradio.workers.dev/?url=' + encodeURIComponent(url);
    audio.style.display = 'block'; // Pokaż player po kliknięciu
    document.scrollingElement.scrollTop = audio.offsetTop - 50;
    const isM3U8 = urlCORS.toLowerCase().includes('.m3u8');
