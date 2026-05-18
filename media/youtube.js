@@ -1,5 +1,5 @@
 const API_URL =
-   'https://youtube.krdrt5370000ym2.workers.dev';
+   'https://youtube.krdrtradio.workers.dev';
 
 async function forceDownload(url, name) {
     const res = await fetch(url);
