@@ -1,3 +1,7 @@
+html, body {
+  font-family: "Univia Pro", "SF Pro Display", "Google Sans Flex", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
