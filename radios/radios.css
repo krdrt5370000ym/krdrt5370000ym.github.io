@@ -548,6 +548,8 @@ label {
     padding: 1rem 0;
     padding-left: 10px;
     list-style: none;
+    color: var(--text);
+    background: var(--card);
     border-bottom: 1px solid #e3e3e3;
 
     .program_list_cover {
@@ -585,6 +587,7 @@ label {
 
         a {
             text-decoration: none;
+            color: var(--text);
         }
     }
 
@@ -605,7 +608,7 @@ label {
 }
 
 .onair {
-    background: #fbd9d3;
+    background: #b47e75;
 }
 
 .tabcontent {
@@ -628,7 +631,7 @@ label {
 .schedule_program {
     a {
         text-decoration: none;
-        color: initial;
+        color: white;
     }
 }
 
