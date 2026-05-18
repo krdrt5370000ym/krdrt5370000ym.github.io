@@ -408,6 +408,8 @@ label {
     padding: 1rem 0;
     padding-left: 10px;
     list-style: none;
+    background: var(--card);
+    color: var(--text);
     border-bottom: 1px solid #e3e3e3;
 
     .schedule_program_cover {
@@ -626,6 +628,7 @@ label {
 .schedule_program {
     a {
         text-decoration: none;
+        color: initial;
     }
 }
 
