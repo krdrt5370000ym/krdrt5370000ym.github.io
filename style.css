@@ -1,7 +1,3 @@
-html, body {
-  font-family: "Univia Pro", "SF Pro Display", "Google Sans Flex", sans-serif;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -30,7 +26,7 @@ body.light {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Univia Pro", "SF Pro Display", "Google Sans Flex", 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
   transition: 0.3s ease;
