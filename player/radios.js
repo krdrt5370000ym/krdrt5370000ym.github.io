@@ -101,7 +101,7 @@ function play(st, el) {
    el.classList.add('active');
 
    const sm = st.url.slice(0, 7) === "http://" ?
-      'https://cors.krdrtradio2.workers.dev/?url=' +
+      'https://cors.krdrtradio.workers.dev/?url=' +
       encodeURIComponent(st.url) : st.url;
 
    currentStationText.textContent = "Teraz grasz: " + st.name;
