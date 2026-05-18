@@ -213,7 +213,7 @@ async function uruchomProgram() {
 
    try {
       const fetchJSON = async (suffix) => {
-         const res = await fetch(`https://krdrt5370000ym.github.io/radios/json/${station}_${suffix}.json`);
+         const res = await fetch(`https://krdrtradio.github.io/radios/json/${station}_${suffix}.json`);
          if (!res.ok) return suffix === 'config' ? {} : [];
          return await res.json();
       };
@@ -321,7 +321,7 @@ async function uruchomProgram() {
       const style = thumb ? `background:${thumb.background || ''};color:${thumb.color || ''}` : '';
       const thumbnailText = thumb ?
          `<div class="podcast_info_name_box" style="${style}">${escapeHTML(thumb.name || program.name)}</div>` :
-         (program.thumbnail_uri ? `<img src="https://image.krdrt5370000ym2.workers.dev/?url=${encodeURIComponent('https://' + program.thumbnail_uri)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(program.name)}">` : "");
+         (program.thumbnail_uri ? `<img src="https://image.krdrtradio.workers.dev/?url=${encodeURIComponent('https://' + program.thumbnail_uri)}&w=500&h=500&q=75&d=1" alt="${escapeHTML(program.name)}">` : "");
 
       const emailContact = Array.isArray(program.email) ? 
          program.email.map(t => `<a href="mailto:${t}">${escapeHTML(t)}</a>`).join(', ') :
@@ -405,12 +405,12 @@ async function uruchomProgram() {
                     <meta charset="UTF-8">
                     <meta name='robots' content='noindex, follow' />
                     <title>${escapeHTML(program.name)} | krdrt537000ym.github.io</title>
-                    <script src="https://krdrt5370000ym.github.io/site-head.js"><\/script>
+                    <script src="https://krdrtradio.github.io/site-head.js"><\/script>
                 </head>
                 <body class="w3-light-grey">
-                    <link rel="stylesheet" href="https://krdrt5370000ym.github.io/radios/radios.css">
-                    <link rel="stylesheet" href="https://krdrt5370000ym.github.io/style.css">
-                    <script src="https://krdrt5370000ym.github.io/site-topscreen.js"><\/script>
+                    <link rel="stylesheet" href="https://krdrtradio.github.io/radios/radios.css">
+                    <link rel="stylesheet" href="https://krdrtradio.github.io/style.css">
+                    <script src="https://krdrtradio.github.io/site-topscreen.js"><\/script>
                     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"><\/script>
                     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
                         <header class="w3-container" style="padding-top:22px">
@@ -435,11 +435,11 @@ async function uruchomProgram() {
                             ${scheduleInfo ? `<div class="program_info_onairs_list">${scheduleInfo}</div>` : ""}
                             ${podcastList}
                         </div>
-                        <script src="https://krdrt5370000ym.github.io/site-bottomscreen.js"><\/script>
+                        <script src="https://krdrtradio.github.io/site-bottomscreen.js"><\/script>
                     </div>
-                    <script src="https://krdrt5370000ym.github.io/site-sidebar.js"><\/script>
-                    <script src="https://krdrt5370000ym.github.io/media/site-episode.js"><\/script>
-                    <script src="https://krdrt5370000ym.github.io/media/site-audio.js"><\/script>
+                    <script src="https://krdrtradio.github.io/site-sidebar.js"><\/script>
+                    <script src="https://krdrtradio.github.io/media/site-episode.js"><\/script>
+                    <script src="https://krdrtradio.github.io/media/site-audio.js"><\/script>
                     ${program.podcast ? `<script>${program.podcast}<\/script>` : ""}
                 </body>
             </html>`;
