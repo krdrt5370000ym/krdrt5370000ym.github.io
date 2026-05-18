@@ -311,6 +311,7 @@ li ul.website_info_page {
 	border: none;
 	outline: none;
 	cursor: pointer;
+	color: var(--text);
 
 	@media screen and (min-width: 600px) {
 		padding: 10.5px 16px;
@@ -326,8 +327,8 @@ li ul.website_info_page {
 
 .tabfre {
 	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
+	border: 1px solid var(--text);;
+	background-color: var(--card);
 	display: block;
 }
 
